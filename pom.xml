@@ -60,8 +60,5 @@
 
 	<modules>
 		<module>datasource-identifiers-core</module>
-		<module>datasource-identifiers-network-core</module>
-		<module>datasource-identifiers-network-neo4j</module>
-		<module>datasource-download</module>
 	</modules>
 </project>
