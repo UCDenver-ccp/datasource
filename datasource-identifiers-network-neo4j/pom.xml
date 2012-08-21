@@ -2,11 +2,11 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
-		<artifactId>ccp-datasource</artifactId>
+		<artifactId>datasource</artifactId>
 		<groupId>edu.ucdenver.ccp</groupId>
-		<version>0.1-SNAPSHOT</version>
+		<version>0.2-SNAPSHOT</version>
 	</parent>
-	<artifactId>ccp-datasource-identifiers-network-neo4j</artifactId>
+	<artifactId>datasource-identifiers-network-neo4j</artifactId>
 
 	<dependencies>
 		<dependency>
@@ -16,12 +16,12 @@
 		</dependency>
 		<dependency>
 			<groupId>edu.ucdenver.ccp</groupId>
-			<artifactId>ccp-datasource-identifiers-network-core</artifactId>
+			<artifactId>datasource-identifiers-network-core</artifactId>
 			<version>${version}</version>
 		</dependency>
 		<dependency>
 			<groupId>edu.ucdenver.ccp</groupId>
-			<artifactId>ccp-datasource-identifiers-network-core</artifactId>
+			<artifactId>datasource-identifiers-network-core</artifactId>
 			<version>${version}</version>
 			<type>test-jar</type>
 			<scope>test</scope>
