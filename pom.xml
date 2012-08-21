@@ -59,6 +59,6 @@
 	</dependencyManagement>
 
 	<modules>
-		<module>datasource-identifiers-core</module>
+		<module>datasource-identifiers</module>
 	</modules>
 </project>
