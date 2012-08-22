@@ -16,7 +16,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  * 
  */
-package edu.ucdenver.ccp.fileparsers.obo;
+package edu.ucdenver.ccp.datasource.fileparsers.obo;
 
 import java.io.BufferedWriter;
 import java.io.File;

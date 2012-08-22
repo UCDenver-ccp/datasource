@@ -1,4 +1,4 @@
-package edu.ucdenver.ccp.fileparsers;
+package edu.ucdenver.ccp.datasource.fileparsers;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;

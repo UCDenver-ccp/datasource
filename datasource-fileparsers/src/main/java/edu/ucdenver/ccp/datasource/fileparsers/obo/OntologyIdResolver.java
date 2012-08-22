@@ -1,4 +1,4 @@
-package edu.ucdenver.ccp.fileparsers.obo;
+package edu.ucdenver.ccp.datasource.fileparsers.obo;
 
 import edu.ucdenver.ccp.datasource.identifiers.obo.GeneOntologyID;
 import edu.ucdenver.ccp.datasource.identifiers.obo.MolecularInteractionOntologyTermID;

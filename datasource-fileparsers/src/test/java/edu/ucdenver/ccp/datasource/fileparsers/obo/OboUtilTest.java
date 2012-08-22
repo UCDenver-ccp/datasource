@@ -1,7 +1,7 @@
 /**
  * 
  */
-package edu.ucdenver.ccp.fileparsers.obo;
+package edu.ucdenver.ccp.datasource.fileparsers.obo;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;

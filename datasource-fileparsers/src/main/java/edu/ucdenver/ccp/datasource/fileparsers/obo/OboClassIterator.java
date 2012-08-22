@@ -1,4 +1,4 @@
-package edu.ucdenver.ccp.fileparsers.obo;
+package edu.ucdenver.ccp.datasource.fileparsers.obo;
 
 import java.io.File;
 import java.io.IOException;
