@@ -1,4 +1,4 @@
-package edu.ucdenver.ccp.fileparsers;
+package edu.ucdenver.ccp.datasource.fileparsers;
 
 public abstract class SingleLineFileRecord extends FileRecord {
 

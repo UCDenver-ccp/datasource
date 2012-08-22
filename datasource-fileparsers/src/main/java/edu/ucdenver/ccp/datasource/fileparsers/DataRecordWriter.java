@@ -1,4 +1,4 @@
-package edu.ucdenver.ccp.fileparsers;
+package edu.ucdenver.ccp.datasource.fileparsers;
 
 import java.io.BufferedWriter;
 import java.io.File;
