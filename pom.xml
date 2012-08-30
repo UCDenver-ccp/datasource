@@ -3,14 +3,14 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>edu.ucdenver.ccp</groupId>
 	<artifactId>datasource</artifactId>
-	<version>0.2-SNAPSHOT</version>
+	<version>0.3-SNAPSHOT</version>
 	<packaging>pom</packaging>
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<!-- This property is inherited by all sub-modules and used to define their 
 			version -->
-		<project.version>0.2-SNAPSHOT</project.version>
+		<project.version>0.3-SNAPSHOT</project.version>
 	</properties>
 
 	
@@ -57,20 +57,6 @@
 	
 	<build>
 		<plugins>
-			<!-- Here we create a test-jar jar file so that test classes in this project 
-				can be used by other projects. -->
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-jar-plugin</artifactId>
-				<version>2.2</version>
-				<executions>
-					<execution>
-						<goals>
-							<goal>test-jar</goal>
-						</goals>
-					</execution>
-				</executions>
-			</plugin>
 			<!-- specify the java version -->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
