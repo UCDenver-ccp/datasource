@@ -119,6 +119,7 @@ import edu.ucdenver.ccp.datasource.identifiers.sgd.SgdID;
 import edu.ucdenver.ccp.datasource.identifiers.transfac.TransfacGeneID;
 import edu.ucdenver.ccp.datasource.identifiers.wormbase.WormBaseID;
 import edu.ucdenver.ccp.identifier.publication.PubMedID;
+import edu.ucdenver.ccp.datasource.identifiers.ncbi.taxonomy.NcbiTaxonomyID;
 
 public class DataSourceIdResolver {
 
@@ -391,6 +392,8 @@ public class DataSourceIdResolver {
 				return new SnpRsId(geneIDStr);
 			else if (geneIDStr.startsWith("CL:"))
 				return new CellTypeOntologyID(geneIDStr);
+  			else if (geneIDStr.startsWith("NCBITaxon:"))
+                return new NcbiTaxonomyID(geneIDStr);
 
 			logger.error(String
 					.format("Unknown gene ID format: %s. Cannot create DataElementIdentifier<?>.", geneIDStr));
