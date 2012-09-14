@@ -393,7 +393,7 @@ public class DataSourceIdResolver {
 			else if (geneIDStr.startsWith("CL:"))
 				return new CellTypeOntologyID(geneIDStr);
   			else if (geneIDStr.startsWith("NCBITaxon:"))
-                return new NcbiTaxonomyID(geneIDStr);
+                return new NcbiTaxonomyID(StringUtil.removePrefix(geneIDStr, "NCBITaxon:"));
 
 			logger.error(String
 					.format("Unknown gene ID format: %s. Cannot create DataElementIdentifier<?>.", geneIDStr));
