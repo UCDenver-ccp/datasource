@@ -289,11 +289,16 @@ public class OboUtil<T extends OntologyID> {
 		OBOClass childClass = session.getTerm(childId);
 		OBOClass parentClass = session.getTerm(parentId);
 		if (childClass == null) {
-			logger.warn("Null child class: " + childId);
+			if (childId.equals("continuant") || childId.equals("syntactic context")) {
+				logger.debug("Null child class: \"" + childId + "\"");
+			}
+			else {
+				logger.warn("Null child class: \"" + childId + "\"");
+			}
 			return false;
 		}
 		if (parentClass == null) {
-			logger.warn("Null parent class: " + parentId);
+			logger.warn("Null parent class: \"" + parentId + "\"");
 			return false;
 		}
 		return isDescendant(childClass, parentClass);
