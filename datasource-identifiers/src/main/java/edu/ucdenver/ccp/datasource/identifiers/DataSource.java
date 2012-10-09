@@ -175,7 +175,11 @@ public enum DataSource implements IDataSource{
 		try {
 			DataSource.valueOf(input);
 			return true;
-		} catch (NullPointerException npe) {
+		} 
+		catch (NullPointerException e) {
+			return false;
+		}
+		catch (IllegalArgumentException e) {
 			return false;
 		}
 	}
