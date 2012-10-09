@@ -38,7 +38,6 @@ import edu.ucdenver.ccp.datasource.identifiers.ebi.interpro.InterProID;
 public class DataSourceTest {
 	
 	@Test
-//(expected = IllegalArgumentException.class)
 	public void testWithInvalidInput_NotADataSource() {
 		assertFalse(DataSource.isDataSource("RDF"));
 	}
