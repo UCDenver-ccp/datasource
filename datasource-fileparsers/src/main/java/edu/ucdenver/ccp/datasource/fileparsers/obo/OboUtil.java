@@ -304,4 +304,17 @@ public class OboUtil<T extends OntologyID> {
 		return isDescendant(childClass, parentClass);
 	}
 
+	/**
+	 * 
+	 * @param ontologyId
+	 * @return boolean if ID is obsolete or not
+	 */
+	public boolean isObsolete(String ontologyId) {
+		@SuppressWarnings("unchecked")
+		Set<String> obsoleteTerms = session.getObsoleteTerms();
+		OBOClass annotation = session.getTerm(ontologyId);
+		
+		return obsoleteTerms.contains(annotation);
+	}
+	
 }
