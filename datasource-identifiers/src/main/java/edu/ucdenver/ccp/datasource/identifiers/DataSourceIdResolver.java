@@ -121,6 +121,21 @@ import edu.ucdenver.ccp.datasource.identifiers.wormbase.WormBaseID;
 import edu.ucdenver.ccp.identifier.publication.PubMedID;
 import edu.ucdenver.ccp.datasource.identifiers.ncbi.taxonomy.NcbiTaxonomyID;
 
+
+/**
+ * provides various methods to map from an ID in database or ontology files
+ * to instances of identifier classes under edu.ucdenver.ccp.datasource.identifiers.
+ * 
+ * These are basically factory methods. Given some information about where the ID
+ * came from and an ID string, it creates an instance of an identifier class
+ * related to the source.  This is done for DataSourceIdentifiers,  
+ * PMID identifiers and others.
+ *
+ * Three functions named resolveId():
+ * - a value of the DataSource enum and an ID string.
+ * - a name of a data source and and ID string.
+ * - an ID string that is parsed to discover the data source it came from.
+ **/
 public class DataSourceIdResolver {
 
 	private static final String IREFWEB_ENTREZGENE_ID_PREFIX = "entrezgene/locuslink:";
