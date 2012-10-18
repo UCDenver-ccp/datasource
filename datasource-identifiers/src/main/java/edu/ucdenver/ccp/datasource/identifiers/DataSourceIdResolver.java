@@ -209,6 +209,8 @@ public class DataSourceIdResolver {
 			return new MgiGeneID(databaseObjectID);
 		else if (databaseName.equalsIgnoreCase("UniProtKB"))
 			return new UniProtID(databaseObjectID);
+		else if (databaseName.equalsIgnoreCase("chebi"))
+			return new ChebiOntologyID("CHEBI:" + databaseObjectID);
 		else if (databaseName.equalsIgnoreCase("DIP"))
 			return new DipInteractorID(databaseObjectID);
 		else if (databaseName.equalsIgnoreCase("drugbank"))
