@@ -74,7 +74,7 @@ public class OboUtil<T extends OntologyID> {
 	private static final Logger logger = Logger.getLogger(OboUtil.class);
 
 	private OBOSession session;
-
+	
 	public OboUtil(File oboFile, CharacterEncoding encoding) throws IOException {
 		session = initSession(oboFile, encoding);
 	}
@@ -315,6 +315,10 @@ public class OboUtil<T extends OntologyID> {
 		OBOClass annotation = session.getTerm(ontologyId);
 		
 		return obsoleteTerms.contains(annotation);
+	}
+	
+	public boolean isInOntology(String ontologyId) {
+		return session.containsObject(ontologyId);
 	}
 	
 }
