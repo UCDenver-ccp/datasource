@@ -70,6 +70,7 @@ import edu.ucdenver.ccp.datasource.identifiers.ncbi.homologene.HomologeneGroupID
 import edu.ucdenver.ccp.datasource.identifiers.ncbi.omim.OmimID;
 import edu.ucdenver.ccp.datasource.identifiers.ncbi.refseq.RefSeqID;
 import edu.ucdenver.ccp.datasource.identifiers.ncbi.snp.SnpRsId;
+import edu.ucdenver.ccp.datasource.identifiers.ncbi.taxonomy.NcbiTaxonomyID;
 import edu.ucdenver.ccp.datasource.identifiers.obo.CellTypeOntologyID;
 import edu.ucdenver.ccp.datasource.identifiers.obo.ChebiOntologyID;
 import edu.ucdenver.ccp.datasource.identifiers.obo.GeneOntologyID;
@@ -81,8 +82,10 @@ import edu.ucdenver.ccp.datasource.identifiers.other.AphidBaseID;
 import edu.ucdenver.ccp.datasource.identifiers.other.ApiDbCryptoDbID;
 import edu.ucdenver.ccp.datasource.identifiers.other.BeeBaseID;
 import edu.ucdenver.ccp.datasource.identifiers.other.BeetleBaseID;
+import edu.ucdenver.ccp.datasource.identifiers.other.BindingDbId;
 import edu.ucdenver.ccp.datasource.identifiers.other.BioGridID;
 import edu.ucdenver.ccp.datasource.identifiers.other.CgncID;
+import edu.ucdenver.ccp.datasource.identifiers.other.ChemSpiderId;
 import edu.ucdenver.ccp.datasource.identifiers.other.ClinicalTrialsGovId;
 import edu.ucdenver.ccp.datasource.identifiers.other.DbjID;
 import edu.ucdenver.ccp.datasource.identifiers.other.DictyBaseID;
@@ -104,6 +107,7 @@ import edu.ucdenver.ccp.datasource.identifiers.other.PubChemCompoundId;
 import edu.ucdenver.ccp.datasource.identifiers.other.PubChemSubstanceId;
 import edu.ucdenver.ccp.datasource.identifiers.other.RatMapID;
 import edu.ucdenver.ccp.datasource.identifiers.other.TairID;
+import edu.ucdenver.ccp.datasource.identifiers.other.TherapeuticTargetsDatabaseId;
 import edu.ucdenver.ccp.datasource.identifiers.other.UniParcID;
 import edu.ucdenver.ccp.datasource.identifiers.other.VbrcID;
 import edu.ucdenver.ccp.datasource.identifiers.other.VectorBaseID;
@@ -119,7 +123,6 @@ import edu.ucdenver.ccp.datasource.identifiers.sgd.SgdID;
 import edu.ucdenver.ccp.datasource.identifiers.transfac.TransfacGeneID;
 import edu.ucdenver.ccp.datasource.identifiers.wormbase.WormBaseID;
 import edu.ucdenver.ccp.identifier.publication.PubMedID;
-import edu.ucdenver.ccp.datasource.identifiers.ncbi.taxonomy.NcbiTaxonomyID;
 
 
 /**
@@ -247,6 +250,12 @@ public class DataSourceIdResolver {
 			return new UniProtID(databaseObjectID);
 		else if (databaseName.equalsIgnoreCase("PharmGKB"))
 			return new PharmGkbID(databaseObjectID);
+		else if (databaseName.equalsIgnoreCase("TTD"))
+			return new TherapeuticTargetsDatabaseId(databaseObjectID);
+		else if (databaseName.equalsIgnoreCase("bindingDb"))
+			return new BindingDbId(databaseObjectID);
+		else if (databaseName.equalsIgnoreCase("chemSpider"))
+			return new ChemSpiderId(databaseObjectID);
 		else if (databaseName.equalsIgnoreCase("Drugs Product Database (DPD)") || databaseName.equalsIgnoreCase("DPD"))
 			return new DrugsProductDatabaseID(databaseObjectID);
 		else if (databaseName.equalsIgnoreCase("National Drug Code Directory"))
