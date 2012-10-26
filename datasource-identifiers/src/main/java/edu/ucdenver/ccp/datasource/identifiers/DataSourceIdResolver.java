@@ -87,6 +87,7 @@ import edu.ucdenver.ccp.datasource.identifiers.other.BioGridID;
 import edu.ucdenver.ccp.datasource.identifiers.other.CgncID;
 import edu.ucdenver.ccp.datasource.identifiers.other.ChemSpiderId;
 import edu.ucdenver.ccp.datasource.identifiers.other.ClinicalTrialsGovId;
+import edu.ucdenver.ccp.datasource.identifiers.other.DailyMedId;
 import edu.ucdenver.ccp.datasource.identifiers.other.DbjID;
 import edu.ucdenver.ccp.datasource.identifiers.other.DictyBaseID;
 import edu.ucdenver.ccp.datasource.identifiers.other.EcoCycID;
@@ -96,9 +97,11 @@ import edu.ucdenver.ccp.datasource.identifiers.other.GdbId;
 import edu.ucdenver.ccp.datasource.identifiers.other.GeoId;
 import edu.ucdenver.ccp.datasource.identifiers.other.ImgtID;
 import edu.ucdenver.ccp.datasource.identifiers.other.IsrctnId;
+import edu.ucdenver.ccp.datasource.identifiers.other.IupharLigandId;
 import edu.ucdenver.ccp.datasource.identifiers.other.MaizeGdbID;
 import edu.ucdenver.ccp.datasource.identifiers.other.MiRBaseID;
 import edu.ucdenver.ccp.datasource.identifiers.other.NasoniaBaseID;
+import edu.ucdenver.ccp.datasource.identifiers.other.NationalDrugCodeDirectoryId;
 import edu.ucdenver.ccp.datasource.identifiers.other.PathemaID;
 import edu.ucdenver.ccp.datasource.identifiers.other.PbrID;
 import edu.ucdenver.ccp.datasource.identifiers.other.PseudoCapID;
@@ -112,9 +115,11 @@ import edu.ucdenver.ccp.datasource.identifiers.other.UniParcID;
 import edu.ucdenver.ccp.datasource.identifiers.other.VbrcID;
 import edu.ucdenver.ccp.datasource.identifiers.other.VectorBaseID;
 import edu.ucdenver.ccp.datasource.identifiers.other.VegaID;
+import edu.ucdenver.ccp.datasource.identifiers.other.WikipediaId;
 import edu.ucdenver.ccp.datasource.identifiers.other.XenBaseID;
 import edu.ucdenver.ccp.datasource.identifiers.other.ZfinID;
 import edu.ucdenver.ccp.datasource.identifiers.pdb.PdbID;
+import edu.ucdenver.ccp.datasource.identifiers.pdb.PdbLigandId;
 import edu.ucdenver.ccp.datasource.identifiers.pharmgkb.PharmGkbID;
 import edu.ucdenver.ccp.datasource.identifiers.psi.PsiModId;
 import edu.ucdenver.ccp.datasource.identifiers.reactome.ReactomeReactionID;
@@ -124,20 +129,17 @@ import edu.ucdenver.ccp.datasource.identifiers.transfac.TransfacGeneID;
 import edu.ucdenver.ccp.datasource.identifiers.wormbase.WormBaseID;
 import edu.ucdenver.ccp.identifier.publication.PubMedID;
 
-
 /**
- * provides various methods to map from an ID in database or ontology files
- * to instances of identifier classes under edu.ucdenver.ccp.datasource.identifiers.
+ * provides various methods to map from an ID in database or ontology files to instances of
+ * identifier classes under edu.ucdenver.ccp.datasource.identifiers.
  * 
- * These are basically factory methods. Given some information about where the ID
- * came from and an ID string, it creates an instance of an identifier class
- * related to the source.  This is done for DataSourceIdentifiers,  
- * PMID identifiers and others.
- *
- * Three functions named resolveId():
- * - a value of the DataSource enum and an ID string.
- * - a name of a data source and and ID string.
- * - an ID string that is parsed to discover the data source it came from.
+ * These are basically factory methods. Given some information about where the ID came from and an
+ * ID string, it creates an instance of an identifier class related to the source. This is done for
+ * DataSourceIdentifiers, PMID identifiers and others.
+ * 
+ * Three functions named resolveId(): - a value of the DataSource enum and an ID string. - a name of
+ * a data source and and ID string. - an ID string that is parsed to discover the data source it
+ * came from.
  **/
 public class DataSourceIdResolver {
 
@@ -256,11 +258,31 @@ public class DataSourceIdResolver {
 			return new BindingDbId(databaseObjectID);
 		else if (databaseName.equalsIgnoreCase("chemSpider"))
 			return new ChemSpiderId(databaseObjectID);
-		else if (databaseName.equalsIgnoreCase("Drugs Product Database (DPD)") || databaseName.equalsIgnoreCase("DPD"))
+		else if (databaseName.equalsIgnoreCase("dpd"))
+			return new DrugsProductDatabaseID(databaseObjectID);
+		else if (databaseName.equalsIgnoreCase("DailyMed"))
+			return new DailyMedId(databaseObjectID);
+		else if (databaseName.equalsIgnoreCase("HET"))
+			return new PdbLigandId(databaseObjectID);
+		else if (databaseName.equalsIgnoreCase("iupharLigand"))
+			return new IupharLigandId(databaseObjectID);
+		else if (databaseName.equalsIgnoreCase("ndc"))
+			return new NationalDrugCodeDirectoryId(databaseObjectID);
+		else if (databaseName.equalsIgnoreCase("pdb")) {
+			if (databaseObjectID.length() == 3) {
+				return new PdbLigandId(databaseObjectID);
+			}
+			return new PdbID(databaseObjectID);
+		} else if (databaseName.equalsIgnoreCase("Drugs Product Database (DPD)")
+				|| databaseName.equalsIgnoreCase("DPD"))
 			return new DrugsProductDatabaseID(databaseObjectID);
 		else if (databaseName.equalsIgnoreCase("National Drug Code Directory"))
 			return new DrugCodeDirectoryID(databaseObjectID);
-		else if (databaseName.equalsIgnoreCase("GenBank") || databaseName.equalsIgnoreCase("GenBank Gene Database")
+		else if (databaseName.equalsIgnoreCase("url")) {
+			if (databaseObjectID.startsWith("http://en.wikipedia.org/wiki/")) {
+				return new WikipediaId(StringUtil.removePrefix(databaseObjectID, "http://en.wikipedia.org/wiki/"));
+			}
+		} else if (databaseName.equalsIgnoreCase("GenBank") || databaseName.equalsIgnoreCase("GenBank Gene Database")
 				|| databaseName.equalsIgnoreCase("GenBank Protein Database"))
 			return new GenBankID(databaseObjectID);
 
@@ -418,8 +440,8 @@ public class DataSourceIdResolver {
 				return new SnpRsId(geneIDStr);
 			else if (geneIDStr.startsWith("CL:"))
 				return new CellTypeOntologyID(geneIDStr);
-  			else if (geneIDStr.startsWith("NCBITaxon:"))
-                return new NcbiTaxonomyID(StringUtil.removePrefix(geneIDStr, "NCBITaxon:"));
+			else if (geneIDStr.startsWith("NCBITaxon:"))
+				return new NcbiTaxonomyID(StringUtil.removePrefix(geneIDStr, "NCBITaxon:"));
 
 			logger.error(String
 					.format("Unknown gene ID format: %s. Cannot create DataElementIdentifier<?>.", geneIDStr));
