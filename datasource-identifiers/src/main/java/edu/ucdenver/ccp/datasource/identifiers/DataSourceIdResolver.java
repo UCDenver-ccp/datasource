@@ -489,10 +489,9 @@ public class DataSourceIdResolver {
 		Set<DataSourceIdentifier<?>> interactionIDs = new HashSet<DataSourceIdentifier<?>>();
 		for (String interactionIDStr : interactionIDStrs) {
 			DataSourceIdentifier<?> id = resolveInteractionID(interactionIDStr);
-			if (id == null)
-				return null;
-
-			interactionIDs.add(id);
+			if (id != null) {
+				interactionIDs.add(id);
+			}
 		}
 		return interactionIDs;
 	}
