@@ -31,7 +31,7 @@ package edu.ucdenver.ccp.datasource.fileparsers.obo;
 
 import org.geneontology.oboedit.datamodel.OBOClass;
 
-import edu.ucdenver.ccp.datasource.fileparsers.DataRecord;
+import edu.ucdenver.ccp.datasource.fileparsers.DefaultDataRecord;
 
 /**
  * Simple wrapper for the OBOEdit <code>OBOClass</code> class allowing it to be treated as a
@@ -40,7 +40,7 @@ import edu.ucdenver.ccp.datasource.fileparsers.DataRecord;
  * @author bill
  * 
  */
-public class OBOClassRecord implements DataRecord {
+public class OBOClassRecord extends DefaultDataRecord {
 
 	private final OBOClass oboClass;
 
@@ -51,5 +51,7 @@ public class OBOClassRecord implements DataRecord {
 	public OBOClass getOboClass() {
 		return oboClass;
 	}
+
+	
 
 }

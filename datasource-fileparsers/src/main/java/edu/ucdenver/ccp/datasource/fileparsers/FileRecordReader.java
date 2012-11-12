@@ -98,18 +98,17 @@ public abstract class FileRecordReader<T extends FileRecord> extends RecordReade
 
 	/**
 	 * This method is to be overriden by any subclass implementations of FileRecordReader that use
-	 * the FileRecordReader(File workDirectory, CharacterEncoding encoding, String skipLinePrefix, String
-	 * ftpUsername, String ftpPassword, boolean clean) constructor. In fact, it MUST be overriden by
-	 * any of such subclasses.
+	 * the FileRecordReader(File workDirectory, CharacterEncoding encoding, String skipLinePrefix,
+	 * String ftpUsername, String ftpPassword, boolean clean) constructor. In fact, it MUST be
+	 * overriden by any of such subclasses.
 	 * 
 	 * @param encoding
 	 * @param skipLinePrefix
 	 * @return
 	 * @throws IOException
 	 */
-	protected StreamLineReader initializeLineReaderFromDownload(
-			@SuppressWarnings("unused") CharacterEncoding encoding, @SuppressWarnings("unused") String skipLinePrefix)
-			throws IOException {
+	protected StreamLineReader initializeLineReaderFromDownload(@SuppressWarnings("unused") CharacterEncoding encoding,
+			@SuppressWarnings("unused") String skipLinePrefix) throws IOException {
 		throw new UnsupportedOperationException(String.format(
 				"The initializeFileLineReaderFromDownload( method must be overriden by the %s subclass "
 						+ "of FileRecordReader in order to use the constructor which automatically downloads "
@@ -126,15 +125,94 @@ public abstract class FileRecordReader<T extends FileRecord> extends RecordReade
 		return reader.readLine();
 	}
 
+	/**
+	 * 
+	 */
 	protected void initialize() throws IOException {
+		String fileHeader = getFileHeader();
+		validateFileHeader(fileHeader);
 		// optionally override to provide functionality, such as skipping lines at the beginning of
 		// the file being parsed.
 	}
 
+	/**
+	 * @return the file header for the file being read. Returns null by default. This method should
+	 *         be overriden for files that contain headers.
+	 * @throws IOException
+	 */
+	protected String getFileHeader() throws IOException {
+		// optionally override to retrieve the header for a data source file
+		return null;
+	}
+
+	/**
+	 * 
+	 * @param fileHeader
+	 * @throws IOException
+	 * @throws IllegalStateException
+	 *             if the file head does not match the expected file header. This method provides an
+	 *             initial sanity check that the file being read matches what is expected by the
+	 *             code that is reading it.
+	 */
+	protected void validateFileHeader(String fileHeader) throws IOException {
+		if (fileHeader == null && getExpectedFileHeader() == null) {
+			return;
+		}
+		if (fileHeader == null && getExpectedFileHeader() != null) {
+			throw new IllegalStateException(
+					"File header inconsistency! Code changes likely required. The file header is null but the expected file header is not.");
+		}
+		if (fileHeader != null && getExpectedFileHeader() == null) {
+			throw new IllegalStateException(
+					"File header inconsistency! Code changes likely required. The expected file header is null, but the file being read has a header: "
+							+ fileHeader);
+		}
+		if (!fileHeader.equals(getExpectedFileHeader())) {
+			String msg = "";
+			if (fileHeader.length() > getExpectedFileHeader().length()) {
+				msg = "File header is longer than expected. (" + fileHeader.length() + ">"
+						+ getExpectedFileHeader().length() + ")";
+			} else if (fileHeader.length() < getExpectedFileHeader().toCharArray().length) {
+				msg = "File header is shorter than expected. (" + fileHeader.length() + "<"
+						+ getExpectedFileHeader().length() + ")";
+			} else {
+				int cIndex = 0;
+				for (; cIndex < fileHeader.toCharArray().length; cIndex++) {
+					if (fileHeader.toCharArray()[cIndex] != getExpectedFileHeader().toCharArray()[cIndex]) {
+						break;
+					}
+				}
+				int windowStart = (cIndex > 10) ? (cIndex - 10) : 0;
+				int windowEnd = (cIndex < (fileHeader.length() - 10)) ? (cIndex + 10) : fileHeader.length();
+				msg = "File header is the expected length (" + fileHeader.length()
+						+ "), however there is a difference at character: " + cIndex + ". Expected: ..."
+						+ getExpectedFileHeader().substring(windowStart, windowEnd) + "... but was, ..."
+						+ fileHeader.subSequence(windowStart, windowEnd) + "...";
+			}
+
+			// int windowEndIndex = (cIndex+10 < fileHeader.length()) ? cIndex+10 :
+			// fileHeader.length();
+			throw new IllegalStateException("File header inconsistency! Code changes likely required. " + msg
+					+ " \nFILE_HEADER: " + fileHeader + "\nEXPECTED: " + getExpectedFileHeader());
+			// + "\nLook for mismatch around character index "
+			// + cIndex
+			// + "; header: "
+			// + fileHeader.substring(cIndex, windowEndIndex)
+			// + " expected: "
+			// + getExpectedFileHeader().substring(cIndex, windowEndIndex));
+		}
+	}
+
+	protected String getExpectedFileHeader() throws IOException {
+		// optionally override if this file has a header that can be validated
+		return null;
+	}
+
 	@Override
 	public void close() throws IOException {
-		if (reader != null)
+		if (reader != null) {
 			reader.close();
+		}
 	}
 
 }

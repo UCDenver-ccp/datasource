@@ -64,6 +64,10 @@ public abstract class SingleLineFileRecordReader<T extends SingleLineFileRecord>
 		return nextLine != null;
 	}
 
+	protected void setNextLine(Line line) {
+		nextLine = line;
+	}
+	
 	@Override
 	public T next() {
 		if (!hasNext())
