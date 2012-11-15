@@ -35,8 +35,6 @@
  */
 public abstract class FileRecord implements DataRecord {
 
-	private static final String DEFAULT_RECORD_SCHEMA = "1";
-	
 	/**
 	 * Specifies the start of the record within the file (offset from file beginning)
 	 */
@@ -50,13 +48,4 @@ public abstract class FileRecord implements DataRecord {
 		return byteOffset;
 	}
 
-	/**
-	 * By default the schema of a FileRecord is set to "1". This can be overriden by subclasses if the schema is updated.
-	 */
-	@Override
-	public String getRecordSchemaVersion() {
-		return DEFAULT_RECORD_SCHEMA;
-	}
-	
-	
 }

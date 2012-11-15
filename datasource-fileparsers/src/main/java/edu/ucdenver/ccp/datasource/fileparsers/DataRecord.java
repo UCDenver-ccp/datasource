@@ -34,11 +34,5 @@ package edu.ucdenver.ccp.datasource.fileparsers;
  * 
  */
 public interface DataRecord {
-	
-	/**
-	 * @return some String representation indicating the version of this data record. For example,
-	 *         by default the record schema might be "1". However, if at some point the schema is
-	 *         updated to add a field to the record, then the record schema might be updated to "2".
-	 */
-	public String getRecordSchemaVersion();
+	// marker interface
 }
