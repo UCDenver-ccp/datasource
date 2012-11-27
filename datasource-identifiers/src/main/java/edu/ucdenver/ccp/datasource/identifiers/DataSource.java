@@ -151,6 +151,7 @@ public enum DataSource implements IDataSource{
 	UNIPROT,
 	VBRC,
 	VECTORBASE,
+	VEGA,
 	WIKIPEDIA,
 	WORMBASE,
 	XENBASE,
