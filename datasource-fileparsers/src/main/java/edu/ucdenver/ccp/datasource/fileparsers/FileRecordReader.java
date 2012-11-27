@@ -193,7 +193,7 @@ public abstract class FileRecordReader<T extends FileRecord> extends RecordReade
 			// int windowEndIndex = (cIndex+10 < fileHeader.length()) ? cIndex+10 :
 			// fileHeader.length();
 			throw new IllegalStateException("File header inconsistency! Code changes likely required. " + msg
-					+ " \nFILE_HEADER: " + fileHeader + "\nEXPECTED: " + getExpectedFileHeader());
+					+ " \nFILE_HEADER: " + fileHeader.replaceAll(" ", "[S]").replaceAll("\\t", "[T]").replaceAll("\\n", "[N]") + "\nEXPECTED   : " + getExpectedFileHeader().replaceAll(" ", "[S]").replaceAll("\\t", "[T]").replaceAll("\\n", "[N]"));
 			// + "\nLook for mismatch around character index "
 			// + cIndex
 			// + "; header: "
