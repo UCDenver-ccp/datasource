@@ -37,7 +37,7 @@ import java.lang.annotation.Target;
 
 /**
  * @author Colorado Computational Pharmacology, UC Denver; ccpsupport@ucdenver.edu
- *
+ * 
  */
 @Documented
 @Retention(RetentionPolicy.RUNTIME)
@@ -54,5 +54,13 @@ public @interface Record {
 	 * @return a comment or description of the record being annotated
 	 */
 	String comment() default "";
+
+	/**
+	 * @return true if the record is a complete representation of the underlying data, false
+	 *         otherwise. isComplete() may return false for a record, if for example, not all fields
+	 *         in the underlying data source are represented in the record. This is sometimes done
+	 *         when a field is not currently needed for use.
+	 */
+	boolean isComplete() default true;
 
 }
