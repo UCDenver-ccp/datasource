@@ -40,8 +40,7 @@ public class VegaID extends DataSourceIdentifier<String>{
 
 	@Override
 	public DataSource getDataSource() {
-		// TODO Auto-generated method stub
-		return null;
+		return DataSource.VEGA;
 	}
 
 	@Override
