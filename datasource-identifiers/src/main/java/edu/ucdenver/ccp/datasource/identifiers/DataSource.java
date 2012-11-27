@@ -50,6 +50,7 @@ public enum DataSource implements IDataSource{
 	CHEMSPIDER,
 	DAILYMED,
 	DBJ,
+	DDBJ,// DNA Data Bank of Japan
 	DBSNP,
 	DICTYBASE,
 	DIP,
