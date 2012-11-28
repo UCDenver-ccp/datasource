@@ -35,6 +35,7 @@ public enum DataSource implements IDataSource{
 	/**
 	 * Used to indicate "any" data source
 	 */
+	ALFRED,
 	ANY,
 	ANIMALQTLDB,
 	APHIDBASE,
@@ -48,6 +49,7 @@ public enum DataSource implements IDataSource{
 	CCP,
 	CGNC,
 	CHEMSPIDER,
+	CTD,
 	DAILYMED,
 	DBJ,
 	DDBJ,// DNA Data Bank of Japan
@@ -77,6 +79,8 @@ public enum DataSource implements IDataSource{
 	 */
 	GENBANK,
 	GENE3D,
+	GENEATLAS,
+	GENECARD,
 	GO,
 	GOA,
 	GOA_REFERENCE,
@@ -87,6 +91,8 @@ public enum DataSource implements IDataSource{
 	HGNC,
 	HOMOLOGENE,
 	HPRD,
+	HUGE,
+	HUMANCYC,
 	IAO,
 	IMGT,
 	/**
@@ -107,7 +113,9 @@ public enum DataSource implements IDataSource{
 	MI_ONTOLOGY,
 	MINT,
 	MIRBASE,
+	MODBASE,
 	MPHENO,
+	MUTDB,
 	NASONIABASE,
 	NATIONAL_DRUG_CODE_DIRECTORY,
 	NCBI_TAXON,
@@ -144,6 +152,7 @@ public enum DataSource implements IDataSource{
 	TAIR,
 	TIGRFAMS,
 	TRANSFAC,
+	UCSCGENOMEBROWSER,
 	UMLS,
 	UNCHAR_PFAM,
 	UNIGENE,
