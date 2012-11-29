@@ -8,6 +8,7 @@ import static org.junit.Assert.assertEquals;
 import org.junit.Test;
 
 import edu.ucdenver.ccp.datasource.identifiers.ebi.embl.EmblID;
+import edu.ucdenver.ccp.datasource.identifiers.ebi.uniprot.UniProtID;
 import edu.ucdenver.ccp.datasource.identifiers.ncbi.GenBankID;
 import edu.ucdenver.ccp.datasource.identifiers.ncbi.refseq.RefSeqID;
 import edu.ucdenver.ccp.datasource.identifiers.other.DdbjId;
@@ -25,6 +26,7 @@ public class ProteinAccessionResolverTest {
 		assertEquals(new EmblID("CAI00916"), ProteinAccessionResolver.resolveProteinAccession("CAI00916"));
 		assertEquals(new DdbjId("GAI00916"), ProteinAccessionResolver.resolveProteinAccession("GAI00916"));
 		assertEquals(new RefSeqID("NP_795370"), ProteinAccessionResolver.resolveProteinAccession("NP_795370"));
+		assertEquals(new UniProtID("P59543"), ProteinAccessionResolver.resolveProteinAccession("P59543"));
 	}
 
 }

@@ -27,6 +27,15 @@ public class ProteinAccessionResolver {
 		if (acc.matches("[A-Z][A-Z]_\\d+\\.?\\d*")) {
 			return new RefSeqID(acc);
 		}
+		if (acc.startsWith("O")) {
+			return new UniProtID(acc);
+		}
+		if (acc.startsWith("P")) {
+			return new UniProtID(acc);
+		}
+		if (acc.startsWith("Q")) {
+			return new UniProtID(acc);
+		}
 		Matcher m = ACC_PATTERN.matcher(acc);
 		if (m.find()) {
 			String prefix = m.group(1);
@@ -59,15 +68,6 @@ public class ProteinAccessionResolver {
 			}
 			if (prefix.startsWith("J")) {
 				return new GenBankID(acc);
-			}
-			if (prefix.startsWith("O")) {
-				return new UniProtID(acc);
-			}
-			if (prefix.startsWith("P")) {
-				return new UniProtID(acc);
-			}
-			if (prefix.startsWith("Q")) {
-				return new UniProtID(acc);
 			}
 		}
 		throw new IllegalArgumentException("Input is not a known protein accession pattern: " + acc);
