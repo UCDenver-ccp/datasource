@@ -103,7 +103,7 @@ public enum DataSource implements IDataSource{
 	INTERPRO,
 	IPI,
 	IREFWEB,
-	IUPHAR_LIGAND,
+	IUPHAR,
 	KEGG,
 	MAMMALIAN_PHENOTYPE,
 	MAIZEGDB,

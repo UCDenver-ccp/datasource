@@ -32,12 +32,12 @@ package edu.ucdenver.ccp.datasource.identifiers.other;
 import edu.ucdenver.ccp.datasource.identifiers.DataSource;
 import edu.ucdenver.ccp.datasource.identifiers.IntegerDataSourceIdentifier;
 
-public class IupharLigandId extends IntegerDataSourceIdentifier {
+public class IupharReceptorId extends IntegerDataSourceIdentifier {
 
 	/**
 	 * @param resourceID
 	 */
-	public IupharLigandId(String resourceID) {
+	public IupharReceptorId(String resourceID) {
 		super(resourceID);
 	}
 
