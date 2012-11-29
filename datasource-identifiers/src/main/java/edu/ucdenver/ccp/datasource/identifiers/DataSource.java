@@ -158,6 +158,7 @@ public enum DataSource implements IDataSource{
 	UNIGENE,
 	UNIPARC,
 	UNIPROT,
+	URL,
 	VBRC,
 	VECTORBASE,
 	VEGA,
