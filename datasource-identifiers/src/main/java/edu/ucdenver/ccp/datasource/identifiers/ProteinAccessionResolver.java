@@ -22,18 +22,14 @@ import edu.ucdenver.ccp.datasource.identifiers.other.DdbjId;
 public class ProteinAccessionResolver {
 
 	private static final Pattern ACC_PATTERN = Pattern.compile("([A-Z]{3})\\d+\\.?\\d*");
+	private static final String VALID_UNIPROT_PATTERN_1 = "[A-NR-Z][0-9][A-Z][A-Z0-9][A-Z0-9][0-9]";
+	private static final String VALID_UNIPROT_PATTERN_2 = "[OPQ][0-9][A-Z0-9][A-Z0-9][A-Z0-9][0-9]";
 
 	public static DataSourceIdentifier<String> resolveProteinAccession(String acc) {
 		if (acc.matches("[A-Z][A-Z]_\\d+\\.?\\d*")) {
 			return new RefSeqID(acc);
 		}
-		if (acc.startsWith("O")) {
-			return new UniProtID(acc);
-		}
-		if (acc.startsWith("P")) {
-			return new UniProtID(acc);
-		}
-		if (acc.startsWith("Q")) {
+		if (acc.matches(VALID_UNIPROT_PATTERN_1) || acc.matches(VALID_UNIPROT_PATTERN_2)) {
 			return new UniProtID(acc);
 		}
 		Matcher m = ACC_PATTERN.matcher(acc);
