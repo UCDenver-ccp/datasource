@@ -26,6 +26,7 @@ public class ProteinAccessionResolver {
 	private static final String VALID_UNIPROT_PATTERN_2 = "[OPQ][0-9][A-Z0-9][A-Z0-9][A-Z0-9][0-9]";
 
 	public static DataSourceIdentifier<String> resolveProteinAccession(String acc) {
+		acc = acc.toUpperCase();
 		if (acc.matches("[A-Z][A-Z]_\\d+\\.?\\d*")) {
 			return new RefSeqID(acc);
 		}
