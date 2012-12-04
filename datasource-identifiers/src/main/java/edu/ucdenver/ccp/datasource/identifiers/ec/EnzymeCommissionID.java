@@ -29,6 +29,8 @@
  */
 package edu.ucdenver.ccp.datasource.identifiers.ec;
 
+import edu.ucdenver.ccp.common.string.RegExPatterns;
+import edu.ucdenver.ccp.common.string.StringUtil;
 import edu.ucdenver.ccp.datasource.identifiers.DataSource;
 import edu.ucdenver.ccp.datasource.identifiers.StringDataSourceIdentifier;
 
@@ -43,17 +45,18 @@ public class EnzymeCommissionID extends StringDataSourceIdentifier {
 		return DataSource.ENZYME_COMMISSION;
 	}
 
-//	@Override
-//	public String validate(String ecNumber) throws IllegalArgumentException {
-//		String validatedEcNumber = ecNumber;
-//		/* remove trailing periods and hyphens*/
-//		while (validatedEcNumber.endsWith(".") || validatedEcNumber.endsWith("-") || validatedEcNumber.endsWith(" ")) 
-//			validatedEcNumber = StringUtil.removeLastCharacter(validatedEcNumber);
+	@Override
+	public String validate(String ecNumber) throws IllegalArgumentException {
+		String validatedEcNumber = ecNumber;
+		/* remove trailing periods and hyphens*/
+		while (validatedEcNumber.endsWith(".") || validatedEcNumber.endsWith("-") || validatedEcNumber.endsWith(" ")) { 
+			validatedEcNumber = StringUtil.removeLastCharacter(validatedEcNumber);
+		}
 //		String ecNumberPatternStr = String
 //				.format("(EC\\s)?\\d+(\\.%s)?(\\.%s)?(\\.%s)?", RegExPatterns.IS_NUMBER_OR_HYPHEN,
 //						RegExPatterns.IS_NUMBER_OR_HYPHEN, RegExPatterns.IS_NUMBER_OR_HYPHEN);
 //		if (validatedEcNumber.matches(ecNumberPatternStr))
-//			return validatedEcNumber;
+			return validatedEcNumber;
 //		throw new IllegalArgumentException(String.format("Invalid EC number: %s", ecNumber));
-//	}
+	}
 }
