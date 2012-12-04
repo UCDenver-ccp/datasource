@@ -61,7 +61,7 @@ public class NucleotideAccessionResolver {
 	}
 
 	public static DataSourceIdentifier<String> resolveNucleotideAccession(String acc) {
-		acc = acc.toUpperCase();
+		acc = acc.toUpperCase().trim();
 		if (acc.matches("[A-Z][A-Z]_\\d+\\.?\\d*")) {
 			return new RefSeqID(acc);
 		}
