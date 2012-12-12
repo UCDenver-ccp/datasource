@@ -27,28 +27,20 @@
  (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS 
  SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package edu.ucdenver.ccp.datasource.identifiers.dip;
+package edu.ucdenver.ccp.datasource.identifiers.other;
 
 import edu.ucdenver.ccp.datasource.identifiers.DataSource;
-import edu.ucdenver.ccp.datasource.identifiers.InteractorID;
+import edu.ucdenver.ccp.datasource.identifiers.IntegerDataSourceIdentifier;
 
-public class DipInteractorID extends InteractorID {
+public class AfcsId extends IntegerDataSourceIdentifier {
 
-	public DipInteractorID(String resourceID) {
+	public AfcsId(String resourceID) {
 		super(resourceID);
 	}
 
 	@Override
 	public DataSource getDataSource() {
-		return DataSource.DIP;
-	}
-
-	@Override
-	public String validate(String resourceID) throws IllegalArgumentException {
-		resourceID = super.validate(resourceID);
-		if (resourceID.matches("DIP-\\d+N"))
-			return resourceID;
-		throw new IllegalArgumentException(String.format("Invalid DIP Interactor ID detected: %s", resourceID));
+		return DataSource.AFCS;
 	}
 
 }

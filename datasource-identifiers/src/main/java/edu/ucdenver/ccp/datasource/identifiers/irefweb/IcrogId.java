@@ -30,24 +30,18 @@
 package edu.ucdenver.ccp.datasource.identifiers.irefweb;
 
 import edu.ucdenver.ccp.datasource.identifiers.DataSource;
-import edu.ucdenver.ccp.datasource.identifiers.InteractionID;
+import edu.ucdenver.ccp.datasource.identifiers.IntegerDataSourceIdentifier;
 
-public class IRefWebInteractionID extends InteractionID {
 
-	private static final String ID_PREFIX = "IREFWEB_";
+public class IcrogId extends IntegerDataSourceIdentifier {
 
-	public IRefWebInteractionID(String resourceID) {
+	public IcrogId(String resourceID) {
 		super(resourceID);
 	}
 
 	@Override
 	public DataSource getDataSource() {
 		return DataSource.IREFWEB;
-	}
-
-	@Override
-	public String toString() {
-		return ID_PREFIX + super.toString();
 	}
 
 }

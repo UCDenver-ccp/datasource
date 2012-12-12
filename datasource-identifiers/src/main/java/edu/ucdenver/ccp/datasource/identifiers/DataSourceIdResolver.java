@@ -55,8 +55,6 @@ import edu.ucdenver.ccp.datasource.identifiers.flybase.FlyBaseID;
 import edu.ucdenver.ccp.datasource.identifiers.hgnc.HgncGeneSymbolID;
 import edu.ucdenver.ccp.datasource.identifiers.hgnc.HgncID;
 import edu.ucdenver.ccp.datasource.identifiers.hprd.HprdID;
-import edu.ucdenver.ccp.datasource.identifiers.irefweb.IRefWebInteractionID;
-import edu.ucdenver.ccp.datasource.identifiers.irefweb.IRefWebInteractorID;
 import edu.ucdenver.ccp.datasource.identifiers.kegg.KeggCompoundID;
 import edu.ucdenver.ccp.datasource.identifiers.kegg.KeggDrugID;
 import edu.ucdenver.ccp.datasource.identifiers.kegg.KeggGeneID;
@@ -180,8 +178,6 @@ public class DataSourceIdResolver {
 			return new PubChemCompoundId(databaseObjectID);
 		case PUBCHEM_BIOASSAY:
 			return new PubChemBioAssayId(databaseObjectID);
-		case IREFWEB:
-			return new IRefWebInteractorID(databaseObjectID);
 		case HPRD:
 			return new HprdID(databaseObjectID);
 		case HGNC:
@@ -380,8 +376,6 @@ public class DataSourceIdResolver {
 				return new ImgtID(StringUtil.removePrefix(geneIDStr, "IMGT/GENE-DB:"));
 			else if (geneIDStr.startsWith("PDB:"))
 				return new PdbID(StringUtil.removePrefix(geneIDStr, "PDB:"));
-			else if (geneIDStr.startsWith("irefindex:"))
-				return new IRefWebInteractorID(StringUtil.removePrefix(geneIDStr, "irefindex:"));
 			else if (geneIDStr.toLowerCase().startsWith("gb:"))
 				return new GenBankID(StringUtil.removePrefix(geneIDStr.toLowerCase(), "gb:").toUpperCase());
 			else if (geneIDStr.startsWith("emb:"))
@@ -463,8 +457,6 @@ public class DataSourceIdResolver {
 	private static DataSourceIdentifier<?> resolveInteractionID(String interactionIDStr) {
 		if (interactionIDStr.startsWith("intact:"))
 			return new IntActID(StringUtil.removePrefix(interactionIDStr, "intact:"));
-		else if (interactionIDStr.startsWith("irefindex:"))
-			return new IRefWebInteractionID(StringUtil.removePrefix(interactionIDStr, "irefindex:"));
 		else if (interactionIDStr.startsWith("bind:"))
 			return new BindInteractionID(StringUtil.removePrefix(interactionIDStr, "bind:"));
 		else if (interactionIDStr.startsWith("grid:"))

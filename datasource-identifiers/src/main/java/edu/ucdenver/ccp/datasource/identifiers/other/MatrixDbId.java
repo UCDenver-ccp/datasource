@@ -27,28 +27,20 @@
  (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS 
  SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package edu.ucdenver.ccp.datasource.identifiers.irefweb;
+package edu.ucdenver.ccp.datasource.identifiers.other;
 
 import edu.ucdenver.ccp.datasource.identifiers.DataSource;
-import edu.ucdenver.ccp.datasource.identifiers.InteractorID;
+import edu.ucdenver.ccp.datasource.identifiers.StringDataSourceIdentifier;
 
+public class MatrixDbId extends StringDataSourceIdentifier {
 
-public class IRefWebInteractorID extends InteractorID {
-
-	private static final String ID_PREFIX = "IREFWEB_";
-
-	public IRefWebInteractorID(String resourceID) {
+	public MatrixDbId(String resourceID) {
 		super(resourceID);
 	}
 
 	@Override
 	public DataSource getDataSource() {
-		return DataSource.IREFWEB;
-	}
-
-	@Override
-	public String toString() {
-		return ID_PREFIX + super.toString();
+		return DataSource.MATRIXDB;
 	}
 
 }
