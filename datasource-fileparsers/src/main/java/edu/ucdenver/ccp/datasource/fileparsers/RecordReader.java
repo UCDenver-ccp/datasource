@@ -43,11 +43,11 @@ import edu.ucdenver.ccp.common.string.StringConstants;
  */
 public abstract class RecordReader<T extends DataRecord> implements Closeable, Iterator<T> {
 
-	/**
-	 * Optional and overridable initialization callback.
-	 * @throws IOException
-	 */
-	protected void initialize() throws IOException {}
+//	/**
+//	 * Optional and overridable initialization callback.
+//	 * @throws IOException
+//	 */
+//	protected void initialize() throws IOException {}
 
 
 

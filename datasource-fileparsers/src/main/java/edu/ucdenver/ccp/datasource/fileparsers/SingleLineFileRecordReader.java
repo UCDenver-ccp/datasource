@@ -35,10 +35,9 @@ import java.util.NoSuchElementException;
 
 import edu.ucdenver.ccp.common.file.CharacterEncoding;
 import edu.ucdenver.ccp.common.file.reader.Line;
+import edu.ucdenver.ccp.common.file.reader.StreamLineReader;
 
-public abstract class SingleLineFileRecordReader<T extends SingleLineFileRecord> extends FileRecordReader<T> {
-
-	private Line nextLine;
+public abstract class SingleLineFileRecordReader<T extends SingleLineFileRecord> extends LineFileRecordReader<T> {
 
 	public SingleLineFileRecordReader(File dataFile, CharacterEncoding encoding, String skipLinePrefix)
 			throws IOException {
@@ -56,27 +55,29 @@ public abstract class SingleLineFileRecordReader<T extends SingleLineFileRecord>
 	@Override
 	protected void initialize() throws IOException {
 		super.initialize();
-		nextLine = readLine();
+		line = readLine();
 	}
 
 	@Override
 	public boolean hasNext() {
-		return nextLine != null;
+		return line != null;
 	}
 
 	protected void setNextLine(Line line) {
-		nextLine = line;
+		this.line = line;
 	}
+
+	
 	
 	@Override
 	public T next() {
 		if (!hasNext())
 			throw new NoSuchElementException();
 
-		T recordToReturn = parseRecordFromLine(nextLine);
+		T recordToReturn = parseRecordFromLine(line);
 
 		try {
-			nextLine = readLine();
+			line = readLine();
 		} catch (IOException e) {
 			throw new RuntimeException(e);
 		}

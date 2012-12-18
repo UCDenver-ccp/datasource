@@ -39,7 +39,7 @@ import edu.ucdenver.ccp.common.file.CharacterEncoding;
 import edu.ucdenver.ccp.common.file.reader.Line;
 import edu.ucdenver.ccp.common.string.StringConstants;
 
-public abstract class MultiLineFileRecordReader<T extends MultiLineFileRecord> extends FileRecordReader<T> {
+public abstract class MultiLineFileRecordReader<T extends MultiLineFileRecord> extends LineFileRecordReader<T> {
 
 	protected Line line;
 	private MultiLineBuffer buffer;
