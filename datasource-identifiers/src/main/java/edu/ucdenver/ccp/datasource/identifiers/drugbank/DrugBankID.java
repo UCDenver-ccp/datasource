@@ -47,8 +47,9 @@ public class DrugBankID extends DataSourceIdentifier<String> {
 
 	@Override
 	public String validate(String resourceID) throws IllegalArgumentException {
-		if (resourceID != null && resourceID.startsWith("DB") && NumberUtils.isDigits(resourceID.substring(2)))
+		if (resourceID.matches("((DB)|(BIOD)|(BTD))\\d+")) {
 			return resourceID;
+		}
 		throw new IllegalArgumentException(String.format("Invalid DrugBank ID detected: %s", resourceID));
 	}
 
