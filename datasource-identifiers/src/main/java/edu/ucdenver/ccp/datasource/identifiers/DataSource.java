@@ -36,6 +36,7 @@ public enum DataSource implements IDataSource{
 	 * Used to indicate "any" data source
 	 */
 	ANY,
+	AHFS,
 	AFCS,
 	ALFRED,
 	ANIMALQTLDB,
@@ -94,6 +95,7 @@ public enum DataSource implements IDataSource{
 	GO_EVIDENCE,
 	GO_REFERENCE,
 	GOPAD,
+	GUIDE_TO_PHARMACOLOGY,
 	HAMAP,
 	HCDM,
 	HGNC,
@@ -187,6 +189,7 @@ public enum DataSource implements IDataSource{
 	VBRC,
 	VECTORBASE,
 	VEGA,
+	WHOCC,
 	WIKIPEDIA,
 	WORMBASE,
 	XENBASE,
