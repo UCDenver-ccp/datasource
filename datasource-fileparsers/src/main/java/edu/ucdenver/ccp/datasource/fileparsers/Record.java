@@ -35,6 +35,8 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
+import edu.ucdenver.ccp.datasource.identifiers.DataSource;
+
 /**
  * @author Colorado Computational Pharmacology, UC Denver; ccpsupport@ucdenver.edu
  * 
@@ -44,6 +46,8 @@ import java.lang.annotation.Target;
 @Target({ ElementType.TYPE })
 public @interface Record {
 
+	DataSource dataSource();
+	
 	/**
 	 * @return the schema version for a data record
 	 */
