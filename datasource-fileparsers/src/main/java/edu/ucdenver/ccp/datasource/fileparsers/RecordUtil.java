@@ -25,7 +25,7 @@ public class RecordUtil {
 	 * @return a mapping from {@link Field} to {@link RecordField} annotation for those fields that
 	 *         have RecordField annotations in the input {@link DataRecord}
 	 */
-	public static Map<Field, RecordField> getFieldToRecordFieldAnnotationsMap(Class<? extends DataRecord> recordClass) {
+	public static Map<Field, RecordField> getFieldToRecordFieldAnnotationsMap(Class<?> recordClass) {
 		Map<Field, RecordField> fieldNameToRecordFieldAnnotationMap = new HashMap<Field, RecordField>();
 		Set<Field> fields = PrivateAccessor.getAllFields(recordClass, new HashSet<Field>());
 		for (Field field : fields) {
@@ -36,7 +36,7 @@ public class RecordUtil {
 		return fieldNameToRecordFieldAnnotationMap;
 	}
 
-	public static Record getRecordAnnotation(Class<? extends DataRecord> recordClass) {
+	public static Record getRecordAnnotation(Class<?> recordClass) {
 		if (recordClass.isAnnotationPresent(Record.class)) {
 			return recordClass.getAnnotation(Record.class);
 		}
@@ -44,11 +44,11 @@ public class RecordUtil {
 				+ recordClass.getName() + " class.");
 	}
 
-	public static DataSource getRecordDataSource(Class<? extends DataRecord> recordClass) {
+	public static DataSource getRecordDataSource(Class<?> recordClass) {
 		return getRecordAnnotation(recordClass).dataSource();
 	}
 
-	public static String getRecordComment(Class<? extends DataRecord> recordClass) {
+	public static String getRecordComment(Class<?> recordClass) {
 		return getRecordAnnotation(recordClass).comment();
 	}
 
@@ -56,7 +56,7 @@ public class RecordUtil {
 	 * @param recordClass
 	 * @return
 	 */
-	public static String getRecordSchemaVersion(Class<? extends DataRecord> recordClass) {
+	public static String getRecordSchemaVersion(Class<?> recordClass) {
 		return getRecordAnnotation(recordClass).schemaVersion();
 	}
 
@@ -65,7 +65,7 @@ public class RecordUtil {
 	 * @param name
 	 * @return
 	 */
-	public static RecordField getRecordFieldAnnotation(Class<? extends DataRecord> recordClass, String fieldName) {
+	public static RecordField getRecordFieldAnnotation(Class<?> recordClass, String fieldName) {
 		Set<Field> fields = PrivateAccessor.getAllFields(recordClass, new HashSet<Field>());
 		for (Field field : fields) {
 			if (field.getName().equals(fieldName)) {
@@ -81,15 +81,15 @@ public class RecordUtil {
 				+ recordClass.getName());
 	}
 
-	public static String getRecordFieldVersion(Class<? extends DataRecord> recordClass, String fieldName) {
+	public static String getRecordFieldVersion(Class<?> recordClass, String fieldName) {
 		return getRecordFieldAnnotation(recordClass, fieldName).version();
 	}
 
-	public static String getRecordFieldComment(Class<? extends DataRecord> recordClass, String fieldName) {
+	public static String getRecordFieldComment(Class<?> recordClass, String fieldName) {
 		return getRecordFieldAnnotation(recordClass, fieldName).comment();
 	}
 
-	public static boolean isKeyRecordField(Class<? extends DataRecord> recordClass, String fieldName) {
+	public static boolean isKeyRecordField(Class<?> recordClass, String fieldName) {
 		return getRecordFieldAnnotation(recordClass, fieldName).isKeyField();
 	}
 
