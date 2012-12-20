@@ -10,6 +10,7 @@ import java.util.Map;
 import java.util.Set;
 
 import edu.ucdenver.ccp.common.reflection.PrivateAccessor;
+import edu.ucdenver.ccp.datasource.identifiers.DataSource;
 
 /**
  * A utility class for handling {@link Record} and {@link RecordField} annotations
@@ -24,9 +25,9 @@ public class RecordUtil {
 	 * @return a mapping from {@link Field} to {@link RecordField} annotation for those fields that
 	 *         have RecordField annotations in the input {@link DataRecord}
 	 */
-	public static Map<Field, RecordField> getFieldToRecordFieldAnnotationsMap(DataRecord record) {
+	public static Map<Field, RecordField> getFieldToRecordFieldAnnotationsMap(Class<? extends DataRecord> recordClass) {
 		Map<Field, RecordField> fieldNameToRecordFieldAnnotationMap = new HashMap<Field, RecordField>();
-		Set<Field> fields = PrivateAccessor.getAllFields(record.getClass(), new HashSet<Field>());
+		Set<Field> fields = PrivateAccessor.getAllFields(recordClass, new HashSet<Field>());
 		for (Field field : fields) {
 			if (field.isAnnotationPresent(RecordField.class)) {
 				fieldNameToRecordFieldAnnotationMap.put(field, field.getAnnotation(RecordField.class));
@@ -43,6 +44,14 @@ public class RecordUtil {
 				+ recordClass.getName() + " class.");
 	}
 
+	public static DataSource getRecordDataSource(Class<? extends DataRecord> recordClass) {
+		return getRecordAnnotation(recordClass).dataSource();
+	}
+
+	public static String getRecordComment(Class<? extends DataRecord> recordClass) {
+		return getRecordAnnotation(recordClass).comment();
+	}
+
 	/**
 	 * @param recordClass
 	 * @return
@@ -56,12 +65,12 @@ public class RecordUtil {
 	 * @param name
 	 * @return
 	 */
-	public static String getRecordFieldVersion(Class<?> recordClass, String fieldName) {
+	public static RecordField getRecordFieldAnnotation(Class<? extends DataRecord> recordClass, String fieldName) {
 		Set<Field> fields = PrivateAccessor.getAllFields(recordClass, new HashSet<Field>());
 		for (Field field : fields) {
 			if (field.getName().equals(fieldName)) {
 				if (field.isAnnotationPresent(RecordField.class)) {
-					return field.getAnnotation(RecordField.class).version();
+					return field.getAnnotation(RecordField.class);
 				}
 				throw new IllegalArgumentException(
 						"Detected missing RecordField annotation. Please add a RecordField annotation to the '"
@@ -70,6 +79,18 @@ public class RecordUtil {
 		}
 		throw new IllegalArgumentException("The '" + fieldName + "' field does not exist in class: "
 				+ recordClass.getName());
+	}
+
+	public static String getRecordFieldVersion(Class<? extends DataRecord> recordClass, String fieldName) {
+		return getRecordFieldAnnotation(recordClass, fieldName).version();
+	}
+
+	public static String getRecordFieldComment(Class<? extends DataRecord> recordClass, String fieldName) {
+		return getRecordFieldAnnotation(recordClass, fieldName).comment();
+	}
+
+	public static boolean isKeyRecordField(Class<? extends DataRecord> recordClass, String fieldName) {
+		return getRecordFieldAnnotation(recordClass, fieldName).isKeyField();
 	}
 
 	private RecordUtil() {
