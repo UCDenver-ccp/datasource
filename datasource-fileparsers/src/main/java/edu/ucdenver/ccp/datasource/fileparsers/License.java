@@ -21,6 +21,8 @@ public enum License {
 	NON_COMMERCIAL, 
 		// typically public for non-commercial use, obtain written permission for commercial use
 	WRITTEN,
-		// must get specific written permision
-	UNKNOWN 	
+		// must get specific written permision: dip and omim
+	UNKNOWN ,
+	VARIOUS_LIBERAL,
+		// cf PMC OA http://www.ncbi.nlm.nih.gov/pmc/tools/openftlist/	
 };
