@@ -6,6 +6,10 @@ public enum License {
 	APACHE_2,
 	BSD_2_CLAUSE,
 	BSD_3_CLAUSE,
+	CREATIVE_COMMONS_3,
+		// (http://creativecommons.org/licenses/by-nd/3.0
+	FREE,
+		// copyrighted, no formal license specified, pretty liberal
 	GPL_2,
 	GPL_3,
 	LGPL_2,
