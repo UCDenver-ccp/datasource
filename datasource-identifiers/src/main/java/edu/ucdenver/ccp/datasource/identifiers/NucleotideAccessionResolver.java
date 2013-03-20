@@ -13,6 +13,7 @@ import java.util.regex.Pattern;
 import edu.ucdenver.ccp.common.collections.CollectionsUtil;
 import edu.ucdenver.ccp.datasource.identifiers.ebi.embl.EmblID;
 import edu.ucdenver.ccp.datasource.identifiers.ncbi.GenBankID;
+import edu.ucdenver.ccp.datasource.identifiers.ncbi.NcbiTraceId;
 import edu.ucdenver.ccp.datasource.identifiers.ncbi.refseq.RefSeqID;
 import edu.ucdenver.ccp.datasource.identifiers.other.DdbjId;
 
@@ -65,6 +66,9 @@ public class NucleotideAccessionResolver {
 		if (acc.matches("[A-Z][A-Z]_\\d+\\.?\\d*")) {
 			return new RefSeqID(acc);
 		}
+		if (acc.matches("TI\\d{8}")) {
+			return new NcbiTraceId(acc);
+		}
 		Matcher m = ACC_PATTERN.matcher(acc);
 		if (m.find()) {
 			String prefix = m.group(1);
@@ -83,7 +87,7 @@ public class NucleotideAccessionResolver {
 			Class<? extends DataSourceIdentifier<String>> idClass = prefixToIdClass.get(prefix);
 			if (idClass != null) {
 				try {
-					return idClass.getConstructor(String.class).newInstance(prefix);
+					return idClass.getConstructor(String.class).newInstance(acc);
 				} catch (SecurityException e) {
 					throw new RuntimeException(e);
 				} catch (NoSuchMethodException e) {
