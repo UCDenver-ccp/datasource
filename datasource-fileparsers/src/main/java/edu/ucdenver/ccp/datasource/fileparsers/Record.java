@@ -67,4 +67,20 @@ public @interface Record {
 	 */
 	boolean isComplete() default true;
 
+	/**
+	 * @return free text describing papers that should be cited with the use of this data. Can 
+	 * 	be either a list of pmids, dois or a bibliography entry.
+	 */
+	String citation() default "";
+
+	/** 
+	 * @return a license value classifying the licensing terms of the data
+	 */
+	License license() default License.UNKNOWN;
+
+	/**	
+	 *  @return a URI describing the license
+	 */	
+	String licenseUri() default "";
+
 }
