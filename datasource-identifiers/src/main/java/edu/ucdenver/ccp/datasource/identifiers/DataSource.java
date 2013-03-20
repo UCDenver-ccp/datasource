@@ -36,6 +36,10 @@ public enum DataSource implements IDataSource{
 	 * Used to indicate "any" data source
 	 */
 	ANY,
+	/**
+	 * http://www.nal.usda.gov/
+	 */
+	AGRICOLA,
 	AHFS,
 	AFCS,
 	ALFRED,
@@ -113,6 +117,10 @@ public enum DataSource implements IDataSource{
 	IMEX,
 	INCRNADB,
 	INNATEDB,
+	/**
+	 * International Nucleotide Sequence Database Collaboration
+	 */
+	INSDC,
 	INTACT,
 	INTERFIL,
 	INTERPRO,
@@ -139,6 +147,7 @@ public enum DataSource implements IDataSource{
 	NASONIABASE,
 	NATIONAL_DRUG_CODE_DIRECTORY,
 	NCBI_TAXON,
+	NCBI_TRACE,
 	OBO,
 	OPHID,
 	ORPHANET,
