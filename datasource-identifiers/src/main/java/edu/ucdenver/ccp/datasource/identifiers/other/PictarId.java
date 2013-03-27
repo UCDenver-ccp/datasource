@@ -32,15 +32,20 @@ package edu.ucdenver.ccp.datasource.identifiers.other;
 import edu.ucdenver.ccp.datasource.identifiers.DataSource;
 import edu.ucdenver.ccp.datasource.identifiers.StringDataSourceIdentifier;
 
-public class GeneAtlasId extends StringDataSourceIdentifier {
+/**
+ * 
+ * @author Colorado Computational Pharmacology, UC Denver; ccpsupport@ucdenver.edu
+ * 
+ */
+public class PictarId extends StringDataSourceIdentifier {
 
-	public GeneAtlasId(String resourceID) {
+	public PictarId(String resourceID) {
 		super(resourceID);
 	}
 
 	@Override
 	public DataSource getDataSource() {
-		return DataSource.GENEATLAS;
+		return DataSource.PICTAR;
 	}
 
 }

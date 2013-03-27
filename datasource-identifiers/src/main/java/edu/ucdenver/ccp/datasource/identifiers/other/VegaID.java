@@ -29,8 +29,8 @@
  */
 package edu.ucdenver.ccp.datasource.identifiers.other;
 
-import edu.ucdenver.ccp.datasource.identifiers.DataSourceIdentifier;
 import edu.ucdenver.ccp.datasource.identifiers.DataSource;
+import edu.ucdenver.ccp.datasource.identifiers.DataSourceIdentifier;
 
 public class VegaID extends DataSourceIdentifier<String>{
 

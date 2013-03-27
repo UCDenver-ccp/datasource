@@ -31,7 +31,7 @@ package edu.ucdenver.ccp.datasource.identifiers;
 
 import java.util.EnumSet;
 
-public enum DataSource implements IDataSource{
+public enum DataSource implements IDataSource {
 	/**
 	 * Used to indicate "any" data source
 	 */
@@ -43,15 +43,22 @@ public enum DataSource implements IDataSource{
 	AHFS,
 	AFCS,
 	ALFRED,
+	ALLERGOME,
 	ANIMALQTLDB,
 	APHIDBASE,
 	APIDBCRYPTODB,
+	ARACHNOSERVER,
+	ARRAYEXPRESS,
+	ASRP,
 	BEEBASE,
 	BEETLEBASE,
+	BGEE,
 	BIND,
 	BIND_TRANSLATION,
 	BINDING_DB,
+	BIOCYC,
 	BIOGRID,
+	BRENDA,
 	KABOB,
 	CAMJEDB,
 	CCDS,
@@ -64,7 +71,7 @@ public enum DataSource implements IDataSource{
 	CYGD,
 	DAILYMED,
 	DBJ,
-	DDBJ,// DNA Data Bank of Japan
+	DDBJ, // DNA Data Bank of Japan
 	DBSNP,
 	DICTYBASE,
 	DIP,
@@ -91,7 +98,7 @@ public enum DataSource implements IDataSource{
 	 */
 	GENBANK,
 	GENE3D,
-	GENEATLAS,
+	GENATLAS,
 	GENECARD,
 	GO,
 	GOA,
@@ -139,6 +146,7 @@ public enum DataSource implements IDataSource{
 	MI_ONTOLOGY,
 	MINT,
 	MIRBASE,
+	MIRTE,
 	MODBASE,
 	MPACT,
 	MPHENO,
@@ -161,6 +169,7 @@ public enum DataSource implements IDataSource{
 	PHARMGKB,
 	PFAM,
 	PII,
+	PICTAR,
 	PIR,
 	PIRNABANK,
 	PIRSF,
@@ -194,6 +203,7 @@ public enum DataSource implements IDataSource{
 	UNIGENE,
 	UNIPARC,
 	UNIPROT,
+	UNIREF,
 	URL,
 	VBRC,
 	VECTORBASE,
@@ -206,13 +216,13 @@ public enum DataSource implements IDataSource{
 	ZNF_GENE_CATALOG,
 	/** relation ontology */
 	RO,
-	/** Protein Ontology - {@link http://pir.georgetown.edu/pro/} */ 
+	/** Protein Ontology - {@link http://pir.georgetown.edu/pro/} */
 	PR,
 	CHEBI,
 	CL,
 	MOD,
 	/**
-	 * 	Johns Hopkins University Genome Data Bank 
+	 * Johns Hopkins University Genome Data Bank
 	 */
 	GDB,
 	CLINICAL_TRIALS_GOV,
@@ -226,7 +236,91 @@ public enum DataSource implements IDataSource{
 	GEO,
 	PUBCHEM_SUBSTANCE,
 	PUBCHEM_COMPOUND,
-	PUBCHEM_BIOASSAY, CHEMICAL_ABSTRACTS_SERVICE, THERAPEUTIC_TARGETS_DB;
+	PUBCHEM_BIOASSAY,
+	CHEMICAL_ABSTRACTS_SERVICE,
+	THERAPEUTIC_TARGETS_DB,
+
+	CAZY,
+	CGD,
+	CHEMBL,
+	CHITARS,
+	CLEANEX,
+	COMPLUYEAST_2DPAGE,
+	CONOSERVER,
+	DISPROT,
+	DMDM,
+	DNASU,
+	DOSAC_COBS_2DPAGE,
+	ECHOBASE,
+	EGGNOG,
+	ENSEMBLBACTERIA,
+	ENSEMBLFUNGI,
+	ENSEMBLMETAZOA,
+	ENSEMBLPLANTS,
+	ENSEMBLPROTISTS,
+	ENZYME,
+	EUHCVDB,
+	EUPATHDB,
+	EVOLUTIONARYTRACE,
+	GENEFARM,
+	GENETREE,
+	GENEVESTIGATOR,
+	GENOLIST,
+	GENOMEREVIEWS,
+	GENOMERNAI,
+	GERMONLINE,
+	GLYCOSUITEDB,
+	GPCRDB,
+	GRAMENE,
+	H_INVDB,
+	HOGENOM,
+	HOVERGEN,
+	HPA,
+	HSSP,
+	INPARANOID,
+	LEGIOLIST,
+	LEPROMA,
+	MICADO,
+	MYCOCLAP,
+	NEXTBIO,
+	NEXTPROT,
+	OGP,
+	OMA,
+	ORTHODB,
+	PATHWAY_INTERACTION_DB,
+	PATRIC,
+	PAXDB,
+	PDB_J,
+	PDB_EUROPE,
+	PDB_SUM,
+	PEPTIDEATLAS,
+	PEROXIBASE,
+	PHOSPHOSITE,
+	PHOSSITE,
+	PHYLOMEDB,
+	PMAP_CUTDB,
+	POMBASE,
+	PPTASEDB,
+	PRIDE,
+	PROMEX,
+	PROTCLUSTDB,
+	PROTEINMODELPORTAL,
+	PROTONET,
+	REBASE,
+	REPRODUCTION_2DPAGE,
+	ROUGE,
+	SABIO_RK,
+	SBKB,
+	SMR,
+	SOURCE,
+	STRING,
+	SUPFAM,
+	SWISS_2DPAGE,
+	TCDB,
+	TUBERCULIST,
+	UCD_2DPAGE,
+	UNIPATHWAY,
+	WORLD_2DPAGE, MEDLINE;
 
 	public static EnumSet<DataSource> GENE_OR_GENE_PRODUCT_SOURCES = EnumSet.of(EG, UNIPROT, MGI, HGNC, HPRD, REFSEQ,
 			DIP, IREFWEB, EMBL, PR, PHARMGKB);
@@ -235,11 +329,9 @@ public enum DataSource implements IDataSource{
 		try {
 			DataSource.valueOf(input);
 			return true;
-		} 
-		catch (NullPointerException e) {
+		} catch (NullPointerException e) {
 			return false;
-		}
-		catch (IllegalArgumentException e) {
+		} catch (IllegalArgumentException e) {
 			return false;
 		}
 	}
