@@ -188,6 +188,7 @@ public enum DataSource implements IDataSource {
 	REFSNP,
 	RFAM,
 	RGD,
+	RULEBASE,
 	SGD,
 	SMART,
 	SNOMEDCT,
