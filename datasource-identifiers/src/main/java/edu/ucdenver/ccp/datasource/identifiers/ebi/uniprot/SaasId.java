@@ -5,15 +5,14 @@ import edu.ucdenver.ccp.datasource.identifiers.DataSourceIdentifier;
 import edu.ucdenver.ccp.datasource.identifiers.StringDataSourceIdentifier;
 
 /**
- * RuleBase is used as the main tool in the sequence database group at the EBI to apply automatic
- * annotation to unknown sequences. These IDs are seen in Trembl entries.
+ * Statistical Automatic Annotation System (SAAS) - used in Trembl records
  * 
  * @author Colorado Computational Pharmacology, UC Denver; ccpsupport@ucdenver.edu
  * 
  */
-public class RuleBaseId extends StringDataSourceIdentifier {
+public class SaasId extends StringDataSourceIdentifier {
 
-	public RuleBaseId(String resourceID) {
+	public SaasId(String resourceID) {
 		super(resourceID);
 	}
 
