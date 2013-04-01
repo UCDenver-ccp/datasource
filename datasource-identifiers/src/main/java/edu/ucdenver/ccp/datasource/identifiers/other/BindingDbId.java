@@ -30,9 +30,9 @@
 package edu.ucdenver.ccp.datasource.identifiers.other;
 
 import edu.ucdenver.ccp.datasource.identifiers.DataSource;
-import edu.ucdenver.ccp.datasource.identifiers.IntegerDataSourceIdentifier;
+import edu.ucdenver.ccp.datasource.identifiers.StringDataSourceIdentifier;
 
-public class BindingDbId extends IntegerDataSourceIdentifier {
+public class BindingDbId extends StringDataSourceIdentifier {
 
 	/**
 	 * @param resourceID
