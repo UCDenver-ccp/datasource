@@ -51,6 +51,12 @@ public class RecordUtil {
 	public static String getRecordComment(Class<?> recordClass) {
 		return getRecordAnnotation(recordClass).comment();
 	}
+	
+	public static String getRecordLabel(Class<?> recordClass) {
+		return getRecordAnnotation(recordClass).label();
+	}
+	
+	
 
 	/**
 	 * @param recordClass
@@ -87,6 +93,10 @@ public class RecordUtil {
 
 	public static String getRecordFieldComment(Class<?> recordClass, String fieldName) {
 		return getRecordFieldAnnotation(recordClass, fieldName).comment();
+	}
+	
+	public static String getRecordFieldLabel(Class<?> recordClass, String fieldName) {
+		return getRecordFieldAnnotation(recordClass, fieldName).label();
 	}
 
 	public static boolean isKeyRecordField(Class<?> recordClass, String fieldName) {
