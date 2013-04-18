@@ -47,7 +47,7 @@ import edu.ucdenver.ccp.datasource.identifiers.DataSource;
 public @interface Record {
 
 	DataSource dataSource();
-	
+
 	/**
 	 * @return the schema version for a data record
 	 */
@@ -60,6 +60,11 @@ public @interface Record {
 	String comment() default "";
 
 	/**
+	 * @return a human-readable name for a record
+	 */
+	String label() default "";
+
+	/**
 	 * @return true if the record is a complete representation of the underlying data, false
 	 *         otherwise. isComplete() may return false for a record, if for example, not all fields
 	 *         in the underlying data source are represented in the record. This is sometimes done
@@ -68,19 +73,19 @@ public @interface Record {
 	boolean isComplete() default true;
 
 	/**
-	 * @return free text describing papers that should be cited with the use of this data. Can 
-	 * 	be either a list of pmids, dois or a bibliography entry.
+	 * @return free text describing papers that should be cited with the use of this data. Can be
+	 *         either a list of pmids, dois or a bibliography entry.
 	 */
 	String citation() default "";
 
-	/** 
+	/**
 	 * @return a license value classifying the licensing terms of the data
 	 */
 	License license() default License.UNKNOWN;
 
-	/**	
-	 *  @return a URI describing the license
-	 */	
+	/**
+	 * @return a URI describing the license
+	 */
 	String licenseUri() default "";
 
 }

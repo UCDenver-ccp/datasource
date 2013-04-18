@@ -55,6 +55,11 @@ public @interface RecordField {
 	String comment() default "";
 
 	/**
+	 * @return a human-readable name for a field
+	 */
+	String label() default "";
+	
+	/**
 	 * @return true if the annotated field is a key field, false otherwise. A key field is a field
 	 *         that can be used to uniquely identify a data record. It is analogous to a primary key
 	 *         in relational database parlance.
