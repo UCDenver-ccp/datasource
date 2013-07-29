@@ -30,6 +30,7 @@
 
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 
 import org.apache.log4j.Logger;
 
@@ -51,6 +52,23 @@ public abstract class LineFileRecordReader<T extends FileRecord> extends FileRec
 
 	private StreamLineReader reader;
 	protected Line line;
+	
+	
+	
+	
+	/**
+	 * @param stream
+	 * @param encoding
+	 * @param skipLinePrefix
+	 * @throws IOException
+	 */
+	public LineFileRecordReader(InputStream stream, CharacterEncoding encoding, String skipLinePrefix)
+			throws IOException {
+		super(stream, encoding, skipLinePrefix);
+		setReader(new StreamLineReader(stream, encoding, skipLinePrefix));
+		initialize();
+	}
+
 	/**
 	 * This constructor takes as input a reference to the file to parse including its character
 	 * encoding and line prefix that indicates a line to ignore.

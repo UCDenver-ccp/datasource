@@ -30,6 +30,7 @@
 
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 
 import org.apache.log4j.Logger;
 
@@ -47,6 +48,11 @@ public abstract class FileRecordReader<T extends FileRecord> extends RecordReade
 
 	private static Logger logger = Logger.getLogger(FileRecordReader.class);
 
+	
+	public FileRecordReader(InputStream stream, CharacterEncoding encoding, String skipLinePrefix) throws IOException {
+		logger.info(String.format("Reading records from input stream."));
+	}
+	
 	/**
 	 * This constructor takes as input a reference to the file to parse including its character
 	 * encoding and line prefix that indicates a line to ignore.

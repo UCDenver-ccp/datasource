@@ -31,6 +31,7 @@ package edu.ucdenver.ccp.datasource.fileparsers;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.NoSuchElementException;
 
 import edu.ucdenver.ccp.common.file.CharacterEncoding;
@@ -38,6 +39,11 @@ import edu.ucdenver.ccp.common.file.reader.Line;
 import edu.ucdenver.ccp.common.file.reader.StreamLineReader;
 
 public abstract class SingleLineFileRecordReader<T extends SingleLineFileRecord> extends LineFileRecordReader<T> {
+
+	public SingleLineFileRecordReader(InputStream stream, CharacterEncoding encoding, String skipLinePrefix)
+			throws IOException {
+		super(stream, encoding, skipLinePrefix);
+	}
 
 	public SingleLineFileRecordReader(File dataFile, CharacterEncoding encoding, String skipLinePrefix)
 			throws IOException {
