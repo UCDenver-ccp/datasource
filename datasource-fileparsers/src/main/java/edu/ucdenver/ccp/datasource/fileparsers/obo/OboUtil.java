@@ -34,6 +34,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -74,7 +75,7 @@ public class OboUtil<T extends OntologyID> {
 	private static final Logger logger = Logger.getLogger(OboUtil.class);
 
 	private OBOSession session;
-	
+
 	public OboUtil(File oboFile, CharacterEncoding encoding) throws IOException {
 		session = initSession(oboFile, encoding);
 	}
@@ -127,7 +128,7 @@ public class OboUtil<T extends OntologyID> {
 					FileSuffixEnforcement.OFF);
 			for (StreamLineIterator lineIter = new StreamLineIterator(oboFile, encoding); lineIter.hasNext();) {
 				Line line = lineIter.next();
-				if (!line.getText().startsWith("consider:")) {
+				if (!(line.getText().startsWith("consider:") || line.getText().startsWith("replaced_by:"))) {
 					writer.write(line.getText());
 					writer.newLine();
 				}
@@ -239,9 +240,37 @@ public class OboUtil<T extends OntologyID> {
 		return session;
 	}
 
-	public Set<OBOClass> getAncestors(OBOClass childClass) {
-		// session.get
-		return null;
+	public static Set<OBOClass> getAncestors(OBOClass cls) {
+		Set<OBOClass> ancestors = new HashSet<OBOClass>();
+		getAncestors(cls, ancestors);
+		return ancestors;
+	}
+
+	/**
+	 * climbs the hierarchy using is-a and part-of relations only to return ancestors
+	 * 
+	 * @param childClass
+	 * @param ancestors
+	 */
+	private static void getAncestors(OBOClass childClass, Set<OBOClass> ancestors) {
+		Set parents = childClass.getParents();
+		boolean childIsDescendant = false;
+		for (Object parent : parents) {
+			if (parent instanceof OBORestrictionImpl) {
+				OBORestrictionImpl parentImpl = (OBORestrictionImpl) parent;
+				String edgeType = parentImpl.getType().getName();
+				if (edgeType.equals("is_a") || edgeType.equals("part_of")) {
+					LinkedObject linkedObject = parentImpl.getParent();
+					if (linkedObject instanceof OBOClass) {
+						OBOClass parentClass = (OBOClass) linkedObject;
+						ancestors.add(parentClass);
+						if (!parentClass.isRoot()) {
+							getAncestors(parentClass, ancestors);
+						}
+					}
+				}
+			}
+		}
 	}
 
 	public boolean isDescendant(OBOClass childClass, OBOClass parentClass) {
@@ -291,8 +320,7 @@ public class OboUtil<T extends OntologyID> {
 		if (childClass == null) {
 			if (childId.equals("continuant") || childId.equals("syntactic context")) {
 				logger.debug("Null child class: \"" + childId + "\"");
-			}
-			else {
+			} else {
 				logger.warn("Null child class: \"" + childId + "\"");
 			}
 			return false;
@@ -313,12 +341,12 @@ public class OboUtil<T extends OntologyID> {
 		@SuppressWarnings("unchecked")
 		Set<String> obsoleteTerms = session.getObsoleteTerms();
 		OBOClass annotation = session.getTerm(ontologyId);
-		
+
 		return obsoleteTerms.contains(annotation);
 	}
-	
+
 	public boolean isInOntology(String ontologyId) {
 		return session.containsObject(ontologyId);
 	}
-	
+
 }
