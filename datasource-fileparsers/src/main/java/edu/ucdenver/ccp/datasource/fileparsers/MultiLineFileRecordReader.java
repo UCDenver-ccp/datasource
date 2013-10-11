@@ -31,6 +31,7 @@ package edu.ucdenver.ccp.datasource.fileparsers;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -54,6 +55,11 @@ public abstract class MultiLineFileRecordReader<T extends MultiLineFileRecord> e
 		super(workDirectory, encoding, skipLinePrefix, ftpUsername, ftpPassword, clean);
 	}
 
+	public MultiLineFileRecordReader(InputStream stream, CharacterEncoding encoding, String skipLinePrefix)
+			throws IOException {
+		super(stream, encoding, skipLinePrefix);
+	}
+	
 	/**
 	 * Overriding to determine initial status of {@link #hasNext()}
 	 */
