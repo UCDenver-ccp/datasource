@@ -39,6 +39,7 @@ public enum DataSource implements IDataSource {
 	/**
 	 * http://www.nal.usda.gov/
 	 */
+	AFFYMETRIX,
 	AGRICOLA,
 	AHFS,
 	AFCS,
@@ -154,6 +155,7 @@ public enum DataSource implements IDataSource {
 	MUTDB,
 	NASONIABASE,
 	NATIONAL_DRUG_CODE_DIRECTORY,
+	NBO,
 	NCBI_TAXON,
 	NCBI_TRACE,
 	OBO,
@@ -182,7 +184,9 @@ public enum DataSource implements IDataSource {
 	PROSITE,
 	PSEUDOCAP,
 	PSEUDOGENE_ORG,
+	PW,
 	RATMAP,
+	RDO,
 	REACTOME,
 	REFSEQ,
 	REFSNP,
