@@ -49,12 +49,23 @@ public abstract class SingleLineFileRecordReader<T extends SingleLineFileRecord>
 			throws IOException {
 		super(dataFile, encoding, skipLinePrefix);
 	}
+	
+	
+	public SingleLineFileRecordReader(File dataFile, CharacterEncoding encoding)
+			throws IOException {
+		super(dataFile, encoding, null);
+	}
 
 	public SingleLineFileRecordReader(File workDirectory, CharacterEncoding encoding, String skipLinePrefix,
 			String ftpUsername, String ftpPassword, boolean clean) throws IOException {
 		super(workDirectory, encoding, skipLinePrefix, ftpUsername, ftpPassword, clean);
 	}
 
+	public SingleLineFileRecordReader(File workDirectory, CharacterEncoding encoding, String skipLinePrefix,
+			 boolean clean) throws IOException {
+		super(workDirectory, encoding, skipLinePrefix, null, null, clean);
+	}
+	
 	/**
 	 * Overriding to determine initial status of {@link #hasNext()}
 	 */
