@@ -29,6 +29,8 @@
  */
 package edu.ucdenver.ccp.datasource.fileparsers;
 
+/* this class is not needed, use FileRecord instead */
+@Deprecated
 public abstract class MultiLineFileRecord extends FileRecord {
 
 	public MultiLineFileRecord(long byteOffset) {
