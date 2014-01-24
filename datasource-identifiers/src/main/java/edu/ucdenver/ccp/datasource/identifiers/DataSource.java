@@ -140,6 +140,7 @@ public enum DataSource implements IDataSource {
 	MAMMALIAN_PHENOTYPE,
 	MAIZEGDB,
 	MATRIXDB,
+	MEDGEN,
 	MESH,
 	MEROPS,
 	MGI,
