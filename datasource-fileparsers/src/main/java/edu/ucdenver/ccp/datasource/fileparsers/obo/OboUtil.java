@@ -74,6 +74,37 @@ import edu.ucdenver.ccp.datasource.identifiers.obo.OntologyID;
 public class OboUtil<T extends OntologyID> {
 	private static final Logger logger = Logger.getLogger(OboUtil.class);
 
+	public enum ObsoleteTermHandling {
+		INCLUDE_OBSOLETE_TERMS,
+		EXCLUDE_OBSOLETE_TERMS
+	}
+
+	public enum SynonymType {
+		RELATED(0),
+		EXACT(1),
+		NARROW(2),
+		BROAD(3);
+
+		private final int scope;
+
+		private SynonymType(int scope) {
+			this.scope = scope;
+		}
+
+		public int scope() {
+			return scope;
+		}
+
+		public static SynonymType getTypeFromScope(int scope) {
+			for (SynonymType type : SynonymType.values()) {
+				if (type.scope() == scope) {
+					return type;
+				}
+			}
+			throw new IllegalArgumentException("Unknown scope ID: " + scope);
+		}
+	}
+
 	private OBOSession session;
 
 	public OboUtil(File oboFile, CharacterEncoding encoding) throws IOException {
@@ -81,6 +112,15 @@ public class OboUtil<T extends OntologyID> {
 	}
 
 	public Iterator<OBOClass> getClassIterator() {
+		return IteratorUtil.consolidate(
+				LegacyCollectionsUtil.checkIterator(session.getTerms().iterator(), OBOClass.class),
+				LegacyCollectionsUtil.checkIterator(session.getObsoleteTerms().iterator(), OBOClass.class));
+	}
+
+	public Iterator<OBOClass> getClassIterator(ObsoleteTermHandling obsoleteHandling) {
+		if (obsoleteHandling.equals(ObsoleteTermHandling.EXCLUDE_OBSOLETE_TERMS)) {
+			return LegacyCollectionsUtil.checkIterator(session.getTerms().iterator(), OBOClass.class);
+		}
 		return IteratorUtil.consolidate(
 				LegacyCollectionsUtil.checkIterator(session.getTerms().iterator(), OBOClass.class),
 				LegacyCollectionsUtil.checkIterator(session.getObsoleteTerms().iterator(), OBOClass.class));
@@ -121,15 +161,34 @@ public class OboUtil<T extends OntologyID> {
 	 * @throws IOException
 	 */
 	private static File removeConsiderTags(File oboFile, CharacterEncoding encoding) throws IOException {
+		Pattern synPattern = Pattern.compile("(synonym: \".*?\") (\\w+:\\d+)( \\[\\])");
+		Matcher m;
 		File modifiedOboFile = new File(oboFile.getParentFile(), oboFile.getName() + ".mod");
 		BufferedWriter writer = null;
 		try {
 			writer = FileWriterUtil.initBufferedWriter(modifiedOboFile, encoding, WriteMode.OVERWRITE,
 					FileSuffixEnforcement.OFF);
 			for (StreamLineIterator lineIter = new StreamLineIterator(oboFile, encoding); lineIter.hasNext();) {
+				boolean writeLine = true;
 				Line line = lineIter.next();
-				if (!(line.getText().startsWith("consider:") || line.getText().startsWith("replaced_by:"))) {
-					writer.write(line.getText());
+				String lineText = line.getText();
+				if (lineText.startsWith("consider:") || lineText.startsWith("replaced_by:")) {
+					writeLine = false;
+				} else {
+					m = synPattern.matcher(lineText);
+					if (m.find()) {
+						/*
+						 * this is used to process the OBI file b/c it has synonm lines like the
+						 * following that OBOEdit complains about: synonym: "antibody" OBI:9991118
+						 * []
+						 */
+
+						lineText = m.group(1) + " EXACT" + m.group(3);
+					}
+				}
+
+				if (writeLine) {
+					writer.write(lineText);
 					writer.newLine();
 				}
 			}
@@ -246,6 +305,12 @@ public class OboUtil<T extends OntologyID> {
 		return ancestors;
 	}
 
+	public static Set<OBOClass> getDescendents(OBOClass cls) {
+		Set<OBOClass> ancestors = new HashSet<OBOClass>();
+		getDescendents(cls, ancestors);
+		return ancestors;
+	}
+
 	/**
 	 * climbs the hierarchy using is-a and part-of relations only to return ancestors
 	 * 
@@ -267,6 +332,23 @@ public class OboUtil<T extends OntologyID> {
 						if (!parentClass.isRoot()) {
 							getAncestors(parentClass, ancestors);
 						}
+					}
+				}
+			}
+		}
+	}
+
+	private static void getDescendents(OBOClass parentClass, Set<OBOClass> descendents) {
+		for (Object child : parentClass.getChildren()) {
+			if (child instanceof OBORestrictionImpl) {
+				OBORestrictionImpl childImpl = (OBORestrictionImpl) child;
+				String edgeType = childImpl.getType().getName();
+				if (edgeType.equals("is_a") || edgeType.equals("part_of")) {
+					LinkedObject linkedObject = childImpl.getChild();
+					if (linkedObject instanceof OBOClass) {
+						OBOClass childClass = (OBOClass) linkedObject;
+						descendents.add(childClass);
+						getDescendents(childClass, descendents);
 					}
 				}
 			}
