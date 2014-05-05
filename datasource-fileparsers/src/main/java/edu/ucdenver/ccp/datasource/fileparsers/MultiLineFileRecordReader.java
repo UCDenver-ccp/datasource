@@ -43,7 +43,7 @@ import edu.ucdenver.ccp.common.string.StringConstants;
 public abstract class MultiLineFileRecordReader<T extends FileRecord> extends LineFileRecordReader<T> {
 
 	protected Line line;
-	private MultiLineBuffer buffer;
+	protected MultiLineBuffer buffer;
 
 	public MultiLineFileRecordReader(File dataFile, CharacterEncoding encoding, String skipLinePrefix)
 			throws IOException {

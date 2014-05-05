@@ -46,9 +46,6 @@ import edu.ucdenver.ccp.datasource.identifiers.ncbi.taxonomy.NcbiTaxonomyID;
 
 public abstract class TaxonAwareMultiLineFileRecordReader<T extends FileRecord> extends MultiLineFileRecordReader<T> {
 
-	protected Line line;
-	private MultiLineBuffer buffer;
-
 	protected final Set<NcbiTaxonomyID> taxonsOfInterest;
 
 	public TaxonAwareMultiLineFileRecordReader(File dataFile, CharacterEncoding encoding, String skipLinePrefix,
@@ -81,17 +78,19 @@ public abstract class TaxonAwareMultiLineFileRecordReader<T extends FileRecord> 
 	 *         associated with one of the taxons of interest
 	 */
 	protected boolean isRecordOfInterest(MultiLineBuffer multiLineBuffer) {
-		return taxonsOfInterest == null || taxonsOfInterest.isEmpty() || taxonsOfInterest.contains(getRecordTaxon(buffer));
+		return taxonsOfInterest == null || taxonsOfInterest.isEmpty()
+				|| taxonsOfInterest.contains(getRecordTaxon(buffer));
 
 	}
 
 	protected void initializeToFirstRecordWithTaxonOfInterest() throws IOException {
-		while ((buffer != null) && !isRecordOfInterest(buffer)) {
-			buffer = compileMultiLineBuffer();
-			// cycling to the first record with appropriate taxon
+		if (taxonsOfInterest != null && !taxonsOfInterest.isEmpty()) {
+			while ((buffer != null) && !isRecordOfInterest(buffer)) {
+				buffer = compileMultiLineBuffer();
+				// cycling to the first record with appropriate taxon
+			}
 		}
 	}
-	
 
 	@Override
 	public T next() {
@@ -102,6 +101,7 @@ public abstract class TaxonAwareMultiLineFileRecordReader<T extends FileRecord> 
 
 		try {
 			while (((buffer = compileMultiLineBuffer()) != null) && !isRecordOfInterest(buffer)) {
+				System.out.println("advancing...");
 				// cycling to the first line with appropriate taxon
 			}
 		} catch (IOException e) {
