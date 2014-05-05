@@ -101,7 +101,6 @@ public abstract class TaxonAwareMultiLineFileRecordReader<T extends FileRecord> 
 
 		try {
 			while (((buffer = compileMultiLineBuffer()) != null) && !isRecordOfInterest(buffer)) {
-				System.out.println("advancing...");
 				// cycling to the first line with appropriate taxon
 			}
 		} catch (IOException e) {
