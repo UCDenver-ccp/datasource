@@ -28,21 +28,18 @@ public abstract class TaxonAwareSingleLineFileRecordReader<T extends SingleLineF
 			Set<NcbiTaxonomyID> taxonsOfInterest) throws IOException {
 		super(stream, encoding, skipLinePrefix);
 		this.taxonsOfInterest = taxonsOfInterest;
-		initializeToFirstLineWithTaxonOfInterest();
 	}
 
 	public TaxonAwareSingleLineFileRecordReader(File dataFile, CharacterEncoding encoding, String skipLinePrefix,
 			Set<NcbiTaxonomyID> taxonsOfInterest) throws IOException {
 		super(dataFile, encoding, skipLinePrefix);
 		this.taxonsOfInterest = taxonsOfInterest;
-		initializeToFirstLineWithTaxonOfInterest();
 	}
 
 	public TaxonAwareSingleLineFileRecordReader(File dataFile, CharacterEncoding encoding,
 			Set<NcbiTaxonomyID> taxonsOfInterest) throws IOException {
 		super(dataFile, encoding, null);
 		this.taxonsOfInterest = taxonsOfInterest;
-		initializeToFirstLineWithTaxonOfInterest();
 	}
 
 	public TaxonAwareSingleLineFileRecordReader(File workDirectory, CharacterEncoding encoding, String skipLinePrefix,
@@ -50,14 +47,37 @@ public abstract class TaxonAwareSingleLineFileRecordReader<T extends SingleLineF
 			throws IOException {
 		super(workDirectory, encoding, skipLinePrefix, ftpUsername, ftpPassword, clean);
 		this.taxonsOfInterest = taxonsOfInterest;
-		initializeToFirstLineWithTaxonOfInterest();
 	}
 
 	public TaxonAwareSingleLineFileRecordReader(File workDirectory, CharacterEncoding encoding, String skipLinePrefix,
 			boolean clean, Set<NcbiTaxonomyID> taxonsOfInterest) throws IOException {
 		super(workDirectory, encoding, skipLinePrefix, null, null, clean);
 		this.taxonsOfInterest = taxonsOfInterest;
-		initializeToFirstLineWithTaxonOfInterest();
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see edu.ucdenver.ccp.datasource.fileparsers.SingleLineFileRecordReader#initialize()
+	 */
+	@Override
+	protected void initialize() throws IOException {
+		String fileHeader = getFileHeader();
+		validateFileHeader(fileHeader);
+		// initializeToFirstLineWithTaxonOfInterest();
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * edu.ucdenver.ccp.datasource.fileparsers.SingleLineFileRecordReader#parseRecordFromLine(edu
+	 * .ucdenver.ccp.common.file.reader.Line)
+	 */
+	@Override
+	protected T parseRecordFromLine(Line line) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	protected abstract NcbiTaxonomyID getLineTaxon(Line line);
@@ -68,21 +88,31 @@ public abstract class TaxonAwareSingleLineFileRecordReader<T extends SingleLineF
 	 *         associated with one of the taxons of interest
 	 */
 	protected boolean isLineOfInterest(Line line) {
-		boolean is =   taxonsOfInterest == null || taxonsOfInterest.isEmpty() || taxonsOfInterest.contains(getLineTaxon(line));
+		boolean is = taxonsOfInterest == null || taxonsOfInterest.isEmpty()
+				|| taxonsOfInterest.contains(getLineTaxon(line));
 		return is;
-		
+
 	}
 
-	protected void initializeToFirstLineWithTaxonOfInterest() throws IOException {
-		while ((line != null) && !isLineOfInterest(line)) {
-			line = readLine();
+	protected void advanceToNextLineWithTaxonOfInterest() throws IOException {
+		System.out.println("advancing");
+		while ((line = readLine()) != null && !isLineOfInterest(line)) {
+			// line = readLine();
+			System.out.println("skipping line");
 			// cycling to the first line with appropriate taxon
 		}
 	}
 
 	@Override
 	public boolean hasNext() {
-		return line != null;
+		try {
+			if (line == null) {
+				advanceToNextLineWithTaxonOfInterest();
+			}
+			return line != null;
+		} catch (IOException e) {
+			throw new RuntimeException(e);
+		}
 	}
 
 	@Override
