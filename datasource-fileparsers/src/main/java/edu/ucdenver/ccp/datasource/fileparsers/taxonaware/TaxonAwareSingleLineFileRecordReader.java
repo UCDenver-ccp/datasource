@@ -95,10 +95,10 @@ public abstract class TaxonAwareSingleLineFileRecordReader<T extends SingleLineF
 	}
 
 	protected void advanceToNextLineWithTaxonOfInterest() throws IOException {
-		System.out.println("advancing");
+//		System.out.println("advancing");
 		while ((line = readLine()) != null && !isLineOfInterest(line)) {
 			// line = readLine();
-			System.out.println("skipping line");
+//			System.out.println("skipping line");
 			// cycling to the first line with appropriate taxon
 		}
 	}
