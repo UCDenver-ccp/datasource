@@ -88,6 +88,9 @@ public abstract class TaxonAwareSingleLineFileRecordReader<T extends SingleLineF
 	 *         associated with one of the taxons of interest
 	 */
 	protected boolean isLineOfInterest(Line line) {
+		if (line == null) {
+			return false;
+		}
 		boolean is = taxonsOfInterest == null || taxonsOfInterest.isEmpty()
 				|| taxonsOfInterest.contains(getLineTaxon(line));
 		return is;
