@@ -29,9 +29,13 @@
  */
 package edu.ucdenver.ccp.datasource.fileparsers.obo;
 
+import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -324,7 +328,7 @@ public class OboUtil<T extends OntologyID> {
 			if (parent instanceof OBORestrictionImpl) {
 				OBORestrictionImpl parentImpl = (OBORestrictionImpl) parent;
 				String edgeType = parentImpl.getType().getName();
-				if (edgeType.equals("is_a") || edgeType.equals("part_of")) {
+				if (edgeType.equals("is_a")) { // not using edges that equal part_of || edgeType.equals("part_of")) {
 					LinkedObject linkedObject = parentImpl.getParent();
 					if (linkedObject instanceof OBOClass) {
 						OBOClass parentClass = (OBOClass) linkedObject;
@@ -343,7 +347,7 @@ public class OboUtil<T extends OntologyID> {
 			if (child instanceof OBORestrictionImpl) {
 				OBORestrictionImpl childImpl = (OBORestrictionImpl) child;
 				String edgeType = childImpl.getType().getName();
-				if (edgeType.equals("is_a") || edgeType.equals("part_of")) {
+				if (edgeType.equals("is_a")) { // not using edges that equal part_of || edgeType.equals("part_of")) {
 					LinkedObject linkedObject = childImpl.getChild();
 					if (linkedObject instanceof OBOClass) {
 						OBOClass childClass = (OBOClass) linkedObject;
@@ -354,7 +358,7 @@ public class OboUtil<T extends OntologyID> {
 			}
 		}
 	}
-
+	
 	public boolean isDescendant(OBOClass childClass, OBOClass parentClass) {
 		Set parents = childClass.getParents();
 		boolean childIsDescendant = false;
@@ -365,37 +369,23 @@ public class OboUtil<T extends OntologyID> {
 					LinkedObject linkedObject = parentImpl.getParent();
 					if (linkedObject instanceof OBOClass) {
 						OBOClass childsParentClass = (OBOClass) linkedObject;
-						if (childsParentClass.getID().equals(parentClass.getID()))
-							childIsDescendant = true;
-						else if (childsParentClass.isRoot())
-							childIsDescendant = false;
-						else
-							childIsDescendant = isDescendant(childsParentClass, parentClass);
+						// Only using the is_a relationships
+						if(parentImpl.toString().contains("OBO_REL:is_a")) {
+							if (childsParentClass.getID().equals(parentClass.getID()))
+								childIsDescendant = true;
+							else if (childsParentClass.isRoot())
+								childIsDescendant = false;
+							else
+								childIsDescendant = isDescendant(childsParentClass, parentClass);
+						}
 					}
 				}
 			}
 		}
 		return childIsDescendant;
-
-		// /* If the flag to recurse is set to true, then process each child of the input OBOClass
-		// */
-		// if (recurse) {
-		// Set childrenOfRoot = oboClass.getChildren();
-		// for (Object child : childrenOfRoot) {
-		// if (child instanceof OBORestrictionImpl) {
-		// OBORestrictionImpl childImpl = (OBORestrictionImpl) child;
-		// LinkedObject linkedObject = childImpl.getChild();
-		// if (linkedObject instanceof OBOClass) {
-		// OBOClass childClass = (OBOClass) linkedObject;
-		// printOboClass(childClass, recurse, indent += 2);
-		// }
-		// } else {
-		// warn("Unexpected class found in children set: " + child.getClass().getName());
-		// }
-		// }
-		// }
 	}
 
+	
 	public boolean isDescendent(String childId, String parentId) {
 		OBOClass childClass = session.getTerm(childId);
 		OBOClass parentClass = session.getTerm(parentId);
@@ -429,6 +419,11 @@ public class OboUtil<T extends OntologyID> {
 
 	public boolean isInOntology(String ontologyId) {
 		return session.containsObject(ontologyId);
+	}
+	
+	
+	public static void main(String[] args) throws IOException {
+		
 	}
 
 }
