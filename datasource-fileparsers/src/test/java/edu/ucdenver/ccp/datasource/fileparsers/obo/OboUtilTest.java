@@ -29,12 +29,14 @@
  */
 package edu.ucdenver.ccp.datasource.fileparsers.obo;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import java.io.File;
 import java.io.IOException;
 
+import org.geneontology.oboedit.datamodel.OBOClass;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -64,6 +66,15 @@ public class OboUtilTest extends DefaultTestCase {
 		assertTrue(oboUtil.isDescendent("PR:000000101","PR:000000046"));
 		assertTrue(oboUtil.isDescendent("PR:000002012","PR:000000008"));
 		assertFalse(oboUtil.isDescendent("PR:000002012","PR:000000046"));
+		
+	}
+	
+	
+	@Test
+	public void testGetDescendents() {
+		OBOClass term = oboUtil.getSession().getTerm("PR:000000008");
+		
+		assertEquals (3, OboUtil.getDescendents(term).size());
 		
 	}
 
