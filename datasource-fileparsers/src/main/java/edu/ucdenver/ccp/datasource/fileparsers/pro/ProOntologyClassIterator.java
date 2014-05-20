@@ -41,6 +41,7 @@ import edu.ucdenver.ccp.common.file.CharacterEncoding;
 import edu.ucdenver.ccp.common.ftp.FTPUtil.FileType;
 import edu.ucdenver.ccp.datasource.fileparsers.obo.OboClassIterator;
 import edu.ucdenver.ccp.datasource.fileparsers.obo.OboUtil;
+import edu.ucdenver.ccp.datasource.fileparsers.obo.OboUtil.ObsoleteTermHandling;
 
 /**
  * This class iterates over the gene ontology obo file and returns OBORecords for each class it
@@ -60,12 +61,12 @@ public class ProOntologyClassIterator extends OboClassIterator {
 	public static final String MOD_ID_PREFIX = "MOD:";
 	public static final String SO_ID_PREFIX = "SO:";
 
-	public ProOntologyClassIterator(File oboOntologyFile) throws IOException, OBOParseException {
-		super(oboOntologyFile, CharacterEncoding.UTF_8);
+	public ProOntologyClassIterator(File oboOntologyFile, ObsoleteTermHandling obsoleteHandling) throws IOException, OBOParseException {
+		super(oboOntologyFile, CharacterEncoding.UTF_8, obsoleteHandling);
 	}
 
-	public ProOntologyClassIterator(File workDirectory, boolean clean) throws IOException, OBOParseException {
-		super(workDirectory, clean);
+	public ProOntologyClassIterator(File workDirectory, boolean clean, ObsoleteTermHandling obsoleteHandling) throws IOException, OBOParseException {
+		super(workDirectory, clean, obsoleteHandling);
 	}
 
 	@Override
