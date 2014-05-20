@@ -441,7 +441,7 @@ public class DataSourceIdResolver {
 					.format("Unknown gene ID format: %s. Cannot create DataElementIdentifier<?>.", geneIDStr));
 
 		} catch (IllegalArgumentException e) {
-			logger.warn("Invalid ID detected... ", e);
+			logger.warn("Invalid ID detected... " +  e.getMessage());
 		}
 
 		return null;
