@@ -42,6 +42,7 @@ import edu.ucdenver.ccp.common.download.DownloadUtil;
 import edu.ucdenver.ccp.common.file.CharacterEncoding;
 import edu.ucdenver.ccp.common.file.FileUtil;
 import edu.ucdenver.ccp.datasource.fileparsers.RecordReader;
+import edu.ucdenver.ccp.datasource.fileparsers.obo.OboUtil.ObsoleteTermHandling;
 
 /**
  * An abstract class to be used for iterating over the classes in an OBO file. 
@@ -54,18 +55,18 @@ public abstract class OboClassIterator extends RecordReader<OBOClassRecord> {
 	private final Iterator<OBOClass> oboClassIterator;
 	private OBOClassRecord nextRecord = null;
 
-	public OboClassIterator(File oboOntologyFile, CharacterEncoding encoding) throws IOException, OBOParseException {
+	public OboClassIterator(File oboOntologyFile, CharacterEncoding encoding, ObsoleteTermHandling obsoleteHandling) throws IOException, OBOParseException {
 		FileUtil.validateFile(oboOntologyFile);
 		OboUtil<?> oboUtil = new OboUtil(oboOntologyFile, encoding);
-		oboClassIterator = oboUtil.getClassIterator();
+		oboClassIterator = oboUtil.getClassIterator(obsoleteHandling);
 	}
 
-	public OboClassIterator(File workDirectory, boolean clean) throws IOException, OBOParseException {
+	public OboClassIterator(File workDirectory, boolean clean, ObsoleteTermHandling obsoleteHandling) throws IOException, OBOParseException {
 		super();
 		try {
 			DownloadUtil.download(this, workDirectory, null, null, clean);
 			OboUtil<?> oboUtil = initializeOboUtilFromDownload();
-			oboClassIterator = oboUtil.getClassIterator();
+			oboClassIterator = oboUtil.getClassIterator(obsoleteHandling);
 		} catch (IllegalArgumentException e) {
 			throw new IOException(e);
 		} catch (IllegalAccessException e) {
