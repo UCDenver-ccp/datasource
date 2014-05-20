@@ -203,6 +203,7 @@ public enum DataSource implements IDataSource {
 	TAIR,
 	TIGRFAMS,
 	TRANSFAC,
+	UBERON,
 	UCSCGENOMEBROWSER,
 	UMLS,
 	UNCHAR_PFAM,
