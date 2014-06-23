@@ -101,6 +101,7 @@ public enum DataSource implements IDataSource {
 	GENE3D,
 	GENATLAS,
 	GENECARD,
+	GENSAT,
 	GO,
 	GOA,
 	GOA_REFERENCE,
