@@ -1,4 +1,4 @@
-package edu.ucdenver.ccp.fileparsers.ncbi.taxonomy;
+package edu.ucdenver.ccp.datasource.fileparsers.obo.impl;
 
 import java.io.File;
 import java.io.IOException;
