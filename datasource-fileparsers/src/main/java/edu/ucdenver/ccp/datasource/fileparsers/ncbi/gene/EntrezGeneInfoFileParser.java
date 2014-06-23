@@ -16,7 +16,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  * 
  */
-package edu.ucdenver.ccp.fileparsers.ncbi.gene;
+package edu.ucdenver.ccp.datasource.fileparsers.ncbi.gene;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -39,8 +39,6 @@ import edu.ucdenver.ccp.datasource.identifiers.DataSourceIdResolver;
 import edu.ucdenver.ccp.datasource.identifiers.DataSourceIdentifier;
 import edu.ucdenver.ccp.datasource.identifiers.ncbi.gene.EntrezGeneID;
 import edu.ucdenver.ccp.datasource.identifiers.ncbi.taxonomy.NcbiTaxonomyID;
-import edu.ucdenver.ccp.fileparsers.download.FtpHost;
-import edu.ucdenver.ccp.fileparsers.field.ChromosomeNumber;
 
 /**
  * This class is used to parse the EntrezGene gene_info file.
@@ -58,7 +56,10 @@ public class EntrezGeneInfoFileParser extends TaxonAwareSingleLineFileRecordRead
 	public static final String FTP_FILE_NAME = "gene_info.gz";
 	public static final CharacterEncoding ENCODING = CharacterEncoding.US_ASCII;
 
-	@FtpDownload(server = FtpHost.ENTREZGENE_HOST, path = FtpHost.ENTREZGENE_PATH, filename = FTP_FILE_NAME, filetype = FileType.BINARY)
+	public static final String FTP_HOST = "ftp.ncbi.nih.gov";
+	public static final String FTP_PATH = "gene/DATA";
+	
+	@FtpDownload(server = FTP_HOST, path = FTP_PATH, filename = FTP_FILE_NAME, filetype = FileType.BINARY)
 	private File gene2infoFile;
 
 	public EntrezGeneInfoFileParser(File entrezGeneInfoFile, CharacterEncoding encoding) throws IOException {
@@ -157,9 +158,9 @@ public class EntrezGeneInfoFileParser extends TaxonAwareSingleLineFileRecordRead
 				}
 			}
 		}
-		ChromosomeNumber chromosome = null;
+		String chromosome = null;
 		if (!toks[6].equals("-") && !toks[6].equals("Unknown")) {
-			chromosome = new ChromosomeNumber(toks[6]);
+			chromosome = new String(toks[6]);
 		}
 		String mapLocation = toks[7];
 		if (mapLocation.equals("-")) {

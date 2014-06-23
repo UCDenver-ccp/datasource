@@ -1,7 +1,7 @@
 /**
  * 
  */
-package edu.ucdenver.ccp.fileparsers.obo;
+package edu.ucdenver.ccp.datasource.fileparsers.obo.impl;
 
 import java.io.File;
 import java.io.IOException;

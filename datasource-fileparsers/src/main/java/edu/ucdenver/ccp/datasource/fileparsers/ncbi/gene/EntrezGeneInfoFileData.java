@@ -16,7 +16,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  * 
  */
-package edu.ucdenver.ccp.fileparsers.ncbi.gene;
+package edu.ucdenver.ccp.datasource.fileparsers.ncbi.gene;
 
 import java.util.Set;
 
@@ -28,7 +28,6 @@ import edu.ucdenver.ccp.datasource.identifiers.DataSource;
 import edu.ucdenver.ccp.datasource.identifiers.DataSourceIdentifier;
 import edu.ucdenver.ccp.datasource.identifiers.ncbi.gene.EntrezGeneID;
 import edu.ucdenver.ccp.datasource.identifiers.ncbi.taxonomy.NcbiTaxonomyID;
-import edu.ucdenver.ccp.fileparsers.field.ChromosomeNumber;
 
 /**
  * This class represents data contained in the EntrezGene gene_info file.
@@ -63,7 +62,7 @@ public class EntrezGeneInfoFileData extends SingleLineFileRecord {
 	private final Set<DataSourceIdentifier<?>> dbXrefs;
 
 	@RecordField(comment="the chromosome on which this gene is placed.  for mitochondrial genomes, the value 'MT' is used.")
-	private final ChromosomeNumber chromosome;
+	private final String chromosome;
 
 	@RecordField(comment="the map location for this gene")
 	private final String mapLocation;
@@ -91,7 +90,7 @@ public class EntrezGeneInfoFileData extends SingleLineFileRecord {
 
 	public EntrezGeneInfoFileData(NcbiTaxonomyID taxonID, EntrezGeneID geneID, String symbol,
 			String locusTag, Set<String> synonyms, Set<DataSourceIdentifier<?>> dbXrefs,
-			ChromosomeNumber chromosome, String mapLocation, String description, String typeOfGene,
+			String chromosome, String mapLocation, String description, String typeOfGene,
 			String symbolFromNomenclatureAuthority, String fullNameFromNomenclatureAuthority,
 			String nomenclatureStatus, Set<String> otherDesignations, String modificationDate,
 			long byteOffset, long lineNumber) {
@@ -137,7 +136,7 @@ public class EntrezGeneInfoFileData extends SingleLineFileRecord {
 		return dbXrefs;
 	}
 
-	public ChromosomeNumber getChromosome() {
+	public String getChromosome() {
 		return chromosome;
 	}
 

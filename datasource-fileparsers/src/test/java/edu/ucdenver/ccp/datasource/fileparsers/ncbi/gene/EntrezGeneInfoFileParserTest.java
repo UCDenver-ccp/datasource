@@ -16,7 +16,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  * 
  */
-package edu.ucdenver.ccp.fileparsers.ncbi.gene;
+package edu.ucdenver.ccp.datasource.fileparsers.ncbi.gene;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -36,13 +36,12 @@ import org.junit.Test;
 import edu.ucdenver.ccp.common.collections.CollectionsUtil;
 import edu.ucdenver.ccp.common.file.CharacterEncoding;
 import edu.ucdenver.ccp.common.file.FileUtil;
+import edu.ucdenver.ccp.datasource.fileparsers.test.RecordReaderTester;
 import edu.ucdenver.ccp.datasource.identifiers.DataSourceIdentifier;
 import edu.ucdenver.ccp.datasource.identifiers.ensembl.EnsemblGeneID;
 import edu.ucdenver.ccp.datasource.identifiers.mgi.MgiGeneID;
 import edu.ucdenver.ccp.datasource.identifiers.ncbi.gene.EntrezGeneID;
 import edu.ucdenver.ccp.datasource.identifiers.ncbi.taxonomy.NcbiTaxonomyID;
-import edu.ucdenver.ccp.fileparsers.field.ChromosomeNumber;
-import edu.ucdenver.ccp.fileparsers.test.RecordReaderTester;
 
 /**
  * 
@@ -177,7 +176,7 @@ public class EntrezGeneInfoFileParserTest extends RecordReaderTester {
 				expectedDBXrefs.add(new MgiGeneID("MGI:1352447"));
 				expectedDBXrefs.add(new EnsemblGeneID("ENSMUSG00000025194"));
 				assertEquals(expectedDBXrefs, record.getDbXrefs());
-				assertEquals(new ChromosomeNumber(19), record.getChromosome());
+				assertEquals(new String("19"), record.getChromosome());
 				assertEquals("19 C3|19 43.0 cM", record.getMapLocation());
 				assertEquals("ATP-binding cassette, sub-family C (CFTR/MRP), member 2", record.getDescription());
 				assertEquals("protein-coding", record.getTypeOfGene());
@@ -218,7 +217,7 @@ public class EntrezGeneInfoFileParserTest extends RecordReaderTester {
 				expectedDBXrefs.add(new MgiGeneID("MGI:104913"));
 				expectedDBXrefs.add(new EnsemblGeneID("ENSMUSG00000058835"));
 				assertEquals(expectedDBXrefs, record.getDbXrefs());
-				assertEquals(new ChromosomeNumber(2), record.getChromosome());
+				assertEquals("2", record.getChromosome());
 				assertEquals("2 A3|2 15.0 cM", record.getMapLocation());
 				assertEquals("abl-interactor 1", record.getDescription());
 				assertEquals("protein-coding", record.getTypeOfGene());
@@ -255,7 +254,7 @@ public class EntrezGeneInfoFileParserTest extends RecordReaderTester {
 				expectedDBXrefs.add(new MgiGeneID("MGI:87884"));
 				expectedDBXrefs.add(new EnsemblGeneID("ENSMUSG00000022622"));
 				assertEquals(expectedDBXrefs, record.getDbXrefs());
-				assertEquals(new ChromosomeNumber(15), record.getChromosome());
+				assertEquals("15", record.getChromosome());
 				assertEquals("15 E-F|15 48.6 cM", record.getMapLocation());
 				assertEquals("acrosin prepropeptide", record.getDescription());
 				assertEquals("protein-coding", record.getTypeOfGene());
