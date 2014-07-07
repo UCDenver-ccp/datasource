@@ -4,7 +4,7 @@
 	<parent>
 		<artifactId>datasource</artifactId>
 		<groupId>edu.ucdenver.ccp</groupId>
-		<version>0.4-SNAPSHOT</version>
+		<version>0.5-SNAPSHOT</version>
 	</parent>
 	<artifactId>datasource-fileparsers</artifactId>
 
@@ -42,7 +42,7 @@
 	<repositories>
 		<repository>
 			<id>bionlp-sourceforge</id>
-			<url>http://bionlp.svn.sourceforge.net/viewvc/bionlp/repo/</url>
+			<url>http://svn.code.sf.net/p/bionlp/code/repo/</url>
 		</repository>
 		<repository>
 			<id>ebi-repo</id>
