@@ -82,13 +82,21 @@ public abstract class OboClassIterator extends RecordReader<OBOClassRecord> {
 	@Override
 	public boolean hasNext() {
 		if (nextRecord == null) {
-			if (oboClassIterator.hasNext()) {
+			while (oboClassIterator.hasNext()) {
 				OBOClass oboClass = oboClassIterator.next();
-				if (!idStartsWithAllowedPrefix(oboClass.getID()))
-					return hasNext();
-				nextRecord = new OBOClassRecord(oboClass);
-				return true;
+				if (idStartsWithAllowedPrefix(oboClass.getID())) {
+					nextRecord = new OBOClassRecord(oboClass);
+					return true;
+				}
 			}
+//			if (oboClassIterator.hasNext()) {
+//				OBOClass oboClass = oboClassIterator.next();
+//				if (!idStartsWithAllowedPrefix(oboClass.getID())) {
+//					return hasNext();
+//				}
+//				nextRecord = new OBOClassRecord(oboClass);
+//				return true;
+//			}
 			return false;
 		}
 		return true;
