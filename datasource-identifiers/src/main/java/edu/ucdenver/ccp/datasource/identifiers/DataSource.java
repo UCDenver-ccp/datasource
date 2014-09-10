@@ -156,7 +156,6 @@ public enum DataSource implements IDataSource {
 	MIRTE,
 	MODBASE,
 	MPACT,
-	MPHENO,
 	MPIDB,
 	MUTDB,
 	NASONIABASE,
