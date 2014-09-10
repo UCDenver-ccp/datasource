@@ -44,7 +44,7 @@ public class MammalianPhenotypeID extends StringDataSourceIdentifier {
 
 	@Override
 	public DataSource getDataSource() {
-		return DataSource.MAMMALIAN_PHENOTYPE;
+		return DataSource.MP;
 	}
 
 }
