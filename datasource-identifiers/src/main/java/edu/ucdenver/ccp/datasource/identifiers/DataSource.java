@@ -142,7 +142,7 @@ public enum DataSource implements IDataSource {
 	IUPHAR,
 	KEGG,
 	MAMIT_TRNA_DB,
-	MAMMALIAN_PHENOTYPE,
+	MP,
 	MAIZEGDB,
 	MATRIXDB,
 	MEDGEN,
