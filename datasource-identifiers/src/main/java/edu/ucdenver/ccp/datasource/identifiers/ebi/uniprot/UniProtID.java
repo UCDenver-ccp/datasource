@@ -52,11 +52,10 @@ public class UniProtID extends DataSourceIdentifier<String> {
 	 */
 	@Override
 	public String validate(String uniprotID) throws IllegalArgumentException {
-		String validUniProtFormatRegex_1 = "[A-NR-Z][0-9][A-Z][A-Z0-9][A-Z0-9][0-9]";
-		String validUniProtFormatRegex_2 = "[OPQ][0-9][A-Z0-9][A-Z0-9][A-Z0-9][0-9]";
+		String validUniProtFormatRegex = "[OPQ][0-9][A-Z0-9]{3}[0-9]|[A-NR-Z][0-9]([A-Z][A-Z0-9]{2}[0-9]){1,2}";
 		if (uniprotID != null) {
 			uniprotID = uniprotID.toUpperCase();
-			if ((uniprotID.matches(validUniProtFormatRegex_1) || uniprotID.matches(validUniProtFormatRegex_2))) {
+			if (uniprotID.matches(validUniProtFormatRegex)) {
 				return uniprotID;
 			}
 		}
