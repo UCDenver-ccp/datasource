@@ -62,8 +62,7 @@ public class MeshID extends DataSourceIdentifier<String> {
 
 	@Override
 	public String validate(String resourceID) throws IllegalArgumentException {
-		if (resourceID != null && resourceID.toUpperCase().startsWith("D")
-				&& NumberUtils.isDigits(resourceID.substring(1)))
+		if (resourceID != null && resourceID.matches("[A-Z]\\d+"))
 			return resourceID;
 
 		throw new IllegalArgumentException(String.format("Invalid Mesh ID : %s", resourceID));
