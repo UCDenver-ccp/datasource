@@ -43,6 +43,7 @@ public class NcbiTaxonomyID extends IntegerDataSourceIdentifier {
 	public static final NcbiTaxonomyID ALL = new NcbiTaxonomyID(Integer.MAX_VALUE);
 	public static final NcbiTaxonomyID HOMO_SAPIENS = new NcbiTaxonomyID(9606);
 	public static final NcbiTaxonomyID MUS_MUSCULUS = new NcbiTaxonomyID(10090);
+	public static final NcbiTaxonomyID RATTUS_NORVEGICUS = new NcbiTaxonomyID(10116);
 
 	public NcbiTaxonomyID(Integer taxonomyID) {
 		super(taxonomyID);
