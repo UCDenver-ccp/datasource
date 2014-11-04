@@ -194,6 +194,8 @@ public class DataSourceIdResolver {
 			return new PirID(databaseObjectID);
 		case REFSEQ:
 			return new RefSeqID(databaseObjectID);
+		case RGD:
+			return new RgdID(databaseObjectID);
 		case TRANSFAC:
 			return new TransfacGeneID(databaseObjectID);
 		case UNIPROT:
@@ -212,6 +214,8 @@ public class DataSourceIdResolver {
 	public static DataSourceIdentifier<?> resolveId(String databaseName, String databaseObjectID) {
 		if (databaseName.equalsIgnoreCase("MGI"))
 			return new MgiGeneID(databaseObjectID);
+		else if (databaseName.equalsIgnoreCase("RGD"))
+			return new RgdID(databaseObjectID);
 		else if (databaseName.equalsIgnoreCase("UniProtKB"))
 			return new UniProtID(databaseObjectID);
 		else if (databaseName.equalsIgnoreCase("chebi"))
