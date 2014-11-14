@@ -80,7 +80,15 @@ public class ProOntologyClassIterator extends OboClassIterator {
 
 	@Override
 	protected OboUtil<?> initializeOboUtilFromDownload() throws IOException, OBOParseException {
-		return new OboUtil(proOntologyOboFile, CharacterEncoding.UTF_8);
+		return new OboUtil(getProOntologyOboFile(), CharacterEncoding.UTF_8);
 	}
 
+	/**
+	 * @return the proOntologyOboFile
+	 */
+	public File getProOntologyOboFile() {
+		return proOntologyOboFile;
+	}
+
+	
 }
