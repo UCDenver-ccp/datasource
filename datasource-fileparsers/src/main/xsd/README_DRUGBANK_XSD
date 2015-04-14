@@ -1,0 +1,10 @@
+The drugbank.xsd file in this directory was downloaded from the DrugBank website:
+http://www.drugbank.ca/docs/drugbank.xsd
+
+It is used to automatically generate classes for processing the drugbank.xml file.
+Classes are generated using the jaxb-maven plugin and can be found in target/generated-sources/jaxb/ca/drugbank
+
+
+######## MUST FIX XSD FILE BEFORE USE ###########
+There are a few classes in drugbank.xsd that are not handled well by xjc (the jaxb xsd-to-java utility). The FIX for this is to remove
+the <xs:sequence maxOccurs="unbounded" minOccurs="0"> lines and replace them simply with <xs:sequence>

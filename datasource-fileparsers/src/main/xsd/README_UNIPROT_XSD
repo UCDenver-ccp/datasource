@@ -1,0 +1,5 @@
+The uniprot.xsd file in this directory was downloaded from the UniProt website:
+http://www.uniprot.org/docs/uniprot.xsd
+
+It is used to automatically generate classes for processing the UniProt XML files.
+Classes are generated using the jaxb-maven plugin and can be found in target/generated-sources/jaxb/org/uniprot
