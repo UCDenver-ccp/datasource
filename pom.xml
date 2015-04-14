@@ -53,6 +53,7 @@
 	<modules>
 		<module>datasource-identifiers</module>
 		<module>datasource-fileparsers</module>
+		<module>datasource-rdfizer</module>
 	</modules>
 
 	<build>
