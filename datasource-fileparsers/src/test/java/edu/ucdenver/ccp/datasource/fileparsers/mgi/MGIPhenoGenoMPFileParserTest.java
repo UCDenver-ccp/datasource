@@ -1,0 +1,138 @@
+/*
+ * Copyright (C) 2009 Center for Computational Pharmacology, University of Colorado School of Medicine
+ * 
+ * This program is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU General Public License
+ * as published by the Free Software Foundation; either version 2
+ * of the License, or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+ * 
+ */
+package edu.ucdenver.ccp.fileparsers.mgi;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.fail;
+
+import java.io.File;
+import java.io.IOException;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
+import org.junit.Test;
+
+import edu.ucdenver.ccp.common.collections.CollectionsUtil;
+import edu.ucdenver.ccp.common.file.CharacterEncoding;
+import edu.ucdenver.ccp.common.file.FileUtil;
+import edu.ucdenver.ccp.datasource.fileparsers.RecordReader;
+import edu.ucdenver.ccp.datasource.fileparsers.test.RecordReaderTester;
+import edu.ucdenver.ccp.datasource.identifiers.mgi.MgiGeneID;
+import edu.ucdenver.ccp.datasource.identifiers.obo.MammalianPhenotypeID;
+import edu.ucdenver.ccp.identifier.publication.PubMedID;
+
+/**
+ * 
+ * @author Bill Baumgartner
+ * 
+ */
+public class MGIPhenoGenoMPFileParserTest extends RecordReaderTester {
+
+	private static final String SAMPLE_FILE_NAME = "MGI_PhenoGenoMP.rpt";
+
+	@Override
+	protected String getSampleFileName() {
+		return SAMPLE_FILE_NAME;
+	}
+
+	@Override
+	protected RecordReader<?> initSampleRecordReader() throws IOException {
+		return new MGIPhenoGenoMPFileParser(sampleInputFile, CharacterEncoding.US_ASCII);
+	}
+
+	@Test
+	public void testParser() {
+		try {
+			MGIPhenoGenoMPFileParser parser = new MGIPhenoGenoMPFileParser(sampleInputFile, CharacterEncoding.US_ASCII);
+
+			if (parser.hasNext()) {
+				/*
+				 * Ptk2<tm1Imeg>/Ptk2<tm1Imeg> involves: C57BL/6 CBA MP:0005221 7478517,7566154
+				 * MGI:95481
+				 */
+				MGIPhenoGenoMPFileData record = parser.next();
+				assertEquals("Ptk2<tm1Imeg>/Ptk2<tm1Imeg>", record.getAllelicComposition());
+				assertEquals("involves: C57BL/6 * CBA", record.getGeneticBackground());
+				assertEquals(new MammalianPhenotypeID("MP:0005221"), record.getMammalianPhenotypeID());
+				assertEquals(createSet(new PubMedID(7478517), new PubMedID(7566154)), record.getPubmedIDs());
+				assertEquals(createSet(new MgiGeneID("MGI:95481")), record.getMgiAccessionIDs());
+			} else {
+				fail("Parser should have returned a record here.");
+			}
+
+			if (parser.hasNext()) {
+				/*
+				 * Foxa2<tm1Jrt>/Foxa2<+>,Gsc<tm1Bhr>/Gsc<tm1Bhr> involves: 129/Sv C57BL/6 CD-1
+				 * MP:0001672 9226455 MGI:1347476,MGI:95841
+				 */
+				MGIPhenoGenoMPFileData record = parser.next();
+				assertEquals("Foxa2<tm1Jrt>/Foxa2<+>,Gsc<tm1Bhr>/Gsc<tm1Bhr>", record.getAllelicComposition());
+				assertEquals("involves: 129/Sv * C57BL/6 * CD-1", record.getGeneticBackground());
+				assertEquals(new MammalianPhenotypeID("MP:0001672"), record.getMammalianPhenotypeID());
+				assertEquals(createSet(new PubMedID(9226455)), record.getPubmedIDs());
+				assertEquals(createSet(new MgiGeneID("MGI:1347476"), new MgiGeneID("MGI:95841")),
+						record.getMgiAccessionIDs());
+			} else {
+				fail("Parser should have returned a record here.");
+			}
+
+			assertFalse(parser.hasNext());
+
+		} catch (IOException ioe) {
+			ioe.printStackTrace();
+			fail("Parser threw an IOException");
+		}
+
+	}
+
+	private <E extends Object> Set<E> createSet(E... objects) {
+		return new HashSet<E>(Arrays.asList(objects));
+	}
+
+	protected Map<File, List<String>> getExpectedOutputFile2LinesMap() {
+		List<String> lines = CollectionsUtil
+				.createList(
+						"<http://www.informatics.jax.org/MGI_PHENO_GENO_FILE_RECORD_MP_0005221_MGI_95481> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.informatics.jax.org/MgiPhenoGenoRecord> .",
+						"<http://www.informatics.jax.org/MGI_PHENO_GENO_FILE_RECORD_MP_0005221_MGI_95481> <http://www.informatics.jax.org/isLinkedToMammalianPhenotypeICE> <http://www.informatics.jax.org/MP_0005221_ICE> .",
+						"<http://www.informatics.jax.org/MGI_PHENO_GENO_FILE_RECORD_MP_0005221_MGI_95481> <http://www.informatics.jax.org/isLinkedToMgiGeneICE> <http://www.informatics.jax.org/MGI_95481_ICE> .",
+						"<http://www.informatics.jax.org/MGI_PHENO_GENO_FILE_RECORD_MP_0005221_MGI_95481> <http://www.informatics.jax.org/isLinkedToPubMedICE> <http://www.ncbi.nlm.nih.gov/pubmed/PubMed_7566154_ICE> .",
+						"<http://www.informatics.jax.org/MGI_PHENO_GENO_FILE_RECORD_MP_0005221_MGI_95481> <http://www.informatics.jax.org/isLinkedToPubMedICE> <http://www.ncbi.nlm.nih.gov/pubmed/PubMed_7478517_ICE> .",
+						"<http://www.informatics.jax.org/MGI_PHENO_GENO_FILE_RECORD_MP_0001672_MGI_95841_MGI_1347476> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.informatics.jax.org/MgiPhenoGenoRecord> .",
+						"<http://www.informatics.jax.org/MGI_PHENO_GENO_FILE_RECORD_MP_0001672_MGI_95841_MGI_1347476> <http://www.informatics.jax.org/isLinkedToMammalianPhenotypeICE> <http://www.informatics.jax.org/MP_0001672_ICE> .",
+						"<http://www.informatics.jax.org/MGI_PHENO_GENO_FILE_RECORD_MP_0001672_MGI_95841_MGI_1347476> <http://www.informatics.jax.org/isLinkedToMgiGeneICE> <http://www.informatics.jax.org/MGI_95841_ICE> .",
+						"<http://www.informatics.jax.org/MGI_PHENO_GENO_FILE_RECORD_MP_0001672_MGI_95841_MGI_1347476> <http://www.informatics.jax.org/isLinkedToMgiGeneICE> <http://www.informatics.jax.org/MGI_1347476_ICE> .",
+						"<http://www.informatics.jax.org/MGI_PHENO_GENO_FILE_RECORD_MP_0001672_MGI_95841_MGI_1347476> <http://www.informatics.jax.org/isLinkedToPubMedICE> <http://www.ncbi.nlm.nih.gov/pubmed/PubMed_9226455_ICE> .");
+		Map<File, List<String>> file2LinesMap = new HashMap<File, List<String>>();
+		file2LinesMap.put(FileUtil.appendPathElementsToDirectory(outputDirectory, "mgi-phenogeno.nt"), lines);
+		return file2LinesMap;
+	}
+
+	protected Map<String, Integer> getExpectedFileStatementCounts() {
+		Map<String, Integer> counts = new HashMap<String, Integer>();
+		counts.put("mgi-phenogeno.nt", 10);
+		counts.put("kabob-meta-mgi-phenogeno.nt", 6);
+		return counts;
+	}
+
+}
