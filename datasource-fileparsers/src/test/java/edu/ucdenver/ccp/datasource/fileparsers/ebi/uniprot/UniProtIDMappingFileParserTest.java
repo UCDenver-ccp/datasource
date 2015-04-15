@@ -1,0 +1,169 @@
+package edu.ucdenver.ccp.fileparsers.ebi.uniprot;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.fail;
+
+import java.io.File;
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
+import org.junit.Ignore;
+import org.junit.Test;
+
+import edu.ucdenver.ccp.common.collections.CollectionsUtil;
+import edu.ucdenver.ccp.common.file.CharacterEncoding;
+import edu.ucdenver.ccp.common.file.FileUtil;
+import edu.ucdenver.ccp.datasource.fileparsers.RecordReader;
+import edu.ucdenver.ccp.datasource.fileparsers.test.RecordReaderTester;
+import edu.ucdenver.ccp.datasource.identifiers.ebi.embl.EmblID;
+import edu.ucdenver.ccp.datasource.identifiers.ebi.ipi.IpiID;
+import edu.ucdenver.ccp.datasource.identifiers.ebi.uniprot.UniProtEntryName;
+import edu.ucdenver.ccp.datasource.identifiers.ebi.uniprot.UniProtID;
+import edu.ucdenver.ccp.datasource.identifiers.ncbi.gene.EntrezGeneID;
+import edu.ucdenver.ccp.datasource.identifiers.ncbi.taxonomy.NcbiTaxonomyID;
+
+@Ignore("sample file needs to be updated to match current format: remove IPI Ids is one of the necessary changes")
+public class UniProtIDMappingFileParserTest extends RecordReaderTester {
+
+	private static final String SAMPLE_INPUT_FILE_NAME = "UniProt_idmapping_selected.tab";
+
+	@Override
+	protected String getSampleFileName() {
+		return SAMPLE_INPUT_FILE_NAME;
+	}
+
+	@Override
+	protected RecordReader<?> initSampleRecordReader() throws IOException {
+		return new UniProtIDMappingFileRecordReader(sampleInputFile, CharacterEncoding.US_ASCII, null);
+	}
+
+	@Test
+	public void testParser() {
+		try {
+			UniProtIDMappingFileRecordReader parser = new UniProtIDMappingFileRecordReader(sampleInputFile,
+					CharacterEncoding.US_ASCII, null);
+
+			if (parser.hasNext()) {
+				validateRecord(parser.next(), new UniProtEntryName("104K_THEAN"), new NcbiTaxonomyID(5874),
+						new UniProtID("Q4U9M9"), new HashSet<EntrezGeneID>(),
+						CollectionsUtil.createSet(new EmblID("CR940353")),
+						CollectionsUtil.createSet(new IpiID("IPI00759832")));
+			} else {
+				fail("Parser should have returned a record here.");
+			}
+
+			if (parser.hasNext()) {
+				validateRecord(parser.next(), new UniProtEntryName("104K_THEPA"), new NcbiTaxonomyID(5875),
+						new UniProtID("P15711"), CollectionsUtil.createSet(new EntrezGeneID(3500484)),
+						CollectionsUtil.createSet(new EmblID("M29954"), new EmblID("AAGK01000004")),
+						new HashSet<IpiID>());
+			} else {
+				fail("Parser should have returned a record here.");
+			}
+
+			if (parser.hasNext()) {
+				validateRecord(parser.next(), new UniProtEntryName("108_SOLLC"), new NcbiTaxonomyID(4081),
+						new UniProtID("Q43495"), new HashSet<EntrezGeneID>(),
+						CollectionsUtil.createSet(new EmblID("Z14088")), new HashSet<IpiID>());
+			} else {
+				fail("Parser should have returned a record here.");
+			}
+
+			assertFalse(parser.hasNext());
+
+		} catch (IOException ioe) {
+			ioe.printStackTrace();
+			fail("Parser threw an IOException");
+		}
+	}
+
+	private void validateRecord(UniProtIDMappingFileData record, UniProtEntryName uniProtEntryName,
+			NcbiTaxonomyID ncbiTaxonomyID, UniProtID uniProtID, Set<EntrezGeneID> entrezGeneIDs, Set<EmblID> emblIDs,
+			Set<IpiID> ipiIds) {
+		assertEquals(uniProtEntryName, record.getUniProtEntryName());
+		assertEquals(ncbiTaxonomyID, record.getTaxonomyID());
+		assertEquals(uniProtID, record.getUniProtAccessionID());
+		assertEquals(entrezGeneIDs, record.getEntrezGeneIDs());
+	}
+
+//	@Test
+//	public void testGetUniProtID2EntrezGeneIDMap() throws Exception {
+//		Map<UniProtID, Set<EntrezGeneID>> uniprot2entrezGeneIDMap = UniProtIDMappingFileRecordReader
+//				.getUniProtIDToEntrezGeneIDsMap(sampleInputFile, CharacterEncoding.US_ASCII, new NcbiTaxonomyID(5875));
+//
+//		Map<UniProtID, Set<EntrezGeneID>> expectedUniprot2entrezGeneIDMap = new HashMap<UniProtID, Set<EntrezGeneID>>();
+//		Set<EntrezGeneID> egSet = CollectionsUtil.createSet(new EntrezGeneID(3500484));
+//		expectedUniprot2entrezGeneIDMap.put(new UniProtID("P15711"), egSet);
+//		assertEquals(expectedUniprot2entrezGeneIDMap, uniprot2entrezGeneIDMap);
+//	}
+//
+//	@Test
+//	public void testGetEntrezGeneID2UniProtIDMap() throws Exception {
+//		Map<EntrezGeneID, Set<UniProtID>> entrezGeneID2UniProtIDMap = UniProtIDMappingFileRecordReader
+//				.getEntrezGeneID2UniProtIDsMap(sampleInputFile, CharacterEncoding.US_ASCII, new NcbiTaxonomyID(5875));
+//
+//		Map<EntrezGeneID, Set<UniProtID>> expectedEntrezGeneID2UniProtIDMap = new HashMap<EntrezGeneID, Set<UniProtID>>();
+//		Set<UniProtID> unIdSet = CollectionsUtil.createSet(new UniProtID("P15711"));
+//		expectedEntrezGeneID2UniProtIDMap.put(new EntrezGeneID(3500484), unIdSet);
+//
+//		assertEquals(expectedEntrezGeneID2UniProtIDMap, entrezGeneID2UniProtIDMap);
+//	}
+//
+//	@Test
+//	public void testGetEmblID2EntrezGeneIDMap() throws Exception {
+//		Map<EmblID, Set<EntrezGeneID>> embl2entrezGeneIDMap = UniProtIDMappingFileRecordReader.getEmblToEntrezGeneIDsMap(
+//				sampleInputFile, CharacterEncoding.US_ASCII, new NcbiTaxonomyID(5875));
+//
+//		Map<EmblID, Set<EntrezGeneID>> expectedEmbl2entrezGeneIDMap = new HashMap<EmblID, Set<EntrezGeneID>>();
+//		expectedEmbl2entrezGeneIDMap.put(new EmblID("M29954"), CollectionsUtil.createSet(new EntrezGeneID("3500484")));
+//		expectedEmbl2entrezGeneIDMap.put(new EmblID("AAGK01000004"),
+//				CollectionsUtil.createSet(new EntrezGeneID("3500484")));
+//
+//		assertEquals(expectedEmbl2entrezGeneIDMap, embl2entrezGeneIDMap);
+//	}
+//
+//	@Test
+//	public void testGetEmblID2UniProtIDMap() throws Exception {
+//		Map<EmblID, Set<UniProtID>> embl2UniProtIDMap = UniProtIDMappingFileRecordReader.getEmbl2UniProtIDsMap(
+//				sampleInputFile, CharacterEncoding.US_ASCII, new NcbiTaxonomyID(5875));
+//
+//		Map<EmblID, Set<UniProtID>> expectedEmbl2UniProtIDMap = new HashMap<EmblID, Set<UniProtID>>();
+//		expectedEmbl2UniProtIDMap.put(new EmblID("M29954"), CollectionsUtil.createSet(new UniProtID("P15711")));
+//		expectedEmbl2UniProtIDMap.put(new EmblID("AAGK01000004"), CollectionsUtil.createSet(new UniProtID("P15711")));
+//
+//		assertEquals(expectedEmbl2UniProtIDMap, embl2UniProtIDMap);
+//	}
+
+	protected Map<File, List<String>> getExpectedOutputFile2LinesMap() {
+		Map<File, List<String>> file2LinesMap = new HashMap<File, List<String>>();
+
+		List<String> lines = CollectionsUtil
+				.createList(
+						"<http://purl.uniprot.org/uniprot/UNIPROT_IDMAPPING_RECORD_Q4U9M9> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://purl.uniprot.org/uniprot/UniProt_IdMapping_Record> .",
+						"<http://purl.uniprot.org/uniprot/UNIPROT_IDMAPPING_RECORD_Q4U9M9> <http://purl.uniprot.org/uniprot/isLinkedToUniProtICE> <http://purl.uniprot.org/uniprot/Q4U9M9_ICE> .",
+						"<http://purl.uniprot.org/uniprot/UNIPROT_IDMAPPING_RECORD_Q4U9M9> <http://purl.uniprot.org/uniprot/isLinkedToEmblICE> <http://www.ebi.ac.uk/embl/CR940353_ICE> .",
+						"<http://purl.uniprot.org/uniprot/UNIPROT_IDMAPPING_RECORD_P15711> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://purl.uniprot.org/uniprot/UniProt_IdMapping_Record> .",
+						"<http://purl.uniprot.org/uniprot/UNIPROT_IDMAPPING_RECORD_P15711> <http://purl.uniprot.org/uniprot/isLinkedToUniProtICE> <http://purl.uniprot.org/uniprot/P15711_ICE> .",
+						"<http://purl.uniprot.org/uniprot/UNIPROT_IDMAPPING_RECORD_P15711> <http://purl.uniprot.org/uniprot/isLinkedToEntrezGeneICE> <http://www.ncbi.nlm.nih.gov/gene/EG_3500484_ICE> .",
+						"<http://purl.uniprot.org/uniprot/UNIPROT_IDMAPPING_RECORD_P15711> <http://purl.uniprot.org/uniprot/isLinkedToEmblICE> <http://www.ebi.ac.uk/embl/AAGK01000004_ICE> .",
+						"<http://purl.uniprot.org/uniprot/UNIPROT_IDMAPPING_RECORD_P15711> <http://purl.uniprot.org/uniprot/isLinkedToEmblICE> <http://www.ebi.ac.uk/embl/M29954_ICE> .",
+						"<http://purl.uniprot.org/uniprot/UNIPROT_IDMAPPING_RECORD_Q43495> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://purl.uniprot.org/uniprot/UniProt_IdMapping_Record> .",
+						"<http://purl.uniprot.org/uniprot/UNIPROT_IDMAPPING_RECORD_Q43495> <http://purl.uniprot.org/uniprot/isLinkedToUniProtICE> <http://purl.uniprot.org/uniprot/Q43495_ICE> .",
+						"<http://purl.uniprot.org/uniprot/UNIPROT_IDMAPPING_RECORD_Q43495> <http://purl.uniprot.org/uniprot/isLinkedToEmblICE> <http://www.ebi.ac.uk/embl/Z14088_ICE> .");
+		file2LinesMap.put(FileUtil.appendPathElementsToDirectory(outputDirectory, "uniprot-idmappings.nt"), lines);
+		return file2LinesMap;
+	}
+
+	protected Map<String, Integer> getExpectedFileStatementCounts() {
+		Map<String, Integer> counts = new HashMap<String, Integer>();
+		counts.put("uniprot-idmappings.nt", 11);
+		counts.put("kabob-meta-uniprot-idmappings.nt", 6);
+		return counts;
+	}
+
+}
