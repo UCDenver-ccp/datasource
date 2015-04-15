@@ -1,0 +1,67 @@
+# RGD-PIPELINE: ftp-file-extracts
+# MODULE: genes-version-2.1.2.6
+# GENERATED-ON: 2013/10/04
+# PURPOSE: information about active Rat genes extracted from RGD database
+# CONTACT: rgd.data@mcw.edu
+# FORMAT: tab delimited text
+# NOTES: multiple values in a single column are separated by ';'
+#
+### As of Apr 1, 2011 RATMAP_IDs and RHDB_IDs are discontinued.
+### As of Apr 15, 2011 GENE_REFSEQ_STATUS column is provided.
+### As of Jul 1, 2011 fixed generation of CURATED_REF_PUBMED_IDs and UNCURATED_PUBMED_IDs
+### As of Nov 23, 2011 ver 2.1.2: no format changes (UniGene Ids are extracted from db in different way).
+### As of Dec 19, 2011 ver 2.1.2.1: no format changes (fixed documentation in header to be consistent with column names).
+### As of May 31, 2012 ver 2.1.2.2: no format changes (improved generation speed).
+### As of July 6, 2012 ver 2.1.2.3: no format changes (added generation of file GENES_RAT_5.0).
+### As of Oct 23, 2012 ver 2.1.2.4: obsoleted column 23 'UNCURATED_REF_MEDLINE_ID' - changed to '(UNUSED)'.
+### As of Dec 17, 2012 ver 2.1.2.5: no format changes.
+### As of Aug 19, 2013 ver 2.1.2.6: gene descriptions made consistent with gene report pages from RGD website.
+#
+#COLUMN INFORMATION:
+# (First 38 columns are in common between rat, mouse and human)
+#
+#1   GENE_RGD_ID	      the RGD_ID of the gene
+#2   SYMBOL             official gene symbol
+#3   NAME    	          gene name
+#4   GENE_DESC          gene description (if available)
+#5   CHROMOSOME_CELERA  chromosome for Celera assembly
+#6   CHROMOSOME_3.1 chromosome for the old reference assembly build 3.1
+#7   CHROMOSOME_3.4 chromosome for the current reference assembly build 3.4
+#8   FISH_BAND          fish band information
+#9   START_POS_CELERA   start position for Celera assembly
+#10  STOP_POS_CELERA    stop position for Celera assembly
+#11  STRAND_CELERA      strand information for Celera assembly
+#12  START_POS_3.1  start position for old reference assembly build 3.1
+#13  STOP_POS_3.1   stop position for old reference assembly build 3.1
+#14  STRAND_3.1     strand information for old reference assembly build 3.1
+#15  START_POS_3.4  start position for current reference assembly build 3.4
+#16  STOP_POS_3.4   stop position for current reference assembly build 3.4
+#17  STRAND_3.4     strand information for current reference assembly build 3.4
+#18  CURATED_REF_RGD_ID      RGD_ID of paper(s) used to curate gene
+#19  CURATED_REF_PUBMED_ID   PUBMED_ID of paper(s) used to curate gene
+#20  UNCURATED_PUBMED_ID     PUBMED ids of papers associated with the gene at NCBI but not used for curation
+#21  ENTREZ_GENE             EntrezGene id
+#22  UNIPROT_ID              UniProtKB id(s)
+#23  (UNUSED)                blank
+#24  GENBANK_NUCLEOTIDE      GenBank Nucleotide ID(s)
+#25  TIGR_ID                 TIGR ID(s)
+#26  GENBANK_PROTEIN         GenBank Protein ID(s)
+#27  UNIGENE_ID              UniGene ID(s)
+#28  SSLP_RGD_ID             RGD_ID(s) of SSLPS associated with given gene
+#29  SSLP_SYMBOL             SSLP symbol
+#30  OLD_SYMBOL              old symbol alias(es)
+#31  OLD_NAME                old name alias(es)
+#32  QTL_RGD_ID              RGD_ID(s) of QTLs associated with given gene
+#33  QTL_SYMBOL              QTL symbol
+#34  NOMENCLATURE_STATUS     nomenclature status
+#35  SPLICE_RGD_ID           RGD_IDs for gene splices
+#36  SPLICE_SYMBOL           symbol for gene 
+#37  GENE_TYPE               gene type
+#38  ENSEMBL_ID              Ensembl Gene ID
+#39  GENE_REFSEQ_STATUS      gene RefSeq Status (from NCBI)
+#40  (UNUSED)        (blank)
+#
+GENE_RGD_ID	SYMBOL	NAME	GENE_DESC	CHROMOSOME_CELERA	CHROMOSOME_3.1	CHROMOSOME_3.4	FISH_BAND	START_POS_CELERA	STOP_POS_CELERA	STRAND_CELERA	START_POS_3.1	STOP_POS_3.1	STRAND_3.1	START_POS_3.4	STOP_POS_3.4	STRAND_3.4	CURATED_REF_RGD_ID	CURATED_REF_PUBMED_ID	UNCURATED_PUBMED_ID	ENTREZ_GENE	UNIPROT_ID	(UNUSED)	GENBANK_NUCLEOTIDE	TIGR_ID	GENBANK_PROTEIN	UNIGENE_ID	SSLP_RGD_ID	SSLP_SYMBOL	OLD_SYMBOL	OLD_NAME	QTL_RGD_ID	QTL_SYMBOL	NOMENCLATURE_STATUS	SPLICE_RGD_ID	SPLICE_SYMBOL	GENE_TYPE	ENSEMBL_ID	GENE_REFSEQ_STATUS	(UNUSED)
+1595728	2461a1a2	class I gene fragment 2461		20		20	p12	45820	46493	-				2742936	2743809	-			15060004	414990			AABR06099812;AAHX01099422;BX883049;NG_004533										PROVISIONAL			pseudo		INFERRED	
+1595729	2458a2	class I gene fragment 2458		20		20	p12	49408	49623	-				2746524	2746939	-			15060004	414989			AABR06099812;AAHX01099422;BX883049;NG_004532										PROVISIONAL			pseudo		INFERRED	
+1594425	2361ex4-5	class I gene fragment 2361		20		20	p12	171797	172346	-				2839109	2839658	-			15060004	415060			AABR06099815;BX883048;NG_004597				5046076	RH131544					PROVISIONAL			pseudo		INFERRED	
