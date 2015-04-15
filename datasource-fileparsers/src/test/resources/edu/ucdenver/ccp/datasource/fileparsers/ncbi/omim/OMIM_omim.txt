@@ -1,0 +1,899 @@
+*RECORD*
+*FIELD* NO
+100050
+*FIELD* TI
+100050 AARSKOG SYNDROME
+*FIELD* TX
+Grier et al. (1983) reported father and 2 sons with typical Aarskog
+syndrome, including short stature, hypertelorism, and shawl scrotum.
+They tabulated the findings in 82 previous cases. X-linked recessive
+inheritance has been repeatedly suggested (see 305400). The family
+reported by Welch (1974) had affected males in 3 consecutive
+generations. Thus, there is either genetic heterogeneity or this is an
+autosomal dominant with strong sex-influence and possibly ascertainment
+bias resulting from use of the shawl scrotum as a main criterion.
+Stretchable skin was present in the cases of Grier et al. (1983). Teebi
+et al. (1993) reported the case of an affected mother and 4 sons
+(including a pair of monozygotic twins) by 2 different husbands. They
+suggested that the manifestations were as severe in the mother as in the
+sons and that this suggested autosomal dominant inheritance. Actually,
+the mother seemed less severely affected, compatible with X-linked
+inheritance.
+
+*FIELD* RF
+1. Grier, R. E.; Farrington, F. H.; Kendig, R.; Mamunes, P.: Autosomal
+dominant inheritance of the Aarskog syndrome. Am. J. Med. Genet. 15:
+39-46, 1983.
+
+2. Teebi, A. S.; Rucquoi, J. K.; Meyn, M. S.: Aarskog syndrome: report
+of a family with review and discussion of nosology. Am. J. Med. Genet. 46:
+501-509, 1993.
+
+3. Welch, J. P.: Elucidation of a 'new' pleiotropic connective tissue
+disorder. Birth Defects Orig. Art. Ser. X(10): 138-146, 1974.
+
+*FIELD* CS
+
+Growth:
+   Mild to moderate short stature
+
+Head:
+   Normocephaly
+
+Hair:
+   Widow's peak
+
+Facies:
+   Maxillary hypoplasia;
+   Broad nasal bridge;
+   Anteverted nostrils;
+   Long philtrum;
+   Broad upper lip;
+   Curved linear dimple below the lower lip
+
+Eyes:
+   Hypertelorism;
+   Ptosis;
+   Down-slanted palpebral fissures;
+   Ophthalmoplegia;
+   Strabismus;
+   Hyperopic astigmatism;
+   Large cornea
+
+Ears:
+   Floppy ears;
+   Lop-ears
+
+Mouth:
+   Cleft lip/palate
+
+GU:
+   Shawl scrotum;
+   Saddle-bag scrotum;
+   Cryptorchidism
+
+Limbs:
+   Brachydactyly;
+   Digital contractures;
+   Clinodactyly;
+   Mild syndactyly;
+   Transverse palmar crease;
+   Lymphedema of the feet
+
+Joints:
+   Ligamentous laxity;
+   Osteochondritis dissecans;
+   Proximal finger joint hyperextensibility;
+   Flexed distal finger joints;
+   Genu recurvatum;
+   Flat feet
+
+Skin:
+   Stretchable skin
+
+Spine:
+   Cervical spine hypermobility;
+   Odontoid anomaly
+
+Heme:
+   Macrocytic anemia;
+   Hemochromatosis
+
+GI:
+   Hepatomegaly;
+   Portal cirrhosis;
+   Imperforate anus;
+   Rectoperineal fistula
+
+Pulmonary:
+   Interstitial pulmonary disease
+
+Thorax:
+   Sternal deformity
+
+Inheritance:
+   Sex-influenced autosomal dominant form;
+   also X-linked form
+
+*FIELD* CD
+Victor A. McKusick: 6/4/1986
+
+*FIELD* ED
+alopez: 06/03/1997
+mimadm: 3/11/1994
+carol: 7/7/1993
+supermim: 3/16/1992
+supermim: 3/20/1990
+ddp: 10/26/1989
+marie: 3/25/1988
+
+*RECORD*
+*FIELD* NO
+100070
+*FIELD* TI
+#100070 AORTIC ANEURYSM, ABDOMINAL
+;;AAA;;
+AAA1;;
+ANEURYSM, ABDOMINAL AORTIC;;
+ABDOMINAL AORTIC ANEURYSM
+ARTERIOMEGALY, INCLUDED;;
+ANEURYSMS, PERIPHERAL, INCLUDED
+*FIELD* TX
+A number sign (#) is used with this entry because abdominal aortic
+aneurysm is a multifactorial disorder with multiple genetic and
+environmental risk factors. The disorder may occur as part of a
+heritable syndrome or in isolation. Loci for isolated abdominal aortic
+aneurysm have been mapped to 19q13 (AAA1; 609781), 4q31 (AAA2; 609782),
+and 9p21 (AAA3; 611891).
+
+CLINICAL FEATURES
+
+Loosemore et al. (1988) described 2 brothers with abdominal aortic
+aneurysm at ages 58 and 62 years, whose father died of ruptured
+abdominal aortic aneurysm at the age of 72 years. Four other sibs died
+of myocardial infarction at ages 47 to 61 years. Loosemore et al. (1988)
+suggested that a deficiency of type III collagen (see 120180) might be
+the basis for the aneurysm formation. The proportion of type III
+collagen in forearm skin biopsies was cited as accurately reflective of
+the proportion in the aorta and was said to have been low in the
+brothers.
+
+Ward (1992) looked for association of dilated peripheral arteries with
+aortic aneurysmal disease by measuring the diameters of the common
+femoral, popliteal, brachial, common carotid, internal carotid, and
+external carotid arteries by color-flow duplex scan in 30 control
+subjects and 36 patients with aortic aneurysm matched for age, sex,
+smoking habits, and hypertension. Mean peripheral artery diameter was
+significantly greater in patients with aortic aneurysms than in controls
+at all measurement sites. Peripheral artery dilatation was identified at
+sites that are seldom, if ever, involved in atherosclerosis. Ward (1992)
+concluded that there is a generalized dilating diathesis in aortic
+aneurysmal disease that may be unrelated to atherosclerosis.
+
+In the study of Verloes et al. (1995), familial male cases showed a
+significantly earlier age at rupture and a greater rupture rate as
+compared with sporadic male cases, as well as a tendency (p less than
+0.05) towards earlier age of diagnosis.
+
+AAA occurs among approximately 1.5% of the male population older than 50
+years of age. Several studies have indicated an increased frequency
+among first-degree relatives of patients with AAA. Aneurysms of the
+peripheral arteries (femoral, popliteal, and isolated iliac) are less
+common than aortic aneurysms (Lawrence et al., 1995), and arteriomegaly
+(diffuse aneurysmal disease) is even less common (Hollier et al., 1983).
+Peripheral aneurysms and arteriomegaly carry a high risk for
+complications such as rupture, embolism, or thrombosis.
+
+INHERITANCE
+
+Tilson and Seashore (1984) reported 50 families in which abdominal
+aortic aneurysm had occurred in 2 or more first-degree relatives, mainly
+males. In 29 families, multiple sibs (up to 4) were affected; in 2
+families, 3 generations were affected; and in 15 families, persons in 2
+generations were affected. Three complex pedigrees were observed: one in
+which both parents and 3 sons were affected; one in which a man and his
+paternal uncle were affected; and one in which a man and his father and
+maternal great-uncle were affected. In the 'one-generation' families,
+there were 3 with only females affected, including a set of identical
+twins. The authors concluded that if a single gene is responsible, it is
+likely to be autosomal but that a multigenic mechanism cannot be
+excluded.
+
+Clifton (1977) reported 3 affected brothers.
+
+In North Carolina, Johnson et al. (1985) found that white males have a
+frequency of abdominal aortic aneurysm about 3 times that in black
+males, black females, or white females; all 3 of the latter groups had
+about comparable frequencies. Frequency was ascertained by a survey of
+autopsies and a survey of abdominal computed tomographic scans in
+subjects over the age of 50 years.
+
+Johansen and Koepsell (1986) compared the family histories of 250
+patients with abdominal aortic aneurysm with those of 250 control
+subjects. Among the control subjects, 2.4% reported a first-degree
+relative with an aneurysm, compared with 19.2% of the patients with
+abdominal aortic aneurysm. This was taken to represent an estimated
+11.6-fold increase in abdominal aortic aneurysm risk among persons with
+an affected first-degree relative. The authors suggested that
+noninvasive screening to detect early abdominal aortic aneurysm may be
+warranted in the relatives of affected persons.
+
+Borkett-Jones et al. (1988) brought to 4 the number of reported sets of
+identical twins concordant for abdominal aortic aneurysm. In a 9-year
+prospective study of 542 consecutive patients undergoing operation for
+abdominal aortic aneurysm, Darling et al. (1989) found that 82 (15.1%)
+had a first-degree relative with an aneurysm as compared to 9 (1.8%) of
+the control group of 500 patients of similar age and sex without
+aneurysmal disease. Patients with familial abdominal aortic aneurysm
+were more likely to be women (35% vs 14%), and men with familial
+abdominal aortic aneurysm tended to be about 5 years younger than the
+women. No significant difference was found between the patients with
+nonfamilial and familial abdominal aortic aneurysms in anatomic extent,
+multiplicity, associated occlusive disease, or blood type. The risk of
+rupture was strongly correlated with familial disease and the presence
+of a female member with aneurysm (63% vs 37%). Darling et al. (1989)
+suggested the term 'black widow syndrome' because of the grim
+significance of the presence of an affected female in the family.
+
+On the basis of a study of first-degree relatives of 91 probands,
+Majumder et al. (1991) rejected the nongenetic model and concluded that
+the most parsimonious genetic model was that susceptibility to abdominal
+aortic aneurysm is determined by a recessive gene at an autosomal
+diallelic major locus.
+
+Fitzgerald et al. (1995) assessed the incidence of abdominal aortic
+aneurysm (AAA) in the sibs of 120 patients known to have AAA. Twelve
+percent of the sibs were found to have an aneurysm, including 22% of
+male sibs but only 3% of female sibs. Male sibs with hypertension were
+more likely to have AAA.
+
+In the study of Verloes et al. (1995), relative risk for male sibs of a
+male patient was 18. Segregation analysis with the mixed model gave
+single gene effect with dominant inheritance as the most likely
+explanation for the familial occurrence. The frequency of the morbid
+allele was 1:250, and its age-related penetrance was not higher than
+0.4.
+
+As part of a review of abdominal aortic aneurysm as a multifactorial
+process, Henney (1993) reviewed family studies and the molecular
+genetics. In a review focused on surgical aspects, Ernst (1993)
+commented that 'there is little support for atherosclerosis as the
+unitary cause...several factors appear to have an important role,
+including familial clustering...'
+
+Through questionnaire and telephone inquiries, Verloes et al. (1995)
+collected family data on 324 probands with abdominal aortic aneurysm and
+determined multigenerational pedigrees on 313 families, including 39
+with multiple affected patients. There were 276 sporadic cases (264 men;
+12 women); 81 cases belonged to multiplex pedigrees (76 men; 5 women).
+
+Baird et al. (1995) collected information from 126 probands with
+abdominal aortic aneurysm and 100 controls (cataract surgery patients)
+concerning AAA. Of 427 sibs of probands, 19 (4.4%) had probable or
+definite AAA, compared with 5 (1.1%) of 451 sibs of controls. The
+lifetime cumulative risks of AAA at age 83 were 11.7% and 7.5%,
+respectively. The risk of AAA began at an earlier age and increased more
+rapidly for probands' sibs than for controls' sibs. The risk comparison,
+based on the results of ultrasound screening of 54 geographically
+accessible sibs probands and the 100 controls, showed a similar pattern.
+AAA was found on ultrasound in 10 sibs of probands, or 19%, compared to
+8% of controls.
+
+Lawrence et al. (1998) constructed pedigrees for first-degree relatives
+of 140 patients who received the diagnosis of peripheral arterial
+aneurysm, arteriomegaly, or AAA from 1988 through 1996 in Salt Lake
+City, Utah. Patients with peripheral arterial aneurysm (n = 40) had a
+10% (4 of 40) familial incidence rate of an aneurysm, patients with AAA
+(n = 86) had a 22% (19 of 86) familial incidence rate, and patients with
+arteriomegaly (n = 14) had a 36% (5 of 14) familial incidence rate. AAA
+was the aneurysm diagnosed most commonly among first-degree relatives
+(86%; 24 of 28). Most aneurysms (85%) occurred among men. Lawrence et
+al. (1998) suggested that relatives of patients with AAA, peripheral
+arterial aneurysm, or arteriomegaly may be screened by means of a
+physical examination for peripheral aneurysmal disease. Screening by
+means of ultrasound examination of the aorta should be limited to
+first-degree relatives of patients with aortic aneurysms or
+arteriomegaly.
+
+Rossaak et al. (2000) cited a familial incidence of 11 to 20% for AAA.
+
+Kuivaniemi et al. (2003) identified 233 families with at least 2
+individuals diagnosed with abdominal aortic aneurysms. The families
+originated from 9 different nationalities, but all were white. There
+were 653 aneurysm patients in these families, with an average of 2.8
+cases per family. Most of the families were small, with only 2 affected
+individuals. There were, however, 6 families with 6, 3 with 7, and 1
+with 8 affected individuals. Most of the probands (82%) and the affected
+relatives (77%) were male, and the most common relationship to the
+proband was brother. Most of the families (72%) appeared to show an
+autosomal recessive inheritance pattern, whereas in 58 families (25%),
+abdominal aortic aneurysms were inherited in an autosomal dominant
+manner, and in 8 families, the familial aggregation could be explained
+by autosomal dominant inheritance with incomplete penetrance. In the 66
+families where abdominal aortic aneurysms were inherited in a dominant
+manner, 141 transmissions of the disease from 1 generation to another
+were identified, and male-to-male, male-to-female, female-to-male, and
+female-to-female transmissions occurred in 46%, 11%, 32%, and 11%,
+respectively. Kuivaniemi et al. (2003) concluded that abdominal aortic
+aneurysms are a multifactorial disorder with multiple genetic and
+environmental risk factors.
+
+PATHOGENESIS
+
+Newman et al. (1994) and others have pointed to a role of matrix
+metalloproteinases (MMPs) in end-stage AAA. MMP activity is closely
+controlled by the balance of its activators, such as plasmin, and its
+inhibitors. A mutation that reduces the transcription of plasminogen
+activator inhibitor (PAI1; 173360) would result in an increase in the
+activity of tissue plasminogen activator (PLAT; 173370). This in turn
+would increase the conversion of inactive plasminogen (173350) to its
+active form, plasmin, and increase the zymogen activation of MMPs.
+Jean-Claude et al. (1994) observed increased levels of plasmin in AAAs.
+
+It is possible that aneurysms develop due to structural alterations in
+extracellular matrix (ECM) proteins such as elastin (130160), collagens,
+and proteoglycans. Such alterations in type III collagen (see 120180),
+however, have been shown to be rare causes of both abdominal aortic
+aneurysms and intracranial aneurysms (see 105800). Another alternative
+is that the enzymes degrading the structural molecules contribute to
+aneurysm formation. Matrix metalloproteinases (MMPs) are connective
+tissue-degrading enzymes that could play a role in structural
+alterations of the arterial wall through the degradation of collagens
+and other extracellular matrix molecules. MMP3 (185250), MMP9 (120361),
+and PAI1 are present at increased levels in abdominal aortic aneurysms
+(Yoon et al., 1999). Promoters of these genes contain polymorphisms with
+alleles that exhibit different transcriptional activities in vitro.
+
+Tromp et al. (2004) determined the relative expression of MMP13 (600108)
+in aortic tissue samples from 36 patients who underwent abdominal aortic
+aneurysm repair operations and from 20 nonaneurysmal autopsy samples.
+MMP13 was expressed in all parts of the aorta, and its expression was
+elevated in the aneurysmal sac. In further studies using MMP13-specific
+antibody, Tromp et al. (2004) demonstrated that MMP13 protein was
+present in the aneurysmal wall.
+
+Yoshimura et al. (2005) observed a high level of phosphorylated JNK
+(MAPK8; 601158) in human AAA tissue. By DNA microarray analysis of rat
+aortic vascular smooth muscle cells, they demonstrated that Jnk programs
+a gene expression pattern that cooperatively enhances degradation of the
+extracellular matrix, while suppressing biosynthetic enzymes of the ECM,
+such as Lox (153455) and Plod1 (153454). In human monocyte-macrophage
+cells and AAA tissue, JNK played a role in MMP9 secretion. Selective
+inhibition of Jnk in vivo not only prevented the development of AAA but
+also caused regression of established AAA in 2 mouse models. Yoshimura
+et al. (2005) concluded that JNK is a proximal signaling molecule in the
+pathogenesis of AAA that acts by promoting abnormal ECM metabolism.
+
+MOLECULAR GENETICS
+
+Kontusaari et al. (1989) and Kontusaari et al. (1990) reported a
+mutation in the COL3A1 gene (120180.0004) that may be the cause of
+familial aortic aneurysms. See review of Kuivaniemi et al. (1991). Tromp
+et al. (1993) carried out detailed DNA sequencing of the triple-helical
+domain of type III procollagen on cDNA prepared from 54 patients with
+aortic aneurysms. In the case of 43 patients, at least 1 additional
+blood relative had aneurysms. The 43 males and 11 females originated
+from 50 different families and 5 different nationalities. Only one amino
+acid substitution likely to have functional significance, a
+gly136-to-arg mutation, was found (see 120180.0018). Results indicated
+that mutations in type III procollagen are the cause of only about 2% of
+aortic aneurysms.
+
+A 4G/5G single nucleotide insertion/deletion polymorphism -675 bp
+upstream from the initiation of transcription in the PAI1 gene
+(173360.0002) has been described (Dawson et al., 1993). The 4G allele
+binds only an activator, whereas the 5G allele binds an activator and a
+repressor and is associated with a relatively reduced transcription of
+PAI1. The 5G variant is associated with less inhibition of the
+plasminogen activators and, consequently, increased conversion of
+plasminogen to plasmin and increased activation of MMPs. Thus, patients
+with this variant may be more at risk of the development of AAA. Rossaak
+et al. (2000) studied the ratios of the 4G:5G genotypes in 190 patients
+with AAA, including 39 patients with strong family histories, and 163
+controls. The frequency of the 4G:5G alleles in the AAA population and
+in the control population was 0.6:0.4. However, 26% of patients with
+familial AAA were homozygous 5G compared with 13% of the control
+population. The 4G allele frequency was 0.47 in the familial AAAs,
+compared with 0.62 in the nonfamilial patients (P = 0.02) and 0.61 in
+the control population (P = 0.03). There are suggestions from several
+sources that AAA and atherosclerosis may be different diseases. In their
+AAA population, Rossaak et al. (2000) found an incidence of diabetes
+mellitus of 6%. They suggested that this relatively low incidence in
+patients with AAA contrasted with that in atherosclerotic disease and
+lent support to the notion that these 2 disorders are indeed distinct.
+The association of the 5G homozygous genotype with familial AAA was
+another observation that questioned the idea that atherosclerosis causes
+AAAs. Whereas the 4G variant of PAI1 shows a protective role in AAA, it
+is undesirable in the context of coronary artery disease and
+atherosclerosis (Harris, 2001).
+
+Yoon et al. (1999) performed association studies using polymorphisms in
+the MMP3 (185250), MMP9 (120361), and PAI1 (173360) genes and DNA
+isolated from 47 AAA patients, 57 intracranial aneurysm (IA) patients,
+and 174 controls, all from Finland. PAI1 and MMP9 genotypes did not
+associate with aneurysms. The frequency of the 5A MMP3 allele
+(185250.0001) was somewhat higher in the AAA than in the control group,
+whereas the MMP3 allele frequencies in the IA group did not differ from
+those of the controls. These findings suggested that the
+transcriptionally more active 5A MMP3 allele might be a genetic risk
+factor for AAA among Finns. The findings were in agreement with previous
+studies demonstrating higher levels of MMP3 expression in AAA than in
+control tissues.
+
+Histologically, AAAs are characterized by signs of chronic inflammation,
+destructive remodeling of the extracellular matrix, and depletion of
+vascular smooth muscle cells (Steinmetz et al., 2003). Ogata et al.
+(2005) hypothesized that genes involved in these events could harbor
+changes and make individuals more susceptible to aneurysms. They
+reported studies that identified significant genetic associations
+between DNA sequence changes in the tissue inhibitor of
+metalloproteinase-1 (TIMP1; 305370), TIMP3 (188826), matrix
+metalloproteinase-10 (MMP10; 185260) and elastin (ELN; 130160) and AAA.
+
+POPULATION GENETICS
+
+Abdominal aortic aneurysm is, of course, a common disorder; by
+ultrasound screening, Collin et al. (1988) found an abdominal aortic
+aneurysm in 5.4% of men aged 65 to 74, and in 2.3% of men in this age
+group the aneurysm was 4 cm or more in diameter.
+
+*FIELD* SA
+Gatalica et al. (1992); Norrgard et al. (1985); Norrgard et al. (1984)
+*FIELD* RF
+1. Baird, P. A.; Sadovnick, A. D.; Yee, I. M. L.; Cole, C. W.; Cole,
+L.: Sibling risks of abdominal aortic aneurysm. Lancet 346: 601-604,
+1995.
+
+2. Borkett-Jones, H. J.; Stewart, G.; Chilvers, A. S.: Abdominal
+aortic aneurysms in identical twins. J. Roy. Soc. Med. 81: 471-472,
+1988.
+
+3. Clifton, M. A.: Familial abdominal aortic aneurysms. Brit. J.
+Surg. 64: 765-766, 1977.
+
+4. Collin, J.; Araujo, L.; Walton, J.; Lindsell, D.: Oxford screening
+programme for abdominal aortic aneurysm in men aged 65 to 74 years. Lancet 332:
+613-615, 1988. Note: Originally Volume II.
+
+5. Darling, R. C., III; Brewster, D. C.; Darling, R. C.; LaMuraglia,
+G. M.; Moncure, A. C.; Cambria, R. P.; Abbott, W. M.: Are familial
+abdominal aortic aneurysms different? J. Vasc. Surg. 10: 39-43,
+1989.
+
+6. Dawson, S. J.; Wiman, B.; Hamsten, A.; Green, F.; Humphries, S.;
+Henney, A. M.: The two allele sequences of a common polymorphism
+in the promoter of the plasminogen activator inhibitor-1 (PAI-1) gene
+respond differently to interleukin-1 in HepG2 cells. J. Biol. Chem. 268:
+10739-10745, 1993.
+
+7. Ernst, C. B.: Abdominal aortic aneurysm. New Eng. J. Med. 328:
+1167-1172, 1993.
+
+8. Fitzgerald, P.; Ramsbottom, D.; Burke, P.; Grace, P.; McAnen, O.;
+Croke, D. T.; Collins, P.; Johnson, A.; Bouchier-Hayes, D.: Abdominal
+aortic aneurysm in the Irish population. Brit. J. Surg. 82: 483-486,
+1995.
+
+9. Gatalica, Z.; Gibas, Z.; Martinez-Hernandez, A.: Dissecting aortic
+aneurysm as a complication of generalized fibromuscular dysplasia. Hum.
+Path. 23: 586-588, 1992.
+
+10. Harris, E. L.: Personal Communication. Dunedin, New Zealand 
+11/27/2001.
+
+11. Henney, A. M.: Abdominal aortic aneurysm: molecular genetics. Lancet 341:
+216-217, 1993.
+
+12. Hollier, L. H.; Stanson, A. W.; Gloviczki, P.; Pairolero, P. C.;
+Joyce, J. W.; Bernatz, P. E.; Cherry, K. J.: Arteriomegaly: classification
+and morbid implications of diffuse aneurysmal disease. Surgery 93:
+700-708, 1983.
+
+13. Jean-Claude, J.; Newman, K. M.; Li, H.; Gregory, A. K.; Tilson,
+M. D.: Possible key role for plasmin in the pathogenesis of abdominal
+aortic aneurysms. Surgery 116: 472-478, 1994.
+
+14. Johansen, K.; Koepsell, T.: Familial tendency for abdominal aortic
+aneurysms. JAMA 256: 1934-1936, 1986.
+
+15. Johnson, G., Jr.; Avery, A.; McDougal, E. G.; Burnham, S. J.;
+Keagy, B. A.: Aneurysms of the abdominal aorta: incidence in blacks
+and whites in North Carolina. Arch. Surg. 120: 1138-1140, 1985.
+
+16. Kontusaari, S.; Kuivaniemi, H.; Tromp, G.; Grimwood, R.; Prockop,
+D. J.: A single base mutation in the type III procollagen gene (COL3A1)
+on chromosome 2q that causes familial aneurysms. (Abstract) Cytogenet.
+Cell Genet. 51: 1024-1025, 1989.
+
+17. Kontusaari, S.; Tromp, G.; Kuivaniemi, H.; Romanic, A. M.; Prockop,
+D. J.: A mutation in the gene for type III procollagen (COL3A1) in
+a family with aortic aneurysms. J. Clin. Invest. 86: 1465-1473,
+1990.
+
+18. Kuivaniemi, H.; Shibamura, H.; Arthur, C.; Berguer, R.; Cole,
+C. W.; Juvonen, T.; Kline, R. A.; Limet, R.; MacKean, G.; Norrgard,
+O.; Pals, G.; Powell, J. T.; Rainio, P.; Sakalihasan, N.; van Vlijmen-van
+Keulen, C.; Verloes, A.; Tromp, G.: Familial abdominal aortic aneurysms:
+collection of 233 multiplex families. J. Vasc. Surg. 37: 340-345,
+2003.
+
+19. Kuivaniemi, H.; Tromp, G.; Prockop, D. J.: Genetic causes of
+aortic aneurysms: unlearning at least part of what the textbooks say. J.
+Clin. Invest. 88: 1441-1444, 1991.
+
+20. Lawrence, P. F.; Lorenzo-Rivero, S.; Lyon, J. L.: The incidence
+of iliac, femoral, and popliteal artery aneurysms in hospitalized
+patients. J.  Vasc. Surg. 22: 409-415, 1995.
+
+21. Lawrence, P. F.; Wallis, C.; Dobrin, P. B.; Bhirangi, K.; Gugliuzza,
+N.; Galt, S.; Kraiss, L.: Peripheral aneurysms and arteriomegaly:
+is there a familial pattern? J. Vasc. Surg. 28: 599-605, 1998.
+
+22. Loosemore, T. M.; Child, A. H.; Dormandy, J. A.: Familial abdominal
+aortic aneurysms. J. Roy. Soc. Med. 81: 472-473, 1988.
+
+23. Majumder, P. P.; St. Jean, P. L.; Ferrell, R. E.; Webster, M.
+W.; Steed, D. L.: On the inheritance of abdominal aortic aneurysm. Am.
+J. Hum. Genet. 48: 164-170, 1991.
+
+24. Newman, K. M.; Malon, A. M.; Shin, R. D.; Scholes, J. V.; Ramey,
+W. G.; Tilson, M. D.: Matrix metalloproteinases in abdominal aortic
+aneurysm: characterization, purification, and their possible sources. Connect.
+Tissue Res. 30: 265-276, 1994.
+
+25. Norrgard, O.; Angquist, K.-A.; Johnson, O.: Familial aortic aneurysms:
+serum concentrations of triglyceride, cholesterol, HDL-cholesterol
+and (VLDL + LDL)-cholesterol. Brit. J. Surg. 72: 113-116, 1985.
+
+26. Norrgard, O.; Rais, O.; Angquist, K. A.: Familial occurrence
+of abdominal aortic aneurysms. Surgery 95: 650-656, 1984.
+
+27. Ogata, T.; Shibamura, H.; Tromp, G.; Sinha, M.; Goddard, K. A.
+B.; Sakalihasan, N.; Limet, R.; MacKean, G. L.; Arthur, C.; Sueda,
+T.; Land, S.; Kuivaniemi, H.: Genetic analysis of polymorphisms in
+biologically relevant candidate genes in patients with abdominal aortic
+aneurysms. J. Vasc. Surg. 41: 1036-1042, 2005.
+
+28. Rossaak, J. I.; van Rij, A. M.; Jones, G. T.; Harris, E. L.:
+Association of the 4G/5G polymorphism in the promoter region of plasminogen
+activator inhibitor-1 with abdominal aortic aneurysms. J. Vasc. Surg. 31:
+1026-1032, 2000.
+
+29. Steinmetz, E. F.; Buckley, C.; Thompson, R. W.: Prospects for
+the medical management of abdominal aortic aneurysms. Vasc. Endovasc.
+Surg. 37: 151-163, 2003.
+
+30. Tilson, M. D.; Seashore, M. R.: Fifty families with abdominal
+aortic aneurysms in two or more first-order relatives. Am. J. Surg. 147:
+551-553, 1984.
+
+31. Tromp, G.; Gatalica, Z.; Skunca, M.; Berguer, R.; Siegel, T.;
+Kline, R. A.; Kuivaniemi, H.: Elevated expression of matrix metalloproteinase-13
+in abdominal aortic aneurysms. Ann. Vasc. Surg. 18: 414-420, 2004.
+
+32. Tromp, G.; Wu, Y.; Prockop, D. J.; Madhatheri, S. L.; Kleinert,
+C.; Earley, J. J.; Zhuang, J.; Norrgard, O.; Darling, R. C.; Abbott,
+W. M.; Cole, C. W.; Jaakkola, P.; Ryynanen, M.; Pearce, W. H.; Yao,
+J. S. T.; Majamaa, K.; Smullens, S. N.; Gatalica, Z.; Ferrell, R.
+E.; Jimenez, S. A.; Jackson, C. E.; Michels, V. V.; Kaye, M.; Kuivaniemi,
+H.: Sequencing of cDNA from 50 unrelated patients reveals that mutations
+in the triple-helical domain of type III procollagen are an infrequent
+cause of aortic aneurysms. J. Clin. Invest. 91: 2539-2545, 1993.
+
+33. Verloes, A.; Sakalihasan, N.; Koulischer, L.; Limet, R.: Aneurysms
+of the abdominal aorta: familial and genetic aspects in three hundred
+thirteen pedigrees. J. Vas. Surg. 21: 646-655, 1995.
+
+34. Ward, A. S.: Aortic aneurysmal disease: a generalized dilating
+diathesis? Arch. Surg. 127: 990-991, 1992.
+
+35. Yoon, S.; Tromp, G.; Vongpunsawad, S.; Ronkainen, A.; Juvonen,
+T.; Kuivaniemi, H.: Genetic analysis of MMP3, and PAI-1 in Finnish
+patients with abdominal aortic or intracranial aneurysms. Biochem.
+Biophys. Res. Commun. 265: 563-568, 1999.
+
+36. Yoshimura, K.; Aoki, H.; Ikeda, Y.; Fujii, K.; Akiyama, N.; Furutani,
+A.; Hoshii, Y.; Tanaka, N.; Ricci, R.; Ishihara, T.; Esato, K.; Hamano,
+K.; Matsuzaki, M.: Regression of abdominal aortic aneurysm by inhibition
+of c-Jun N-terminal kinase. Nature Med. 11: 1330-1338, 2005.
+
+*FIELD* CS
+
+Vascular:
+   Abdominal aortic aneurysm;
+   Generalized dilating diathesis
+
+Misc:
+   Estimated 11.6-fold increase among persons with an affected first-degree
+   relative
+
+Inheritance:
+   Autosomal dominant vs. recessive at an autosomal major locus or multifactorial;
+   COL3A1 gene (120180.0004) mutations cause about 2%
+
+*FIELD* CN
+Marla J. F. O'Neill - updated: 3/20/2006
+Victor A. McKusick - updated: 12/2/2005
+Victor A. McKusick - updated: 12/14/2001
+Victor A. McKusick - updated: 1/20/1999
+Clair A. Francomano - updated: 5/12/1995
+
+*FIELD* CD
+Victor A. McKusick: 6/4/1986
+
+*FIELD* ED
+terry: 06/03/2009
+terry: 1/7/2009
+alopez: 3/13/2008
+terry: 3/10/2008
+wwang: 3/21/2006
+terry: 3/20/2006
+carol: 12/13/2005
+alopez: 12/13/2005
+alopez: 12/12/2005
+terry: 12/2/2005
+terry: 6/27/2002
+terry: 4/4/2002
+alopez: 1/8/2002
+alopez: 1/7/2002
+terry: 12/14/2001
+carol: 3/28/2000
+mgross: 3/16/1999
+carol: 1/29/1999
+terry: 1/20/1999
+carol: 12/28/1998
+carol: 12/15/1998
+terry: 11/11/1997
+terry: 11/10/1997
+alopez: 7/9/1997
+mark: 10/2/1996
+terry: 10/24/1995
+mark: 7/11/1995
+warfield: 4/6/1994
+mimadm: 3/11/1994
+carol: 7/13/1993
+
+*RECORD*
+*FIELD* NO
+100100
+*FIELD* TI
+100100 ABDOMINAL MUSCLES, ABSENCE OF, WITH URINARY TRACT ABNORMALITY AND
+CRYPTORCHIDISM
+;;PRUNE BELLY SYNDROME;;
+EAGLE-BARRETT SYNDROME
+*FIELD* TX
+
+CLINICAL FEATURES
+
+This condition was first described by Frolich (1839). The appellation
+'prune belly syndrome' is descriptive because the intestinal pattern is
+evident through the thin, lax, protruding abdominal wall in the infant
+(Osler, 1901). (Osler did not use the term 'prune belly.' His article on
+this subject and one 'on a family form of recurring epistaxis,
+associated with multiple telangiectases of the skin and mucous
+membranes'--see 187300--appeared successively in the November 1901 issue
+of the Johns Hopkins Hospital Bulletin. Osler wrote: 'In the summer of
+1897 a case of remarkable distension of the abdomen was admitted to the
+wards, with greatly distended bladder, and on my return in September,
+Dr. Futcher, knowing that I would be interested in it, sent for the
+child.') The full syndrome probably occurs only in males (Williams and
+Burkholder, 1967). Multiple cases (of the full syndrome) in families
+have rarely been reported, and the mode of inheritance, indeed whether
+this is a mendelian condition, is still unclear. Autosomal recessive
+inheritance is suggested by some reports. In Lebanon, where the rate of
+consanguinity is high, Afifi et al. (1972) described an affected
+offspring of first-cousin parents. Garlinger and Ott (1974) described 2
+affected brothers in 1 family and 2 affected male cousins in a second,
+and found 3 other reports of affected sibs, 2 of affected cousins and 1
+of concordant male twins. In the first family the parents were
+nonconsanguineous. In the second family the affected boys' mothers were
+half sisters; they had different maternal grandmothers. If this is an
+X-linked recessive, multiple affected brothers should be observed. If
+the disorder is due to fresh dominant mutation in each case, the
+male-limitation would be unexpected but not impossible. In British
+Columbia, Baird and MacDonald (1981) found a frequency of 1 in 29,231
+live births. This malformation syndrome is similar to Poland syndrome
+(173800) in being rather consistently reproduced in many cases but
+having no clearly demonstrable mendelian basis. A possibly related
+syndrome was described in a single patient by Texter and Murphy (1968).
+The triad consisted of absence of the right testis, kidney, and rectus
+abdominis muscle. King and Prescott (1978) presented evidence to support
+the suggestion that the maldevelopment of the abdominal musculature and
+abdominal laxity are secondary phenomena, the primary event being marked
+distention of the abdomen in the fetal period because of obstruction of
+the urinary tract. Likewise, Pagon et al. (1979) suggested that the
+abdominal muscle deficiency is secondary to fetal abdominal distention
+of various causes, most often perhaps, urethral obstruction with
+enlarged bladder. 'Prune belly' occurs, in the main, as a consequence of
+posterior urethral valves; thus the predominance as a male-limited
+multifactorial trait. Gaboardi et al. (1982) reported 2 brothers and a
+sister with prune belly syndrome with bilateral hydronephrosis,
+megaureter and megabladder, but no urethral stenosis. A better prognosis
+than is usually thought to obtain was suggested by the series of 19
+patients reported by Burke et al. (1969). Greskovich and Nyberg (1988)
+gave a review in which they stated incorrectly that the term prune belly
+syndrome was coined by Osler.
+
+Dorst and Seidel (1982) suggested Eagle-Barrett syndrome as a 'kinder
+and more appropriate designation' than prune belly syndrome. Eagle and
+Barrett (1950) described 9 cases of congenital deficiency of abdominal
+musculature with associated genitourinary abnormalities. They pointed
+out that genitourinary symptoms are often not present and that the
+obstructive manifestations in the genitourinary tract must be searched
+for and corrected at the earliest possible moment. Eagle and Barrett
+(1950) stated that 42 cases had been reported before their report of 9
+cases. Every case except 1 was in a male.
+
+Smolkin et al. (2008) reported a male infant born with protrusion of
+both sides of the abdomen, consistent with prune belly; mild scoliosis,
+unilateral auricular sinus, bilateral cryptorchidism with normal-sized
+penis, and right-sided congenital hip dislocation were also noted. Chest
+x-ray showed multiple segmentation defects, including 11 pairs of ribs,
+bilateral cervical ribs, and T8 to T12 and S3 hemivertebrae with
+resultant scoliosis. Abdominal ultrasound demonstrated absence of upper
+abdominal muscles, liver in the right flank protrusion and both spleen
+and bowel in the left flank protrusion; the right kidney was normal, but
+the left kidney was absent, and there were normal-appearing
+intraabdominal testes. Smolkin et al. (2008) noted that their patient
+with prune belly syndrome had 2 previously unreported malformations,
+auricular sinus and hemivertebrae, and suggested that on the basis of
+the heterogeneous phenotype and the as-yet-unknown etiology, the
+designation be changed to 'prune belly association.'
+
+*FIELD* SA
+Burton and Dillard (1984); Harley et al. (1972); Lee  (1977); Monie
+and Monie (1979); Riccardi and Grum (1977); Roberts  (1956); Welch
+and Kearney (1974); Woodhouse et al. (1982)
+*FIELD* RF
+1. Afifi, A. K.; Rebeiz, J.; Mire, J.; Andonian, S. J.; Der Kaloustian,
+V. M.: The myopathology of the prune belly syndrome. J. Neurol.
+Sci. 15: 153-166, 1972.
+
+2. Baird, P. A.; MacDonald, E. C.: An epidemiologic study of congenital
+malformations of the anterior abdominal wall in more than half a million
+consecutive live births. Am. J. Hum. Genet. 33: 470-478, 1981.
+
+3. Burke, E. C.; Shin, M. H.; Kelalis, P. P.: Prune belly syndrome:
+clinical findings and survival. Am. J. Dis. Child. 117: 668-671,
+1969.
+
+4. Burton, B. K.; Dillard, R. G.: Prune belly syndrome: observations
+supporting the hypothesis of abdominal overdistention. Am. J. Med.
+Genet. 17: 669-672, 1984.
+
+5. Dorst, J. P.; Seidel, H. M.: Eagle-Barrett syndrome. (Letter) Pediatrics 69:
+504 only, 1982.
+
+6. Eagle, J. F., Jr.; Barrett, G. S.: Congenital deficiency of abdominal
+musculature with associated genitourinary abnormalities: a syndrome:
+report of nine cases. Pediatrics 6: 721-736, 1950.
+
+7. Frolich, F.: Der Mangel der Muskeln, insbesondere der Seitenbauchmuskeln. 
+Dissertation: Wurzburg (pub.)  1839.
+
+8. Gaboardi, F.; Sterpa, A.; Thiebat, E.; Cornali, R.; Manfredi, M.;
+Bianchi, C.; Giacomoni, M. A.; Bertagnoli, L.: Prune-belly syndrome:
+report of three siblings. Helv. Paediat. Acta 37: 283-288, 1982.
+
+9. Garlinger, P.; Ott, J.: Prune belly syndrome: possible genetic
+implications. Birth Defects Orig. Art. Ser. X(8): 173-180, 1974.
+
+10. Greskovich, F. J., III; Nyberg, L. M., Jr.: The prune belly syndrome:
+a review of its etiology, defects, treatment and prognosis. J. Urol. 140:
+707-712, 1988.
+
+11. Harley, L. M.; Chen, Y.; Rattner, W. H.: Prune belly syndrome. J.
+Urol. 108: 174-176, 1972.
+
+12. King, C. R.; Prescott, G.: Pathogenesis of the prune-belly anomaly. J.
+Pediat. 93: 273-274, 1978.
+
+13. Lee, S. M.: Prune-belly syndrome in a 54-year-old man. JAMA 237:
+2216-2217, 1977.
+
+14. Monie, I. W.; Monie, B. J.: Prune-belly syndrome and fetal ascites. Teratology 19:
+111-117, 1979.
+
+15. Osler, W.: Congenital absence of the abdominal muscles with distended
+and hypertrophied urinary bladder. Bull. Johns Hopkins Hosp. 12:
+331-333, 1901.
+
+16. Pagon, R. A.; Smith, D. W.; Shepard, T. H.: Urethral obstruction
+malformation complex: a cause of abdominal deficiency and the 'prune
+belly'. J. Pediat. 94: 900-906, 1979.
+
+17. Riccardi, V. M.; Grum, C. M.: The prune belly anomaly: heterogeneity
+and superficial X-linkage mimicry. J. Med. Genet. 14: 266-270, 1977.
+
+18. Roberts, P.: Congenital absence of the abdominal muscles with
+associated abnormalities of the genito-urinary tract. Arch. Dis.
+Child. 31: 236-239, 1956.
+
+19. Smolkin, T.; Soudack, M.; Goldstein, I.; Sujov, P.; Makhoul, I.
+R.: Prune belly syndrome: expanding the phenotype. Clin. Dysmorph. 17:
+133-135, 2008.
+
+20. Texter, J. H.; Murphy, G. P.: The right-sided syndrome: congenital
+absence of the right testis, kidney and rectus: urologic diagnosis
+and treatment. Johns Hopkins Med. J. 122: 224-228, 1968.
+
+21. Welch, K. J.; Kearney, G. P.: Abdominal musculature deficiency
+syndrome: prune belly. J. Urol. 111: 693-700, 1974.
+
+22. Williams, D. I.; Burkholder, G. V.: The prune belly syndrome. J.
+Urol. 98: 244-251, 1967.
+
+23. Woodhouse, C. R. J.; Ransley, P. G.; Innes-Williams, D.: Prune
+belly syndrome--report of 47 cases. Arch. Dis. Child. 57: 856-859,
+1982.
+
+*FIELD* CS
+
+Abdomen:
+   Absent abdominal musculature;
+   Visible intestinal pattern;
+   Thin, lax, protruding abdominal wall
+
+Skin:
+   Wrinkled abdominal skin
+
+GU:
+   Distended bladder;
+   Fetal urinary tract obstruction;
+   Posterior urethral valves;
+   Hydronephrosis;
+   Hydroureter;
+   Cryptorchidism
+
+GI:
+   Imperforate anus
+
+Thorax:
+   Flared ribs;
+   Pectus excavatum/carinatum
+
+Limbs:
+   Club foot
+
+Joints:
+   Congenital hip dislocation
+
+Misc:
+   Oligohydramnios
+
+Cardiac:
+   Congenital heart defect;
+   Patent ductus arteriosus
+
+Inheritance:
+   ? Autosomal dominant;
+   Autosomal recessive suggested by some reports
+
+*FIELD* CN
+Marla J. F. O'Neill - updated: 5/8/2009
+Victor A. McKusick - updated: 9/4/2007
+
+*FIELD* CD
+Victor A. McKusick: 6/4/1986
+
+*FIELD* ED
+terry: 06/03/2009
+wwang: 5/20/2009
+terry: 5/8/2009
+mgross: 3/4/2009
+joanna: 3/3/2009
+carol: 7/3/2008
+alopez: 9/6/2007
+terry: 9/4/2007
+carol: 11/18/2004
+terry: 6/2/2004
+dholmes: 10/6/1997
+terry: 2/13/1997
+carol: 7/12/1996
+mimadm: 4/18/1994
+carol: 2/13/1994
+carol: 8/25/1992
+supermim: 3/16/1992
+carol: 9/4/1990
+
+*THEEND*
