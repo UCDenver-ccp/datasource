@@ -1,0 +1,3 @@
+Name	Chromosome	Length	Score	Upstream Entrez Gene Id	Upstream Gene Name	Upstream Gene Position	Downstream Entrez Gene Id	Downstream Gene Name	Downstream Gene Position	Tag Matrices
+mod000001	1	406	13.632706	497097	Xkr4	470403	18777	Lypla1	-1607998	M00192 (GR)	M00750 (HMG IY)	M00447 (AR)	M00223 (STATx)
+mod000002	1	893	24.409269	497097	Xkr4	456205	18777	Lypla1	-1593800	M00528 (PPAR)	M00216 (TATA)	M00720 (CAC-binding protein)	M00655 (PEA3)	M00319 (MEF-3)
