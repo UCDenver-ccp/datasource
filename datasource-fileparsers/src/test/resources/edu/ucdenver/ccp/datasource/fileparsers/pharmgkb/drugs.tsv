@@ -1,0 +1,3 @@
+PharmGKB Accession Id	Name	Generic Names	Trade Names	Brand Mixtures	Type	Cross-references	SMILES	External Vocabulary
+PA164738432	AZD1152				Drug/Small Molecule			
+PA164740891	zanamivir	GANA,GNA,Modified sialic acid,ZMR,Zanamavir	Relenza		Drug/Small Molecule	drugBank:DB00558,keggCompound:C08095,keggDrug:D00902,pubChemCompound:60855,pubChemSubstance:197092,url:http://en.wikipedia.org/wiki/Zanamivir		ATC:J05AH(Neuraminidase inhibitors)

@@ -1,0 +1,5 @@
+Entity1_id	Entity1_name	Entity1_type	Entity2_id	Entity2_name	Entity2_type	Evidence	Association	PK	PD	PMIDs
+PA356	TPMT	Gene	PA164754994	s-adenosylmethionine	Drug	VariantAnnotation	associated			16220112
+PA443560	Breast Neoplasms	Disease	CYP2A6 *12A, CYP2A6 *9A	CYP2A6 *12A, CYP2A6 *9A	Haplotype	VariantAnnotation	associated			21975350
+PA443560	Breast Neoplasms	Disease	chr17:41209080 (hg19)	chr17:41209080 (hg19)	VariantLocation	VIP	associated			11896095;7611277;7837387;7894492;8533757;8571953;8898735;9042929;9150149;9333265
+PA443560	Breast Neoplasms	Disease	rs9024	rs9024	VariantLocation	ClinicalAnnotation,VariantAnnotation	associated	PK	PD	19016765;19022938
