@@ -1,0 +1,254 @@
+VV  TRANSFAC GENE TABLE, Release 10.2 - licensed - 2006-06-30, (C) Biobase GmbH
+XX
+//
+AC  G000001
+XX
+ID  AAV$P5
+XX
+DT  14.06.1995 (created); dbo.
+DT  09.11.2000 (updated); vma.
+CO  Copyright (C), Biobase GmbH.
+XX
+SD  P5
+XX
+OS  AAV, adeno-associated virus
+OC  viridae; ss-DNA nonenveloped viruses; parvoviridae; dependovirus
+XX
+BC  6.3.6
+XX
+BS       -60        0   R03174; AAV$P5_01; Binding factors: YY1 <T00915>.
+BS       -50        0   R03176; AAV$P5_03; Binding factors: 96K-protein <T00453>, STAT3 <T00282>.
+BS         1        0   R03175; AAV$P5_02; Binding factors: YY1 <T00915>.
+XX
+DR  TRANSPATH: G000001.
+DR  EMBL: J01901; XX2.
+XX
+RN  [1]; RE0006609.
+RX  PUBMED: 8413258.
+RA  Satyamoorthy K., Park K., Atchison M. L., Howe C. C.
+RT  The intracisternal A-particle upstream element interacts with transcription factor YY1 to activate transcription: pleiotropic effects of YY1 on distinct DNA promoter elements
+RL  Mol. Cell. Biol. 13:6621-6628 (1993).
+RN  [2]; RE0000230.
+RX  PUBMED: 1655281.
+RA  Shi Y., Seto E., Chang L.-S., Shenk T.
+RT  Transcriptional repression by YY1, a human GLI-Krueppel-related protein, and relief of repression by adenovirus E1A protein
+RL  Cell 67:377-388 (1991).
+XX
+//
+AC  G000576
+XX
+ID  MOUSE$MYOD
+XX
+DT  14.06.1995 (created); dbo.
+DT  13.05.1997 (updated); dbo.
+CO  Copyright (C), Biobase GmbH.
+XX
+SD  MyoD
+XX
+DE  myogenic differentiation master gene G558MyoD1
+XX
+SY  MYF3; MyoD; Myod-1; MyoD1; myogenic differentiation 1.
+XX
+OS  mouse, Mus musculus
+OC  eukaryota; animalia; metazoa; chordata; vertebrata; tetrapoda; mammalia; eutheria; rodentia; myomorpha; muridae; murinae
+XX
+BC  6.1.2.2.4
+XX
+BS     -5017    -4990   R14868; MOUSE$MYOD_05; Binding factors: SRF <T05114>.
+BS     -5017    -4990   R14869; MOUSE$MYOD_06; Binding factors: YY1 <T00278>.
+BS      -341     -322   R08476; MOUSE$MYOD_03; Binding factors: AP-1 <T00032>.
+BS      -337     -309   R08504; MOUSE$MYOD_04; Binding factors: COUP-TF2 <T00045>, RXR-alpha <T08433>, RXR-gamma <T01333>, T3R-alpha <T08501>.
+BS      -119     -100   R04160; MOUSE$MYOD_01; Binding factors: Sp1 <T00752>, Sp1 <T00755>.
+BS      -103      -90   R04161; MOUSE$MYOD_02.
+XX
+FA  T00526; MyoD (basic).
+XX
+DR  BKL: HumanPSD: Myod1; Mouse.
+DR  TRANSPATH: G000576.
+DR  EMBL: X61655; MMMYOD1.
+DR  ENSEMBL: ENSMUSG00000009471.
+DR  AFFYMETRIX: AFFY_MG_U74: 1526.
+DR  AFFYMETRIX: AFFY_MG_U74Av2: 102986_at.
+DR  AFFYMETRIX: AFFY_Mouse430_2: 1418420_at.
+DR  AFFYMETRIX: AFFY_Mouse430A_2: 1418420_at.
+DR  EMBL: AK076157; AK076157.
+DR  EMBL: AK142859; AK142859.
+DR  EMBL: BC103613; BC103613.
+DR  EMBL: BC103618.
+DR  EMBL: BC103619.
+DR  EMBL: M18779; MMMYOD1A.
+DR  EMBL: M84918; MMMYOD.
+DR  ENTREZGENE: 17927.
+DR  MGI: 97275; Myod1.
+DR  REFSEQ: NM_010866.
+DR  REFSEQ: NP_034996.
+DR  UNIGENE: Mm.1526.
+DR  TRRD: 00046.
+DR  TRANSPRO: MMU_11414_1.
+DR  TRANSPRO: MMU_11414_2.
+DR  TRANSPRO: MMU_11414_3.
+DR  TRANSPRO: MMU_11414_4.
+DR  TRANSPRO: MMU_11414_5.
+XX
+RN  [1]; RE0024240.
+RX  PUBMED: 12802082.
+RA  L'honore A., Lamb N. J., Vandromme M., Turowski P., Carnac G., Fernandez A.
+RT  MyoD distal regulatory region contains an SRF binding CArG element required for MyoD expression in skeletal myoblasts and during muscle regeneration.
+RL  Mol. Biol. Cell 14:2151-2162 (2003).
+RN  [2]; RE0010425.
+RX  PUBMED: 7753622.
+RA  Muscat G. E. O., Rea S., Downes M.
+RT  Identification of a regulatory function for an orphan receptor in muscle: COUP-TF II affects the expression of the myoD gene family during myogenesis
+RL  Nucleic Acids Res. 23:1311-1318 (1995).
+RN  [3]; RE0003240.
+RX  PUBMED: 8127707.
+RA  Muscat G. E. O., Mynett-Johnson L., Dowhan D., Downes M., Griggs R.
+RT  Activation of MyoD gene transcription by 3, 4, 3'-triiodo-L-thyronine: a direct role for the thyroid hormone and retinoid X receptors
+RL  Nucleic Acids Res. 22:583-591 (1994).
+RN  [4]; RE0003241.
+RX  PUBMED: 8120060.
+RA  Pedraza-Alva G., Zingg J. M., Jost J. P.
+RT  AP-1 binds to a putative cAMP response element of the MyoD1 promoter and negatively modulates MyoD1 expression in dividing myoblasts
+RL  J. Biol. Chem. 269:6978-6985 (1994).
+RN  [5]; RE0002939.
+RX  PUBMED: 1328870.
+RA  Tapscott S. J., Lassar A. B., Weintraub H.
+RT  A novel myoblast enhancer element mediates MyoD transcription
+RL  Mol. Cell. Biol. 12:4994-5003 (1992).
+XX
+//
+AC  G000218
+XX
+ID  HS$CFOS
+XX
+DT  14.06.1995 (created); dbo.
+DT  05.01.2005 (updated); oke.
+CO  Copyright (C), Biobase GmbH.
+XX
+SD  c-fos
+XX
+SY  FOS; v-fos FBJ murine osteosarcoma viral oncogene homolog.
+XX
+OS  human, Homo sapiens
+OC  eukaryota; animalia; metazoa; chordata; vertebrata; tetrapoda; mammalia; eutheria; primates
+XX
+CH  14q24.3
+XX
+BC  6.1.5.16
+XX
+RG  immediate early response gene; activated by a number of cytokines and growth factors in various cell types; activated by NGF [13]; inducible by EGF [2]; inducible by GM-CSF [3]; inducible by IL-6 in HepG2 cells [1]; positive regulati
+on by estrogens [10]; in cerebellar granular neurons is activated via beta2-adrenoreceptors and second messengers cAMP and Ca2+ [5]; is activated by mesenchymal factor PModS and by follicle-stimulating hormone in Sertoli cells [6] [4]; n
+egative autoregulation [12] [8]; negative regulation by MyoD upon muscle cell differentiation [7]; transcription is repressed in quiescent cells [9]; negative regulation by pRB [11].
+XX
+BS         0        0   R00459; HS$CFOS_02.
+BS         0        0   R01640; HS$CFOS_15; Binding factors: PEA3 <T00685>.
+BS         0        0   R16151; HS$CFOS_37; Binding factors: CSEN <T06384>.
+BS     -1221    -1196   R16116; HS$CFOS_35; Binding factors: ER-alpha <T08300>.
+XX
+BR  FR0008828; downstream; Species: human, Homo sapiens.
+BR  FR0008831; downstream; Species: human, Homo sapiens.
+XX
+CE  -350   -305   TRANSCOMPEL: C00304.
+CE  -324   -301   TRANSCOMPEL: C00436.
+CE  -323   -296   TRANSCOMPEL: C00009.
+CE  -322   -305   TRANSCOMPEL: C00022.
+CE  -322   -301   TRANSCOMPEL: C00270.
+XX
+FA  T00123; c-Fos (isogroup).
+FA  T08776; c-Fos (basic).
+XX
+DR  BKL: HumanPSD: FOS; Human.
+DR  TRANSPATH: G000218.
+DR  EMBL: K00650; HSFOS.
+DR  EMBL: M15429; HSCFOS01.
+DR  EMBL: V01512; HSCFOS.
+DR  EMBL: X53723; HSCFOSRE.
+DR  ENSEMBL: ENSG00000170345.
+DR  AFFYMETRIX: AFFY_HC_G110: 1915_s_at.
+DR  AFFYMETRIX: AFFY_HC_G110: 1916_s_at.
+DR  AFFYMETRIX: AFFY_HC_G110: 2094_s_at.
+DR  AFFYMETRIX: AFFY_HG_Focus: 209189_at.
+DR  AFFYMETRIX: AFFY_HG_U133_PLUS_2: 209189_at.
+DR  AFFYMETRIX: AFFY_HG_U133A: 209189_at.
+DR  AFFYMETRIX: AFFY_HG_U133A_2: 209189_at.
+DR  AFFYMETRIX: AFFY_HG_U95Av2: 1915_s_at.
+DR  AFFYMETRIX: AFFY_HG_U95Av2: 1916_s_at.
+DR  AFFYMETRIX: AFFY_HG_U95Av2: 2094_s_at.
+DR  AFFYMETRIX: AFFY_HuGeneFL: V01512_rna1_at.
+DR  AFFYMETRIX: AFFY_U133_X3P: g13325363_3p_at.
+DR  EMBL: AB022275; AB022275.
+DR  EMBL: AB022276; AB022276.
+DR  EMBL: AF111167; AF111167.
+DR  EMBL: AK097379; AK097379.
+DR  EMBL: AY212879; AY212879.
+DR  EMBL: BC004490; BC004490.
+DR  EMBL: BX647104; HSM807248.
+DR  EMBL: CR541785; CR541785.
+DR  EMBL: CR542267; CR542267.
+DR  EMBL: S65138; S65138.
+DR  ENTREZGENE: 2353.
+DR  OMIM: 164810.
+DR  HGNC: FOS.
+DR  REFSEQ: NM_005252.
+DR  REFSEQ: NP_005243.
+DR  UNIGENE: Hs.25647.
+DR  UNIGENE: Hs.568953.
+DR  TRRD: 00110.
+DR  TRANSPRO: HSA_12950_1.
+DR  TRANSPRO: HSA_12950_2.
+XX
+RN  [1]; RE0025196.
+RX  PUBMED: 12600988.
+RA  Yang E., Lerner L., Besser D., Darnell JE J. r.
+RT  Independent and cooperative activation of chromosomal c-fos promoter by STAT3.
+RL  J. Biol. Chem. 278:15794-15799 (2003).
+RN  [2]; RE0011817.
+RX  PUBMED: 8524316.
+RA  Leaman D. W., Pisharody S., Flickinger T. W., Commane M. A., Schlessinger J., Kerr I. M., Levy D. E., Stark G. S.
+RT  Roles of JAKs in activation of STATs and stimulation of c-fos gene expression by epidermal growth factor
+RL  Mol. Cell. Biol. 16:369-375 (1996).
+RN  [3]; RE0025195.
+RX  PUBMED: 8874187.
+RA  Rajotte D., Sadowski H. B., Haman A., Gopalbhai K., Meloche S., Liu L., Krystal G., Hoang T.
+RT  Contribution of both STAT and SRF/TCF to c-fos promoter activation by granulocyte-macrophage colony-stimulating factor.
+RL  Blood 88:2906-2916 (1996).
+RN  [4]; RE0025338.
+RX  PUBMED: 8835393.
+RA  Chaudhary J., Whaley P. D., Cupp A., Skinner M. K.
+RT  Transcriptional regulation of sertoli cell differentiation by follicle-stimulating hormone at the level of the c-fos and transferrin promoters.
+RL  Biol. Reprod. 54:692-699 (1996).
+RN  [5]; RE0025297.
+RX  PUBMED: 7798940.
+RA  Barthel F., Loeffler J. P.
+RT  Beta 2-adrenoreceptors stimulate c-fos transcription through multiple cyclic AMP- and Ca(2+)-responsive elements in cerebellar granular neurons.
+RL  J. Neurochem. 64:41-51 (1995).
+RN  [6]; RE0025337.
+RX  PUBMED: 7789331.
+RA  Whaley P. D., Chaudhary J., Cupp A., Skinner M. K.
+RT  Role of specific response elements of the c-fos promoter and involvement of intermediate transcription factor(s) in the induction of Sertoli cell differentiation (transferrin promoter activation) by the testicular paracrine factor PM
+odS.
+RL  Endocrinology 136:3046-3053 (1995).
+RN  [7]; RE0003231.
+RX  PUBMED: 8386804.
+RA  Trouche D., Grigoriev M., Lenormand J. L., Robin P., Leibovitch S. A., Sassone-Corsi P., Harel-Bellan A.
+RT  Repression of c-fos promoter by MyoD on muscle cell differentiation
+RL  Nature 363:79-82 (1993).
+RN  [8]; RE0025293.
+RX  PUBMED: 8114761.
+RA  Ambrosino C., Cicatiello L., Cobellis G., Addeo R., Sica V., Bresciani F., Weisz A.
+RT  Functional antagonism between the estrogen receptor and Fos in the regulation of c-fos protooncogene transcription.
+RL  Mol. Endocrinol. 7:1472-1483 (1993).
+RN  [9]; RE0004850.
+RX  PUBMED: 1596533.
+RA  Morgan I. M., Birnie G. D.
+RT  The serum response element and an AP-1/ATF sequence immediately downstream co-operate in the regulation of c-fos transcription
+RL  Cell Prolif. 25:205-215 (1992).
+RN  [10]; RE0004844.
+RX  PUBMED: 2119495.
+RA  Weisz A., Rosales R.
+RT  Identification of an estrogen response element upstream of the human c-fos gene that binds the estrogen receptor and the AP-1 transcription factor
+RL  Nucleic Acids Res. 18:5097-5106 (1990).
+RN  [11]; RE0004845.
+RX  PUBMED: 2117257.
+XX
+//

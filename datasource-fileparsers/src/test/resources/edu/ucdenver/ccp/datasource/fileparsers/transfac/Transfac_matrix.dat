@@ -1,0 +1,85 @@
+VV  TRANSFAC MATRIX TABLE, Release 10.2 - licensed - 2006-06-30, (C) Biobase GmbH
+XX
+//
+AC  M00001
+XX
+ID  V$MYOD_01
+XX
+DT  19.10.1992 (created); ewi.
+DT  22.10.1997 (updated); dbo.
+CO  Copyright (C), Biobase GmbH.
+XX
+NA  MyoD
+XX
+DE  myoblast determination gene product
+XX
+BF  T00526; MyoD; Species: mouse, Mus musculus.
+XX
+P0      A      C      G      T
+01      1      2      2      0      S
+02      2      1      2      0      R
+03      3      0      1      1      A
+04      0      5      0      0      C
+05      5      0      0      0      A
+06      0      0      4      1      G
+07      0      1      4      0      G
+08      0      0      0      5      T
+09      0      0      5      0      G
+10      0      1      2      2      K
+11      0      2      0      3      Y
+12      1      0      3      1      G
+XX
+BA  5 functional elements in 3 genes
+XX
+//
+AC  M00006
+XX
+ID  V$MEF2_01
+XX
+DT  19.10.1992 (created); ewi.
+DT  12.03.2002 (updated); vma.
+CO  Copyright (C), Biobase GmbH.
+XX
+NA  MEF-2
+XX
+DE  myogenic enhancer factor 2
+XX
+BF  T00505; aMEF-2; Species: mouse, Mus musculus.
+BF  T01005; MEF-2A; Species: human, Homo sapiens.
+BF  T01004; MEF-2A; Species: rat, Rattus norvegicus.
+XX
+P0      A      C      G      T
+01      0      3      1      1      C
+02      0      0      1      4      T
+03      0      4      0      1      C
+04      0      0      0      5      T
+05      5      0      0      0      A
+06      5      0      0      0      A
+07      5      0      0      0      A
+08      5      0      0      0      A
+09      5      0      0      0      A
+10      0      0      0      5      T
+11      5      0      0      0      A
+12      5      0      0      0      A
+13      0      5      0      0      C
+14      0      2      0      3      Y
+15      0      4      0      1      C
+16      0      2      0      3      Y
+XX
+BA  5 elements from 2 different genes (mouse/human/rat mck; rat/chicken mlc)
+XX
+BS  CTCTAAAAATAACCCT; R05148; 1; 16;; p.
+BS  CTCTAAAAATAACTCC; R05149; 1; 16;; p.
+BS  CTCTAAAAATAACTCT; R05150; 1; 16;; p.
+BS  TTTTAAAAATAACTTT; R05151; 1; 16;; p.
+BS  GGCTAAAAATAACCCC; R05152; 1; 16;; p.
+XX
+CC  compiled sequences
+XX
+RN  [1]; RE0001228.
+RX  PUBMED: 2601707.
+RA  Gossett L. A., Kelvin D. J., Sternberg E. A., Olson E. N.
+RT  A new myocyte-specific enhancer-binding factor that recognizes a conserved element associated with multiple muscle-specific genes
+RL  Mol. Cell. Biol. 9:5022-5033 (1989).
+XX
+//
