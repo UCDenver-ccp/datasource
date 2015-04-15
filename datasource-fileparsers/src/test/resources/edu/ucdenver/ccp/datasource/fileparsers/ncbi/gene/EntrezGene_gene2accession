@@ -1,0 +1,4 @@
+#Format: tax_id GeneID status RNA_nucleotide_accession.version RNA_nucleotide_gi protein_accession.version protein_gi genomic_nucleotide_accession.version genomic_nucleotide_gi start_position_on_the_genomic_accession end_position_on_the_genomic_accession orientation assembly (tab is used as a separator, pound sign - start of a comment)
+10090	16822	PROVISIONAL	NM_010696.3	118130099	NP_034826.2	31543115	AC_000033.1	83274085	36458438	36503503	+	Alternate assembly (based on Celera)
+10090	16825	-	-	-	-	-	AC108484.25	31076542	69411	76442	-	-
+10090	16825	-	-	-	AAC40064.1	2827901	AF024524.1	2827900	-	-	?	-
