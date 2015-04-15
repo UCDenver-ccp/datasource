@@ -1,7 +1,7 @@
 /**
  * 
  */
-package edu.ucdenver.ccp.rdfizer.rdf.ice;
+package edu.ucdenver.ccp.datasource.rdfizer.rdf.ice;
 
 import java.io.File;
 import java.io.IOException;
@@ -17,15 +17,14 @@ import org.apache.log4j.Logger;
 import edu.ucdenver.ccp.common.file.FileComparisonUtil;
 import edu.ucdenver.ccp.common.file.FileUtil;
 import edu.ucdenver.ccp.datasource.fileparsers.FileRecordReader;
+import edu.ucdenver.ccp.datasource.fileparsers.idlist.IdListFileFactory;
 import edu.ucdenver.ccp.datasource.identifiers.DataSource;
 import edu.ucdenver.ccp.datasource.identifiers.ncbi.taxonomy.NcbiTaxonomyID;
-import edu.ucdenver.ccp.fileparsers.idlist.IdListFileFactory;
-import edu.ucdenver.ccp.rdfizer.rdf.RdfRecordWriterImpl;
-import edu.ucdenver.ccp.rdfizer.rdf.RdfUtil.RdfFormat;
-import edu.ucdenver.ccp.rdfizer.rdf.filter.DefaultDuplicateStatementFilter;
-import edu.ucdenver.ccp.rdfizer.rdf.filter.DuplicateStatementFilter;
-import edu.ucdenver.ccp.rdfizer.rdf.filter.NoOpDuplicateStatementFilter;
-import edu.ucdenver.ccp.rdfizer.rdf.ice.FileDataSource.Split;
+import edu.ucdenver.ccp.datasource.rdfizer.rdf.filter.DefaultDuplicateStatementFilter;
+import edu.ucdenver.ccp.datasource.rdfizer.rdf.filter.DuplicateStatementFilter;
+import edu.ucdenver.ccp.datasource.rdfizer.rdf.filter.NoOpDuplicateStatementFilter;
+import edu.ucdenver.ccp.datasource.rdfizer.rdf.ice.FileDataSource.Split;
+import edu.ucdenver.ccp.datasource.rdfizer.rdf.ice.RdfUtil.RdfFormat;
 
 /**
  * @author Center for Computational Pharmacology, UC Denver; ccpsupport@ucdenver.edu

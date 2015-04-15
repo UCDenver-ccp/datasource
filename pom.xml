@@ -35,6 +35,12 @@
 				<version>2.6</version>
 			</dependency>
 			<dependency>
+				<groupId>org.projectlombok</groupId>
+				<artifactId>lombok</artifactId>
+				<version>0.11.6</version>
+				<scope>provided</scope>
+			</dependency>
+			<dependency>
 				<groupId>junit</groupId>
 				<artifactId>junit</artifactId>
 				<version>4.8.2</version>
@@ -65,8 +71,8 @@
 					<artifactId>maven-compiler-plugin</artifactId>
 					<version>3.1</version>
 					<configuration>
-						<source>1.6</source>
-						<target>1.6</target>
+						<source>1.7</source>
+						<target>1.7</target>
 					</configuration>
 				</plugin>
 				<!-- create a source jar file -->
@@ -144,7 +150,8 @@
 						</execution>
 					</executions>
 				</plugin>
-				<!--This plugin's configuration is used to store Eclipse m2e settings only. It has no influence on the Maven build itself.-->
+				<!--This plugin's configuration is used to store Eclipse m2e settings 
+					only. It has no influence on the Maven build itself. -->
 				<plugin>
 					<groupId>org.eclipse.m2e</groupId>
 					<artifactId>lifecycle-mapping</artifactId>

@@ -1,7 +1,7 @@
 /**
  * 
  */
-package edu.ucdenver.ccp.rdfizer.rdf.filter;
+package edu.ucdenver.ccp.datasource.rdfizer.rdf.filter;
 
 import java.io.File;
 import java.io.IOException;

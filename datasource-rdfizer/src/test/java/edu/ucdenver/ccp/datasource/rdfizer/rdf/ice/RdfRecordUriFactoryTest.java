@@ -1,7 +1,7 @@
 /**
  * 
  */
-package edu.ucdenver.ccp.rdfizer.rdf;
+package edu.ucdenver.ccp.datasource.rdfizer.rdf.ice;
 
 import static org.junit.Assert.assertEquals;
 

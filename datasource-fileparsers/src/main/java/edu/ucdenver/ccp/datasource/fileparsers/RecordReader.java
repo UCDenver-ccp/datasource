@@ -34,7 +34,6 @@ package edu.ucdenver.ccp.datasource.fileparsers;
  */
 
 import java.io.Closeable;
-import java.io.IOException;
 import java.util.Iterator;
 
 import edu.ucdenver.ccp.common.string.StringConstants;

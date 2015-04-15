@@ -16,7 +16,40 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  * 
  */
-package edu.ucdenver.ccp.fileparsers.premod;
+package edu.ucdenver.ccp.datasource.fileparsers.premod;
+
+/*
+ * #%L
+ * Colorado Computational Pharmacology's common module
+ * %%
+ * Copyright (C) 2012 - 2015 Regents of the University of Colorado
+ * %%
+ * Redistribution and use in source and binary forms, with or without modification,
+ * are permitted provided that the following conditions are met:
+ * 
+ * 1. Redistributions of source code must retain the above copyright notice, this
+ *    list of conditions and the following disclaimer.
+ * 
+ * 2. Redistributions in binary form must reproduce the above copyright notice,
+ *    this list of conditions and the following disclaimer in the documentation
+ *    and/or other materials provided with the distribution.
+ * 
+ * 3. Neither the name of the Regents of the University of Colorado nor the names of its contributors
+ *    may be used to endorse or promote products derived from this software without
+ *    specific prior written permission.
+ * 
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
+ * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+ * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.
+ * IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT,
+ * INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING,
+ * BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
+ * DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+ * LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE
+ * OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED
+ * OF THE POSSIBILITY OF SUCH DAMAGE.
+ * #L%
+ */
 
 import java.util.HashSet;
 import java.util.Set;
@@ -32,7 +65,6 @@ import edu.ucdenver.ccp.datasource.identifiers.DataSource;
 import edu.ucdenver.ccp.datasource.identifiers.ncbi.gene.EntrezGeneID;
 import edu.ucdenver.ccp.datasource.identifiers.premod.PreModID;
 import edu.ucdenver.ccp.datasource.identifiers.transfac.TransfacMatrixID;
-import edu.ucdenver.ccp.fileparsers.field.ChromosomeNumber;
 
 /**
  * A representation of a line of data from the PReMod mouse_module_tab.txt file available here:
@@ -51,11 +83,11 @@ public class PReModModuleTabFileData extends SingleLineFileRecord {
 	@RecordField
 	private final PreModID premodID;
 	@RecordField
-	private final ChromosomeNumber chromosome;
+	private final String chromosome;
 	@RecordField
 	private final int length;
 	@RecordField
-	private final PreModScore score;
+	private final float score;
 	@RecordField
 	private final EntrezGeneID upstreamEntrezGeneID;
 	@RecordField
@@ -71,7 +103,7 @@ public class PReModModuleTabFileData extends SingleLineFileRecord {
 	@RecordField
 	private final Set<TransfacMatrixID> tagMatrices;
 
-	public PReModModuleTabFileData(PreModID premodID, ChromosomeNumber chromosome, int length, PreModScore score,
+	public PReModModuleTabFileData(PreModID premodID, String chromosome, int length, float score,
 			EntrezGeneID upstreamEntrezGeneID, String upstreamGeneName, int upstreamGenePosition,
 			EntrezGeneID downstreamEntrezGeneID, String downstreamGeneName, int downstreamGenePosition,
 			Set<TransfacMatrixID> tagMatrices, long byteOffset, long lineNumber) {
@@ -93,7 +125,7 @@ public class PReModModuleTabFileData extends SingleLineFileRecord {
 		return premodID;
 	}
 
-	public ChromosomeNumber getChromosome() {
+	public String getChromosome() {
 		return chromosome;
 	}
 
@@ -101,7 +133,7 @@ public class PReModModuleTabFileData extends SingleLineFileRecord {
 		return length;
 	}
 
-	public PreModScore getScore() {
+	public float getScore() {
 		return score;
 	}
 
@@ -137,9 +169,9 @@ public class PReModModuleTabFileData extends SingleLineFileRecord {
 		if (line.getText().startsWith("mod")) {
 			String[] toks = line.getText().split("\\t");
 			PreModID premodID = new PreModID(toks[0]);
-			ChromosomeNumber chromosome = new ChromosomeNumber(toks[1]);
+			String chromosome = new String(toks[1]);
 			int length = Integer.parseInt(toks[2]);
-			PreModScore score = new PreModScore(Float.parseFloat(toks[3]));
+			float score = Float.parseFloat(toks[3]);
 			EntrezGeneID upstreamEntrezGeneID = new EntrezGeneID(toks[4]);
 			String upstreamGeneName = new String(toks[5]);
 			int upstreamGenePosition = Integer.parseInt(toks[6]);

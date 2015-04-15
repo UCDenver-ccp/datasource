@@ -1,4 +1,37 @@
-package edu.ucdenver.ccp.fileparsers.hgnc;
+package edu.ucdenver.ccp.datasource.fileparsers.hgnc;
+
+/*
+ * #%L
+ * Colorado Computational Pharmacology's common module
+ * %%
+ * Copyright (C) 2012 - 2015 Regents of the University of Colorado
+ * %%
+ * Redistribution and use in source and binary forms, with or without modification,
+ * are permitted provided that the following conditions are met:
+ * 
+ * 1. Redistributions of source code must retain the above copyright notice, this
+ *    list of conditions and the following disclaimer.
+ * 
+ * 2. Redistributions in binary form must reproduce the above copyright notice,
+ *    this list of conditions and the following disclaimer in the documentation
+ *    and/or other materials provided with the distribution.
+ * 
+ * 3. Neither the name of the Regents of the University of Colorado nor the names of its contributors
+ *    may be used to endorse or promote products derived from this software without
+ *    specific prior written permission.
+ * 
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
+ * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+ * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.
+ * IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT,
+ * INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING,
+ * BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
+ * DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+ * LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE
+ * OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED
+ * OF THE POSSIBILITY OF SUCH DAMAGE.
+ * #L%
+ */
 
 import java.util.Set;
 
@@ -22,7 +55,6 @@ import edu.ucdenver.ccp.datasource.identifiers.ncbi.refseq.RefSeqID;
 import edu.ucdenver.ccp.datasource.identifiers.other.UcscGenomeBrowserId;
 import edu.ucdenver.ccp.datasource.identifiers.other.VegaID;
 import edu.ucdenver.ccp.datasource.identifiers.rgd.RgdID;
-import edu.ucdenver.ccp.fileparsers.mgi.CmPosition;
 import edu.ucdenver.ccp.identifier.publication.PubMedID;
 
 /**
@@ -172,13 +204,13 @@ public class HgncDownloadFileData extends SingleLineFileRecord {
 	@RecordField
 	private final HgncGeneSymbolID hgncGeneSymbol;
 	@RecordField
-	private final HgncApprovedGeneName hgncGeneName;
+	private final String hgncGeneName;
 	@RecordField
-	private final HgncStatus status;
+	private final String status;
 	@RecordField
-	private final HgncLocusType locusType;
+	private final String locusType;
 	@RecordField
-	private final HgncLocusGroup locusGroup;
+	private final String locusGroup;
 	@RecordField
 	private final Set<String> previousSymbols;
 	@RecordField
@@ -188,7 +220,7 @@ public class HgncDownloadFileData extends SingleLineFileRecord {
 	@RecordField
 	private final Set<String> nameSynonyms;
 	@RecordField
-	private final CmPosition chromosome;
+	private final String chromosome;
 	@RecordField
 	private final String dateApproved;
 	@RecordField
@@ -287,9 +319,9 @@ public class HgncDownloadFileData extends SingleLineFileRecord {
 	 * @param suppliedMgiId
 	 * @param suppliedRgdId
 	 */
-	public HgncDownloadFileData(HgncID hgncID, HgncGeneSymbolID hgncGeneSymbol, HgncApprovedGeneName hgncGeneName,
-			HgncStatus status, HgncLocusType locusType, HgncLocusGroup locusGroup, Set<String> previousSymbols,
-			Set<String> previousNames, Set<String> synonyms, Set<String> nameSynonyms, CmPosition chromosome,
+	public HgncDownloadFileData(HgncID hgncID, HgncGeneSymbolID hgncGeneSymbol, String hgncGeneName,
+			String status, String locusType, String locusGroup, Set<String> previousSymbols,
+			Set<String> previousNames, Set<String> synonyms, Set<String> nameSynonyms, String chromosome,
 			String dateApproved, String dateModified, String dateSymbolChanged, String dateNameChanged,
 			Set<DataSourceIdentifier<?>> accessionNumbers, Set<EnzymeCommissionID> ecNumbers,
 			EntrezGeneID entrezGeneID, EnsemblGeneID ensemblGeneID, Set<MgiGeneID> mgiIDs,
@@ -359,28 +391,28 @@ public class HgncDownloadFileData extends SingleLineFileRecord {
 	/**
 	 * @return the hgncGeneName
 	 */
-	public HgncApprovedGeneName getHgncGeneName() {
+	public String getHgncGeneName() {
 		return hgncGeneName;
 	}
 
 	/**
 	 * @return the status
 	 */
-	public HgncStatus getStatus() {
+	public String getStatus() {
 		return status;
 	}
 
 	/**
 	 * @return the locusType
 	 */
-	public HgncLocusType getLocusType() {
+	public String getLocusType() {
 		return locusType;
 	}
 
 	/**
 	 * @return the locusGroup
 	 */
-	public HgncLocusGroup getLocusGroup() {
+	public String getLocusGroup() {
 		return locusGroup;
 	}
 
@@ -415,7 +447,7 @@ public class HgncDownloadFileData extends SingleLineFileRecord {
 	/**
 	 * @return the chromosome
 	 */
-	public CmPosition getChromosome() {
+	public String getChromosome() {
 		return chromosome;
 	}
 

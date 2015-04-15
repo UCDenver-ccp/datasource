@@ -16,7 +16,40 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  * 
  */
-package edu.ucdenver.ccp.fileparsers.geneontology;
+package edu.ucdenver.ccp.datasource.fileparsers.geneontology;
+
+/*
+ * #%L
+ * Colorado Computational Pharmacology's common module
+ * %%
+ * Copyright (C) 2012 - 2015 Regents of the University of Colorado
+ * %%
+ * Redistribution and use in source and binary forms, with or without modification,
+ * are permitted provided that the following conditions are met:
+ * 
+ * 1. Redistributions of source code must retain the above copyright notice, this
+ *    list of conditions and the following disclaimer.
+ * 
+ * 2. Redistributions in binary form must reproduce the above copyright notice,
+ *    this list of conditions and the following disclaimer in the documentation
+ *    and/or other materials provided with the distribution.
+ * 
+ * 3. Neither the name of the Regents of the University of Colorado nor the names of its contributors
+ *    may be used to endorse or promote products derived from this software without
+ *    specific prior written permission.
+ * 
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
+ * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+ * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.
+ * IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT,
+ * INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING,
+ * BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
+ * DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+ * LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE
+ * OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED
+ * OF THE POSSIBILITY OF SUCH DAMAGE.
+ * #L%
+ */
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -41,7 +74,6 @@ import edu.ucdenver.ccp.datasource.identifiers.DataSourceIdentifier;
 import edu.ucdenver.ccp.datasource.identifiers.mgi.MgiGeneID;
 import edu.ucdenver.ccp.datasource.identifiers.ncbi.taxonomy.NcbiTaxonomyID;
 import edu.ucdenver.ccp.datasource.identifiers.obo.GeneOntologyID;
-import edu.ucdenver.ccp.fileparsers.field.DatabaseName;
 import edu.ucdenver.ccp.identifier.publication.PubMedID;
 
 /**
@@ -75,7 +107,7 @@ public class GeneAssociationMGIFileParserTest extends RecordReaderTester {
 				 * RIKEN cDNA A630055G03 gene LOC381034 gene taxon:10090 20081012 UniProtKB
 				 */
 
-				checkRecord(parser.next(), new DatabaseName("MGI"), new MgiGeneID("MGI:2685383"), new String(
+				checkRecord(parser.next(), new String("MGI"), new MgiGeneID("MGI:2685383"), new String(
 						"A630055G03Rik"), null, new GeneOntologyID("GO:0003677"),
 						CollectionsUtil.createSet(new MgiReferenceID("MGI:MGI:1354194")), new HashSet<PubMedID>(),
 						new String("IEA"), "SP_KW:KW-0238", GeneOntologyDomain.MOLECULAR_FUNCTION,
@@ -91,7 +123,7 @@ public class GeneAssociationMGIFileParserTest extends RecordReaderTester {
 				 * MGI MGI:1345167 Aadat GO:0005739 MGI:MGI:2682130|PMID:14651853 IDA C aminoadipate
 				 * aminotransferase Kat2|KATII|mKat-2 gene taxon:10090 20071029 MGI
 				 */
-				checkRecord(parser.next(), new DatabaseName("MGI"), new MgiGeneID("MGI:1345167"), new String(
+				checkRecord(parser.next(), new String("MGI"), new MgiGeneID("MGI:1345167"), new String(
 						"Aadat"), null, new GeneOntologyID("GO:0005739"), CollectionsUtil.createSet(new MgiReferenceID(
 						"MGI:MGI:2682130")), CollectionsUtil.createSet(new PubMedID(14651853)),
 						new String("IDA"), null, GeneOntologyDomain.CELLULAR_COMPONENT,
@@ -110,7 +142,7 @@ public class GeneAssociationMGIFileParserTest extends RecordReaderTester {
 				 * 1 D6Ertd245e gene taxon:10090 20081012 UniProtKB
 				 */
 
-				checkRecord(parser.next(), new DatabaseName("MGI"), new MgiGeneID("MGI:1098687"), new String(
+				checkRecord(parser.next(), new String("MGI"), new MgiGeneID("MGI:1098687"), new String(
 						"Aak1"), "NOT", new GeneOntologyID("GO:0005524"),
 						CollectionsUtil.createSet(new MgiReferenceID("MGI:MGI:2152098")), new HashSet<PubMedID>(),
 						new String("IEA"),
@@ -131,7 +163,7 @@ public class GeneAssociationMGIFileParserTest extends RecordReaderTester {
 
 	}
 
-	private void checkRecord(GeneAssociationFileData record, DatabaseName databaseDesignation,
+	private void checkRecord(GeneAssociationFileData record, String databaseDesignation,
 			DataSourceIdentifier<?> geneID, String geneSymbol, String qualifier,
 			GeneOntologyID goTermID, Set<MgiReferenceID> referenceAccessionIDs, Set<PubMedID> referencePMIDs,
 			String goEvidenceCode, String inferredFrom, GeneOntologyDomain ontology,

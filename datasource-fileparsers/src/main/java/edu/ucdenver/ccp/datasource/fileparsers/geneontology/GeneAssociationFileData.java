@@ -16,7 +16,40 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  * 
  */
-package edu.ucdenver.ccp.fileparsers.geneontology;
+package edu.ucdenver.ccp.datasource.fileparsers.geneontology;
+
+/*
+ * #%L
+ * Colorado Computational Pharmacology's common module
+ * %%
+ * Copyright (C) 2012 - 2015 Regents of the University of Colorado
+ * %%
+ * Redistribution and use in source and binary forms, with or without modification,
+ * are permitted provided that the following conditions are met:
+ * 
+ * 1. Redistributions of source code must retain the above copyright notice, this
+ *    list of conditions and the following disclaimer.
+ * 
+ * 2. Redistributions in binary form must reproduce the above copyright notice,
+ *    this list of conditions and the following disclaimer in the documentation
+ *    and/or other materials provided with the distribution.
+ * 
+ * 3. Neither the name of the Regents of the University of Colorado nor the names of its contributors
+ *    may be used to endorse or promote products derived from this software without
+ *    specific prior written permission.
+ * 
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
+ * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+ * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.
+ * IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT,
+ * INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING,
+ * BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
+ * DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+ * LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE
+ * OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED
+ * OF THE POSSIBILITY OF SUCH DAMAGE.
+ * #L%
+ */
 
 import java.util.HashMap;
 import java.util.HashSet;
@@ -37,7 +70,6 @@ import edu.ucdenver.ccp.datasource.identifiers.DataSourceIdResolver;
 import edu.ucdenver.ccp.datasource.identifiers.DataSourceIdentifier;
 import edu.ucdenver.ccp.datasource.identifiers.ncbi.taxonomy.NcbiTaxonomyID;
 import edu.ucdenver.ccp.datasource.identifiers.obo.GeneOntologyID;
-import edu.ucdenver.ccp.fileparsers.field.DatabaseName;
 import edu.ucdenver.ccp.identifier.publication.PubMedID;
 
 /**
@@ -74,7 +106,7 @@ public class GeneAssociationFileData extends SingleLineFileRecord {
 	private static Logger logger = Logger.getLogger(GeneAssociationFileData.class);
 
 	@RecordField(comment="1.  DB Database from which annotated entry has been taken.  For the UniProtKB and UniProtKB Complete Proteomes gene associaton files: UniProtKB For the PDB association file:  PDB Example: UniProtKB")
-	private final DatabaseName databaseDesignation;
+	private final String databaseDesignation;
 
 	@RecordField(comment="2.  DB_Object_ID A unique identifier in the database for the item being annotated.  Here: an accession number or identifier of the annotated protein (or PDB entry for the gene_association.goa_pdb file) For the UniProtKB and UniProtKB Complete Proteomes gene association files: a UniProtKB Accession.  Examples O00165")
 	private final DataSourceIdentifier<?> geneID;
@@ -132,7 +164,7 @@ public class GeneAssociationFileData extends SingleLineFileRecord {
 	private final String assignedBy;
 
 
-	public GeneAssociationFileData(DatabaseName databaseDesignation, 
+	public GeneAssociationFileData(String databaseDesignation, 
 			DataSourceIdentifier<?> geneID,
 			String geneSymbol, 
 			String notDesignation, 
@@ -170,7 +202,7 @@ public class GeneAssociationFileData extends SingleLineFileRecord {
 		this.assignedBy = assignedBy;
 	}
 
-	public DatabaseName getDatabaseDesignation() {
+	public String getDatabaseDesignation() {
 		return databaseDesignation;
 	}
 
@@ -242,8 +274,8 @@ public class GeneAssociationFileData extends SingleLineFileRecord {
 
 		String[] toks = line.getText().split("\\t");
 
-		DatabaseName databaseDesignation = new DatabaseName(toks[0]);
-		DataSourceIdentifier<?> geneID = DataSourceIdResolver.resolveId(databaseDesignation.getDataElement(), toks[1]);
+		String databaseDesignation = new String(toks[0]);
+		DataSourceIdentifier<?> geneID = DataSourceIdResolver.resolveId(databaseDesignation, toks[1]);
 		String markerSymbol = new String(toks[2]);
 
 		String qualifier = null;

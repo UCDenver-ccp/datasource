@@ -16,7 +16,40 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  * 
  */
-package edu.ucdenver.ccp.fileparsers.premod;
+package edu.ucdenver.ccp.datasource.fileparsers.premod;
+
+/*
+ * #%L
+ * Colorado Computational Pharmacology's common module
+ * %%
+ * Copyright (C) 2012 - 2015 Regents of the University of Colorado
+ * %%
+ * Redistribution and use in source and binary forms, with or without modification,
+ * are permitted provided that the following conditions are met:
+ * 
+ * 1. Redistributions of source code must retain the above copyright notice, this
+ *    list of conditions and the following disclaimer.
+ * 
+ * 2. Redistributions in binary form must reproduce the above copyright notice,
+ *    this list of conditions and the following disclaimer in the documentation
+ *    and/or other materials provided with the distribution.
+ * 
+ * 3. Neither the name of the Regents of the University of Colorado nor the names of its contributors
+ *    may be used to endorse or promote products derived from this software without
+ *    specific prior written permission.
+ * 
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
+ * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+ * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.
+ * IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT,
+ * INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING,
+ * BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
+ * DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+ * LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE
+ * OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED
+ * OF THE POSSIBILITY OF SUCH DAMAGE.
+ * #L%
+ */
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -40,7 +73,6 @@ import edu.ucdenver.ccp.datasource.fileparsers.test.RecordReaderTester;
 import edu.ucdenver.ccp.datasource.identifiers.ncbi.gene.EntrezGeneID;
 import edu.ucdenver.ccp.datasource.identifiers.premod.PreModID;
 import edu.ucdenver.ccp.datasource.identifiers.transfac.TransfacMatrixID;
-import edu.ucdenver.ccp.fileparsers.field.ChromosomeNumber;
 
 /**
  * 
@@ -75,9 +107,9 @@ public class PReModModuleTabFileParserTest extends RecordReaderTester {
 				 */
 				PReModModuleTabFileData record1 = parser.next();
 				assertEquals(new PreModID("mod000001"), record1.getPremodID());
-				assertEquals(new ChromosomeNumber(1), record1.getChromosome());
+				assertEquals(new String("1"), record1.getChromosome());
 				assertEquals(406, record1.getLength());
-				assertEquals(new PreModScore(13.632706f), record1.getScore());
+				assertEquals(13.632706d, record1.getScore(), 0.00001);
 				assertEquals(new EntrezGeneID(497097), record1.getUpstreamEntrezGeneID());
 				assertEquals(new String("Xkr4"), record1.getUpstreamGeneName());
 				assertEquals(470403, record1.getUpstreamGenePosition());
@@ -102,9 +134,9 @@ public class PReModModuleTabFileParserTest extends RecordReaderTester {
 				 */
 				PReModModuleTabFileData record2 = parser.next();
 				assertEquals(new PreModID("mod000002"), record2.getPremodID());
-				assertEquals(new ChromosomeNumber(1), record2.getChromosome());
+				assertEquals(new String("1"), record2.getChromosome());
 				assertEquals(893, record2.getLength());
-				assertEquals(new PreModScore(24.409269f), record2.getScore());
+				assertEquals(24.409269f, record2.getScore(), 0.00000001);
 				assertEquals(new EntrezGeneID(497097), record2.getUpstreamEntrezGeneID());
 				assertEquals(new String("Xkr4"), record2.getUpstreamGeneName());
 				assertEquals(456205, record2.getUpstreamGenePosition());

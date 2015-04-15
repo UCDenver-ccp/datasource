@@ -1,15 +1,15 @@
-package edu.ucdenver.ccp.rdfizer.rdf;
+package edu.ucdenver.ccp.datasource.rdfizer.rdf.ice;
 
-import static edu.ucdenver.ccp.rdfizer.rdf.RdfUtil.createRelativeFileUri;
-import static edu.ucdenver.ccp.rdfizer.rdf.RdfUtil.createStatement;
-import static edu.ucdenver.ccp.rdfizer.rdf.RdfUtil.createUri;
-import static edu.ucdenver.ccp.rdfizer.rdf.RdfUtil.createUriStatement;
-import static edu.ucdenver.ccp.rdfizer.rdf.RdfUtil.getCreationTimeStampStatement;
-import static edu.ucdenver.ccp.rdfizer.rdf.RdfUtil.getDateLiteral;
-import static edu.ucdenver.ccp.rdfizer.rdf.RdfUtil.getFileHasLocalPathStatement;
-import static edu.ucdenver.ccp.rdfizer.rdf.RdfUtil.getFileIsTypeRdfFileStatement;
-import static edu.ucdenver.ccp.rdfizer.rdf.RdfUtil.getRelativeFilePath;
-import static edu.ucdenver.ccp.rdfizer.rdf.RdfUtil.writeStatements;
+import static edu.ucdenver.ccp.datasource.rdfizer.rdf.ice.RdfUtil.createRelativeFileUri;
+import static edu.ucdenver.ccp.datasource.rdfizer.rdf.ice.RdfUtil.createStatement;
+import static edu.ucdenver.ccp.datasource.rdfizer.rdf.ice.RdfUtil.createUri;
+import static edu.ucdenver.ccp.datasource.rdfizer.rdf.ice.RdfUtil.createUriStatement;
+import static edu.ucdenver.ccp.datasource.rdfizer.rdf.ice.RdfUtil.getCreationTimeStampStatement;
+import static edu.ucdenver.ccp.datasource.rdfizer.rdf.ice.RdfUtil.getDateLiteral;
+import static edu.ucdenver.ccp.datasource.rdfizer.rdf.ice.RdfUtil.getFileHasLocalPathStatement;
+import static edu.ucdenver.ccp.datasource.rdfizer.rdf.ice.RdfUtil.getFileIsTypeRdfFileStatement;
+import static edu.ucdenver.ccp.datasource.rdfizer.rdf.ice.RdfUtil.getRelativeFilePath;
+import static edu.ucdenver.ccp.datasource.rdfizer.rdf.ice.RdfUtil.writeStatements;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.fail;
@@ -33,8 +33,9 @@ import org.openrdf.rio.Rio;
 
 import edu.ucdenver.ccp.common.test.DefaultTestCase;
 import edu.ucdenver.ccp.datasource.identifiers.DataSource;
-import edu.ucdenver.ccp.rdfizer.vocabulary.KIAO;
-import edu.ucdenver.ccp.rdfizer.vocabulary.RDF;
+import edu.ucdenver.ccp.datasource.rdfizer.rdf.RdfNamespace;
+import edu.ucdenver.ccp.datasource.rdfizer.rdf.vocabulary.KIAO;
+import edu.ucdenver.ccp.datasource.rdfizer.rdf.vocabulary.RDF;
 
 public class RdfUtilTest extends DefaultTestCase {
 

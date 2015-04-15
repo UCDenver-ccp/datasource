@@ -1,4 +1,38 @@
-package edu.ucdenver.ccp.fileparsers.pharmgkb;
+package edu.ucdenver.ccp.datasource.fileparsers.pharmgkb;
+
+/*
+ * #%L
+ * Colorado Computational Pharmacology's common module
+ * %%
+ * Copyright (C) 2012 - 2015 Regents of the University of Colorado
+ * %%
+ * Redistribution and use in source and binary forms, with or without modification,
+ * are permitted provided that the following conditions are met:
+ * 
+ * 1. Redistributions of source code must retain the above copyright notice, this
+ *    list of conditions and the following disclaimer.
+ * 
+ * 2. Redistributions in binary form must reproduce the above copyright notice,
+ *    this list of conditions and the following disclaimer in the documentation
+ *    and/or other materials provided with the distribution.
+ * 
+ * 3. Neither the name of the Regents of the University of Colorado nor the names of its contributors
+ *    may be used to endorse or promote products derived from this software without
+ *    specific prior written permission.
+ * 
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
+ * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+ * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.
+ * IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT,
+ * INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING,
+ * BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
+ * DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+ * LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE
+ * OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED
+ * OF THE POSSIBILITY OF SUCH DAMAGE.
+ * #L%
+ */
+
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -21,7 +55,6 @@ import edu.ucdenver.ccp.datasource.identifiers.ncbi.MeshID;
 import edu.ucdenver.ccp.datasource.identifiers.other.SnoMedCtId;
 import edu.ucdenver.ccp.datasource.identifiers.other.UmlsId;
 import edu.ucdenver.ccp.datasource.identifiers.pharmgkb.PharmGkbID;
-import edu.ucdenver.ccp.fileparsers.field.DataElementLiteral;
 
 /**
  * File record capturing single line record from PharmGKB's diseases.tsv file.
@@ -41,9 +74,9 @@ public class PharmGkbDiseaseFileRecord extends SingleLineFileRecord {
 	@RecordField
 	private PharmGkbID accessionId;
 	@RecordField
-	private final DataSourceElement<String> name;
+	private final String name;
 	@RecordField
-	private Collection<DataElementLiteral<String>> alternativeNames;
+	private Collection<String> alternativeNames;
 	@RecordField(comment = "This field appears to be empty for all records.")
 	private Collection<DataSourceIdentifier<?>> crossReferences;
 	@RecordField
@@ -52,8 +85,7 @@ public class PharmGkbDiseaseFileRecord extends SingleLineFileRecord {
 	public PharmGkbDiseaseFileRecord(String pharmGkbAccessionId, String name, String alternativeNames,
 			String crossReferences, String externalVocabulary, long byteOffset, long lineNumber) {
 		super(byteOffset, lineNumber);
-		this.name = new DataElementLiteral<String>(name) {
-		};
+		this.name = name;
 		setAlternativeNames(StringUtil.delimitAndTrim(alternativeNames, StringConstants.COMMA,
 				StringConstants.QUOTATION_MARK, RemoveFieldEnclosures.TRUE));
 		if (!crossReferences.isEmpty()) {
@@ -66,21 +98,18 @@ public class PharmGkbDiseaseFileRecord extends SingleLineFileRecord {
 	}
 
 	private void setAlternativeNames(Collection<String> names) {
-		alternativeNames = new ArrayList<DataElementLiteral<String>>();
-		for (String name : names)
-			alternativeNames.add(new DataElementLiteral<String>(name) {
-			});
+		alternativeNames = new ArrayList<String>(names);
 	}
 
 	public PharmGkbID getAccessionId() {
 		return accessionId;
 	}
 
-	public Collection<DataElementLiteral<String>> getAlternativeNames() {
+	public Collection<String> getAlternativeNames() {
 		return alternativeNames;
 	}
 
-	public DataSourceElement<String> getName() {
+	public String getName() {
 		return name;
 	}
 

@@ -40,7 +40,6 @@ import java.util.NoSuchElementException;
 
 import edu.ucdenver.ccp.common.file.CharacterEncoding;
 import edu.ucdenver.ccp.common.file.reader.Line;
-import edu.ucdenver.ccp.common.file.reader.StreamLineReader;
 
 public abstract class SingleLineFileRecordReader<T extends SingleLineFileRecord> extends LineFileRecordReader<T> {
 

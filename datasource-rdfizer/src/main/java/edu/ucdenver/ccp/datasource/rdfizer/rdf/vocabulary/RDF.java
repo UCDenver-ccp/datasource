@@ -1,13 +1,13 @@
 /**
  * 
  */
-package edu.ucdenver.ccp.rdfizer.vocabulary;
+package edu.ucdenver.ccp.datasource.rdfizer.rdf.vocabulary;
 
 import org.openrdf.model.URI;
 import org.openrdf.model.impl.URIImpl;
 
-import edu.ucdenver.ccp.rdfizer.rdf.RdfNamespace;
-import edu.ucdenver.ccp.rdfizer.rdf.RdfUtil;
+import edu.ucdenver.ccp.datasource.rdfizer.rdf.RdfNamespace;
+import edu.ucdenver.ccp.datasource.rdfizer.rdf.ice.RdfUtil;
 
 /**
  * @author Center for Computational Pharmacology, UC Denver; ccpsupport@ucdenver.edu

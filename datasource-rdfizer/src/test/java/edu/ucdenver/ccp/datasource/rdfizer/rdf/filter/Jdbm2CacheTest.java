@@ -1,7 +1,7 @@
 /**
  * 
  */
-package edu.ucdenver.ccp.rdfizer.util;
+package edu.ucdenver.ccp.datasource.rdfizer.rdf.filter;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
@@ -13,7 +13,6 @@ import org.junit.Ignore;
 import org.junit.Test;
 
 import edu.ucdenver.ccp.common.test.DefaultTestCase;
-import edu.ucdenver.ccp.rdfizer.rdf.filter.Jdbm2Cache;
 
 /**
  * @author Center for Computational Pharmacology, UC Denver; ccpsupport@ucdenver.edu

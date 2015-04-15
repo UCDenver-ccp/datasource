@@ -1,4 +1,37 @@
-package edu.ucdenver.ccp.fileparsers.hgnc;
+package edu.ucdenver.ccp.datasource.fileparsers.hgnc;
+
+/*
+ * #%L
+ * Colorado Computational Pharmacology's common module
+ * %%
+ * Copyright (C) 2012 - 2015 Regents of the University of Colorado
+ * %%
+ * Redistribution and use in source and binary forms, with or without modification,
+ * are permitted provided that the following conditions are met:
+ * 
+ * 1. Redistributions of source code must retain the above copyright notice, this
+ *    list of conditions and the following disclaimer.
+ * 
+ * 2. Redistributions in binary form must reproduce the above copyright notice,
+ *    this list of conditions and the following disclaimer in the documentation
+ *    and/or other materials provided with the distribution.
+ * 
+ * 3. Neither the name of the Regents of the University of Colorado nor the names of its contributors
+ *    may be used to endorse or promote products derived from this software without
+ *    specific prior written permission.
+ * 
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
+ * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+ * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.
+ * IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT,
+ * INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING,
+ * BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
+ * DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+ * LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE
+ * OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED
+ * OF THE POSSIBILITY OF SUCH DAMAGE.
+ * #L%
+ */
 
 import java.io.File;
 import java.io.IOException;
@@ -21,6 +54,9 @@ import edu.ucdenver.ccp.common.string.StringConstants;
 import edu.ucdenver.ccp.common.string.StringUtil;
 import edu.ucdenver.ccp.common.string.StringUtil.RemoveFieldEnclosures;
 import edu.ucdenver.ccp.datasource.fileparsers.SingleLineFileRecordReader;
+import edu.ucdenver.ccp.datasource.fileparsers.hgnc.HgncDownloadFileData.GeneFamilyTagDescriptionPair;
+import edu.ucdenver.ccp.datasource.fileparsers.hgnc.HgncDownloadFileData.LocusSpecificDatabaseNameLinkPair;
+import edu.ucdenver.ccp.datasource.fileparsers.hgnc.HgncDownloadFileData.SpecialistDbIdLinkPair;
 import edu.ucdenver.ccp.datasource.identifiers.DataSourceIdentifier;
 import edu.ucdenver.ccp.datasource.identifiers.NucleotideAccessionResolver;
 import edu.ucdenver.ccp.datasource.identifiers.ProteinAccessionResolver;
@@ -55,10 +91,6 @@ import edu.ucdenver.ccp.datasource.identifiers.other.UcscGenomeBrowserId;
 import edu.ucdenver.ccp.datasource.identifiers.other.VegaID;
 import edu.ucdenver.ccp.datasource.identifiers.other.ZnfGeneCatalogId;
 import edu.ucdenver.ccp.datasource.identifiers.rgd.RgdID;
-import edu.ucdenver.ccp.fileparsers.hgnc.HgncDownloadFileData.GeneFamilyTagDescriptionPair;
-import edu.ucdenver.ccp.fileparsers.hgnc.HgncDownloadFileData.LocusSpecificDatabaseNameLinkPair;
-import edu.ucdenver.ccp.fileparsers.hgnc.HgncDownloadFileData.SpecialistDbIdLinkPair;
-import edu.ucdenver.ccp.fileparsers.mgi.CmPosition;
 import edu.ucdenver.ccp.identifier.publication.PubMedID;
 
 /**
@@ -128,13 +160,13 @@ public class HgncDownloadFileParser extends SingleLineFileRecordReader<HgncDownl
 				return null;
 			}
 
-			HgncApprovedGeneName geneName = new HgncApprovedGeneName(toks[column++]);
+			String geneName = new String(toks[column++]);
 
-			HgncStatus status = new HgncStatus(toks[column++]);
+			String status = new String(toks[column++]);
 
-			HgncLocusType locusType = new HgncLocusType(toks[column++]);
+			String locusType = new String(toks[column++]);
 
-			HgncLocusGroup locusGroup = new HgncLocusGroup(toks[column++]);
+			String locusGroup = new String(toks[column++]);
 
 			Set<String> previousSymbols = new HashSet<String>();
 			for (String symbol : StringUtil.delimitAndTrim(toks[column++], StringConstants.COMMA, null,
@@ -160,7 +192,7 @@ public class HgncDownloadFileParser extends SingleLineFileRecordReader<HgncDownl
 				nameSynonyms.add(new String(name));
 			}
 
-			CmPosition chromosome = new CmPosition(toks[column++]);
+			String chromosome = new String(toks[column++]);
 
 			String dateApproved = null;
 			String columnValue = toks[column++];

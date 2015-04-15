@@ -1,7 +1,7 @@
 /**
  * 
  */
-package edu.ucdenver.ccp.rdfizer.rdf;
+package edu.ucdenver.ccp.datasource.rdfizer.rdf.ice;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.ParameterizedType;
@@ -29,14 +29,15 @@ import edu.ucdenver.ccp.datasource.fileparsers.DataRecord;
 import edu.ucdenver.ccp.datasource.fileparsers.Record;
 import edu.ucdenver.ccp.datasource.fileparsers.RecordField;
 import edu.ucdenver.ccp.datasource.fileparsers.RecordUtil;
-import edu.ucdenver.ccp.rdfizer.rdf.RdfRecordUriFactory.IncludeVersion;
-import edu.ucdenver.ccp.rdfizer.rdf.filter.DuplicateStatementFilter;
-import edu.ucdenver.ccp.rdfizer.vocabulary.DC;
-import edu.ucdenver.ccp.rdfizer.vocabulary.IAO;
-import edu.ucdenver.ccp.rdfizer.vocabulary.KIAO;
-import edu.ucdenver.ccp.rdfizer.vocabulary.RDF;
-import edu.ucdenver.ccp.rdfizer.vocabulary.RDFS;
-import edu.ucdenver.ccp.rdfizer.vocabulary.RO;
+import edu.ucdenver.ccp.datasource.rdfizer.rdf.RdfNamespace;
+import edu.ucdenver.ccp.datasource.rdfizer.rdf.filter.DuplicateStatementFilter;
+import edu.ucdenver.ccp.datasource.rdfizer.rdf.ice.RdfRecordUriFactory.IncludeVersion;
+import edu.ucdenver.ccp.datasource.rdfizer.rdf.vocabulary.DC;
+import edu.ucdenver.ccp.datasource.rdfizer.rdf.vocabulary.IAO;
+import edu.ucdenver.ccp.datasource.rdfizer.rdf.vocabulary.KIAO;
+import edu.ucdenver.ccp.datasource.rdfizer.rdf.vocabulary.RDF;
+import edu.ucdenver.ccp.datasource.rdfizer.rdf.vocabulary.RDFS;
+import edu.ucdenver.ccp.datasource.rdfizer.rdf.vocabulary.RO;
 
 /**
  * Static utility functions for creating RDF

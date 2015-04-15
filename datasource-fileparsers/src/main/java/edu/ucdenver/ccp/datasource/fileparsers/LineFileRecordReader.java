@@ -39,9 +39,7 @@ import java.io.InputStream;
 
 import org.apache.log4j.Logger;
 
-import edu.ucdenver.ccp.common.download.DownloadUtil;
 import edu.ucdenver.ccp.common.file.CharacterEncoding;
-import edu.ucdenver.ccp.common.file.FileUtil;
 import edu.ucdenver.ccp.common.file.reader.Line;
 import edu.ucdenver.ccp.common.file.reader.StreamLineReader;
 

@@ -1,4 +1,37 @@
-package edu.ucdenver.ccp.fileparsers.hgnc;
+package edu.ucdenver.ccp.datasource.fileparsers.hgnc;
+
+/*
+ * #%L
+ * Colorado Computational Pharmacology's common module
+ * %%
+ * Copyright (C) 2012 - 2015 Regents of the University of Colorado
+ * %%
+ * Redistribution and use in source and binary forms, with or without modification,
+ * are permitted provided that the following conditions are met:
+ * 
+ * 1. Redistributions of source code must retain the above copyright notice, this
+ *    list of conditions and the following disclaimer.
+ * 
+ * 2. Redistributions in binary form must reproduce the above copyright notice,
+ *    this list of conditions and the following disclaimer in the documentation
+ *    and/or other materials provided with the distribution.
+ * 
+ * 3. Neither the name of the Regents of the University of Colorado nor the names of its contributors
+ *    may be used to endorse or promote products derived from this software without
+ *    specific prior written permission.
+ * 
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
+ * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+ * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.
+ * IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT,
+ * INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING,
+ * BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
+ * DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+ * LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE
+ * OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED
+ * OF THE POSSIBILITY OF SUCH DAMAGE.
+ * #L%
+ */
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -16,6 +49,10 @@ import org.junit.Test;
 import edu.ucdenver.ccp.common.collections.CollectionsUtil;
 import edu.ucdenver.ccp.common.file.CharacterEncoding;
 import edu.ucdenver.ccp.common.file.FileUtil;
+import edu.ucdenver.ccp.datasource.fileparsers.hgnc.HgncDownloadFileData.GeneFamilyTagDescriptionPair;
+import edu.ucdenver.ccp.datasource.fileparsers.hgnc.HgncDownloadFileData.LocusSpecificDatabaseNameLinkPair;
+import edu.ucdenver.ccp.datasource.fileparsers.hgnc.HgncDownloadFileData.SpecialistDbIdLinkPair;
+import edu.ucdenver.ccp.datasource.fileparsers.hgnc.HgncDownloadFileParser.WithdrawnRecordTreatment;
 import edu.ucdenver.ccp.datasource.fileparsers.test.RecordReaderTester;
 import edu.ucdenver.ccp.datasource.identifiers.NucleotideAccessionResolver;
 import edu.ucdenver.ccp.datasource.identifiers.ebi.uniprot.UniProtID;
@@ -30,11 +67,6 @@ import edu.ucdenver.ccp.datasource.identifiers.other.CosmicId;
 import edu.ucdenver.ccp.datasource.identifiers.other.UcscGenomeBrowserId;
 import edu.ucdenver.ccp.datasource.identifiers.other.VegaID;
 import edu.ucdenver.ccp.datasource.identifiers.rgd.RgdID;
-import edu.ucdenver.ccp.fileparsers.hgnc.HgncDownloadFileData.GeneFamilyTagDescriptionPair;
-import edu.ucdenver.ccp.fileparsers.hgnc.HgncDownloadFileData.LocusSpecificDatabaseNameLinkPair;
-import edu.ucdenver.ccp.fileparsers.hgnc.HgncDownloadFileData.SpecialistDbIdLinkPair;
-import edu.ucdenver.ccp.fileparsers.hgnc.HgncDownloadFileParser.WithdrawnRecordTreatment;
-import edu.ucdenver.ccp.fileparsers.mgi.CmPosition;
 import edu.ucdenver.ccp.identifier.publication.PubMedID;
 
 public class HgncDownloadFileParserTest extends RecordReaderTester {
@@ -60,10 +92,10 @@ public class HgncDownloadFileParserTest extends RecordReaderTester {
 			assertEquals(String.format("Returned incorrect HGNC ID."), new HgncID("HGNC:37133"), dataRecord.getHgncID());
 			assertEquals(String.format("Returned incorrect gene symbol."), new HgncGeneSymbolID("A1BG-AS1"),
 					dataRecord.getHgncGeneSymbol());
-			assertEquals(new HgncApprovedGeneName("A1BG antisense RNA 1"), dataRecord.getHgncGeneName());
-			assertEquals(new HgncStatus("Approved"), dataRecord.getStatus());
-			assertEquals(new HgncLocusType("RNA, long non-coding"), dataRecord.getLocusType());
-			assertEquals(new HgncLocusGroup("non-coding RNA"), dataRecord.getLocusGroup());
+			assertEquals(new String("A1BG antisense RNA 1"), dataRecord.getHgncGeneName());
+			assertEquals(new String("Approved"), dataRecord.getStatus());
+			assertEquals(new String("RNA, long non-coding"), dataRecord.getLocusType());
+			assertEquals(new String("non-coding RNA"), dataRecord.getLocusGroup());
 			assertEquals(CollectionsUtil.createSet(new String("NCRNA00181"), new String("A1BGAS"),
 					new String("A1BG-AS")), dataRecord.getPreviousSymbols());
 			assertEquals(CollectionsUtil.createSet(new String("non-protein coding RNA 181"),
@@ -71,7 +103,7 @@ public class HgncDownloadFileParserTest extends RecordReaderTester {
 							"A1BG antisense RNA 1 (non-protein coding)")), dataRecord.getPreviousNames());
 			assertEquals(CollectionsUtil.createSet(new String("FLJ23569")), dataRecord.getSynonyms());
 			assertEmpty(dataRecord.getNameSynonyms());
-			assertEquals(new CmPosition("19q13.4"), dataRecord.getChromosome());
+			assertEquals(new String("19q13.4"), dataRecord.getChromosome());
 			assertEquals("2009-07-20", dataRecord.getDateApproved());
 			assertEquals("2012-10-12", dataRecord.getDateModified());
 			assertEquals("2010-11-25", dataRecord.getDateSymbolChanged());
@@ -111,17 +143,17 @@ public class HgncDownloadFileParserTest extends RecordReaderTester {
 			assertEquals(String.format("Returned incorrect HGNC ID."), new HgncID("HGNC:24086"), dataRecord.getHgncID());
 			assertEquals(String.format("Returned incorrect gene symbol."), new HgncGeneSymbolID("A1CF"),
 					dataRecord.getHgncGeneSymbol());
-			assertEquals(new HgncApprovedGeneName("APOBEC1 complementation factor"), dataRecord.getHgncGeneName());
-			assertEquals(new HgncStatus("Approved"), dataRecord.getStatus());
-			assertEquals(new HgncLocusType("gene with protein product"), dataRecord.getLocusType());
-			assertEquals(new HgncLocusGroup("protein-coding gene"), dataRecord.getLocusGroup());
+			assertEquals(new String("APOBEC1 complementation factor"), dataRecord.getHgncGeneName());
+			assertEquals(new String("Approved"), dataRecord.getStatus());
+			assertEquals(new String("gene with protein product"), dataRecord.getLocusType());
+			assertEquals(new String("protein-coding gene"), dataRecord.getLocusGroup());
 			assertEmpty(dataRecord.getPreviousSymbols());
 			assertEmpty(dataRecord.getPreviousNames());
 			assertEquals(CollectionsUtil.createSet(new String("ACF"), new String("ASP"),
 					new String("ACF64"), new String("ACF65"), new String("APOBEC1CF")),
 					dataRecord.getSynonyms());
 			assertEmpty(dataRecord.getNameSynonyms());
-			assertEquals(new CmPosition("10q21.1"), dataRecord.getChromosome());
+			assertEquals(new String("10q21.1"), dataRecord.getChromosome());
 			assertEquals("2007-11-23", dataRecord.getDateApproved());
 			assertEquals("2011-07-21", dataRecord.getDateModified());
 			assertNull(dataRecord.getDateSymbolChanged());

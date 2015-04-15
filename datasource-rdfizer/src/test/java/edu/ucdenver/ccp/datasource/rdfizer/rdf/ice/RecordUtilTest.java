@@ -1,7 +1,7 @@
 /**
  * 
  */
-package edu.ucdenver.ccp.rdfizer.rdf;
+package edu.ucdenver.ccp.datasource.rdfizer.rdf.ice;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -11,13 +11,10 @@ import java.net.URISyntaxException;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.GregorianCalendar;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
-import java.util.List;
 import java.util.Set;
 
-import org.junit.Ignore;
 import org.junit.Test;
 import org.openrdf.model.Statement;
 import org.openrdf.model.impl.URIImpl;
@@ -30,8 +27,7 @@ import edu.ucdenver.ccp.datasource.fileparsers.RecordField;
 import edu.ucdenver.ccp.datasource.fileparsers.SingleLineFileRecord;
 import edu.ucdenver.ccp.datasource.identifiers.DataSource;
 import edu.ucdenver.ccp.datasource.identifiers.DataSourceIdentifier;
-import edu.ucdenver.ccp.fileparsers.field.DataElementLiteral;
-import edu.ucdenver.ccp.rdfizer.rdf.filter.NoOpDuplicateStatementFilter;
+import edu.ucdenver.ccp.datasource.rdfizer.rdf.filter.NoOpDuplicateStatementFilter;
 
 /**
  * @author Colorado Computational Pharmacology, UC Denver; ccpsupport@ucdenver.edu
@@ -42,7 +38,7 @@ public class RecordUtilTest {
 	@Test
 	public void testGetSortedFieldsAndValues() {
 		GeneID geneID = new GeneID(789);
-		GeneName geneName = new GeneName("gene name");
+		String geneName = new String("gene name");
 		Set<GeneID> homologousGeneIDs = CollectionsUtil.createSet(new GeneID(2), new GeneID(10), new GeneID(100),
 				new GeneID(1));
 		long byteOffset1 = 10000000;
@@ -69,11 +65,11 @@ public class RecordUtilTest {
 		@RecordField
 		private final GeneID geneID;
 		@RecordField
-		private final GeneName geneName;
+		private final String geneName;
 		@RecordField
 		private final Set<GeneID> homologousGeneIDs;
 
-		public GeneId2NameDatFileData(GeneID geneID, GeneName geneName, Set<GeneID> homologousGeneIDs, long byteOffset,
+		public GeneId2NameDatFileData(GeneID geneID, String geneName, Set<GeneID> homologousGeneIDs, long byteOffset,
 				long lineNumber) {
 			super(byteOffset, lineNumber);
 			this.geneID = geneID;
@@ -85,7 +81,7 @@ public class RecordUtilTest {
 			return geneID;
 		}
 
-		public GeneName getGeneName() {
+		public String getString() {
 			return geneName;
 		}
 
@@ -96,7 +92,7 @@ public class RecordUtilTest {
 		public static GeneId2NameDatFileData parseFromLine(Line line) {
 			String[] toks = line.getText().split("\\t", -1);
 			GeneID geneID = new GeneID(new Integer(toks[0]));
-			GeneName geneName = new GeneName(toks[1]);
+			String geneName = new String(toks[1]);
 			Set<GeneID> homologousGeneIDs = new HashSet<GeneID>();
 			if (toks[2].length() > 0)
 				for (Integer id : CollectionsUtil.parseInts(Arrays.asList(toks[2].split("\\|")))) {
@@ -140,12 +136,7 @@ public class RecordUtilTest {
 
 	}
 
-	private static class GeneName extends DataElementLiteral {
-
-		public GeneName(String resourceName) {
-			super(resourceName);
-		}
-	}
+	
 
 	// @Test
 	// public final void testGetRecordSchemaDefinitionStatements() {

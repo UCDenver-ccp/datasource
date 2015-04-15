@@ -1,7 +1,7 @@
 /**
  * 
  */
-package edu.ucdenver.ccp.rdfizer.rdf;
+package edu.ucdenver.ccp.datasource.rdfizer.rdf.ice;
 
 import static org.junit.Assert.assertTrue;
 
@@ -18,9 +18,9 @@ import edu.ucdenver.ccp.common.collections.CollectionsUtil;
 import edu.ucdenver.ccp.datasource.fileparsers.DataRecord;
 import edu.ucdenver.ccp.datasource.fileparsers.Record;
 import edu.ucdenver.ccp.datasource.fileparsers.RecordField;
+import edu.ucdenver.ccp.datasource.fileparsers.dip.DipInteractionDetectionMethod;
 import edu.ucdenver.ccp.datasource.identifiers.DataSource;
 import edu.ucdenver.ccp.datasource.identifiers.obo.MolecularInteractionOntologyTermID;
-import edu.ucdenver.ccp.fileparsers.dip.DipInteractionDetectionMethod;
 
 /**
  * @author Colorado Computational Pharmacology, UC Denver; ccpsupport@ucdenver.edu

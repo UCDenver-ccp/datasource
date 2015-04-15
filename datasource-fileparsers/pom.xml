@@ -37,6 +37,11 @@
 			<artifactId>org.geneontology</artifactId>
 			<version>1.101</version>
 		</dependency>
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+			<scope>provided</scope>
+		</dependency>
 	</dependencies>
 
 	<repositories>
@@ -82,6 +87,36 @@
 						<goals>
 							<goal>test-jar</goal>
 						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<!-- Currently, the jaxb-maven plugin is used to auto-generate classes 
+					for the DrugBank XML parser -->
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>jaxb2-maven-plugin</artifactId>
+				<version>1.6</version>
+				<executions>
+					<execution>
+						<id>drugbank-xjc</id>
+						<goals>
+							<goal>xjc</goal>
+						</goals>
+						<configuration>
+							<schemaFiles>drugbank.xsd</schemaFiles>
+							<packageName>ca.drugbank</packageName>
+						</configuration>
+					</execution>
+					<execution>
+						<id>uniprot-xjc</id>
+						<goals>
+							<goal>xjc</goal>
+						</goals>
+						<configuration>
+							<schemaFiles>uniprot.xsd</schemaFiles>
+							<packageName>org.uniprot</packageName>
+							<clearOutputDir>false</clearOutputDir>
+						</configuration>
 					</execution>
 				</executions>
 			</plugin>

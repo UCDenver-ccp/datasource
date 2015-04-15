@@ -1,7 +1,7 @@
 /**
  * 
  */
-package edu.ucdenver.ccp.rdfizer.rdf;
+package edu.ucdenver.ccp.datasource.rdfizer.rdf.ice;
 
 import java.lang.reflect.Field;
 import java.net.URI;
@@ -22,7 +22,8 @@ import edu.ucdenver.ccp.common.digest.DigestUtil;
 import edu.ucdenver.ccp.common.reflection.PrivateAccessor;
 import edu.ucdenver.ccp.datasource.fileparsers.RecordField;
 import edu.ucdenver.ccp.datasource.fileparsers.RecordUtil;
-import edu.ucdenver.ccp.rdfizer.vocabulary.KIAO;
+import edu.ucdenver.ccp.datasource.rdfizer.rdf.RdfNamespace;
+import edu.ucdenver.ccp.datasource.rdfizer.rdf.vocabulary.KIAO;
 
 /**
  * @author Colorado Computational Pharmacology, UC Denver; ccpsupport@ucdenver.edu

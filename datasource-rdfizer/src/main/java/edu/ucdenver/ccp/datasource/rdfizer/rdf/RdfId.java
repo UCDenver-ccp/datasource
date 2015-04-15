@@ -16,7 +16,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  * 
  */
-package edu.ucdenver.ccp.rdfizer.rdf;
+package edu.ucdenver.ccp.datasource.rdfizer.rdf;
 
 import java.net.URI;
 
@@ -24,8 +24,8 @@ import org.openrdf.model.Resource;
 import org.openrdf.model.Value;
 import org.openrdf.model.impl.URIImpl;
 
-import edu.ucdenver.ccp.common.string.StringUtil;
 import edu.ucdenver.ccp.datasource.identifiers.DataSourceIdentifier;
+import edu.ucdenver.ccp.datasource.rdfizer.rdf.ice.RdfUtil;
 
 /**
  * RDF wrapper for {@link DataElementIdentifier}

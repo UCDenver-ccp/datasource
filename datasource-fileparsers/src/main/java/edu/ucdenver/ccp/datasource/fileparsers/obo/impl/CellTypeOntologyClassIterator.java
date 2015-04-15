@@ -39,7 +39,6 @@ import java.util.Set;
 
 import org.geneontology.oboedit.dataadapter.OBOParseException;
 
-import edu.ucdenver.ccp.common.collections.CollectionsUtil;
 import edu.ucdenver.ccp.common.download.HttpDownload;
 import edu.ucdenver.ccp.common.file.CharacterEncoding;
 import edu.ucdenver.ccp.datasource.fileparsers.obo.OboClassIterator;

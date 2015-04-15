@@ -16,7 +16,40 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  * 
  */
-package edu.ucdenver.ccp.fileparsers.ebi.interpro;
+package edu.ucdenver.ccp.datasource.fileparsers.ebi.interpro;
+
+/*
+ * #%L
+ * Colorado Computational Pharmacology's common module
+ * %%
+ * Copyright (C) 2012 - 2015 Regents of the University of Colorado
+ * %%
+ * Redistribution and use in source and binary forms, with or without modification,
+ * are permitted provided that the following conditions are met:
+ * 
+ * 1. Redistributions of source code must retain the above copyright notice, this
+ *    list of conditions and the following disclaimer.
+ * 
+ * 2. Redistributions in binary form must reproduce the above copyright notice,
+ *    this list of conditions and the following disclaimer in the documentation
+ *    and/or other materials provided with the distribution.
+ * 
+ * 3. Neither the name of the Regents of the University of Colorado nor the names of its contributors
+ *    may be used to endorse or promote products derived from this software without
+ *    specific prior written permission.
+ * 
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
+ * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+ * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.
+ * IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT,
+ * INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING,
+ * BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
+ * DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+ * LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE
+ * OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED
+ * OF THE POSSIBILITY OF SUCH DAMAGE.
+ * #L%
+ */
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -70,12 +103,12 @@ public class InterProProtein2IprDatFileParserTest extends RecordReaderTester {
 				InterProProtein2IprDatFileData record1 = parser.next();
 				assertEquals(new UniProtID("A0A000"), record1.getUniProtID());
 				assertEquals(new InterProID("IPR004839"), record1.getInterProID());
-				assertEquals(new InterProName("Aminotransferase, class I and II"), record1.getInterProName());
+				assertEquals(new String("Aminotransferase, class I and II"), record1.getInterProName());
 				assertEquals(String.format("External reference ID not as expected."), new PfamID("PF00155"),
 						record1.getExternalReference());
-				assertEquals(String.format("Sequence start position not as expected"), new SequencePosition(36),
+				assertEquals(String.format("Sequence start position not as expected"), new Integer(36),
 						record1.getSequenceStartPosition());
-				assertEquals(String.format("Sequence end position not as expected."), new SequencePosition(381),
+				assertEquals(String.format("Sequence end position not as expected."), new Integer(381),
 						record1.getSequenceEndPosition());
 			} else {
 				fail("Parser should have returned a record here.");
@@ -89,13 +122,13 @@ public class InterProProtein2IprDatFileParserTest extends RecordReaderTester {
 				InterProProtein2IprDatFileData record2 = parser.next();
 				assertEquals(new UniProtID("A0A000"), record2.getUniProtID());
 				assertEquals(new InterProID("IPR010961"), record2.getInterProID());
-				assertEquals(new InterProName("Tetrapyrrole biosynthesis, 5-aminolevulinic acid synthase"),
+				assertEquals(new String("Tetrapyrrole biosynthesis, 5-aminolevulinic acid synthase"),
 						record2.getInterProName());
 				assertEquals(String.format("External reference ID not as expected."), new TigrFamsID("TIGR01821"),
 						record2.getExternalReference());
-				assertEquals(String.format("Sequence start position not as expected"), new SequencePosition(1),
+				assertEquals(String.format("Sequence start position not as expected"), new Integer(1),
 						record2.getSequenceStartPosition());
-				assertEquals(String.format("Sequence end position not as expected."), new SequencePosition(393),
+				assertEquals(String.format("Sequence end position not as expected."), new Integer(393),
 						record2.getSequenceEndPosition());
 			} else {
 				fail("Parser should have returned a record here.");
@@ -106,12 +139,12 @@ public class InterProProtein2IprDatFileParserTest extends RecordReaderTester {
 				InterProProtein2IprDatFileData record3 = parser.next();
 				assertEquals(new UniProtID("A0A003"), record3.getUniProtID());
 				assertEquals(new InterProID("IPR001509"), record3.getInterProID());
-				assertEquals(new InterProName("NAD-dependent epimerase/dehydratase"), record3.getInterProName());
+				assertEquals(new String("NAD-dependent epimerase/dehydratase"), record3.getInterProName());
 				assertEquals(String.format("External reference ID not as expected."), new PfamID("PF01370"),
 						record3.getExternalReference());
-				assertEquals(String.format("Sequence start position not as expected"), new SequencePosition(15),
+				assertEquals(String.format("Sequence start position not as expected"), new Integer(15),
 						record3.getSequenceStartPosition());
-				assertEquals(String.format("Sequence end position not as expected."), new SequencePosition(249),
+				assertEquals(String.format("Sequence end position not as expected."), new Integer(249),
 						record3.getSequenceEndPosition());
 			} else {
 				fail("Parser should have returned a record here.");

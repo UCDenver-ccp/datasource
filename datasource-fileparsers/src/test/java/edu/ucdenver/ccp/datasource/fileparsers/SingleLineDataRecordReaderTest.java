@@ -49,8 +49,6 @@ import edu.ucdenver.ccp.common.file.CharacterEncoding;
 import edu.ucdenver.ccp.common.file.FileWriterUtil;
 import edu.ucdenver.ccp.common.file.reader.Line;
 import edu.ucdenver.ccp.common.test.DefaultTestCase;
-import edu.ucdenver.ccp.datasource.fileparsers.SingleLineFileRecord;
-import edu.ucdenver.ccp.datasource.fileparsers.SingleLineFileRecordReader;
 
 public class SingleLineDataRecordReaderTest extends DefaultTestCase {
 

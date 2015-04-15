@@ -16,7 +16,40 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  * 
  */
-package edu.ucdenver.ccp.fileparsers.ncbi.omim;
+package edu.ucdenver.ccp.datasource.fileparsers.ncbi.omim;
+
+/*
+ * #%L
+ * Colorado Computational Pharmacology's common module
+ * %%
+ * Copyright (C) 2012 - 2015 Regents of the University of Colorado
+ * %%
+ * Redistribution and use in source and binary forms, with or without modification,
+ * are permitted provided that the following conditions are met:
+ * 
+ * 1. Redistributions of source code must retain the above copyright notice, this
+ *    list of conditions and the following disclaimer.
+ * 
+ * 2. Redistributions in binary form must reproduce the above copyright notice,
+ *    this list of conditions and the following disclaimer in the documentation
+ *    and/or other materials provided with the distribution.
+ * 
+ * 3. Neither the name of the Regents of the University of Colorado nor the names of its contributors
+ *    may be used to endorse or promote products derived from this software without
+ *    specific prior written permission.
+ * 
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
+ * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+ * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.
+ * IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT,
+ * INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING,
+ * BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
+ * DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+ * LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE
+ * OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED
+ * OF THE POSSIBILITY OF SUCH DAMAGE.
+ * #L%
+ */
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -63,8 +96,8 @@ public class OmimTxtFileParserTest extends RecordReaderTester {
 			if (parser.hasNext()) {
 				OmimTxtFileData record1 = parser.next();
 				assertEquals(new OmimID(100050), record1.getMimNumber());
-				assertEquals(new OmimRecordTitle("AARSKOG SYNDROME"), record1.getTitle());
-				assertEquals(new HashSet<OmimRecordTitle>(), record1.getAlternativeTitles());
+				assertEquals(new String("AARSKOG SYNDROME"), record1.getTitle());
+				assertEquals(new HashSet<String>(), record1.getAlternativeTitles());
 			} else {
 				fail("Parser should have returned a record here.");
 			}
@@ -72,10 +105,10 @@ public class OmimTxtFileParserTest extends RecordReaderTester {
 			if (parser.hasNext()) {
 				OmimTxtFileData record2 = parser.next();
 				assertEquals(new OmimID(100070), record2.getMimNumber());
-				assertEquals(new OmimRecordTitle("AORTIC ANEURYSM, ABDOMINAL"), record2.getTitle());
-				assertEquals(CollectionsUtil.createSet(new OmimRecordTitle("AAA"), new OmimRecordTitle("AAA1"),
-						new OmimRecordTitle("ANEURYSM, ABDOMINAL AORTIC"), new OmimRecordTitle(
-								"ABDOMINAL AORTIC ANEURYSM ARTERIOMEGALY, INCLUDED"), new OmimRecordTitle(
+				assertEquals(new String("AORTIC ANEURYSM, ABDOMINAL"), record2.getTitle());
+				assertEquals(CollectionsUtil.createSet(new String("AAA"), new String("AAA1"),
+						new String("ANEURYSM, ABDOMINAL AORTIC"), new String(
+								"ABDOMINAL AORTIC ANEURYSM ARTERIOMEGALY, INCLUDED"), new String(
 								"ANEURYSMS, PERIPHERAL, INCLUDED")), record2.getAlternativeTitles());
 			} else {
 				fail("Parser should have returned a record here.");
@@ -84,11 +117,11 @@ public class OmimTxtFileParserTest extends RecordReaderTester {
 			if (parser.hasNext()) {
 				OmimTxtFileData record3 = parser.next();
 				assertEquals(new OmimID(100100), record3.getMimNumber());
-				assertEquals(new OmimRecordTitle(
+				assertEquals(new String(
 						"ABDOMINAL MUSCLES, ABSENCE OF, WITH URINARY TRACT ABNORMALITY AND CRYPTORCHIDISM"), record3
 						.getTitle());
-				assertEquals(CollectionsUtil.createSet(new OmimRecordTitle("PRUNE BELLY SYNDROME"),
-						new OmimRecordTitle("EAGLE-BARRETT SYNDROME")), record3.getAlternativeTitles());
+				assertEquals(CollectionsUtil.createSet(new String("PRUNE BELLY SYNDROME"),
+						new String("EAGLE-BARRETT SYNDROME")), record3.getAlternativeTitles());
 			} else {
 				fail("Parser should have returned a record here.");
 			}
@@ -104,12 +137,12 @@ public class OmimTxtFileParserTest extends RecordReaderTester {
 
 	@Test
 	public void testGetOmimID2NameMap() throws Exception {
-		Map<OmimID, OmimRecordTitle> omimID2NameMap = OmimTxtFileParser.getOmimID2NameMap(sampleInputFile, CharacterEncoding.US_ASCII);
+		Map<OmimID, String> omimID2NameMap = OmimTxtFileParser.getOmimID2NameMap(sampleInputFile, CharacterEncoding.US_ASCII);
 
-		Map<OmimID, OmimRecordTitle> expectedInterProID2NameMap = new HashMap<OmimID, OmimRecordTitle>();
-		expectedInterProID2NameMap.put(new OmimID(100050), new OmimRecordTitle("AARSKOG SYNDROME"));
-		expectedInterProID2NameMap.put(new OmimID(100070), new OmimRecordTitle("AORTIC ANEURYSM, ABDOMINAL"));
-		expectedInterProID2NameMap.put(new OmimID(100100), new OmimRecordTitle("ABDOMINAL MUSCLES, ABSENCE OF, WITH URINARY TRACT ABNORMALITY AND CRYPTORCHIDISM"));
+		Map<OmimID, String> expectedInterProID2NameMap = new HashMap<OmimID, String>();
+		expectedInterProID2NameMap.put(new OmimID(100050), new String("AARSKOG SYNDROME"));
+		expectedInterProID2NameMap.put(new OmimID(100070), new String("AORTIC ANEURYSM, ABDOMINAL"));
+		expectedInterProID2NameMap.put(new OmimID(100100), new String("ABDOMINAL MUSCLES, ABSENCE OF, WITH URINARY TRACT ABNORMALITY AND CRYPTORCHIDISM"));
 
 		assertEquals(expectedInterProID2NameMap, omimID2NameMap);
 	}

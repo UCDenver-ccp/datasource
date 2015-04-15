@@ -16,7 +16,40 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  * 
  */
-package edu.ucdenver.ccp.fileparsers.mgi;
+package edu.ucdenver.ccp.datasource.fileparsers.mgi;
+
+/*
+ * #%L
+ * Colorado Computational Pharmacology's common module
+ * %%
+ * Copyright (C) 2012 - 2015 Regents of the University of Colorado
+ * %%
+ * Redistribution and use in source and binary forms, with or without modification,
+ * are permitted provided that the following conditions are met:
+ * 
+ * 1. Redistributions of source code must retain the above copyright notice, this
+ *    list of conditions and the following disclaimer.
+ * 
+ * 2. Redistributions in binary form must reproduce the above copyright notice,
+ *    this list of conditions and the following disclaimer in the documentation
+ *    and/or other materials provided with the distribution.
+ * 
+ * 3. Neither the name of the Regents of the University of Colorado nor the names of its contributors
+ *    may be used to endorse or promote products derived from this software without
+ *    specific prior written permission.
+ * 
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
+ * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+ * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.
+ * IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT,
+ * INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING,
+ * BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
+ * DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+ * LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE
+ * OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED
+ * OF THE POSSIBILITY OF SUCH DAMAGE.
+ * #L%
+ */
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -39,7 +72,6 @@ import edu.ucdenver.ccp.datasource.fileparsers.RecordReader;
 import edu.ucdenver.ccp.datasource.fileparsers.test.RecordReaderTester;
 import edu.ucdenver.ccp.datasource.identifiers.ebi.uniprot.UniProtID;
 import edu.ucdenver.ccp.datasource.identifiers.mgi.MgiGeneID;
-import edu.ucdenver.ccp.fileparsers.field.ChromosomeNumber;
 
 /**
  * 
@@ -69,7 +101,7 @@ public class MRKSwissProtFileParserTest extends RecordReaderTester {
 				/* MGI:012345 A2dc21 O rock protein, epsilon 1 63.9 2 Q12C456 P98765 */
 				MRKSwissProtFileData record1 = parser.next();
 				assertEquals(new MgiGeneID("MGI:012345"), record1.getMgiAccessionID());
-				assertEquals(new ChromosomeNumber(2), record1.getChromosome());
+				assertEquals(new String("2"), record1.getChromosome());
 				assertEquals("63.9", record1.getcM_Position());
 				assertEquals(new String("A2dc21"), record1.getMarkerSymbol());
 				assertEquals("O", record1.getStatus());
@@ -87,7 +119,7 @@ public class MRKSwissProtFileParserTest extends RecordReaderTester {
 				/* MGI:12121212 Acdc22 O rockprotein, mu 1 syntenic 5 Q7890 */
 				MRKSwissProtFileData record2 = parser.next();
 				assertEquals(new MgiGeneID("MGI:12121212"), record2.getMgiAccessionID());
-				assertEquals(new ChromosomeNumber(5), record2.getChromosome());
+				assertEquals(new String("5"), record2.getChromosome());
 				assertEquals("syntenic", record2.getcM_Position());
 				assertEquals(new String("Acdc22"), record2.getMarkerSymbol());
 				assertEquals("O", record2.getStatus());
@@ -104,7 +136,7 @@ public class MRKSwissProtFileParserTest extends RecordReaderTester {
 				/* MGI:0995 Acdc23 O rock protein complex, sigma 1 syntenic 12 QWV15 P5656 */
 				MRKSwissProtFileData record3 = parser.next();
 				assertEquals(new MgiGeneID("MGI:0995"), record3.getMgiAccessionID());
-				assertEquals(new ChromosomeNumber(12), record3.getChromosome());
+				assertEquals(new String("12"), record3.getChromosome());
 				assertEquals("syntenic", record3.getcM_Position());
 				assertEquals(new String("Acdc23"), record3.getMarkerSymbol());
 				assertEquals("O", record3.getStatus());

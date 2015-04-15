@@ -1,4 +1,4 @@
-package edu.ucdenver.ccp.rdfizer.rdf;
+package edu.ucdenver.ccp.datasource.rdfizer.rdf.ice;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -24,14 +24,12 @@ import javax.xml.datatype.DatatypeFactory;
 import javax.xml.datatype.XMLGregorianCalendar;
 
 import org.apache.log4j.Logger;
-
-//import org.deri.any23.parser.NQuadsWriter;
-//import org.deri.any23.parser.NQuadsParser;
-
 import org.openrdf.model.Resource;
 import org.openrdf.model.Statement;
 import org.openrdf.model.Value;
 import org.openrdf.model.impl.BNodeImpl;
+//import org.deri.any23.parser.NQuadsWriter;
+//import org.deri.any23.parser.NQuadsParser;
 import org.openrdf.model.impl.BooleanLiteralImpl;
 import org.openrdf.model.impl.CalendarLiteralImpl;
 import org.openrdf.model.impl.LiteralImpl;
@@ -39,8 +37,8 @@ import org.openrdf.model.impl.StatementImpl;
 import org.openrdf.model.impl.URIImpl;
 import org.openrdf.rio.RDFFormat;
 import org.openrdf.rio.RDFHandlerException;
-import org.openrdf.rio.RDFWriter;
 import org.openrdf.rio.RDFParser;
+import org.openrdf.rio.RDFWriter;
 import org.openrdf.rio.Rio;
 
 import edu.ucdenver.ccp.common.file.CharacterEncoding;
@@ -53,8 +51,11 @@ import edu.ucdenver.ccp.common.string.StringUtil;
 import edu.ucdenver.ccp.datasource.identifiers.DataSource;
 import edu.ucdenver.ccp.datasource.identifiers.DataSourceElement;
 import edu.ucdenver.ccp.datasource.identifiers.DataSourceIdentifier;
-import edu.ucdenver.ccp.rdfizer.vocabulary.KIAO;
-import edu.ucdenver.ccp.rdfizer.vocabulary.RDF;
+import edu.ucdenver.ccp.datasource.rdfizer.rdf.RdfId;
+import edu.ucdenver.ccp.datasource.rdfizer.rdf.RdfNamespace;
+import edu.ucdenver.ccp.datasource.rdfizer.rdf.RdfPartition;
+import edu.ucdenver.ccp.datasource.rdfizer.rdf.vocabulary.KIAO;
+import edu.ucdenver.ccp.datasource.rdfizer.rdf.vocabulary.RDF;
 
 /**
  * RDF generation utilities.

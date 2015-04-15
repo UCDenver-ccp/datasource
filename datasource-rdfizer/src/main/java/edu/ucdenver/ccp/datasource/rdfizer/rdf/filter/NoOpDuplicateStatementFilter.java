@@ -1,7 +1,7 @@
 /**
  * 
  */
-package edu.ucdenver.ccp.rdfizer.rdf.filter;
+package edu.ucdenver.ccp.datasource.rdfizer.rdf.filter;
 
 import org.openrdf.model.Statement;
 import org.openrdf.model.impl.URIImpl;

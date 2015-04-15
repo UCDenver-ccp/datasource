@@ -1,21 +1,17 @@
 /**
  * 
  */
-package edu.ucdenver.ccp.rdfizer.rdf;
+package edu.ucdenver.ccp.datasource.rdfizer.rdf.ice;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import java.net.URISyntaxException;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.GregorianCalendar;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Set;
 
-import org.junit.Ignore;
 import org.junit.Test;
 import org.openrdf.model.Statement;
 import org.openrdf.model.impl.URIImpl;
@@ -25,12 +21,10 @@ import edu.ucdenver.ccp.datasource.fileparsers.DataRecord;
 import edu.ucdenver.ccp.datasource.fileparsers.Record;
 import edu.ucdenver.ccp.datasource.fileparsers.RecordField;
 import edu.ucdenver.ccp.datasource.fileparsers.RecordUtil;
+import edu.ucdenver.ccp.datasource.fileparsers.irefweb.IRefWebInteractionSourceDatabase;
 import edu.ucdenver.ccp.datasource.identifiers.DataSource;
 import edu.ucdenver.ccp.datasource.identifiers.obo.MolecularInteractionOntologyTermID;
-import edu.ucdenver.ccp.fileparsers.field.MiOntologyIdTermPair;
-import edu.ucdenver.ccp.fileparsers.irefweb.IRefWebInteractionSourceDatabase;
-import edu.ucdenver.ccp.rdfizer.rdf.RecordUtilTest.TestDataRecord;
-import edu.ucdenver.ccp.rdfizer.rdf.filter.NoOpDuplicateStatementFilter;
+import edu.ucdenver.ccp.datasource.rdfizer.rdf.filter.NoOpDuplicateStatementFilter;
 
 /**
  * A test for the {@link RecordUtil} class. Tests in this class are specific to sub-record handling.

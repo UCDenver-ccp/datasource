@@ -1,4 +1,4 @@
-package edu.ucdenver.ccp.rdfizer.rdf;
+package edu.ucdenver.ccp.datasource.rdfizer.rdf;
 
 import java.util.HashMap;
 import java.util.Map;

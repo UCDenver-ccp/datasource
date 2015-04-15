@@ -1,4 +1,4 @@
-package edu.ucdenver.ccp.rdfizer.rdf;
+package edu.ucdenver.ccp.datasource.rdfizer.rdf.ice;
 
 import java.io.BufferedWriter;
 import java.io.File;
@@ -36,9 +36,11 @@ import edu.ucdenver.ccp.datasource.fileparsers.RecordReader;
 import edu.ucdenver.ccp.datasource.fileparsers.RecordUtil;
 import edu.ucdenver.ccp.datasource.identifiers.DataSourceElement;
 import edu.ucdenver.ccp.datasource.identifiers.DataSourceIdentifier;
-import edu.ucdenver.ccp.rdfizer.rdf.RdfUtil.RdfFormat;
-import edu.ucdenver.ccp.rdfizer.rdf.filter.DuplicateStatementFilter;
-import edu.ucdenver.ccp.rdfizer.util.InMemoryDuplicateStatementFilter;
+import edu.ucdenver.ccp.datasource.rdfizer.rdf.RdfId;
+import edu.ucdenver.ccp.datasource.rdfizer.rdf.RdfNamespace;
+import edu.ucdenver.ccp.datasource.rdfizer.rdf.filter.DuplicateStatementFilter;
+import edu.ucdenver.ccp.datasource.rdfizer.rdf.filter.InMemoryDuplicateStatementFilter;
+import edu.ucdenver.ccp.datasource.rdfizer.rdf.ice.RdfUtil.RdfFormat;
 
 /**
  * RDF generator that handles data provided by {@link RecordReader} instances in combination with

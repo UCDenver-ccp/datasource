@@ -1,63 +1,63 @@
 /**
  * 
  */
-package edu.ucdenver.ccp.rdfizer.rdf.ice;
+package edu.ucdenver.ccp.datasource.rdfizer.rdf.ice;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.Set;
 
 import org.apache.log4j.Logger;
 
-import scala.actors.threadpool.Arrays;
 import edu.ucdenver.ccp.common.file.CharacterEncoding;
 import edu.ucdenver.ccp.common.file.FileUtil;
 import edu.ucdenver.ccp.datasource.fileparsers.FileRecordReader;
+import edu.ucdenver.ccp.datasource.fileparsers.dip.DipYYYYMMDDFileParser;
+import edu.ucdenver.ccp.datasource.fileparsers.drugbank.DrugbankXmlFileRecordReader;
+import edu.ucdenver.ccp.datasource.fileparsers.ebi.goa.GpAssociationGoaUniprotFileParser;
+import edu.ucdenver.ccp.datasource.fileparsers.ebi.interpro.InterPro2GoFileParser;
+import edu.ucdenver.ccp.datasource.fileparsers.ebi.interpro.InterProNamesDatFileParser;
+import edu.ucdenver.ccp.datasource.fileparsers.ebi.interpro.InterProProtein2IprDatFileParser;
+import edu.ucdenver.ccp.datasource.fileparsers.ebi.uniprot.SparseTremblXmlFileRecordReader;
+import edu.ucdenver.ccp.datasource.fileparsers.ebi.uniprot.SwissProtXmlFileRecordReader;
+import edu.ucdenver.ccp.datasource.fileparsers.ebi.uniprot.UniProtIDMappingFileRecordReader;
+import edu.ucdenver.ccp.datasource.fileparsers.gad.GeneticAssociationDbAllTxtFileParser;
+import edu.ucdenver.ccp.datasource.fileparsers.hgnc.HgncDownloadFileParser;
+import edu.ucdenver.ccp.datasource.fileparsers.hgnc.HgncDownloadFileParser.WithdrawnRecordTreatment;
+import edu.ucdenver.ccp.datasource.fileparsers.hprd.HprdIdMappingsTxtFileParser;
+import edu.ucdenver.ccp.datasource.fileparsers.irefweb.IRefWebPsiMitab2_6FileParser;
+import edu.ucdenver.ccp.datasource.fileparsers.mgi.MGIEntrezGeneFileParser;
+import edu.ucdenver.ccp.datasource.fileparsers.mgi.MGIPhenoGenoMPFileParser;
+import edu.ucdenver.ccp.datasource.fileparsers.mgi.MRKListFileParser;
+import edu.ucdenver.ccp.datasource.fileparsers.mgi.MRKReferenceFileParser;
+import edu.ucdenver.ccp.datasource.fileparsers.mgi.MRKSequenceFileParser;
+import edu.ucdenver.ccp.datasource.fileparsers.mgi.MRKSwissProtFileParser;
+import edu.ucdenver.ccp.datasource.fileparsers.mirbase.MirBaseMiRnaDatFileParser;
+import edu.ucdenver.ccp.datasource.fileparsers.ncbi.gene.EntrezGene2RefseqFileParser;
 import edu.ucdenver.ccp.datasource.fileparsers.ncbi.gene.EntrezGeneInfoFileParser;
+import edu.ucdenver.ccp.datasource.fileparsers.ncbi.gene.EntrezGeneMim2GeneFileParser;
+import edu.ucdenver.ccp.datasource.fileparsers.ncbi.gene.EntrezGeneRefSeqUniprotKbCollabFileParser;
+import edu.ucdenver.ccp.datasource.fileparsers.ncbi.homologene.HomoloGeneDataFileParser;
+import edu.ucdenver.ccp.datasource.fileparsers.ncbi.omim.OmimTxtFileParser;
+import edu.ucdenver.ccp.datasource.fileparsers.ncbi.refseq.RefSeqReleaseCatalogFileParser;
+import edu.ucdenver.ccp.datasource.fileparsers.pharmgkb.PharmGkbDiseaseFileParser;
+import edu.ucdenver.ccp.datasource.fileparsers.pharmgkb.PharmGkbDrugFileParser;
+import edu.ucdenver.ccp.datasource.fileparsers.pharmgkb.PharmGkbGeneFileParser;
+import edu.ucdenver.ccp.datasource.fileparsers.pharmgkb.PharmGkbRelationFileParser;
+import edu.ucdenver.ccp.datasource.fileparsers.premod.HumanPReModModuleTabFileParser;
+import edu.ucdenver.ccp.datasource.fileparsers.premod.MousePReModModuleTabFileParser;
+import edu.ucdenver.ccp.datasource.fileparsers.pro.ProMappingFileParser;
+import edu.ucdenver.ccp.datasource.fileparsers.reactome.ReactomeUniprot2PathwayStidTxtFileParser;
+import edu.ucdenver.ccp.datasource.fileparsers.rgd.RgdRatGeneFileRecordReader;
+import edu.ucdenver.ccp.datasource.fileparsers.rgd.RgdRatGeneMpAnnotationFileRecordReader;
+import edu.ucdenver.ccp.datasource.fileparsers.rgd.RgdRatGeneNboAnnotationFileRecordReader;
+import edu.ucdenver.ccp.datasource.fileparsers.rgd.RgdRatGenePwAnnotationFileRecordReader;
+import edu.ucdenver.ccp.datasource.fileparsers.rgd.RgdRatGeneRdoAnnotationFileRecordReader;
+import edu.ucdenver.ccp.datasource.fileparsers.transfac.TransfacGeneDatFileParser;
+import edu.ucdenver.ccp.datasource.fileparsers.transfac.TransfacMatrixDatFileParser;
 import edu.ucdenver.ccp.datasource.identifiers.DataSource;
 import edu.ucdenver.ccp.datasource.identifiers.ncbi.taxonomy.NcbiTaxonomyID;
-import edu.ucdenver.ccp.fileparsers.dip.DipYYYYMMDDFileParser;
-import edu.ucdenver.ccp.fileparsers.drugbank.DrugbankXmlFileRecordReader;
-import edu.ucdenver.ccp.fileparsers.ebi.goa.GpAssociationGoaUniprotFileParser;
-import edu.ucdenver.ccp.fileparsers.ebi.interpro.InterPro2GoFileParser;
-import edu.ucdenver.ccp.fileparsers.ebi.interpro.InterProNamesDatFileParser;
-import edu.ucdenver.ccp.fileparsers.ebi.interpro.InterProProtein2IprDatFileParser;
-import edu.ucdenver.ccp.fileparsers.ebi.uniprot.SparseTremblXmlFileRecordReader;
-import edu.ucdenver.ccp.fileparsers.ebi.uniprot.SwissProtXmlFileRecordReader;
-import edu.ucdenver.ccp.fileparsers.ebi.uniprot.UniProtIDMappingFileRecordReader;
-import edu.ucdenver.ccp.fileparsers.gad.GeneticAssociationDbAllTxtFileParser;
-import edu.ucdenver.ccp.fileparsers.hgnc.HgncDownloadFileParser;
-import edu.ucdenver.ccp.fileparsers.hgnc.HgncDownloadFileParser.WithdrawnRecordTreatment;
-import edu.ucdenver.ccp.fileparsers.hprd.HprdIdMappingsTxtFileParser;
-import edu.ucdenver.ccp.fileparsers.irefweb.IRefWebPsiMitab2_6FileParser;
-import edu.ucdenver.ccp.fileparsers.mgi.MGIEntrezGeneFileParser;
-import edu.ucdenver.ccp.fileparsers.mgi.MGIPhenoGenoMPFileParser;
-import edu.ucdenver.ccp.fileparsers.mgi.MRKListFileParser;
-import edu.ucdenver.ccp.fileparsers.mgi.MRKReferenceFileParser;
-import edu.ucdenver.ccp.fileparsers.mgi.MRKSequenceFileParser;
-import edu.ucdenver.ccp.fileparsers.mgi.MRKSwissProtFileParser;
-import edu.ucdenver.ccp.fileparsers.mirbase.MirBaseMiRnaDatFileParser;
-import edu.ucdenver.ccp.fileparsers.ncbi.gene.EntrezGene2RefseqFileParser;
-import edu.ucdenver.ccp.fileparsers.ncbi.gene.EntrezGeneMim2GeneFileParser;
-import edu.ucdenver.ccp.fileparsers.ncbi.gene.EntrezGeneRefSeqUniprotKbCollabFileParser;
-import edu.ucdenver.ccp.fileparsers.ncbi.homologene.HomoloGeneDataFileParser;
-import edu.ucdenver.ccp.fileparsers.ncbi.omim.OmimTxtFileParser;
-import edu.ucdenver.ccp.fileparsers.ncbi.refseq.RefSeqReleaseCatalogFileParser;
-import edu.ucdenver.ccp.fileparsers.pharmgkb.PharmGkbDiseaseFileParser;
-import edu.ucdenver.ccp.fileparsers.pharmgkb.PharmGkbDrugFileParser;
-import edu.ucdenver.ccp.fileparsers.pharmgkb.PharmGkbGeneFileParser;
-import edu.ucdenver.ccp.fileparsers.pharmgkb.PharmGkbRelationFileParser;
-import edu.ucdenver.ccp.fileparsers.premod.HumanPReModModuleTabFileParser;
-import edu.ucdenver.ccp.fileparsers.premod.MousePReModModuleTabFileParser;
-import edu.ucdenver.ccp.fileparsers.pro.ProMappingFileParser;
-import edu.ucdenver.ccp.fileparsers.reactome.ReactomeUniprot2PathwayStidTxtFileParser;
-import edu.ucdenver.ccp.fileparsers.rgd.RgdRatGeneFileRecordReader;
-import edu.ucdenver.ccp.fileparsers.rgd.RgdRatGeneMpAnnotationFileRecordReader;
-import edu.ucdenver.ccp.fileparsers.rgd.RgdRatGeneNboAnnotationFileRecordReader;
-import edu.ucdenver.ccp.fileparsers.rgd.RgdRatGenePwAnnotationFileRecordReader;
-import edu.ucdenver.ccp.fileparsers.rgd.RgdRatGeneRdoAnnotationFileRecordReader;
-import edu.ucdenver.ccp.fileparsers.transfac.TransfacGeneDatFileParser;
-import edu.ucdenver.ccp.fileparsers.transfac.TransfacMatrixDatFileParser;
 
 /**
  * This enum separates RDF generation by data source file. It is intended to provide an easy way to

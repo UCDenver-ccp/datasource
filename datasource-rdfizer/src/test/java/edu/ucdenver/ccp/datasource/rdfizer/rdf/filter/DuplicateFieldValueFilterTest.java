@@ -1,7 +1,7 @@
 /**
  * 
  */
-package edu.ucdenver.ccp.rdfizer.util;
+package edu.ucdenver.ccp.datasource.rdfizer.rdf.filter;
 
 import static org.junit.Assert.assertTrue;
 
@@ -10,7 +10,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.jcs.access.exception.CacheException;
 import org.junit.Test;
 
 import edu.ucdenver.ccp.common.collections.CollectionsUtil;
@@ -23,10 +22,6 @@ import edu.ucdenver.ccp.common.file.FileWriterUtil;
 import edu.ucdenver.ccp.common.file.FileWriterUtil.FileSuffixEnforcement;
 import edu.ucdenver.ccp.common.file.FileWriterUtil.WriteMode;
 import edu.ucdenver.ccp.common.test.DefaultTestCase;
-import edu.ucdenver.ccp.rdfizer.rdf.filter.DefaultDuplicateStatementFilter;
-import edu.ucdenver.ccp.rdfizer.rdf.filter.DiskBasedHash;
-import edu.ucdenver.ccp.rdfizer.rdf.filter.DuplicateFieldValueFilter;
-import edu.ucdenver.ccp.rdfizer.util.DuplicateTripleFilter.TrimLines;
 
 /**
  * @author Center for Computational Pharmacology, UC Denver; ccpsupport@ucdenver.edu
@@ -68,7 +63,7 @@ public class DuplicateFieldValueFilterTest extends DefaultTestCase {
 					"<http://kabob.ucdenver.edu/iao/hprd/F_HprdIdMappingsTxtFileData_geneSymbol_HcefK7kdtvPDQJtRbvEz1Q4Til0> <http://purl.obolibrary.org/obo/IAO_0000219> \"ALDH1A1\"@en .");
 
 	@Test
-	public void test() throws IOException, CacheException {
+	public void test() throws IOException {
 		File dir1 = folder.newFolder("dir1");
 		File dir2 = new File(dir1, "dir2");
 		File fileWithDups = new File(dir2, "fileWithDups.nt");

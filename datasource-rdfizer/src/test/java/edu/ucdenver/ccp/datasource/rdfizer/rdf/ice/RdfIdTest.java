@@ -1,7 +1,7 @@
 /**
  * 
  */
-package edu.ucdenver.ccp.rdfizer.rdf;
+package edu.ucdenver.ccp.datasource.rdfizer.rdf.ice;
 
 import static org.junit.Assert.assertEquals;
 
@@ -18,6 +18,8 @@ import edu.ucdenver.ccp.datasource.identifiers.ncbi.GenBankID;
 import edu.ucdenver.ccp.datasource.identifiers.ncbi.gene.EntrezGeneID;
 import edu.ucdenver.ccp.datasource.identifiers.ncbi.taxonomy.NcbiTaxonomyID;
 import edu.ucdenver.ccp.datasource.identifiers.obo.GeneOntologyID;
+import edu.ucdenver.ccp.datasource.rdfizer.rdf.RdfId;
+import edu.ucdenver.ccp.datasource.rdfizer.rdf.RdfNamespace;
 
 /**
  * @author Center for Computational Pharmacology, UC Denver; ccpsupport@ucdenver.edu

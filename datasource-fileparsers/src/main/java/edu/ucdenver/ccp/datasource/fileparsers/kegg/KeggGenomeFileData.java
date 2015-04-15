@@ -16,7 +16,40 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  * 
  */
-package edu.ucdenver.ccp.fileparsers.kegg;
+package edu.ucdenver.ccp.datasource.fileparsers.kegg;
+
+/*
+ * #%L
+ * Colorado Computational Pharmacology's common module
+ * %%
+ * Copyright (C) 2012 - 2015 Regents of the University of Colorado
+ * %%
+ * Redistribution and use in source and binary forms, with or without modification,
+ * are permitted provided that the following conditions are met:
+ * 
+ * 1. Redistributions of source code must retain the above copyright notice, this
+ *    list of conditions and the following disclaimer.
+ * 
+ * 2. Redistributions in binary form must reproduce the above copyright notice,
+ *    this list of conditions and the following disclaimer in the documentation
+ *    and/or other materials provided with the distribution.
+ * 
+ * 3. Neither the name of the Regents of the University of Colorado nor the names of its contributors
+ *    may be used to endorse or promote products derived from this software without
+ *    specific prior written permission.
+ * 
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
+ * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+ * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.
+ * IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT,
+ * INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING,
+ * BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
+ * DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+ * LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE
+ * OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED
+ * OF THE POSSIBILITY OF SUCH DAMAGE.
+ * #L%
+ */
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -46,17 +79,17 @@ public class KeggGenomeFileData extends MultiLineFileRecord {
 
 	private static final String GENOME_ID_T3 = "T3"; // meta genome identifier
 
-	private final KeggSpeciesCode keggSpeciesCode;
+	private final String keggSpeciesCode;
 
 	private final NcbiTaxonomyID ncbiTaxonomyID;
 
-	public KeggGenomeFileData(KeggSpeciesCode threeLetterCode, NcbiTaxonomyID ncbiTaxonomyID, long byteOffset) {
+	public KeggGenomeFileData(String threeLetterCode, NcbiTaxonomyID ncbiTaxonomyID, long byteOffset) {
 		super(byteOffset);
 		this.keggSpeciesCode = threeLetterCode;
 		this.ncbiTaxonomyID = ncbiTaxonomyID;
 	}
 
-	public KeggSpeciesCode getThreeLetterCode() {
+	public String getThreeLetterCode() {
 		return keggSpeciesCode;
 	}
 
@@ -70,7 +103,7 @@ public class KeggGenomeFileData extends MultiLineFileRecord {
 		try {
 			BufferedReader br = new BufferedReader(new StringReader(multiLineBuffer.toString()));
 			String line;
-			KeggSpeciesCode entry = null;
+			String entry = null;
 			NcbiTaxonomyID ncbiTaxonomyID = null;
 			while ((line = br.readLine()) != null) {
 				if (line.startsWith(NAME)) {
@@ -99,10 +132,10 @@ public class KeggGenomeFileData extends MultiLineFileRecord {
 	 * @param line
 	 * @return
 	 */
-	private static KeggSpeciesCode getEntryFromLine(String line) {
+	private static String getEntryFromLine(String line) {
 		line = line.replaceFirst(NAME, "").trim();
 		// checkEntryForThreeCharacters(line.trim());
-		return new KeggSpeciesCode(line.split(",")[0]);
+		return new String(line.split(",")[0]);
 	}
 
 	/**

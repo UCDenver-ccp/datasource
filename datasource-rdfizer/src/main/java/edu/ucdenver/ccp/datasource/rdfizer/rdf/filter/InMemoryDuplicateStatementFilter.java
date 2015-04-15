@@ -1,7 +1,7 @@
 /**
  * 
  */
-package edu.ucdenver.ccp.rdfizer.util;
+package edu.ucdenver.ccp.datasource.rdfizer.rdf.filter;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -15,7 +15,6 @@ import org.openrdf.model.Statement;
 import org.openrdf.model.impl.URIImpl;
 
 import edu.ucdenver.ccp.common.collections.CollectionsUtil;
-import edu.ucdenver.ccp.rdfizer.rdf.filter.DuplicateStatementFilter;
 
 /**
  * @author Center for Computational Pharmacology, UC Denver; ccpsupport@ucdenver.edu

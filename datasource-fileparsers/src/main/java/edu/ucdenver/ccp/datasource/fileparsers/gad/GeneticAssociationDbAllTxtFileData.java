@@ -16,7 +16,40 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  * 
  */
-package edu.ucdenver.ccp.fileparsers.gad;
+package edu.ucdenver.ccp.datasource.fileparsers.gad;
+
+/*
+ * #%L
+ * Colorado Computational Pharmacology's common module
+ * %%
+ * Copyright (C) 2012 - 2015 Regents of the University of Colorado
+ * %%
+ * Redistribution and use in source and binary forms, with or without modification,
+ * are permitted provided that the following conditions are met:
+ * 
+ * 1. Redistributions of source code must retain the above copyright notice, this
+ *    list of conditions and the following disclaimer.
+ * 
+ * 2. Redistributions in binary form must reproduce the above copyright notice,
+ *    this list of conditions and the following disclaimer in the documentation
+ *    and/or other materials provided with the distribution.
+ * 
+ * 3. Neither the name of the Regents of the University of Colorado nor the names of its contributors
+ *    may be used to endorse or promote products derived from this software without
+ *    specific prior written permission.
+ * 
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
+ * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+ * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.
+ * IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT,
+ * INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING,
+ * BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
+ * DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+ * LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE
+ * OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED
+ * OF THE POSSIBILITY OF SUCH DAMAGE.
+ * #L%
+ */
 
 import org.apache.log4j.Logger;
 
@@ -33,7 +66,6 @@ import edu.ucdenver.ccp.datasource.identifiers.ncbi.UniGeneID;
 import edu.ucdenver.ccp.datasource.identifiers.ncbi.gene.EntrezGeneID;
 import edu.ucdenver.ccp.datasource.identifiers.ncbi.gene.GiNumberID;
 import edu.ucdenver.ccp.datasource.identifiers.ncbi.omim.OmimID;
-import edu.ucdenver.ccp.datasource.identifiers.ncbi.refseq.RefSeqID;
 import edu.ucdenver.ccp.identifier.publication.PubMedID;
 
 /**
@@ -65,9 +97,9 @@ public class GeneticAssociationDbAllTxtFileData extends SingleLineFileRecord {
 	@RecordField
 	private final String associationStr;
 	@RecordField
-	private final GadBroadPhenotype broadPhenotype;
+	private final String broadPhenotype;
 	@RecordField
-	private final GadDiseaseClass diseaseClass;
+	private final String diseaseClass;
 	@RecordField
 	private final String diseaseClassCode;
 	@RecordField
@@ -147,10 +179,10 @@ public class GeneticAssociationDbAllTxtFileData extends SingleLineFileRecord {
 	@RecordField
 	private final String giRelevantToDisease;
 	@RecordField
-	private final GadAssociationStatus associationStatus;
+	private final String associationStatus;
 
-	public GeneticAssociationDbAllTxtFileData(GadID gadId, String associationStr, GadBroadPhenotype broadPhenotype,
-			GadDiseaseClass diseaseClass, String diseaseClassCode, String meshDiseaseTerms, String chromosome,
+	public GeneticAssociationDbAllTxtFileData(GadID gadId, String associationStr, String broadPhenotype,
+			String diseaseClass, String diseaseClassCode, String meshDiseaseTerms, String chromosome,
 			String chromosomeBand, HgncGeneSymbolID geneSymbol, String dnaStart, String dnaEnd, String pValue,
 			String reference, PubMedID pubmedID, String alleleAuthorDescription, String alleleFunctionalEffects,
 			String polymorphismClass, String geneName, DataSourceIdentifier<?> nucleotideDbId, String population,
@@ -205,11 +237,11 @@ public class GeneticAssociationDbAllTxtFileData extends SingleLineFileRecord {
 		this.giCombineEnvFactor = giCombineEnvFactor;
 		this.giRelevantToDisease = giRelevantToDisease;
 		if (associationStr.equalsIgnoreCase("Y")) {
-			this.associationStatus = new GadAssociationStatus("YES");
+			this.associationStatus = new String("YES");
 		} else if (associationStr.equalsIgnoreCase("N")) {
-			this.associationStatus = new GadAssociationStatus("NO");
+			this.associationStatus = new String("NO");
 		} else {
-			this.associationStatus = new GadAssociationStatus("UNSPECIFIED");
+			this.associationStatus = new String("UNSPECIFIED");
 		}
 	}
 
@@ -221,11 +253,11 @@ public class GeneticAssociationDbAllTxtFileData extends SingleLineFileRecord {
 		return associationStr;
 	}
 
-	public GadBroadPhenotype getBroadPhenotype() {
+	public String getBroadPhenotype() {
 		return broadPhenotype;
 	}
 
-	public GadDiseaseClass getDiseaseClass() {
+	public String getDiseaseClass() {
 		return diseaseClass;
 	}
 
@@ -396,8 +428,8 @@ public class GeneticAssociationDbAllTxtFileData extends SingleLineFileRecord {
 		}
 		GadID gadID = new GadID(toks[0].trim());
 		String associationStr = toks[1];
-		GadBroadPhenotype broadPhenotype = new GadBroadPhenotype(toks[2]);
-		GadDiseaseClass diseaseClass = new GadDiseaseClass(toks[3]);
+		String broadPhenotype = new String(toks[2]);
+		String diseaseClass = new String(toks[3]);
 		String diseaseClassCode = toks[4];
 		String meshDiseaseTerms = toks[5];
 		String chromosome = toks[6];
@@ -546,7 +578,7 @@ public class GeneticAssociationDbAllTxtFileData extends SingleLineFileRecord {
 
 	}
 
-	public GadAssociationStatus getAssociationStatus() {
+	public String getAssociationStatus() {
 		return associationStatus;
 	}
 

@@ -1,4 +1,4 @@
-package edu.ucdenver.ccp.rdfizer.rdf;
+package edu.ucdenver.ccp.datasource.rdfizer.rdf;
 
 /**
  * RDF partition to be used as hierarchical element in generating RDF URIs.

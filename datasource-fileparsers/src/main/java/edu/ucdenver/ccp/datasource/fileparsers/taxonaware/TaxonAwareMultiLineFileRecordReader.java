@@ -36,14 +36,10 @@ package edu.ucdenver.ccp.datasource.fileparsers.taxonaware;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Set;
 
 import edu.ucdenver.ccp.common.file.CharacterEncoding;
-import edu.ucdenver.ccp.common.file.reader.Line;
-import edu.ucdenver.ccp.common.string.StringConstants;
 import edu.ucdenver.ccp.datasource.fileparsers.FileRecord;
 import edu.ucdenver.ccp.datasource.fileparsers.MultiLineFileRecordReader;
 import edu.ucdenver.ccp.datasource.identifiers.ncbi.taxonomy.NcbiTaxonomyID;

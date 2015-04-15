@@ -1,4 +1,37 @@
-package edu.ucdenver.ccp.fileparsers.ebi.uniprot.goa;
+package edu.ucdenver.ccp.datasource.fileparsers.ebi.uniprot.goa;
+
+/*
+ * #%L
+ * Colorado Computational Pharmacology's common module
+ * %%
+ * Copyright (C) 2012 - 2015 Regents of the University of Colorado
+ * %%
+ * Redistribution and use in source and binary forms, with or without modification,
+ * are permitted provided that the following conditions are met:
+ * 
+ * 1. Redistributions of source code must retain the above copyright notice, this
+ *    list of conditions and the following disclaimer.
+ * 
+ * 2. Redistributions in binary form must reproduce the above copyright notice,
+ *    this list of conditions and the following disclaimer in the documentation
+ *    and/or other materials provided with the distribution.
+ * 
+ * 3. Neither the name of the Regents of the University of Colorado nor the names of its contributors
+ *    may be used to endorse or promote products derived from this software without
+ *    specific prior written permission.
+ * 
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
+ * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+ * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.
+ * IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT,
+ * INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING,
+ * BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
+ * DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+ * LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE
+ * OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED
+ * OF THE POSSIBILITY OF SUCH DAMAGE.
+ * #L%
+ */
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -22,14 +55,13 @@ import edu.ucdenver.ccp.common.file.FileWriterUtil.FileSuffixEnforcement;
 import edu.ucdenver.ccp.common.file.FileWriterUtil.WriteMode;
 import edu.ucdenver.ccp.common.test.TestUtil;
 import edu.ucdenver.ccp.datasource.fileparsers.RecordReader;
+import edu.ucdenver.ccp.datasource.fileparsers.ebi.goa.GpAssociationGoaUniprotFileData;
+import edu.ucdenver.ccp.datasource.fileparsers.ebi.goa.GpAssociationGoaUniprotFileParser;
 import edu.ucdenver.ccp.datasource.fileparsers.test.RecordReaderTester;
 import edu.ucdenver.ccp.datasource.identifiers.ebi.ipi.IpiID;
 import edu.ucdenver.ccp.datasource.identifiers.ebi.uniprot.UniProtID;
 import edu.ucdenver.ccp.datasource.identifiers.ncbi.taxonomy.NcbiTaxonomyID;
 import edu.ucdenver.ccp.datasource.identifiers.obo.GeneOntologyID;
-import edu.ucdenver.ccp.fileparsers.ebi.goa.GpAssociationGoaUniprotFileData;
-import edu.ucdenver.ccp.fileparsers.ebi.goa.GpAssociationGoaUniprotFileParser;
-import edu.ucdenver.ccp.fileparsers.field.DatabaseName;
 import edu.ucdenver.ccp.identifier.publication.PubMedID;
 
 //@Ignore("file header in test file no longer matches file downloaded. Code has been updated but test has not.")
@@ -164,19 +196,19 @@ public class GpAssociationGoaUniprotFileParserTest extends RecordReaderTester {
 	}
 
 	private GpAssociationGoaUniprotFileData getExpectedRecordFromFailedRealParse1() {
-		return new GpAssociationGoaUniprotFileData(new DatabaseName("UniProtKB"), new UniProtID("C0LGT6"), null,
+		return new GpAssociationGoaUniprotFileData(new String("UniProtKB"), new UniProtID("C0LGT6"), null,
 				new GeneOntologyID("GO:0005515"), new PubMedID("PMID:18158241"), new String("IPI"),
 				"UniProtKB:Q87Y16", new NcbiTaxonomyID(323), "20090924", "UniProtKB", null, null, -1, 23);
 	}
 
 	private GpAssociationGoaUniprotFileData getExpectedRecord1() {
-		return new GpAssociationGoaUniprotFileData(new DatabaseName("IPI"), new IpiID("IPI00197411"), null,
+		return new GpAssociationGoaUniprotFileData(new String("IPI"), new IpiID("IPI00197411"), null,
 				new GeneOntologyID("GO:0000900"), new PubMedID("PMID:12933792"), new String("IDA"),
 				null, null, "20061230", "HGNC", null, null, -1, 23);
 	}
 
 	private GpAssociationGoaUniprotFileData getExpectedRecord2() {
-		return new GpAssociationGoaUniprotFileData(new DatabaseName("IPI"), new IpiID("IPI00693437"),
+		return new GpAssociationGoaUniprotFileData(new String("IPI"), new IpiID("IPI00693437"),
 				"colocalizes_with", new GeneOntologyID("GO:0005657"), new PubMedID("PMID:10490843"),
 				new String("ISS"), "UniProtKB:P41182", null, "20070622", "UniProtKB", null, null, -1,
 				24);

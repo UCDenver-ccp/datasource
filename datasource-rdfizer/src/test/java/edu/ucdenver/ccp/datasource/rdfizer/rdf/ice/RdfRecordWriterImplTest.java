@@ -1,10 +1,9 @@
-package edu.ucdenver.ccp.rdfizer.rdf;
+package edu.ucdenver.ccp.datasource.rdfizer.rdf.ice;
 
 import static org.junit.Assert.assertTrue;
 
 import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
 import java.util.Arrays;
 import java.util.GregorianCalendar;
 import java.util.HashSet;
@@ -12,7 +11,6 @@ import java.util.List;
 import java.util.Set;
 
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import edu.ucdenver.ccp.common.collections.CollectionsUtil;
@@ -21,13 +19,11 @@ import edu.ucdenver.ccp.common.file.FileArchiveUtil;
 import edu.ucdenver.ccp.common.file.FileComparisonUtil;
 import edu.ucdenver.ccp.common.file.FileComparisonUtil.ColumnOrder;
 import edu.ucdenver.ccp.common.file.FileComparisonUtil.LineOrder;
-import edu.ucdenver.ccp.common.file.FileReaderUtil;
 import edu.ucdenver.ccp.common.file.FileUtil;
 import edu.ucdenver.ccp.common.file.FileWriterUtil;
 import edu.ucdenver.ccp.common.file.FileWriterUtil.FileSuffixEnforcement;
 import edu.ucdenver.ccp.common.file.FileWriterUtil.WriteMode;
 import edu.ucdenver.ccp.common.file.reader.Line;
-import edu.ucdenver.ccp.common.io.ClassPathUtil;
 import edu.ucdenver.ccp.common.string.StringUtil;
 import edu.ucdenver.ccp.common.test.DefaultTestCase;
 import edu.ucdenver.ccp.datasource.fileparsers.Record;
@@ -36,9 +32,8 @@ import edu.ucdenver.ccp.datasource.fileparsers.SingleLineFileRecord;
 import edu.ucdenver.ccp.datasource.fileparsers.SingleLineFileRecordReader;
 import edu.ucdenver.ccp.datasource.identifiers.DataSource;
 import edu.ucdenver.ccp.datasource.identifiers.DataSourceIdentifier;
-import edu.ucdenver.ccp.fileparsers.field.DataElementLiteral;
-import edu.ucdenver.ccp.rdfizer.rdf.RdfUtil.RdfFormat;
-import edu.ucdenver.ccp.rdfizer.vocabulary.RDFS;
+import edu.ucdenver.ccp.datasource.rdfizer.rdf.ice.RdfUtil.RdfFormat;
+import edu.ucdenver.ccp.datasource.rdfizer.rdf.vocabulary.RDFS;
 
 public class RdfRecordWriterImplTest extends DefaultTestCase {
 
@@ -252,7 +247,7 @@ public class RdfRecordWriterImplTest extends DefaultTestCase {
 
 	private String createExpectedNTripleLine_GeneID2Name(Integer geneID, String geneName) {
 		return String.format("<http://kabob.ucdenver.edu/iao/eg/_%s> <%s> \"%s\"@en .", geneID.toString(),
-				"http://kabob.ucdenver.edu/iao/eg/hasGeneName", geneName);
+				"http://kabob.ucdenver.edu/iao/eg/hasString", geneName);
 	}
 
 	private String createExpectedNTripleLine_GeneID2GeneID(Integer geneID, Integer homologousGeneID) {
@@ -279,13 +274,13 @@ public class RdfRecordWriterImplTest extends DefaultTestCase {
 		@RecordField
 		private final GeneID geneID;
 		@RecordField
-		private final GeneName geneName;
+		private final String geneName;
 		@RecordField
 		private final Set<GeneID> homologousGeneIDs;
 		@RecordField
 		private final Integer chromosome;
 
-		public GeneId2NameDatFileData(GeneID geneID, GeneName geneName, Integer chromosome,
+		public GeneId2NameDatFileData(GeneID geneID, String geneName, Integer chromosome,
 				Set<GeneID> homologousGeneIDs, long byteOffset, long lineNumber) {
 			super(byteOffset, lineNumber);
 			this.geneID = geneID;
@@ -298,7 +293,7 @@ public class RdfRecordWriterImplTest extends DefaultTestCase {
 			return geneID;
 		}
 
-		public GeneName getGeneName() {
+		public String getString() {
 			return geneName;
 		}
 
@@ -313,7 +308,7 @@ public class RdfRecordWriterImplTest extends DefaultTestCase {
 		public static GeneId2NameDatFileData parseFromLine(Line line) {
 			String[] toks = line.getText().split("\\t", -1);
 			GeneID geneID = new GeneID(new Integer(toks[0]));
-			GeneName geneName = new GeneName(toks[1]);
+			String geneName = new String(toks[1]);
 			Integer chromosome = new Integer(toks[2]);
 			Set<GeneID> homologousGeneIDs = new HashSet<GeneID>();
 			if (toks[3].length() > 0)
@@ -358,12 +353,6 @@ public class RdfRecordWriterImplTest extends DefaultTestCase {
 
 	}
 
-	private static class GeneName extends DataElementLiteral {
-
-		public GeneName(String resourceName) {
-			super(resourceName);
-		}
-
-	}
+	
 
 }
