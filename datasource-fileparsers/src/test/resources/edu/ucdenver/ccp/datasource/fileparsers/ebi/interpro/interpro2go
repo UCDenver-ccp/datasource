@@ -1,0 +1,10 @@
+!date: 2010/08/09 09:08:48
+Elapsed: 00:00:00.00
+!Mapping of InterPro entries to GO
+!
+InterPro:IPR000005 HTH transcriptional regulator, AraC > GO:transcription factor activity ; GO:0003700
+InterPro:IPR000005 HTH transcriptional regulator, AraC > GO:sequence-specific DNA binding ; GO:0043565
+InterPro:IPR000005 HTH transcriptional regulator, AraC > GO:regulation of transcription, DNA-dependent ; GO:0006355
+InterPro:IPR000005 HTH transcriptional regulator, AraC > GO:intracellular ; GO:0005622
+InterPro:IPR000006 Metallothionein, vertebrate > GO:metal ion binding ; GO:0046872
+InterPro:IPR000009 Protein phosphatase 2A, regulatory subunit PR55 > GO:protein phosphatase type 2A regulator activity ; GO:0008601
