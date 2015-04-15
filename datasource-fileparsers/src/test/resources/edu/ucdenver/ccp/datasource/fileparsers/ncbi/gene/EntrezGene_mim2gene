@@ -1,0 +1,3 @@
+#Format: MIM_number GeneID type (tab is used as a separator, pound sign - start of a comment)
+100300	100188340	gene
+100640	216	gene
