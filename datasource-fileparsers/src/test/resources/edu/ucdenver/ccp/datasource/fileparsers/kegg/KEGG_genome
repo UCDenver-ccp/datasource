@@ -1,0 +1,189 @@
+ENTRY       T00001
+NAME        hsa, H.sapiens, HUMAN, 9606
+DEFINITION  Homo sapiens (human)
+ANNOTATION  manual
+TAXONOMY    TAX:9606
+  LINEAGE   Eukaryota; Metazoa; Chordata; Craniata; Vertebrata; Euteleostomi;
+            Mammalia; Eutheria; Euarchontoglires; Primates; Haplorrhini;
+            Catarrhini; Hominidae; Homo
+DATA_SOURCE RefSeq
+ORIGINAL_DB NCBI
+            HGNC
+            HPRD
+            Ensembl
+STATISTICS  Number of protein genes:       23971
+            Number of RNA genes:              24
+REFERENCE   PMID:11237011
+  AUTHORS   Lander ES, et al.
+  TITLE     Initial sequencing and analysis of the human genome.
+  JOURNAL   Nature 409:860-921 (2001)
+REFERENCE   PMID:11181995
+  AUTHORS   Venter JC, et al.
+  TITLE     The sequence of the human genome.
+  JOURNAL   Science 291:1304-51 (2001)
+REFERENCE   PMID:15496913
+  AUTHORS   International Human Genome Sequencing Consortium.
+  TITLE     Finishing the euchromatic sequence of the human genome.
+  JOURNAL   Nature 431:931-45 (2004)
+REFERENCE   PMID:16710414 (chromosome 1)
+  AUTHORS   Gregory SG, et al.
+  TITLE     The DNA sequence and biological annotation of human chromosome 1.
+  JOURNAL   Nature 441:315-321 (2006)
+REFERENCE   PMID:15815621 (chromosomes 2 and 4)
+  AUTHORS   Hillier LW, et al.
+  TITLE     Generation and annotation of the DNA sequences of human chromosomes
+            2 and 4.
+  JOURNAL   Nature 434:724-31 (2005)
+REFERENCE   PMID:16641997 (chromosome 3)
+  AUTHORS   Muzny DM, et al.
+  TITLE     The DNA sequence, annotation and analysis of human chromosome 3.
+  JOURNAL   Nature 440:1194-8 (2006)
+REFERENCE   PMID:15372022 (chromosome 5)
+  AUTHORS   Schmutz J, et al.
+  TITLE     The DNA sequence and comparative analysis of human chromosome 5.
+  JOURNAL   Nature 431:268-74 (2004)
+REFERENCE   PMID:14574404 (chromosome 6)
+  AUTHORS   Mungall AJ, et al.
+  TITLE     The DNA sequence and analysis of human chromosome 6.
+  JOURNAL   Nature 425:805-11 (2003)
+REFERENCE   PMID:12690205 (chromosome 7)
+  AUTHORS   Scherer SW, et al.
+  TITLE     Human chromosome 7: DNA sequence and biology.
+  JOURNAL   Science 300:767-72 (2003)
+REFERENCE   PMID:12853948 (chromosome 7)
+  AUTHORS   Hillier LW, et al.
+  TITLE     The DNA sequence of human chromosome 7.
+  JOURNAL   Nature 424:157-64 (2003)
+REFERENCE   PMID:16421571 (chromosome 8)
+  AUTHORS   Nusbaum C, et al.
+  TITLE     DNA sequence and analysis of human chromosome 8.
+  JOURNAL   Nature 439:331-5 (2006)
+REFERENCE   PMID:15164053 (chromosome 9)
+  AUTHORS   Humphray SJ, et al.
+  TITLE     DNA sequence and analysis of human chromosome 9.
+  JOURNAL   Nature 429:369-74 (2004)
+REFERENCE   PMID:15164054 (chromosome 10)
+  AUTHORS   Deloukas P, et al.
+  TITLE     The DNA sequence and comparative analysis of human chromosome 10.
+  JOURNAL   Nature 429:375-81 (2004)
+REFERENCE   PMID:16554811 (chromosome 11)
+  AUTHORS   Taylor TD, et al.
+  TITLE     Human chromosome 11 DNA sequence and analysis including novel gene
+            identification.
+  JOURNAL   Nature 440:497-500 (2006)
+REFERENCE   PMID:16541075 (chromosome 12)
+  AUTHORS   Scherer SE, et al.
+  TITLE     The finished DNA sequence of human chromosome 12.
+  JOURNAL   Nature 440:346-51 (2006)
+REFERENCE   PMID:15057823 (chromosome 13)
+  AUTHORS   Dunham A, et al.
+  TITLE     The DNA sequence and analysis of human chromosome 13.
+  JOURNAL   Nature 428:522-8 (2004)
+REFERENCE   PMID:12508121 (chromosome 14)
+  AUTHORS   Heilig R, et al.
+  TITLE     The DNA sequence and analysis of human chromosome 14.
+  JOURNAL   Nature 421:601-7 (2003)
+REFERENCE   PMID:16572171 (chromosome 15)
+  AUTHORS   Zody MC, et al.
+  TITLE     Analysis of the DNA sequence and duplication history of human
+            chromosome 15.
+  JOURNAL   Nature 440:671-5 (2006)
+REFERENCE   PMID:15616553 (chromosome 16)
+  AUTHORS   Martin J, et al.
+  TITLE     The sequence and analysis of duplication-rich human chromosome 16.
+  JOURNAL   Nature 432:988-94 (2004)
+REFERENCE   PMID:16625196 (chromosome 17)
+  AUTHORS   Zody MC, et al.
+  TITLE     DNA sequence of human chromosome 17 and analysis of rearrangement
+            in the human lineage.
+  JOURNAL   Nature 440:1045-9 (2006)
+REFERENCE   PMID:16177791 (chromosome 18)
+  AUTHORS   Nusbaum C, et al.
+  TITLE     DNA sequence and analysis of human chromosome 18.
+  JOURNAL   Nature 437:551-5 (2005)
+REFERENCE   PMID:15057824 (chromosome 19)
+  AUTHORS   Grimwood J, et al.
+  TITLE     The DNA sequence and biology of human chromosome 19.
+  JOURNAL   Nature 428:529-35 (2004)
+REFERENCE   PMID:11780052 (chromosome 20)
+  AUTHORS   Deloukas P, et al.
+  TITLE     The DNA sequence and comparative analysis of human chromosome 20.
+  JOURNAL   Nature 414:865-71 (2001)
+REFERENCE   PMID:10830953 (chromosome 21)
+  AUTHORS   Dunham I, et al.
+  TITLE     The DNA sequence of human chromosome 21.
+  JOURNAL   Nature 402:489-95 (1999)
+REFERENCE   PMID:10591208 (chromosome 22)
+  AUTHORS   Hattori M, et al.
+  TITLE     The DNA sequence of human chromosome 22.
+  JOURNAL   Nature 405:311-9 (2000)
+REFERENCE   PMID:15772651 (chromosome X)
+  AUTHORS   Ross MT, et al.
+  TITLE     The DNA sequence of the human X chromosome.
+  JOURNAL   Nature 434:325-37 (2005)
+REFERENCE   PMID:12815422 (chromosome Y)
+  AUTHORS   Skaletsky H, et al.
+  TITLE     The male-specific region of the human Y chromosome is a mosaic of
+            discrete sequence classes.
+  JOURNAL   Nature 423:825-37 (2003)
+///
+ENTRY       T01010
+NAME        ptr, P.troglodytes, PANTR, 9598
+DEFINITION  Pan troglodytes (chimpanzee)
+ANNOTATION  manual
+TAXONOMY    TAX:9598
+  LINEAGE   Eukaryota; Metazoa; Chordata; Craniata; Vertebrata; Euteleostomi;
+            Mammalia; Eutheria; Euarchontoglires; Primates; Haplorrhini;
+            Catarrhini; Hominidae; Pan
+DATA_SOURCE RefSeq
+STATISTICS  Number of protein genes:       25196
+            Number of RNA genes:              26
+REFERENCE   PMID:16136131
+  AUTHORS   Chimpanzee Sequencing and Analysis Consortium.
+  TITLE     Initial sequence of the chimpanzee genome and comparison with the
+            human genome.
+  JOURNAL   Nature 437:69-87 (2005)
+REFERENCE   PMID:15164055 (chromosome 22)
+  AUTHORS   Watanabe H, et al.
+  TITLE     DNA sequence and comparative analysis of chimpanzee chromosome 22.
+  JOURNAL   Nature 429:382-8 (2004)
+REFERENCE   PMID:16388311 (chromosome Y)
+  AUTHORS   Kuroki Y, et al.
+  TITLE     Comparative analysis of chimpanzee and human Y chromosomes unveils
+            complex evolutionary pathway.
+  JOURNAL   Nat Genet 38:158-67 (2006)
+///
+ENTRY       T020305
+NAME        mcc, M.mulatta, MACMU, 9544
+DEFINITION  Macaca mulatta (rhesus monkey)
+ANNOTATION  manual
+TAXONOMY    TAX:9544
+  LINEAGE   Eukaryota; Metazoa; Chordata; Craniata; Vertebrata; Euteleostomi;
+            Mammalia; Eutheria; Euarchontoglires; Primates; Haplorrhini;
+            Catarrhini; Cercopithecidae; Cercopithecinae; Macaca
+DATA_SOURCE RefSeq
+STATISTICS  Number of protein genes:       23982
+            Number of RNA genes:              24
+REFERENCE   PMID:17431167
+  AUTHORS   Gibbs RA, et al.
+  TITLE     Evolutionary and biomedical insights from the rhesus macaque
+            genome.
+  JOURNAL   Science 316:222-34 (2007)
+///
+ENTRY       T050402
+NAME        mcc2, M.mulatta, MACMU, 9544
+DEFINITION  Macaca mulatta (rhesus monkey)
+ANNOTATION  manual
+TAXONOMY    TAX:9544
+  LINEAGE   Eukaryota; Metazoa; Chordata; Craniata; Vertebrata; Euteleostomi;
+            Mammalia; Eutheria; Euarchontoglires; Primates; Haplorrhini;
+            Catarrhini; Cercopithecidae; Cercopithecinae; Macaca
+DATA_SOURCE RefSeq
+STATISTICS  Number of protein genes:       23982
+            Number of RNA genes:              24
+REFERENCE   PMID:17431167
+  AUTHORS   Gibbs RA, et al.
+  TITLE     Evolutionary and biomedical insights from the rhesus macaque
+            genome.
+  JOURNAL   Science 316:222-34 (2007)
+///

@@ -1,0 +1,94 @@
+ENTRY       9081              CDS       H.sapiens
+NAME        PRY, PRY1, PTPN13LY
+DEFINITION  PTPN13-like, Y-linked
+POSITION    Yq11.223
+DBLINKS     NCBI-GI: 22507417
+            NCBI-GeneID: 9081
+            OMIM: 400019
+            HGNC: 14024
+            HPRD: 02460
+            Ensembl: ENSG00000169789
+            UniProt: O14603
+AASEQ       147
+            MGATGLGFLLSWRQDNLNGTDCQGCNILYFSETTGSMCSELSLNRGLEARRKKDLKDSFL
+            WRYGKVGCISLPLREMTAWINPPQISEIFQGYHQRVHGADALSLQTNSLRSRLSSQCLGQ
+            SFLLRTLERGRGFRALGDICGHVHEED
+NTSEQ       444
+            atgggagccactgggcttggctttctactttcctggagacaagacaatttgaatggcact
+            gactgccagggatgcaatattttatacttctctgagactacggggagcatgtgttctgaa
+            ctttccttgaacagaggtcttgaggccagaaggaagaaggatcttaaagactcatttctc
+            tggagatatgggaaggttggctgtatctcacttccacttcgtgagatgaccgcctggatt
+            aacccaccccaaatttcagagattttccaaggctaccaccagagggtgcacggagctgat
+            gcactgagcctgcaaaccaactctctgagaagcaggttatcttcacagtgcctcggacag
+            agcttccttctcaggacactcgagagaggccgtggtttcagggcacttggggacatctgt
+            ggccacgttcatgaagaagactaa
+///
+ENTRY       8351              CDS       H.sapiens
+NAME        HIST1H3D, H3/b, H3FB
+DEFINITION  histone cluster 1, H3d
+ORTHOLOGY   K11253  histone H3
+PATHWAY     hsa05322  Systemic lupus erythematosus
+CLASS       Human Diseases; Immune System Diseases; Systemic lupus erythematosus
+            [PATH:hsa05322]
+POSITION    6p21.3
+MOTIF       Pfam: Histone CBFD_NFYB_HMF DUF746 PRAI
+            PROSITE: HISTONE_H3_2 HISTONE_H3_1
+DBLINKS     NCBI-GI: 21071021
+            NCBI-GeneID: 8351
+            OMIM: 602811
+            HGNC: 4767
+            HPRD: 11905
+            Ensembl: ENSG00000197409
+            UniProt: P68431
+STRUCTURE   PDB: 2X4W 2X4Y 2X4X 3AFA 2CV5 2UXN 2V1D
+AASEQ       136
+            MARTKQTARKSTGGKAPRKQLATKAARKSAPATGGVKKPHRYRPGTVALREIRRYQKSTE
+            LLIRKLPFQRLVREIAQDFKTDLRFQSSAVMALQEACEAYLVGLFEDTNLCAIHAKRVTI
+            MPKDIQLARRIRGERA
+NTSEQ       411
+            atggctcgtaccaagcagactgctcgcaagtccacgggtgggaaagcgccacgcaagcag
+            ctggccaccaaggctgctcgaaagagcgctccagccaccggcggcgtgaagaagccccac
+            cgttaccggcccggcacggtggctctgcgcgagatccgccgctaccagaagtcgaccgag
+            ctgctgattcgcaaactgccattccagcgtctagtccgtgagatcgcgcaggacttcaag
+            actgatctgcgttttcagagctcggcggtgatggcgctgcaggaggcctgcgaggcctac
+            ctggtggggctgtttgaggacaccaacctatgcgccattcacgccaagcgagtgactatc
+            atgcccaaggacatccagcttgctcgccgcattcgtggggagagggcgtaa
+///
+ENTRY       25796             CDS       H.sapiens
+NAME        PGLS, 6PGL
+DEFINITION  6-phosphogluconolactonase (EC:3.1.1.31)
+ORTHOLOGY   K01057  6-phosphogluconolactonase [EC:3.1.1.31]
+PATHWAY     hsa00030  Pentose phosphate pathway
+            hsa01100  Metabolic pathways
+CLASS       Metabolism; Carbohydrate Metabolism; Pentose phosphate pathway
+            [PATH:hsa00030]
+POSITION    19p13.2
+MOTIF       Pfam: Glucosamine_iso CBS
+DBLINKS     NCBI-GI: 6912586
+            NCBI-GeneID: 25796
+            OMIM: 604951
+            HGNC: 8903
+            HPRD: 12001
+            Ensembl: ENSG00000130313
+            UniProt: O95336 D3DUQ8
+AASEQ       258
+            MAAPAPGLISVFSSSQELGAALAQLVAQRAACCLAGARARFALGLSGGSLVSMLARELPA
+            AVAPAGPASLARWTLGFCDERLVPFDHAESTYGLYRTHLLSRLPIPESQVITINPELPVE
+            EAAEDYAKKLRQAFQGDSIPVFDLLILGVGPDGHTCSLFPDHPLLQEREKIVAPISDSPK
+            PPPQRVTLTLPVLNAARTVIFVATGEGKAAVLKRILEDQEENPLPAALVQPHTGKLCWFL
+            DEAAARLLTVPFEKHSTL
+NTSEQ       777
+            atggccgcgccggccccgggcctcatctcggtgttctcgagttcccaggagctgggtgcg
+            gcgctagcgcagctggtggcccagcgcgcagcatgctgcctggcaggggcccgcgcccgt
+            ttcgcgctcggcctgtcgggcgggagcctcgtctcgatgctagcccgcgagctacccgcc
+            gccgtcgcccctgccgggccagctagcttagcgcgctggacgctgggcttctgcgacgag
+            cgcctcgtgcccttcgatcacgccgagagcacgtacggcctctaccggacgcatcttctc
+            tccagactgccgatcccagaaagccaggtgatcaccattaaccccgagctgcctgtggag
+            gaggcggctgaggactacgccaagaagctgagacaggcattccaaggggactccatcccg
+            gttttcgacctgctgatcctgggggtgggccccgatggtcacacctgctcactcttccca
+            gaccaccccctcctacaggagcgggagaagattgtggctcccatcagtgactccccgaag
+            ccaccgccacagcgtgtgaccctcacactacctgtcctgaatgcagcacgaactgtcatc
+            tttgtggcaactggagaaggcaaggcagctgttctgaagcgcattttggaggaccaggag
+            gaaaacccgctgcccgccgccctggtccagccccacaccgggaaactgtgctggttcttg
+            gacgaggcggccgcccgcctcctgaccgtgcccttcgagaagcattccactttgtag
+///
