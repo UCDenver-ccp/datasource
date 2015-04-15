@@ -1,0 +1,210 @@
+ID   002R_IIV3               Reviewed;         458 AA.
+AC   Q197F8;
+DT   16-JUN-2009, integrated into UniProtKB/Swiss-Prot.
+DT   11-JUL-2006, sequence version 1.
+DT   07-JUL-2009, entry version 11.
+DE   RecName: Full=Uncharacterized protein 002R;
+GN   ORFNames=IIV3-002R;
+OS   Invertebrate iridescent virus 3 (IIV-3) (Mosquito iridescent virus).
+OC   Viruses; dsDNA viruses, no RNA stage; Iridoviridae; Chloriridovirus.
+OX   NCBI_TaxID=345201;
+OH   NCBI_TaxID=7163; Aedes vexans (Inland floodwater mosquito) (Culex vexans).
+OH   NCBI_TaxID=42431; Culex territans.
+OH   NCBI_TaxID=332058; Culiseta annulata.
+OH   NCBI_TaxID=310513; Ochlerotatus sollicitans (eastern saltmarsh mosquito).
+OH   NCBI_TaxID=329105; Ochlerotatus taeniorhynchus.
+OH   NCBI_TaxID=7183; Psorophora ferox.
+RN   [1]
+RP   NUCLEOTIDE SEQUENCE [LARGE SCALE GENOMIC DNA].
+RX   PubMed=16912294; DOI=10.1128/JVI.00464-06;
+RA   Delhon G., Tulman E.R., Afonso C.L., Lu Z., Becnel J.J., Moser B.A.,
+RA   Kutish G.F., Rock D.L.;
+RT   "Genome of invertebrate iridescent virus type 3 (mosquito iridescent
+RT   virus).";
+RL   J. Virol. 80:8439-8449(2006).
+CC   -----------------------------------------------------------------------
+CC   Copyrighted by the UniProt Consortium, see http://www.uniprot.org/terms
+CC   Distributed under the Creative Commons Attribution-NoDerivs License
+CC   -----------------------------------------------------------------------
+DR   EMBL; DQ643392; ABF82032.1; -; Genomic_DNA.
+DR   RefSeq; YP_654574.1; -.
+DR   GeneID; 4156251; -.
+PE   4: Predicted;
+KW   Complete proteome; Virus reference strain.
+FT   CHAIN         1    458       Uncharacterized protein 002R.
+FT                                /FTId=PRO_0000377938.
+SQ   SEQUENCE   458 AA;  53921 MW;  E46E5C85D7ACA139 CRC64;
+     MASNTVSAQG GSNRPVRDFS NIQDVAQFLL FDPIWNEQPG SIVPWKMNRE QALAERYPEL
+     QTSEPSEDYS GPVESLELLP LEIKLDIMQY LSWEQISWCK HPWLWTRWYK DNVVRVSAIT
+     FEDFQREYAF PEKIQEIHFT DTRAEEIKAI LETTPNVTRL VIRRIDDMNY NTHGDLGLDD
+     LEFLTHLMVE DACGFTDFWA PSLTHLTIKN LDMHPRWFGP VMDGIKSMQS TLKYLYIFET
+     YGVNKPFVQW CTDNIETFYC TNSYRYENVP RPIYVWVLFQ EDEWHGYRVE DNKFHRRYMY
+     STILHKRDTD WVENNPLKTP AQVEMYKFLL RISQLNRDGT GYESDSDPEN EHFDDESFSS
+     GEEDSSDEDD PTWAPDSDDS DWETETEEEP SVAARILEKG KLTITNLMKS LGFKPKPKKI
+     QSIDRYFCSL DSNYNSEDED FEYDSDSEDD DSDSEDDC
+//
+ID   003L_IIV3               Reviewed;         156 AA.
+AC   Q197F7;
+DT   16-JUN-2009, integrated into UniProtKB/Swiss-Prot.
+DT   11-JUL-2006, sequence version 1.
+DT   07-JUL-2009, entry version 11.
+DE   Dummy DE Line 1
+DE   Dummy DE Line 2
+DE   Dummy DE Line 3
+DE   RecName: Full=Uncharacterized protein 003L;
+GN   ORFNames=IIV3-003L;
+OS   Invertebrate iridescent virus 3 (IIV-3) (Mosquito iridescent virus).
+OC   Viruses; dsDNA viruses, no RNA stage; Iridoviridae; Chloriridovirus.
+OX   NCBI_TaxID=345201;
+OH   NCBI_TaxID=7163; Aedes vexans (Inland floodwater mosquito) (Culex vexans).
+OH   NCBI_TaxID=42431; Culex territans.
+OH   NCBI_TaxID=332058; Culiseta annulata.
+OH   NCBI_TaxID=310513; Ochlerotatus sollicitans (eastern saltmarsh mosquito).
+OH   NCBI_TaxID=329105; Ochlerotatus taeniorhynchus.
+OH   NCBI_TaxID=7183; Psorophora ferox.
+RN   [1]
+RP   NUCLEOTIDE SEQUENCE [LARGE SCALE GENOMIC DNA].
+RX   PubMed=16912294; DOI=10.1128/JVI.00464-06;
+RA   Delhon G., Tulman E.R., Afonso C.L., Lu Z., Becnel J.J., Moser B.A.,
+RA   Kutish G.F., Rock D.L.;
+RT   "Genome of invertebrate iridescent virus type 3 (mosquito iridescent
+RT   virus).";
+RL   J. Virol. 80:8439-8449(2006).
+CC   -----------------------------------------------------------------------
+CC   Copyrighted by the UniProt Consortium, see http://www.uniprot.org/terms
+CC   Distributed under the Creative Commons Attribution-NoDerivs License
+CC   -----------------------------------------------------------------------
+DR   EMBL; DQ643392; ABF82033.1; -; Genomic_DNA.
+DR   RefSeq; YP_654575.1; -.
+DR   GeneID; 4156252; -.
+PE   4: Predicted;
+KW   Complete proteome; Virus reference strain.
+FT   CHAIN         1    156       Uncharacterized protein 003L.
+FT                                /FTId=PRO_0000377939.
+SQ   SEQUENCE   156 AA;  17043 MW;  D48A43940FF8C815 CRC64;
+     MYQAINPCPQ SWYGSPQLER EIVCKMSGAP HYPNYYPVHP NALGGAWFDT SLNARSLTTT
+     PSLTTCTPPS LAACTPPTSL GMVDSPPHIN PPRRIGTLCF DFGSAKSPQR CECVASDRPS
+     TTSNTAPDTY RLLITNSKTR KNNYGTCRLE PLTYGI
+//
+ID   005L_IIV3               Reviewed;         217 AA.
+AC   Q197F5; Q197F6; Q197F7; Q197F8;
+AC   Q197F9; Q197F0;	
+DT   16-JUN-2009, integrated into UniProtKB/Swiss-Prot.
+DT   11-JUL-2006, sequence version 1.
+DT   07-JUL-2009, entry version 15.
+DE   Flags: Precursor;
+GN   Name=YoYoMa1;
+GN   ORFNames=IIV3-005L;
+OS   Invertebrate iridescent virus 3 (IIV-3) (Mosquito iridescent virus).
+OC   Viruses; dsDNA viruses, no RNA stage; Iridoviridae; Chloriridovirus.
+OX   NCBI_TaxID=54321;
+OH   NCBI_TaxID=7163; Aedes vexans (Inland floodwater mosquito) (Culex vexans).
+OH   NCBI_TaxID=42431; Culex territans.
+OH   NCBI_TaxID=332058; Culiseta annulata.
+OH   NCBI_TaxID=310513; Ochlerotatus sollicitans (eastern saltmarsh mosquito).
+OH   NCBI_TaxID=329105; Ochlerotatus taeniorhynchus.
+OH   NCBI_TaxID=7183; Psorophora ferox.
+RN   [1]
+RP   NUCLEOTIDE SEQUENCE [LARGE SCALE GENOMIC DNA].
+RX   PubMed=16912294; DOI=10.1128/JVI.00464-06;
+RA   Delhon G., Tulman E.R., Afonso C.L., Lu Z., Becnel J.J., Moser B.A.,
+RA   Kutish G.F., Rock D.L.;
+RT   "Genome of invertebrate iridescent virus type 3 (mosquito iridescent
+RT   virus).";
+RL   J. Virol. 80:8439-8449(2006).
+CC   -!- FUNCTION: Converts angiotensin I to angiotensin II by release of
+CC       the terminal His-Leu, this results in an increase of the
+CC       vasoconstrictor activity of angiotensin. Also able to inactivate
+CC       bradykinin, a potent vasodilator. Has also a glycosidase activity
+CC       which releases GPI-anchored proteins from the membrane by cleaving
+CC       the mannose linkage in the GPI moiety.
+CC   -!- CATALYTIC ACTIVITY: Release of a C-terminal dipeptide,
+CC       oligopeptide-|-Xaa-Yaa, when Xaa is not Pro, and Yaa is neither
+CC       Asp nor Glu. Thus, conversion of angiotensin I to angiotensin II,
+CC       with increase in vasoconstrictor activity, but no action on
+CC       angiotensin II.
+CC   -!- COFACTOR: Binds 2 zinc ions per subunit. Isoform Testis-specific
+CC       only binds 1 zinc ion per subunit.
+CC   -!- COFACTOR: Binds 3 chloride ions per subunit.
+CC   -!- ENZYME REGULATION: Strongly activated by chloride. Specifically
+CC       inhibited by lisinopril, captopril and enalaprilat.
+CC   -!- BIOPHYSICOCHEMICAL PROPERTIES:
+CC       Kinetic parameters:
+CC         KM=2.51 mM for Hip-His-Leu;
+CC   -!- SUBCELLULAR LOCATION: Angiotensin-converting enzyme, soluble form:
+CC       Secreted.
+CC   -!- SUBCELLULAR LOCATION: Cell membrane; Single-pass type I membrane
+CC       protein.
+CC   -!- ALTERNATIVE PRODUCTS:
+CC       Event=Alternative splicing; Named isoforms=3;
+CC       Name=Somatic-1;
+CC         IsoId=P12821-1; Sequence=Displayed;
+CC       Name=Somatic-2; Synonyms=Soluble;
+CC         IsoId=P12821-2; Sequence=VSP_029932, VSP_029933;
+CC         Note=Incomplete sequence;
+CC       Name=Testis-specific; Synonyms=ACE-T;
+CC         IsoId=P12821-3, P22966-1;
+CC         Sequence=VSP_035120, VSP_035121;
+CC         Note=Variant in position: 32:S->P (in dbSNP:rs4317). Variant in
+CC         position: 49:S->G (in dbSNP:rs4318);
+CC   -!- TISSUE SPECIFICITY: Ubiquitously expressed, with highest levels in
+CC       lung, kidney, heart, gastrointestinal system and prostate. Isoform
+CC       Testis-specific is expressed in spermatocytes and adult testis.
+CC   -!- INDUCTION: Up-regulated in failing heart.
+CC   -!- PTM: Phosphorylated by CK2 on Ser-1299; which allows membrane
+CC       retention.
+CC   -!- DISEASE: Genetic variations in ACE may be a cause of
+CC       susceptibility to ischemic stroke (ISCHSTR) [MIM:601367]; also
+CC       known as cerebrovascular accident or cerebral infarction. A stroke
+CC       is an acute neurologic event leading to death of neural tissue of
+CC       the brain and resulting in loss of motor, sensory and/or cognitive
+CC       function. Ischemic strokes, resulting from vascular occlusion, is
+CC       considered to be a highly complex disease consisting of a group of
+CC       heterogeneous disorders with multiple genetic and environmental
+CC       risk factors.
+CC   -!- DISEASE: Defects in ACE are a cause of renal tubular dysgenesis
+CC       (RTD) [MIM:267430]. RTD is an autosomal recessive severe disorder
+CC       of renal tubular development characterized by persistent fetal
+CC       anuria and perinatal death, probably due to pulmonary hypoplasia
+CC       from early-onset oligohydramnios (the Potter phenotype).
+CC   -!- DISEASE: Genetic variations in ACE are associated with
+CC       susceptibility to microvascular complications of diabetes type 3
+CC       (MVCD3) [MIM:612624]. These are pathological conditions that
+CC       develop in numerous tissues and organs as a consequence of
+CC       diabetes mellitus. They include diabetic retinopathy, diabetic
+CC       nephropathy leading to end-stage renal disease, and diabetic
+CC       neuropathy. Diabetic retinopathy remains the major cause of new-
+CC       onset blindness among diabetic adults. It is characterized by
+CC       vascular permeability and increased tissue ischemia and
+CC       angiogenesis.
+CC   -!- MISCELLANEOUS: Inhibitors of ACE are commonly used to treat
+CC       hypertension and some types of renal and cardiac dysfunction.
+CC   -!- MISCELLANEOUS: The glycosidase activity probably uses different
+CC       active site residues than the metalloprotease activity.
+CC   -!- SIMILARITY: Belongs to the peptidase M2 family.
+CC   -!- SEQUENCE CAUTION:
+CC       Sequence=BAD92208.1; Type=Erroneous initiation;
+CC   -!- WEB RESOURCE: Name=GeneReviews;
+CC       URL="http://www.ncbi.nlm.nih.gov/sites/GeneTests/lab/gene/ACE";
+CC   -!- WEB RESOURCE: Name=SHMPD; Note=The Singapore human mutation and
+CC       polymorphism database;
+CC       URL="http://shmpd.bii.a-star.edu.sg/gene.php?genestart=A&genename=ACE";
+CC   -----------------------------------------------------------------------
+CC   Copyrighted by the UniProt Consortium, see http://www.uniprot.org/terms
+CC   Distributed under the Creative Commons Attribution-NoDerivs License
+CC   -----------------------------------------------------------------------
+DR   EMBL; DQ643392; ABF82035.1; -; Genomic_DNA.
+DR   RefSeq; YP_654577.1; -.
+DR   GeneID; 4156254; -.
+DR   InterPro; IPR018245; Gonadotropin_bsu_CS.
+PE   4: Predicted;
+KW   Complete proteome; Signal; Virus reference strain.
+FT   SIGNAL        1     24       Potential.
+FT   CHAIN        25    217       Uncharacterized protein 005L.
+FT                                /FTId=PRO_0000377940.
+SQ   SEQUENCE   217 AA;  23854 MW;  6DBE65967D7EEBD5 CRC64;
+     MRYTVLIALQ GALLLLLLID DGQGQSPYPY PGMPCNSSRQ CGLGTCVHSR CAHCSSDGTL
+     CSPEDPTMVW PCCPESSCQL VVGLPSLVNH YNCLPNQCTD SSQCPGGFGC MTRRSKCELC
+     KADGEACNSP YLDWRKDKEC CSGYCHTEAR GLEGVCIDPK KIFCTPKNPW QLAPYPPSYH
+     QPTTLRPPTS LYDSWLMSGF LVKSTTAPST QEEEDDY
+//
