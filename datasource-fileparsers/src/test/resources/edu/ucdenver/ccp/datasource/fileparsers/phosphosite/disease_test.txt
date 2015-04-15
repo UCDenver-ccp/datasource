@@ -1,0 +1,6 @@
+10715																		
+"Data extracted from PhosphoSitePlus(R), created by Cell Signaling Technology Inc. PhosphoSitePlus is licensed under a Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License. Attribution must be given in written, oral and digital presentations to PhosphoSitePlus, www.phosphosite.org. Written documents should additionally cite Hornbeck PV, Kornhauser JM, Tkachev S, Zhang B, Skrzypek E, Murray B, Latham V, Sullivan M (2012) PhosphoSitePlus: a comprehensive resource for investigating the structure and function of experimentally determined post-translational modifications in man and mouse. Nucleic Acids Res. 40, D261–70.; www.phosphosite.org."																		
+																		
+DISEASE	ALTERATION	PROTEIN	ACC_ID	GENE_ID	GENE	HU_CHR_LOC	MW_kD	ORGANISM	SITE_GRP_ID	MOD_RSD	DOMAIN	SITE_+/-7_AA	PMIDs	LT_LIT	MS_LIT	MS_CST	CST_CAT#	NOTES
+Alzheimer's disease	mutation of site	APP	P05067	351	APP	21q21.3	86.94	human	3173810	K670-sm		TEEISEVkMDAEFRH	1302033	2	0	0		
+acute myelogenous leukemia	deletion of site	Myb	P06876	17863	Myb		71.42	mouse	448186	S11-p		RPRHSIYsSDEDDED	2157164	5	1	1		

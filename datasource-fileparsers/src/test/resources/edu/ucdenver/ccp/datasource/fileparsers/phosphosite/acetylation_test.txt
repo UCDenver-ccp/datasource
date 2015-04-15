@@ -1,0 +1,6 @@
+010715
+Data extracted from PhosphoSitePlus(R), created by Cell Signaling Technology Inc. PhosphoSitePlus is licensed under a Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License. Attribution must be given in written, oral and digital presentations to PhosphoSitePlus, www.phosphosite.org. Written documents should additionally cite Hornbeck PV, Kornhauser JM, Tkachev S, Zhang B, Skrzypek E, Murray B, Latham V, Sullivan M (2012) PhosphoSitePlus: a comprehensive resource for investigating the structure and function of experimentally determined post-translational modifications in man and mouse. Nucleic Acids Res. 40, D261–70.; www.phosphosite.org.
+
+PROTEIN	ACC_ID	GENE	HU_CHR_LOC	MOD_TYPE	MOD_RSD	SITE_GRP_ID	ORGANISM	MW_kD	DOMAIN	SITE_+/-7_AA	LT_LIT	MS_LIT	MS_CST	CST_CAT#
+14-3-3 beta	Q9CQV8	Ywhab		ACETYLATION	K5	33347661	mouse	28.09	14-3-3	___MtMDksELVQkA		1		
+14-3-3 beta	P35213	Ywhab		ACETYLATION	K5	33347661	rat	28.05	14-3-3	___MTMDkSELVQkA		1				
