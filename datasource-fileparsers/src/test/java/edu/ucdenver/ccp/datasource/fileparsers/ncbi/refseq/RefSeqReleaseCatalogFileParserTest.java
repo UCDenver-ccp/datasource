@@ -1,6 +1,3 @@
-/**
- * 
- */
 package edu.ucdenver.ccp.datasource.fileparsers.ncbi.refseq;
 
 /*
