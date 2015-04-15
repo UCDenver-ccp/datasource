@@ -1,0 +1,29 @@
+!CVS Version: Revision: 1.747 $
+!GOC Validation Date: 12/09/2008 $
+!Submission Date: 12/9/2008
+!
+! The above "Submission Date" is when the annotation project provided
+! this file to the Gene Ontology Consortium (GOC).  The "GOC Validation
+! Date" indicates when this file was last changed as a result of a GOC
+! validation and filtering process.  The "CVS Version" above is the
+! GOC version of this file.
+!
+! Note: The contents of this file may differ from that submitted to the
+! GOC. The identifiers and syntax of the file have been checked, rows of
+! data not meeting the standards set by the GOC have been removed. This
+! file may also have annotations removed because the annotations for the
+! listed Taxonomy identifier are only allowed in a file provided by
+! another annotation project.  The original submitted file is available from:
+!  http://www.geneontology.org/gene-associations/submission/
+!
+! For information on which taxon are allowed in which files please see:
+!  http://www.geneontology.org/GO.annotation.shtml#script
+!
+!Project_name: Mouse Genome Informatics (MGI)
+!URL: http://www.informatics.jax.org/
+!Contact Email: mgi-help@informatics.jax.org
+!Funding: NHGRI of US National Institutes of Health
+!
+MGI	MGI:2685383	A630055G03Rik		GO:0003677	MGI:MGI:1354194	IEA	SP_KW:KW-0238	F	RIKEN cDNA A630055G03 gene	LOC381034	gene	taxon:10090	20081012	UniProtKB
+MGI	MGI:1345167	Aadat		GO:0005739	MGI:MGI:2682130|PMID:14651853	IDA		C	aminoadipate aminotransferase	Kat2|KATII|mKat-2	gene	taxon:10090|taxon:12345	20071029	MGI
+MGI	MGI:1098687	Aak1	NOT	GO:0005524	MGI:MGI:2152098	IEA	InterPro:IPR000719,InterPro:IPR017441,InterPro:IPR017442	F	AP2 associated kinase 1	D6Ertd245e	gene	taxon:10090	20081012	UniProtKB

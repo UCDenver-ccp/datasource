@@ -1,0 +1,74 @@
+remark: internal cross-products between BP and CL. Partially vetted by cjm
+format-version: 1.2
+date: 01:04:2008 16:46
+id-mapping: results_in_change_from UCDHSC:results_in_change_from
+id-mapping: results_in_perception_of UCDHSC:results_in_perception_of
+id-mapping: results_in_division_of UCDHSC:results_in_division_of
+id-mapping: results_in_joining_of UCDHSC:results_in_joining_of
+id-mapping: results_in_change_in UCDHSC:results_in_change_in
+id-mapping: results_in_change_to UCDHSC:results_in_change_to
+id-mapping: results_in_regulation_of UCDHSC:results_in_regulation_of
+id-mapping: results_in_directed_movement_of UCDHSC:results_in_directed_movement_of
+id-mapping: has_participant OBO_REL:has_participant
+subsetdef: goslim_plant "Plant GO slim"
+subsetdef: goslim_yeast "Yeast GO slim"
+subsetdef: gosubset_prok "Prokaryotic GO subset"
+synonymtypedef: systematic_synonym "Systematic synonym" EXACT
+default-namespace: gene_ontology
+remark: cvs version: $Revision: 296 $
+
+! note: the def here is for development...?
+[Term]
+id: GO:0000023
+name: maltose metabolic process
+intersection_of: GO:0008152 ! metabolic process
+intersection_of: has_participant CHEBI:17306 ! maltose
+
+[Term]
+id: GO:0000001
+name: mitochondrion inheritance
+namespace: biological_process
+def: "The distribution of mitochondria, including the mitochondrial genome, into daughter cells after mitosis or meiosis, mediated by interactions between mitochondria and the cytoskeleton." [GOC:mcc, PMID:10873824, PMID:
+11389764]
+synonym: "mitochondrial inheritance" EXACT []
+is_a: GO:0048308 ! organelle inheritance
+is_a: GO:0048311 ! mitochondrion distribution
+
+[Term]
+id: GO:0006102
+name: isocitrate metabolic process
+intersection_of: GO:0008152 ! metabolic process
+intersection_of: has_participant anon_chemical_2
+
+[Term]
+id: GO:0000019
+name: regulation of mitotic recombination
+namespace: biological_process
+def: "Any process that modulates the frequency, rate or extent of DNA recombination during mitosis." [GOC:go_curators]
+synonym: "regulation of recombination within rDNA repeats" NARROW []
+is_a: GO:0000018 ! regulation of DNA recombination
+intersection_of: GO:0065007 ! biological regulation
+intersection_of: regulates GO:0006312 ! mitotic recombination
+intersection_of: regulates GO:0006313 ! mitotic recombination 2
+relationship: regulates GO:0006312 ! mitotic recombination
+
+[Term]
+id: GO:0000032 ! cell wall mannoprotein biosynthetic process
+intersection_of: GO:0006057 ! mannoprotein biosynthetic process
+intersection_of: OBO_REL:unfolds_in GO:0005618 ! cell wall
+
+[Term]
+id: anon_chemical_2
+is_anonymous: true
+union_of: CHEBI:36453 ! isocitrate(2-)
+union_of: CHEBI:36454 ! isocitrate(1-)
+union_of: CHEBI:16087 ! isocitrate(3-)
+
+[Term]
+id: GO:0009256
+name: 10-formyltetrahydrofolate metabolic process
+intersection_of: GO:0008152 ! metabolic process
+
+
+
+
