@@ -46,12 +46,7 @@ import edu.ucdenver.ccp.datasource.identifiers.StringDataSourceIdentifier;
 public class SaasId extends StringDataSourceIdentifier {
 
 	public SaasId(String resourceID) {
-		super(resourceID);
-	}
-
-	@Override
-	public DataSource getDataSource() {
-		return DataSource.UNIPROT_PREDICTION;
-	}
+		super(resourceID, DataSource.UNIPROT_PREDICTION);
+}
 
 }

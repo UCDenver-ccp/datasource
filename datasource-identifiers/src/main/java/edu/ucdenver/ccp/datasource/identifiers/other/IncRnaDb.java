@@ -39,12 +39,7 @@ import edu.ucdenver.ccp.datasource.identifiers.StringDataSourceIdentifier;
 public class IncRnaDb extends StringDataSourceIdentifier {
 
 	public IncRnaDb(String resourceID) {
-		super(resourceID);
-	}
-
-	@Override
-	public DataSource getDataSource() {
-		return DataSource.INCRNADB;
-	}
+		super(resourceID, DataSource.INCRNADB);
+}
 
 }

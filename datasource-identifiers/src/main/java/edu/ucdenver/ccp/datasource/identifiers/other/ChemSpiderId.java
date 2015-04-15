@@ -42,12 +42,7 @@ public class ChemSpiderId extends IntegerDataSourceIdentifier {
 	 * @param resourceID
 	 */
 	public ChemSpiderId(String resourceID) {
-		super(resourceID);
-	}
-
-	@Override
-	public DataSource getDataSource() {
-		return DataSource.CHEMSPIDER;
-	}
+		super(resourceID, DataSource.CHEMSPIDER);
+}
 
 }

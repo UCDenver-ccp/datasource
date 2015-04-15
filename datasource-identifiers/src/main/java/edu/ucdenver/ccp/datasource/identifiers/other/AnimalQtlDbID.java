@@ -39,12 +39,7 @@ import edu.ucdenver.ccp.datasource.identifiers.StringDataSourceIdentifier;
 public class AnimalQtlDbID extends StringDataSourceIdentifier {
 
 	public AnimalQtlDbID(String resourceID) {
-		super(resourceID);
-	}
-
-	@Override
-	public DataSource getDataSource() {
-		return DataSource.ANIMALQTLDB;
-	}
+		super(resourceID, DataSource.ANIMALQTLDB);
+}
 
 }

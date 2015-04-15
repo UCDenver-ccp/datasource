@@ -41,13 +41,8 @@ public class UniGeneID extends StringDataSourceIdentifier {
 	private static final String ID_PREFIX = "UNIGENE_";
 	
 	public UniGeneID(String resourceID) {
-		super(resourceID);
-	}
-
-	@Override
-	public DataSource getDataSource() {
-		return DataSource.UNIGENE;
-	}
+		super(resourceID, DataSource.UNIGENE);
+}
 
 	@Override
 	public String toString() {

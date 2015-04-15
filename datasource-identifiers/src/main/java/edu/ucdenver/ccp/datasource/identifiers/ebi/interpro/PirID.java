@@ -39,13 +39,7 @@ import edu.ucdenver.ccp.datasource.identifiers.StringDataSourceIdentifier;
 public class PirID extends StringDataSourceIdentifier {
 
 	public PirID(String resourceID) {
-		super(resourceID);
+		super(resourceID, DataSource.PIR);
 	}
 
-	@Override
-	public DataSource getDataSource() {
-		return DataSource.PIR;
-	}
-
-	
 }

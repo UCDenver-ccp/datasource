@@ -46,12 +46,7 @@ public class MedGenId extends StringDataSourceIdentifier {
 	 * @param resourceID
 	 */
 	public MedGenId(String resourceID) {
-		super(resourceID);
-	}
-
-	@Override
-	public DataSource getDataSource() {
-		return DataSource.MEDGEN;
-	}
+		super(resourceID, DataSource.MEDGEN);
+}
 
 }

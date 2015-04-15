@@ -39,12 +39,7 @@ import edu.ucdenver.ccp.datasource.identifiers.StringDataSourceIdentifier;
 public class IpiID extends StringDataSourceIdentifier {
 
 	public IpiID(String resourceID) {
-		super(resourceID);
-	}
-
-	@Override
-	public DataSource getDataSource() {
-		return DataSource.IPI;
-	}
+		super(resourceID, DataSource.IPI);
+}
 
 }

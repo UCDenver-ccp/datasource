@@ -40,13 +40,8 @@ import edu.ucdenver.ccp.datasource.identifiers.DataSource;
 public class HgncID extends DataSourceIdentifier<String>{
 
 	public HgncID(String resourceID) {
-		super(resourceID);
-	}
-
-	@Override
-	public DataSource getDataSource() {
-		return DataSource.HGNC;
-	}
+		super(resourceID, DataSource.HGNC);
+}
 
 	@Override
 	public String validate(String geneID) throws IllegalArgumentException {

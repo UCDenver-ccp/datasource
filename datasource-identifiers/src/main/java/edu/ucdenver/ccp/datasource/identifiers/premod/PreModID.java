@@ -39,12 +39,8 @@ import edu.ucdenver.ccp.datasource.identifiers.StringDataSourceIdentifier;
 public class PreModID extends StringDataSourceIdentifier {
 
 	public PreModID(String resourceID) {
-		super(resourceID);
+		super(resourceID,DataSource.PREMOD);
 	}
 
-	@Override
-	public DataSource getDataSource() {
-		return DataSource.PREMOD;
-	}
 
 }

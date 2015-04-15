@@ -39,12 +39,7 @@ import edu.ucdenver.ccp.datasource.identifiers.StringDataSourceIdentifier;
 public class BeetleBaseID extends StringDataSourceIdentifier {
 
 	public BeetleBaseID(String resourceID) {
-		super(resourceID);
-	}
-
-	@Override
-	public DataSource getDataSource() {
-		return DataSource.BEETLEBASE;
-	}
+		super(resourceID, DataSource.BEETLEBASE);
+}
 
 }

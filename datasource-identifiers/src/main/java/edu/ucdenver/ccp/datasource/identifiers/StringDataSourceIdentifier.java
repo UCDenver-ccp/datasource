@@ -35,8 +35,8 @@ package edu.ucdenver.ccp.datasource.identifiers;
 
 public abstract class StringDataSourceIdentifier extends DataSourceIdentifier<String> {
 
-	public StringDataSourceIdentifier(String resourceID) {
-		super(resourceID.trim());
+	public StringDataSourceIdentifier(String resourceID, DataSource ds) {
+		super(resourceID.trim(), ds);
 	}
 
 	@Override

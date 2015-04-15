@@ -39,12 +39,7 @@ import edu.ucdenver.ccp.datasource.identifiers.StringDataSourceIdentifier;
 public class GoaRefID extends StringDataSourceIdentifier {
 
 	public GoaRefID(String resourceID) {
-		super(resourceID);
-	}
-
-	@Override
-	public DataSource getDataSource() {
-		return DataSource.GOA_REFERENCE;
+		super(resourceID, DataSource.GOA_REFERENCE);
 	}
 
 }

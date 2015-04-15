@@ -39,12 +39,7 @@ import edu.ucdenver.ccp.datasource.identifiers.IntegerDataSourceIdentifier;
 public class InnateDbId extends IntegerDataSourceIdentifier {
 
 	public InnateDbId(String resourceID) {
-		super(resourceID);
-	}
-
-	@Override
-	public DataSource getDataSource() {
-		return DataSource.INNATEDB;
-	}
+		super(resourceID, DataSource.INNATEDB);
+}
 
 }

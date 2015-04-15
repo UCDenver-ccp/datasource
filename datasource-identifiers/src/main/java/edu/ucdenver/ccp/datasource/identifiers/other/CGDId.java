@@ -38,11 +38,6 @@ import edu.ucdenver.ccp.datasource.identifiers.StringDataSourceIdentifier;
 
 public class CGDId extends StringDataSourceIdentifier {
 		public CGDId(String id) {
-			super(id);
-		}
-
-		@Override
-		public DataSource getDataSource() {
-			return DataSource.CGD;
-		}
+			super(id, DataSource.CGD);
+}
 	}

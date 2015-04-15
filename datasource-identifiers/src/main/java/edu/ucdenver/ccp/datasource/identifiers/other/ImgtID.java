@@ -39,12 +39,7 @@ import edu.ucdenver.ccp.datasource.identifiers.StringDataSourceIdentifier;
 public class ImgtID extends StringDataSourceIdentifier {
 
 	public ImgtID(String resourceID) {
-		super(resourceID);
-	}
-
-	@Override
-	public DataSource getDataSource() {
-		return DataSource.IMGT;
-	}
+		super(resourceID, DataSource.IMGT);
+}
 
 }

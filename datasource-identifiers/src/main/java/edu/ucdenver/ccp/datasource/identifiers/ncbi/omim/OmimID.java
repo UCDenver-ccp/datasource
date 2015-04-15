@@ -39,15 +39,10 @@ import edu.ucdenver.ccp.datasource.identifiers.IntegerDataSourceIdentifier;
 public class OmimID extends IntegerDataSourceIdentifier{
 
 	public OmimID(Integer resourceID) {
-		super(resourceID);
+		super(resourceID, DataSource.OMIM);
 	}
 	
 	public OmimID(String resourceID) {
-		super(resourceID);
-	}
-
-	@Override
-	public DataSource getDataSource() {
-		return DataSource.OMIM;
-	}
+		super(resourceID, DataSource.OMIM);
+}
 }

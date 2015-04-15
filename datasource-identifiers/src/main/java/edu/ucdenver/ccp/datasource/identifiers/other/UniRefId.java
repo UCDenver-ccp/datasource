@@ -45,12 +45,7 @@ import edu.ucdenver.ccp.datasource.identifiers.StringDataSourceIdentifier;
 public class UniRefId extends StringDataSourceIdentifier {
 
 	public UniRefId(String resourceID) {
-		super(resourceID);
-	}
-
-	@Override
-	public DataSource getDataSource() {
-		return DataSource.UNIREF;
-	}
+		super(resourceID, DataSource.UNIREF);
+}
 
 }

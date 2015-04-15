@@ -44,12 +44,7 @@ import edu.ucdenver.ccp.datasource.identifiers.StringDataSourceIdentifier;
 public class PictarId extends StringDataSourceIdentifier {
 
 	public PictarId(String resourceID) {
-		super(resourceID);
-	}
-
-	@Override
-	public DataSource getDataSource() {
-		return DataSource.PICTAR;
-	}
+		super(resourceID, DataSource.PICTAR);
+}
 
 }

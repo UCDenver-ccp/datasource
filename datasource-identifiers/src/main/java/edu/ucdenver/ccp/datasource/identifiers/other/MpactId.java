@@ -39,12 +39,7 @@ import edu.ucdenver.ccp.datasource.identifiers.StringDataSourceIdentifier;
 public class MpactId extends StringDataSourceIdentifier {
 
 	public MpactId(String resourceID) {
-		super(resourceID);
-	}
-
-	@Override
-	public DataSource getDataSource() {
-		return DataSource.MPACT;
-	}
+		super(resourceID, DataSource.MPACT);
+}
 
 }

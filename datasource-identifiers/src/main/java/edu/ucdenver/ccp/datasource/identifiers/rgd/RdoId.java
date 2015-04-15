@@ -39,12 +39,7 @@ import edu.ucdenver.ccp.datasource.identifiers.StringDataSourceIdentifier;
 public class RdoId extends StringDataSourceIdentifier {
 
 	public RdoId(String resourceID) {
-		super(resourceID);
-	}
-
-	@Override
-	public DataSource getDataSource() {
-		return DataSource.RDO;
+		super(resourceID,DataSource.RDO);
 	}
 
 }

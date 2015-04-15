@@ -39,12 +39,7 @@ import edu.ucdenver.ccp.datasource.identifiers.StringDataSourceIdentifier;
 public class TherapeuticTargetsDatabaseId extends StringDataSourceIdentifier {
 
 	public TherapeuticTargetsDatabaseId(String resourceID) {
-		super(resourceID);
-	}
-
-	@Override
-	public DataSource getDataSource() {
-		return DataSource.THERAPEUTIC_TARGETS_DB;
-	}
+		super(resourceID, DataSource.THERAPEUTIC_TARGETS_DB);
+}
 
 }

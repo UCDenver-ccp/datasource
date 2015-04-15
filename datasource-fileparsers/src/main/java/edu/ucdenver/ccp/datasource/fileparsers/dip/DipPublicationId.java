@@ -50,12 +50,7 @@ public class DipPublicationId extends StringDataSourceIdentifier {
 	 * @param resourceID
 	 */
 	public DipPublicationId(String resourceID) {
-		super(resourceID);
-	}
-
-	@Override
-	public DataSource getDataSource() {
-		return DataSource.DIP;
+		super(resourceID, DataSource.DIP);
 	}
 
 }

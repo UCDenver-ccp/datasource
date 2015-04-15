@@ -42,12 +42,7 @@ public class DrugProductsDbId extends IntegerDataSourceIdentifier {
 	 * @param resourceID
 	 */
 	public DrugProductsDbId(String resourceID) {
-		super(resourceID);
-	}
-
-	@Override
-	public DataSource getDataSource() {
-		return DataSource.DRUG_PRODUCTS_DB;
-	}
+		super(resourceID, DataSource.DRUG_PRODUCTS_DB);
+}
 
 }

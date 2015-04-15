@@ -39,12 +39,7 @@ import edu.ucdenver.ccp.datasource.identifiers.StringDataSourceIdentifier;
 public class RfamId extends StringDataSourceIdentifier {
 
 	public RfamId(String resourceID) {
-		super(resourceID);
-	}
-
-	@Override
-	public DataSource getDataSource() {
-		return DataSource.RFAM;
-	}
+		super(resourceID, DataSource.RFAM);
+}
 
 }

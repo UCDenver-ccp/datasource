@@ -52,13 +52,8 @@ public class MeshID extends DataSourceIdentifier<String> {
 	 * @param resourceID
 	 */
 	public MeshID(String resourceID) {
-		super(resourceID);
-	}
-
-	@Override
-	public DataSource getDataSource() {
-		return DataSource.MESH;
-	}
+		super(resourceID, DataSource.MESH);
+}
 
 	@Override
 	public String validate(String resourceID) throws IllegalArgumentException {

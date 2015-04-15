@@ -39,12 +39,8 @@ import edu.ucdenver.ccp.datasource.identifiers.IntegerDataSourceIdentifier;
 public class RgdID extends IntegerDataSourceIdentifier {
 
 	public RgdID(String resourceID) {
-		super(resourceID);
+		super(resourceID,DataSource.RGD);
 	}
 
-	@Override
-	public DataSource getDataSource() {
-		return DataSource.RGD;
-	}
 
 }

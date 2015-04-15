@@ -39,12 +39,7 @@ import edu.ucdenver.ccp.datasource.identifiers.IntegerDataSourceIdentifier;
 public class GuideToPharmacologyId extends IntegerDataSourceIdentifier {
 
 	public GuideToPharmacologyId(String resourceID) {
-		super(resourceID);
-	}
-
-	@Override
-	public DataSource getDataSource() {
-		return DataSource.GUIDE_TO_PHARMACOLOGY;
-	}
+		super(resourceID, DataSource.GUIDE_TO_PHARMACOLOGY);
+}
 
 }

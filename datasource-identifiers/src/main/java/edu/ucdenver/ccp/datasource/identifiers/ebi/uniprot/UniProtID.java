@@ -39,13 +39,8 @@ import edu.ucdenver.ccp.datasource.identifiers.DataSource;
 public class UniProtID extends DataSourceIdentifier<String> {
 
 	public UniProtID(String resourceID) {
-		super(resourceID);
-	}
-
-	@Override
-	public DataSource getDataSource() {
-		return DataSource.UNIPROT;
-	}
+		super(resourceID, DataSource.UNIPROT);
+}
 
 	/**
 	 * See http://www.uniprot.org/manual/accession_numbers

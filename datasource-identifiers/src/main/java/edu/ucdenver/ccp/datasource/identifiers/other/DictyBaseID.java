@@ -39,12 +39,7 @@ import edu.ucdenver.ccp.datasource.identifiers.StringDataSourceIdentifier;
 public class DictyBaseID extends StringDataSourceIdentifier {
 
 	public DictyBaseID(String resourceID) {
-		super(resourceID);
-	}
-
-	@Override
-	public DataSource getDataSource() {
-		return DataSource.DICTYBASE;
-	}
+		super(resourceID, DataSource.DICTYBASE);
+}
 
 }

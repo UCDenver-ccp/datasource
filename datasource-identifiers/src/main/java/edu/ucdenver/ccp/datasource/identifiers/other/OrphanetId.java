@@ -39,12 +39,7 @@ import edu.ucdenver.ccp.datasource.identifiers.IntegerDataSourceIdentifier;
 public class OrphanetId extends IntegerDataSourceIdentifier {
 
 	public OrphanetId(String resourceID) {
-		super(resourceID);
-	}
-
-	@Override
-	public DataSource getDataSource() {
-		return DataSource.ORPHANET;
-	}
+		super(resourceID, DataSource.ORPHANET);
+}
 
 }

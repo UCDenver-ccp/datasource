@@ -45,12 +45,7 @@ import edu.ucdenver.ccp.datasource.identifiers.StringDataSourceIdentifier;
 public class ArrayExpressId extends StringDataSourceIdentifier {
 
 	public ArrayExpressId(String resourceID) {
-		super(resourceID);
-	}
-
-	@Override
-	public DataSource getDataSource() {
-		return DataSource.ARRAYEXPRESS;
-	}
+		super(resourceID, DataSource.ARRAYEXPRESS);
+}
 
 }

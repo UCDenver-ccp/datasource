@@ -40,13 +40,9 @@ import edu.ucdenver.ccp.datasource.identifiers.StringDataSourceIdentifier;
 public class DOI extends StringDataSourceIdentifier {
 
 	public DOI(String resourceID) {
-		super(resourceID);
+		super(resourceID, DataSource.DOI);
 	}
 
-	@Override
-	public DataSource getDataSource() {
-		return DataSource.DOI;
-	}
 
 	@Override
 	public String validate(String resourceID) throws IllegalArgumentException {

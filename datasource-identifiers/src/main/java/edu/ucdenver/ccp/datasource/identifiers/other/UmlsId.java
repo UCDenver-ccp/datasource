@@ -39,12 +39,7 @@ import edu.ucdenver.ccp.datasource.identifiers.StringDataSourceIdentifier;
 public class UmlsId extends StringDataSourceIdentifier {
 
 	public UmlsId(String resourceID) {
-		super(resourceID);
-	}
-
-	@Override
-	public DataSource getDataSource() {
-		return DataSource.UMLS;
-	}
+		super(resourceID, DataSource.UMLS);
+}
 
 }

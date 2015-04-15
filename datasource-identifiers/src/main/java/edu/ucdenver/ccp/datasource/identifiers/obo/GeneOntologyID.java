@@ -40,12 +40,7 @@ public class GeneOntologyID extends OntologyID {
 	public static final String GENE_ONTOLOGY_ID_PREFIX = "GO:";
 
 	public GeneOntologyID(String resourceID) {
-		super(resourceID);
-	}
-
-	@Override
-	public DataSource getDataSource() {
-		return DataSource.GO;
+		super(resourceID, DataSource.GO);
 	}
 
 	@Override

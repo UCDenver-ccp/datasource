@@ -44,12 +44,7 @@ import edu.ucdenver.ccp.datasource.identifiers.StringDataSourceIdentifier;
 public class AsrpId extends StringDataSourceIdentifier {
 
 	public AsrpId(String resourceID) {
-		super(resourceID);
-	}
-
-	@Override
-	public DataSource getDataSource() {
-		return DataSource.ASRP;
-	}
+		super(resourceID, DataSource.ASRP);
+}
 
 }

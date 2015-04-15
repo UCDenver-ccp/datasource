@@ -46,15 +46,7 @@ public class KeggDrugID extends StringDataSourceIdentifier {
 	 * @param resourceID
 	 */
 	public KeggDrugID(String resourceID) {
-		super(resourceID);
-	}
-
-	/* (non-Javadoc)
-	 * @see edu.ucdenver.ccp.datasource.identifiers.DataSourceIdentifier#getDataSource()
-	 */
-	@Override
-	public DataSource getDataSource() {
-		return DataSource.KEGG;
+		super(resourceID,DataSource.KEGG);
 	}
 
 }

@@ -38,11 +38,6 @@ import edu.ucdenver.ccp.datasource.identifiers.StringDataSourceIdentifier;
 
 public class EggNOGId extends StringDataSourceIdentifier {
 		public EggNOGId(String id) {
-			super(id);
-		}
-
-		@Override
-		public DataSource getDataSource() {
-			return DataSource.EGGNOG;
-		}
+			super(id, DataSource.EGGNOG);
+}
 	}

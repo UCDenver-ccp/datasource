@@ -40,13 +40,9 @@ import edu.ucdenver.ccp.datasource.identifiers.StringDataSourceIdentifier;
 public class ReactomeReactionID extends StringDataSourceIdentifier {
 
 	public ReactomeReactionID(String resourceID) {
-		super(resourceID);
+		super(resourceID,DataSource.REACTOME);
 	}
 
-	@Override
-	public DataSource getDataSource() {
-		return DataSource.REACTOME;
-	}
 
 	@Override
 	public String validate(String resourceID) throws IllegalArgumentException {

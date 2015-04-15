@@ -39,12 +39,7 @@ import edu.ucdenver.ccp.datasource.identifiers.StringDataSourceIdentifier;
 public class SnoRnaBaseId extends StringDataSourceIdentifier {
 
 	public SnoRnaBaseId(String resourceID) {
-		super(resourceID);
-	}
-
-	@Override
-	public DataSource getDataSource() {
-		return DataSource.SNORNABASE;
-	}
+		super(resourceID, DataSource.SNORNABASE);
+}
 
 }

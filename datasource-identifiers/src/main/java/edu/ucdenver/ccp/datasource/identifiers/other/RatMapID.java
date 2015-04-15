@@ -39,12 +39,7 @@ import edu.ucdenver.ccp.datasource.identifiers.IntegerDataSourceIdentifier;
 public class RatMapID extends IntegerDataSourceIdentifier {
 
 	public RatMapID(String resourceID) {
-		super(resourceID);
-	}
-
-	@Override
-	public DataSource getDataSource() {
-		return DataSource.RATMAP;
-	}
+		super(resourceID, DataSource.RATMAP);
+}
 
 }

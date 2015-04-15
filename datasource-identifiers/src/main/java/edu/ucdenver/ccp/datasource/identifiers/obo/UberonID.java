@@ -39,12 +39,7 @@ import edu.ucdenver.ccp.datasource.identifiers.StringDataSourceIdentifier;
 public class UberonID extends StringDataSourceIdentifier {
 
 	public UberonID(String resourceID) {
-		super(resourceID);
-	}
-
-	@Override
-	public DataSource getDataSource() {
-		return DataSource.UBERON;
-	}
+		super(resourceID, DataSource.UBERON);
+}
 
 }

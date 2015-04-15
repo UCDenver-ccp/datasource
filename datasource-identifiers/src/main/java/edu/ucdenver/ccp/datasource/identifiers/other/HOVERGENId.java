@@ -38,11 +38,6 @@ import edu.ucdenver.ccp.datasource.identifiers.StringDataSourceIdentifier;
 
 public class HOVERGENId extends StringDataSourceIdentifier {
 		public HOVERGENId(String id) {
-			super(id);
-		}
-
-		@Override
-		public DataSource getDataSource() {
-			return DataSource.HOVERGEN;
-		}
+			super(id, DataSource.HOVERGEN);
+}
 	}

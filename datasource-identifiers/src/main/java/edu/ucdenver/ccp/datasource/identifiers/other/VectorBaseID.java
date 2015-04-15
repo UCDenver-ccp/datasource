@@ -39,12 +39,7 @@ import edu.ucdenver.ccp.datasource.identifiers.StringDataSourceIdentifier;
 public class VectorBaseID extends StringDataSourceIdentifier {
 
 	public VectorBaseID(String resourceID) {
-		super(resourceID);
-	}
-
-	@Override
-	public DataSource getDataSource() {
-		return DataSource.VECTORBASE;
-	}
+		super(resourceID, DataSource.VECTORBASE);
+}
 
 }

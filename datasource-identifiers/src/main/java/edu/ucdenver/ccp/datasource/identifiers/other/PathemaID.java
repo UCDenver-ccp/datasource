@@ -39,12 +39,7 @@ import edu.ucdenver.ccp.datasource.identifiers.StringDataSourceIdentifier;
 public class PathemaID extends StringDataSourceIdentifier {
 
 	public PathemaID(String resourceID) {
-		super(resourceID);
-	}
-
-	@Override
-	public DataSource getDataSource() {
-		return DataSource.PATHEMA;
-	}
+		super(resourceID, DataSource.PATHEMA);
+}
 
 }

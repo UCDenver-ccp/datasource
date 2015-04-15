@@ -41,13 +41,8 @@ import edu.ucdenver.ccp.datasource.identifiers.StringDataSourceIdentifier;
 public class EnzymeCommissionID extends StringDataSourceIdentifier {
 
 	public EnzymeCommissionID(String resourceID) {
-		super(resourceID);
-	}
-
-	@Override
-	public DataSource getDataSource() {
-		return DataSource.ENZYME_COMMISSION;
-	}
+		super(resourceID, DataSource.ENZYME_COMMISSION);
+}
 
 	@Override
 	public String validate(String ecNumber) throws IllegalArgumentException {

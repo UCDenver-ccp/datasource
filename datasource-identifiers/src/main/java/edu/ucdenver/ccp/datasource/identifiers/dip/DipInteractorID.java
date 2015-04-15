@@ -39,12 +39,7 @@ import edu.ucdenver.ccp.datasource.identifiers.InteractorID;
 public class DipInteractorID extends InteractorID {
 
 	public DipInteractorID(String resourceID) {
-		super(resourceID);
-	}
-
-	@Override
-	public DataSource getDataSource() {
-		return DataSource.DIP;
+		super(resourceID,DataSource.DIP);
 	}
 
 	@Override

@@ -39,12 +39,7 @@ import edu.ucdenver.ccp.datasource.identifiers.IntegerDataSourceIdentifier;
 public class CorumId extends IntegerDataSourceIdentifier {
 
 	public CorumId(String resourceID) {
-		super(resourceID);
-	}
-
-	@Override
-	public DataSource getDataSource() {
-		return DataSource.CORUM;
-	}
+		super(resourceID, DataSource.CORUM);
+}
 
 }

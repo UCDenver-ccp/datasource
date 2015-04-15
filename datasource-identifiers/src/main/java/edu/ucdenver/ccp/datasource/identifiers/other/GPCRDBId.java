@@ -39,11 +39,6 @@ import edu.ucdenver.ccp.datasource.identifiers.StringDataSourceIdentifier;
 
 public class GPCRDBId extends StringDataSourceIdentifier {
 		public GPCRDBId(String id) {
-			super(id);
-		}
-
-		@Override
-		public DataSource getDataSource() {
-			return DataSource.GPCRDB;
-		}
+			super(id, DataSource.GPCRDB);
+}
 	}

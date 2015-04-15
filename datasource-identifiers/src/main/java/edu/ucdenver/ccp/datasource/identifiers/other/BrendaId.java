@@ -39,12 +39,7 @@ import edu.ucdenver.ccp.datasource.identifiers.StringDataSourceIdentifier;
 public class BrendaId extends StringDataSourceIdentifier {
 
 	public BrendaId(String resourceID) {
-		super(resourceID);
-	}
-
-	@Override
-	public DataSource getDataSource() {
-		return DataSource.BRENDA;
-	}
+		super(resourceID, DataSource.BRENDA);
+}
 
 }

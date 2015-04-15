@@ -43,13 +43,8 @@ public class HprdID extends DataSourceIdentifier<String> {
 	private static final String ID_PREFIX_REGEX = "HPRD_?:?";
 
 	public HprdID(String resourceID) {
-		super(resourceID);
-	}
-
-	@Override
-	public DataSource getDataSource() {
-		return DataSource.HPRD;
-	}
+		super(resourceID, DataSource.HPRD);
+}
 
 	@Override
 	public String validate(String hprdID) throws IllegalArgumentException {

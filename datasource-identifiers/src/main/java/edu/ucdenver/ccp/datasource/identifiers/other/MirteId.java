@@ -44,12 +44,7 @@ import edu.ucdenver.ccp.datasource.identifiers.StringDataSourceIdentifier;
 public class MirteId extends StringDataSourceIdentifier {
 
 	public MirteId(String resourceID) {
-		super(resourceID);
-	}
-
-	@Override
-	public DataSource getDataSource() {
-		return DataSource.MIRTE;
-	}
+		super(resourceID, DataSource.MIRTE);
+}
 
 }

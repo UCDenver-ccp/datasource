@@ -38,11 +38,6 @@ import edu.ucdenver.ccp.datasource.identifiers.StringDataSourceIdentifier;
 
 public class HSSPId extends StringDataSourceIdentifier {
 		public HSSPId(String id) {
-			super(id);
-		}
-
-		@Override
-		public DataSource getDataSource() {
-			return DataSource.HSSP;
-		}
+			super(id, DataSource.HSSP);
+}
 	}

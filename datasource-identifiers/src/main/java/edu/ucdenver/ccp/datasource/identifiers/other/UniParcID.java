@@ -39,12 +39,7 @@ import edu.ucdenver.ccp.datasource.identifiers.StringDataSourceIdentifier;
 public class UniParcID extends StringDataSourceIdentifier {
 
 	public UniParcID(String resourceID) {
-		super(resourceID);
-	}
-
-	@Override
-	public DataSource getDataSource() {
-		return DataSource.UNIPARC;
-	}
+		super(resourceID, DataSource.UNIPARC);
+}
 
 }

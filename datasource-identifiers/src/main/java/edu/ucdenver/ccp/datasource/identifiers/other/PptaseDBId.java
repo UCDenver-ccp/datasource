@@ -38,11 +38,6 @@ import edu.ucdenver.ccp.datasource.identifiers.StringDataSourceIdentifier;
 
 public class PptaseDBId extends StringDataSourceIdentifier {
 		public PptaseDBId(String id) {
-			super(id);
-		}
-
-		@Override
-		public DataSource getDataSource() {
-			return DataSource.PPTASEDB;
-		}
+			super(id, DataSource.PPTASEDB);
+}
 	}

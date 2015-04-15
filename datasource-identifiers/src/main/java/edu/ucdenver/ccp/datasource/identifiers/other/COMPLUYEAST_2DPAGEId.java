@@ -38,11 +38,6 @@ import edu.ucdenver.ccp.datasource.identifiers.StringDataSourceIdentifier;
 
 public class COMPLUYEAST_2DPAGEId extends StringDataSourceIdentifier {
 		public COMPLUYEAST_2DPAGEId(String id) {
-			super(id);
-		}
-
-		@Override
-		public DataSource getDataSource() {
-			return DataSource.COMPLUYEAST_2DPAGE;
-		}
+			super(id, DataSource.COMPLUYEAST_2DPAGE);
+}
 	}

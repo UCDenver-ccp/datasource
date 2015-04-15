@@ -45,12 +45,7 @@ import edu.ucdenver.ccp.datasource.identifiers.StringDataSourceIdentifier;
 public class DdbjId extends StringDataSourceIdentifier {
 
 	public DdbjId(String resourceID) {
-		super(resourceID);
-	}
-
-	@Override
-	public DataSource getDataSource() {
-		return DataSource.DDBJ;
-	}
+		super(resourceID, DataSource.DDBJ);
+}
 
 }

@@ -38,11 +38,6 @@ import edu.ucdenver.ccp.datasource.identifiers.StringDataSourceIdentifier;
 
 public class EnsemblMetazoaId extends StringDataSourceIdentifier {
 		public EnsemblMetazoaId(String id) {
-			super(id);
-		}
-
-		@Override
-		public DataSource getDataSource() {
-			return DataSource.ENSEMBLMETAZOA;
-		}
+			super(id, DataSource.ENSEMBLMETAZOA);
+}
 	}

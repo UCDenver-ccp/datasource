@@ -39,16 +39,11 @@ import edu.ucdenver.ccp.datasource.identifiers.IntegerDataSourceIdentifier;
 public class GadID extends IntegerDataSourceIdentifier {
 
 	public GadID(Integer resourceID) {
-		super(resourceID);
+		super(resourceID, DataSource.GAD);
 	}
 
 	public GadID(String resourceID) {
-		super(resourceID);
-	}
-
-	@Override
-	public DataSource getDataSource() {
-		return DataSource.GAD;
-	}
+		super(resourceID, DataSource.GAD);
+}
 
 }

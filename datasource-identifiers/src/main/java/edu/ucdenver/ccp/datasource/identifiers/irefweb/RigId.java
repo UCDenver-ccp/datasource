@@ -51,12 +51,7 @@ import edu.ucdenver.ccp.datasource.identifiers.StringDataSourceIdentifier;
 public class RigId extends StringDataSourceIdentifier {
 
 	public RigId(String resourceID) {
-		super(resourceID);
-	}
-
-	@Override
-	public DataSource getDataSource() {
-		return DataSource.IREFWEB;
-	}
+		super(resourceID, DataSource.IREFWEB);
+}
 
 }

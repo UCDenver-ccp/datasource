@@ -38,11 +38,6 @@ import edu.ucdenver.ccp.datasource.identifiers.StringDataSourceIdentifier;
 
 public class EvolutionaryTraceId extends StringDataSourceIdentifier {
 		public EvolutionaryTraceId(String id) {
-			super(id);
-		}
-
-		@Override
-		public DataSource getDataSource() {
-			return DataSource.EVOLUTIONARYTRACE;
-		}
+			super(id, DataSource.EVOLUTIONARYTRACE);
+}
 	}

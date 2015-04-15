@@ -45,12 +45,7 @@ import edu.ucdenver.ccp.datasource.identifiers.StringDataSourceIdentifier;
 public class AllergomeId extends StringDataSourceIdentifier {
 
 	public AllergomeId(String resourceID) {
-		super(resourceID);
-	}
-
-	@Override
-	public DataSource getDataSource() {
-		return DataSource.ALLERGOME;
-	}
+		super(resourceID, DataSource.ALLERGOME);
+}
 
 }

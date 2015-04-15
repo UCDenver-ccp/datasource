@@ -47,15 +47,11 @@ import edu.ucdenver.ccp.datasource.identifiers.IntegerDataSourceIdentifier;
 public class EntrezGeneID extends IntegerDataSourceIdentifier {
 
 	public EntrezGeneID(Integer resourceID) {
-		super(resourceID);
+		super(resourceID,DataSource.EG);
 	}
 
 	public EntrezGeneID(String geneIDStr) {
-		super(geneIDStr);
+		super(geneIDStr,DataSource.EG);
 	}
 
-	@Override
-	public DataSource getDataSource() {
-		return DataSource.EG;
-	}
 }

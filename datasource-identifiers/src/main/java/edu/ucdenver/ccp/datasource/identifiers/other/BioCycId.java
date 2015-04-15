@@ -45,12 +45,7 @@ import edu.ucdenver.ccp.datasource.identifiers.StringDataSourceIdentifier;
 public class BioCycId extends StringDataSourceIdentifier {
 
 	public BioCycId(String resourceID) {
-		super(resourceID);
-	}
-
-	@Override
-	public DataSource getDataSource() {
-		return DataSource.BIOCYC;
-	}
+		super(resourceID, DataSource.BIOCYC);
+}
 
 }

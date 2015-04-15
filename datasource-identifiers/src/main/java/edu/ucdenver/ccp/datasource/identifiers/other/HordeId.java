@@ -39,12 +39,7 @@ import edu.ucdenver.ccp.datasource.identifiers.StringDataSourceIdentifier;
 public class HordeId extends StringDataSourceIdentifier {
 
 	public HordeId(String resourceID) {
-		super(resourceID);
-	}
-
-	@Override
-	public DataSource getDataSource() {
-		return DataSource.HORDE;
-	}
+		super(resourceID, DataSource.HORDE);
+}
 
 }

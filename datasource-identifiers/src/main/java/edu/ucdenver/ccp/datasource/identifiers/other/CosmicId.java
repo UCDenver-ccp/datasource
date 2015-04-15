@@ -39,12 +39,7 @@ import edu.ucdenver.ccp.datasource.identifiers.StringDataSourceIdentifier;
 public class CosmicId extends StringDataSourceIdentifier {
 
 	public CosmicId(String resourceID) {
-		super(resourceID);
-	}
-
-	@Override
-	public DataSource getDataSource() {
-		return DataSource.COSMIC;
-	}
+		super(resourceID, DataSource.COSMIC);
+}
 
 }

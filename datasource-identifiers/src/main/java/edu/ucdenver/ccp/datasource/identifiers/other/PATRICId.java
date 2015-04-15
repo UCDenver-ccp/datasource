@@ -38,11 +38,6 @@ import edu.ucdenver.ccp.datasource.identifiers.StringDataSourceIdentifier;
 
 public class PATRICId extends StringDataSourceIdentifier {
 		public PATRICId(String id) {
-			super(id);
-		}
-
-		@Override
-		public DataSource getDataSource() {
-			return DataSource.PATRIC;
-		}
+			super(id, DataSource.PATRIC);
+}
 	}

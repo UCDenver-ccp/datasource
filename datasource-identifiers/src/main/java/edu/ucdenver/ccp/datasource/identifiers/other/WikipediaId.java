@@ -39,12 +39,7 @@ import edu.ucdenver.ccp.datasource.identifiers.StringDataSourceIdentifier;
 public class WikipediaId extends StringDataSourceIdentifier {
 
 	public WikipediaId(String resourceID) {
-		super(resourceID);
-	}
-
-	@Override
-	public DataSource getDataSource() {
-		return DataSource.WIKIPEDIA;
-	}
+		super(resourceID, DataSource.WIKIPEDIA);
+}
 
 }

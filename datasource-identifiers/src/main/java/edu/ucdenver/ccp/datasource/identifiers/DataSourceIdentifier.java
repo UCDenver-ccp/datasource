@@ -43,14 +43,17 @@ package edu.ucdenver.ccp.datasource.identifiers;
  */
 public abstract class DataSourceIdentifier<T> extends DataSourceElement<T> {
 
+	private final DataSource dataSource;
+	
 	/**
 	 * Default constructor.
 	 * 
 	 * @param resourceID
 	 */
-	public DataSourceIdentifier(T resourceID) {
+	public DataSourceIdentifier(T resourceID, DataSource ds) {
 		super(null);
 		super.setDataElement(validate(resourceID));
+		this.dataSource = ds;
 	}
 
 	/**
@@ -58,7 +61,9 @@ public abstract class DataSourceIdentifier<T> extends DataSourceElement<T> {
 	 * 
 	 * @return
 	 */
-	public abstract DataSource getDataSource();
+	public DataSource getDataSource() {
+		return dataSource;
+	}
 
 
 	/**

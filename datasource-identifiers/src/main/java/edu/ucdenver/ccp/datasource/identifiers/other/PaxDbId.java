@@ -38,11 +38,6 @@ import edu.ucdenver.ccp.datasource.identifiers.StringDataSourceIdentifier;
 
 public class PaxDbId extends StringDataSourceIdentifier {
 		public PaxDbId(String id) {
-			super(id);
-		}
-
-		@Override
-		public DataSource getDataSource() {
-			return DataSource.PAXDB;
-		}
+			super(id, DataSource.PAXDB);
+}
 	}

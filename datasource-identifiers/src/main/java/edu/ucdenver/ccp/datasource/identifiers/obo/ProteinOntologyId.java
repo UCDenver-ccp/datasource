@@ -39,12 +39,7 @@ import edu.ucdenver.ccp.datasource.identifiers.StringDataSourceIdentifier;
 public class ProteinOntologyId extends StringDataSourceIdentifier {
 
 	public ProteinOntologyId(String resourceID) {
-		super(resourceID);
-	}
-
-	@Override
-	public DataSource getDataSource() {
-		return DataSource.PR;
+		super(resourceID, DataSource.PR);
 	}
 
 }

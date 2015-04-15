@@ -41,13 +41,9 @@ import edu.ucdenver.ccp.datasource.identifiers.DataSource;
 public class InterProID extends DataSourceIdentifier<String> {
 
 	public InterProID(String resourceID) {
-		super(resourceID);
+		super(resourceID, DataSource.INTERPRO);
 	}
 
-	@Override
-	public DataSource getDataSource() {
-		return DataSource.INTERPRO;
-	}
 
 	/**
 	 * InterPro IDs start with "IPR" and are followed by a series of numbers, e.g IPR000001

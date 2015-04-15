@@ -39,12 +39,7 @@ import edu.ucdenver.ccp.datasource.identifiers.StringDataSourceIdentifier;
 public class CygdId extends StringDataSourceIdentifier {
 
 	public CygdId(String resourceID) {
-		super(resourceID);
-	}
-
-	@Override
-	public DataSource getDataSource() {
-		return DataSource.CYGD;
-	}
+		super(resourceID, DataSource.CYGD);
+}
 
 }

@@ -39,12 +39,8 @@ import edu.ucdenver.ccp.datasource.identifiers.StringDataSourceIdentifier;
 public class SgdID extends StringDataSourceIdentifier {
 
 	public SgdID(String resourceID) {
-		super(resourceID);
+		super(resourceID,DataSource.SGD);
 	}
 
-	@Override
-	public DataSource getDataSource() {
-		return DataSource.SGD;
-	}
 
 }

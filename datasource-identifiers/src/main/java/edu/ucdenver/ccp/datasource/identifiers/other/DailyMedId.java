@@ -39,12 +39,7 @@ import edu.ucdenver.ccp.datasource.identifiers.StringDataSourceIdentifier;
 public class DailyMedId extends StringDataSourceIdentifier {
 
 	public DailyMedId(String resourceID) {
-		super(resourceID);
-	}
-
-	@Override
-	public DataSource getDataSource() {
-		return DataSource.DAILYMED;
-	}
+		super(resourceID, DataSource.DAILYMED);
+}
 
 }

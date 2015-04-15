@@ -39,12 +39,7 @@ import edu.ucdenver.ccp.datasource.identifiers.StringDataSourceIdentifier;
 public class OphidId extends StringDataSourceIdentifier {
 
 	public OphidId(String resourceID) {
-		super(resourceID);
-	}
-
-	@Override
-	public DataSource getDataSource() {
-		return DataSource.OPHID;
-	}
+		super(resourceID, DataSource.OPHID);
+}
 
 }

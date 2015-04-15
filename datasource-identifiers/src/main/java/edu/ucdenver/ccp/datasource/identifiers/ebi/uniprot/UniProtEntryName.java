@@ -39,13 +39,8 @@ import edu.ucdenver.ccp.datasource.identifiers.DataSourceIdentifier;
 public class UniProtEntryName extends DataSourceIdentifier<String> {
 
 	public UniProtEntryName(String resourceID) {
-		super(resourceID);
-	}
-
-	@Override
-	public DataSource getDataSource() {
-		return DataSource.UNIPROT;
-	}
+		super(resourceID, DataSource.UNIPROT);
+}
 
 	@Override
 	public String validate(String entryName) throws IllegalArgumentException {

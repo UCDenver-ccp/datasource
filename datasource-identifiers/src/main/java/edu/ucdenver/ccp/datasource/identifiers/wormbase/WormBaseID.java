@@ -39,12 +39,8 @@ import edu.ucdenver.ccp.datasource.identifiers.StringDataSourceIdentifier;
 public class WormBaseID extends StringDataSourceIdentifier {
 
 	public WormBaseID(String resourceID) {
-		super(resourceID);
+		super(resourceID, DataSource.WORMBASE);
 	}
 
-	@Override
-	public DataSource getDataSource() {
-		return DataSource.WORMBASE;
-	}
 
 }

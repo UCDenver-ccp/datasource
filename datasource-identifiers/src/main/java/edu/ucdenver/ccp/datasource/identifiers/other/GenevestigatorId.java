@@ -38,11 +38,6 @@ import edu.ucdenver.ccp.datasource.identifiers.StringDataSourceIdentifier;
 
 public class GenevestigatorId extends StringDataSourceIdentifier {
 		public GenevestigatorId(String id) {
-			super(id);
-		}
-
-		@Override
-		public DataSource getDataSource() {
-			return DataSource.GENEVESTIGATOR;
-		}
+			super(id, DataSource.GENEVESTIGATOR);
+}
 	}

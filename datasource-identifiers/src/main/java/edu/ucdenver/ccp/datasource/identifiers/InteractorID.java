@@ -35,9 +35,9 @@ package edu.ucdenver.ccp.datasource.identifiers;
 
 public abstract class InteractorID extends StringDataSourceIdentifier {
 
-	public InteractorID(String resourceID) {
+	public InteractorID(String resourceID, DataSource ds) {
 
-		super(resourceID);
+		super(resourceID, ds);
 
 	}
 

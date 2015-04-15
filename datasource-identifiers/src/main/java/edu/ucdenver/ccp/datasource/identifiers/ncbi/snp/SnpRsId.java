@@ -45,13 +45,8 @@ import edu.ucdenver.ccp.datasource.identifiers.DataSource;
 public class SnpRsId extends DataSourceIdentifier<String> {
 
 	public SnpRsId(String resourceID) {
-		super(resourceID);
-	}
-
-	@Override
-	public DataSource getDataSource() {
-		return DataSource.DBSNP;
-	}
+		super(resourceID, DataSource.DBSNP);
+}
 
 	/**
 	 * See http://www.uniprot.org/manual/accession_numbers

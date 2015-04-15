@@ -40,7 +40,7 @@ import edu.ucdenver.ccp.datasource.identifiers.DataSourceIdentifier;
 public class RefSeqID extends DataSourceIdentifier<String> {
 
 	public RefSeqID(String resourceID) {
-		super(removeVersionIfPresent(resourceID));
+		super(removeVersionIfPresent(resourceID),DataSource.REFSEQ);
 	}
 
 	/**
@@ -58,15 +58,6 @@ public class RefSeqID extends DataSourceIdentifier<String> {
 		if (resourceID.endsWith(".")) // this was seen at least once in the HGNC data file
 			return StringUtil.removeLastCharacter(resourceID);
 		return resourceID;
-	}
-
-	/**
-	 * Namespace should probably be set dynamically =,
-	 * see:http://www.ncbi.nlm.nih.gov/refseq/key.html#accessions
-	 */
-	@Override
-	public DataSource getDataSource() {
-		return DataSource.REFSEQ;
 	}
 
 	/**

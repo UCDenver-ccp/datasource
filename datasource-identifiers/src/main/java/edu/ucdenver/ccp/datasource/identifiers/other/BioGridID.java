@@ -39,12 +39,7 @@ import edu.ucdenver.ccp.datasource.identifiers.IntegerDataSourceIdentifier;
 public class BioGridID extends IntegerDataSourceIdentifier {
 
 	public BioGridID(String resourceID) {
-		super(resourceID);
-	}
-
-	@Override
-	public DataSource getDataSource() {
-		return DataSource.BIOGRID;
-	}
+		super(resourceID, DataSource.BIOGRID);
+}
 
 }

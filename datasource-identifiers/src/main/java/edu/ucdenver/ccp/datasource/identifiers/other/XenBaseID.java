@@ -39,12 +39,7 @@ import edu.ucdenver.ccp.datasource.identifiers.StringDataSourceIdentifier;
 public class XenBaseID extends StringDataSourceIdentifier {
 
 	public XenBaseID(String resourceID) {
-		super(resourceID);
-	}
-
-	@Override
-	public DataSource getDataSource() {
-		return DataSource.XENBASE;
-	}
+		super(resourceID, DataSource.XENBASE);
+}
 
 }

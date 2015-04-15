@@ -39,12 +39,7 @@ import edu.ucdenver.ccp.datasource.identifiers.StringDataSourceIdentifier;
 public class PantherID extends StringDataSourceIdentifier {
 
 	public PantherID(String resourceID) {
-		super(resourceID);
-	}
-
-	@Override
-	public DataSource getDataSource() {
-		return DataSource.PANTHER;
+		super(resourceID, DataSource.PANTHER);
 	}
 
 }

@@ -39,12 +39,8 @@ import edu.ucdenver.ccp.datasource.identifiers.StringDataSourceIdentifier;
 public class PdbID extends StringDataSourceIdentifier {
 
 	public PdbID(String resourceID) {
-		super(resourceID);
+		super(resourceID,DataSource.PDB);
 	}
 
-	@Override
-	public DataSource getDataSource() {
-		return DataSource.PDB;
-	}
 
 }

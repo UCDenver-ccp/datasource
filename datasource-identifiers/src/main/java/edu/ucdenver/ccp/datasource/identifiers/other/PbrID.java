@@ -39,12 +39,7 @@ import edu.ucdenver.ccp.datasource.identifiers.IntegerDataSourceIdentifier;
 public class PbrID extends IntegerDataSourceIdentifier {
 
 	public PbrID(String resourceID) {
-		super(resourceID);
-	}
-
-	@Override
-	public DataSource getDataSource() {
-		return DataSource.PBR;
-	}
+		super(resourceID, DataSource.PBR);
+}
 
 }

@@ -39,12 +39,7 @@ import edu.ucdenver.ccp.datasource.identifiers.StringDataSourceIdentifier;
 public class NasoniaBaseID extends StringDataSourceIdentifier {
 
 	public NasoniaBaseID(String resourceID) {
-		super(resourceID);
-	}
-
-	@Override
-	public DataSource getDataSource() {
-		return DataSource.NASONIABASE;
-	}
+		super(resourceID, DataSource.NASONIABASE);
+}
 
 }

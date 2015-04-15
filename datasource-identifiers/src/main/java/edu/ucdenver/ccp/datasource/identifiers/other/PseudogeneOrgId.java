@@ -39,12 +39,7 @@ import edu.ucdenver.ccp.datasource.identifiers.StringDataSourceIdentifier;
 public class PseudogeneOrgId extends StringDataSourceIdentifier {
 
 	public PseudogeneOrgId(String resourceID) {
-		super(resourceID);
-	}
-
-	@Override
-	public DataSource getDataSource() {
-		return DataSource.PSEUDOGENE_ORG;
-	}
+		super(resourceID, DataSource.PSEUDOGENE_ORG);
+}
 
 }

@@ -45,12 +45,7 @@ import edu.ucdenver.ccp.datasource.identifiers.StringDataSourceIdentifier;
 public class MedlineId extends StringDataSourceIdentifier {
 
 	public MedlineId(String resourceID) {
-		super(resourceID);
-	}
-
-	@Override
-	public DataSource getDataSource() {
-		return DataSource.MEDLINE;
-	}
+		super(resourceID, DataSource.MEDLINE);
+}
 
 }

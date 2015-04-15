@@ -42,12 +42,7 @@ public class IupharReceptorId extends IntegerDataSourceIdentifier {
 	 * @param resourceID
 	 */
 	public IupharReceptorId(String resourceID) {
-		super(resourceID);
-	}
-
-	@Override
-	public DataSource getDataSource() {
-		return DataSource.IUPHAR;
-	}
+		super(resourceID, DataSource.IUPHAR);
+}
 
 }

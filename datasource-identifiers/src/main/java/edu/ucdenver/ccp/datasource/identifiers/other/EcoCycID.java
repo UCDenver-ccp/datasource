@@ -39,12 +39,7 @@ import edu.ucdenver.ccp.datasource.identifiers.StringDataSourceIdentifier;
 public class EcoCycID extends StringDataSourceIdentifier {
 
 	public EcoCycID(String resourceID) {
-		super(resourceID);
-	}
-
-	@Override
-	public DataSource getDataSource() {
-		return DataSource.ECOCYC;
-	}
+		super(resourceID, DataSource.ECOCYC);
+}
 
 }

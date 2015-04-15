@@ -38,11 +38,6 @@ import edu.ucdenver.ccp.datasource.identifiers.StringDataSourceIdentifier;
 
 public class PeroxiBaseId extends StringDataSourceIdentifier {
 		public PeroxiBaseId(String id) {
-			super(id);
-		}
-
-		@Override
-		public DataSource getDataSource() {
-			return DataSource.PEROXIBASE;
-		}
+			super(id, DataSource.PEROXIBASE);
+}
 	}

@@ -39,12 +39,7 @@ import edu.ucdenver.ccp.datasource.identifiers.StringDataSourceIdentifier;
 public class IsrctnId extends StringDataSourceIdentifier {
 
 	public IsrctnId(String resourceID) {
-		super(resourceID);
-	}
-
-	@Override
-	public DataSource getDataSource() {
-		return DataSource.ISRCTN;
-	}
+		super(resourceID, DataSource.ISRCTN);
+}
 
 }

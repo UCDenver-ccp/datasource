@@ -39,12 +39,7 @@ import edu.ucdenver.ccp.datasource.identifiers.StringDataSourceIdentifier;
 public class PwId extends StringDataSourceIdentifier {
 
 	public PwId(String resourceID) {
-		super(resourceID);
-	}
-
-	@Override
-	public DataSource getDataSource() {
-		return DataSource.PW;
+		super(resourceID,DataSource.PW);
 	}
 
 }

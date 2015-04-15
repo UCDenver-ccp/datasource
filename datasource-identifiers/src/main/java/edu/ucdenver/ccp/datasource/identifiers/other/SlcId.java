@@ -45,12 +45,7 @@ import edu.ucdenver.ccp.datasource.identifiers.StringDataSourceIdentifier;
 public class SlcId extends StringDataSourceIdentifier {
 
 	public SlcId(String resourceID) {
-		super(resourceID);
-	}
-
-	@Override
-	public DataSource getDataSource() {
-		return DataSource.BIOPARADIGMS;
-	}
+		super(resourceID, DataSource.BIOPARADIGMS);
+}
 
 }

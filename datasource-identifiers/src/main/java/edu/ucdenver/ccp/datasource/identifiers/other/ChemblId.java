@@ -38,11 +38,6 @@ import edu.ucdenver.ccp.datasource.identifiers.StringDataSourceIdentifier;
 
 public class ChemblId extends StringDataSourceIdentifier {
 		public ChemblId(String id) {
-			super(id);
-		}
-
-		@Override
-		public DataSource getDataSource() {
-			return DataSource.CHEMBL;
-		}
+			super(id, DataSource.CHEMBL);
+}
 	}

@@ -45,12 +45,7 @@ import edu.ucdenver.ccp.datasource.identifiers.StringDataSourceIdentifier;
 public class DbSnpId extends StringDataSourceIdentifier {
 
 	public DbSnpId(String resourceID) {
-		super(resourceID);
-	}
-
-	@Override
-	public DataSource getDataSource() {
-		return DataSource.DBSNP;
-	}
+		super(resourceID, DataSource.DBSNP);
+}
 
 }

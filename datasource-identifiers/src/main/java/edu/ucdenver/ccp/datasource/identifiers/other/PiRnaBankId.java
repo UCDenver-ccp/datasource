@@ -39,12 +39,7 @@ import edu.ucdenver.ccp.datasource.identifiers.StringDataSourceIdentifier;
 public class PiRnaBankId extends StringDataSourceIdentifier {
 
 	public PiRnaBankId(String resourceID) {
-		super(resourceID);
-	}
-
-	@Override
-	public DataSource getDataSource() {
-		return DataSource.PIRNABANK;
-	}
+		super(resourceID, DataSource.PIRNABANK);
+}
 
 }

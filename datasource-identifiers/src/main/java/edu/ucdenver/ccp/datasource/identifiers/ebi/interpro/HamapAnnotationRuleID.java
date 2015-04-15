@@ -39,12 +39,7 @@ import edu.ucdenver.ccp.datasource.identifiers.StringDataSourceIdentifier;
 public class HamapAnnotationRuleID extends StringDataSourceIdentifier {
 
 	public HamapAnnotationRuleID(String resourceID) {
-		super(resourceID);
-	}
-
-	@Override
-	public DataSource getDataSource() {
-		return DataSource.HAMAP;
+		super(resourceID, DataSource.HAMAP);
 	}
 
 }

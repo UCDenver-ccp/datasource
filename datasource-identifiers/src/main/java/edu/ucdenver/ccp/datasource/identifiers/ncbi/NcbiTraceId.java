@@ -39,12 +39,7 @@ import edu.ucdenver.ccp.datasource.identifiers.StringDataSourceIdentifier;
 public class NcbiTraceId extends StringDataSourceIdentifier{
 
 	public NcbiTraceId(String resourceID) {
-		super(resourceID);
-	}
-
-	@Override
-	public DataSource getDataSource() {
-		return DataSource.NCBI_TRACE;
-	}
+		super(resourceID, DataSource.NCBI_TRACE);
+}
 
 }

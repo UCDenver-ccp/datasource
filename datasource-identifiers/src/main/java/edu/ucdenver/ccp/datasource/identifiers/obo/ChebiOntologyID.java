@@ -39,12 +39,8 @@ import edu.ucdenver.ccp.datasource.identifiers.StringDataSourceIdentifier;
 public class ChebiOntologyID extends StringDataSourceIdentifier {
 
 	public ChebiOntologyID(String resourceID) {
-		super(resourceID);
+		super(resourceID,DataSource.CHEBI);
 	}
 
-	@Override
-	public DataSource getDataSource() {
-return DataSource.CHEBI;
-	}
 
 }

@@ -45,12 +45,7 @@ import edu.ucdenver.ccp.datasource.identifiers.IntegerDataSourceIdentifier;
 public class InsdcProjectId extends IntegerDataSourceIdentifier {
 
 	public InsdcProjectId(String resourceID) {
-		super(resourceID);
-	}
-
-	@Override
-	public DataSource getDataSource() {
-		return DataSource.INSDC;
-	}
+		super(resourceID, DataSource.INSDC);
+}
 
 }

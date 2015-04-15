@@ -39,12 +39,7 @@ import edu.ucdenver.ccp.datasource.identifiers.StringDataSourceIdentifier;
 public class ClinicalTrialsGovId extends StringDataSourceIdentifier {
 
 	public ClinicalTrialsGovId(String resourceID) {
-		super(resourceID);
-	}
-
-	@Override
-	public DataSource getDataSource() {
-		return DataSource.CLINICAL_TRIALS_GOV;
-	}
+		super(resourceID, DataSource.CLINICAL_TRIALS_GOV);
+}
 
 }

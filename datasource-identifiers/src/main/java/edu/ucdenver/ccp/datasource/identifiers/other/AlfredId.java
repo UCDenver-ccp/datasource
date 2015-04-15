@@ -39,12 +39,7 @@ import edu.ucdenver.ccp.datasource.identifiers.StringDataSourceIdentifier;
 public class AlfredId extends StringDataSourceIdentifier {
 
 	public AlfredId(String resourceID) {
-		super(resourceID);
-	}
-
-	@Override
-	public DataSource getDataSource() {
-		return DataSource.ALFRED;
-	}
+		super(resourceID, DataSource.ALFRED);
+}
 
 }

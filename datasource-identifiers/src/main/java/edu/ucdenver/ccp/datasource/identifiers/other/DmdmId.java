@@ -38,11 +38,6 @@ import edu.ucdenver.ccp.datasource.identifiers.StringDataSourceIdentifier;
 
 public class DmdmId extends StringDataSourceIdentifier {
 		public DmdmId(String id) {
-			super(id);
-		}
-
-		@Override
-		public DataSource getDataSource() {
-			return DataSource.DMDM;
-		}
+			super(id, DataSource.DMDM);
+}
 	}

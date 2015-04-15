@@ -39,13 +39,7 @@ import edu.ucdenver.ccp.datasource.identifiers.StringDataSourceIdentifier;
 public class PubChemSubstanceId extends StringDataSourceIdentifier {
 
 	public PubChemSubstanceId(String resourceID) {
-		super(resourceID);
-	}
-
-	@Override
-	public DataSource getDataSource() {
-		return DataSource.PUBCHEM_SUBSTANCE;
-		
-	}
+		super(resourceID, DataSource.PUBCHEM_SUBSTANCE);
+}
 
 }

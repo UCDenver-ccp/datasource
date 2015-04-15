@@ -40,12 +40,7 @@ import edu.ucdenver.ccp.datasource.identifiers.StringDataSourceIdentifier;
 public class CrigId extends StringDataSourceIdentifier {
 
 	public CrigId(String resourceID) {
-		super(resourceID);
-	}
-
-	@Override
-	public DataSource getDataSource() {
-		return DataSource.IREFWEB;
-	}
+		super(resourceID, DataSource.IREFWEB);
+}
 
 }

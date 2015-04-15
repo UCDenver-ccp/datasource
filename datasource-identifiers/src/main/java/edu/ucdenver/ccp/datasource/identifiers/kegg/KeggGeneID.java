@@ -39,12 +39,7 @@ import edu.ucdenver.ccp.datasource.identifiers.StringDataSourceIdentifier;
 public class KeggGeneID extends StringDataSourceIdentifier {
 
 	public KeggGeneID(String resourceID) {
-		super(resourceID);
-	}
-
-	@Override
-	public DataSource getDataSource() {
-		return DataSource.KEGG;
-	}
+		super(resourceID, DataSource.KEGG);
+}
 
 }

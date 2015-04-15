@@ -39,12 +39,7 @@ import edu.ucdenver.ccp.datasource.identifiers.StringDataSourceIdentifier;
 public class AhfsCode extends StringDataSourceIdentifier {
 
 	public AhfsCode(String resourceID) {
-		super(resourceID);
-	}
-
-	@Override
-	public DataSource getDataSource() {
-		return DataSource.AHFS;
-	}
+		super(resourceID, DataSource.AHFS);
+}
 
 }

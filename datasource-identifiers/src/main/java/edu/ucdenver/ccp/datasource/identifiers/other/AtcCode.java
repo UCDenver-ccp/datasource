@@ -39,12 +39,7 @@ import edu.ucdenver.ccp.datasource.identifiers.StringDataSourceIdentifier;
 public class AtcCode extends StringDataSourceIdentifier {
 
 	public AtcCode(String resourceID) {
-		super(resourceID);
-	}
-
-	@Override
-	public DataSource getDataSource() {
-		return DataSource.WHOCC;
-	}
+		super(resourceID, DataSource.WHOCC);
+}
 
 }

@@ -39,16 +39,11 @@ import edu.ucdenver.ccp.datasource.identifiers.IntegerDataSourceIdentifier;
 public class SnoMedCtId extends IntegerDataSourceIdentifier {
 
 	public SnoMedCtId(String resourceID) {
-		super(resourceID);
-	}
-	
-	public SnoMedCtId(Integer resourceID) {
-		super(resourceID);
+		super(resourceID, DataSource.SNOMEDCT);
 	}
 
-	@Override
-	public DataSource getDataSource() {
-		return DataSource.SNOMEDCT;
+	public SnoMedCtId(Integer resourceID) {
+		super(resourceID, DataSource.SNOMEDCT);
 	}
 
 }

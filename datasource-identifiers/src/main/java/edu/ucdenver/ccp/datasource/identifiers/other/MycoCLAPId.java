@@ -38,11 +38,6 @@ import edu.ucdenver.ccp.datasource.identifiers.StringDataSourceIdentifier;
 
 public class MycoCLAPId extends StringDataSourceIdentifier {
 		public MycoCLAPId(String id) {
-			super(id);
-		}
-
-		@Override
-		public DataSource getDataSource() {
-			return DataSource.MYCOCLAP;
-		}
+			super(id, DataSource.MYCOCLAP);
+}
 	}

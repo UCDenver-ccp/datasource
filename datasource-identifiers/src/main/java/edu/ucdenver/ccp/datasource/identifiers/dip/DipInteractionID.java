@@ -47,12 +47,7 @@ public class DipInteractionID extends InteractionID {
 	 * @param resourceID
 	 */
 	public DipInteractionID(String resourceID) {
-		super(resourceID);
-	}
-
-	@Override
-	public DataSource getDataSource() {
-		return DataSource.DIP;
+		super(resourceID,DataSource.DIP);
 	}
 
 	@Override

@@ -56,13 +56,8 @@ import edu.ucdenver.ccp.datasource.identifiers.DataSource;
 public class RefSnpID extends DataSourceIdentifier<String> {
 
 	public RefSnpID(String resourceID) {
-		super(resourceID);
-	}
-
-	@Override
-	public DataSource getDataSource() {
-		return DataSource.REFSNP;
-	}
+		super(resourceID, DataSource.REFSNP);
+}
 
 	@Override
 	public String validate(String resourceID) throws IllegalArgumentException {

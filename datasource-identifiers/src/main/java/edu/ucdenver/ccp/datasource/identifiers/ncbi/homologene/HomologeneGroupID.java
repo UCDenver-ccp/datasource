@@ -39,15 +39,10 @@ import edu.ucdenver.ccp.datasource.identifiers.IntegerDataSourceIdentifier;
 public class HomologeneGroupID extends IntegerDataSourceIdentifier {
 
 	public HomologeneGroupID(Integer resourceID) {
-		super(resourceID);
+		super(resourceID, DataSource.HOMOLOGENE);
 	}
 
 	public HomologeneGroupID(String resourceID) {
-		super(resourceID);
-	}
-
-	@Override
-	public DataSource getDataSource() {
-		return DataSource.HOMOLOGENE;
-	}
+		super(resourceID, DataSource.HOMOLOGENE);
+}
 }

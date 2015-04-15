@@ -39,12 +39,7 @@ import edu.ucdenver.ccp.datasource.identifiers.StringDataSourceIdentifier;
 public class UcscGenomeBrowserId extends StringDataSourceIdentifier {
 
 	public UcscGenomeBrowserId(String resourceID) {
-		super(resourceID);
-	}
-
-	@Override
-	public DataSource getDataSource() {
-		return DataSource.UCSCGENOMEBROWSER;
-	}
+		super(resourceID, DataSource.UCSCGENOMEBROWSER);
+}
 
 }

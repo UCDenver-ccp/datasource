@@ -38,11 +38,6 @@ import edu.ucdenver.ccp.datasource.identifiers.StringDataSourceIdentifier;
 
 public class H_InvDBId extends StringDataSourceIdentifier {
 		public H_InvDBId(String id) {
-			super(id);
-		}
-
-		@Override
-		public DataSource getDataSource() {
-			return DataSource.H_INVDB;
-		}
+			super(id, DataSource.H_INVDB);
+}
 	}

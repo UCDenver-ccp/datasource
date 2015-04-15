@@ -45,12 +45,7 @@ import edu.ucdenver.ccp.datasource.identifiers.StringDataSourceIdentifier;
 public class ArachnoServerId extends StringDataSourceIdentifier {
 
 	public ArachnoServerId(String resourceID) {
-		super(resourceID);
-	}
-
-	@Override
-	public DataSource getDataSource() {
-		return DataSource.ARACHNOSERVER;
-	}
+		super(resourceID, DataSource.ARACHNOSERVER);
+}
 
 }

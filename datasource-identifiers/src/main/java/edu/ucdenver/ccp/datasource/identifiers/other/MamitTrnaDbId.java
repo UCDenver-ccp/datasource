@@ -39,12 +39,7 @@ import edu.ucdenver.ccp.datasource.identifiers.StringDataSourceIdentifier;
 public class MamitTrnaDbId extends StringDataSourceIdentifier {
 
 	public MamitTrnaDbId(String resourceID) {
-		super(resourceID);
-	}
-
-	@Override
-	public DataSource getDataSource() {
-		return DataSource.MAMIT_TRNA_DB;
-	}
+		super(resourceID, DataSource.MAMIT_TRNA_DB);
+}
 
 }

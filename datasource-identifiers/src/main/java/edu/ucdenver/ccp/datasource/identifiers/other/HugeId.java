@@ -39,12 +39,7 @@ import edu.ucdenver.ccp.datasource.identifiers.StringDataSourceIdentifier;
 public class HugeId extends StringDataSourceIdentifier {
 
 	public HugeId(String resourceID) {
-		super(resourceID);
-	}
-
-	@Override
-	public DataSource getDataSource() {
-		return DataSource.HUGE;
-	}
+		super(resourceID, DataSource.HUGE);
+}
 
 }

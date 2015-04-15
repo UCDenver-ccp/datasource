@@ -42,12 +42,7 @@ import edu.ucdenver.ccp.datasource.identifiers.DataSource;
 public class PharmGkbID extends DataSourceIdentifier<String> {
 
 	public PharmGkbID(String resourceID) {
-		super(resourceID);
-	}
-
-	@Override
-	public DataSource getDataSource() {
-		return DataSource.PHARMGKB;
+		super(resourceID,DataSource.PHARMGKB);
 	}
 
 	@Override

@@ -39,12 +39,7 @@ import edu.ucdenver.ccp.datasource.identifiers.StringDataSourceIdentifier;
 public class InterFilDbId extends StringDataSourceIdentifier {
 
 	public InterFilDbId(String resourceID) {
-		super(resourceID);
-	}
-
-	@Override
-	public DataSource getDataSource() {
-		return DataSource.INTERFIL;
-	}
+		super(resourceID, DataSource.INTERFIL);
+}
 
 }

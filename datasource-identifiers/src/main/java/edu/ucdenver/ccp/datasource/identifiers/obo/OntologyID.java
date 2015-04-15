@@ -33,12 +33,13 @@ package edu.ucdenver.ccp.datasource.identifiers.obo;
  * #L%
  */
 
+import edu.ucdenver.ccp.datasource.identifiers.DataSource;
 import edu.ucdenver.ccp.datasource.identifiers.StringDataSourceIdentifier;
 
 public abstract class OntologyID extends StringDataSourceIdentifier {
 
-	public OntologyID(String resourceID) {
-		super(resourceID);
+	public OntologyID(String resourceID, DataSource ds) {
+		super(resourceID, ds);
 	}
 
 }

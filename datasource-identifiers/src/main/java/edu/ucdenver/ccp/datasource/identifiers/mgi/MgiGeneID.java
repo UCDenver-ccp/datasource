@@ -40,13 +40,8 @@ import edu.ucdenver.ccp.datasource.identifiers.DataSource;
 public class MgiGeneID extends DataSourceIdentifier<String>{
 
 	public MgiGeneID(String resourceID) {
-		super(resourceID);
-	}
-
-	@Override
-	public DataSource getDataSource() {
-		return DataSource.MGI;
-	}
+		super(resourceID, DataSource.MGI);
+}
 
 	@Override
 	public String validate(String mgiID) throws IllegalArgumentException {

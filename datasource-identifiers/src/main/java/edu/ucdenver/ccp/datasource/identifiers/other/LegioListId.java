@@ -38,11 +38,6 @@ import edu.ucdenver.ccp.datasource.identifiers.StringDataSourceIdentifier;
 
 public class LegioListId extends StringDataSourceIdentifier {
 		public LegioListId(String id) {
-			super(id);
-		}
-
-		@Override
-		public DataSource getDataSource() {
-			return DataSource.LEGIOLIST;
-		}
+			super(id, DataSource.LEGIOLIST);
+}
 	}

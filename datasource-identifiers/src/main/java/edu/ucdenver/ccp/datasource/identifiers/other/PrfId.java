@@ -39,12 +39,7 @@ import edu.ucdenver.ccp.datasource.identifiers.StringDataSourceIdentifier;
 public class PrfId extends StringDataSourceIdentifier {
 
 	public PrfId(String resourceID) {
-		super(resourceID);
-	}
-
-	@Override
-	public DataSource getDataSource() {
-		return DataSource.PRF;
-	}
+		super(resourceID, DataSource.PRF);
+}
 
 }

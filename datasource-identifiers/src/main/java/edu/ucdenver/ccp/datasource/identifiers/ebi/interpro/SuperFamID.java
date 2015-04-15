@@ -39,12 +39,7 @@ import edu.ucdenver.ccp.datasource.identifiers.StringDataSourceIdentifier;
 public class SuperFamID extends StringDataSourceIdentifier {
 
 	public SuperFamID(String resourceID) {
-		super(resourceID);
-	}
-
-	@Override
-	public DataSource getDataSource() {
-		return DataSource.SUPERFAM;
+		super(resourceID, DataSource.SUPERFAM);
 	}
 
 }

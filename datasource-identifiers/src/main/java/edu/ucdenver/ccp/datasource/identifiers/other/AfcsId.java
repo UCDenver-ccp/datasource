@@ -39,12 +39,7 @@ import edu.ucdenver.ccp.datasource.identifiers.IntegerDataSourceIdentifier;
 public class AfcsId extends IntegerDataSourceIdentifier {
 
 	public AfcsId(String resourceID) {
-		super(resourceID);
-	}
-
-	@Override
-	public DataSource getDataSource() {
-		return DataSource.AFCS;
-	}
+		super(resourceID, DataSource.AFCS);
+}
 
 }

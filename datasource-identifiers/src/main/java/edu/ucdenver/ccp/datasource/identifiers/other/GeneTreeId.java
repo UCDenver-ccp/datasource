@@ -38,11 +38,6 @@ import edu.ucdenver.ccp.datasource.identifiers.StringDataSourceIdentifier;
 
 public class GeneTreeId extends StringDataSourceIdentifier {
 		public GeneTreeId(String id) {
-			super(id);
-		}
-
-		@Override
-		public DataSource getDataSource() {
-			return DataSource.GENETREE;
-		}
+			super(id, DataSource.GENETREE);
+}
 	}

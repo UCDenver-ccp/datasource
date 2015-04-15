@@ -46,15 +46,11 @@ public class NcbiTaxonomyID extends IntegerDataSourceIdentifier {
 	public static final NcbiTaxonomyID RATTUS_NORVEGICUS = new NcbiTaxonomyID(10116);
 
 	public NcbiTaxonomyID(Integer taxonomyID) {
-		super(taxonomyID);
+		super(taxonomyID,DataSource.NCBI_TAXON);
 	}
 
 	public NcbiTaxonomyID(String taxonomyID) {
-		super(taxonomyID, Arrays.asList("TAXID:", "TAXON:"));
+		super(taxonomyID, Arrays.asList("TAXID:", "TAXON:"), DataSource.NCBI_TAXON);
 	}
 
-	@Override
-	public DataSource getDataSource() {
-		return DataSource.NCBI_TAXON;
-	}
 }

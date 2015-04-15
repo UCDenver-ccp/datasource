@@ -39,12 +39,7 @@ import edu.ucdenver.ccp.datasource.identifiers.StringDataSourceIdentifier;
 public class MiRBaseID extends StringDataSourceIdentifier {
 
 	public MiRBaseID(String resourceID) {
-		super(resourceID);
-	}
-
-	@Override
-	public DataSource getDataSource() {
-		return DataSource.MIRBASE;
-	}
+		super(resourceID, DataSource.MIRBASE);
+}
 
 }

@@ -39,12 +39,7 @@ import edu.ucdenver.ccp.datasource.identifiers.StringDataSourceIdentifier;
 public class MatrixDbId extends StringDataSourceIdentifier {
 
 	public MatrixDbId(String resourceID) {
-		super(resourceID);
-	}
-
-	@Override
-	public DataSource getDataSource() {
-		return DataSource.MATRIXDB;
-	}
+		super(resourceID, DataSource.MATRIXDB);
+}
 
 }

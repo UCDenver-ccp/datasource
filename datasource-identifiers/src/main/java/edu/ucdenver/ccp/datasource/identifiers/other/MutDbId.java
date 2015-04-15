@@ -39,12 +39,7 @@ import edu.ucdenver.ccp.datasource.identifiers.StringDataSourceIdentifier;
 public class MutDbId extends StringDataSourceIdentifier {
 
 	public MutDbId(String resourceID) {
-		super(resourceID);
-	}
-
-	@Override
-	public DataSource getDataSource() {
-		return DataSource.MUTDB;
-	}
+		super(resourceID, DataSource.MUTDB);
+}
 
 }

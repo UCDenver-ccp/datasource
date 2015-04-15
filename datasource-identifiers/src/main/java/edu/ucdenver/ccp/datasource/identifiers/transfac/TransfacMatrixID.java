@@ -40,13 +40,9 @@ import edu.ucdenver.ccp.datasource.identifiers.StringDataSourceIdentifier;
 public class TransfacMatrixID extends StringDataSourceIdentifier {
 
 	public TransfacMatrixID(String resourceID) {
-		super(resourceID);
+		super(resourceID,DataSource.TRANSFAC);
 	}
 
-	@Override
-	public DataSource getDataSource() {
-		return DataSource.TRANSFAC;
-	}
 
 	@Override
 	public String validate(String resourceID) throws IllegalArgumentException {

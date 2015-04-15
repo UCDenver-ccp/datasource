@@ -37,32 +37,26 @@ import edu.ucdenver.ccp.common.string.StringUtil;
 import edu.ucdenver.ccp.datasource.identifiers.DataSourceIdentifier;
 import edu.ucdenver.ccp.datasource.identifiers.DataSource;
 
-public class EmblID extends DataSourceIdentifier<String>{
+public class EmblID extends DataSourceIdentifier<String> {
 
 	public EmblID(String resourceID) {
-		super(removeVersionIfPresent(resourceID));
+		super(removeVersionIfPresent(resourceID), DataSource.EMBL);
 	}
 
-	
 	/**
-	 * EMBL IDs are sometimes listed as accession.version pairs, e.g. BAC39464.1.
-	 * We currently ignore the version information because not all EMBL IDs
-	 * are listed with one.  This method removes
-	 * the sequence version from the EMBL ID if one is present.
+	 * EMBL IDs are sometimes listed as accession.version pairs, e.g.
+	 * BAC39464.1. We currently ignore the version information because not all
+	 * EMBL IDs are listed with one. This method removes the sequence version
+	 * from the EMBL ID if one is present.
 	 * 
 	 * @param resourceID
 	 * @return
 	 */
 	private static String removeVersionIfPresent(String resourceID) {
 		String versionRegex = "\\.\\d+";
-		if (StringUtil.endsWithRegex(resourceID, versionRegex)) 
+		if (StringUtil.endsWithRegex(resourceID, versionRegex))
 			return StringUtil.removeSuffixRegex(resourceID, versionRegex);
 		return resourceID;
-	}
-	
-	@Override
-	public DataSource getDataSource() {
-		return DataSource.EMBL;
 	}
 
 	@Override

@@ -45,12 +45,7 @@ import edu.ucdenver.ccp.datasource.identifiers.StringDataSourceIdentifier;
 public class AgricolaId extends StringDataSourceIdentifier {
 
 	public AgricolaId(String resourceID) {
-		super(resourceID);
-	}
-
-	@Override
-	public DataSource getDataSource() {
-		return DataSource.AGRICOLA;
-	}
+		super(resourceID, DataSource.AGRICOLA);
+}
 
 }

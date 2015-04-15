@@ -39,13 +39,9 @@ import edu.ucdenver.ccp.datasource.identifiers.StringDataSourceIdentifier;
 public class IntActID extends StringDataSourceIdentifier{
 
 	public IntActID(String resourceID) {
-		super(resourceID);
+		super(resourceID,DataSource.INTACT);
 	}
 
-	@Override
-	public DataSource getDataSource() {
-		return DataSource.INTACT;
-	}
 
 
 }

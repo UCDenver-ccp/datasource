@@ -39,12 +39,7 @@ import edu.ucdenver.ccp.datasource.identifiers.StringDataSourceIdentifier;
 public class HcdmId extends StringDataSourceIdentifier {
 
 	public HcdmId(String resourceID) {
-		super(resourceID);
-	}
-
-	@Override
-	public DataSource getDataSource() {
-		return DataSource.HCDM;
-	}
+		super(resourceID, DataSource.HCDM);
+}
 
 }

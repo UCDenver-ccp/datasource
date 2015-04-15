@@ -46,15 +46,7 @@ public class EmbID extends StringDataSourceIdentifier{
 	 * @param resourceID
 	 */
 	public EmbID(String resourceID) {
-		super(resourceID);
+		super(resourceID, DataSource.EMB);
 	}
 
-	/* (non-Javadoc)
-	 * @see edu.ucdenver.ccp.bio.entity.identifiers.DataElementIdentifier#getNamespace()
-	 */
-	@Override
-	public DataSource getDataSource() {
-		return DataSource.EMB;
-	}
-	
 }

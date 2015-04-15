@@ -39,12 +39,8 @@ import edu.ucdenver.ccp.datasource.identifiers.StringDataSourceIdentifier;
 public class PsiModId extends StringDataSourceIdentifier {
 
 	public PsiModId(String resourceID) {
-		super(resourceID);
+		super(resourceID,DataSource.MOD);
 	}
 
-	@Override
-	public DataSource getDataSource() {
-		return DataSource.MOD;
-	}
 
 }

@@ -41,13 +41,9 @@ public class MolecularInteractionOntologyTermID extends OntologyID {
 	
 	
 	public MolecularInteractionOntologyTermID(String resourceID) {
-		super(resourceID);
+		super(resourceID, DataSource.MI_ONTOLOGY);
 	}
 
-	@Override
-	public DataSource getDataSource() {
-		return DataSource.MI_ONTOLOGY;
-	}
 
 	@Override
 	public String validate(String resourceID) throws IllegalArgumentException {

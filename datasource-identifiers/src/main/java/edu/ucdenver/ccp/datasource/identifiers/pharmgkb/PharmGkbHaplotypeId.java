@@ -44,12 +44,7 @@ public class PharmGkbHaplotypeId extends DataSourceIdentifier<String> {
 	// validation commented out b/c the PharmGkb relationships.tsv file contains some combination?
 	// haplotypes, e.g. CYP2A6 *17, CYP2A6 *35A
 	public PharmGkbHaplotypeId(String resourceID) {
-		super(resourceID);
-	}
-
-	@Override
-	public DataSource getDataSource() {
-		return DataSource.PHARMGKB;
+		super(resourceID,DataSource.PHARMGKB);
 	}
 
 	@Override

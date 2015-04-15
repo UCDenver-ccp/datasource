@@ -39,12 +39,7 @@ import edu.ucdenver.ccp.datasource.identifiers.StringDataSourceIdentifier;
 public class PrositeID extends StringDataSourceIdentifier {
 
 	public PrositeID(String resourceID) {
-		super(resourceID);
-	}
-
-	@Override
-	public DataSource getDataSource() {
-		return DataSource.PROSITE;
+		super(resourceID, DataSource.PROSITE);
 	}
 
 }

@@ -39,12 +39,7 @@ import edu.ucdenver.ccp.datasource.identifiers.StringDataSourceIdentifier;
 public class GenAtlasId extends StringDataSourceIdentifier {
 
 	public GenAtlasId(String resourceID) {
-		super(resourceID);
-	}
-
-	@Override
-	public DataSource getDataSource() {
-		return DataSource.GENATLAS;
-	}
+		super(resourceID, DataSource.GENATLAS);
+}
 
 }

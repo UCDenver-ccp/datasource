@@ -53,15 +53,7 @@ public class ImexId extends StringDataSourceIdentifier {
 
 	public ImexId(String resourceID) {
 
-		super(resourceID);
-
-	}
-
-	@Override
-	public DataSource getDataSource() {
-
-		return DataSource.IMEX;
-
-	}
+		super(resourceID, DataSource.IMEX);
+}
 
 }

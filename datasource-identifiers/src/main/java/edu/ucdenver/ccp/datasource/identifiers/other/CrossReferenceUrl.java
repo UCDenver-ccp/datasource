@@ -44,12 +44,7 @@ import edu.ucdenver.ccp.datasource.identifiers.StringDataSourceIdentifier;
 public class CrossReferenceUrl extends StringDataSourceIdentifier {
 
 	public CrossReferenceUrl(String resourceID) {
-		super(resourceID);
-	}
-
-	@Override
-	public DataSource getDataSource() {
-		return DataSource.URL;
-	}
+		super(resourceID, DataSource.URL);
+}
 
 }

@@ -324,12 +324,7 @@ public class RdfRecordWriterImplTest extends DefaultTestCase {
 	private static class GeneID extends DataSourceIdentifier<Integer> {
 
 		public GeneID(Integer resourceID) {
-			super(resourceID);
-		}
-
-		@Override
-		public DataSource getDataSource() {
-			return DataSource.EG;
+			super(resourceID, DataSource.EG);
 		}
 
 		@Override

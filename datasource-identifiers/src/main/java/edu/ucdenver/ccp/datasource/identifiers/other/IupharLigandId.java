@@ -42,12 +42,7 @@ public class IupharLigandId extends IntegerDataSourceIdentifier {
 	 * @param resourceID
 	 */
 	public IupharLigandId(String resourceID) {
-		super(resourceID);
-	}
-
-	@Override
-	public DataSource getDataSource() {
-		return DataSource.IUPHAR;
-	}
+		super(resourceID, DataSource.IUPHAR);
+}
 
 }

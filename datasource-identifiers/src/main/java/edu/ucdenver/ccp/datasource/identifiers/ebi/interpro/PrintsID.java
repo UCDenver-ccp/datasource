@@ -39,12 +39,7 @@ import edu.ucdenver.ccp.datasource.identifiers.StringDataSourceIdentifier;
 public class PrintsID extends StringDataSourceIdentifier {
 
 	public PrintsID(String resourceID) {
-		super(resourceID);
-	}
-
-	@Override
-	public DataSource getDataSource() {
-		return DataSource.PRINTS;
+		super(resourceID, DataSource.PRINTS);
 	}
 
 }

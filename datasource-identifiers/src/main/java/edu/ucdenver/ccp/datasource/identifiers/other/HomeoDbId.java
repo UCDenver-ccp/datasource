@@ -39,12 +39,7 @@ import edu.ucdenver.ccp.datasource.identifiers.StringDataSourceIdentifier;
 public class HomeoDbId extends StringDataSourceIdentifier {
 
 	public HomeoDbId(String resourceID) {
-		super(resourceID);
-	}
-
-	@Override
-	public DataSource getDataSource() {
-		return DataSource.HOMEODB;
-	}
+		super(resourceID, DataSource.HOMEODB);
+}
 
 }

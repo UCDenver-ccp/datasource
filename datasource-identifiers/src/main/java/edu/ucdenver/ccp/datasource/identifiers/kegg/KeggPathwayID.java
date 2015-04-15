@@ -41,13 +41,8 @@ public class KeggPathwayID extends StringDataSourceIdentifier {
 	public static final String ID_PREFIX = "KEGG_PATHWAY_";
 	
 	public KeggPathwayID(String resourceID) {
-		super(resourceID);
-	}
-
-	@Override
-	public DataSource getDataSource() {
-		return DataSource.KEGG;
-	}
+		super(resourceID, DataSource.KEGG);
+}
 
 	@Override
 	public String getStringRepresentation() {

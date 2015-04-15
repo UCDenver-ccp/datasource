@@ -38,11 +38,6 @@ import edu.ucdenver.ccp.datasource.identifiers.StringDataSourceIdentifier;
 
 public class GenoListId extends StringDataSourceIdentifier {
 		public GenoListId(String id) {
-			super(id);
-		}
-
-		@Override
-		public DataSource getDataSource() {
-			return DataSource.GENOLIST;
-		}
+			super(id, DataSource.GENOLIST);
+}
 	}

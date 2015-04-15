@@ -40,12 +40,7 @@ import edu.ucdenver.ccp.datasource.identifiers.IntegerDataSourceIdentifier;
 public class IcrogId extends IntegerDataSourceIdentifier {
 
 	public IcrogId(String resourceID) {
-		super(resourceID);
-	}
-
-	@Override
-	public DataSource getDataSource() {
-		return DataSource.IREFWEB;
-	}
+		super(resourceID, DataSource.IREFWEB);
+}
 
 }

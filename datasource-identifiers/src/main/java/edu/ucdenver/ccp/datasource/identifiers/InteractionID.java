@@ -35,9 +35,9 @@ package edu.ucdenver.ccp.datasource.identifiers;
 
 public abstract class InteractionID extends StringDataSourceIdentifier {
 
-	public InteractionID(String resourceID) {
+	public InteractionID(String resourceID, DataSource ds) {
 
-		super(resourceID);
+		super(resourceID, ds);
 
 	}
 

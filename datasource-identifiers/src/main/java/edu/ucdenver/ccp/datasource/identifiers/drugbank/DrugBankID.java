@@ -42,12 +42,7 @@ import edu.ucdenver.ccp.datasource.identifiers.DataSourceIdentifier;
 public class DrugBankID extends DataSourceIdentifier<String> {
 
 	public DrugBankID(String resourceID) {
-		super(resourceID);
-	}
-
-	@Override
-	public DataSource getDataSource() {
-		return DataSource.DRUGBANK;
+		super(resourceID, DataSource.DRUGBANK);
 	}
 
 	@Override

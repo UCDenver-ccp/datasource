@@ -39,12 +39,7 @@ import edu.ucdenver.ccp.datasource.identifiers.StringDataSourceIdentifier;
 public class MeropsId extends StringDataSourceIdentifier {
 
 	public MeropsId(String resourceID) {
-		super(resourceID);
-	}
-
-	@Override
-	public DataSource getDataSource() {
-		return DataSource.MEROPS;
-	}
+		super(resourceID, DataSource.MEROPS);
+}
 
 }

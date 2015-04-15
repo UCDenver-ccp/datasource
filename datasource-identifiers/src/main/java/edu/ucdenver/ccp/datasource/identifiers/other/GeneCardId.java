@@ -39,12 +39,7 @@ import edu.ucdenver.ccp.datasource.identifiers.StringDataSourceIdentifier;
 public class GeneCardId extends StringDataSourceIdentifier {
 
 	public GeneCardId(String resourceID) {
-		super(resourceID);
-	}
-
-	@Override
-	public DataSource getDataSource() {
-		return DataSource.GENECARD;
-	}
+		super(resourceID, DataSource.GENECARD);
+}
 
 }

@@ -39,12 +39,7 @@ import edu.ucdenver.ccp.datasource.identifiers.StringDataSourceIdentifier;
 public class HumanCycGeneId extends StringDataSourceIdentifier {
 
 	public HumanCycGeneId(String resourceID) {
-		super(resourceID);
-	}
-
-	@Override
-	public DataSource getDataSource() {
-		return DataSource.HUMANCYC;
-	}
+		super(resourceID, DataSource.HUMANCYC);
+}
 
 }

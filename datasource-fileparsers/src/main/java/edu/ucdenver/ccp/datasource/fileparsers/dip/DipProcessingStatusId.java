@@ -49,12 +49,8 @@ public class DipProcessingStatusId extends StringDataSourceIdentifier {
 	 * @param resourceID
 	 */
 	public DipProcessingStatusId(String resourceID) {
-		super(resourceID);
+		super(resourceID, DataSource.DIP);
 	}
 
-	@Override
-	public DataSource getDataSource() {
-		return DataSource.DIP;
-	}
 
 }

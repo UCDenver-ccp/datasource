@@ -39,12 +39,7 @@ import edu.ucdenver.ccp.datasource.identifiers.StringDataSourceIdentifier;
 public class CtdId extends StringDataSourceIdentifier {
 
 	public CtdId(String resourceID) {
-		super(resourceID);
-	}
-
-	@Override
-	public DataSource getDataSource() {
-		return DataSource.CTD;
-	}
+		super(resourceID, DataSource.CTD);
+}
 
 }

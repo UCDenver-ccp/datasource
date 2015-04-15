@@ -38,11 +38,6 @@ import edu.ucdenver.ccp.datasource.identifiers.StringDataSourceIdentifier;
 
 public class ProteinModelPortalId extends StringDataSourceIdentifier {
 		public ProteinModelPortalId(String id) {
-			super(id);
-		}
-
-		@Override
-		public DataSource getDataSource() {
-			return DataSource.PROTEINMODELPORTAL;
-		}
+			super(id, DataSource.PROTEINMODELPORTAL);
+}
 	}

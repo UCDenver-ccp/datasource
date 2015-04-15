@@ -39,12 +39,7 @@ import edu.ucdenver.ccp.datasource.identifiers.StringDataSourceIdentifier;
 public class ModBaseId extends StringDataSourceIdentifier {
 
 	public ModBaseId(String resourceID) {
-		super(resourceID);
-	}
-
-	@Override
-	public DataSource getDataSource() {
-		return DataSource.MODBASE;
-	}
+		super(resourceID, DataSource.MODBASE);
+}
 
 }

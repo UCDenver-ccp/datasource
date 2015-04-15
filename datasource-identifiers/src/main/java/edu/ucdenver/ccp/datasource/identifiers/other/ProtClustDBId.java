@@ -38,11 +38,6 @@ import edu.ucdenver.ccp.datasource.identifiers.StringDataSourceIdentifier;
 
 public class ProtClustDBId extends StringDataSourceIdentifier {
 		public ProtClustDBId(String id) {
-			super(id);
-		}
-
-		@Override
-		public DataSource getDataSource() {
-			return DataSource.PROTCLUSTDB;
-		}
+			super(id, DataSource.PROTCLUSTDB);
+}
 	}

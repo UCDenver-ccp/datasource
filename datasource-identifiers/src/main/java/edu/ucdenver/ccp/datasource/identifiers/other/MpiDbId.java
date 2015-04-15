@@ -39,12 +39,7 @@ import edu.ucdenver.ccp.datasource.identifiers.StringDataSourceIdentifier;
 public class MpiDbId extends StringDataSourceIdentifier {
 
 	public MpiDbId(String resourceID) {
-		super(resourceID);
-	}
-
-	@Override
-	public DataSource getDataSource() {
-		return DataSource.MPIDB;
-	}
+		super(resourceID, DataSource.MPIDB);
+}
 
 }

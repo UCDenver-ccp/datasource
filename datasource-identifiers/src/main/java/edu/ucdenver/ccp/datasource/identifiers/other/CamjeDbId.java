@@ -39,12 +39,7 @@ import edu.ucdenver.ccp.datasource.identifiers.StringDataSourceIdentifier;
 public class CamjeDbId extends StringDataSourceIdentifier {
 
 	public CamjeDbId(String resourceID) {
-		super(resourceID);
-	}
-
-	@Override
-	public DataSource getDataSource() {
-		return DataSource.CAMJEDB;
-	}
+		super(resourceID, DataSource.CAMJEDB);
+}
 
 }

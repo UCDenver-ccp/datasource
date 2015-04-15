@@ -38,11 +38,6 @@ import edu.ucdenver.ccp.datasource.identifiers.StringDataSourceIdentifier;
 
 public class OGPId extends StringDataSourceIdentifier {
 		public OGPId(String id) {
-			super(id);
-		}
-
-		@Override
-		public DataSource getDataSource() {
-			return DataSource.OGP;
-		}
+			super(id, DataSource.OGP);
+}
 	}

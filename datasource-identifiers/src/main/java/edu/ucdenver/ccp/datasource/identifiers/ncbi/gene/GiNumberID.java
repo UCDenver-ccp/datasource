@@ -39,15 +39,10 @@ import edu.ucdenver.ccp.datasource.identifiers.IntegerDataSourceIdentifier;
 public class GiNumberID extends IntegerDataSourceIdentifier {
 
 	public GiNumberID(Integer resourceID) {
-		super(resourceID);
+		super(resourceID, DataSource.GENBANK);
 	}
 
 	public GiNumberID(String resourceID) {
-		super(resourceID);
-	}
-
-	@Override
-	public DataSource getDataSource() {
-		return DataSource.GENBANK;
-	}
+		super(resourceID, DataSource.GENBANK);
+}
 }

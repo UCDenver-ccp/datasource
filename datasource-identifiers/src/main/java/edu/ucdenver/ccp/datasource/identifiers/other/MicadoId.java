@@ -38,11 +38,6 @@ import edu.ucdenver.ccp.datasource.identifiers.StringDataSourceIdentifier;
 
 public class MicadoId extends StringDataSourceIdentifier {
 		public MicadoId(String id) {
-			super(id);
-		}
-
-		@Override
-		public DataSource getDataSource() {
-			return DataSource.MICADO;
-		}
+			super(id, DataSource.MICADO);
+}
 	}

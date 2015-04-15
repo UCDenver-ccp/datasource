@@ -38,11 +38,6 @@ import edu.ucdenver.ccp.datasource.identifiers.StringDataSourceIdentifier;
 
 public class ENZYMEId extends StringDataSourceIdentifier {
 		public ENZYMEId(String id) {
-			super(id);
-		}
-
-		@Override
-		public DataSource getDataSource() {
-			return DataSource.ENZYME;
-		}
+			super(id, DataSource.ENZYME);
+}
 	}

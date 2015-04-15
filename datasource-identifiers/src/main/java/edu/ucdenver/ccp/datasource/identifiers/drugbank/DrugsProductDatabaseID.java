@@ -47,15 +47,11 @@ import edu.ucdenver.ccp.datasource.identifiers.IntegerDataSourceIdentifier;
 public class DrugsProductDatabaseID extends IntegerDataSourceIdentifier {
 
 	public DrugsProductDatabaseID(Integer resourceID) {
-		super(resourceID);
+		super(resourceID, DataSource.DPD);
 	}
 
 	public DrugsProductDatabaseID(String geneIDStr) {
-		super(geneIDStr);
+		super(geneIDStr, DataSource.DPD);
 	}
 
-	@Override
-	public DataSource getDataSource() {
-		return DataSource.DPD;
-	}
 }

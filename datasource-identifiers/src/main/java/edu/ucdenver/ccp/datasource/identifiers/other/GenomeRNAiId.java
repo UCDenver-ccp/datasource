@@ -38,11 +38,6 @@ import edu.ucdenver.ccp.datasource.identifiers.StringDataSourceIdentifier;
 
 public class GenomeRNAiId extends StringDataSourceIdentifier {
 		public GenomeRNAiId(String id) {
-			super(id);
-		}
-
-		@Override
-		public DataSource getDataSource() {
-			return DataSource.GENOMERNAI;
-		}
+			super(id, DataSource.GENOMERNAI);
+}
 	}

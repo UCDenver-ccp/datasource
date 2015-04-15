@@ -45,13 +45,8 @@ import edu.ucdenver.ccp.datasource.identifiers.DataSource;
 public class HgncGeneSymbolID extends DataSourceIdentifier<String> {
 
 	public HgncGeneSymbolID(String resourceID) {
-		super(resourceID);
-	}
-
-	@Override
-	public DataSource getDataSource() {
-		return DataSource.HGNC;
-	}
+		super(resourceID, DataSource.HGNC);
+}
 
 	@Override
 	public String validate(String resourceID) throws IllegalArgumentException {

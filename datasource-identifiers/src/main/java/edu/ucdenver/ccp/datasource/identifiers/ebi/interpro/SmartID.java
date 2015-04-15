@@ -39,12 +39,7 @@ import edu.ucdenver.ccp.datasource.identifiers.StringDataSourceIdentifier;
 public class SmartID extends StringDataSourceIdentifier {
 
 	public SmartID(String resourceID) {
-		super(resourceID);
-	}
-
-	@Override
-	public DataSource getDataSource() {
-		return DataSource.SMART;
+		super(resourceID, DataSource.SMART);
 	}
 
 }

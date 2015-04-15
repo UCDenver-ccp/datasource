@@ -42,12 +42,12 @@ import edu.ucdenver.ccp.common.string.StringUtil;
 
 public abstract class IntegerDataSourceIdentifier extends DataSourceIdentifier<Integer> {
 
-	public IntegerDataSourceIdentifier(Integer resourceID) {
-		super(resourceID);
+	public IntegerDataSourceIdentifier(Integer resourceID, DataSource ds) {
+		super(resourceID, ds);
 	}
 
-	public IntegerDataSourceIdentifier(String resourceID) {
-		super(validate(resourceID));
+	public IntegerDataSourceIdentifier(String resourceID, DataSource ds) {
+		super(validate(resourceID), ds);
 	}
 	
 	/**
@@ -56,8 +56,8 @@ public abstract class IntegerDataSourceIdentifier extends DataSourceIdentifier<I
 	 * @param resourceID value
 	 * @param prefixes non-null prefixes
 	 */
-	public IntegerDataSourceIdentifier(String resourceID, Collection<String> prefixes) {
-		super(validate(resourceID, prefixes));
+	public IntegerDataSourceIdentifier(String resourceID, Collection<String> prefixes, DataSource ds) {
+		super(validate(resourceID, prefixes), ds);
 	}
 
 	@Override

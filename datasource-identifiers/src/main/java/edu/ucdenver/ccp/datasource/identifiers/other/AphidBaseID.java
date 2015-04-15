@@ -43,12 +43,7 @@ import edu.ucdenver.ccp.datasource.identifiers.StringDataSourceIdentifier;
 public class AphidBaseID extends StringDataSourceIdentifier {
 
 	public AphidBaseID(String resourceID) {
-		super(resourceID);
-	}
-	
-	@Override
-	public DataSource getDataSource() {
-		return DataSource.APHIDBASE;
-	}
+		super(resourceID, DataSource.APHIDBASE);
+}
 
 }

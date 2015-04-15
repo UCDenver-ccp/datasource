@@ -43,12 +43,7 @@ public class PharmGkbVariantLocationId extends DataSourceIdentifier<String> {
 	private static final String PHARMGKB_CHROMOSOME_LOCATION_PATTERN = "chr.*?:\\d+ \\(hg\\d+\\)";
 
 	public PharmGkbVariantLocationId(String resourceID) {
-		super(resourceID);
-	}
-
-	@Override
-	public DataSource getDataSource() {
-		return DataSource.PHARMGKB;
+		super(resourceID,DataSource.PHARMGKB);
 	}
 
 	@Override

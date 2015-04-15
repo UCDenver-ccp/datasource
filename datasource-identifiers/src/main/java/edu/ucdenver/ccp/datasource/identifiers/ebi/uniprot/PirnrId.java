@@ -52,12 +52,7 @@ import edu.ucdenver.ccp.datasource.identifiers.StringDataSourceIdentifier;
 public class PirnrId extends StringDataSourceIdentifier {
 
 	public PirnrId(String resourceID) {
-		super(resourceID);
-	}
-
-	@Override
-	public DataSource getDataSource() {
-		return DataSource.UNIPROT_PREDICTION;
-	}
+		super(resourceID, DataSource.UNIPROT_PREDICTION);
+}
 
 }

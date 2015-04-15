@@ -39,12 +39,7 @@ import edu.ucdenver.ccp.datasource.identifiers.StringDataSourceIdentifier;
 public class NationalDrugCodeDirectoryId extends StringDataSourceIdentifier {
 
 	public NationalDrugCodeDirectoryId(String resourceID) {
-		super(resourceID);
-	}
-
-	@Override
-	public DataSource getDataSource() {
-		return DataSource.NATIONAL_DRUG_CODE_DIRECTORY;
-	}
+		super(resourceID, DataSource.NATIONAL_DRUG_CODE_DIRECTORY);
+}
 
 }

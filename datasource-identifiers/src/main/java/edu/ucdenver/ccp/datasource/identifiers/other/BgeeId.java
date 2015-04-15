@@ -45,12 +45,7 @@ import edu.ucdenver.ccp.datasource.identifiers.StringDataSourceIdentifier;
 public class BgeeId extends StringDataSourceIdentifier {
 
 	public BgeeId(String resourceID) {
-		super(resourceID);
-	}
-
-	@Override
-	public DataSource getDataSource() {
-		return DataSource.BGEE;
-	}
+		super(resourceID, DataSource.BGEE);
+}
 
 }

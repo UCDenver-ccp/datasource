@@ -39,12 +39,7 @@ import edu.ucdenver.ccp.datasource.identifiers.IntegerDataSourceIdentifier;
 public class BindTranslationId extends IntegerDataSourceIdentifier {
 
 	public BindTranslationId(String resourceID) {
-		super(resourceID);
-	}
-
-	@Override
-	public DataSource getDataSource() {
-		return DataSource.BIND_TRANSLATION;
-	}
+		super(resourceID, DataSource.BIND_TRANSLATION);
+}
 
 }

@@ -39,12 +39,7 @@ import edu.ucdenver.ccp.datasource.identifiers.StringDataSourceIdentifier;
 public class ZfinID extends StringDataSourceIdentifier {
 
 	public ZfinID(String resourceID) {
-		super(resourceID);
-	}
-
-	@Override
-	public DataSource getDataSource() {
-		return DataSource.ZFIN;
-	}
+		super(resourceID, DataSource.ZFIN);
+}
 
 }

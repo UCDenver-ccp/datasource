@@ -39,12 +39,7 @@ import edu.ucdenver.ccp.datasource.identifiers.StringDataSourceIdentifier;
 public class ZnfGeneCatalogId extends StringDataSourceIdentifier {
 
 	public ZnfGeneCatalogId(String resourceID) {
-		super(resourceID);
-	}
-
-	@Override
-	public DataSource getDataSource() {
-		return DataSource.ZNF_GENE_CATALOG;
-	}
+		super(resourceID, DataSource.ZNF_GENE_CATALOG);
+}
 
 }

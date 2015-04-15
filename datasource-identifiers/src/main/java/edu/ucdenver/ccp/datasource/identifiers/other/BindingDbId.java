@@ -42,12 +42,7 @@ public class BindingDbId extends StringDataSourceIdentifier {
 	 * @param resourceID
 	 */
 	public BindingDbId(String resourceID) {
-		super(resourceID);
-	}
-
-	@Override
-	public DataSource getDataSource() {
-		return DataSource.BINDING_DB;
-	}
+		super(resourceID, DataSource.BINDING_DB);
+}
 
 }

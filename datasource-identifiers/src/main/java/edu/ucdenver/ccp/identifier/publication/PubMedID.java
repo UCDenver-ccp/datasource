@@ -41,7 +41,7 @@ import edu.ucdenver.ccp.datasource.identifiers.IntegerDataSourceIdentifier;
 public class PubMedID extends IntegerDataSourceIdentifier {
 
 	public PubMedID(Integer pubmedID) {
-		super(pubmedID);
+		super(pubmedID, DataSource.PM);
 	}
 
 	/**
@@ -50,11 +50,7 @@ public class PubMedID extends IntegerDataSourceIdentifier {
 	 * @param pubmedID
 	 */
 	public PubMedID(String pubmedID) {
-		super(pubmedID, Arrays.asList("PMID:"));
+		super(pubmedID, Arrays.asList("PMID:"), DataSource.PM);
 	}
 
-	@Override
-	public DataSource getDataSource() {
-		return DataSource.PM;
-	}
 }

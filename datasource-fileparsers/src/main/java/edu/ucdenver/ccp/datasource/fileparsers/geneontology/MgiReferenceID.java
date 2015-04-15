@@ -46,12 +46,7 @@ import edu.ucdenver.ccp.datasource.identifiers.StringDataSourceIdentifier;
 public class MgiReferenceID extends StringDataSourceIdentifier {
 
 	public MgiReferenceID(String resourceID) {
-		super(resourceID);
-	}
-
-	@Override
-	public DataSource getDataSource() {
-		return DataSource.MGI_REFERENCE;
+		super(resourceID, DataSource.MGI_REFERENCE);
 	}
 
 }

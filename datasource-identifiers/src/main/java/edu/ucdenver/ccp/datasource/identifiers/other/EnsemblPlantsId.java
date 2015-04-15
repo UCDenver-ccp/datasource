@@ -38,11 +38,6 @@ import edu.ucdenver.ccp.datasource.identifiers.StringDataSourceIdentifier;
 
 public class EnsemblPlantsId extends StringDataSourceIdentifier {
 		public EnsemblPlantsId(String id) {
-			super(id);
-		}
-
-		@Override
-		public DataSource getDataSource() {
-			return DataSource.ENSEMBLPLANTS;
-		}
+			super(id, DataSource.ENSEMBLPLANTS);
+}
 	}

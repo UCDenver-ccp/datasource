@@ -40,12 +40,7 @@ import edu.ucdenver.ccp.datasource.identifiers.StringDataSourceIdentifier;
 public class TransfacFactorID extends StringDataSourceIdentifier{
 
 	public TransfacFactorID(String resourceID) {
-		super(resourceID);
-	}
-
-	@Override
-	public DataSource getDataSource() {
-		return DataSource.TRANSFAC;
+		super(resourceID,DataSource.TRANSFAC);
 	}
 
 	@Override

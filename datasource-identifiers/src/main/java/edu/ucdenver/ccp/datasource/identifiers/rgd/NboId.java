@@ -39,12 +39,8 @@ import edu.ucdenver.ccp.datasource.identifiers.StringDataSourceIdentifier;
 public class NboId extends StringDataSourceIdentifier {
 
 	public NboId(String resourceID) {
-		super(resourceID);
+		super(resourceID, DataSource.NBO);
 	}
 
-	@Override
-	public DataSource getDataSource() {
-		return DataSource.NBO;
-	}
 
 }
