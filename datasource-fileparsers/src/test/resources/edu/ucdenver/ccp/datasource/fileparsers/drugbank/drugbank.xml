@@ -1,0 +1,997 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<drugs xmlns:xs="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://drugbank.ca" xs:schemaLocation="http://www.drugbank.ca/docs/drugbank.xsd" schemaVersion="1.4">
+  <drug type="biotech" created="2005-06-13 07:24:05 -0600" updated="2012-02-13 17:42:20 -0700" version="3.0">
+    <drugbank-id>DB00001</drugbank-id>
+    <name>Lepirudin</name>
+    <description>Lepirudin is identical to natural hirudin except for substitution of leucine for isoleucine at the N-terminal end of the molecule and the absence of a sulfate group on the tyrosine at position 63. It is produced via yeast cells.&#xD;
+</description>
+    <cas-number>120993-53-5</cas-number>
+    <general-references># Smythe MA, Stephens JL, Koerber JM, Mattson JC: A comparison of lepirudin and argatroban outcomes. Clin Appl Thromb Hemost. 2005 Oct;11(4):371-4. "Pubmed":http://www.ncbi.nlm.nih.gov/pubmed/16244762&#xD;
+# Tardy B, Lecompte T, Boelhen F, Tardy-Poncet B, Elalamy I, Morange P, Gruel Y, Wolf M, Francois D, Racadot E, Camarasa P, Blouch MT, Nguyen F, Doubine S, Dutrillaux F, Alhenc-Gelas M, Martin-Toutain I, Bauters A, Ffrench P, de Maistre E, Grunebaum L, Mouton C, Huisse MG, Gouault-Heilmann M, Lucke V: Predictive factors for thrombosis and major bleeding in an observational study in 181 patients with heparin-induced thrombocytopenia treated with lepirudin. Blood. 2006 Sep 1;108(5):1492-6. Epub 2006 May 11. "Pubmed":http://www.ncbi.nlm.nih.gov/pubmed/16690967&#xD;
+# Lubenow N, Eichler P, Lietz T, Greinacher A: Lepirudin in patients with heparin-induced thrombocytopenia - results of the third prospective study (HAT-3) and a combined analysis of HAT-1, HAT-2, and HAT-3. J Thromb Haemost. 2005 Nov;3(11):2428-36. "Pubmed":http://www.ncbi.nlm.nih.gov/pubmed/16241940&#xD;
+# Askari AT, Lincoff AM: Antithrombotic Drug Therapy in Cardiovascular Disease. 2009 Oct; pp. 440&#x2013;. ISBN 9781603272346. "Google books":http://books.google.com/books?id=iadLoXoQkWEC&amp;pg=PA440. </general-references>
+    <synthesis-reference># Abdine HH, Belala F, and Al-Badra AA. (2003). Ipratropium bromide: Methods of chemical and biochemical synthesis. In H.G. Brittain (Ed.). _Profiles of drug substances, excipients and related methodology_ (pp. 85-99). Amsterdam, Netherlands: Elsevier Academic Press.</synthesis-reference>
+    <indication>For the treatment of heparin-induced thrombocytopenia</indication>
+    <pharmacology>Lepirudin is used to break up clots and to reduce thrombocytopenia. It binds to thrombin and prevents thrombus or clot formation. It is a highly potent, selective, and essentially irreversible inhibitor of thrombin and clot-bond thrombin. Lepirudin requires no cofactor for its anticoagulant action. Lepirudin is a recombinant form of hirudin, an endogenous anticoagulant found in medicinal leeches.</pharmacology>
+    <mechanism-of-action>Lepirudin forms a stable non-covalent complex with alpha-thrombin, thereby abolishing its ability to cleave fibrinogen and initiate the clotting cascade. The inhibition of thrombin prevents the blood clotting cascade. </mechanism-of-action>
+    <toxicity>In case of overdose (eg, suggested by excessively high aPTT values) the risk of bleeding is increased.</toxicity>
+    <biotransformation>Lepirudin is thought to be metabolized by release of amino acids via catabolic hydrolysis of the parent drug. However, con-clusive data are not available. About 48% of the administration dose is excreted in the urine which consists of unchanged drug (35%) and other fragments of the parent drug.</biotransformation>
+    <absorption>Bioavailability is 100% following injection.</absorption>
+    <half-life>Approximately 1.3 hours</half-life>
+    <protein-binding>Other than thrombin and red blood cells, bivalirudin does not bind to&#xD;
+plasma proteins.</protein-binding>
+    <route-of-elimination>Lepirudin is thought to be metabolized by release of amino acids via catabolic hydrolysis of the parent drug. About 48% of the administration dose is excreted in the urine which consists of unchanged drug (35%) and other fragments of the parent drug.</route-of-elimination>
+    <volume-of-distribution>* 12.2 L [Healthy young subjects (n = 18, age 18-60 years)]&#xD;
+* 18.7 L [Healthy elderly subjects (n = 10, age 65-80 years)]&#xD;
+* 18 L [Renally impaired patients (n = 16, creatinine clearance below 80 mL/min)]&#xD;
+* 32.1 L [HIT patients (n = 73)]</volume-of-distribution>
+    <clearance>* 164 ml/min [Healthy 18-60 yrs]&#xD;
+* 139 ml/min [Healthy 65-80 yrs]&#xD;
+* 61 ml/min [renal impaired]&#xD;
+* 114 ml/min [HIT (Heparin-induced thrombocytopenia)]</clearance>
+    <secondary-accession-numbers>
+      <secondary-accession-number>BIOD00024</secondary-accession-number>
+      <secondary-accession-number>BTD00024</secondary-accession-number>
+    </secondary-accession-numbers>
+    <groups>
+      <group>approved</group>
+      <group>nutraceutical</group>
+    </groups>
+    <taxonomy>
+      <kingdom>Organic</kingdom>
+      <substructures>
+        <substructure class="true">Cobalamin Derivatives</substructure>
+        <substructure class="false">Glycerol and Derivatives</substructure>
+        <substructure class="false">Hydroxy Compounds</substructure>
+      </substructures>
+    </taxonomy>
+    <synonyms>
+      <synonym>Hirudin variant-1</synonym>
+    </synonyms>
+     <salts>
+      <salt>Leuprolide acetate</salt>
+      <salt>Leuprorelin acetate</salt>
+    </salts>
+    <brands>
+      <brand>Refludan</brand>
+      <brand>Leuplin</brand>
+      <brand>LeuProMaxx</brand>
+      <brand>Leupromer</brand>
+    </brands>
+    <mixtures>
+       <mixture>
+        <name>Cauterex</name>
+        <ingredients>dornase alfa + fibrinolysin + gentamicin sulfate</ingredients>
+      </mixture>
+      <mixture>
+        <name>Clorfibrase</name>
+        <ingredients>dornase alfa + fibrinolysin + chloramphenicol</ingredients>
+      </mixture>
+    </mixtures>
+    <packagers>
+      <packager>
+        <name>Bayer Healthcare</name>
+        <url>http://www.bayerhealthcare.com</url>
+      </packager>
+      <packager>
+        <name>Berlex Labs</name>
+        <url>http://www.berlex.com</url>
+      </packager>
+    </packagers>
+    <manufacturers>
+      <manufacturer generic="false">Bayer healthcare pharmaceuticals inc</manufacturer>
+    </manufacturers>
+    <prices>
+      <price>
+        <description>Refludan 50 mg vial</description>
+        <cost currency="USD">273.19</cost>
+        <unit>vial</unit>
+      </price>
+    </prices>
+    <categories>
+      <category>Anticoagulants</category>
+      <category>Antithrombotic Agents</category>
+      <category>Fibrinolytic Agents</category>
+    </categories>
+    <affected-organisms>
+      <affected-organism>Humans and other mammals</affected-organism>
+    </affected-organisms>
+    <dosages>
+      <dosage>
+        <form>Powder, for solution</form>
+        <route>Intravenous</route>
+        <strength></strength>
+      </dosage>
+    </dosages>
+    <atc-codes>
+      <atc-code>B01AE02</atc-code>
+    </atc-codes>
+    <ahfs-codes>
+      <ahfs-code>20:12.04.12</ahfs-code>
+    </ahfs-codes>
+    <patents>
+      <patent>
+        <number>5180668</number>
+        <country>United States</country>
+        <approved>1993-01-19</approved>
+        <expires>2010-01-19</expires>
+      </patent>
+      <patent>
+        <number>1339104</number>
+        <country>Canada</country>
+        <approved>1997-07-29</approved>
+        <expires>2014-07-29</expires>
+      </patent>
+    </patents>
+    <food-interactions>
+      <food-interaction>Dan shen, dong quai, evening primrose oil, gingko, policosanol, willow bark</food-interaction>
+      <food-interaction>Echinacea</food-interaction>
+    </food-interactions>
+    <drug-interactions>
+      <drug-interaction>
+        <drug>DB01381</drug>
+        <name>Ginkgo biloba</name>
+        <description>Additive anticoagulant/antiplatelet effects may increase bleed risk. Concomitant therapy should be avoided.</description>
+      </drug-interaction>
+      <drug-interaction>
+        <drug>DB00374</drug>
+        <name>Treprostinil</name>
+        <description>The prostacyclin analogue, Treprostinil, increases the risk of bleeding when combined with the anticoagulant, Lepirudin. Monitor for increased bleeding during concomitant thearpy. </description>
+      </drug-interaction>
+    </drug-interactions>
+    <calculated-properties>
+      <property>
+        <kind>logP</kind>
+        <value>0.3</value>
+        <source>ALOGPS</source>
+      </property>
+      <property>        <kind>logS</kind>
+        <value>-4.7</value>
+        <source>ALOGPS</source>
+      </property>
+      <property>
+        <kind>Water Solubility</kind>
+        <value>2.83e-02 g/l</value>
+        <source>ALOGPS</source>
+      </property>
+      <property>
+        <kind>logP</kind>
+        <value>-5.2</value>
+        <source>JChem</source>
+      </property>
+      <property>
+        <kind>pKa</kind>        <value>9.82</value>
+        <source>JChem</source>
+      </property>
+      <property>
+        <kind>IUPAC Name</kind>
+        <value>(2S)-1-[(2S)-2-[(2S)-2-[(2R)-3-(tert-butoxy)-2-[(2S)-2-[(2S)-3-hydroxy-2-[(2S)-2-[(2S)-3-(1H-imidazol-5-yl)-2-{[(2S)-5-oxopyrrolidin-2-yl]formamido}propanamido]-3-(1H-indol-3-yl)propanamido]propanamido]-3-(4-hydroxyphenyl)propanamido]propanamido]-4-methylpentanamido]-5-[(diaminomethylidene)amino]pentanoyl]-N-(carbamoylamino)pyrrolidine-2-carboxamide</value>
+        <source>JChem</source>
+      </property>
+      <property>
+        <kind>Molecular Weight</kind>        <value>1269.4105</value>        <source>JChem</source>
+      </property>
+      <property>
+        <kind>Monoisotopic Weight</kind>
+        <value>1268.641439486</value>
+        <source>JChem</source>
+      </property>
+      <property>
+        <kind>SMILES</kind>
+        <value>CC(C)C[C@H](NC(=O)[C@@H](COC(C)(C)C)NC(=O)[C@H](CC1=CC=C(O)C=C1)NC(=O)[C@H](CO)NC(=O)[C@H](CC1=CNC2=CC=CC=C12)NC(=O)[C@H](CC1=CN=CN1)NC(=O)[C@@H]1CCC(=O)N1)C(=O)N[C@@H](CCCN=C(N)N)C(=O)N1CCC[C@H]1C(=O)NNC(N)=O</value>
+        <source>JChem</source>
+      </property>
+      <property>
+        <kind>Molecular Formula</kind>
+        <value>C59H84N18O14</value>
+        <source>JChem</source>
+      </property>
+      <property>
+        <kind>InChI</kind>
+        <value>InChI=1S/C59H84N18O14/c1-31(2)22-40(49(82)68-39(12-8-20-64-57(60)61)56(89)77-21-9-13-46(77)55(88)75-76-58(62)90)69-54(87)45(29-91-59(3,4)5)74-50(83)41(23-32-14-16-35(79)17-15-32)70-53(86)44(28-78)73-51(84)42(24-33-26-65-37-11-7-6-10-36(33)37)71-52(85)43(25-34-27-63-30-66-34)72-48(81)38-18-19-47(80)67-38/h6-7,10-11,14-17,26-27,30-31,38-46,65,78-79H,8-9,12-13,18-25,28-29H2,1-5H3,(H,63,66)(H,67,80)(H,68,82)(H,69,87)(H,70,86)(H,71,85)(H,72,81)(H,73,84)(H,74,83)(H,75,88)(H4,60,61,64)(H3,62,76,90)/t38-,39-,40-,41-,42-,43-,44-,45+,46-/m0/s1</value>
+        <source>JChem</source>
+      </property>
+      <property>
+        <kind>InChIKey</kind>
+        <value>InChIKey=BLCLNMBMMGCOAS-URPVMXJPSA-N</value>
+        <source>JChem</source>
+      </property>
+      <property>
+        <kind>Polar Surface Area (PSA)</kind>
+        <value>495.89</value>
+        <source>JChem</source>
+          </property>
+      <property>
+        <kind>Refractivity</kind>
+        <value>325.84</value>
+        <source>JChem</source>
+      </property>
+      <property>
+        <kind>Polarizability</kind>
+        <value>131.22</value>
+        <source>JChem</source>
+      </property>
+      <property>
+        <kind>Rotatable Bond Count</kind>
+        <value>33</value>
+        <source>JChem</source>
+      </property>
+      <property>
+        <kind>H Bond Acceptor Count</kind>
+        <value>18</value>
+        <source>JChem</source>
+      </property>
+      <property>
+        <kind>H Bond Donor Count</kind>
+        <value>17</value>
+        <source>JChem</source>
+      </property>
+    </calculated-properties>
+    <protein-sequences>
+      <protein-sequence>
+        <header>DB00001 sequence</header>
+        <chain>LVYTDCTESGQNLCLCEGSNVCGQGNKCILGSDGEKNQCVTGEGTPKPQSHNDGDFEEIPEEYLQ</chain>
+      </protein-sequence>
+    </protein-sequences>
+    <experimental-properties>
+      <property>
+        <kind>logP/hydrophobicity</kind>
+        <value>-0.777</value>
+        <source></source>
+      </property>
+      <property>
+        <kind>Molecular Weight</kind>
+        <value>6963.4250</value>
+        <source></source>
+      </property>
+      <property>
+        <kind>Molecular Formula</kind>
+        <value>C287H440N80O110S6</value>
+        <source></source>
+      </property>
+    </experimental-properties>
+    <external-identifiers>
+      <external-identifier>
+        <resource>Drugs Product Database (DPD)</resource>
+        <identifier>2240996</identifier>
+      </external-identifier>
+      <external-identifier>
+        <resource>National Drug Code Directory</resource>
+        <identifier>50419-150-57</identifier>
+      </external-identifier>
+      <external-identifier>
+        <resource>PharmGKB</resource>
+        <identifier>PA450195</identifier>
+      </external-identifier>
+      <external-identifier>
+        <resource>UniProtKB</resource>
+        <identifier>P01050</identifier>
+      </external-identifier>
+    </external-identifiers>
+    <external-links>
+      <external-link>
+        <resource>Wikipedia</resource>
+        <url>http://en.wikipedia.org/wiki/Lepirudin</url>
+      </external-link>
+      <external-link>
+        <resource>RxList</resource>
+        <url>http://www.rxlist.com/cgi/generic/lepirudin.htm</url>
+      </external-link>
+      <external-link>
+        <resource>Drugs.com</resource>
+        <url>http://www.drugs.com/cdi/lepirudin.html</url>
+      </external-link>
+    </external-links>
+    <targets>
+      <target partner="54">
+        <actions>
+          <action>inhibitor</action>
+        </actions>
+        <references># Turpie AG: Anticoagulants in acute coronary syndromes. Am J Cardiol. 1999 Sep 2;84(5A):2M-6M. "Pubmed":http://www.ncbi.nlm.nih.gov/pubmed/10505536&#xD;
+# Warkentin TE: Venous thromboembolism in heparin-induced thrombocytopenia. Curr Opin Pulm Med. 2000 Jul;6(4):343-51. "Pubmed":http://www.ncbi.nlm.nih.gov/pubmed/10912644&#xD;
+# Eriksson BI: New therapeutic options in deep vein thrombosis prophylaxis. Semin Hematol. 2000 Jul;37(3 Suppl 5):7-9. "Pubmed":http://www.ncbi.nlm.nih.gov/pubmed/11055889&#xD;
+# Fabrizio MC: Use of ecarin clotting time (ECT) with lepirudin therapy in heparin-induced thrombocytopenia and cardiopulmonary bypass. J Extra Corpor Technol. 2001 May;33(2):117-25. "Pubmed":http://www.ncbi.nlm.nih.gov/pubmed/11467439&#xD;
+# Szaba FM, Smiley ST: Roles for thrombin and fibrin(ogen) in cytokine/chemokine production and macrophage adhesion in vivo. Blood. 2002 Feb 1;99(3):1053-9. "Pubmed":http://www.ncbi.nlm.nih.gov/pubmed/11807012&#xD;
+# Chen X, Ji ZL, Chen YZ: TTD: Therapeutic Target Database. Nucleic Acids Res. 2002 Jan 1;30(1):412-5. "Pubmed":http://www.ncbi.nlm.nih.gov/pubmed/11752352</references>
+        <known-action>yes</known-action>
+      </target>
+    </targets>
+    <enzymes>
+      <enzyme position="1" partner="1757">
+        <actions>
+          <action>inhibitor</action>
+        </actions>
+        <references># Rudolph V, Rudolph TK, Schopfer FJ, Bonacci G, Lau D, Szocs K, Klinke A, Meinertz T, Freeman BA, Baldus S: Bivalirudin decreases NO bioavailability by vascular immobilization of myeloperoxidase. J Pharmacol Exp Ther. 2008 Nov;327(2):324-31. Epub 2008 Aug 13. "Pubmed":http://www.ncbi.nlm.nih.gov/pubmed/18701766[</references>
+      </enzyme>
+    </enzymes>
+    <transporters>
+      <transporter position="1" partner="1588">
+        <actions>
+          <action>inhibitor</action>
+        </actions>
+        <references># Nagy H, Goda K, Fenyvesi F, Bacso Z, Szilasi M, Kappelmayer J, Lustyik G, Cianfriglia M, Szabo G Jr: Distinct groups of multidrug resistance modulating agents are distinguished by competition of P-glycoprotein-specific antibodies. Biochem Biophys Res Commun. 2004 Mar 19;315(4):942-9. "Pubmed":http://www.ncbi.nlm.nih.gov/pubmed/14985103</references>
+      </transporter>
+    </transporters>
+    <carriers>
+       <carrier position="5" partner="587">
+        <actions>
+          <action>inhibitor</action>
+        </actions>
+        <references># Maingonnat C, Victor R, Bertrand P, Courel MN, Maunoury R, Delpech B: Activation and inhibition of human cancer cell hyaluronidase by proteins. Anal Biochem. 1999 Mar 1;268(1):30-4. "Pubmed":http://www.ncbi.nlm.nih.gov/pubmed/10036158&#xD;
+# Parameswaran S, Brown LV, Ibbott GS, Lai-Fook SJ: Effect of concentration and hyaluronidase on albumin diffusion across rabbit mesentery. Microcirculation. 1999 Jun;6(2):117-26. "Pubmed":http://www.ncbi.nlm.nih.gov/pubmed/10466114</references>
+      </carrier>
+    </carriers>
+  </drug>
+  <partners>    
+  <partner id="54">
+      <name>Prothrombin</name>
+      <general-function>Involved in blood clotting cascade</general-function>
+      <specific-function>Thrombin, which cleaves bonds after Arg and Lys, converts fibrinogen to fibrin and activates factors V, VII, VIII, XIII, and, in complex with thrombomodulin, protein C</specific-function>
+      <gene-name>F2</gene-name>
+      <locus>11p11-q12</locus>
+      <reaction>Selective cleavage of Arg!Gly bonds in fibrinogen to form fibrin and release fibrinopeptides A and B INHIBITOR Benzamidine; D-Phe-Pro-Arg-CH2Cl; Nalpha-(2-naphthyl-sulfonyl-glycyl)-D-p-amidinopheyl-alanylpiperadin e; Argatroban</reaction>
+      <signals>1-24</signals>
+      <cellular-location>Secreted protein; extracellular space</cellular-location>
+      <transmembrane-regions>None</transmembrane-regions>
+      <theoretical-pi>5.70</theoretical-pi>
+      <molecular-weight>70037</molecular-weight>
+      <chromosome></chromosome>
+      <species>
+        <category>human</category>
+        <name>Homo sapiens</name>
+        <uniprot-name>Homo sapiens</uniprot-name>
+        <uniprot-taxon-id>9606</uniprot-taxon-id>
+      </species>
+      <essentiality>Non-Essential</essentiality>
+      <references># Degen SJ, Davie EW: Nucleotide sequence of the gene for human prothrombin. Biochemistry. 1987 Sep 22;26(19):6165-77. "Pubmed":http://www.ncbi.nlm.nih.gov/pubmed/2825773
+# Degen SJ, MacGillivray RT, Davie EW: Characterization of the complementary deoxyribonucleic acid and gene coding for human prothrombin. Biochemistry. 1983 Apr 26;22(9):2087-97. "Pubmed":http://www.ncbi.nlm.nih.gov/pubmed/6305407
+# Walz DA, Hewett-Emmett D, Seegers WH: Amino acid sequence of human prothrombin fragments 1 and 2. Proc Natl Acad Sci U S A. 1977 May;74(5):1969-72. "Pubmed":http://www.ncbi.nlm.nih.gov/pubmed/266717
+# Butkowski RJ, Elion J, Downing MR, Mann KG: Primary structure of human prethrombin 2 and alpha-thrombin. J Biol Chem. 1977 Jul 25;252(14):4942-57. "Pubmed":http://www.ncbi.nlm.nih.gov/pubmed/873923
+# Rabiet MJ, Blashill A, Furie B, Furie BC: Prothrombin fragment 1 X 2 X 3, a major product of prothrombin activation in human plasma. J Biol Chem. 1986 Oct 5;261(28):13210-5. "Pubmed":http://www.ncbi.nlm.nih.gov/pubmed/3759958
+# Bode W, Mayr I, Baumann U, Huber R, Stone SR, Hofsteenge J: The refined 1.9 A crystal structure of human alpha-thrombin: interaction with D-Phe-Pro-Arg chloromethylketone and significance of the Tyr-Pro-Pro-Trp insertion segment. EMBO J. 1989 Nov;8(11):3467-75. "Pubmed":http://www.ncbi.nlm.nih.gov/pubmed/2583108
+# Rydel TJ, Ravichandran KG, Tulinsky A, Bode W, Huber R, Roitsch C, Fenton JW 2nd: The structure of a complex of recombinant hirudin and human alpha-thrombin. Science. 1990 Jul 20;249(4966):277-80. "Pubmed":http://www.ncbi.nlm.nih.gov/pubmed/2374926
+# Rydel TJ, Yin M, Padmanabhan KP, Blankenship DT, Cardin AD, Correa PE, Fenton JW 2nd, Tulinsky A: Crystallographic structure of human gamma-thrombin. J Biol Chem. 1994 Sep 2;269(35):22000-6. "Pubmed":http://www.ncbi.nlm.nih.gov/pubmed/8071320
+# van de Locht A, Bode W, Huber R, Le Bonniec BF, Stone SR, Esmon CT, Stubbs MT: The thrombin E192Q-BPTI complex reveals gross structural rearrangements: implications for the interaction with antithrombin and thrombomodulin. EMBO J. 1997 Jun 2;16(11):2977-84. "Pubmed":http://www.ncbi.nlm.nih.gov/pubmed/9214615
+# Guinto ER, Caccia S, Rose T, Futterer K, Waksman G, Di Cera E: Unexpected crucial role of residue 225 in serine proteases. Proc Natl Acad Sci U S A. 1999 Mar 2;96(5):1852-7. "Pubmed":http://www.ncbi.nlm.nih.gov/pubmed/10051558
+# Rabiet MJ, Furie BC, Furie B: Molecular defect of prothrombin Barcelona. Substitution of cysteine for arginine at residue 273. J Biol Chem. 1986 Nov 15;261(32):15045-8. "Pubmed":http://www.ncbi.nlm.nih.gov/pubmed/3771562
+# Degen SJ, McDowell SA, Sparks LM, Scharrer I: Prothrombin Frankfurt: a dysfunctional prothrombin characterized by substitution of Glu-466 by Ala. Thromb Haemost. 1995 Feb;73(2):203-9. "Pubmed":http://www.ncbi.nlm.nih.gov/pubmed/7792730
+# Morishita E, Saito M, Kumabashiri I, Asakura H, Matsuda T, Yamaguchi K: Prothrombin Himi: a compound heterozygote for two dysfunctional prothrombin molecules (Met-337--&gt;Thr and Arg-388--&gt;His). Blood. 1992 Nov 1;80(9):2275-80. "Pubmed":http://www.ncbi.nlm.nih.gov/pubmed/1421398
+# James HL, Kim DJ, Zheng DQ, Girolami A: Prothrombin Padua I: incomplete activation due to an amino acid substitution at a factor Xa cleavage site. Blood Coagul Fibrinolysis. 1994 Oct;5(5):841-4. "Pubmed":http://www.ncbi.nlm.nih.gov/pubmed/7865694
+# Henriksen RA, Mann KG: Identification of the primary structural defect in the dysthrombin thrombin Quick I: substitution of cysteine for arginine-382. Biochemistry. 1988 Dec 27;27(26):9160-5. "Pubmed":http://www.ncbi.nlm.nih.gov/pubmed/3242619
+# Henriksen RA, Mann KG: Substitution of valine for glycine-558 in the congenital dysthrombin thrombin Quick II alters primary substrate specificity. Biochemistry. 1989 Mar 7;28(5):2078-82. "Pubmed":http://www.ncbi.nlm.nih.gov/pubmed/2719946
+# Miyata T, Aruga R, Umeyama H, Bezeaud A, Guillin MC, Iwanaga S: Prothrombin Salakta: substitution of glutamic acid-466 by alanine reduces the fibrinogen clotting activity and the esterase activity. Biochemistry. 1992 Aug 25;31(33):7457-62. "Pubmed":http://www.ncbi.nlm.nih.gov/pubmed/1354985
+# Miyata T, Morita T, Inomoto T, Kawauchi S, Shirakami A, Iwanaga S: Prothrombin Tokushima, a replacement of arginine-418 by tryptophan that impairs the fibrinogen clotting activity of derived thrombin Tokushima. Biochemistry. 1987 Feb 24;26(4):1117-22. "Pubmed":http://www.ncbi.nlm.nih.gov/pubmed/3567158
+# Inomoto T, Shirakami A, Kawauchi S, Shigekiyo T, Saito S, Miyoshi K, Morita T, Iwanaga S: Prothrombin Tokushima: characterization of dysfunctional thrombin derived from a variant of human prothrombin. Blood. 1987 Feb;69(2):565-9. "Pubmed":http://www.ncbi.nlm.nih.gov/pubmed/3801671
+# Iwahana H, Yoshimoto K, Shigekiyo T, Shirakami A, Saito S, Itakura M: Detection of a single base substitution of the gene for prothrombin Tokushima. The application of PCR-SSCP for the genetic and molecular analysis of dysprothrombinemia. Int J Hematol. 1992 Feb;55(1):93-100. "Pubmed":http://www.ncbi.nlm.nih.gov/pubmed/1349838
+# Board PG, Shaw DC: Determination of the amino acid substitution in human prothrombin type 3 (157 Glu leads to Lys) and the localization of a third thrombin cleavage site. Br J Haematol. 1983 Jun;54(2):245-54. "Pubmed":http://www.ncbi.nlm.nih.gov/pubmed/6405779
+# Cargill M, Altshuler D, Ireland J, Sklar P, Ardlie K, Patil N, Shaw N, Lane CR, Lim EP, Kalyanaraman N, Nemesh J, Ziaugra L, Friedland L, Rolfe A, Warrington J, Lipshutz R, Daley GQ, Lander ES: Characterization of single-nucleotide polymorphisms in coding regions of human genes. Nat Genet. 1999 Jul;22(3):231-8. "Pubmed":http://www.ncbi.nlm.nih.gov/pubmed/10391209</references>
+      <external-identifiers>
+        <external-identifier>
+          <resource>HUGO Gene Nomenclature Committee (HGNC)</resource>
+          <identifier>HGNC:3535</identifier>
+        </external-identifier>
+        <external-identifier>
+          <resource>Human Protein Reference Database (HPRD)</resource>
+          <identifier>01488</identifier>
+        </external-identifier>
+        <external-identifier>
+          <resource>GenAtlas</resource>
+          <identifier>F2</identifier>
+        </external-identifier>
+        <external-identifier>
+          <resource>GeneCards</resource>
+          <identifier>F2</identifier>
+        </external-identifier>
+        <external-identifier>
+          <resource>GenBank Gene Database</resource>
+          <identifier>M17262</identifier>
+        </external-identifier>
+        <external-identifier>
+          <resource>GenBank Protein Database</resource>
+          <identifier>339641</identifier>
+        </external-identifier>
+        <external-identifier>
+          <resource>UniProtKB</resource>
+          <identifier>P00734</identifier>
+        </external-identifier>
+        </external-identifiers>
+      <synonyms>
+        <synonym>EC 3.4.21.5</synonym>
+        <synonym>Coagulation factor II</synonym>
+        <synonym>Prothrombin precursor</synonym>
+        <synonym>Thrombin</synonym>
+        <synonym>Activated Factor II [IIa]</synonym>
+      </synonyms>
+      <protein-sequence>
+        <header>Prothrombin precursor</header>
+        <chain>MAHVRGLQLPGCLALAALCSLVHSQHVFLAPQQARSLLQRVRRANTFLEEVRKGNLERECVEETCSYEEAFEALESSTATDVFWAKYTACETARTPRDKLAACLEGNCAEGLGTNYRGHVNITRSGIECQLWRSRYPHKPEINSTTHPGADLQENFCRNPDSSTTGPWCYTTDPTVRRQECSIPVCGQDQVTVAMTPRSEGSSVNLSPPLEQCVPDRGQQYQGRLAVTTHGLPCLAWASAQAKALSKHQDFNSAVQLVENFCRNPDGDEEGVWCYVAGKPGDFGYCDLNYCEEAVEEETGDGLDEDSDRAIEGRTATSEYQTFFNPRTFGSGEADCGLRPLFEKKSLEDKTERELLESYIDGRIVEGSDAEIGMSPWQVMLFRKSPQELLCGASLISDRWVLTAAHCLLYPPWDKNFTENDLLVRIGKHSRTRYERNIEKISMLEKIYIHPRYNWRENLDRDIALMKLKKPVAFSDYIHPVCLPDRETAASLLQAGYKGRVTGWGNLKETWTANVGKGQPSVLQVVNLPIVERPVCKDSTRIRITDNMFCAGYKPDEGKRGDACEGDSGGPFVMKSPFNNRWYQMGIVSWGEGCDRDGKYGFYTHVFRLKKWIQKVIDQFGE</chain>
+      </protein-sequence>
+      <gene-sequence>
+                <header>1869 bp</header>
+        <chain>ATGGCGCACGTCCGAGGCTTGCAGCTGCCTGGCTGCCTGGCCCTGGCTGCCCTGTGTAGCCTTGTGCACAGCCAGCATGTGTTCCTGGCTCCTCAGCAAGCACGGTCGCTGCTCCAGCGGGTCCGGCGAGCCAACACCTTCTTGGAGGAGGTGCGCAAGGGCAACCTAGAGCGAGAGTGCGTGGAGGAGACGTGCAGCTACGAGGAGGCCTTCGAGGCTCTGGAGTCCTCCACGGCTACGGATGTGTTCTGGGCCAAGTACACAGCTTGTGAGACAGCGAGGACGCCTCGAGATAAGCTTGCTGCATGTCTGGAAGGTAACTGTGCTGAGGGTCTGGGTACGAACTACCGAGGGCATGTGAACATCACCCGGTCAGGCATTGAGTGCCAGCTATGGAGGAGTCGCTACCCACATAAGCCTGAAATCAACTCCACTACCCATCCTGGGGCCGACCTACAGGAGAATTTCTGCCGCAACCCCGACAGCAGCACCACGGGACCCTGGTGCTACACTACAGACCCCACCGTGAGGAGGCAGGAATGCAGCATCCCTGTCTGTGGCCAGGATCAAGTCACTGTAGCGATGACTCCACGCTCCGAAGGCTCCAGTGTGAATCTGTCACCTCCATTGGAGCAGTGTGTCCCTGATCGGGGGCAGCAGTACCAGGGGCGCCTGGCGGTGACCACACATGGGCTCCCCTGCCTGGCCTGGGCCAGCGCACAGGCCAAGGCCCTGAGCAAGCACCAGGACTTCAACTCAGCTGTGCAGCTGGTGGAGAACTTCTGCCGCAACCCAGACGGGGATGAGGAGGGCGTGTGGTGCTATGTGGCCGGGAAGCCTGGCGACTTTGGGTACTGCGACCTCAACTATTGTGAGGAGGCCGTGGAGGAGGAGACAGGAGATGGGCTGGATGAGGACTCAGACAGGGCCATCGAAGGGCGTACCGCCACCAGTGAGTACCAGACTTTCTTCAATCCGAGGACCTTTGGCTCGGGAGAGGCAGACTGTGGGCTGCGACCTCTGTTCGAGAAGAAGTCGCTGGAGGACAAAACCGAAAGAGAGCTCCTGGAATCCTACATCGACGGGCGCATTGTGGAGGGCTCGGATGCAGAGATCGGCATGTCACCTTGGCAGGTGATGCTTTTCCGGAAGAGTCCCCAGGAGCTGCTGTGTGGGGCCAGCCTCATCAGTGACCGCTGGGTCCTCACCGCCGCCCACTGCCTCCTGTACCCGCCCTGGGACAAGAACTTCACCGAGAATGACCTTCTGGTGCGCATTGGCAAGCACTCCCGCACAAGGTACGAGCGAAACATTGAAAAGATATCCATGTTGGAAAAGATCTACATCCACCCCAGGTACAACTGGCGGGAGAACCTGGACCGGGACATTGCCCTGATGAAGCTGAAGAAGCCTGTTGCCTTCAGTGACTACATTCACCCTGTGTGTCTGCCCGACAGGGAGACGGCAGCCAGCTTGCTCCAGGCTGGATACAAGGGGCGGGTGACAGGCTGGGGCAACCTGAAGGAGACGTGGACAGCCAACGTTGGTAAGGGGCAGCCCAGTGTCCTGCAGGTGGTGAACCTGCCCATTGTGGAGCGGCCGGTCTGCAAGGACTCCACCCGGATCCGCATCACTGACAACATGTTCTGTGCTGGTTACAAGCCTGATGAAGGGAAACGAGGGGATGCCTGTGAAGGTGACAGTGGGGGACCCTTTGTCATGAAGAGCCCCTTTAACAACCGCTGGTATCAAATGGGCATCGTCTCATGGGGTGAAGGCTGTGACCGGGATGGGAAATATGGCTTCTACACACATGTGTTCCGCCTGAAGAAGTGGATACAGAAGGTCATTGATCAGTTTGGAGAGTAG</chain>
+      </gene-sequence>
+      <pfams>
+        <pfam>
+          <identifier>PF00594</identifier>
+          <name>Gla</name>
+        </pfam>
+        <pfam>
+          <identifier>PF00051</identifier>
+          <name>Kringle</name>
+        </pfam>
+        <pfam>
+          <identifier>PF00089</identifier>
+          <name>Trypsin</name>
+        </pfam>
+      </pfams>
+      <go-classifiers>
+        <go-classifier>
+          <category>component</category>
+          <description>extracellular region</description>
+        </go-classifier>
+        <go-classifier>
+                 <category>function</category>
+          <description>thrombin activity</description>
+        </go-classifier>
+        <go-classifier>
+          <category>function</category>
+          <description>catalytic activity</description>
+        </go-classifier>
+        <go-classifier>
+          <category>function</category>
+          <description>calcium ion binding</description>
+        </go-classifier>
+        <go-classifier>
+          <category>function</category>
+          <description>ion binding</description>
+        </go-classifier>
+        <go-classifier>
+          <category>function</category>
+          <description>peptidase activity</description>
+        </go-classifier>
+        <go-classifier>
+          <category>function</category>
+          <description>cation binding</description>
+        </go-classifier>
+        <go-classifier>
+          <category>function</category>
+          <description>endopeptidase activity</description>
+        </go-classifier>
+        <go-classifier>
+          <category>function</category>
+          <description>serine-type endopeptidase activity</description>
+        </go-classifier>
+        <go-classifier>
+          <category>function</category>
+          <description>hydrolase activity</description>
+                </go-classifier>
+        <go-classifier>
+          <category>function</category>
+          <description>binding</description>
+        </go-classifier>
+        <go-classifier>
+          <category>process</category>
+          <description>physiological process</description>
+        </go-classifier>
+        <go-classifier>
+          <category>process</category>
+          <description>metabolism</description>
+        </go-classifier>
+        <go-classifier>
+          <category>process</category>
+          <description>proteolysis</description>
+        </go-classifier>
+        <go-classifier>
+          <category>process</category>
+          <description>macromolecule metabolism</description>
+        </go-classifier>
+        <go-classifier>
+          <category>process</category>
+          <description>protein metabolism</description>
+        </go-classifier>
+        <go-classifier>
+          <category>process</category>
+          <description>cellular protein metabolism</description>
+        </go-classifier>
+        <go-classifier>
+          <category>process</category>
+          <description>organismal physiological process</description>
+        </go-classifier>
+         <go-classifier>
+          <category>process</category>
+          <description>regulation of body fluids</description>
+        </go-classifier>
+        <go-classifier>
+          <category>process</category>
+          <description>hemostasis</description>
+        </go-classifier>
+        <go-classifier>
+          <category>process</category>
+          <description>blood coagulation</description>
+        </go-classifier>
+      </go-classifiers>
+    </partner>
+        <partner id="1757">
+      <name>Myeloperoxidase</name>
+      <general-function>Involved in peroxidase activity</general-function>
+      <specific-function>Part of the host defense system of polymorphonuclear leukocytes. It is responsible for microbicidal activity against a wide range of organisms. In the stimulated PMN, MPO catalyzes the production of hypohalous acids, primarily hypochlorous acid in physiologic situations, and other toxic intermediates that greatly enhance PMN microbicidal activity</specific-function>
+      <gene-name>MPO</gene-name>
+      <locus>17q23.1</locus>
+      <reaction>donor + H2O2 = oxidized donor + 2 H2O</reaction>
+      <signals>1-48</signals>
+      <cellular-location>Lysosome</cellular-location>
+      <transmembrane-regions>None</transmembrane-regions>
+      <theoretical-pi>9.14</theoretical-pi>
+      <molecular-weight>83870</molecular-weight>
+      <chromosome></chromosome>
+      <species>
+        <category>human</category>
+        <name>Homo sapiens</name>
+        <uniprot-name>Homo sapiens</uniprot-name>
+        <uniprot-taxon-id>9606</uniprot-taxon-id>
+      </species>
+      <essentiality>Non-Essential</essentiality>
+      <references># Morishita K, Kubota N, Asano S, Kaziro Y, Nagata S: Molecular cloning and characterization of cDNA for human myeloperoxidase. J Biol Chem. 1987 Mar 15;262(8):3844-51. "Pubmed":http://www.ncbi.nlm.nih.gov/pubmed/3029127&#xD;
+# Morishita K, Tsuchiya M, Asano S, Kaziro Y, Nagata S: Chromosomal gene structure of human myeloperoxidase and regulation of its expression by granulocyte colony-stimulating factor. J Biol Chem. 1987 Nov 5;262(31):15208-13. "Pubmed":http://www.ncbi.nlm.nih.gov/pubmed/2444596&#xD;
+# Johnson KR, Nauseef WM, Care A, Wheelock MJ, Shane S, Hudson S, Koeffler HP, Selsted M, Miller C, Rovera G: Characterization of cDNA clones for human myeloperoxidase: predicted amino acid sequence and evidence for multiple mRNA species. Nucleic Acids Res. 1987 Mar 11;15(5):2013-28. "Pubmed":http://www.ncbi.nlm.nih.gov/pubmed/3031585&#xD;
+# Johnson K, Gemperlein I, Hudson S, Shane S, Rovera G: Complete nucleotide sequence of the human myeloperoxidase gene. Nucleic Acids Res. 1989 Oct 11;17(19):7985-6. "Pubmed":http://www.ncbi.nlm.nih.gov/pubmed/2552418&#xD;
+# Seto P, Hirayu H, Magnusson RP, Gestautas J, Portmann L, DeGroot LJ, Rapoport B: Isolation of a complementary DNA clone for thyroid microsomal antigen. Homology with the gene for thyroid peroxidase. J Clin Invest. 1987 Oct;80(4):1205-8. "Pubmed":http://www.ncbi.nlm.nih.gov/pubmed/3654979&#xD;
+# Hashinaka K, Nishio C, Hur SJ, Sakiyama F, Tsunasawa S, Yamada M: Multiple species of myeloperoxidase messenger RNAs produced by alternative splicing and differential polyadenylation. Biochemistry. 1988 Aug 9;27(16):5906-14. "Pubmed":http://www.ncbi.nlm.nih.gov/pubmed/2903767&#xD;
+# Hosokawa Y, Kawaguchi R, Hikiji K, Yamada M, Suzuki K, Nakagawa T, Yoshihara T, Yamaguchi K: Cloning and characterization of four types of cDNA encoding myeloperoxidase from human monocytic leukemia cell line, SKM-1. Leukemia. 1993 Mar;7(3):441-5. "Pubmed":http://www.ncbi.nlm.nih.gov/pubmed/8383257&#xD;
+# Yamada M, Yoshida M, Hashinaka K: Identification of transcriptional cis-elements in introns 7 and 9 of the myeloperoxidase gene. J Biol Chem. 1993 Jun 25;268(18):13479-85. "Pubmed":http://www.ncbi.nlm.nih.gov/pubmed/8390465&#xD;
+# Yamada M, Hur SJ, Hashinaka K, Tsuneoka K, Saeki T, Nishio C, Sakiyama F, Tsunasawa S: Isolation and characterization of a cDNA coding for human myeloperoxidase. Arch Biochem Biophys. 1987 May 15;255(1):147-55. "Pubmed":http://www.ncbi.nlm.nih.gov/pubmed/2884926&#xD;
+# Yamada M, Hur SJ, Toda H: Isolation and characterization of extracellular myeloperoxidase precursor in HL-60 cell cultures. Biochem Biophys Res Commun. 1990 Jan 30;166(2):852-9. "Pubmed":http://www.ncbi.nlm.nih.gov/pubmed/2154223&#xD;
+# Fiedler TJ, Davey CA, Fenna RE: X-ray crystal structure and characterization of halide-binding sites of human myeloperoxidase at 1.8 A resolution. J Biol Chem. 2000 Apr 21;275(16):11964-71. "Pubmed":http://www.ncbi.nlm.nih.gov/pubmed/10766826&#xD;
+# Fenna R, Zeng J, Davey C: Structure of the green heme in myeloperoxidase. Arch Biochem Biophys. 1995 Jan 10;316(1):653-6. "Pubmed":http://www.ncbi.nlm.nih.gov/pubmed/7840679&#xD;
+# Blair-Johnson M, Fiedler T, Fenna R: Human myeloperoxidase: structure of a cyanide complex and its interaction with bromide and thiocyanate substrates at 1.9 A resolution. Biochemistry. 2001 Nov 20;40(46):13990-7. "Pubmed":http://www.ncbi.nlm.nih.gov/pubmed/11705390&#xD;
+# Kizaki M, Miller CW, Selsted ME, Koeffler HP: Myeloperoxidase (MPO) gene mutation in hereditary MPO deficiency. Blood. 1994 Apr 1;83(7):1935-40. "Pubmed":http://www.ncbi.nlm.nih.gov/pubmed/8142659&#xD;
+# Nauseef WM, Brigham S, Cogley M: Hereditary myeloperoxidase deficiency due to a missense mutation of arginine 569 to tryptophan. J Biol Chem. 1994 Jan 14;269(2):1212-6. "Pubmed":http://www.ncbi.nlm.nih.gov/pubmed/7904599&#xD;
+# Nauseef WM, Cogley M, McCormick S: Effect of the R569W missense mutation on the biosynthesis of myeloperoxidase. J Biol Chem. 1996 Apr 19;271(16):9546-9. "Pubmed":http://www.ncbi.nlm.nih.gov/pubmed/8621627&#xD;
+# DeLeo FR, Goedken M, McCormick SJ, Nauseef WM: A novel form of hereditary myeloperoxidase deficiency linked to endoplasmic reticulum/proteasome degradation. J Clin Invest. 1998 Jun 15;101(12):2900-9. "Pubmed":http://www.ncbi.nlm.nih.gov/pubmed/9637725&#xD;
+# Romano M, Dri P, Dadalt L, Patriarca P, Baralle FE: Biochemical and molecular characterization of hereditary myeloperoxidase deficiency. Blood. 1997 Nov 15;90(10):4126-34. "Pubmed":http://www.ncbi.nlm.nih.gov/pubmed/9354683</references>
+      <external-identifiers>
+        <external-identifier>
+          <resource>HUGO Gene Nomenclature Committee (HGNC)</resource>
+          <identifier>HGNC:7218</identifier>
+        </external-identifier>
+        <external-identifier>
+          <resource>Human Protein Reference Database (HPRD)</resource>
+          <identifier>06102</identifier>
+        </external-identifier>
+        <external-identifier>
+          <resource>GenAtlas</resource>
+          <identifier>MPO</identifier>
+        </external-identifier>
+        <external-identifier>
+          <resource>GeneCards</resource>
+          <identifier>MPO</identifier>
+        </external-identifier>
+        <external-identifier>
+          <resource>GenBank Gene Database</resource>
+             <identifier>J02694</identifier>
+        </external-identifier>
+        <external-identifier>
+          <resource>GenBank Protein Database</resource>
+          <identifier>189040</identifier>
+        </external-identifier>
+        <external-identifier>
+          <resource>UniProtKB</resource>
+          <identifier>P05164</identifier>
+        </external-identifier>
+      </external-identifiers>
+      <synonyms>
+        <synonym>EC 1.11.1.7</synonym>
+        <synonym>MPO</synonym>
+        <synonym>Myeloperoxidase precursor</synonym>
+      </synonyms>
+      <protein-sequence>        <header>Myeloperoxidase precursor</header>        <chain>MGVPFFSSLRCMVDLGPCWAGGLTAEMKLLLALAGLLAILATPQPSEGAAPAVLGEVDTSLVLSSMEEAKQLVDKAYKERRESIKQRLRSGSASPMELLSYFKQPVAATRTAVRAADYLHVALDLLERKLRSLWRRPFNVTDVLTPAQLNVLSKSSGCAYQDVGVTCPEQDKYRTITGMCNNRRSPTLGASNRAFVRWLPAEYEDGFSLPYGWTPGVKRNGFPVALARAVSNEIVRFPTDQLTPDQERSLMFMQWGQLLDHDLDFTPEPAARASFVTGVNCETSCVQQPPCFPLKIPPNDPRIKNQADCIPFFRSCPACPGSNITIRNQINALTSFVDASMVYGSEEPLARNLRNMSNQLGLLAVNQRFQDNGRALLPFDNLHDDPCLLTNRSARIPCFLAGDTRSSEMPELTSMHTLLLREHNRLATELKSLNPRWDGER
+LYQEARKIVGAMVQIITYRDYLPLVLGPTAMRKYLPTYRSYNDSVDPRIANVFTNAFRYGHTLIQPFMFRLDNRYQPMEPNPRVPLSRVFFASWRVVLEGGIDPILRGLMATPAKLNRQNQIAVDEIRERLFEQVMRIGLDLPALNMQRSRDHGLPGYNAWRRFCGLPQPETVGQLGTVLRNLKLARKLMEQYGTPNNIDIWMGGVSEPLKRKGRVGPLLACIIGTQF
+RKLRDGDRFWWENEGVFSMQQRQALAQISLPRIICDNTGITTVSKNNIFMSNSYPRDFVNCSTLPALNLASWREAS</chain>
+      </protein-sequence>
+      <gene-sequence>        <header>2238 bp</header>        <chain>ATGGGGGTTCCCTTCTTCTCTTCTCTCAGATGCATGGTGGACTTAGGACCTTGCTGGGCTGGGGGTCTCACTGCAGAGATGAAGCTGCTTCTGGCCCTAGCAGGGCTCCTGGCCATTCTGGCCACGCCCCAGCCCTCTGAAGGTGCTGCTCCAGCTGTCCTGGGGGAGGTGGACACCTCGTTGGTGCTGAGCTCCATGGAGGAGGCCAAGCAGCTGGTGGACAAGGCCTACAAGGAGCGGCGGGAAAGCATCAAGCAGCGGCTTCGCAGCGGCTCAGCCAGCCCCATGGAACTCCTATCCTACTTCAAGCAGCCGGTGGCAGCCACCAGGACGGCGGTGAGGGCCGCTGACTACCTGCACGTGGCTCTAGACCTGCTGGAGAGGAAGCTGCGGTCCCTGTGGCGAAGGCCATTCAATGTCACTGATGTGCTGACGCCCGCCCAGCTGAATGTGTTGTCCAAGTCAAGCGGCTGCGCCTACCAGGACGTGGGGGTGACTTGCCCGGAGCAGGACAAATACCGCACCATCACCGGGATGTGCAACAACAGACGCAGCCCCACGCTGGGGGCCTCCAACCGTGCCTTTGTGCGCTGGCTGCCGGCGGAGTATGAGGACGGCTTCTCTCTTCCCTACGGCTGGACGCCCGGGGTCAAGCGCAACGGCTTCCCGGTGGCTCTGGCTCGCGCGGTCTCCAACGAGATCGTGCGCTTCCCCACTGATCAGCTGACTCCGGACCAGGAGCGCTCACTCATGTTCATGCAATGGGGCCAGCTGTTGGACCACGACCTCGACTTCACCCCTGAGCCGGCCGCCCGGGCCTCCTTCGTCACTGGCGTCAACTGCGAGACCAGCTGCGTTCAGCAGCCGCCCTGCTTCCCGCTCAAGATCCCGCCCAATGACCCCCGCATCAAGAACCAAGCCGACTGCATCCCGTTCTTCCGCTCCTGCCCGGCTTGCCCCGGGAGCAACATCACCATCCGCAACCAGATCAACGCGCTCACTTCCTTCGTGGACGCCAGCATGGTGTACGGCAGCGAGGAGCCCCTGGCCAGGAACCTGCGCAACATGTCCAACCAGCTGGGGCTGCTGGCCGTCAACCAGCGCTTCCAAGACAACGGCCGGGCCCTGCTGCCCTTTGACAACCTGCACGATGACCCCTGTCTCCTCACCAACCGCTCAGCGCGCATCCCCTGCTTCCTGGCAGGGGACACCCGTTCCAGTGAGATGCCCGAGCTCACCTCCATGCACACCCTCTTACTTCGGGAGCACAACCGGCTGGCCACAGAGCTCAAGAGCCTGAACCCTAGGTGGGATGGGGAGAGGCTCTACCAGGAAGCCCGGAAGATCGTGGGGGCCATGGTCCAGATCATCACTTACCGGGACTACCTGCCCCTGGTGCTGGGGCCAACGGCCATGAGGAAGTACCTGCCCACGTACCGTTCCTACAATGACTCAGTGGACCCACGCATCGCCAACGTCTTCACCAATGCCTTCCGCTACGGCCACACCCTCATCCAACCCTTCATGTTCCGCCTGGACAATCGGTACCAGCCCATGGAACCCAACCCCCGTGTCCCCCTCAGCAGGGTCTTTTTTGCCTCCTGGAGGGTCGTGCTGGAAGGTGGCATTGACCCCATCCTCCGGGGCCTCATGGCCACCCCTGCCAAGCTGAATCGTCAGAACCAAATTGCAGTGGATGAGATCCGGGAGCGATTGTTTGAGCAGGTCATGAGGATTGGGCTGGACCTGCCTGCTCTGAACATGCAGCGCAGCAGGGACCACGGCCTCCCAGGATACAATGCCTGGAGG
+CGCTTCTGTGGGCTCCCGCAGCCTGAAACTGTGGGCCAGCTGGGCACGGTGCTGAGGAACCTGAAATTGGCGAGGAAACTGATGGAGCAGTATGGCACGCCCAACAACATCGACATCTGGATGGGCGGCGTGTCCGAGCCTCTGAAGCGCAAAGGCCGCGTGGGCCCACTCCTCGCCTGCATCATCGGTACCCAGTTCAGGAAGCTCCGGGATGGTGATCGGTTTTGG
+TGGGAGAACGAGGGTGTGTTCAGCATGCAGCAGCGACAGGCCCTGGCCCAGATCTCATTGCCCCGGATCATCTGCGACAACACAGGCATCACCACCGTGTCTAAGAACAACATCTTCATGTCCAACTCATATCCCCGGGACTTTGTCAACTGCAGTACACTTCCTGCATTGAACCTGGCTTCCTGGAGGGAAGCCTCCTAG</chain>
+      </gene-sequence>
+      <pfams>
+        <pfam>
+          <identifier>PF03098</identifier>
+          <name>An_peroxidase</name>
+        </pfam>
+      </pfams>
+      <go-classifiers>
+        <go-classifier>
+          <category>function</category>
+          <description>antioxidant activity</description>
+        </go-classifier>
+        <go-classifier>
+          <category>function</category>
+          <description>peroxidase activity</description>
+        </go-classifier>
+        <go-classifier>
+          <category>process</category>
+          <description>metabolism</description>
+        </go-classifier>
+        <go-classifier>
+          <category>process</category>
+          <description>cellular metabolism</description>
+        </go-classifier>
+        <go-classifier>
+          <category>process</category>
+          <description>oxygen and reactive oxygen species metabolism</description>
+        </go-classifier>
+        <go-classifier>
+          <category>process</category>
+          <description>response to oxidative stress</description>
+        </go-classifier>
+        <go-classifier>
+          <category>process</category>
+          <description>physiological process</description>
+    </go-classifier>
+      </go-classifiers>
+    </partner>
+        <partner id="1588">
+      <name>Multidrug resistance protein 1</name>
+      <general-function>Defense mechanisms and drug export</general-function>
+      <specific-function>Energy-dependent efflux pump responsible for decreased drug accumulation in multidrug-resistant cells</specific-function>
+      <gene-name>ABCB1</gene-name>
+      <locus>7q21.1</locus>
+      <reaction>ATP + H2O + xenobioticin = ADP + phosphate + xenobioticout</reaction>
+      <signals>None</signals>
+      <cellular-location>Membrane; multi-pass membrane protein</cellular-location>
+      <transmembrane-regions>52-72
+120-140
+189-209
+216-236
+297-317
+326-346
+711-731
+757-777
+833-853
+854-874
+937-957
+974-994</transmembrane-regions>
+      <theoretical-pi>9.44</theoretical-pi>
+      <molecular-weight>141464</molecular-weight>
+      <chromosome></chromosome>
+      <species>
+        <category>human</category>
+        <name>Homo sapiens</name>
+        <uniprot-name>Homo sapiens</uniprot-name>
+        <uniprot-taxon-id>9606</uniprot-taxon-id>
+      </species>
+      <essentiality>Non-Essential</essentiality>
+      <references># Chen CJ, Chin JE, Ueda K, Clark DP, Pastan I, Gottesman MM, Roninson IB: Internal duplication and homology with bacterial transport proteins in the mdr1 (P-glycoprotein) gene from multidrug-resistant human ce
+lls. Cell. 1986 Nov 7;47(3):381-9. "Pubmed":http://www.ncbi.nlm.nih.gov/pubmed/2876781
+# Chen CJ, Clark D, Ueda K, Pastan I, Gottesman MM, Roninson IB: Genomic organization of the human multidrug resistance (MDR1) gene and origin of P-glycoproteins. J Biol Chem. 1990 Jan 5;265(1):506-14. "Pubmed":http://www.ncbi.n
+lm.nih.gov/pubmed/1967175
+# Chen G, Duran GE, Steger KA, Lacayo NJ, Jaffrezou JP, Dumontet C, Sikic BI: Multidrug-resistant human sarcoma cells with a mutant P-glycoprotein, altered phenotype, and resistance to cyclosporins. J Biol Chem. 1997 Feb 28;272(
+9):5974-82. "Pubmed":http://www.ncbi.nlm.nih.gov/pubmed/9038218
+# Hillier LW, Fulton RS, Fulton LA, Graves TA, Pepin KH, Wagner-McPherson C, Layman D, Maas J, Jaeger S, Walker R, Wylie K, Sekhon M, Becker MC, O'Laughlin MD, Schaller ME, Fewell GA, Delehaunty KD, Miner TL, Nash WE, Cordes M, 
+Du H, Sun H, Edwards J, Bradshaw-Cordum H, Ali J, Andrews S, Isak A, Vanbrunt A, Nguyen C, Du F, Lamar B, Courtney L, Kalicki J, Ozersky P, Bielicki L, Scott K, Holmes A, Harkins R, Harris A, Strong CM, Hou S, Tomlinson C, Dauph
+in-Kohlberg S, Kozlowicz-Reilly A, Leonard S, Rohlfing T, Rock SM, Tin-Wollam AM, Abbott A, Minx P, Maupin R, Strowmatt C, Latreille P, Miller N, Johnson D, Murray J, Woessner JP, Wendl MC, Yang SP, Schultz BR, Wallis JW, Spieth
+ J, Bieri TA, Nelson JO, Berkowicz N, Wohldmann PE, Cook LL, Hickenbotham MT, Eldred J, Williams D, Bedell JA, Mardis ER, Clifton SW, Chissoe SL, Marra MA, Raymond C, Haugen E, Gillett W, Zhou Y, James R, Phelps K, Iadanoto S, B
+ubb K, Simms E, Levy R, Clendenning J, Kaul R, Kent WJ, Furey TS, Baertsch RA, Brent MR, Keibler E, Flicek P, Bork P, Suyama M, Bailey JA, Portnoy ME, Torrents D, Chinwalla AT, Gish WR, Eddy SR, McPherson JD, Olson MV, Eichler E
+E, Green ED, Waterston RH, Wilson RK: The DNA sequence of human chromosome 7. Nature. 2003 Jul 10;424(6945):157-64. "Pubmed":http://www.ncbi.nlm.nih.gov/pubmed/12853948
+# Gekeler V, Weger S, Probst H: mdr1/P-glycoprotein gene segments analyzed from various human leukemic cell lines exhibiting different multidrug resistance profiles. Biochem Biophys Res Commun. 1990 Jun 15;169(2):796-802. "Pubme
+d":http://www.ncbi.nlm.nih.gov/pubmed/1972623
+# Kioka N, Tsubota J, Kakehi Y, Komano T, Gottesman MM, Pastan I, Ueda K: P-glycoprotein gene (MDR1) cDNA from human adrenal: normal P-glycoprotein carries Gly185 with an altered pattern of multidrug resistance. Biochem Biophys 
+Res Commun. 1989 Jul 14;162(1):224-31. "Pubmed":http://www.ncbi.nlm.nih.gov/pubmed/2568832
+# Kerb R, Hoffmeyer S, Brinkmann U: ABC drug transporters: hereditary polymorphisms and pharmacological impact in MDR1, MRP1 and MRP2. Pharmacogenomics. 2001 Feb;2(1):51-64. "Pubmed":http://www.ncbi.nlm.nih.gov/pubmed/11258197
+# Choi KH, Chen CJ, Kriegler M, Roninson IB: An altered pattern of cross-resistance in multidrug-resistant human cells results from spontaneous mutations in the mdr1 (P-glycoprotein) gene. Cell. 1988 May 20;53(4):519-29. "Pubmed
+":http://www.ncbi.nlm.nih.gov/pubmed/2897240
+# Mickley LA, Lee JS, Weng Z, Zhan Z, Alvarez M, Wilson W, Bates SE, Fojo T: Genetic polymorphism in MDR-1: a tool for examining allelic expression in normal cells, unselected and drug-selected cell lines, and human tumors. Bloo
+d. 1998 Mar 1;91(5):1749-56. "Pubmed":http://www.ncbi.nlm.nih.gov/pubmed/9473242
+# Decleves X, Chevillard S, Charpentier C, Vielh P, Laplanche JL: A new polymorphism (N21D) in the exon 2 of the human MDR1 gene encoding the P-glycoprotein. Hum Mutat. 2000 May;15(5):486. "Pubmed":http://www.ncbi.nlm.nih.gov/pu
+bmed/10790226
+# Hoffmeyer S, Burk O, von Richter O, Arnold HP, Brockmoller J, Johne A, Cascorbi I, Gerloff T, Roots I, Eichelbaum M, Brinkmann U: Functional polymorphisms of the human multidrug-resistance gene: multiple sequence variations an
+d correlation of one allele with P-glycoprotein expression and activity in vivo. Proc Natl Acad Sci U S A. 2000 Mar 28;97(7):3473-8. "Pubmed":http://www.ncbi.nlm.nih.gov/pubmed/10716719
+# Cascorbi I, Gerloff T, Johne A, Meisel C, Hoffmeyer S, Schwab M, Schaeffeler E, Eichelbaum M, Brinkmann U, Roots I: Frequency of single nucleotide polymorphisms in the P-glycoprotein drug transporter MDR1 gene in white subject
+s. Clin Pharmacol Ther. 2001 Mar;69(3):169-74. "Pubmed":http://www.ncbi.nlm.nih.gov/pubmed/11240981
+# Saito S, Iida A, Sekine A, Miura Y, Ogawa C, Kawauchi S, Higuchi S, Nakamura Y: Three hundred twenty-six genetic variations in genes encoding nine members of ATP-binding cassette, subfamily B (ABCB/MDR/TAP), in the Japanese po
+pulation. J Hum Genet. 2002;47(1):38-50. "Pubmed":http://www.ncbi.nlm.nih.gov/pubmed/11829140</references>
+      <external-identifiers>
+        <external-identifier>
+          <resource>HUGO Gene Nomenclature Committee (HGNC)</resource>
+          <identifier>HGNC:40</identifier>
+        </external-identifier>
+        <external-identifier>
+          <resource>Human Protein Reference Database (HPRD)</resource>
+          <identifier>01370</identifier>
+        </external-identifier>
+        <external-identifier>
+          <resource>GenAtlas</resource>
+              <identifier>ABCB1</identifier>
+        </external-identifier>
+        <external-identifier>
+          <resource>GeneCards</resource>
+          <identifier>ABCB1</identifier>
+        </external-identifier>
+        <external-identifier>
+          <resource>GenBank Gene Database</resource>
+          <identifier>M14758</identifier>
+        </external-identifier>
+        <external-identifier>
+          <resource>GenBank Protein Database</resource>
+          <identifier>307180</identifier>
+        </external-identifier>
+        <external-identifier>
+          <resource>UniProtKB</resource>
+          <identifier>P08183</identifier>
+        </external-identifier>
+      </external-identifiers>
+      <synonyms>
+        <synonym>EC 3.6.3.44</synonym>
+        <synonym>ATP-binding cassette sub-family B member 1</synonym>
+        <synonym>P-glycoprotein 1</synonym>
+        <synonym>CD243 antigen</synonym>
+      </synonyms>
+      <protein-sequence>
+        <header>Multidrug resistance protein 1</header>
+        <chain>MDLEGDRNGGAKKKNFFKLNNKSEKDKKEKKPTVSVFSMFRYSNWLDKLYMVVGTLAAIIHGAGLPLMMLVFGEMTDIFANAGNLEDLMSNITNRSDINDTGFFMNLEEDMTRYAYYYSGIGAGVLVAAYIQVSFWCLAAGRQIHKIRKQFFHAIMRQEIGWFDVHDVGELNTRLTDDVSKINEGIGDKIGMFFQSMATFFTGFIVGFTRGWKLTLVILAISPVLGLSAAVWAKILSSFTDKELLAYAKAGAVAEEVLAAIRTVIAFGGQKKELERYNKNLEEAKRIGIKKAITANISIGAAFLLIYASYALAFWYGTTLVLSGEYSIGQVLTVFFSVLIGAFSVGQASPSIEAFANARGAAYEIFKIIDNKPSIDSYSKSGHKPDNIKGNLEFRNVHFSYPSRKEVKILKGLNLKVQSGQTVALVGNSGCGKSTTVQLMQRLYDPTEGMVSVDGQDIRTINVRFLREIIGVVSQEPVLFATTIAENIRYGRENVTMDEIEKAVKEANAYDFIMKLPHKFDTLVGERGAQLSGGQKQRIAIARALVRNPKILLLDEATSALDTESEAVVQVALDKARKGRTTIVIAHRLSTVRNADVIAGFDDGVIVEKGNHDELMKEKGIYFKLVTMQTAGNEVELENAADESKSEIDALEMSSNDSRSSLIRKRSTRRSVRGSQAQDRKLSTKEALDESIPPVSFWRIMKLNLTEWPYFVVGVFCAIINGGLQPAFAIIFSKIIGVFTRIDDPETKRQNSNLFSLLFLALGIISFITFFLQGFTFGKAGEILTKRLRYMVFRSMLRQDVSWFDDPKNTTGALTTRLANDAAQVKGAIGSRLAVITQNIANLGTGIIISFIYGWQLTLLLLAIVPIIAIAGVVEMKMLSGQALKDKKELEGAGKIATEAIENFRTVVSLTQEQKFEHMYAQSLQVPYRNSLRKAHIFGITFSFTQAMMYFSYAGCFRFGAYLVAHKLMSFEDVLLVFSAVVFGAMAVGQVSSFAPDYAKAKISAAHIIMIIEKTPLIDSYSTEGLMPNTLEGNVTFGEVVFNYPTRPDIPVLQGLSLEVKKGQTLALVGSSGCGKSTVVQLLERFYDPLAGKVLLDGKEIKRLNVQWLRAHLGIVSQEPILFDCSIAENIAYGDNSRVVSQEEIVRAAKEANIHAFIESLPNKYSTKVGDKGTQLSGGQKQRIAIARALVRQPHILLLDEATSALDTESEKVVQEALDKAREGRTCIVIAHRLSTIQNADLIVVFQNGRVKEHGTHQQLLAQKGIYFSMVSVQAGTKRQ</chain>
+      </protein-sequence>
+      <gene-sequence>
+        <header>3843 bp</header>
+        <chain>ATGGATCTTGAAGGGGACCGCAATGGAGGAGCAAAGAAGAAGAACTTTTTTAAACTGAACAATAAAAGTGAAAAAGATAAGAAGGAAAAGAAACCAACTGTCAGTGTATTTTCAATGTTTCGCTATTCAAATTGGCTTGACAAGTTGTATATGGTGGTGGGAACTTTGGCTGCCATCATCCATGGGGCTGGACTTCCTCTCATGATGCTGGTGTTTGGAGAAATGACAGATATCTTTGCAAATGCAGGAAATTTAGAAGATCTGATGTCAAACATCACTAATAGAAGTGATATCAATGATACAGGGTTCTTCATGAATCTGGAGGAAGACATGACCAGGTATGCCTATTATTACAGTGGAATTGGTGCTGGGGTGCTGGTTGCTGCTTACATTCAGGTTTCATTTTGGTGCCTGGCAGCTGGAAGACAAATACACAAAATTAGAAAACAGTTTTTTCATGCTATAATGCGACAGGAGATAGGCTGGTTTGATGTGCACGATGTTGGGGAGCTTAACACCCGACTTACAGATGATGTCTCTAAGATTAATGAAGTTATTGGTGACAAAATTGGAATGTTCTTTCAGTCAATGGCAACATTTTTCACTGGGTTTATAGTAGGATTTACACGTGGTTGGAAGCTAACCCTTGTGATTTTGGCCATCAGTCCTGTTCTTGGACTGTCAGCTGCTGTCTGGGCAAAGATACTATCTTCATTTACTGATAAAGAACTCTTAGCGTATGCAAAAGCTGGAGCAGTAGCTGAAGAGGTCTTGGCAGCAATTAGAACTGTGATTGCATTTGGAGGACAAAAGAAAGAACTTGAAAGGTACAACAAAAATTTAGAAGAAGCTAAAAGAATTGGGATAAAGAAAGCTATTACAGCCAATATTTCTATAGGTGCTGCTTTCCTGCTGATCTATGCATCTTATGCTCTGGCCTTCTGGTATGGGACCACCTTGGTCCTCTCAGGGGAATATTCTATTGGACAAGTACTCACTGTATTCTTTTCTGTATTAATTGGGGCTTTTAGTGTTGGACAGGCATCTCCAAGCATTGAAGCATTTGCAAATGCAAGAGGAGCAGCTTATGAAATCTTCAAGATAATTGATAATAAGCCAAGTATTGACAGCTATTCGAAGAGTGGGCACAAACCAGATAATATTAAGGGAAATTTGGAATTCAGAAATGTTCACTTCAGTTACCCATCTCGAAAAGAAGTTAAGATCTTGAAGGGCCTGAACCTGAAGGTGCAGAGTGGGCAGACGGTGGCCCTGGTTGGAAACAGTGGCTGTGGGAAGAGCACAACAGTCCAGCTGATGCAGAGGCTCTATGACCCCACAGAGGGGATGGTCAGTGTTGATGGACAGGATATTAGGACCATAAATGTAAGGTTTCTACGGGAAATCATTGGTGTGGTGAGTCAGGAACCTGTATTGTTTGCCACCACGATAGCTGAAAACATTCGCTATGGCCGTGAAAATGTCACCATGGATGAGATTGAGAAAGCTGTCAAGGAAGCCAATGCCTATGACTTTATCATGAAACTGCCTCATAAATTTGACACCCTGGTTGGAGAGAGAGGGGCCCAGTTGAGTGGTGGGCAGAAGCAGAGGATCGCCATTGCACGTGCCCTGGTTCGCAACCCCAAGATCCTCCTGCTGGATGAGGCCACGTCAGCCTTGGACACAGAAAGCGAAGCAGTGGTTCAGGTGGCTCTGGATAAGGCCAGAAAAGGTCGGACCACCATTGTGATAGCTCATCGTTTGTCTACAGTTCGTAATGCTGACGTCATCGCTGGTTTCGATGATGGAGTCATTGTGGAGAAAGGAAATCATGATGAACTCATGAAAGAGAAAGGCATTTACTTCAAACTTGTCACAATGCAGACAGCAGGAAATGAAGTTGAATTAGAAAATGCAGCTGATGAATCCAAAAGTGAAATTGATGCCTTGGAAATGTCTTCAAATGATTCAAGATCCAGTCTAATAAGAAAAAGATCAACTCGTAGGAGTGTCCGTGGATCACAAGCCCAAGACAGAAAGCTTAGTACCAAAGAGGCTCTGGATGAAAGTATACCTCCAGTTTCCTTTTGGAGGATTATGAAGCTAAATTTAACTGAATGGCCTTATTTTGTTGTTGGTGTATTTTGTGCCATTATAAATGGAGGCCTGCAACCAGCATTTGCAATAATATTTTCAAAGATTATAGGGGTTTTTACAAGAATTGATGATCCTGAAACAAAACGACAGAATAGTAACTTGTTTTCACTATTGTTTCTAGCCCTTGGAATTATTTCTTTTATTACATTTTTCCTTCAGGGTTTCACATTTGGCAAAGCTGGAGAGATCCTCACCAAGCGGCTCCGATACATGGTTTTCCGATCCATGCTCAGACAGGATGTGAGTTGGTTTGATGACCCTAAAAACACCACTGGAGCATTGACTACCAGGCTCGCCAATGATGCTGCTCAAGTTAAAGGGGCTATAGGTTCCAGGCTTGCTGTAATTACCCAGAATATAGCAAATCTTGGGACAGGAATAATTATATCCTTCATCTATGGTTGGCAACTAACACTGTTACTCTTAGCAATTGTACCCATCATTGCAATAGCAGGAGTTGTTGAAATGAAAATGTTGTCTGGACAAGCACTGAAAGATAAGAAAGAACTAGAAGGTGCTGGGAAGATCGCTACTGAAGCAATAGAAAACTTCCGAACCGTTGTTTCTTTGACTCAGGAGCAGAAGTTTGAACATATGTATGCTCAGAGTTTGCAGGTACCATACAGAAACTCTTTGAGGAAAGCACACATCTTTGGAATTACATTTTCCTTCACCCAGGCAATGATGTATTTTTCCTATGCTGGATGTTTCCGGTTTGGAGCCTACTTGGTGGCACATAAACTCATGAGCTTTGAGGATGTTCTGTTAGTATTTTCAGCTGTTGTCTTTGGTGCCATGGCCGTGGGGCAAGTCAGTTCATTTGCTCCTGACTATGCCAAAGCCAAAATATCAGCAGCCCACATCATCATGATCATTGAAAAAACCCCTTTGATTGACAGCTACAGCACGGAAGGCCTAATGCCGAACACATTGGAAGGAAATGTCACATTTGGTGAAGTTGTATTCAACTATCCCACCCGACCGGACATCCCAGTGCTTCAGGGACTGAGCCTGGAGGTGAAGAAGGGCCAGACGCTGGCTCTGGTGGGCAGCAGTGGCTGTGGGAAGAGCACAGTGGTCCAGCTCCTGGAGCGGTTCTACGACCCCTTGGCAGGGAAAGTGCTGCTTGATGGCAAAGAAATAAAGCGACTGAATGTTCAGTGGCTCCGAGCACACCTGGGCATCGTGTCCCAGGAGCCCATCCTGTTTGACTGCAGCATTGCTGAGAACATTGCCTATGGAGACAACAGCCGGGTGGTGTCACAGGAAGAGATCGTGAGGGCAGCAAAGGAGGCCAACATACATGCCTTCATCGAGTCACTGCCTAATAAATATAGCACTAAAGTAGGAGACAAAGGAACTCAGCTCTCTGGTGGCCAGAAACAACGCATTGCCATAGCTCGTGCCCTTGTTAGACAGCCTCATATTTTGCTTTTGGATGAAGCCACGTCAGCTCTGGATACAGAAAGTGAAAAGGTTGTCCAAGAAGCCCTGGACAAAGCCAGAGAAGGCCGCACCTGCATTGTGATTGCTCACCGCCTGTCCACCATCCAGAATGCAGACTTAATAGTGGTGTTTCAGAATGGCAGAGTCAAGGAGCATGGCACGCATCAGCAGCTGCTGGCACAGAAAGGCATCTATTTTTCAATGGTCAGTGTCCAGGCTGGAACAAAGCGCCAGTGA</chain>
+      </gene-sequence>
+      <pfams>
+        <pfam>
+          <identifier>PF00005</identifier>
+          <name>ABC_tran</name>
+        </pfam>
+        <pfam>
+          <identifier>PF00664</identifier>
+          <name>ABC_membrane</name>
+        </pfam>
+      </pfams>
+      <go-classifiers>
+        <go-classifier>
+          <category>component</category>
+          <description>cell</description>
+        </go-classifier>
+            <go-classifier>
+          <category>component</category>
+          <description>intrinsic to membrane</description>
+        </go-classifier>
+        <go-classifier>
+          <category>component</category>
+          <description>integral to membrane</description>
+        </go-classifier>
+        <go-classifier>
+          <category>component</category>
+          <description>membrane</description>
+        </go-classifier>
+        <go-classifier>
+          <category>function</category>
+          <description>hydrolase activity, acting on acid anhydrides</description>
+        </go-classifier>
+        <go-classifier>
+          <category>function</category>
+          <description>hydrolase activity, acting on acid anhydrides, in phosphorus-containing anhydrides</description>
+        </go-classifier>
+        <go-classifier>
+          <category>function</category>
+          <description>nucleotide binding</description>
+        </go-classifier>
+        <go-classifier>
+          <category>function</category>
+          <description>pyrophosphatase activity</description>
+        </go-classifier>
+        <go-classifier>
+          <category>function</category>
+          <description>catalytic activity</description>
+        </go-classifier>
+        <go-classifier>
+          <category>function</category>
+          <description>nucleoside-triphosphatase activity</description>
+        </go-classifier>
+        <go-classifier>
+          <category>function</category>
+          <description>hydrolase activity</description>
+        </go-classifier>
+        <go-classifier>
+          <category>function</category>
+          <description>ATPase activity</description>
+        </go-classifier>
+        <go-classifier>
+          <category>function</category>
+          <description>purine nucleotide binding</description>
+        </go-classifier>
+        <go-classifier>
+          <category>function</category>
+          <description>hydrolase activity, acting on acid anhydrides, catalyzing transmembrane movement of substances</description>
+        </go-classifier>
+        <go-classifier>
+          <category>function</category>
+          <description>adenyl nucleotide binding</description>
+        </go-classifier>
+        <go-classifier>
+          <category>function</category>
+          <description>ATPase activity, coupled to transmembrane movement of substances</description>
+        </go-classifier>
+        <go-classifier>
+          <category>function</category>
+          <description>binding</description>
+        </go-classifier>
+        <go-classifier>
+          <category>function</category>
+          <description>ATP binding</description>
+        </go-classifier>
+     <go-classifier>
+          <category>process</category>
+          <description>physiological process</description>
+        </go-classifier>
+        <go-classifier>
+          <category>process</category>
+          <description>cellular physiological process</description>
+        </go-classifier>
+        <go-classifier>
+          <category>process</category>
+          <description>transport</description>
+        </go-classifier>
+      </go-classifiers>
+    </partner>
+        <partner id="587">
+      <name>Serum albumin</name>
+      <general-function>Involved in antioxidant activity</general-function>
+      <specific-function>Serum albumin, the main protein of plasma, has a good binding capacity for water, Ca(2+), Na(+), K(+), fatty acids, hormones, bilirubin and drugs. Its main function is the regulation of the colloidal osm
+otic pressure of blood</specific-function>
+      <gene-name>ALB</gene-name>
+      <locus>4q11-q13</locus>
+      <reaction></reaction>
+      <signals>1-18</signals>
+      <cellular-location>Secreted protein</cellular-location>
+      <transmembrane-regions>None</transmembrane-regions>
+      <theoretical-pi>6.21</theoretical-pi>
+      <molecular-weight>69367</molecular-weight>
+      <chromosome></chromosome>
+      <species>
+        <category>human</category>
+        <name>Homo sapiens</name>
+        <uniprot-name>Homo sapiens</uniprot-name>
+        <uniprot-taxon-id>9606</uniprot-taxon-id>
+      </species>
+      <essentiality>Non-Essential</essentiality>
+      <references># Lawn RM, Adelman J, Bock SC, Franke AE, Houck CM, Najarian RC, Seeburg PH, Wion KL: The sequence of human serum albumin cDNA and its expression in E. coli. Nucleic Acids Res. 1981 Nov 25;9(22):6103-114. "Pubm
+ed":http://www.ncbi.nlm.nih.gov/pubmed/6171778
+# Dugaiczyk A, Law SW, Dennison OE: Nucleotide sequence and the encoded amino acids of human serum albumin mRNA. Proc Natl Acad Sci U S A. 1982 Jan;79(1):71-5. "Pubmed":http://www.ncbi.nlm.nih.gov/pubmed/6275391
+# Minghetti PP, Ruffner DE, Kuang WJ, Dennison OE, Hawkins JW, Beattie WG, Dugaiczyk A: Molecular structure of the human albumin gene is revealed by nucleotide sequence within q11-22 of chromosome 4. J Biol Chem. 1986 May 25;261
+(15):6747-57. "Pubmed":http://www.ncbi.nlm.nih.gov/pubmed/3009475
+# Yu Y, Zhang C, Zhou G, Wu S, Qu X, Wei H, Xing G, Dong C, Zhai Y, Wan J, Ouyang S, Li L, Zhang S, Zhou K, Zhang Y, Wu C, He F: Gene expression profiling in human fetal liver and identification of tissue- and developmental-stag
+e-specific genes through compiled expression profiles and efficient cloning of full-length cDNAs. Genome Res. 2001 Aug;11(8):1392-403. "Pubmed":http://www.ncbi.nlm.nih.gov/pubmed/11483580
+# Clark HF, Gurney AL, Abaya E, Baker K, Baldwin D, Brush J, Chen J, Chow B, Chui C, Crowley C, Currell B, Deuel B, Dowd P, Eaton D, Foster J, Grimaldi C, Gu Q, Hass PE, Heldens S, Huang A, Kim HS, Klimowski L, Jin Y, Johnson S,
+ Lee J, Lewis L, Liao D, Mark M, Robbie E, Sanchez C, Schoenfeld J, Seshagiri S, Simmons L, Singh J, Smith V, Stinson J, Vagts A, Vandlen R, Watanabe C, Wieand D, Woods K, Xie MH, Yansura D, Yi S, Yu G, Yuan J, Zhang M, Zhang Z,
+ Goddard A, Wood WI, Godowski P, Gray A: The secreted protein discovery initiative (SPDI), a large-scale effort to identify novel human secreted and transmembrane proteins: a bioinformatics assessment. Genome Res. 2003 Oct;13(10
+):2265-70. Epub 2003 Sep 15. "Pubmed":http://www.ncbi.nlm.nih.gov/pubmed/12975309
+# Urano Y, Watanabe K, Sakai M, Tamaoki T: The human albumin gene. Characterization of the 5' and 3' flanking regions and the polymorphic gene transcripts. J Biol Chem. 1986 Mar 5;261(7):3244-51. "Pubmed":http://www.ncbi.nlm.nih
+.gov/pubmed/2419329
+# Meloun B, Moravek L, Kostka V: Complete amino acid sequence of human serum albumin. FEBS Lett. 1975 Oct 15;58(1):134-7. "Pubmed":http://www.ncbi.nlm.nih.gov/pubmed/1225573
+# Corbett JM, Wheeler CH, Baker CS, Yacoub MH, Dunn MJ: The human myocardial two-dimensional gel protein database: update 1994. Electrophoresis. 1994 Nov;15(11):1459-65. "Pubmed":http://www.ncbi.nlm.nih.gov/pubmed/7895732
+# Gevaert K, Goethals M, Martens L, Van Damme J, Staes A, Thomas GR, Vandekerckhove J: Exploring proteomes and analyzing protein processing by mass spectrometric identification of sorted N-terminal peptides. Nat Biotechnol. 2003
+ May;21(5):566-9. Epub 2003 Mar 31. "Pubmed":http://www.ncbi.nlm.nih.gov/pubmed/12665801
+# Mogard MH, Kobayashi R, Chen CF, Lee TD, Reeve JR Jr, Shively JE, Walsh JH: The amino acid sequence of kinetensin, a novel peptide isolated from pepsin-treated human plasma: homology with human serum albumin, neurotensin and a
+ngiotensin. Biochem Biophys Res Commun. 1986 May 14;136(3):983-8. "Pubmed":http://www.ncbi.nlm.nih.gov/pubmed/3087352
+# Carraway RE, Mitra SP, Cochrane DE: Structure of a biologically active neurotensin-related peptide obtained from pepsin-treated albumin(s). J Biol Chem. 1987 May 5;262(13):5968-73. "Pubmed":http://www.ncbi.nlm.nih.gov/pubmed/2
+437111
+# Walker JE: Lysine residue 199 of human serum albumin is modified by acetylsalicyclic acid. FEBS Lett. 1976 Jul 15;66(2):173-5. "Pubmed":http://www.ncbi.nlm.nih.gov/pubmed/955075
+# Jacobsen C: Lysine residue 240 of human serum albumin is involved in high-affinity binding of bilirubin. Biochem J. 1978 May 1;171(2):453-9. "Pubmed":http://www.ncbi.nlm.nih.gov/pubmed/656055
+# Carter DC, He XM, Munson SH, Twigg PD, Gernert KM, Broom MB, Miller TY: Three-dimensional structure of human serum albumin. Science. 1989 Jun 9;244(4909):1195-8. "Pubmed":http://www.ncbi.nlm.nih.gov/pubmed/2727704
+# Carter DC, He XM: Structure of human serum albumin. Science. 1990 Jul 20;249(4966):302-3. "Pubmed":http://www.ncbi.nlm.nih.gov/pubmed/2374930
+# He XM, Carter DC: Atomic structure and chemistry of human serum albumin. Nature. 1992 Jul 16;358(6383):209-15. "Pubmed":http://www.ncbi.nlm.nih.gov/pubmed/1630489
+# Curry S, Mandelkow H, Brick P, Franks N: Crystal structure of human serum albumin complexed with fatty acid reveals an asymmetric distribution of binding sites. Nat Struct Biol. 1998 Sep;5(9):827-35. "Pubmed":http://www.ncbi.n
+lm.nih.gov/pubmed/9731778
+# Sugio S, Kashima A, Mochizuki S, Noda M, Kobayashi K: Crystal structure of human serum albumin at 2.5 A resolution. Protein Eng. 1999 Jun;12(6):439-46. "Pubmed":http://www.ncbi.nlm.nih.gov/pubmed/10388840
+# Bhattacharya AA, Curry S, Franks NP: Binding of the general anesthetics propofol and halothane to human serum albumin. High resolution crystal structures. J Biol Chem. 2000 Dec 8;275(49):38731-8. "Pubmed":http://www.ncbi.nlm.n
+ih.gov/pubmed/10940303
+# Petitpas I, Grune T, Bhattacharya AA, Curry S: Crystal structures of human serum albumin complexed with monounsaturated and polyunsaturated fatty acids. J Mol Biol. 2001 Dec 14;314(5):955-60. "Pubmed":http://www.ncbi.nlm.nih.g
+ov/pubmed/11743713
+# Brennan SO, Herbert P: Albumin Canterbury (313 Lys----Asn). A point mutation in the second domain of serum albumin. Biochim Biophys Acta. 1987 Apr 8;912(2):191-7. "Pubmed":http://www.ncbi.nlm.nih.gov/pubmed/3828358
+# Takahashi N, Takahashi Y, Blumberg BS, Putnam FW: Amino acid substitutions in genetic variants of human serum albumin and in sequences inferred from molecular cloning. Proc Natl Acad Sci U S A. 1987 Jul;84(13):4413-7. "Pubmed"
+:http://www.ncbi.nlm.nih.gov/pubmed/3474609
+# Takahashi N, Takahashi Y, Isobe T, Putnam FW, Fujita M, Satoh C, Neel JV: Amino acid substitutions in inherited albumin variants from Amerindian and Japanese populations. Proc Natl Acad Sci U S A. 1987 Nov;84(22):8001-5. "Pubm
+ed":http://www.ncbi.nlm.nih.gov/pubmed/3479777
+# Arai K, Ishioka N, Huss K, Madison J, Putnam FW: Identical structural changes in inherited albumin variants from different populations. Proc Natl Acad Sci U S A. 1989 Jan;86(2):434-8. "Pubmed":http://www.ncbi.nlm.nih.gov/pubme
+d/2911589
+# Arai K, Madison J, Huss K, Ishioka N, Satoh C, Fujita M, Neel JV, Sakurabayashi I, Putnam FW: Point substitutions in Japanese alloalbumins. Proc Natl Acad Sci U S A. 1989 Aug;86(16):6092-6. "Pubmed":http://www.ncbi.nlm.nih.gov
+/pubmed/2762316
+# Arai K, Madison J, Shimizu A, Putnam FW: Point substitutions in albumin genetic variants from Asia. Proc Natl Acad Sci U S A. 1990 Jan;87(1):497-501. "Pubmed":http://www.ncbi.nlm.nih.gov/pubmed/2404284
+# Brennan SO, Myles T, Peach RJ, Donaldson D, George PM: Albumin Redhill (-1 Arg, 320 Ala----Thr): a glycoprotein variant of human serum albumin whose precursor has an aberrant signal peptidase cleavage site. Proc Natl Acad Sci 
+U S A. 1990 Jan;87(1):26-30. "Pubmed":http://www.ncbi.nlm.nih.gov/pubmed/2104980
+# Galliano M, Minchiotti L, Porta F, Rossi A, Ferri G, Madison J, Watkins S, Putnam FW: Mutations in genetic variants of human serum albumin found in Italy. Proc Natl Acad Sci U S A. 1990 Nov;87(22):8721-5. "Pubmed":http://www.n
+cbi.nlm.nih.gov/pubmed/2247440
+# Watkins S, Madison J, Davis E, Sakamoto Y, Galliano M, Minchiotti L, Putnam FW: A donor splice mutation and a single-base deletion produce two carboxyl-terminal variants of human serum albumin. Proc Natl Acad Sci U S A. 1991 J
+ul 15;88(14):5959-63. "Pubmed":http://www.ncbi.nlm.nih.gov/pubmed/2068071
+    # Madison J, Arai K, Sakamoto Y, Feld RD, Kyle RA, Watkins S, Davis E, Matsuda Y, Amaki I, Putnam FW: Genetic variants of serum albumin in Americans and Japanese. Proc Natl Acad Sci U S A. 1991 Nov 1;88(21):9853-7. "Pubmed":http
+://www.ncbi.nlm.nih.gov/pubmed/1946412
+# Peach RJ, Brennan SO: Structural characterization of a glycoprotein variant of human serum albumin: albumin Casebrook (494 Asp----Asn). Biochim Biophys Acta. 1991 Jul 26;1097(1):49-54. "Pubmed":http://www.ncbi.nlm.nih.gov/pubmed/1859851
+# Minchiotti L, Galliano M, Stoppini M, Ferri G, Crespeau H, Rochu D, Porta F: Two alloalbumins with identical electrophoretic mobility are produced by differently charged amino acid substitutions. Biochim Biophys Acta. 1992 Mar 12;1119(3):232-8. "Pubmed":http://www.ncbi.nlm.nih.gov/pubmed/1347703
+# Carlson J, Sakamoto Y, Laurell CB, Madison J, Watkins S, Putnam FW: Alloalbuminemia in Sweden: structural study and phenotypic distribution of nine albumin variants. Proc Natl Acad Sci U S A. 1992 Sep 1;89(17):8225-9. "Pubmed":http://www.ncbi.nlm.nih.gov/pubmed/1518850
+# Minchiotti L, Galliano M, Zapponi MC, Tenni R: The structural characterization and bilirubin-binding properties of albumin Herborn, a [Lys240--&gt;Glu] albumin mutant. Eur J Biochem. 1993 Jun 1;214(2):437-44. "Pubmed":http://www.ncbi.nlm.nih.gov/pubmed/8513793
+# Brennan SO, Fellowes AP: Albumin Hawkes Bay; a low level variant caused by loss of a sulphydryl group at position 177. Biochim Biophys Acta. 1993 Aug 4;1182(1):46-50. "Pubmed":http://www.ncbi.nlm.nih.gov/pubmed/8347685
+# Galliano M, Minchiotti L, Iadarola P, Stoppini M, Giagnoni P, Watkins S, Madison J, Putnam FW: Protein and DNA sequence analysis of a 'private' genetic variant: albumin Ortonovo (Glu-505--&gt;Lys). Biochim Biophys Acta. 1993 Nov 25;1225(1):27-32. "Pubmed":http://www.ncbi.nlm.nih.gov/pubmed/7902134
+# Madison J, Galliano M, Watkins S, Minchiotti L, Porta F, Rossi A, Putnam FW: Genetic variants of human serum albumin in Italy: point mutants and a carboxyl-terminal variant. Proc Natl Acad Sci U S A. 1994 Jul 5;91(14):6476-80. "Pubmed":http://www.ncbi.nlm.nih.gov/pubmed/8022807
+# Sunthornthepvarakul T, Angkeow P, Weiss RE, Hayashi Y, Refetoff S: An identical missense mutation in the albumin gene results in familial dysalbuminemic hyperthyroxinemia in 8 unrelated families. Biochem Biophys Res Commun. 1994 Jul 29;202(2):781-7. "Pubmed":http://www.ncbi.nlm.nih.gov/pubmed/8048949
+# Rushbrook JI, Becker E, Schussler GC, Divino CM: Identification of a human serum albumin species associated with familial dysalbuminemic hyperthyroxinemia. J Clin Endocrinol Metab. 1995 Feb;80(2):461-7. "Pubmed":http://www.ncbi.nlm.nih.gov/pubmed/7852505
+# Wada N, Chiba H, Shimizu C, Kijima H, Kubo M, Koike T: A novel missense mutation in codon 218 of the albumin gene in a distinct phenotype of familial dysalbuminemic hyperthyroxinemia in a Japanese kindred. J Clin Endocrinol Metab. 1997 Oct;82(10):3246-50. "Pubmed":http://www.ncbi.nlm.nih.gov/pubmed/9329347
+# Sunthornthepvarakul T, Likitmaskul S, Ngowngarmratana S, Angsusingha K, Kitvitayasak S, Scherberg NH, Refetoff S: Familial dysalbuminemic hypertriiodothyroninemia: a new, dominantly inherited albumin defect. J Clin Endocrinol Metab. 1998 May;83(5):1448-54. "Pubmed":http://www.ncbi.nlm.nih.gov/pubmed/9589637
+# Spahr CS, Davis MT, McGinley MD, Robinson JH, Bures EJ, Beierle J, Mort J, Courchesne PL, Chen K, Wahl RC, Yu W, Luethy R, Patterson SD: Towards defining the urinary proteome using liquid chromatography-tandem mass spectrometry. I. Profiling an unfractionated tryptic digest. Proteomics. 2001 Jan;1(1):93-107. "Pubmed":http://www.ncbi.nlm.nih.gov/pubmed/11680902
+# Minchiotti L, Campagnoli M, Rossi A, Cosulich ME, Monti M, Pucci P, Kragh-Hansen U, Granel B, Disdier P, Weiller PJ, Galliano M: A nucleotide insertion and frameshift cause albumin Kenitra, an extended and O-glycosylated mutant of human serum albumin with two additional disulfide bridges. Eur J Biochem. 2001 Jan;268(2):344-52. "Pubmed":http://www.ncbi.nlm.nih.gov/pubmed/11168369</references>
+      <external-identifiers>
+        <external-identifier>
+          <resource>HUGO Gene Nomenclature Committee (HGNC)</resource>
+          <identifier>HGNC:399</identifier>
+        </external-identifier>
+        <external-identifier>
+          <resource>Human Protein Reference Database (HPRD)</resource>
+          <identifier>00062</identifier>
+        </external-identifier>
+        <external-identifier>
+          <resource>GenAtlas</resource>
+          <identifier>ALB</identifier>
+        </external-identifier>
+        <external-identifier>
+          <resource>GeneCards</resource>
+          <identifier>ALB</identifier>
+        </external-identifier>
+        <external-identifier>
+          <resource>GenBank Gene Database</resource>
+          <identifier>V00494</identifier>
+        </external-identifier>
+        <external-identifier>
+          <resource>GenBank Protein Database</resource>
+          <identifier>28590</identifier>
+        </external-identifier>
+        <external-identifier>
+          <resource>UniProtKB</resource>
+          <identifier>P02768</identifier>
+        </external-identifier>
+      </external-identifiers>
+      <synonyms>
+        <synonym>Serum albumin precursor</synonym>
+      </synonyms>
+      <protein-sequence>
+        <header>Serum albumin precursor</header>
+        <chain>MKWVTFISLLFLFSSAYSRGVFRRDAHKSEVAHRFKDLGEENFKALVLIAFAQYLQQCPFEDHVKLVNEVTEFAKTCVADESAENCDKSLHTLFGDKLCTVATLRETYGEMADCCAKQEPERNECFLQHKDDNPNLPRLVRPEVDVMCTAFHDNEETFLKKYLYEIARRHPYFYAPELLFFAKRYKAAFTECCQAADKAACLLPKLDELRDEGKASSAKQRLKCASLQKFGERAFKAWAVARLSQRFPKAEFAEVSKLVTDLTKVHTECCHGDLLECADDRADLAKYICENQDSISSKLKECCEKPLLEKSHCIAEVENDEMPADLPSLAADFVESKDVCKNYAEAKDVFLGMFLYEYARRHPDYSVVLLLRLAKTYETTLEKCCAAADPHECYAKVFDEFKPLVEEPQNLIKQNCELFEQLGEYKFQNALLVRYTKKVPQVSTPTLVEVSRNLGKVGSKCCKHPEAKRMPCAEDYLSVVLNQLCVLHEKTPVSDRVTKCCTESLVNRRPCFSALEVDETYVPKEFNAETFTFHADICTLSEKERQIKKQTALVELVKHKPKATKEQLKAVMDDFAAFVEKCCKADDKETCFAEEGKKLVAASQAALGL</chain>
+      </protein-sequence>
+      <gene-sequence>
+        <header>1830 bp</header>
+            <chain>ATGAAGTGGGTAACCTTTATTTCCCTTCTTTTTCTCTTTAGCTCGGCTTATTCCAGGGGTGTGTTTCGTCGAGATGCACACAAGAGTGAGGTTGCTCATCGGTTTAAAGATTTGGGAGAAGAAAATTTCAAAGCCTTGGTGTTGATTGCCTTTGCTCAGTATCTTCAGCAGTGTCCATTTGAAGATCATGTAAAATTAGTGAATGAAGTAACTGAATTTGCAAAAACATGTGTTGCTGATGAGTCAGCTGAAAATTGTGACAAATCACTTCATACCCTTTTTGGAGACAAATTATGCACAGTTGCAACTCTTCGTGAAACCTATGGTGAAATGGCTGACTGCTGTGCAAAACAAGAACCTGGGAGAAATGAATGCTTCTTGCAACACAAAGATGACAACCCAAACCTCCCCCGATTGGTGAGACCAGAGGTTGATGTGATGTGCACTGCTTTTCATGACAATGAAGAGACATTTTTGAAAAAATACTTATATGAAATTGCCAGAAGACATCCTTACTTTTATGCCCCGGAACTCCTTTTCTTTGCTAAAAGGTATAAAGCTGCTTTTACAGAATGTTGCCAAGCTGCTGATAAAGCTGCCTGCCTGTTGCCAAAGCTCGATGAACTTCGGGATGAAGGGAAGGCTTCGTCTGCCAAACAGAGACTCAAGTGTGCCAGTCTCCAAAAATTTGGAGAAAGAGCTTTCAAAGCATGGGCAGTAGCTCGCCTGAGCCAGAGATTTCCCAAAGCTGAGTTTGCAGAAGTTTCCAAGTTAGTGACAGATCTTACCAAAGTCCACACGGAATGCTGCCATGGAGATCTGCTTGAATGTGCTGATGACAGGGCGGACCTTGCCAAGTATATCTGTGAAAATCAAGATTCGATCTCCAGTAAACTGAAGGAATGCTGTGAAAAACCTCTGTTGGAAAAATCCCACTGCATTGCCGAAGTGGAAAATGATGAGATGCCTGCTGACTTGCCTTCATTAGCTGCTGATTTTGTTGAAAGTAAGGATGTTTGCAAAAACTATGCTGAGGCAAAGGATGTCTTCTTGGGCATGTTTTTGTATGAATATGCAAGAAGGCATCCTGATTACTCTGTCGTGCTGCTGCTGAGACTTGCCAAGACATATGAAACCACTCTAGAGAAGTGCTGTGCCGCTGCAGATCCTCATGAATGCTATGCCAAAGTGTTCGATGAATTTAAACCTCTTGTGGAAGAGCCTCAGAATTTAATCAAACAAAATTGTGAGCTTTTTGAGCAGCTTGGAGAGTACAAATTCCAGAATGCGCTGTTAGTTCGTTACACCAAGAAAGTACCCGAAGTGTCAACTCCAACTCTTGTAGAGGTCTCAAGAAACCTAGGAAAAGTGGGCAGCAAATGTTGTAAACATCCTGAAGCAAAAAGAATGCCCTGTGCAGAAGACTATCTATCCGTGGTCCTGAACCAGTTATGTGTGTTGCATGAGAAAACGCCAGTAAGTGACAGAGTCACCAAATGCTGCACAGAATCCTTGGTGAACAGGCGACCATGCTTTTCAGCTCTGGAAGTCGATGAAACATACGTTCCCAAAGAGTTTAATGCTGAAACATTCACCTTCCATGCAGATATATGCACACTTTCTGAGAAGGAGAGACAAATCAAGAAACAAACTGCACTTGTTGAGCTCGTGAAACACAAGCCCAAGGCAACAAAAGAGCAACTGAAAGCTGTTATGGATGATTTCGCTGCTTTTGTAGAGAAGTGCTGCAAGGCTGACGATAAGGAGACCTGCTTTGCCGAGGAGGGTAAAAAACTTGTTGCTGCAAGTCAAGCTGCCTTAGGCTTATAA</chain>
+      </gene-sequence>
+      <pfams>
+        <pfam>
+          <identifier>PF00273</identifier>
+          <name>Serum_albumin</name>
+        </pfam>
+      </pfams>
+      <go-classifiers>
+        <go-classifier>
+          <category>component</category>
+          <description>extracellular region</description>
+        </go-classifier>
+        <go-classifier>
+          <category>component</category>
+          <description>extracellular space</description>
+        </go-classifier>
+        <go-classifier>
+          <category>function</category>
+          <description>transporter activity</description>
+        </go-classifier>
+        <go-classifier>
+          <category>function</category>
+          <description>carrier activity</description>
+        </go-classifier>
+        <go-classifier>
+          <category>process</category>
+          <description>cellular physiological process</description>
+        </go-classifier>
+        <go-classifier>
+          <category>process</category>
+          <description>transport</description>
+        </go-classifier>
+        <go-classifier>
+          <category>process</category>
+          <description>physiological process</description>
+        </go-classifier>
+      </go-classifiers>
+    </partner>
+</partners>
+  </drugs>
