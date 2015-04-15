@@ -51,8 +51,8 @@ import edu.ucdenver.ccp.common.string.StringUtil;
 import edu.ucdenver.ccp.datasource.identifiers.DataSource;
 import edu.ucdenver.ccp.datasource.identifiers.DataSourceElement;
 import edu.ucdenver.ccp.datasource.identifiers.DataSourceIdentifier;
+import edu.ucdenver.ccp.datasource.identifiers.DataSource;
 import edu.ucdenver.ccp.datasource.rdfizer.rdf.RdfId;
-import edu.ucdenver.ccp.datasource.rdfizer.rdf.RdfNamespace;
 import edu.ucdenver.ccp.datasource.rdfizer.rdf.RdfPartition;
 import edu.ucdenver.ccp.datasource.rdfizer.rdf.vocabulary.KIAO;
 import edu.ucdenver.ccp.datasource.rdfizer.rdf.vocabulary.RDF;
@@ -123,7 +123,7 @@ public class RdfUtil {
 	private static final String FIELD_VALUE = "F";
 
 	/** URI of predicate to indicate external rdf file */
-	public static final URI RDF_FILE_URI = createUri(RdfNamespace.KABOB, "RDFFile");
+	public static final URI RDF_FILE_URI = createUri(DataSource.KABOB, "RDFFile");
 
 	/** delimiter to use when replacing illegal characters in namespaces */
 	public static final String NAMESPACE_LOCALNAME_DELIMITER = StringConstants.UNDERSCORE;
@@ -146,7 +146,7 @@ public class RdfUtil {
 		// utility class - not meant for instantiation
 	}
 
-	public static DataSource getDataSource(RdfNamespace ns) {
+	public static DataSource getDataSource(DataSource ns) {
 		DataSource ds = null;
 		for (DataSource datasource : DataSource.values())
 			if (datasource.name().equals(ns.name())) {
@@ -166,7 +166,7 @@ public class RdfUtil {
 	 * 
 	 * @see createUri
 	 */
-	public static URIImpl createUriImpl(RdfNamespace namespace, String localName) {
+	public static URIImpl createUriImpl(DataSource namespace, String localName) {
 		String baseNameSpace = namespace.longName();
 		return new URIImpl(createUri(baseNameSpace, localName, getDataSource(namespace)).toString());
 	}
@@ -179,7 +179,7 @@ public class RdfUtil {
 	 * @param localName
 	 * @return URI
 	 */
-	public static URI createUri(RdfNamespace namespace, String localName) {
+	public static URI createUri(DataSource namespace, String localName) {
 		String baseNameSpace = namespace.longName();
 		return createUri(baseNameSpace, localName, getDataSource(namespace));
 	}
@@ -217,7 +217,7 @@ public class RdfUtil {
 		return URI.create(uriStr);
 	}
 
-	public static URIImpl createUriImpl(String baseNamespace, String localName, RdfNamespace ns) {
+	public static URIImpl createUriImpl(String baseNamespace, String localName, DataSource ns) {
 		String encodedName = localName.replaceAll(":", "_");
 		try {
 			encodedName = URLEncoder.encode(encodedName, "UTF-8");
@@ -427,8 +427,8 @@ public class RdfUtil {
 	 * @param localName
 	 * @return URI
 	 */
-	public static URIImpl createKiaoUri(RdfNamespace targetNamespace, String localName) {
-		String baseUri = RdfNamespace.KABOB.longName() + RdfPartition.IAO.toString().toLowerCase()
+	public static URIImpl createKiaoUri(DataSource targetNamespace, String localName) {
+		String baseUri = DataSource.KABOB.longName() + RdfPartition.IAO.toString().toLowerCase()
 				+ NAMESPACE_PARTITION_DELIMITER + targetNamespace.lowerName() + NAMESPACE_PARTITION_DELIMITER;
 		return createUriImpl(baseUri, localName, targetNamespace);
 
@@ -450,7 +450,7 @@ public class RdfUtil {
 	 * @param localName
 	 * @return URI
 	 */
-	public static String createKiaoUriAsString(RdfNamespace targetNamespace, String localName) {
+	public static String createKiaoUriAsString(DataSource targetNamespace, String localName) {
 		return createKiaoUri(targetNamespace, localName).toString();
 	}
 

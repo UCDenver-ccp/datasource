@@ -36,8 +36,8 @@ import edu.ucdenver.ccp.datasource.fileparsers.RecordReader;
 import edu.ucdenver.ccp.datasource.fileparsers.RecordUtil;
 import edu.ucdenver.ccp.datasource.identifiers.DataSourceElement;
 import edu.ucdenver.ccp.datasource.identifiers.DataSourceIdentifier;
+import edu.ucdenver.ccp.datasource.identifiers.DataSource;
 import edu.ucdenver.ccp.datasource.rdfizer.rdf.RdfId;
-import edu.ucdenver.ccp.datasource.rdfizer.rdf.RdfNamespace;
 import edu.ucdenver.ccp.datasource.rdfizer.rdf.filter.DuplicateStatementFilter;
 import edu.ucdenver.ccp.datasource.rdfizer.rdf.filter.InMemoryDuplicateStatementFilter;
 import edu.ucdenver.ccp.datasource.rdfizer.rdf.ice.RdfUtil.RdfFormat;
@@ -262,7 +262,7 @@ public class RdfRecordWriterImpl<T extends RecordReader<?>> {
 					primaryKeyFieldNames = RecordUtil.getKeyFieldNames(record.getClass());
 					writeDataSourceInstanceStatements(
 							RdfRecordUtil.getDataSourceInstanceStatements(record, createdTime),
-							RdfNamespace.getNamespace(RecordUtil.getRecordDataSource(record.getClass())));
+							DataSource.getNamespace(RecordUtil.getRecordDataSource(record.getClass())));
 					writeSchemaDefinitionRdfFile(record.getClass());
 				}
 
@@ -353,7 +353,7 @@ public class RdfRecordWriterImpl<T extends RecordReader<?>> {
 	 * @param dataSourceInstanceStatements
 	 */
 	private void writeDataSourceInstanceStatements(Collection<? extends Statement> dataSourceInstanceStatements,
-			RdfNamespace ns) {
+			DataSource ns) {
 		for (Statement s : dataSourceInstanceStatements) {
 			write(s, ns);
 		}
@@ -420,7 +420,7 @@ public class RdfRecordWriterImpl<T extends RecordReader<?>> {
 		setReaderKey(readerKey);
 		Collection<? extends Statement> stmts = RdfRecordUtil.getRecordInstanceStatements(record, createdTime,
 				recordUri, null, getReaderKey(), filter);
-		RdfNamespace ns = RdfNamespace.getNamespace(RecordUtil.getRecordDataSource(record.getClass()));
+		DataSource ns = DataSource.getNamespace(RecordUtil.getRecordDataSource(record.getClass()));
 		for (Statement stmt : stmts) {
 			write(stmt, ns);
 		}
@@ -621,7 +621,7 @@ public class RdfRecordWriterImpl<T extends RecordReader<?>> {
 	 * @param rdfTriple
 	 *            to output
 	 */
-	private void write(Statement stmt, RdfNamespace ns) {
+	private void write(Statement stmt, DataSource ns) {
 		RDFWriter rdfWriter = getWriter(ns);
 		// primary key field values will always be printed, so there's no reason to check and store
 		// them in the filter. This saves some memory and also the time needed to check for
@@ -705,7 +705,7 @@ public class RdfRecordWriterImpl<T extends RecordReader<?>> {
 	 * @throws FileNotFoundException
 	 * @throws RDFHandlerException
 	 */
-	private RDFWriter getWriter(RdfNamespace ns) {
+	private RDFWriter getWriter(DataSource ns) {
 		File outputFile = getOutputFile(ns);
 		if (!file2RdfWriterMap.containsKey(outputFile)) {
 			generatedRdfFiles.add(outputFile);
@@ -777,7 +777,7 @@ public class RdfRecordWriterImpl<T extends RecordReader<?>> {
 	 *            to use in file name generation
 	 * @return full rdf file path
 	 */
-	private File getOutputFile(RdfNamespace ns) {
+	private File getOutputFile(DataSource ns) {
 		return FileUtil.appendPathElementsToDirectory(outputDirectory, getOutputFileName(ns));
 	}
 
@@ -788,7 +788,7 @@ public class RdfRecordWriterImpl<T extends RecordReader<?>> {
 	 * 
 	 * @return
 	 */
-	private String getOutputFileName(RdfNamespace ns) {
+	private String getOutputFileName(DataSource ns) {
 		String recordReaderClass = recordReader.getClass().getSimpleName();
 		recordReaderClass = (recordReader.getDataSpecificKey().isEmpty()) ? recordReaderClass : recordReaderClass
 				+ StringConstants.HYPHEN_MINUS + recordReader.getDataSpecificKey();

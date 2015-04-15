@@ -6,7 +6,7 @@ package edu.ucdenver.ccp.datasource.rdfizer.rdf.vocabulary;
 import org.openrdf.model.URI;
 import org.openrdf.model.impl.URIImpl;
 
-import edu.ucdenver.ccp.datasource.rdfizer.rdf.RdfNamespace;
+import edu.ucdenver.ccp.datasource.identifiers.DataSource;
 import edu.ucdenver.ccp.datasource.rdfizer.rdf.ice.RdfUtil;
 
 /**
@@ -27,7 +27,7 @@ public enum RDFS {
 	}
 
 	public URI uri() {
-		return new URIImpl(RdfUtil.createUri(RdfNamespace.RDFS, termName).toString());
+		return new URIImpl(RdfUtil.createUri(DataSource.RDFS, termName).toString());
 	}
 
 }

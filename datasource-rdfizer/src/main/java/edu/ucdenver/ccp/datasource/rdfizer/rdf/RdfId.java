@@ -25,6 +25,7 @@ import org.openrdf.model.Value;
 import org.openrdf.model.impl.URIImpl;
 
 import edu.ucdenver.ccp.datasource.identifiers.DataSourceIdentifier;
+import edu.ucdenver.ccp.datasource.identifiers.DataSource;
 import edu.ucdenver.ccp.datasource.rdfizer.rdf.ice.RdfUtil;
 
 /**
@@ -54,7 +55,7 @@ public class RdfId {
 	 * @return
 	 */
 	public URI getUri() {
-		return RdfUtil.createUri(RdfNamespace.getNamespace(id.getDataSource()), id.toString());
+		return RdfUtil.createUri(DataSource.getNamespace(id.getDataSource()), id.toString());
 	}
 
 	/**
@@ -83,7 +84,7 @@ public class RdfId {
 	}
 	
 	public URI getInformationContentEntityURI() {
-		return RdfUtil.createUri(RdfNamespace.getNamespace(id.getDataSource()), getICE_ID());
+		return RdfUtil.createUri(DataSource.getNamespace(id.getDataSource()), getICE_ID());
 	}
 
 	public String getICE_ID() {
@@ -94,7 +95,7 @@ public class RdfId {
 		return getNamespace().getLocalName() + "_" + idWithUnderscore + ICE_URI_SUFFIX;
 	}
 
-	public RdfNamespace getNamespace() {
-		return RdfNamespace.getNamespace(id.getDataSource());
+	public DataSource getNamespace() {
+		return DataSource.getNamespace(id.getDataSource());
 	}
 }

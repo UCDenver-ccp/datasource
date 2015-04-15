@@ -29,7 +29,7 @@ import edu.ucdenver.ccp.datasource.fileparsers.DataRecord;
 import edu.ucdenver.ccp.datasource.fileparsers.Record;
 import edu.ucdenver.ccp.datasource.fileparsers.RecordField;
 import edu.ucdenver.ccp.datasource.fileparsers.RecordUtil;
-import edu.ucdenver.ccp.datasource.rdfizer.rdf.RdfNamespace;
+import edu.ucdenver.ccp.datasource.identifiers.DataSource;
 import edu.ucdenver.ccp.datasource.rdfizer.rdf.filter.DuplicateStatementFilter;
 import edu.ucdenver.ccp.datasource.rdfizer.rdf.ice.RdfRecordUriFactory.IncludeVersion;
 import edu.ucdenver.ccp.datasource.rdfizer.rdf.vocabulary.DC;
@@ -185,7 +185,7 @@ public class RdfRecordUtil {
 	 */
 	public static Collection<? extends Statement> getRecordSchemaStatements(Class<?> recordClass,
 			URIImpl parentSchemaUri, String fieldComment, boolean isKeyField) {
-		RdfNamespace ns = RdfNamespace.getNamespace(RecordUtil.getRecordDataSource(recordClass));
+		DataSource ns = DataSource.getNamespace(RecordUtil.getRecordDataSource(recordClass));
 		Collection<Statement> statements = new ArrayList<Statement>();
 
 		/*
@@ -399,7 +399,7 @@ public class RdfRecordUtil {
 		DateFormat formatter = new SimpleDateFormat("yyyyMMdd");
 		String yyyyMMdd = formatter.format(new Date(createdTime));
 
-		RdfNamespace ns = RdfNamespace.getNamespace(RecordUtil.getRecordDataSource(record.getClass()));
+		DataSource ns = DataSource.getNamespace(RecordUtil.getRecordDataSource(record.getClass()));
 
 		URIImpl dataSourceClassUri = RdfUtil.createKiaoUri(ns, ns.lowerName() + KIAO.DATASOURCE.termName());
 		URIImpl dataSourceInstanceUri = RdfUtil.createKiaoUri(ns, ns.lowerName() + KIAO.DATASOURCE.termName()
@@ -487,7 +487,7 @@ public class RdfRecordUtil {
 		boolean isSubRecord = parentRecordUri != null;
 
 		// record instance part of dataset instance
-		RdfNamespace ns = RdfNamespace.getNamespace(RecordUtil.getRecordDataSource(record.getClass()));
+		DataSource ns = DataSource.getNamespace(RecordUtil.getRecordDataSource(record.getClass()));
 		URIImpl dataSetInstanceUri = RdfUtil.createKiaoUri(ns, ns.lowerName() + record.getClass().getSimpleName()
 				+ readerKey + KIAO.DATASET.termName() + yyyyMMdd);
 

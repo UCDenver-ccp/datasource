@@ -33,7 +33,7 @@ import org.openrdf.rio.Rio;
 
 import edu.ucdenver.ccp.common.test.DefaultTestCase;
 import edu.ucdenver.ccp.datasource.identifiers.DataSource;
-import edu.ucdenver.ccp.datasource.rdfizer.rdf.RdfNamespace;
+import edu.ucdenver.ccp.datasource.identifiers.DataSource;
 import edu.ucdenver.ccp.datasource.rdfizer.rdf.vocabulary.KIAO;
 import edu.ucdenver.ccp.datasource.rdfizer.rdf.vocabulary.RDF;
 
@@ -41,7 +41,7 @@ public class RdfUtilTest extends DefaultTestCase {
 
 	@Test
 	public final void testCreateURI() {
-		RdfNamespace ns = RdfNamespace.KABOB;
+		DataSource ns = DataSource.KABOB;
 		assertEquals("http://kabob.ucdenver.edu/hasCreationDate", createUri(ns, "hasCreationDate").toString());
 		assertEquals("http://kabob.ucdenver.edu/has_Creation_Date", createUri(ns, "has:Creation:Date").toString());
 		assertEquals("http://kabob.ucdenver.edu/KABOB_0hasCreationDate", createUri(ns, "0hasCreationDate").toString());
@@ -174,13 +174,13 @@ public class RdfUtilTest extends DefaultTestCase {
 	@Test
 	public final void testCreateIaoUri() {
 		assertEquals("http://kabob.ucdenver.edu/iao/kegg/hasCreationDate",
-				RdfUtil.createKiaoUri( RdfNamespace.KEGG, KIAO.HAS_CREATION_DATE.termName()).toString());
+				RdfUtil.createKiaoUri( DataSource.KEGG, KIAO.HAS_CREATION_DATE.termName()).toString());
 	}
 
 	@Test
 	public final void testCreateIaoUriAsString() {
 		assertEquals("http://kabob.ucdenver.edu/iao/kegg/hasCreationDate",
-				RdfUtil.createKiaoUri( RdfNamespace.KEGG, KIAO.HAS_CREATION_DATE.termName()).toString());
+				RdfUtil.createKiaoUri( DataSource.KEGG, KIAO.HAS_CREATION_DATE.termName()).toString());
 	}
 
 	
@@ -207,6 +207,6 @@ public class RdfUtilTest extends DefaultTestCase {
 
 	@Test
 	public void testGetDataSource() {
-		assertEquals(DataSource.DIP, RdfUtil.getDataSource(RdfNamespace.DIP));
+		assertEquals(DataSource.DIP, RdfUtil.getDataSource(DataSource.DIP));
 	}
 }

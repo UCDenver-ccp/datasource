@@ -11,6 +11,7 @@ import java.net.URLEncoder;
 
 import org.junit.Test;
 
+import edu.ucdenver.ccp.datasource.identifiers.DataSource;
 import edu.ucdenver.ccp.datasource.identifiers.hprd.HprdID;
 import edu.ucdenver.ccp.datasource.identifiers.irefweb.RogId;
 import edu.ucdenver.ccp.datasource.identifiers.mgi.MgiGeneID;
@@ -19,7 +20,6 @@ import edu.ucdenver.ccp.datasource.identifiers.ncbi.gene.EntrezGeneID;
 import edu.ucdenver.ccp.datasource.identifiers.ncbi.taxonomy.NcbiTaxonomyID;
 import edu.ucdenver.ccp.datasource.identifiers.obo.GeneOntologyID;
 import edu.ucdenver.ccp.datasource.rdfizer.rdf.RdfId;
-import edu.ucdenver.ccp.datasource.rdfizer.rdf.RdfNamespace;
 
 /**
  * @author Center for Computational Pharmacology, UC Denver; ccpsupport@ucdenver.edu
@@ -35,7 +35,7 @@ public class RdfIdTest {
 	public void testEscapingUriCharacters() throws UnsupportedEncodingException {
 		String idStr = "uNQ0+Tk78keY/nPc3+9Hk3GVxmo4932";
 		RogId id = new RogId("uNQ0+Tk78keY/nPc3+9Hk3GVxmo4932");
-		String hostUri = RdfNamespace.getNamespace(id.getDataSource()).longName();
+		String hostUri = DataSource.getNamespace(id.getDataSource()).longName();
 		String encodedUri = hostUri + URLEncoder.encode(idStr, "UTF-8");
 		RdfId rdfId = new RdfId(id);
 		URI uri = rdfId.getUri();
@@ -69,7 +69,7 @@ public class RdfIdTest {
 
 		// assertEquals("http://", ncbiTaxonId.getInformationContentEntityURI());
 		assertEquals("http://kabob.ucdenver.edu/iao/ncbitaxon/NCBITaxon_9606_ICE",
-				RdfUtil.createKiaoUri(RdfNamespace.NCBI_TAXON, ncbiTaxonId.getICE_ID()).toString());
+				RdfUtil.createKiaoUri(DataSource.NCBI_TAXON, ncbiTaxonId.getICE_ID()).toString());
 	}
 	@Test
 	public void testGenbankIceId() {

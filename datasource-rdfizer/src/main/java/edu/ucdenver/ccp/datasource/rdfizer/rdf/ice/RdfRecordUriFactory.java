@@ -22,7 +22,7 @@ import edu.ucdenver.ccp.common.digest.DigestUtil;
 import edu.ucdenver.ccp.common.reflection.PrivateAccessor;
 import edu.ucdenver.ccp.datasource.fileparsers.RecordField;
 import edu.ucdenver.ccp.datasource.fileparsers.RecordUtil;
-import edu.ucdenver.ccp.datasource.rdfizer.rdf.RdfNamespace;
+import edu.ucdenver.ccp.datasource.identifiers.DataSource;
 import edu.ucdenver.ccp.datasource.rdfizer.rdf.vocabulary.KIAO;
 
 /**
@@ -46,14 +46,14 @@ public class RdfRecordUriFactory {
 	 */
 	public static URIImpl createRecordUri(Object record) {
 		String inputFileType = record.getClass().getSimpleName();
-		RdfNamespace ns = RdfNamespace.getNamespace(RecordUtil.getRecordDataSource(record.getClass()));
+		DataSource ns = DataSource.getNamespace(RecordUtil.getRecordDataSource(record.getClass()));
 		String sha1Str = RdfRecordUriFactory.sha1DigestForSortedFieldsAndValues(record);
 		return RdfUtil.createKiaoUri(ns, "R_" + inputFileType + "_" + sha1Str);
 	}
 
 	public static URIImpl createRecordSchemaUri(Class<?> recordClass, IncludeVersion includeVersion) {
 		String inputFileType = recordClass.getSimpleName();
-		RdfNamespace ns = RdfNamespace.getNamespace(RecordUtil.getRecordDataSource(recordClass));
+		DataSource ns = DataSource.getNamespace(RecordUtil.getRecordDataSource(recordClass));
 		String localName = inputFileType + KIAO.SCHEMA.termName();
 		if (includeVersion.equals(IncludeVersion.YES)) {
 			localName += RecordUtil.getRecordSchemaVersion(recordClass);
@@ -62,7 +62,7 @@ public class RdfRecordUriFactory {
 	}
 
 	public static URIImpl createRecordTypeUri(Class<?> recordClass) {
-		RdfNamespace ns = RdfNamespace.getNamespace(RecordUtil.getRecordDataSource(recordClass));
+		DataSource ns = DataSource.getNamespace(RecordUtil.getRecordDataSource(recordClass));
 		return RdfUtil.createKiaoUri(ns, recordClass.getSimpleName());
 	}
 
@@ -74,7 +74,7 @@ public class RdfRecordUriFactory {
 		if (sha1DigestForFieldValues == null) {
 			return null;
 		}
-		RdfNamespace ns = RdfNamespace.getNamespace(RecordUtil.getRecordDataSource(record.getClass()));
+		DataSource ns = DataSource.getNamespace(RecordUtil.getRecordDataSource(record.getClass()));
 		return RdfUtil.createKiaoUri(ns, "F_" + record.getClass().getSimpleName() + "_" + field.getName() + "_"
 				+ sha1DigestForFieldValues);
 	}
@@ -87,7 +87,7 @@ public class RdfRecordUriFactory {
 	 */
 	public static URIImpl createDataFieldTemplateUri(Class<?> recordClass, String fieldName,
 			IncludeVersion includeVersion) {
-		RdfNamespace ns = RdfNamespace.getNamespace(RecordUtil.getRecordDataSource(recordClass));
+		DataSource ns = DataSource.getNamespace(RecordUtil.getRecordDataSource(recordClass));
 		String localName = recordClass.getSimpleName() + "_" + fieldName + KIAO.DATAFIELD.termName();
 		if (includeVersion.equals(IncludeVersion.YES)) {
 			localName += RecordUtil.getRecordFieldVersion(recordClass, fieldName);
