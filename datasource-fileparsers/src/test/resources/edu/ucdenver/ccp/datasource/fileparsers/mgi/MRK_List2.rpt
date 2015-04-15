@@ -1,0 +1,3 @@
+MGI Accession ID	Chr	cM Position	genome coordinate start	genome coordinate end	strand	Marker Symbol	Status	Marker Name	Marker Type	Feature Type	Marker Synonyms (pipe-separated)
+MGI:1920971	4	21.70	41452042	41464366	-	1110017D15Rik	O	RIKEN cDNA 1110017D15 gene	Gene	protein coding gene	Smrp1|Cbe1
+MGI:1337005	11	syntenic				03.MMHAP34FRA.seq	O	DNA segment, 03.MMHAP34FRA.seq	DNA Segment	DNA segment	
