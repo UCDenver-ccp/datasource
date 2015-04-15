@@ -1,0 +1,3 @@
+#Format: tax_id GeneID PubMed_ID (tab is used as a separator, pound sign - start of a comment)
+9	1246500	9873079
+10	1234567	9999999
