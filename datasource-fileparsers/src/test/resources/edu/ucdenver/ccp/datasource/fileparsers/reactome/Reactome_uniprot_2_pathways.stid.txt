@@ -1,0 +1,3 @@
+P08195	REACT_15518	Transmembrane transport of small molecules	http://www.reactome.org/cgi-bin/eventbrowser_st_id?ST_ID=REACT_15518
+P08908	REACT_14797	Signaling by GPCR	http://www.reactome.org/cgi-bin/eventbrowser_st_id?ST_ID=REACT_14797
+P28222	REACT_14797	Signaling by GPCR	http://www.reactome.org/cgi-bin/eventbrowser_st_id?ST_ID=REACT_14797
