@@ -3,17 +3,15 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>edu.ucdenver.ccp</groupId>
 	<artifactId>datasource</artifactId>
-	<version>0.5-SNAPSHOT</version>
+	<version>0.6-SNAPSHOT</version>
 	<packaging>pom</packaging>
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<!-- This property is inherited by all sub-modules and used to define their 
 			version -->
-		<project.version>0.5-SNAPSHOT</project.version>
+		<project.version>0.6-SNAPSHOT</project.version>
 	</properties>
-
-
 
 	<dependencyManagement>
 		<dependencies>
