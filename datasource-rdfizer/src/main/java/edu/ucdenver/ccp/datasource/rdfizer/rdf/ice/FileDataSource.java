@@ -84,24 +84,28 @@ import edu.ucdenver.ccp.datasource.fileparsers.rgd.RgdRatGeneMpAnnotationFileRec
 import edu.ucdenver.ccp.datasource.fileparsers.rgd.RgdRatGeneNboAnnotationFileRecordReader;
 import edu.ucdenver.ccp.datasource.fileparsers.rgd.RgdRatGenePwAnnotationFileRecordReader;
 import edu.ucdenver.ccp.datasource.fileparsers.rgd.RgdRatGeneRdoAnnotationFileRecordReader;
+import edu.ucdenver.ccp.datasource.fileparsers.taxonaware.TaxonAwareSingleLineFileRecordReader;
 import edu.ucdenver.ccp.datasource.fileparsers.transfac.TransfacGeneDatFileParser;
 import edu.ucdenver.ccp.datasource.fileparsers.transfac.TransfacMatrixDatFileParser;
 import edu.ucdenver.ccp.datasource.identifiers.DataSource;
 import edu.ucdenver.ccp.datasource.identifiers.ncbi.taxonomy.NcbiTaxonomyID;
 
 /**
- * This enum separates RDF generation by data source file. It is intended to provide an easy way to
- * generate RDF for a particular resource. Its methods are aimed at providing a simple manner to
- * generate RDF concurrently in different processes.
+ * This enum separates RDF generation by data source file. It is intended to
+ * provide an easy way to generate RDF for a particular resource. Its methods
+ * are aimed at providing a simple manner to generate RDF concurrently in
+ * different processes.
  * 
- * @author Center for Computational Pharmacology, UC Denver; ccpsupport@ucdenver.edu
+ * @author Center for Computational Pharmacology, UC Denver;
+ *         ccpsupport@ucdenver.edu
  * 
  */
 public enum FileDataSource {
 
 	/**
-	 * The DIP data file must be obtained manually. It is assumed to already be in place when RDF
-	 * generation commences. It must be the only file in the DIP data source directory.
+	 * The DIP data file must be obtained manually. It is assumed to already be
+	 * in place when RDF generation commences. It must be the only file in the
+	 * DIP data source directory.
 	 * 
 	 */
 	DIP(DataSource.DIP) {
@@ -116,10 +120,15 @@ public enum FileDataSource {
 			FileUtil.validateFile(dipDataFile);
 			return new DipYYYYMMDDFileParser(dipDataFile, CharacterEncoding.US_ASCII, taxonIds);
 		}
+
+		@Override
+		protected boolean isTaxonAware() {
+			return true;
+		}
 	},
 	/**
-	 * The HPRD HPRD_ID_MAPPINGS.txt file must be obtained manually. It is assumed to already be in
-	 * place when RDF generation commences.
+	 * The HPRD HPRD_ID_MAPPINGS.txt file must be obtained manually. It is
+	 * assumed to already be in place when RDF generation commences.
 	 */
 	HPRD_ID_MAPPINGS(DataSource.HPRD) {
 
@@ -131,10 +140,15 @@ public enum FileDataSource {
 			FileUtil.validateFile(hprdIdMappingFile);
 			return new HprdIdMappingsTxtFileParser(hprdIdMappingFile, CharacterEncoding.US_ASCII);
 		}
+
+		@Override
+		protected boolean isTaxonAware() {
+			return false;
+		}
 	},
 	/**
-	 * The TRANSFAC gene.dat and matrix.dat files must be obtained manually. They are assumed to
-	 * already be in place when RDF generation commences.
+	 * The TRANSFAC gene.dat and matrix.dat files must be obtained manually.
+	 * They are assumed to already be in place when RDF generation commences.
 	 */
 	TRANSFAC_GENE(DataSource.TRANSFAC) {
 		@Override
@@ -143,6 +157,11 @@ public enum FileDataSource {
 			File transfacGeneDatFile = new File(sourceFileDirectory, TransfacGeneDatFileParser.GENE_DAT_FILE_NAME);
 			FileUtil.validateFile(transfacGeneDatFile);
 			return new TransfacGeneDatFileParser(transfacGeneDatFile, CharacterEncoding.ISO_8859_1);
+		}
+
+		@Override
+		protected boolean isTaxonAware() {
+			return false;
 		}
 	},
 
@@ -154,10 +173,15 @@ public enum FileDataSource {
 			FileUtil.validateFile(transfacMatrixDatFile);
 			return new TransfacMatrixDatFileParser(transfacMatrixDatFile, CharacterEncoding.ISO_8859_1);
 		}
+
+		@Override
+		protected boolean isTaxonAware() {
+			return false;
+		}
 	},
 	/**
-	 * The GAD all.txt data file must be obtained manually. It is assumed to already be in place
-	 * when RDF generation commences.
+	 * The GAD all.txt data file must be obtained manually. It is assumed to
+	 * already be in place when RDF generation commences.
 	 */
 	GAD(DataSource.GAD) {
 		@Override
@@ -167,6 +191,11 @@ public enum FileDataSource {
 					GeneticAssociationDbAllTxtFileParser.GAD_ALL_TXT_FILE_NAME);
 			FileUtil.validateFile(gadAllTxtFile);
 			return new GeneticAssociationDbAllTxtFileParser(gadAllTxtFile, CharacterEncoding.US_ASCII);
+		}
+
+		@Override
+		protected boolean isTaxonAware() {
+			return false;
 		}
 	},
 	/**
@@ -178,6 +207,11 @@ public enum FileDataSource {
 				File idListDir, Set<NcbiTaxonomyID> taxonIds) throws IOException {
 			return new PharmGkbDiseaseFileParser(sourceFileDirectory, cleanSourceFiles);
 		}
+
+		@Override
+		protected boolean isTaxonAware() {
+			return false;
+		}
 	},
 
 	PHARMGKB_GENE(DataSource.PHARMGKB) {
@@ -185,6 +219,11 @@ public enum FileDataSource {
 		protected FileRecordReader<?> initFileRecordReader(File sourceFileDirectory, boolean cleanSourceFiles,
 				File idListDir, Set<NcbiTaxonomyID> taxonIds) throws IOException {
 			return new PharmGkbGeneFileParser(sourceFileDirectory, cleanSourceFiles);
+		}
+
+		@Override
+		protected boolean isTaxonAware() {
+			return false;
 		}
 	},
 
@@ -195,6 +234,11 @@ public enum FileDataSource {
 			File pharmgkbRelationshipsDataFile = new File(sourceFileDirectory, "relationships.tsv");
 			return new PharmGkbRelationFileParser(pharmgkbRelationshipsDataFile, CharacterEncoding.UTF_8);
 		}
+
+		@Override
+		protected boolean isTaxonAware() {
+			return false;
+		}
 	},
 
 	PHARMGKB_DRUG(DataSource.PHARMGKB) {
@@ -202,6 +246,11 @@ public enum FileDataSource {
 		protected FileRecordReader<?> initFileRecordReader(File sourceFileDirectory, boolean cleanSourceFiles,
 				File idListDir, Set<NcbiTaxonomyID> taxonIds) throws IOException {
 			return new PharmGkbDrugFileParser(sourceFileDirectory, cleanSourceFiles);
+		}
+
+		@Override
+		protected boolean isTaxonAware() {
+			return false;
 		}
 	},
 	/**
@@ -214,6 +263,11 @@ public enum FileDataSource {
 				File idListDir, Set<NcbiTaxonomyID> taxonIds) throws IOException {
 			return new DrugbankXmlFileRecordReader(sourceFileDirectory, cleanSourceFiles);
 		}
+
+		@Override
+		protected boolean isTaxonAware() {
+			return false;
+		}
 	},
 
 	/**
@@ -225,6 +279,11 @@ public enum FileDataSource {
 				File idListDir, Set<NcbiTaxonomyID> taxonIds) throws IOException {
 			return new HgncDownloadFileParser(sourceFileDirectory, cleanSourceFiles, WithdrawnRecordTreatment.IGNORE);
 		}
+
+		@Override
+		protected boolean isTaxonAware() {
+			return false;
+		}
 	},
 	/**
 	 * 
@@ -234,6 +293,11 @@ public enum FileDataSource {
 		protected FileRecordReader<?> initFileRecordReader(File sourceFileDirectory, boolean cleanSourceFiles,
 				File idListDir, Set<NcbiTaxonomyID> taxonIds) throws IOException {
 			return new HomoloGeneDataFileParser(sourceFileDirectory, cleanSourceFiles, taxonIds);
+		}
+
+		@Override
+		protected boolean isTaxonAware() {
+			return true;
 		}
 	},
 
@@ -246,6 +310,11 @@ public enum FileDataSource {
 				File idListDir, Set<NcbiTaxonomyID> taxonIds) throws IOException {
 			return new IRefWebPsiMitab2_6FileParser(sourceFileDirectory, cleanSourceFiles, taxonIds);
 		}
+
+		@Override
+		protected boolean isTaxonAware() {
+			return true;
+		}
 	},
 	/**
 	 * 
@@ -257,12 +326,22 @@ public enum FileDataSource {
 				File idListDir, Set<NcbiTaxonomyID> taxonIds) throws IOException {
 			return new MGIEntrezGeneFileParser(sourceFileDirectory, cleanSourceFiles);
 		}
+
+		@Override
+		protected boolean isTaxonAware() {
+			return false;
+		}
 	},
 	MGI_MGIPHENOGENO(DataSource.MGI) {
 		@Override
 		protected FileRecordReader<?> initFileRecordReader(File sourceFileDirectory, boolean cleanSourceFiles,
 				File idListDir, Set<NcbiTaxonomyID> taxonIds) throws IOException {
 			return new MGIPhenoGenoMPFileParser(sourceFileDirectory, cleanSourceFiles);
+		}
+
+		@Override
+		protected boolean isTaxonAware() {
+			return false;
 		}
 	},
 	MGI_MRKLIST(DataSource.MGI) {
@@ -271,12 +350,22 @@ public enum FileDataSource {
 				File idListDir, Set<NcbiTaxonomyID> taxonIds) throws IOException {
 			return new MRKListFileParser(sourceFileDirectory, cleanSourceFiles);
 		}
+
+		@Override
+		protected boolean isTaxonAware() {
+			return false;
+		}
 	},
 	MGI_MRKREFERENCE(DataSource.MGI) {
 		@Override
 		protected FileRecordReader<?> initFileRecordReader(File sourceFileDirectory, boolean cleanSourceFiles,
 				File idListDir, Set<NcbiTaxonomyID> taxonIds) throws IOException {
 			return new MRKReferenceFileParser(sourceFileDirectory, cleanSourceFiles);
+		}
+
+		@Override
+		protected boolean isTaxonAware() {
+			return false;
 		}
 	},
 	MGI_MRKSEQUENCE(DataSource.MGI) {
@@ -285,6 +374,11 @@ public enum FileDataSource {
 				File idListDir, Set<NcbiTaxonomyID> taxonIds) throws IOException {
 			return new MRKSequenceFileParser(sourceFileDirectory, cleanSourceFiles);
 		}
+
+		@Override
+		protected boolean isTaxonAware() {
+			return false;
+		}
 	},
 	MGI_MRKSWISSPROT(DataSource.MGI) {
 		@Override
@@ -292,12 +386,22 @@ public enum FileDataSource {
 				File idListDir, Set<NcbiTaxonomyID> taxonIds) throws IOException {
 			return new MRKSwissProtFileParser(sourceFileDirectory, cleanSourceFiles);
 		}
+
+		@Override
+		protected boolean isTaxonAware() {
+			return false;
+		}
 	},
 	MIRBASE(DataSource.MIRBASE) {
 		@Override
 		protected FileRecordReader<?> initFileRecordReader(File sourceFileDirectory, boolean cleanSourceFiles,
 				File idListDir, Set<NcbiTaxonomyID> taxonIds) throws IOException {
 			return new MirBaseMiRnaDatFileParser(sourceFileDirectory, cleanSourceFiles);
+		}
+
+		@Override
+		protected boolean isTaxonAware() {
+			return false;
 		}
 	},
 	/**
@@ -309,6 +413,11 @@ public enum FileDataSource {
 				File idListDir, Set<NcbiTaxonomyID> taxonIds) throws IOException {
 			return new OmimTxtFileParser(sourceFileDirectory, cleanSourceFiles);
 		}
+
+		@Override
+		protected boolean isTaxonAware() {
+			return false;
+		}
 	},
 	/**
 	 *
@@ -318,6 +427,11 @@ public enum FileDataSource {
 		protected FileRecordReader<?> initFileRecordReader(File sourceFileDirectory, boolean cleanSourceFiles,
 				File idListDir, Set<NcbiTaxonomyID> taxonIds) throws IOException {
 			return new RgdRatGeneFileRecordReader(sourceFileDirectory, cleanSourceFiles);
+		}
+
+		@Override
+		protected boolean isTaxonAware() {
+			return false;
 		}
 	},
 
@@ -330,6 +444,11 @@ public enum FileDataSource {
 				File idListDir, Set<NcbiTaxonomyID> taxonIds) throws IOException {
 			return new RgdRatGeneMpAnnotationFileRecordReader(sourceFileDirectory, cleanSourceFiles);
 		}
+
+		@Override
+		protected boolean isTaxonAware() {
+			return false;
+		}
 	},
 
 	/**
@@ -340,6 +459,11 @@ public enum FileDataSource {
 		protected FileRecordReader<?> initFileRecordReader(File sourceFileDirectory, boolean cleanSourceFiles,
 				File idListDir, Set<NcbiTaxonomyID> taxonIds) throws IOException {
 			return new RgdRatGeneRdoAnnotationFileRecordReader(sourceFileDirectory, cleanSourceFiles);
+		}
+
+		@Override
+		protected boolean isTaxonAware() {
+			return false;
 		}
 	},
 
@@ -352,6 +476,11 @@ public enum FileDataSource {
 				File idListDir, Set<NcbiTaxonomyID> taxonIds) throws IOException {
 			return new RgdRatGeneNboAnnotationFileRecordReader(sourceFileDirectory, cleanSourceFiles);
 		}
+
+		@Override
+		protected boolean isTaxonAware() {
+			return false;
+		}
 	},
 
 	/**
@@ -362,6 +491,11 @@ public enum FileDataSource {
 		protected FileRecordReader<?> initFileRecordReader(File sourceFileDirectory, boolean cleanSourceFiles,
 				File idListDir, Set<NcbiTaxonomyID> taxonIds) throws IOException {
 			return new RgdRatGenePwAnnotationFileRecordReader(sourceFileDirectory, cleanSourceFiles);
+		}
+
+		@Override
+		protected boolean isTaxonAware() {
+			return false;
 		}
 	},
 
@@ -374,12 +508,22 @@ public enum FileDataSource {
 				File idListDir, Set<NcbiTaxonomyID> taxonIds) throws IOException {
 			return new HumanPReModModuleTabFileParser(sourceFileDirectory, cleanSourceFiles);
 		}
+
+		@Override
+		protected boolean isTaxonAware() {
+			return false;
+		}
 	},
 	PREMOD_MOUSE(DataSource.PREMOD) {
 		@Override
 		protected FileRecordReader<?> initFileRecordReader(File sourceFileDirectory, boolean cleanSourceFiles,
 				File idListDir, Set<NcbiTaxonomyID> taxonIds) throws IOException {
 			return new MousePReModModuleTabFileParser(sourceFileDirectory, cleanSourceFiles);
+		}
+
+		@Override
+		protected boolean isTaxonAware() {
+			return false;
 		}
 	},
 
@@ -392,6 +536,11 @@ public enum FileDataSource {
 				File idListDir, Set<NcbiTaxonomyID> taxonIds) throws IOException {
 			return new ProMappingFileParser(sourceFileDirectory, cleanSourceFiles);
 		}
+
+		@Override
+		protected boolean isTaxonAware() {
+			return false;
+		}
 	},
 	/**
 	 *
@@ -403,6 +552,11 @@ public enum FileDataSource {
 			return new ReactomeUniprot2PathwayStidTxtFileParser(sourceFileDirectory, cleanSourceFiles, idListDir,
 					taxonIds);
 		}
+
+		@Override
+		protected boolean isTaxonAware() {
+			return true;
+		}
 	},
 	/**
 	 *
@@ -412,6 +566,11 @@ public enum FileDataSource {
 		protected FileRecordReader<?> initFileRecordReader(File sourceFileDirectory, boolean cleanSourceFiles,
 				File idListDir, Set<NcbiTaxonomyID> taxonIds) throws IOException {
 			return new RefSeqReleaseCatalogFileParser(sourceFileDirectory, cleanSourceFiles, taxonIds);
+		}
+
+		@Override
+		protected boolean isTaxonAware() {
+			return true;
 		}
 	},
 	/**
@@ -424,12 +583,21 @@ public enum FileDataSource {
 			return new EntrezGene2RefseqFileParser(sourceFileDirectory, cleanSourceFiles, taxonIds);
 		}
 
+		@Override
+		protected boolean isTaxonAware() {
+			return true;
+		}
 	},
 	NCBIGENE_GENEINFO(DataSource.EG) {
 		@Override
 		protected FileRecordReader<?> initFileRecordReader(File sourceFileDirectory, boolean cleanSourceFiles,
 				File idListDir, Set<NcbiTaxonomyID> taxonIds) throws IOException {
 			return new EntrezGeneInfoFileParser(sourceFileDirectory, cleanSourceFiles, taxonIds);
+		}
+
+		@Override
+		protected boolean isTaxonAware() {
+			return true;
 		}
 
 	},
@@ -440,6 +608,10 @@ public enum FileDataSource {
 			return new EntrezGeneMim2GeneFileParser(sourceFileDirectory, cleanSourceFiles);
 		}
 
+		@Override
+		protected boolean isTaxonAware() {
+			return false;
+		}
 	},
 	NCBIGENE_REFSEQUNIPROTCOLLAB(DataSource.EG) {
 		@Override
@@ -447,6 +619,11 @@ public enum FileDataSource {
 				File idListDir, Set<NcbiTaxonomyID> taxonIds) throws IOException {
 			return new EntrezGeneRefSeqUniprotKbCollabFileParser(sourceFileDirectory, cleanSourceFiles, idListDir,
 					taxonIds);
+		}
+
+		@Override
+		protected boolean isTaxonAware() {
+			return true;
 		}
 	},
 	/**
@@ -457,6 +634,11 @@ public enum FileDataSource {
 				File idListDir, Set<NcbiTaxonomyID> taxonIds) throws IOException {
 			return new GpAssociationGoaUniprotFileParser(sourceFileDirectory, cleanSourceFiles, idListDir, taxonIds);
 		}
+
+		@Override
+		protected boolean isTaxonAware() {
+			return true;
+		}
 	},
 	/**
 	 */
@@ -466,6 +648,11 @@ public enum FileDataSource {
 				File idListDir, Set<NcbiTaxonomyID> taxonIds) throws IOException {
 			return new SwissProtXmlFileRecordReader(sourceFileDirectory, cleanSourceFiles, taxonIds);
 		}
+
+		@Override
+		protected boolean isTaxonAware() {
+			return true;
+		}
 	},
 	UNIPROT_IDMAPPING(DataSource.UNIPROT, 3) {
 		@Override
@@ -473,21 +660,32 @@ public enum FileDataSource {
 				File idListDir, Set<NcbiTaxonomyID> taxonIds) throws IOException {
 			return new UniProtIDMappingFileRecordReader(sourceFileDirectory, cleanSourceFiles, taxonIds);
 		}
+
+		@Override
+		protected boolean isTaxonAware() {
+			return true;
+		}
 	},
 	// UNIPROT_TREMBL(DataSource.UNIPROT, 33, 1000000) {
 	// @Override
-	// protected FileRecordReader<?> initFileRecordReader(File sourceFileDirectory, boolean
+	// protected FileRecordReader<?> initFileRecordReader(File
+	// sourceFileDirectory, boolean
 	// cleanSourceFiles,
 	// File idListDir, Set<NcbiTaxonomyID> taxonIds) throws IOException {
-	// return new TremblXmlFileRecordReader(sourceFileDirectory, cleanSourceFiles, taxonIds);
+	// return new TremblXmlFileRecordReader(sourceFileDirectory,
+	// cleanSourceFiles, taxonIds);
 	// }
 	// },
 	UNIPROT_TREMBL_SPARSE(DataSource.UNIPROT, 33, 1000000) {
 		@Override
 		protected FileRecordReader<?> initFileRecordReader(File sourceFileDirectory, boolean cleanSourceFiles,
 				File idListDir, Set<NcbiTaxonomyID> taxonIds) throws IOException {
-			return new SparseTremblXmlFileRecordReader(sourceFileDirectory, cleanSourceFiles,
-					taxonIds);
+			return new SparseTremblXmlFileRecordReader(sourceFileDirectory, cleanSourceFiles, taxonIds);
+		}
+
+		@Override
+		protected boolean isTaxonAware() {
+			return true;
 		}
 	},
 
@@ -500,12 +698,22 @@ public enum FileDataSource {
 				File idListDir, Set<NcbiTaxonomyID> taxonIds) throws IOException {
 			return new InterProNamesDatFileParser(sourceFileDirectory, cleanSourceFiles);
 		}
+
+		@Override
+		protected boolean isTaxonAware() {
+			return false;
+		}
 	},
 	INTERPRO_INTERPRO2GO(DataSource.INTERPRO) {
 		@Override
 		protected FileRecordReader<?> initFileRecordReader(File sourceFileDirectory, boolean cleanSourceFiles,
 				File idListDir, Set<NcbiTaxonomyID> taxonIds) throws IOException {
 			return new InterPro2GoFileParser(sourceFileDirectory, cleanSourceFiles);
+		}
+
+		@Override
+		protected boolean isTaxonAware() {
+			return false;
 		}
 	},
 	INTERPRO_PROTEIN2IPR(DataSource.INTERPRO, 13) {
@@ -514,19 +722,24 @@ public enum FileDataSource {
 				File idListDir, Set<NcbiTaxonomyID> taxonIds) throws IOException {
 			return new InterProProtein2IprDatFileParser(sourceFileDirectory, cleanSourceFiles, idListDir, taxonIds);
 		}
+
+		@Override
+		protected boolean isTaxonAware() {
+			return true;
+		}
 	};
 
 	public enum Split {
-		BY_STAGES,
-		NONE;
+		BY_STAGES, NONE;
 	}
 
 	private static final Logger logger = Logger.getLogger(FileDataSource.class);
 
 	/**
-	 * For single source files that are processed by multiple stages to produce multiple RDF output
-	 * files, the files are processed in blocks of records as indicated by this constant, i.e. 10
-	 * million records from the source file will be put into each RDF output file.
+	 * For single source files that are processed by multiple stages to produce
+	 * multiple RDF output files, the files are processed in blocks of records
+	 * as indicated by this constant, i.e. 10 million records from the source
+	 * file will be put into each RDF output file.
 	 */
 	private static final long BLOCK_RECORD_COUNT = 10000000;
 	/**
@@ -543,7 +756,8 @@ public enum FileDataSource {
 	private final DataSource dataSource;
 
 	/**
-	 * Indicates the number of individual RDF generation steps for a given resource
+	 * Indicates the number of individual RDF generation steps for a given
+	 * resource
 	 */
 	private final int numberOfStages;
 
@@ -582,12 +796,14 @@ public enum FileDataSource {
 	// * @param cleanSourceFiles
 	// * @param compress
 	// * @param outputRecordLimit
-	// * @return a collection of file references to all RDF file that were created
+	// * @return a collection of file references to all RDF file that were
+	// created
 	// * @throws IOException
 	// */
 	// public Collection<File> runStage(long currentTime, int stageNum, File
 	// baseSourceFileDirectory,
-	// File baseRdfOutputDirectory, boolean cleanSourceFiles, boolean compress, long
+	// File baseRdfOutputDirectory, boolean cleanSourceFiles, boolean compress,
+	// long
 	// outputRecordLimit)
 	// throws IOException {
 	// logger.info("Running " + this.name() + " Stage " + stageNum);
@@ -595,37 +811,47 @@ public enum FileDataSource {
 	// initialize(currentTime, baseSourceFileDirectory, baseRdfOutputDirectory);
 	// return Collections.emptyList();
 	// }
-	// File sourceFileDirectory = getSourceFileDirectory(baseSourceFileDirectory);
+	// File sourceFileDirectory =
+	// getSourceFileDirectory(baseSourceFileDirectory);
 	// File rdfOutputDirectory = getOutputDirectory(baseRdfOutputDirectory);
-	// return generateRdf(sourceFileDirectory, rdfOutputDirectory, currentTime, cleanSourceFiles,
+	// return generateRdf(sourceFileDirectory, rdfOutputDirectory, currentTime,
+	// cleanSourceFiles,
 	// compress,
 	// outputRecordLimit, stageNum);
 	// }
 	//
 	// /**
-	// * Creates all RDF for a given data source by running each stage consecutively.
+	// * Creates all RDF for a given data source by running each stage
+	// consecutively.
 	// *
 	// * @param baseSourceFileDirectory
 	// * @param baseRdfOutputDirectory
 	// * @param cleanSourceFiles
 	// * @param compress
 	// * @param outputRecordLimit
-	// * @return a collection of file references to all RDF file that were created
+	// * @return a collection of file references to all RDF file that were
+	// created
 	// * @throws IOException
 	// */
-	// public Collection<File> generateRdf(long currentTime, File baseSourceFileDirectory, File
+	// public Collection<File> generateRdf(long currentTime, File
+	// baseSourceFileDirectory, File
 	// baseRdfOutputDirectory,
-	// boolean cleanSourceFiles, boolean compress, long outputRecordLimit) throws IOException {
-	// File sourceFileDirectory = getSourceFileDirectory(baseSourceFileDirectory);
+	// boolean cleanSourceFiles, boolean compress, long outputRecordLimit)
+	// throws IOException {
+	// File sourceFileDirectory =
+	// getSourceFileDirectory(baseSourceFileDirectory);
 	// File rdfOutputDirectory = getOutputDirectory(baseRdfOutputDirectory);
 	// initialize(currentTime, baseSourceFileDirectory, baseRdfOutputDirectory);
-	// return generateRdf(sourceFileDirectory, rdfOutputDirectory, currentTime, cleanSourceFiles,
+	// return generateRdf(sourceFileDirectory, rdfOutputDirectory, currentTime,
+	// cleanSourceFiles,
 	// compress,
 	// outputRecordLimit, DO_ALL_STAGES);
 	// }
 
 	protected abstract FileRecordReader<?> initFileRecordReader(File sourceFileDirectory, boolean cleanSourceFiles,
 			File idListFileDirectory, Set<NcbiTaxonomyID> taxonIds) throws IOException;
+
+	protected abstract boolean isTaxonAware();
 
 	// /**
 	// * To be implemented by each DataSourceRdfGenerator instance.
@@ -637,44 +863,59 @@ public enum FileDataSource {
 	// * @param compress
 	// * @param outputRecordLimit
 	// * @param stageNum
-	// * @return a collection of file references to all RDF file that were created
+	// * @return a collection of file references to all RDF file that were
+	// created
 	// * @throws IOException
 	// */
-	// protected abstract Collection<File> generateRdf(File sourceFileDirectory, File
+	// protected abstract Collection<File> generateRdf(File sourceFileDirectory,
+	// File
 	// rdfOutputDirectory,
-	// long createdTime, boolean cleanSourceFiles, boolean compress, long outputRecordLimit) throws
+	// long createdTime, boolean cleanSourceFiles, boolean compress, long
+	// outputRecordLimit) throws
 	// IOException;
 
 	// /**
 	// * Creates the source file and RDF output directories if necessary
 	// *
-	// * and copies the data source specific static RDF file from the classpath (the files in
-	// * src/main/resources/edu/ucdenver/ccp/rdfizer/rdf/ice) to the RDF output directory
+	// * and copies the data source specific static RDF file from the classpath
+	// (the files in
+	// * src/main/resources/edu/ucdenver/ccp/rdfizer/rdf/ice) to the RDF output
+	// directory
 	// *
 	// * @param baseSourceFileDirectory
-	// * the base directory where source files can be found or are to be stored after
-	// * downloading. A datasource-specific subdirectory will be created in this base
+	// * the base directory where source files can be found or are to be stored
+	// after
+	// * downloading. A datasource-specific subdirectory will be created in this
+	// base
 	// * directory for each datasource that is processed.
 	// * @param baseRdfOutputDirectory
-	// * the base directory where RDF output is to be stored. A datasource-specific
-	// * subdirectory will be created in this base directory for each datasource that is
+	// * the base directory where RDF output is to be stored. A
+	// datasource-specific
+	// * subdirectory will be created in this base directory for each datasource
+	// that is
 	// * processed.
 	// * @param cleanSourceFiles
-	// * if true the original source files are deleted and then re-downloaded prior to RDF
-	// * generation. This parameter is not used in the default case as it's typically
-	// * handled in the generateRdf() method, however the value is made available in
+	// * if true the original source files are deleted and then re-downloaded
+	// prior to RDF
+	// * generation. This parameter is not used in the default case as it's
+	// typically
+	// * handled in the generateRdf() method, however the value is made
+	// available in
 	// * initialize() for special cases (See HOMOLOGENE).
 	// */
-	// public void initialize(long currentTime, File baseSourceFileDirectory, File
+	// public void initialize(long currentTime, File baseSourceFileDirectory,
+	// File
 	// baseRdfOutputDirectory) {
 	// logger.info("Initializing RDF Generator: " + this.name());
 	// File outputDirectory = getOutputDirectory(baseRdfOutputDirectory);
 	// FileUtil.mkdir(outputDirectory);
 	// FileUtil.mkdir(getSourceFileDirectory(baseSourceFileDirectory));
 	// // try {
-	// // File staticRdfFile = ClassPathUtil.copyClasspathResourceToDirectory(getClass(),
+	// // File staticRdfFile =
+	// ClassPathUtil.copyClasspathResourceToDirectory(getClass(),
 	// // getDataSourceStaticRdfFileName(), outputDirectory);
-	// // return outputMetaRdf(RdfNamespace.getNamespace(dataSource), staticRdfFile,
+	// // return outputMetaRdf(RdfNamespace.getNamespace(dataSource),
+	// staticRdfFile,
 	// // outputDirectory,
 	// // createBaseRdfSource(currentTime, baseRdfOutputDirectory));
 	// // } catch (IOException e) {
@@ -684,9 +925,12 @@ public enum FileDataSource {
 	// }
 
 	// /**
-	// * @return the static RDF file name for a specific data source which is the
-	// * {@link RdfDataSource#name()} lower-cased with a .nt suffix. This file must
-	// * exist on the classpath (src/main/resources/edu/ucdenver/ccp/rdfizer/rdf/ice)
+	// * @return the static RDF file name for a specific data source which is
+	// the
+	// * {@link RdfDataSource#name()} lower-cased with a .nt suffix. This file
+	// must
+	// * exist on the classpath
+	// (src/main/resources/edu/ucdenver/ccp/rdfizer/rdf/ice)
 	// */
 	// private String getDataSourceStaticRdfFileName() {
 	// return this.name().toLowerCase() + STATIC_RDF_FILE_SUFFIX;
@@ -694,10 +938,11 @@ public enum FileDataSource {
 
 	/**
 	 * @param baseRdfOutputDirectory
-	 *            the base directory where RDF output is to be stored. A datasource-specific
-	 *            subdirectory will be created in this base directory for each datasource that is
-	 *            processed.
-	 * @return a datasource-specific directory indicating where the RDF files should be created
+	 *            the base directory where RDF output is to be stored. A
+	 *            datasource-specific subdirectory will be created in this base
+	 *            directory for each datasource that is processed.
+	 * @return a datasource-specific directory indicating where the RDF files
+	 *         should be created
 	 */
 	private File getOutputDirectory(File baseRdfOutputDirectory) {
 		return new File(baseRdfOutputDirectory, this.name().toLowerCase());
@@ -705,11 +950,13 @@ public enum FileDataSource {
 
 	/**
 	 * @param baseSourceFileDirectory
-	 *            the base directory where source files can be found or are to be stored after
-	 *            downloading. A datasource-specific subdirectory will be created in this base
-	 *            directory for each datasource that is processed.
-	 * @return a datasource-specific directory indicating where the source data files either are
-	 *         available, or where they should be stored when downloaded
+	 *            the base directory where source files can be found or are to
+	 *            be stored after downloading. A datasource-specific
+	 *            subdirectory will be created in this base directory for each
+	 *            datasource that is processed.
+	 * @return a datasource-specific directory indicating where the source data
+	 *         files either are available, or where they should be stored when
+	 *         downloaded
 	 */
 	private File getSourceFileDirectory(File baseSourceFileDirectory) {
 		return new File(baseSourceFileDirectory, this.dataSource.name().toLowerCase());
