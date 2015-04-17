@@ -57,28 +57,31 @@ import edu.ucdenver.ccp.datasource.rdfizer.rdf.ice.FileDataSource.Split;
 import edu.ucdenver.ccp.datasource.rdfizer.rdf.ice.RdfUtil.RdfFormat;
 
 /**
- * @author Center for Computational Pharmacology, UC Denver; ccpsupport@ucdenver.edu
+ * @author Center for Computational Pharmacology, UC Denver;
+ *         ccpsupport@ucdenver.edu
  * 
  */
 public class IceRdfGenerator {
 
 	/**
-	 * For single source files that are processed by multiple stages to produce multiple RDF output
-	 * files, the files are processed in blocks of records as indicated by this constant, i.e. 10
-	 * million records from the source file will be put into each RDF output file.
+	 * For single source files that are processed by multiple stages to produce
+	 * multiple RDF output files, the files are processed in blocks of records
+	 * as indicated by this constant, i.e. 10 million records from the source
+	 * file will be put into each RDF output file.
 	 */
 	private static final long BLOCK_RECORD_COUNT = 10000000;
 
 	private static final Logger logger = Logger.getLogger(IceRdfGenerator.class);
 
 	/**
-	 * This method is designed to be used by SGE (or some other process where jobs are designated by
-	 * integers).
+	 * This method is designed to be used by SGE (or some other process where
+	 * jobs are designated by integers).
 	 * 
 	 * @param split
-	 *            if BY_STAGES then the larger files will be split into pieces and the RDF will be
-	 *            generated for each piece. No duplicate statement detection is done in this case.
-	 *            if NONE, then each file is parsed by a single process and duplicate field values
+	 *            if BY_STAGES then the larger files will be split into pieces
+	 *            and the RDF will be generated for each piece. No duplicate
+	 *            statement detection is done in this case. if NONE, then each
+	 *            file is parsed by a single process and duplicate field values
 	 *            are excluded from the resultant RDF
 	 * @param currentTime
 	 * @param stageStartNumber
@@ -92,14 +95,21 @@ public class IceRdfGenerator {
 	 */
 	public static void generateIceRdf(Split split, long currentTime, int stageStartNumber, int stagesToProcessCount,
 			File baseSourceFileDirectory, File baseRdfOutputDirectory, boolean cleanSourceFiles, boolean compress,
-			long outputRecordLimit, File idListFileDirectory, Set<NcbiTaxonomyID> taxonIds) throws IOException {
+			long outputRecordLimit, Set<NcbiTaxonomyID> taxonIds) throws IOException {
 		int globalStageIndex = 1;
 		if (split.equals(Split.BY_STAGES)) {
 			for (FileDataSource rdfSource : FileDataSource.values()) {
 				File sourceFileDirectory = getSourceFileDirectory(baseSourceFileDirectory, rdfSource.dataSource());
 				File rdfOutputDirectory = getOutputDirectory(baseRdfOutputDirectory, rdfSource);
+
+				File idListFileDirectory = null;
+				if (rdfSource.isTaxonAware() && taxonIds != null && taxonIds.size() > 0) {
+					idListFileDirectory = generateIdListFiles(baseSourceFileDirectory, baseRdfOutputDirectory,
+							cleanSourceFiles, taxonIds);
+				}
 				FileRecordReader<?> rr = rdfSource.initFileRecordReader(sourceFileDirectory, cleanSourceFiles,
 						idListFileDirectory, taxonIds);
+
 				for (int stageIndex = 1; stageIndex <= rdfSource.getNumberOfStages(); stageIndex++) {
 					if (globalStageIndex >= stageStartNumber
 							&& globalStageIndex < (stageStartNumber + stagesToProcessCount)) {
@@ -118,11 +128,17 @@ public class IceRdfGenerator {
 					File rdfOutputDirectory = getOutputDirectory(baseRdfOutputDirectory, rdfSource);
 					logger.info("SOURCE DIR: " + sourceFileDirectory.getAbsolutePath());
 					logger.info("RDF OUT DIR: " + rdfOutputDirectory.getAbsolutePath());
+					File idListFileDirectory = null;
+					if (rdfSource.isTaxonAware() && taxonIds != null && taxonIds.size() > 0) {
+						idListFileDirectory = generateIdListFiles(baseSourceFileDirectory, baseRdfOutputDirectory,
+								cleanSourceFiles, taxonIds);
+					}
 					FileRecordReader<?> rr = rdfSource.initFileRecordReader(sourceFileDirectory, cleanSourceFiles,
 							idListFileDirectory, taxonIds);
 					File cacheFilePrefix = FileUtil.appendPathElementsToDirectory(rdfOutputDirectory, "filter-cache",
 							"filter");
-					// DuplicateStatementFilter filter = new InMemoryDuplicateStatementFilter();
+					// DuplicateStatementFilter filter = new
+					// InMemoryDuplicateStatementFilter();
 					DuplicateStatementFilter filter = new DefaultDuplicateStatementFilter(cacheFilePrefix);
 					generateRdf(currentTime, rr, rdfOutputDirectory, compress, outputRecordLimit, filter);
 				}
@@ -175,9 +191,14 @@ public class IceRdfGenerator {
 	 */
 	public static void generateIceRdf(FileDataSource fileDataSource, long currentTime, File baseSourceFileDirectory,
 			File baseRdfOutputDirectory, boolean cleanSourceFiles, boolean compress, long outputRecordLimit,
-			File idListFileDirectory, Set<NcbiTaxonomyID> taxonIds) throws IOException {
+			Set<NcbiTaxonomyID> taxonIds) throws IOException {
 		File sourceFileDirectory = getSourceFileDirectory(baseSourceFileDirectory, fileDataSource.dataSource());
 		File rdfOutputDirectory = getOutputDirectory(baseRdfOutputDirectory, fileDataSource);
+		File idListFileDirectory = null;
+		if (fileDataSource.isTaxonAware() && taxonIds != null && taxonIds.size() > 0) {
+			idListFileDirectory = generateIdListFiles(baseSourceFileDirectory, baseRdfOutputDirectory,
+					cleanSourceFiles, taxonIds);
+		}
 		FileRecordReader<?> rr = fileDataSource.initFileRecordReader(sourceFileDirectory, cleanSourceFiles,
 				idListFileDirectory, taxonIds);
 		File cacheFilePrefix = FileUtil.appendPathElementsToDirectory(rdfOutputDirectory, "filter-cache", "filter");
@@ -187,10 +208,11 @@ public class IceRdfGenerator {
 
 	/**
 	 * @param baseRdfOutputDirectory
-	 *            the base directory where RDF output is to be stored. A datasource-specific
-	 *            subdirectory will be created in this base directory for each datasource that is
-	 *            processed.
-	 * @return a datasource-specific directory indicating where the RDF files should be created
+	 *            the base directory where RDF output is to be stored. A
+	 *            datasource-specific subdirectory will be created in this base
+	 *            directory for each datasource that is processed.
+	 * @return a datasource-specific directory indicating where the RDF files
+	 *         should be created
 	 */
 	private static File getOutputDirectory(File baseRdfOutputDirectory, FileDataSource rdfSource) {
 		return new File(baseRdfOutputDirectory, rdfSource.name().toLowerCase());
@@ -198,12 +220,14 @@ public class IceRdfGenerator {
 
 	/**
 	 * @param baseSourceFileDirectory
-	 *            the base directory where source files can be found or are to be stored after
-	 *            downloading. A datasource-specific subdirectory will be created in this base
-	 *            directory for each datasource that is processed.
+	 *            the base directory where source files can be found or are to
+	 *            be stored after downloading. A datasource-specific
+	 *            subdirectory will be created in this base directory for each
+	 *            datasource that is processed.
 	 * @param dataSource
-	 * @return a datasource-specific directory indicating where the source data files either are
-	 *         available, or where they should be stored when downloaded
+	 * @return a datasource-specific directory indicating where the source data
+	 *         files either are available, or where they should be stored when
+	 *         downloaded
 	 */
 	private static File getSourceFileDirectory(File baseSourceFileDirectory, DataSource dataSource) {
 		return new File(baseSourceFileDirectory, dataSource.name().toLowerCase());
@@ -240,8 +264,8 @@ public class IceRdfGenerator {
 	}
 
 	/**
-	 * Calls outputRDF with a limit on the number of records processed but will start from the
-	 * beginning of the file (i.e. skip = 0)
+	 * Calls outputRDF with a limit on the number of records processed but will
+	 * start from the beginning of the file (i.e. skip = 0)
 	 * 
 	 * @param src
 	 * @param recordReader
@@ -268,14 +292,17 @@ public class IceRdfGenerator {
 	 * @param outputDirectory
 	 *            destination directory
 	 * @param compress
-	 *            if true the output RDF file will be gzipped when RDF writing is complete
+	 *            if true the output RDF file will be gzipped when RDF writing
+	 *            is complete
 	 * @param skip
 	 *            the number of records to skip before commencing RDF output
 	 * @param outputRecordLimit
-	 *            the number of records to output to RDF (-1 will output all records)
+	 *            the number of records to output to RDF (-1 will output all
+	 *            records)
 	 * @param batchNumber
-	 *            this number will be appended to the output file name to allow multiple stages to
-	 *            process a single file but output the RDF into distinct files.
+	 *            this number will be appended to the output file name to allow
+	 *            multiple stages to process a single file but output the RDF
+	 *            into distinct files.
 	 * @return returns references to the RDF files that are created
 	 */
 	public static void generateRdf(final long createdTime, final FileRecordReader<?> recordReader,
@@ -306,8 +333,9 @@ public class IceRdfGenerator {
 	}
 
 	/**
-	 * Computes the MD5 Check Sum for each of the input files and creates a file in the same
-	 * directory called [FILE_NAME].md5 that contains the MD5 check sum
+	 * Computes the MD5 Check Sum for each of the input files and creates a file
+	 * in the same directory called [FILE_NAME].md5 that contains the MD5 check
+	 * sum
 	 * 
 	 * @param generatedRdfFiles
 	 */
@@ -317,51 +345,60 @@ public class IceRdfGenerator {
 	}
 
 	public enum RunBy {
-		NAME,
-		INDEX;
+		NAME, INDEX;
 	}
 
 	/**
 	 * 
 	 * @param args
 	 *            args[0]: NAME or INDEX<br>
-	 *            if NAME, then the FileDataSource to be processed will be explicitly named (see
-	 *            below). <br>
-	 *            if INDEX, then the index provided will be used to specify which FileDataSource is
-	 *            processed. This is useful when running in batches such as when invoking via Grid
-	 *            Engine. <br>
+	 *            if NAME, then the FileDataSource to be processed will be
+	 *            explicitly named (see below). <br>
+	 *            if INDEX, then the index provided will be used to specify
+	 *            which FileDataSource is processed. This is useful when running
+	 *            in batches such as when invoking via Grid Engine. <br>
 	 * <br>
-	 *            args[1]: base directory where the data source files are already downloaded <br>
-	 *            args[2]: base directory where the RDF output files will be written<br>
-	 *            args[3]: (true/false) if true, the RDF output files will be gzipped<br>
-	 *            args[4]: output record limit: can be used to produce a "light" set of RDF. -1 to
-	 *            output all records, i.e. no limit<br>
+	 *            args[1]: base directory where the data source files are
+	 *            already downloaded <br>
+	 *            args[2]: base directory where the RDF output files will be
+	 *            written<br>
+	 *            args[3]: (true/false) if true, the RDF output files will be
+	 *            gzipped<br>
+	 *            args[4]: output record limit: can be used to produce a "light"
+	 *            set of RDF. -1 to output all records, i.e. no limit<br>
 	 * <br>
 	 *            The remaining input arguments depend on args[0]:<br>
 	 *            if NAME:<br>
 	 *            args[5]: name of the FileDataSource to process <br>
-	 *            args[6]: [OPTIONAL] date to use in the form yyyy-mm-dd. If not included or if
-	 *            "null" then the current date will be used<br>
+	 *            args[6]: [OPTIONAL] date to use in the form yyyy-mm-dd. If not
+	 *            included or if "null" then the current date will be used<br>
 	 * <br>
 	 *            if INDEX: <br>
 	 *            args[5]: start stage args<br>
 	 *            [6]: the number of stages to process<br>
 	 *            args[7]: the Split type: either BY_STAGES or NONE<br>
-	 *            if BY_STAGES, then the index in args[5] corresponds to a particular stage of a
-	 *            FileDataSource. Many of the FileDataSources are processed in a single stage,
-	 *            however some of the larger files are split into multiple stages to speed up RDF
-	 *            generation. The downside of the split is that there can be no duplicate triple
-	 *            removal done while generating RDF. <br>
-	 *            If NONE, then each FileDataSource is processed as a single stage. This will result
-	 *            in longer execution times for the larger files, however duplicate triple removal
-	 *            can be done concurrently.<br>
-	 *            args[8]: [OPTIONAL] date to use in the form yyyy-mm-dd. If not included or if
-	 *            "null" then the current date will be used
+	 *            if BY_STAGES, then the index in args[5] corresponds to a
+	 *            particular stage of a FileDataSource. Many of the
+	 *            FileDataSources are processed in a single stage, however some
+	 *            of the larger files are split into multiple stages to speed up
+	 *            RDF generation. The downside of the split is that there can be
+	 *            no duplicate triple removal done while generating RDF. <br>
+	 *            If NONE, then each FileDataSource is processed as a single
+	 *            stage. This will result in longer execution times for the
+	 *            larger files, however duplicate triple removal can be done
+	 *            concurrently.<br>
+	 *            args[8]: [OPTIONAL] date to use in the form yyyy-mm-dd. If not
+	 *            included or if "null" then the current date will be used
 	 * 
 	 */
 	public static void main(String[] args) {
 		BasicConfigurator.configure();
 		Logger.getRootLogger().setLevel(Level.INFO);
+
+		logger.info("Arguments: ");
+		for (String arg : args) {
+			logger.info("ARG: " + arg);
+		}
 
 		int index = 0;
 		RunBy runBy = RunBy.valueOf(args[index++].toUpperCase());
@@ -373,17 +410,21 @@ public class IceRdfGenerator {
 		int outputRecordLimit = Integer.valueOf(args[index++]);
 		String taxonIdsStr = args[index++];
 		Set<NcbiTaxonomyID> taxonIds = null;
-		for (String id : taxonIdsStr.split(",")) {
-			if (taxonIds == null) {
-				taxonIds = new HashSet<NcbiTaxonomyID>();
+		if (!taxonIdsStr.equalsIgnoreCase("EMPTY")) {
+			for (String id : taxonIdsStr.split(",")) {
+				if (taxonIds == null) {
+					taxonIds = new HashSet<NcbiTaxonomyID>();
+				}
+				taxonIds.add(new NcbiTaxonomyID(id));
 			}
-			taxonIds.add(new NcbiTaxonomyID(id));
 		}
 
 		try {
 
-			File idListFileDirectory = generateIdListFiles(baseSourceFileDirectory, baseRdfOutputDirectory,
-					cleanSourceFiles, taxonIds);
+			// File idListFileDirectory =
+			// generateIdListFiles(baseSourceFileDirectory,
+			// baseRdfOutputDirectory,
+			// cleanSourceFiles, taxonIds);
 			switch (runBy) {
 			case INDEX:
 				int stageStartNumber = Integer.valueOf(args[index++]);
@@ -391,15 +432,14 @@ public class IceRdfGenerator {
 				Split split = Split.valueOf(args[index++]);
 				long time = getTime(args, index);
 				generateIceRdf(split, time, stageStartNumber, stagesToProcessCount, baseSourceFileDirectory,
-						baseRdfOutputDirectory, cleanSourceFiles, compress, outputRecordLimit, idListFileDirectory,
-						taxonIds);
+						baseRdfOutputDirectory, cleanSourceFiles, compress, outputRecordLimit, taxonIds);
 				break;
 
 			case NAME:
 				FileDataSource source = FileDataSource.valueOf(args[index++].toUpperCase());
 				time = getTime(args, index);
 				generateIceRdf(source, time, baseSourceFileDirectory, baseRdfOutputDirectory, cleanSourceFiles,
-						compress, outputRecordLimit, idListFileDirectory, taxonIds);
+						compress, outputRecordLimit, taxonIds);
 				break;
 			default:
 				throw new IllegalArgumentException("Unhandled RunBy option: " + runBy.name());
