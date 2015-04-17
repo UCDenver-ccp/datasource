@@ -89,6 +89,7 @@ public abstract class FileRecordReader<T extends FileRecord> extends RecordReade
 	 */
 	public FileRecordReader(File workDirectory, CharacterEncoding encoding, String skipLinePrefix, String ftpUsername,
 			String ftpPassword, boolean clean) throws IOException {
+		FileUtil.mkdir(workDirectory);
 		FileUtil.validateDirectory(workDirectory);
 		try {
 			DownloadUtil.download(this, workDirectory, ftpUsername, ftpPassword, clean);
