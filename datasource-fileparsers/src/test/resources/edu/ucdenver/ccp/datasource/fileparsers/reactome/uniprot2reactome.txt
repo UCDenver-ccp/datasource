@@ -1,0 +1,3 @@
+A0A023GQ97	R-DME-451307	http://www.reactome.org/PathwayBrowser/#R-DME-451307	Activation of Na-permeable Kainate Receptors	IEA	Drosophila melanogaster
+P08908	R-FOO-14797	http://www.reactome.org/cgi-bin/eventbrowser_st_id?ST_ID=REACT_14797	The name of the reaction	FOO	An organism
+A0JMA1	R-XTR-380270	http://www.reactome.org/PathwayBrowser/#R-XTR-380270	Recruitment of mitotic centrosome proteins and complexes	IEA	Xenopus tropicalis
