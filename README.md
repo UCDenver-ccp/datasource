@@ -50,9 +50,10 @@ systems such as Oracle Grid Engine or Torque. All this really means is that ther
 is a script available that will kick of RDF generation for a specific file parser
 based on an integer argument. 
 
-#### Integer -to- File mappings
-To see the integer-to-file mappings, 
-run edu.ucdenver.ccp.datasource.rdfizer.rdf.ice.FileDataSource.main()
+#### Integer-to-File mappings
+To see the integer-to-file mappings, run:
+`mvn -f datasource-rdfizer/scripts/pom-rdf-gen-ids.xml exec:exec`
+
 Note that due to licensing issues, some files are not available for download directly.
 The resources denoted in italics below must be manually obtained in order to be used.
 Those resources not listed in italics are capable of being automatically downloaded at
@@ -138,6 +139,3 @@ The seven model organisms are: fly, rat, mouse, yeast, worm, arabidopsis, zebraf
 As mentioned above, note that when a taxon-aware file parser is used, some extra data is downloaded that ensures 
 mappings from biological concepts to taxon identifiers are present. This download can be time 
 consuming due to one of the files being very large, but it is a one-time cost.
-
-
-  
