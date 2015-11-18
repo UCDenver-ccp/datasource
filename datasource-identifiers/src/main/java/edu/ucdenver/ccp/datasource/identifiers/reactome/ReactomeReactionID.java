@@ -1,3 +1,4 @@
+
 package edu.ucdenver.ccp.datasource.identifiers.reactome;
 
 /*
@@ -33,23 +34,39 @@ package edu.ucdenver.ccp.datasource.identifiers.reactome;
  * #L%
  */
 
-import edu.ucdenver.ccp.common.string.RegExPatterns;
+import java.util.regex.Pattern;
+
 import edu.ucdenver.ccp.datasource.identifiers.DataSource;
 import edu.ucdenver.ccp.datasource.identifiers.StringDataSourceIdentifier;
 
-public class ReactomeReactionID extends StringDataSourceIdentifier {
+public class ReactomeReactionID
+    extends StringDataSourceIdentifier
+{
+    /**
+     * The Reactome pathway stable identifiers are strings of the form
+     * &quot;R-DME-2173788&quot;.
+     */
+    private static final Pattern REACTOME_STABLE_ID =
+        Pattern.compile("R-([A-Z]{3})-(\\d+)");
 
-	public ReactomeReactionID(String resourceID) {
-		super(resourceID,DataSource.REACTOME);
-	}
+    public ReactomeReactionID(String resourceID) {
+        super(resourceID, DataSource.REACTOME);
+    }
 
+    @Override
+    public String validate(final String resourceID)
+        throws IllegalArgumentException
+    {
+        super.validate(resourceID);
 
-	@Override
-	public String validate(String resourceID) throws IllegalArgumentException {
-		resourceID = super.validate(resourceID);
-		if (resourceID.startsWith("REACT_") && resourceID.substring(6).matches(RegExPatterns.HAS_NUMBERS_ONLY))
-			return resourceID;
-		throw new IllegalArgumentException(String.format("Invalid Reactome Reaction ID detected: %s", resourceID));
-	}
+        if (! REACTOME_STABLE_ID.matcher(resourceID).matches()) {
+            throw new IllegalArgumentException(
+                String.format(
+                    "Detected invalid Reactome Reaction ID %s; expected an ID of the form: %s",
+                    resourceID,
+                    REACTOME_STABLE_ID.pattern()));
+        }
 
+        return resourceID;
+    }
 }

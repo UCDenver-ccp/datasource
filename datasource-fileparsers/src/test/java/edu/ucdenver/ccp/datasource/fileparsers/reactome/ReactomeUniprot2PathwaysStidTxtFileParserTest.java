@@ -33,8 +33,21 @@ package edu.ucdenver.ccp.datasource.fileparsers.reactome;
  * #L%
  */
 
+import edu.ucdenver.ccp.common.collections.CollectionsUtil;
+import edu.ucdenver.ccp.common.file.CharacterEncoding;
+import edu.ucdenver.ccp.common.file.FileUtil;
+import edu.ucdenver.ccp.datasource.fileparsers.RecordReader;
+import edu.ucdenver.ccp.datasource.fileparsers.idlist.IdListFileFactory;
+import edu.ucdenver.ccp.datasource.fileparsers.test.RecordReaderTester;
+import edu.ucdenver.ccp.datasource.identifiers.DataSource;
+import edu.ucdenver.ccp.datasource.identifiers.ebi.uniprot.UniProtID;
+import edu.ucdenver.ccp.datasource.identifiers.ncbi.taxonomy.NcbiTaxonomyID;
+import edu.ucdenver.ccp.datasource.identifiers.reactome.ReactomeReactionID;
+import org.junit.Test;
+
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 import java.io.File;
@@ -47,113 +60,126 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.NoSuchElementException;
+import java.util.Set;
 
-import org.junit.Ignore;
-import org.junit.Test;
+import static org.junit.Assert.assertEquals;
 
-import edu.ucdenver.ccp.common.collections.CollectionsUtil;
-import edu.ucdenver.ccp.common.file.CharacterEncoding;
-import edu.ucdenver.ccp.common.file.FileUtil;
-import edu.ucdenver.ccp.datasource.fileparsers.RecordReader;
-import edu.ucdenver.ccp.datasource.fileparsers.test.RecordReaderTester;
-import edu.ucdenver.ccp.datasource.identifiers.ebi.uniprot.UniProtID;
-import edu.ucdenver.ccp.datasource.identifiers.ncbi.taxonomy.NcbiTaxonomyID;
-import edu.ucdenver.ccp.datasource.identifiers.reactome.ReactomeReactionID;
+public class ReactomeUniprot2PathwaysStidTxtFileParserTest
+    extends RecordReaderTester
+{
+    private final static String SAMPLE_DATA_FILE_NAME =
+        "uniprot2reactome.txt";
 
-/**
- * 
- * @author Bill Baumgartner
- * 
- */
-@Ignore("Needs to be updated to reflect change in downloaded file format. (2 columns added, 2 columns swapped positions)")
-public class ReactomeUniprot2PathwaysStidTxtFileParserTest extends RecordReaderTester {
+    private final static String SAMPLE_ID_LIST_FILE_NAME =
+        "id-list";
 
-	private final static String SAMPLE_DATA_FILE_NAME = "Reactome_uniprot_2_pathways.stid.txt";
+    private final static String BAD_RESOURCE_ID_SAMPLE_DATA_FILE_NAME =
+        "uniprot2reactome-bad-resource-id.txt";
 
-	@Override
-	protected String getSampleFileName() {
-		return SAMPLE_DATA_FILE_NAME;
-	}
+    @Test(expected=NoSuchElementException.class)
+    public void testParserExceptionOnNoMoreElements()
+        throws Exception
+    {
+        ReactomeUniprot2PathwayStidTxtFileParser parser =
+            makeParser(makeTestFile(SAMPLE_DATA_FILE_NAME));
+        int i=0;
 
-	@Override
-	protected RecordReader<?> initSampleRecordReader() throws IOException {
-		return new ReactomeUniprot2PathwayStidTxtFileParser(sampleInputFile, CharacterEncoding.US_ASCII, null, null);
-	}
+        try {
+            for (; i<3; i++) { parser.next(); }
+        } catch (NoSuchElementException nse) {
+            fail("The parser has failed to extract all available records.");
+        }
 
-	@Test
-	public void testParser() throws Exception {
-		try {
-			ReactomeUniprot2PathwayStidTxtFileParser parser = new ReactomeUniprot2PathwayStidTxtFileParser(
-					sampleInputFile, CharacterEncoding.US_ASCII, null, null);
+        assertEquals(3, i);
+        parser.next();
+    }
 
-			if (parser.hasNext()) {
-				/*
-				 * P08195 [tab] REACT_15518 [tab] Transmembrane transport of
-				 * small molecules [tab]
-				 * http://www.reactome.org/cgi-bin/eventbrowser_st_id
-				 * ?ST_ID=REACT_15518
-				 */
-				validateRecord1(parser.next());
-			} else {
-				fail("Parser should have returned a record here.");
-			}
+    @Test
+    public void testParserHasNext()
+        throws Exception
+    {
+        ReactomeUniprot2PathwayStidTxtFileParser parser =
+            makeParser(makeTestFile(SAMPLE_DATA_FILE_NAME));
+        int i=0;
 
-			if (parser.hasNext()) {
-				/*
-				 * P08908 [tab] REACT_14797 [tab] Signaling by GPCR [tab]
-				 * http://
-				 * www.reactome.org/cgi-bin/eventbrowser_st_id?ST_ID=REACT_14797
-				 */
-				validateRecord2(parser.next());
-			} else {
-				fail("Parser should have returned a record here.");
-			}
+        for (; i<3; i++) {
+            assertTrue(parser.hasNext());
+            parser.next();
+        }
 
-			/*
-			 * P28222 [tab] REACT_14797 [tab] Signaling by GPCR [tab]
-			 * http://www.
-			 * reactome.org/cgi-bin/eventbrowser_st_id?ST_ID=REACT_14797
-			 */
-			validateRecord3(parser.next());
+        assertEquals(3, i);
+        assertFalse(parser.hasNext());
+    }
 
-			assertFalse(parser.hasNext());
+    @Test
+    public void testPositiveRecordValidation()
+        throws Exception
+    {
+        ReactomeUniprot2PathwayStidTxtFileParser parser =
+            makeParser(makeTestFile(SAMPLE_DATA_FILE_NAME));
+        validateRecord1(parser.next());
+        validateRecord2(parser.next());
+        validateRecord3(parser.next());
+    }
 
-			try {
-				parser.next();
-				fail("Should have thrown a NoSuchElementException.");
-			} catch (NoSuchElementException nsee) {
-				// do nothing, exception expected
-			}
+    @Test
+    public void testParser_withTaxon() throws Exception {
+        ReactomeUniprot2PathwayStidTxtFileParser parser =
+            new ReactomeUniprot2PathwayStidTxtFileParser(
+                sampleInputFile,
+                CharacterEncoding.US_ASCII,
+                new File("src/test/resources/edu/ucdenver/ccp/datasource/fileparsers/reactome/id-list"),
+                CollectionsUtil.createSet(new NcbiTaxonomyID(9606)));
+        validateRecord2(parser.next());
+    }
 
-		} catch (IOException ioe) {
-			ioe.printStackTrace();
-			fail("Parser threw an IOException");
-		}
+    @Test
+    public void testGetInternal2ExternalGeneIDMap()
+        throws Exception
+    {
+        Map<ReactomeReactionID, String> reactomeReactionID2NameMap =
+            ReactomeUniprot2PathwayStidTxtFileParser.createReactomeReactionID2NameMap(
+                sampleInputFile,
+                CharacterEncoding.US_ASCII);
 
-	}
+        Map<ReactomeReactionID, String> expectedMap =
+            new HashMap<ReactomeReactionID, String>() {{
+                put(new ReactomeReactionID("R-DME-451307"),
+                    "Activation of Na-permeable Kainate Receptors");
+                put(new ReactomeReactionID("R-FOO-14797"),
+                    "The name of the reaction");
+                put(new ReactomeReactionID("R-XTR-380270"),
+                    "Recruitment of mitotic centrosome proteins and complexes");
+            }};
 
-	@Test
-	public void testParser_withTaxon() throws Exception {
-		ReactomeUniprot2PathwayStidTxtFileParser parser = new ReactomeUniprot2PathwayStidTxtFileParser(sampleInputFile,
-				CharacterEncoding.US_ASCII,
-				new File("src/test/resources/edu/ucdenver/ccp/fileparsers/reactome/id-list"),
-				CollectionsUtil.createSet(new NcbiTaxonomyID(9606)));
+        assertEquals(expectedMap, reactomeReactionID2NameMap);
+    }
 
-		if (parser.hasNext()) {
-			/*
-			 * P08908 [tab] REACT_14797 [tab] Signaling by GPCR [tab]
-			 * http://www.
-			 * reactome.org/cgi-bin/eventbrowser_st_id?ST_ID=REACT_14797
-			 */
-			validateRecord2(parser.next());
-		} else {
-			fail("Parser should have returned a record here.");
-		}
+    /* ---------------------------------------------------------------------- */
 
-		assertFalse(parser.hasNext());
-	}
+    @Override
+    protected String getSampleFileName() {
+        return SAMPLE_DATA_FILE_NAME;
+    }
 
-	private void validateRecord(ReactomeUniprot2PathwayStidTxtFileData record, UniProtID expectedUniprotId,
+    @Override
+    protected RecordReader<?> initSampleRecordReader()
+        throws IOException
+    {
+        return makeParser(makeTestFile(SAMPLE_DATA_FILE_NAME));
+    }
+
+    private ReactomeUniprot2PathwayStidTxtFileParser makeParser(File f)
+        throws IOException
+    {
+        return new ReactomeUniprot2PathwayStidTxtFileParser(
+            f,
+            CharacterEncoding.US_ASCII,
+            null,   // No directory for a list of IDs.
+            null);  // No taxon IDs.
+    }
+
+    private void validateRecord(ReactomeUniprot2PathwayStidTxtFileData record, UniProtID expectedUniprotId,
 			ReactomeReactionID expectedReactionId, String expectedReactionName, URL expectedReactionUrl) {
 		assertEquals(expectedUniprotId, record.getUniprotID());
 		assertEquals(expectedReactionId, record.getReactionID());
@@ -161,38 +187,42 @@ public class ReactomeUniprot2PathwaysStidTxtFileParserTest extends RecordReaderT
 		assertEquals(expectedReactionUrl, record.getReactionURL());
 	}
 
-	private void validateRecord1(ReactomeUniprot2PathwayStidTxtFileData record) throws MalformedURLException,
-			URISyntaxException {
-		validateRecord(record, new UniProtID("P08195"), new ReactomeReactionID("REACT_15518"),
-				"Transmembrane transport of small molecules", new URI(
-						"http://www.reactome.org/cgi-bin/eventbrowser_st_id?ST_ID=REACT_15518").toURL());
-	}
+    private void validateRecord1(ReactomeUniprot2PathwayStidTxtFileData record)
+        throws MalformedURLException, URISyntaxException
+    {
+        validateRecord(
+            record,
+            new UniProtID("A0A023GQ97"),
+            new ReactomeReactionID("R-DME-451307"),
+            "Activation of Na-permeable Kainate Receptors",
+            new URI("http://www.reactome.org/PathwayBrowser/#R-DME-451307").toURL());
+    }
 
-	private void validateRecord2(ReactomeUniprot2PathwayStidTxtFileData record) throws MalformedURLException,
-			URISyntaxException {
-		validateRecord(record, new UniProtID("P08908"), new ReactomeReactionID("REACT_14797"), "Signaling by GPCR",
-				new URI("http://www.reactome.org/cgi-bin/eventbrowser_st_id?ST_ID=REACT_14797").toURL());
-	}
+    private void validateRecord2(ReactomeUniprot2PathwayStidTxtFileData record)
+        throws MalformedURLException,
+               URISyntaxException
+    {
+        validateRecord(
+            record,
+            new UniProtID("P08908"),
+            new ReactomeReactionID("R-FOO-14797"),
+            "The name of the reaction",
+            new URI("http://www.reactome.org/cgi-bin/eventbrowser_st_id?ST_ID=REACT_14797").toURL());
+    }
 
-	private void validateRecord3(ReactomeUniprot2PathwayStidTxtFileData record) throws MalformedURLException,
-			URISyntaxException {
-		validateRecord(record, new UniProtID("P28222"), new ReactomeReactionID("REACT_14797"), "Signaling by GPCR",
-				new URI("http://www.reactome.org/cgi-bin/eventbrowser_st_id?ST_ID=REACT_14797").toURL());
-	}
+    private void validateRecord3(ReactomeUniprot2PathwayStidTxtFileData record)
+        throws MalformedURLException,
+               URISyntaxException
+    {
+        validateRecord(
+            record,
+            new UniProtID("A0JMA1"),
+            new ReactomeReactionID("R-XTR-380270"),
+            "Recruitment of mitotic centrosome proteins and complexes",
+            new URI("http://www.reactome.org/PathwayBrowser/#R-XTR-380270").toURL());
+    }
 
-	@Test
-	public void testGetInternal2ExternalGeneIDMap() throws Exception {
-		Map<ReactomeReactionID, String> reactomeReactionID2NameMap = ReactomeUniprot2PathwayStidTxtFileParser
-				.createReactomeReactionID2NameMap(sampleInputFile, CharacterEncoding.US_ASCII);
-
-		Map<ReactomeReactionID, String> expectedMap = new HashMap<ReactomeReactionID, String>();
-		expectedMap.put(new ReactomeReactionID("REACT_15518"), "Transmembrane transport of small molecules");
-		expectedMap.put(new ReactomeReactionID("REACT_14797"), "Signaling by GPCR");
-
-		assertEquals(expectedMap, reactomeReactionID2NameMap);
-	}
-
-	protected Map<File, List<String>> getExpectedOutputFile2LinesMap() {
+    protected Map<File, List<String>> getExpectedOutputFile2LinesMap() {
 		List<String> lines = CollectionsUtil
 				.createList(
 						"<http://www.reactome.org/REACTOME_UNIPROT2PATHWAY_RECORD_P08195REACT_15518> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.reactome.org/ReactomePathway2UniProtRecord> .",
