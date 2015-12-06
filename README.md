@@ -10,11 +10,9 @@ BMC Bioinformatics (accepted)
 ``` 
 
 ## Use with Java 1.8
-```
-Note: This code was developed using Java 1.7. There have been reports that the
-project won't build using Java 1.8.
-```
 
+Note: This code was developed using **Java 1.7**. There have been reports that
+the project won't build using **Java 1.8**.
 
 ## Maven signature if only using the file parser API
 ```xml
@@ -44,20 +42,27 @@ project won't build using Java 1.8.
 </repository>
 ```
 
-## Bulk RDF Generation 
+## Bulk RDF Generation
+
 This library has been built to work easily with distributed resource management
-systems such as Oracle Grid Engine or Torque. All this really means is that there
-is a script available that will kick of RDF generation for a specific file parser
-based on an integer argument. 
+systems such as Oracle Grid Engine or Torque. This simply means that there is a
+script to download and process (generate RDF triples) the data for a source:
+```
+datasource-rdfizer/scripts/download-datasources-and-generate-triples.sh
+```
 
 #### Integer-to-File mappings
-To see the integer-to-file mappings, run:
-`mvn -f datasource-rdfizer/scripts/pom-rdf-gen-ids.xml exec:exec`
 
-Note that due to licensing issues, some files are not available for download directly.
-The resources denoted in italics below must be manually obtained in order to be used.
-Those resources not listed in italics are capable of being automatically downloaded at
-RDF generation time.
+To see the integer-to-file mappings, run:
+```
+datasource-rdfizer/scripts/list-download-file-indices.sh
+```
+
+Note that due to licensing issues, some files are not available for download
+directly.  The resources denoted in italics below must be manually obtained in
+order to be used.  Those resources not listed in italics are capable of being
+automatically downloaded at RDF generation time.
+
 ```
 *1 ==> DIP*
 *2 ==> HPRD_ID_MAPPINGS*
@@ -103,39 +108,55 @@ RDF generation time.
 42 ==> INTERPRO_PROTEIN2IPR
 ```
 
-While this is very convenient when dealing with some job schedulers, 
-it also allows for easy execution of single RDF generation jobs. For
-example, to generate RDF for the MirBase database file (index = 20):
+While this is very convenient when dealing with some job schedulers, it also
+allows for easy execution of single RDF generation jobs. For example, to
+generate RDF for the MirBase database file (index = 20):
 
 ```
-export DATA_DIR=[BASE_DIRECTORY_WHERE_DATA_FILES_TO_PARSE_LIVE]
-export RDF_DIR=[BASE_DIRECTORY_WHERE_RDF_WILL_BE_WRITTEN]
-mkdir $DATA_DIR
-mkdir $RDF_DIR
-export DATE=[TODAYS_DATE_TO_TIMESTAMP_THE_DATA e.g. 2015-04-16]
-cd datasource
-mvn clean install
-mvn -f datasource-rdfizer/scripts/pom-rdf-gen.xml exec:exec -DstartStage=20 \
--DnumStages=1 -DbaseSourceDir=$DATA_DIR -DbaseRdfDir=$RDF_DIR -DcompressRdf=true \
--DoutputRecordLimit=-1 -Ddate=$DATE > rdfgen.log 2>&1
+$ export DATA_DIR=[BASE_DIRECTORY_WHERE_DATA_FILES_TO_PARSE_LIVE]
+$ export RDF_DIR=[BASE_DIRECTORY_WHERE_RDF_WILL_BE_WRITTEN]
+$ mkdir -p $DATA_DIR
+$ mkdir -p $RDF_DIR
+$ export DATE=[TODAYS_DATE_TO_TIMESTAMP_THE_DATA e.g. 2015-04-16]
+$ mvn clean install
+$ ./datasource-rdfizer/scripts/download-ddatasources-and-generate-triples \
+    -d $DATA_DIR \
+    -r $RDF_DIR \
+    -i 20
 ```
 
-Note: you may need to adjust the Java Heap size in pom-rdf-gen.xml depending on the 
-memory limitations of your hardware.
+Note: you may need to adjust the Java Heap size in pom-rdf-gen.xml depending on
+the memory limitations of your hardware.
 
 #### Species-specific subsets
-It can sometime be beneficial to limit RDF output to a specific species or group of species.
-Doing so can improve RDF generation time as well as limit the number of triples produced when
-parsing a file. Some of the file parsers are *species-aware* and there are two pre-built scripts
-that allow for RDF generation using species-specific subsets.
+
+It can sometimes be beneficial to limit RDF output to a specific species or
+group of species.  Doing so can improve RDF generation time as well as limit
+the number of triples produced when parsing a file. Some of the file parsers
+are *species-aware* and the script allows one to specify the NCBI taxonomy ID
+of the species to which triple generation should be constrained.  For example,
+to limit RDF triples only to humans (NCBI taxonomy ID: 9606):
 
 ```
-For human, use: datasource-rdfizer/scripts/pom-rdf-gen-9606.xml
-
-For human plus seven model organisms, use: datasource-rdfizer/scripts/pom-rdf-gen-modelorgs.xml
-The seven model organisms are: fly, rat, mouse, yeast, worm, arabidopsis, zebrafish
+./datasource-rdfizer/scripts/download-ddatasources-and-generate-triples \
+    -d $DATA_DIR \
+    -r $RDF_DIR \
+    -i 20
+    -t 9606
 ```
 
-As mentioned above, note that when a taxon-aware file parser is used, some extra data is downloaded that ensures 
-mappings from biological concepts to taxon identifiers are present. This download can be time 
-consuming due to one of the files being very large, but it is a one-time cost.
+For human plus seven model organisms (fly, rat, mouse, yeast, worm,
+arabidopsis, and zebrafish), use:
+
+```
+./datasource-rdfizer/scripts/download-ddatasources-and-generate-triples \
+    -d $DATA_DIR \
+    -r $RDF_DIR \
+    -i 20
+    -m
+```
+
+When a taxon-aware file parser is used, some extra data is downloaded to ensure
+that the mappings from biological concepts to taxon identifiers are
+present. This download can be time consuming due to one of the files being very
+large, but it is a one-time cost.
