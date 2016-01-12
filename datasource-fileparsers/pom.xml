@@ -98,6 +98,7 @@
 				<version>1.6</version>
 				<executions>
 					<execution>
+						<phase>generate-sources</phase>
 						<id>drugbank-xjc</id>
 						<goals>
 							<goal>xjc</goal>
@@ -108,6 +109,7 @@
 						</configuration>
 					</execution>
 					<execution>
+						<phase>generate-sources</phase>
 						<id>uniprot-xjc</id>
 						<goals>
 							<goal>xjc</goal>
