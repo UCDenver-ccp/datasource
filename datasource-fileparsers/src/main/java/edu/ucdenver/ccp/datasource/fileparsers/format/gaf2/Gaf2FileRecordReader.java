@@ -62,6 +62,8 @@ import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import org.apache.log4j.Logger;
+
 import edu.ucdenver.ccp.common.collections.CollectionsUtil;
 import edu.ucdenver.ccp.common.file.CharacterEncoding;
 import edu.ucdenver.ccp.common.file.reader.Line;
@@ -81,6 +83,8 @@ import edu.ucdenver.ccp.datasource.identifiers.ncbi.taxonomy.NcbiTaxonomyID;
  */
 public class Gaf2FileRecordReader<T extends Gaf2FileRecord> extends SingleLineFileRecordReader<T> {
 
+	private static final Logger logger = Logger.getLogger(Gaf2FileRecordReader.class);
+	
 	private final static String COMMENT_INDICATOR = StringConstants.EXCLAMATION_MARK;
 
 	/**
@@ -164,7 +168,8 @@ public class Gaf2FileRecordReader<T extends Gaf2FileRecord> extends SingleLineFi
 					DataSourceIdentifier<?> id = idResolver.resolveId(idStr);
 					extensions.add(new AnnotationExtension(relation, id));
 				} else {
-					throw new IllegalStateException("Should have found a match for: " + extensionsStr);
+//					throw new IllegalStateException("Should have found a match for: " + extensionsStr);
+					logger.warn("Unable to handle extension str: " + extensionsStr);
 				}
 //				} catch (IllegalStateException e) {
 //					System.out.println(e.getMessage());
