@@ -136,6 +136,7 @@ public enum DataSource {
 	HOMOLOGENE("http://www.ncbi.nlm.nih.gov/homologene/"),
 	HOMEODB("http://homeodb.zoo.ox.ac.uk/"),
 	HORDE("http://genome.weizmann.ac.il/horde/"),
+	HPO("http://www.human-phenotype-ontology.org/"),
 	HPRD("http://www.hprd.org/"),
 	HUGE("http://www.cdc.gov/genomics/hugenet/"),
 	HUMANCYC("http://humancyc.org/"),
