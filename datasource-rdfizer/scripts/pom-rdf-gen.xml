@@ -35,16 +35,27 @@
 						<argument>-classpath</argument>
 						<classpath />
 						<argument>edu.ucdenver.ccp.datasource.rdfizer.rdf.ice.IceRdfGenerator</argument>
-						<argument>INDEX</argument>
-						<argument>${baseSourceDir}</argument> <!-- baseSourceDir -->
-						<argument>${baseRdfDir}</argument> <!-- baseRdfDir -->
-						<argument>${compressRdf}</argument> <!-- compressRdf -->
-						<argument>${outputRecordLimit}</argument> <!-- outputRecordLimit -->
-						<argument>EMPTY</argument> <!-- taxon identifiers to limit output to, comma-delimited -->
-						<argument>${startStage}</argument> <!-- startStage -->
-						<argument>${numStages}</argument> <!-- numStages -->
-						<argument>NONE</argument> <!-- Split type -->
-						<argument>${date}</argument> <!-- date -->
+                        <argument>INDEX</argument>
+                        <!-- Directory for downloaded datasources -->
+                        <argument>${baseSourceDir}</argument>
+                        <!-- Directory into which to write RDF triple files
+                             parsed from downloaded datasources. -->
+                        <argument>${baseRdfDir}</argument>
+                        <!-- Compress the generated triple files? -->
+                        <argument>${compressRdf}</argument>
+                        <!-- outputRecordLimit -->
+                        <argument>${outputRecordLimit}</argument>
+                        <!-- Taxon identifiers to limit output to,
+                             comma-delimited; use "EMPTY" to not limit output -->
+                        <argument>${taxonIDs}</argument>
+                        <!-- startStage -->
+                        <argument>${startStage}</argument>
+                        <!-- numStages -->
+                        <argument>${numStages}</argument>
+                        <!-- Split type -->
+                        <argument>NONE</argument>
+                        <!-- date -->
+                        <argument>${date}</argument>
 					</arguments>
 				</configuration>
 			</plugin>
