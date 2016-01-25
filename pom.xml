@@ -9,7 +9,6 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<!-- This property is inherited by all sub-modules and used to define their 
 			version -->
-		<project.version>0.6-SNAPSHOT</project.version>
 	</properties>
 
 	<dependencyManagement>
