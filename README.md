@@ -9,17 +9,19 @@ Kevin M Livingston, Michael Bada, William A Baumgartner, Lawrence E Hunter
 BMC Bioinformatics (accepted)
 ``` 
 
-## Use with Java 1.8
+## Development
+This project follows the Git-Flow approach to branching as originally described [here](http://nvie.com/posts/a-successful-git-branching-model/). 
+To facilitate the Git-Flow branching approach, this project makes use of the [jgitflow-maven-plugin](https://bitbucket.org/atlassian/jgit-flow) as described [here](http://george-stathis.com/2013/11/09/painless-maven-project-releases-with-maven-gitflow-plugin/).
 
-Note: This code was developed using **Java 1.7**. There have been reports that
-the project won't build using **Java 1.8**.
+Code in the [master branch](https://github.com/UCDenver-ccp/datasource/tree/master) reflects the latest release of this library. Code in the [development](https://github.com/UCDenver-ccp/datasource/tree/development) branch contains the most up-to-date version of this project.
+
 
 ## Maven signature if only using the file parser API
 ```xml
 <dependency>
 	<groupId>edu.ucdenver.ccp</groupId>
 	<artifactId>datasource-fileparsers</artifactId>
-	<version>0.5</version>
+	<version>0.6</version>
 </dependency>
 
 <repository>
@@ -33,7 +35,7 @@ the project won't build using **Java 1.8**.
 <dependency>
 	<groupId>edu.ucdenver.ccp</groupId>
 	<artifactId>datasource-rdfizer</artifactId>
-	<version>0.5</version>
+	<version>0.6</version>
 </dependency>
 
 <repository>
