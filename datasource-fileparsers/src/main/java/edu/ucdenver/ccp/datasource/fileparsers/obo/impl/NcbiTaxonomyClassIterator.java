@@ -35,16 +35,12 @@ package edu.ucdenver.ccp.datasource.fileparsers.obo.impl;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.Set;
 
-import org.geneontology.oboedit.dataadapter.OBOParseException;
+import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 
-import edu.ucdenver.ccp.common.collections.CollectionsUtil;
 import edu.ucdenver.ccp.common.download.HttpDownload;
-import edu.ucdenver.ccp.common.file.CharacterEncoding;
-import edu.ucdenver.ccp.datasource.fileparsers.obo.OboClassIterator;
-import edu.ucdenver.ccp.datasource.fileparsers.obo.OboUtil;
-import edu.ucdenver.ccp.datasource.fileparsers.obo.OboUtil.ObsoleteTermHandling;
+import edu.ucdenver.ccp.datasource.fileparsers.obo.OntologyClassIterator;
+import edu.ucdenver.ccp.datasource.fileparsers.obo.OntologyUtil;
 
 /**
  * This class iterates over the NCBI Taxonomy obo file and returns OBORecords for each class it
@@ -53,29 +49,27 @@ import edu.ucdenver.ccp.datasource.fileparsers.obo.OboUtil.ObsoleteTermHandling;
  * @author bill
  * 
  */
-public class NcbiTaxonomyClassIterator extends OboClassIterator {
+public class NcbiTaxonomyClassIterator extends OntologyClassIterator {
 
 	@HttpDownload(url = "http://www.berkeleybop.org/ontologies/obo-all/ncbi_taxonomy/ncbi_taxonomy.obo")
 	private File ncbiTaxonomyOboFile;
 
-	public static final String TAXON_ID_PREFIX = "NCBITaxon:";
-
-	public NcbiTaxonomyClassIterator(File oboOntologyFile, ObsoleteTermHandling  obsoleteHandling) throws IOException, OBOParseException {
-		super(oboOntologyFile, CharacterEncoding.UTF_8, obsoleteHandling);
+	public NcbiTaxonomyClassIterator(File oboOntologyFile) throws IOException, OWLOntologyCreationException {
+		super(oboOntologyFile);
 	}
 
-	public NcbiTaxonomyClassIterator(File workDirectory, boolean clean, ObsoleteTermHandling obsoleteHandling) throws IOException, OBOParseException {
-		super(workDirectory, clean,obsoleteHandling);
-	}
-
-	@Override
-	protected Set<String> getOntologyIdPrefixes() {
-		return CollectionsUtil.createSet(TAXON_ID_PREFIX);
+	public NcbiTaxonomyClassIterator(File workDirectory, boolean clean)
+			throws IOException, IllegalArgumentException, IllegalAccessException, OWLOntologyCreationException {
+		super(workDirectory, clean);
 	}
 
 	@Override
-	protected OboUtil<?> initializeOboUtilFromDownload() throws IOException, OBOParseException {
-		return new OboUtil(ncbiTaxonomyOboFile, CharacterEncoding.UTF_8);
+	protected OntologyUtil initializeOboUtilFromDownload() throws IOException, OWLOntologyCreationException {
+		return new OntologyUtil(ncbiTaxonomyOboFile);
+	}
+
+	public File getOboFile() {
+		return ncbiTaxonomyOboFile;
 	}
 
 }

@@ -1,4 +1,4 @@
-package edu.ucdenver.ccp.datasource.fileparsers.obo;
+package edu.ucdenver.ccp.datasource.fileparsers.obo.impl;
 
 /*
  * #%L
@@ -33,53 +33,45 @@ package edu.ucdenver.ccp.datasource.fileparsers.obo;
  * #L%
  */
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
-
 import java.io.File;
 import java.io.IOException;
 
-import org.geneontology.oboedit.datamodel.OBOClass;
-import org.junit.Before;
-import org.junit.Test;
+import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 
-import edu.ucdenver.ccp.common.file.CharacterEncoding;
-import edu.ucdenver.ccp.common.io.ClassPathUtil;
-import edu.ucdenver.ccp.common.test.DefaultTestCase;
+import edu.ucdenver.ccp.common.download.HttpDownload;
+import edu.ucdenver.ccp.datasource.fileparsers.obo.OntologyClassIterator;
+import edu.ucdenver.ccp.datasource.fileparsers.obo.OntologyUtil;
 
 /**
- * @author Center for Computational Pharmacology, UC Denver; ccpsupport@ucdenver.edu
- *
+ * This class iterates over the gene ontology obo file and returns OBORecords
+ * for each class it encounters.
+ * 
+ * @author bill
+ * 
  */
-public class OboUtilTest extends DefaultTestCase {
-	
-	private static final String SAMPLE_OBO_FILE_NAME = "sample.obo";
-	private OboUtil oboUtil;
-	
-	@Before
-	public void setUp() throws IOException {
-		File sampleOboFile = folder.newFile("sample.obo");
-		ClassPathUtil.copyClasspathResourceToFile(getClass(), SAMPLE_OBO_FILE_NAME, sampleOboFile);
-		oboUtil = new OboUtil(sampleOboFile, CharacterEncoding.UTF_8);
+public class MiOntologyClassIterator extends OntologyClassIterator {
+
+	public static final String FILE_URL = "http://purl.obolibrary.org/obo/mi.obo";
+	public static final String ENCODING = "ASCII";
+
+	@HttpDownload(url = FILE_URL)
+	private File oboFile;
+
+	public MiOntologyClassIterator(File oboOntologyFile) throws IOException, OWLOntologyCreationException {
+		super(oboOntologyFile);
 	}
 
-	@Test
-	public void testIsDescendent() {
-		assertTrue(oboUtil.isDescendent("PR:000000101","PR:000000008"));
-		assertTrue(oboUtil.isDescendent("PR:000000101","PR:000000046"));
-		assertTrue(oboUtil.isDescendent("PR:000002012","PR:000000008"));
-		assertFalse(oboUtil.isDescendent("PR:000002012","PR:000000046"));
-		
-	}
-	
-	
-	@Test
-	public void testGetDescendents() {
-		OBOClass term = oboUtil.getSession().getTerm("PR:000000008");
-		
-		assertEquals (3, OboUtil.getDescendents(term).size());
-		
+	public MiOntologyClassIterator(File workDirectory, boolean clean) throws IOException,
+			IllegalArgumentException, IllegalAccessException, OWLOntologyCreationException {
+		super(workDirectory, clean);
 	}
 
+	@Override
+	protected OntologyUtil initializeOboUtilFromDownload() throws IOException, OWLOntologyCreationException {
+		return new OntologyUtil(oboFile);
+	}
+
+	public File getOboFile() {
+		return oboFile;
+	}
 }

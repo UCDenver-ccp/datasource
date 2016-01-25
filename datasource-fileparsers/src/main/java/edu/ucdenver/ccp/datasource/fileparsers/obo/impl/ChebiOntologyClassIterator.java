@@ -35,25 +35,21 @@ package edu.ucdenver.ccp.datasource.fileparsers.obo.impl;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.Set;
 
-import org.geneontology.oboedit.dataadapter.OBOParseException;
+import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 
-import edu.ucdenver.ccp.common.collections.CollectionsUtil;
 import edu.ucdenver.ccp.common.download.HttpDownload;
-import edu.ucdenver.ccp.common.file.CharacterEncoding;
-import edu.ucdenver.ccp.datasource.fileparsers.obo.OboClassIterator;
-import edu.ucdenver.ccp.datasource.fileparsers.obo.OboUtil;
-import edu.ucdenver.ccp.datasource.fileparsers.obo.OboUtil.ObsoleteTermHandling;
+import edu.ucdenver.ccp.datasource.fileparsers.obo.OntologyClassIterator;
+import edu.ucdenver.ccp.datasource.fileparsers.obo.OntologyUtil;
 
 /**
- * This class iterates over the gene ontology obo file and returns OBORecords for each class it
- * encounters.
+ * This class iterates over the gene ontology obo file and returns OBORecords
+ * for each class it encounters.
  * 
  * @author bill
  * 
  */
-public class ChebiOntologyClassIterator extends OboClassIterator {
+public class ChebiOntologyClassIterator extends OntologyClassIterator {
 
 	public static final String FILE_URL = "http://obo.cvs.sourceforge.net/*checkout*/obo/obo/ontology/chemical/chebi.obo";
 	public static final String ENCODING = "ASCII";
@@ -61,24 +57,22 @@ public class ChebiOntologyClassIterator extends OboClassIterator {
 	@HttpDownload(url = FILE_URL)
 	private File oboFile;
 
-	public static final String ID_PREFIX = "CHEBI:";
-
-	public ChebiOntologyClassIterator(File oboOntologyFile, ObsoleteTermHandling obsoleteHandling) throws IOException, OBOParseException {
-		super(oboOntologyFile, CharacterEncoding.UTF_8,obsoleteHandling);
+	public ChebiOntologyClassIterator(File oboOntologyFile) throws IOException, OWLOntologyCreationException {
+		super(oboOntologyFile);
 	}
 
-	public ChebiOntologyClassIterator(File workDirectory, boolean clean, ObsoleteTermHandling obsoleteHandling) throws IOException, OBOParseException {
-		super(workDirectory, clean, obsoleteHandling);
-	}
-
-	@Override
-	protected Set<String> getOntologyIdPrefixes() {
-		return CollectionsUtil.createSet(ID_PREFIX);
+	public ChebiOntologyClassIterator(File workDirectory, boolean clean) throws IOException, IllegalArgumentException,
+			IllegalAccessException, OWLOntologyCreationException {
+		super(workDirectory, clean);
 	}
 
 	@Override
-	protected OboUtil<?> initializeOboUtilFromDownload() throws IOException, OBOParseException {
-		return new OboUtil(oboFile, CharacterEncoding.UTF_8);
+	protected OntologyUtil initializeOboUtilFromDownload() throws IOException, OWLOntologyCreationException {
+		return new OntologyUtil(oboFile);
+	}
+
+	public File getOboFile() {
+		return oboFile;
 	}
 
 }

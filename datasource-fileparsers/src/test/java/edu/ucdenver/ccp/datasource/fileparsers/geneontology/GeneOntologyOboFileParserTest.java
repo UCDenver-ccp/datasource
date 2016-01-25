@@ -40,11 +40,10 @@ import static org.junit.Assert.assertTrue;
 import java.io.IOException;
 import java.util.Set;
 
-import org.geneontology.oboedit.dataadapter.OBOParseException;
 import org.junit.Test;
+import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 
 import edu.ucdenver.ccp.common.collections.CollectionsUtil;
-import edu.ucdenver.ccp.datasource.fileparsers.obo.OboUtil.ObsoleteTermHandling;
 import edu.ucdenver.ccp.datasource.fileparsers.obo.impl.GeneOntologyClassIterator;
 import edu.ucdenver.ccp.datasource.fileparsers.test.RecordReaderTester;
 
@@ -59,8 +58,8 @@ public class GeneOntologyOboFileParserTest extends RecordReaderTester {
 	@Override
 	protected GeneOntologyClassIterator initSampleRecordReader() throws IOException {
 		try {
-			return new GeneOntologyClassIterator(sampleInputFile, ObsoleteTermHandling.EXCLUDE_OBSOLETE_TERMS);
-		} catch (OBOParseException e) {
+			return new GeneOntologyClassIterator(sampleInputFile);
+		} catch (OWLOntologyCreationException e) {
 			throw new IOException(e);
 		}
 	}
@@ -69,16 +68,15 @@ public class GeneOntologyOboFileParserTest extends RecordReaderTester {
 	public void testParser() throws Exception {
 		GeneOntologyClassIterator parser = initSampleRecordReader();
 
-		Set<String> expectedGoIds = CollectionsUtil.createSet("GO:0000001", "GO:0000002", "GO:0000003");
+		Set<String> expectedGoIds = CollectionsUtil.createSet("http://purl.obolibrary.org/obo/GO_0000001",
+				"http://purl.obolibrary.org/obo/GO_0000002", "http://purl.obolibrary.org/obo/GO_0000003");
 
 		int count = 0;
 		while (parser.hasNext()) {
-			String idStr = parser.next().getOboClass().getID();
-			if (idStr.startsWith("GO")) {
-				assertTrue(String.format("GO Id (%s) was not removed from set as expected.", idStr),
-						expectedGoIds.remove(idStr));
-				count++;
-			}
+			String idStr = parser.next().getOWLClass().toStringID();
+			assertTrue(String.format("GO Id (%s) was not removed from set as expected.", idStr),
+					expectedGoIds.remove(idStr));
+			count++;
 		}
 
 		assertFalse(parser.hasNext());

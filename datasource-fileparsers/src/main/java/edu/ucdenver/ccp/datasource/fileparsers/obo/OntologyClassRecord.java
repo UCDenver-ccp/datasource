@@ -33,29 +33,27 @@ package edu.ucdenver.ccp.datasource.fileparsers.obo;
  * #L%
  */
 
-import org.geneontology.oboedit.datamodel.OBOClass;
+import org.semanticweb.owlapi.model.OWLClass;
 
 import edu.ucdenver.ccp.datasource.fileparsers.DataRecord;
 
 /**
- * Simple wrapper for the OBOEdit <code>OBOClass</code> class allowing it to be treated as a
- * <code>DataRecord</code>.
+ * Simple wrapper for the OWL API <code>OWLClass</code> class allowing it to be
+ * treated as a <code>DataRecord</code>.
  * 
  * @author bill
  * 
  */
-public class OBOClassRecord implements DataRecord {
+public class OntologyClassRecord implements DataRecord {
 
-	private final OBOClass oboClass;
+	private final OWLClass owlClass;
 
-	public OBOClassRecord(OBOClass oboClass) {
-		this.oboClass = oboClass;
+	public OntologyClassRecord(OWLClass owlClass) {
+		this.owlClass = owlClass;
 	}
 
-	public OBOClass getOboClass() {
-		return oboClass;
+	public OWLClass getOWLClass() {
+		return owlClass;
 	}
-
-	
 
 }

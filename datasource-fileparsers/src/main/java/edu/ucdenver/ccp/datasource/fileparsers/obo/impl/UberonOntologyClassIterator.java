@@ -38,43 +38,40 @@ import java.io.IOException;
 
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 
+import edu.ucdenver.ccp.common.download.HttpDownload;
 import edu.ucdenver.ccp.datasource.fileparsers.obo.OntologyClassIterator;
 import edu.ucdenver.ccp.datasource.fileparsers.obo.OntologyUtil;
 
 /**
- * Provides null implementations for the abstract functions in OboClassIterator,
- * hides the functionality of the second constructor in OboBlassIterator. TODO:
- * refactor a base class with this default behavior, then create a 2nd level
- * base class to provide the functionality of OboClassIterator that the rest of
- * the classes can use.
- *
- * @author Colorado Computational Pharmacology, UC Denver;
- *         ccpsupport@ucdenver.edu
- *
+ * This class iterates over the gene ontology obo file and returns OBORecords
+ * for each class it encounters.
+ * 
+ * @author bill
+ * 
  */
-public class GenericOboClassIterator extends OntologyClassIterator {
+public class UberonOntologyClassIterator extends OntologyClassIterator {
 
-	/**
-	 * @param oboOntologyFile
-	 * @param encoding
-	 * @param obsoleteHandling
-	 * @throws IOException
-	 * @throws OWLOntologyCreationException
-	 * @throws OBOParseException
-	 */
-	public GenericOboClassIterator(File oboOntologyFile) throws IOException, OWLOntologyCreationException {
+	public static final String FILE_URL = "http://purl.obolibrary.org/obo/uberon.obo";
+	public static final String ENCODING = "ASCII";
+
+	@HttpDownload(url = FILE_URL)
+	private File oboFile;
+
+	public UberonOntologyClassIterator(File oboOntologyFile) throws IOException, OWLOntologyCreationException {
 		super(oboOntologyFile);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see edu.ucdenver.ccp.fileparsers.obo.OboClassIterator#
-	 * initializeOboUtilFromDownload()
-	 */
-	@Override
-	protected OntologyUtil initializeOboUtilFromDownload() throws IOException {
-		return null;
+	public UberonOntologyClassIterator(File workDirectory, boolean clean) throws IOException,
+			IllegalArgumentException, IllegalAccessException, OWLOntologyCreationException {
+		super(workDirectory, clean);
 	}
 
+	@Override
+	protected OntologyUtil initializeOboUtilFromDownload() throws IOException, OWLOntologyCreationException {
+		return new OntologyUtil(oboFile);
+	}
+
+	public File getOboFile() {
+		return oboFile;
+	}
 }

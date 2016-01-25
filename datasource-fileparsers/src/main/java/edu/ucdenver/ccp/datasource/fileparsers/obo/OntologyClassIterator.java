@@ -34,103 +34,72 @@ package edu.ucdenver.ccp.datasource.fileparsers.obo;
  */
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
-import java.util.Set;
 
-import org.geneontology.oboedit.dataadapter.OBOParseException;
-import org.geneontology.oboedit.datamodel.OBOClass;
+import org.semanticweb.owlapi.model.OWLClass;
+import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 
 import edu.ucdenver.ccp.common.download.DownloadUtil;
-import edu.ucdenver.ccp.common.file.CharacterEncoding;
 import edu.ucdenver.ccp.common.file.FileUtil;
 import edu.ucdenver.ccp.datasource.fileparsers.RecordReader;
-import edu.ucdenver.ccp.datasource.fileparsers.obo.OboUtil.ObsoleteTermHandling;
 
 /**
- * An abstract class to be used for iterating over the classes in an OBO file. 
+ * An abstract class to be used for iterating over the classes in an OBO file.
  * 
  * @author bill
  * 
  */
-public abstract class OboClassIterator extends RecordReader<OBOClassRecord> {
+public abstract class OntologyClassIterator extends RecordReader<OntologyClassRecord> {
 
-	private final Iterator<OBOClass> oboClassIterator;
-	private OBOClassRecord nextRecord = null;
+	private final Iterator<OWLClass> owlClassIterator;
+	private OntologyClassRecord nextRecord = null;
+	private OntologyUtil ontUtil;
 
-	public OboClassIterator(File oboOntologyFile, CharacterEncoding encoding, ObsoleteTermHandling obsoleteHandling) throws IOException, OBOParseException {
-		FileUtil.validateFile(oboOntologyFile);
-		OboUtil<?> oboUtil = new OboUtil(oboOntologyFile, encoding);
-		oboClassIterator = oboUtil.getClassIterator(obsoleteHandling);
+	public OntologyClassIterator(File ontologyFile) throws OWLOntologyCreationException, FileNotFoundException {
+		FileUtil.validateFile(ontologyFile);
+		OntologyUtil ontUtil = new OntologyUtil(ontologyFile);
+		owlClassIterator = ontUtil.getClassIterator();
 	}
 
-	public OboClassIterator(File workDirectory, boolean clean, ObsoleteTermHandling obsoleteHandling) throws IOException, OBOParseException {
+	public OntologyClassIterator(File workDirectory, boolean clean) throws IOException, IllegalArgumentException,
+			IllegalAccessException, OWLOntologyCreationException {
 		super();
-		try {
-			DownloadUtil.download(this, workDirectory, null, null, clean);
-			OboUtil<?> oboUtil = initializeOboUtilFromDownload();
-			oboClassIterator = oboUtil.getClassIterator(obsoleteHandling);
-		} catch (IllegalArgumentException e) {
-			throw new IOException(e);
-		} catch (IllegalAccessException e) {
-			throw new IOException(e);
-		}
-
+		DownloadUtil.download(this, workDirectory, null, null, clean);
+		ontUtil = initializeOboUtilFromDownload();
+		owlClassIterator = ontUtil.getClassIterator();
 	}
 
 	@Override
 	public boolean hasNext() {
 		if (nextRecord == null) {
-			while (oboClassIterator.hasNext()) {
-				OBOClass oboClass = oboClassIterator.next();
-				if (idStartsWithAllowedPrefix(oboClass.getID())) {
-					nextRecord = new OBOClassRecord(oboClass);
-					return true;
-				}
+			while (owlClassIterator.hasNext()) {
+				OWLClass oboClass = owlClassIterator.next();
+				nextRecord = new OntologyClassRecord(oboClass);
+				return true;
 			}
-//			if (oboClassIterator.hasNext()) {
-//				OBOClass oboClass = oboClassIterator.next();
-//				if (!idStartsWithAllowedPrefix(oboClass.getID())) {
-//					return hasNext();
-//				}
-//				nextRecord = new OBOClassRecord(oboClass);
-//				return true;
-//			}
 			return false;
 		}
 		return true;
 	}
 
 	@Override
-	public OBOClassRecord next() {
+	public OntologyClassRecord next() {
 		if (!hasNext())
 			throw new NoSuchElementException();
 
-		OBOClassRecord recordToReturn = nextRecord;
+		OntologyClassRecord recordToReturn = nextRecord;
 		nextRecord = null;
 		return recordToReturn;
 	}
 
-	
-	private boolean idStartsWithAllowedPrefix(String id) {
-		if (getOntologyIdPrefixes()== null) {
-			return true;
-		}
-		for (String prefix : getOntologyIdPrefixes()) {
-			if (id.startsWith(prefix))
-				return true;
-		}
-		return false;
-	}
-	
 	@Override
 	public void close() throws IOException {
-		// do nothing
+		ontUtil.close();
 	}
 
-	protected abstract Set<String> getOntologyIdPrefixes();
-
-	protected abstract OboUtil<?> initializeOboUtilFromDownload() throws IOException, OBOParseException;
+	protected abstract OntologyUtil initializeOboUtilFromDownload() throws IOException, OWLOntologyCreationException;
 
 }
