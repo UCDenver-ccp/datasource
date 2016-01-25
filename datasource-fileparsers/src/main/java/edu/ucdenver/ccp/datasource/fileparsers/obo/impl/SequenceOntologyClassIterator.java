@@ -35,16 +35,12 @@ package edu.ucdenver.ccp.datasource.fileparsers.obo.impl;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.Set;
 
-import org.geneontology.oboedit.dataadapter.OBOParseException;
+import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 
-import edu.ucdenver.ccp.common.collections.CollectionsUtil;
 import edu.ucdenver.ccp.common.download.HttpDownload;
-import edu.ucdenver.ccp.common.file.CharacterEncoding;
-import edu.ucdenver.ccp.datasource.fileparsers.obo.OboClassIterator;
-import edu.ucdenver.ccp.datasource.fileparsers.obo.OboUtil;
-import edu.ucdenver.ccp.datasource.fileparsers.obo.OboUtil.ObsoleteTermHandling;
+import edu.ucdenver.ccp.datasource.fileparsers.obo.OntologyClassIterator;
+import edu.ucdenver.ccp.datasource.fileparsers.obo.OntologyUtil;
 
 /**
  * This class iterates over the gene ontology obo file and returns OBORecords for each class it
@@ -53,7 +49,7 @@ import edu.ucdenver.ccp.datasource.fileparsers.obo.OboUtil.ObsoleteTermHandling;
  * @author bill
  * 
  */
-public class SequenceOntologyClassIterator extends OboClassIterator {
+public class SequenceOntologyClassIterator extends OntologyClassIterator {
 
 	public static final String FILE_URL = "http://obo.cvs.sourceforge.net/*checkout*/obo/obo/ontology/genomic-proteomic/so.obo";
 	public static final String ENCODING = "ASCII";
@@ -61,26 +57,22 @@ public class SequenceOntologyClassIterator extends OboClassIterator {
 	@HttpDownload(url = FILE_URL)
 	private File oboFile;
 
-	public static final String ID_PREFIX = "SO:";
-
-	public SequenceOntologyClassIterator(File oboOntologyFile, ObsoleteTermHandling obsoleteHandling)
-			throws IOException, OBOParseException {
-		super(oboOntologyFile, CharacterEncoding.UTF_8, obsoleteHandling);
+	public SequenceOntologyClassIterator(File oboOntologyFile) throws IOException, OWLOntologyCreationException {
+		super(oboOntologyFile);
 	}
 
-	public SequenceOntologyClassIterator(File workDirectory, boolean clean, ObsoleteTermHandling obsoleteHandling)
-			throws IOException, OBOParseException {
-		super(workDirectory, clean, obsoleteHandling);
+	public SequenceOntologyClassIterator(File workDirectory, boolean clean)
+			throws IOException, IllegalArgumentException, IllegalAccessException, OWLOntologyCreationException {
+		super(workDirectory, clean);
 	}
 
 	@Override
-	protected Set<String> getOntologyIdPrefixes() {
-		return CollectionsUtil.createSet(ID_PREFIX);
+	protected OntologyUtil initializeOboUtilFromDownload() throws IOException, OWLOntologyCreationException {
+		return new OntologyUtil(oboFile);
 	}
 
-	@Override
-	protected OboUtil<?> initializeOboUtilFromDownload() throws IOException, OBOParseException {
-		return new OboUtil(oboFile, CharacterEncoding.UTF_8);
+	public File getOboFile() {
+		return oboFile;
 	}
 
 }

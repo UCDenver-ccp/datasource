@@ -10,6 +10,11 @@
 
 	<dependencies>
 		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
 			<groupId>edu.ucdenver.ccp</groupId>
 			<artifactId>common</artifactId>
 		</dependency>
@@ -28,20 +33,11 @@
 			<artifactId>junit</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>org.geneontology</groupId>
-			<artifactId>oboedit</artifactId>
-			<version>1.101</version>
+			<groupId>org.bbop</groupId>
+			<artifactId>OWLTools-Core</artifactId>
+			<version>0.2.1</version>
 		</dependency>
-		<dependency>
-			<groupId>org.geneontology</groupId>
-			<artifactId>org.geneontology</artifactId>
-			<version>1.101</version>
-		</dependency>
-		<dependency>
-			<groupId>org.projectlombok</groupId>
-			<artifactId>lombok</artifactId>
-			<scope>provided</scope>
-		</dependency>
+
 	</dependencies>
 
 	<repositories>
@@ -50,12 +46,9 @@
 			<url>http://svn.code.sf.net/p/bionlp/code/repo/</url>
 		</repository>
 		<repository>
-			<id>ebi-repo</id>
-			<name>The EBI internal repository</name>
-			<url>http://www.ebi.ac.uk/~maven/m2repo</url>
-			<releases>
-				<enabled>true</enabled>
-			</releases>
+			<!-- repository for OWLTools -->
+			<id>berkeleybop-releases</id>
+			<url>http://code.berkeleybop.org/maven/repository</url>
 		</repository>
 	</repositories>
 
