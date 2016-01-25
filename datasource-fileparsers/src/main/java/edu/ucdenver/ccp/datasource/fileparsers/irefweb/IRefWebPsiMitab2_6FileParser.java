@@ -133,11 +133,12 @@ public class IRefWebPsiMitab2_6FileParser extends TaxonAwareSingleLineFileRecord
 
 	private static final String HEADER = "#uidA\tuidB\taltA\taltB\taliasA\taliasB\tmethod\tauthor\tpmids\ttaxa\ttaxb\tinteractionType\tsourcedb\tinteractionIdentifier\tconfidence\texpansion\tbiological_role_A\tbiological_role_B\texperimental_role_A\texperimental_role_B\tinteractor_type_A\tinteractor_type_B\txrefs_A\txrefs_B\txrefs_Interaction\tAnnotations_A\tAnnotations_B\tAnnotations_Interaction\tHost_organism_taxid\tparameters_Interaction\tCreation_date\tUpdate_date\tChecksum_A\tChecksum_B\tChecksum_Interaction\tNegative\tOriginalReferenceA\tOriginalReferenceB\tFinalReferenceA\tFinalReferenceB\tMappingScoreA\tMappingScoreB\tirogida\tirogidb\tirigid\tcrogida\tcrogidb\tcrigid\ticrogida\ticrogidb\ticrigid\timex_id\tedgetype\tnumParticipants";
 
-	public static final String FTP_FILE_NAME = "All.mitab.03022013.txt.zip";
+//	public static final String FTP_FILE_NAME = "All.mitab.03022013.txt.zip";
+	public static final String FTP_FILE_NAME = "All.mitab.07042015.txt.zip";
 	public static final CharacterEncoding ENCODING = CharacterEncoding.US_ASCII;
 	public static final String FTP_USER_NAME = "ftp";
 
-	@FtpDownload(server = FtpHost.IREFWEB_HOST, path = "irefindex/data/archive/release_10.0/psi_mitab/MITAB2.6/", filename = FTP_FILE_NAME, filetype = FileType.BINARY, username = FTP_USER_NAME, decompress = true, targetFileName="All.mitab.08122013.txt")
+	@FtpDownload(server = FtpHost.IREFWEB_HOST, path = "irefindex/data/archive/release_10.0/psi_mitab/MITAB2.6/", filename = FTP_FILE_NAME, filetype = FileType.BINARY, username = FTP_USER_NAME, decompress = true, targetFileName="All.mitab.04072015.txt")
 	private File allMitabTxtFile;
 
 	public IRefWebPsiMitab2_6FileParser(File file, CharacterEncoding encoding) throws IOException,
