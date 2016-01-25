@@ -58,7 +58,7 @@ public class RefSeqReleaseCatalogFileParser extends TaxonAwareSingleLineFileReco
 
 	// TODO: Modification to the FTPDownload annotation to allow for a regex for the file name will
 	// make this more flexible, i.e. RefSeq-release\\d+.catalog.gz
-	public static final String FTP_FILE_NAME = "RefSeq-release69.catalog.gz";
+	public static final String FTP_FILE_NAME = "RefSeq-release74.catalog.gz";
 	public static final CharacterEncoding ENCODING = CharacterEncoding.US_ASCII;
 
 	@FtpDownload(server = FtpHost.REFSEQ_HOST, path = FtpHost.REFSEQ_CATALOG_PATH, filename = FTP_FILE_NAME, filetype = FileType.BINARY)
