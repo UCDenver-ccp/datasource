@@ -45,10 +45,10 @@ import edu.ucdenver.ccp.datasource.rdfizer.rdf.ice.RdfUtil;
  */
 public enum RO {
 
-	LOCATED_IN("located_in"),
-	PART_OF("part_of"),
-	HAS_PART("has_part"),
-	HAS_PARTICIPANT("has_participant");
+	LOCATED_IN("RO_0001025"),
+	PART_OF("BFO_0000050"),
+	HAS_PART("BFO_0000051"),
+	HAS_PARTICIPANT("RO_0000057");
 
 	private final String termName;
 
