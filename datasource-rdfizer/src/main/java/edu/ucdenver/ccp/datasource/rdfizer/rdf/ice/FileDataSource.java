@@ -102,30 +102,35 @@ import edu.ucdenver.ccp.datasource.identifiers.ncbi.taxonomy.NcbiTaxonomyID;
  */
 public enum FileDataSource {
 
-	/**
-	 * The DIP data file must be obtained manually. It is assumed to already be
-	 * in place when RDF generation commences. It must be the only file in the
-	 * DIP data source directory.
-	 * 
+	
+	/*
+	 * DIP is now part of IRefWeb, so it has been commented out since it requires the extra manual step
+	 * of logging in to the DIP website and downloading the file (and IRefWeb does not).
 	 */
-	DIP(DataSource.DIP) {
-
-		@Override
-		protected FileRecordReader<?> initFileRecordReader(File sourceFileDirectory, boolean cleanSourceFiles,
-				File idListDir, Set<NcbiTaxonomyID> taxonIds) throws IOException {
-			logger.info("sourceFileDirectory (exists): (" + sourceFileDirectory.exists() + ")" + sourceFileDirectory);
-			logger.info("file listing: " + Arrays.toString(sourceFileDirectory.listFiles()));
-			File dipDataFile = sourceFileDirectory.listFiles()[0];
-			logger.info("File exists: " + dipDataFile.exists() + " -- " + dipDataFile.getAbsolutePath());
-			FileUtil.validateFile(dipDataFile);
-			return new DipYYYYMMDDFileParser(dipDataFile, CharacterEncoding.US_ASCII, taxonIds);
-		}
-
-		@Override
-		protected boolean isTaxonAware() {
-			return true;
-		}
-	},
+//	/**
+//	 * The DIP data file must be obtained manually. It is assumed to already be
+//	 * in place when RDF generation commences. It must be the only file in the
+//	 * DIP data source directory.
+//	 * 
+//	 */
+//	DIP(DataSource.DIP) {
+//
+//		@Override
+//		protected FileRecordReader<?> initFileRecordReader(File sourceFileDirectory, boolean cleanSourceFiles,
+//				File idListDir, Set<NcbiTaxonomyID> taxonIds) throws IOException {
+//			logger.info("sourceFileDirectory (exists): (" + sourceFileDirectory.exists() + ")" + sourceFileDirectory);
+//			logger.info("file listing: " + Arrays.toString(sourceFileDirectory.listFiles()));
+//			File dipDataFile = sourceFileDirectory.listFiles()[0];
+//			logger.info("File exists: " + dipDataFile.exists() + " -- " + dipDataFile.getAbsolutePath());
+//			FileUtil.validateFile(dipDataFile);
+//			return new DipYYYYMMDDFileParser(dipDataFile, CharacterEncoding.US_ASCII, taxonIds);
+//		}
+//
+//		@Override
+//		protected boolean isTaxonAware() {
+//			return true;
+//		}
+//	},
 	/**
 	 * The HPRD HPRD_ID_MAPPINGS.txt file must be obtained manually. It is
 	 * assumed to already be in place when RDF generation commences.
