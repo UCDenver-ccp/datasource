@@ -131,78 +131,7 @@ public enum FileDataSource {
 //			return true;
 //		}
 //	},
-	/**
-	 * The HPRD HPRD_ID_MAPPINGS.txt file must be obtained manually. It is
-	 * assumed to already be in place when RDF generation commences.
-	 */
-	HPRD_ID_MAPPINGS(DataSource.HPRD) {
 
-		@Override
-		protected FileRecordReader<?> initFileRecordReader(File sourceFileDirectory, boolean cleanSourceFiles,
-				File idListDir, Set<NcbiTaxonomyID> taxonIds) throws IOException {
-			File hprdIdMappingFile = new File(sourceFileDirectory,
-					HprdIdMappingsTxtFileParser.HPRD_ID_MAPPINGS_TXT_FILE_NAME);
-			FileUtil.validateFile(hprdIdMappingFile);
-			return new HprdIdMappingsTxtFileParser(hprdIdMappingFile, CharacterEncoding.US_ASCII);
-		}
-
-		@Override
-		protected boolean isTaxonAware() {
-			return false;
-		}
-	},
-	/**
-	 * The TRANSFAC gene.dat and matrix.dat files must be obtained manually.
-	 * They are assumed to already be in place when RDF generation commences.
-	 */
-	TRANSFAC_GENE(DataSource.TRANSFAC) {
-		@Override
-		protected FileRecordReader<?> initFileRecordReader(File sourceFileDirectory, boolean cleanSourceFiles,
-				File idListDir, Set<NcbiTaxonomyID> taxonIds) throws IOException {
-			File transfacGeneDatFile = new File(sourceFileDirectory, TransfacGeneDatFileParser.GENE_DAT_FILE_NAME);
-			FileUtil.validateFile(transfacGeneDatFile);
-			return new TransfacGeneDatFileParser(transfacGeneDatFile, CharacterEncoding.ISO_8859_1);
-		}
-
-		@Override
-		protected boolean isTaxonAware() {
-			return false;
-		}
-	},
-
-	TRANSFAC_MATRIX(DataSource.TRANSFAC) {
-		@Override
-		protected FileRecordReader<?> initFileRecordReader(File sourceFileDirectory, boolean cleanSourceFiles,
-				File idListDir, Set<NcbiTaxonomyID> taxonIds) throws IOException {
-			File transfacMatrixDatFile = new File(sourceFileDirectory, TransfacMatrixDatFileParser.MATRIX_DAT_FILE_NAME);
-			FileUtil.validateFile(transfacMatrixDatFile);
-			return new TransfacMatrixDatFileParser(transfacMatrixDatFile, CharacterEncoding.ISO_8859_1);
-		}
-
-		@Override
-		protected boolean isTaxonAware() {
-			return false;
-		}
-	},
-	/**
-	 * The GAD all.txt data file must be obtained manually. It is assumed to
-	 * already be in place when RDF generation commences.
-	 */
-	GAD(DataSource.GAD) {
-		@Override
-		protected FileRecordReader<?> initFileRecordReader(File sourceFileDirectory, boolean cleanSourceFiles,
-				File idListDir, Set<NcbiTaxonomyID> taxonIds) throws IOException {
-			File gadAllTxtFile = new File(sourceFileDirectory,
-					GeneticAssociationDbAllTxtFileParser.GAD_ALL_TXT_FILE_NAME);
-			FileUtil.validateFile(gadAllTxtFile);
-			return new GeneticAssociationDbAllTxtFileParser(gadAllTxtFile, CharacterEncoding.US_ASCII);
-		}
-
-		@Override
-		protected boolean isTaxonAware() {
-			return false;
-		}
-	},
 	/**
 	 *
 	 */
@@ -232,19 +161,7 @@ public enum FileDataSource {
 		}
 	},
 
-	PHARMGKB_RELATION(DataSource.PHARMGKB) {
-		@Override
-		protected FileRecordReader<?> initFileRecordReader(File sourceFileDirectory, boolean cleanSourceFiles,
-				File idListDir, Set<NcbiTaxonomyID> taxonIds) throws IOException {
-			File pharmgkbRelationshipsDataFile = new File(sourceFileDirectory, "relationships.tsv");
-			return new PharmGkbRelationFileParser(pharmgkbRelationshipsDataFile, CharacterEncoding.UTF_8);
-		}
 
-		@Override
-		protected boolean isTaxonAware() {
-			return false;
-		}
-	},
 
 	PHARMGKB_DRUG(DataSource.PHARMGKB) {
 		@Override
@@ -409,21 +326,7 @@ public enum FileDataSource {
 			return false;
 		}
 	},
-	/**
-	 *
-	 */
-	OMIM(DataSource.OMIM) {
-		@Override
-		protected FileRecordReader<?> initFileRecordReader(File sourceFileDirectory, boolean cleanSourceFiles,
-				File idListDir, Set<NcbiTaxonomyID> taxonIds) throws IOException {
-			return new OmimTxtFileParser(sourceFileDirectory, cleanSourceFiles);
-		}
-
-		@Override
-		protected boolean isTaxonAware() {
-			return false;
-		}
-	},
+	
 	/**
 	 *
 	 */
@@ -693,6 +596,7 @@ public enum FileDataSource {
 			return true;
 		}
 	},
+	
 
 	/**
 	 * 
@@ -732,7 +636,109 @@ public enum FileDataSource {
 		protected boolean isTaxonAware() {
 			return true;
 		}
-	};
+	},
+	
+	/**
+	 * The HPRD HPRD_ID_MAPPINGS.txt file must be obtained manually. It is
+	 * assumed to already be in place when RDF generation commences.
+	 */
+	HPRD_ID_MAPPINGS(DataSource.HPRD) {
+
+		@Override
+		protected FileRecordReader<?> initFileRecordReader(File sourceFileDirectory, boolean cleanSourceFiles,
+				File idListDir, Set<NcbiTaxonomyID> taxonIds) throws IOException {
+			File hprdIdMappingFile = new File(sourceFileDirectory,
+					HprdIdMappingsTxtFileParser.HPRD_ID_MAPPINGS_TXT_FILE_NAME);
+			FileUtil.validateFile(hprdIdMappingFile);
+			return new HprdIdMappingsTxtFileParser(hprdIdMappingFile, CharacterEncoding.US_ASCII);
+		}
+
+		@Override
+		protected boolean isTaxonAware() {
+			return false;
+		}
+	},
+	/**
+	 * The TRANSFAC gene.dat and matrix.dat files must be obtained manually.
+	 * They are assumed to already be in place when RDF generation commences.
+	 */
+	TRANSFAC_GENE(DataSource.TRANSFAC) {
+		@Override
+		protected FileRecordReader<?> initFileRecordReader(File sourceFileDirectory, boolean cleanSourceFiles,
+				File idListDir, Set<NcbiTaxonomyID> taxonIds) throws IOException {
+			File transfacGeneDatFile = new File(sourceFileDirectory, TransfacGeneDatFileParser.GENE_DAT_FILE_NAME);
+			FileUtil.validateFile(transfacGeneDatFile);
+			return new TransfacGeneDatFileParser(transfacGeneDatFile, CharacterEncoding.ISO_8859_1);
+		}
+
+		@Override
+		protected boolean isTaxonAware() {
+			return false;
+		}
+	},
+
+	TRANSFAC_MATRIX(DataSource.TRANSFAC) {
+		@Override
+		protected FileRecordReader<?> initFileRecordReader(File sourceFileDirectory, boolean cleanSourceFiles,
+				File idListDir, Set<NcbiTaxonomyID> taxonIds) throws IOException {
+			File transfacMatrixDatFile = new File(sourceFileDirectory, TransfacMatrixDatFileParser.MATRIX_DAT_FILE_NAME);
+			FileUtil.validateFile(transfacMatrixDatFile);
+			return new TransfacMatrixDatFileParser(transfacMatrixDatFile, CharacterEncoding.ISO_8859_1);
+		}
+
+		@Override
+		protected boolean isTaxonAware() {
+			return false;
+		}
+	},
+	/**
+	 * The GAD all.txt data file must be obtained manually. It is assumed to
+	 * already be in place when RDF generation commences.
+	 */
+	GAD(DataSource.GAD) {
+		@Override
+		protected FileRecordReader<?> initFileRecordReader(File sourceFileDirectory, boolean cleanSourceFiles,
+				File idListDir, Set<NcbiTaxonomyID> taxonIds) throws IOException {
+			File gadAllTxtFile = new File(sourceFileDirectory,
+					GeneticAssociationDbAllTxtFileParser.GAD_ALL_TXT_FILE_NAME);
+			FileUtil.validateFile(gadAllTxtFile);
+			return new GeneticAssociationDbAllTxtFileParser(gadAllTxtFile, CharacterEncoding.US_ASCII);
+		}
+
+		@Override
+		protected boolean isTaxonAware() {
+			return false;
+		}
+	},
+	/**
+	 *
+	 */
+	OMIM(DataSource.OMIM) {
+		@Override
+		protected FileRecordReader<?> initFileRecordReader(File sourceFileDirectory, boolean cleanSourceFiles,
+				File idListDir, Set<NcbiTaxonomyID> taxonIds) throws IOException {
+			return new OmimTxtFileParser(sourceFileDirectory, cleanSourceFiles);
+		}
+
+		@Override
+		protected boolean isTaxonAware() {
+			return false;
+		}
+	},
+	PHARMGKB_RELATION(DataSource.PHARMGKB) {
+		@Override
+		protected FileRecordReader<?> initFileRecordReader(File sourceFileDirectory, boolean cleanSourceFiles,
+				File idListDir, Set<NcbiTaxonomyID> taxonIds) throws IOException {
+			File pharmgkbRelationshipsDataFile = new File(sourceFileDirectory, "relationships.tsv");
+			return new PharmGkbRelationFileParser(pharmgkbRelationshipsDataFile, CharacterEncoding.UTF_8);
+		}
+
+		@Override
+		protected boolean isTaxonAware() {
+			return false;
+		}
+	}
+	;
 
 	public enum Split {
 		BY_STAGES, NONE;
