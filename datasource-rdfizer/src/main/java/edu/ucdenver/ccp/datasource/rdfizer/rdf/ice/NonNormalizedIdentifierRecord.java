@@ -1,4 +1,4 @@
-package edu.ucdenver.ccp.datasource.identifiers;
+package edu.ucdenver.ccp.datasource.rdfizer.rdf.ice;
 
 /*
  * #%L
@@ -34,22 +34,31 @@ package edu.ucdenver.ccp.datasource.identifiers;
  * #L%
  */
 
-public class UnknownDataSourceIdentifier extends DataSourceIdentifier<String> {
+import edu.ucdenver.ccp.datasource.fileparsers.Record;
+import edu.ucdenver.ccp.datasource.fileparsers.RecordField;
+import edu.ucdenver.ccp.datasource.identifiers.DataSource;
 
-	private final String dataSourceStr;
+@Record(dataSource = DataSource.KABOB)
+public class NonNormalizedIdentifierRecord {
 
-	public UnknownDataSourceIdentifier(String resourceID,  String dataSourceStr) {
-		super(resourceID, DataSource.UNKNOWN);
-		this.dataSourceStr = dataSourceStr;
+	@RecordField
+	private final String identifier;
+
+	@RecordField
+	private final String datasource;
+
+	public NonNormalizedIdentifierRecord(String identifier, String datasource) {
+		super();
+		this.identifier = identifier;
+		this.datasource = datasource;
 	}
 
-	@Override
-	public String validate(String resourceID) throws IllegalArgumentException {
-		return resourceID;
+	public String getIdentifier() {
+		return identifier;
 	}
 
-	public String getDataSourceStr() {
-		return dataSourceStr;
+	public String getDatasource() {
+		return datasource;
 	}
 
 }

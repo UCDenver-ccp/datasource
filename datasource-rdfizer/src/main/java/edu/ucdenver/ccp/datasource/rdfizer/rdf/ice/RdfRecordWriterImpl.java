@@ -54,23 +54,17 @@ import java.util.zip.GZIPOutputStream;
 import org.apache.log4j.Logger;
 import org.openrdf.model.Resource;
 import org.openrdf.model.Statement;
-import org.openrdf.model.Value;
 import org.openrdf.model.impl.URIImpl;
 import org.openrdf.rio.RDFHandlerException;
 import org.openrdf.rio.RDFWriter;
 
-import edu.ucdenver.ccp.common.collections.CollectionsUtil;
 import edu.ucdenver.ccp.common.file.CharacterEncoding;
 import edu.ucdenver.ccp.common.file.FileUtil;
-import edu.ucdenver.ccp.common.reflection.PrivateAccessor;
 import edu.ucdenver.ccp.common.string.StringConstants;
 import edu.ucdenver.ccp.datasource.fileparsers.DataRecord;
 import edu.ucdenver.ccp.datasource.fileparsers.RecordReader;
 import edu.ucdenver.ccp.datasource.fileparsers.RecordUtil;
-import edu.ucdenver.ccp.datasource.identifiers.DataSourceElement;
-import edu.ucdenver.ccp.datasource.identifiers.DataSourceIdentifier;
 import edu.ucdenver.ccp.datasource.identifiers.DataSource;
-import edu.ucdenver.ccp.datasource.rdfizer.rdf.RdfId;
 import edu.ucdenver.ccp.datasource.rdfizer.rdf.filter.DuplicateStatementFilter;
 import edu.ucdenver.ccp.datasource.rdfizer.rdf.filter.InMemoryDuplicateStatementFilter;
 import edu.ucdenver.ccp.datasource.rdfizer.rdf.ice.RdfUtil.RdfFormat;
@@ -459,192 +453,192 @@ public class RdfRecordWriterImpl<T extends RecordReader<?>> {
 		}
 	}
 
-	/**
-	 * Constant is assumed to be a valid URI String
-	 * 
-	 * @param tripleObj
-	 * @param <E>
-	 * @return
-	 */
-	private <E extends DataRecord> Map<Class<?>, Collection<Value>> getConstantValues(String value) {
-		Map<Class<?>, Collection<Value>> type2valuesMap = new HashMap<Class<?>, Collection<Value>>();
-		Value constantValue = new URIImpl(value);
-		CollectionsUtil.addToOne2ManyMap(String.class, constantValue, type2valuesMap);
-		return type2valuesMap;
-	}
+//	/**
+//	 * Constant is assumed to be a valid URI String
+//	 * 
+//	 * @param tripleObj
+//	 * @param <E>
+//	 * @return
+//	 */
+//	private <E extends DataRecord> Map<Class<?>, Collection<Value>> getConstantValues(String value) {
+//		Map<Class<?>, Collection<Value>> type2valuesMap = new HashMap<Class<?>, Collection<Value>>();
+//		Value constantValue = new URIImpl(value);
+//		CollectionsUtil.addToOne2ManyMap(String.class, constantValue, type2valuesMap);
+//		return type2valuesMap;
+//	}
 
-	/**
-	 * 
-	 * @param <E>
-	 * @param record
-	 * @param tripleObj
-	 * @return
-	 */
-	private <E extends DataRecord> Map<Class<?>, Collection<Value>> getLiteralValues(E record, String fieldName) {
-		Map<Class<?>, Collection<Value>> type2valuesMap = new HashMap<Class<?>, Collection<Value>>();
-		Object fieldValue = PrivateAccessor.getFieldValue(record, fieldName);
-		if (fieldValue == null)
-			return type2valuesMap;
-		if (fieldValue instanceof DataSourceElement<?>) {
-			DataSourceElement<?> element = (DataSourceElement<?>) fieldValue;
-			Value literalValue = RdfUtil.createLiteral(element.getDataElement());
-			CollectionsUtil.addToOne2ManyMap(fieldValue.getClass(), literalValue, type2valuesMap);
-			return type2valuesMap;
-		}
-		if (fieldValue instanceof Collection<?>) {
-			for (Object value : ((Collection<?>) fieldValue))
-				if (value instanceof DataSourceElement<?>) {
-					DataSourceElement<?> element = (DataSourceElement<?>) fieldValue;
-					Value literalValue = RdfUtil.createLiteral(element.getDataElement());
-					CollectionsUtil.addToOne2ManyMap(value.getClass(), literalValue, type2valuesMap);
-				} else
-					throw new RuntimeException(String.format("Unable to extract RDF object from field: %s. "
-							+ "Expected Collection<ResourceComponent> but instead observed Collection<%s>.", fieldName,
-							value.getClass().getName()));
-			return type2valuesMap;
-		}
-		throw new RuntimeException(String.format("Unable to extract RDF object from field: %s (observedValue=%s)",
-				fieldName, fieldValue.toString()));
-	}
+//	/**
+//	 * 
+//	 * @param <E>
+//	 * @param record
+//	 * @param tripleObj
+//	 * @return
+//	 */
+//	private <E extends DataRecord> Map<Class<?>, Collection<Value>> getLiteralValues(E record, String fieldName) {
+//		Map<Class<?>, Collection<Value>> type2valuesMap = new HashMap<Class<?>, Collection<Value>>();
+//		Object fieldValue = PrivateAccessor.getFieldValue(record, fieldName);
+//		if (fieldValue == null)
+//			return type2valuesMap;
+//		if (fieldValue instanceof DataSourceElement<?>) {
+//			DataSourceElement<?> element = (DataSourceElement<?>) fieldValue;
+//			Value literalValue = RdfUtil.createLiteral(element.getDataElement());
+//			CollectionsUtil.addToOne2ManyMap(fieldValue.getClass(), literalValue, type2valuesMap);
+//			return type2valuesMap;
+//		}
+//		if (fieldValue instanceof Collection<?>) {
+//			for (Object value : ((Collection<?>) fieldValue))
+//				if (value instanceof DataSourceElement<?>) {
+//					DataSourceElement<?> element = (DataSourceElement<?>) fieldValue;
+//					Value literalValue = RdfUtil.createLiteral(element.getDataElement());
+//					CollectionsUtil.addToOne2ManyMap(value.getClass(), literalValue, type2valuesMap);
+//				} else
+//					throw new RuntimeException(String.format("Unable to extract RDF object from field: %s. "
+//							+ "Expected Collection<ResourceComponent> but instead observed Collection<%s>.", fieldName,
+//							value.getClass().getName()));
+//			return type2valuesMap;
+//		}
+//		throw new RuntimeException(String.format("Unable to extract RDF object from field: %s (observedValue=%s)",
+//				fieldName, fieldValue.toString()));
+//	}
 
-	/**
-	 * Get values for triple definition where value is specified to use ICE formatting (ex:
-	 * {@code <object use-ice-id="true">ensemblGeneId</object>})
-	 * 
-	 * @param record
-	 * @param tripleObj
-	 * @return values
-	 */
-	private Map<Class<?>, Collection<Value>> getInformationContentEntityIDValues(DataRecord record, String fieldName) {
-		Map<Class<?>, Collection<Value>> type2valuesMap = new HashMap<Class<?>, Collection<Value>>();
-		Object fieldValue = PrivateAccessor.getFieldValue(record, fieldName);
-		if (fieldValue == null)
-			return type2valuesMap;
+//	/**
+//	 * Get values for triple definition where value is specified to use ICE formatting (ex:
+//	 * {@code <object use-ice-id="true">ensemblGeneId</object>})
+//	 * 
+//	 * @param record
+//	 * @param tripleObj
+//	 * @return values
+//	 */
+//	private Map<Class<?>, Collection<Value>> getInformationContentEntityIDValues(DataRecord record, String fieldName) {
+//		Map<Class<?>, Collection<Value>> type2valuesMap = new HashMap<Class<?>, Collection<Value>>();
+//		Object fieldValue = PrivateAccessor.getFieldValue(record, fieldName);
+//		if (fieldValue == null)
+//			return type2valuesMap;
+//
+//		if (fieldValue instanceof DataSourceIdentifier<?>) {
+//			DataSourceIdentifier<?> id = (DataSourceIdentifier<?>) fieldValue;
+//			RdfId rdfId = new RdfId(id);
+//			Value iceIdValue = new URIImpl(RdfUtil.createKiaoUri(rdfId.getNamespace(), rdfId.getICE_ID()).toString());
+//			CollectionsUtil.addToOne2ManyMap(fieldValue.getClass(), iceIdValue, type2valuesMap);
+//			return type2valuesMap;
+//		}
+//
+//		if (fieldValue instanceof Collection<?>) {
+//			for (Object value : ((Collection<?>) fieldValue))
+//				if (value instanceof DataSourceElement<?>) {
+//					DataSourceIdentifier<?> id = (DataSourceIdentifier<?>) value;
+//					RdfId rdfId = new RdfId(id);
+//					Value iceIdValue = new URIImpl(RdfUtil.createKiaoUri(rdfId.getNamespace(), rdfId.getICE_ID())
+//							.toString());
+//					CollectionsUtil.addToOne2ManyMap(value.getClass(), iceIdValue, type2valuesMap);
+//				} else
+//					throw new RuntimeException(String.format("Unable to extract RDF object from field: %s. "
+//							+ "Expected Collection<DataElementIdentifier<?>> but instead observed Collection<%s>.",
+//							fieldName, value.getClass().getName()));
+//			return type2valuesMap;
+//		}
+//
+//		throw new RuntimeException(String.format("Unable to extract RDF object from field: %s (observedValue=%s)",
+//				fieldName, fieldValue.toString()));
+//	}
 
-		if (fieldValue instanceof DataSourceIdentifier<?>) {
-			DataSourceIdentifier<?> id = (DataSourceIdentifier<?>) fieldValue;
-			RdfId rdfId = new RdfId(id);
-			Value iceIdValue = new URIImpl(RdfUtil.createKiaoUri(rdfId.getNamespace(), rdfId.getICE_ID()).toString());
-			CollectionsUtil.addToOne2ManyMap(fieldValue.getClass(), iceIdValue, type2valuesMap);
-			return type2valuesMap;
-		}
-
-		if (fieldValue instanceof Collection<?>) {
-			for (Object value : ((Collection<?>) fieldValue))
-				if (value instanceof DataSourceElement<?>) {
-					DataSourceIdentifier<?> id = (DataSourceIdentifier<?>) value;
-					RdfId rdfId = new RdfId(id);
-					Value iceIdValue = new URIImpl(RdfUtil.createKiaoUri(rdfId.getNamespace(), rdfId.getICE_ID())
-							.toString());
-					CollectionsUtil.addToOne2ManyMap(value.getClass(), iceIdValue, type2valuesMap);
-				} else
-					throw new RuntimeException(String.format("Unable to extract RDF object from field: %s. "
-							+ "Expected Collection<DataElementIdentifier<?>> but instead observed Collection<%s>.",
-							fieldName, value.getClass().getName()));
-			return type2valuesMap;
-		}
-
-		throw new RuntimeException(String.format("Unable to extract RDF object from field: %s (observedValue=%s)",
-				fieldName, fieldValue.toString()));
-	}
-
-	/**
-	 * Parser {@link DataRecord} from field of record.
-	 * 
-	 * @param <E>
-	 *            record type
-	 * @param record
-	 *            instance
-	 * @param fieldName
-	 *            field in record
-	 * @return record
-	 */
-	private <E extends DataRecord> Map<Class<?>, Collection<Value>> getValues(E record, String fieldName) {
-		Map<Class<?>, Collection<Value>> type2valuesMap = new HashMap<Class<?>, Collection<Value>>();
-		Object fieldValue = PrivateAccessor.getFieldValue(record, fieldName);
-		if (fieldValue == null)
-			return type2valuesMap;
-
-		if (fieldValue instanceof DataSourceElement<?>) {
-			DataSourceElement<?> id = (DataSourceElement<?>) fieldValue;
-			Value rdfValue = null;
-
-			if (id instanceof DataSourceIdentifier<?>) {
-				RdfId rdfId = new RdfId((DataSourceIdentifier<?>) id);
-				rdfValue = rdfId.getRdfValue();
-			} else
-				rdfValue = RdfUtil.createLiteral(id.getDataElement());
-
-			CollectionsUtil.addToOne2ManyMap(fieldValue.getClass(), rdfValue, type2valuesMap);
-			return type2valuesMap;
-		}
-
-		if (fieldValue instanceof Collection<?>) {
-			for (Object value : ((Collection<?>) fieldValue)) {
-				if (value instanceof DataSourceElement<?>) {
-					DataSourceElement<?> id = (DataSourceElement<?>) value;
-					Value rdfValue = null;
-
-					if (id instanceof DataSourceIdentifier<?>) {
-						RdfId rdfId = new RdfId((DataSourceIdentifier<?>) id);
-						rdfValue = rdfId.getRdfValue();
-					} else
-						rdfValue = RdfUtil.createLiteral(id.getDataElement());
-
-					CollectionsUtil.addToOne2ManyMap(value.getClass(), rdfValue, type2valuesMap);
-				} else {
-					throw new RuntimeException(String.format("Unable to extract RDF object from field: %s. "
-							+ "Expected Collection<ResourceComponent> but instead observed Collection<%s>.", fieldName,
-							value.getClass().getName()));
-				}
-			}
-
-			return type2valuesMap;
-		}
-
-		throw new RuntimeException(String.format("Unable to extract RDF object from field: %s (observedValue=%s)",
-				fieldName, fieldValue.toString()));
-	}
-
-	/**
-	 * Returns the subject Resource representation of the value of the field with the given name
-	 * contained in the input DataRecord. The field must be of type ResourceIdentifier.
-	 * 
-	 * @param record
-	 * @param fieldName
-	 * @return
-	 * 
-	 */
-	private Collection<Resource> getSubjectResources(DataRecord record, String fieldName) {
-		Collection<Resource> resources = new ArrayList<Resource>();
-		Object fieldValue = PrivateAccessor.getFieldValue(record, fieldName);
-
-		if (fieldValue instanceof DataSourceIdentifier<?>) {
-			DataSourceIdentifier<?> id = (DataSourceIdentifier<?>) fieldValue;
-			RdfId rdfId = new RdfId(id);
-			resources.add(new URIImpl(RdfUtil.createKiaoUri(rdfId.getNamespace(), id.toString()).toString()));
-			return resources;
-		}
-
-		if (fieldValue instanceof Collection<?>) {
-			for (Object resource : ((Collection<?>) fieldValue))
-				if (resource instanceof DataSourceIdentifier<?>) {
-					DataSourceIdentifier<?> id = (DataSourceIdentifier<?>) resource;
-					RdfId rdfId = new RdfId(id);
-					resources.add(new URIImpl(RdfUtil.createKiaoUri(rdfId.getNamespace(), id.toString()).toString()));
-				} else {
-					String message = String.format("Unable to extract RDF subject from field: %s. "
-							+ "Expected Collection<ResourceIdentifier> but instead observed Collection<%s>.",
-							fieldName, resource.getClass().getName());
-					throw new RuntimeException(message);
-				}
-
-			return resources;
-		}
-
-		throw new RuntimeException(String.format("Unable to extract RDF subject from field: %s (observedValue=%s)",
-				fieldName, fieldValue.toString()));
-	}
+//	/**
+//	 * Parser {@link DataRecord} from field of record.
+//	 * 
+//	 * @param <E>
+//	 *            record type
+//	 * @param record
+//	 *            instance
+//	 * @param fieldName
+//	 *            field in record
+//	 * @return record
+//	 */
+//	private <E extends DataRecord> Map<Class<?>, Collection<Value>> getValues(E record, String fieldName) {
+//		Map<Class<?>, Collection<Value>> type2valuesMap = new HashMap<Class<?>, Collection<Value>>();
+//		Object fieldValue = PrivateAccessor.getFieldValue(record, fieldName);
+//		if (fieldValue == null)
+//			return type2valuesMap;
+//
+//		if (fieldValue instanceof DataSourceElement<?>) {
+//			DataSourceElement<?> id = (DataSourceElement<?>) fieldValue;
+//			Value rdfValue = null;
+//
+//			if (id instanceof DataSourceIdentifier<?>) {
+//				RdfId rdfId = new RdfId((DataSourceIdentifier<?>) id);
+//				rdfValue = rdfId.getRdfValue();
+//			} else
+//				rdfValue = RdfUtil.createLiteral(id.getDataElement());
+//
+//			CollectionsUtil.addToOne2ManyMap(fieldValue.getClass(), rdfValue, type2valuesMap);
+//			return type2valuesMap;
+//		}
+//
+//		if (fieldValue instanceof Collection<?>) {
+//			for (Object value : ((Collection<?>) fieldValue)) {
+//				if (value instanceof DataSourceElement<?>) {
+//					DataSourceElement<?> id = (DataSourceElement<?>) value;
+//					Value rdfValue = null;
+//
+//					if (id instanceof DataSourceIdentifier<?>) {
+//						RdfId rdfId = new RdfId((DataSourceIdentifier<?>) id);
+//						rdfValue = rdfId.getRdfValue();
+//					} else
+//						rdfValue = RdfUtil.createLiteral(id.getDataElement());
+//
+//					CollectionsUtil.addToOne2ManyMap(value.getClass(), rdfValue, type2valuesMap);
+//				} else {
+//					throw new RuntimeException(String.format("Unable to extract RDF object from field: %s. "
+//							+ "Expected Collection<ResourceComponent> but instead observed Collection<%s>.", fieldName,
+//							value.getClass().getName()));
+//				}
+//			}
+//
+//			return type2valuesMap;
+//		}
+//
+//		throw new RuntimeException(String.format("Unable to extract RDF object from field: %s (observedValue=%s)",
+//				fieldName, fieldValue.toString()));
+//	}
+//
+//	/**
+//	 * Returns the subject Resource representation of the value of the field with the given name
+//	 * contained in the input DataRecord. The field must be of type ResourceIdentifier.
+//	 * 
+//	 * @param record
+//	 * @param fieldName
+//	 * @return
+//	 * 
+//	 */
+//	private Collection<Resource> getSubjectResources(DataRecord record, String fieldName) {
+//		Collection<Resource> resources = new ArrayList<Resource>();
+//		Object fieldValue = PrivateAccessor.getFieldValue(record, fieldName);
+//
+//		if (fieldValue instanceof DataSourceIdentifier<?>) {
+//			DataSourceIdentifier<?> id = (DataSourceIdentifier<?>) fieldValue;
+//			RdfId rdfId = new RdfId(id);
+//			resources.add(new URIImpl(RdfUtil.createKiaoUri(rdfId.getNamespace(), id.toString()).toString()));
+//			return resources;
+//		}
+//
+//		if (fieldValue instanceof Collection<?>) {
+//			for (Object resource : ((Collection<?>) fieldValue))
+//				if (resource instanceof DataSourceIdentifier<?>) {
+//					DataSourceIdentifier<?> id = (DataSourceIdentifier<?>) resource;
+//					RdfId rdfId = new RdfId(id);
+//					resources.add(new URIImpl(RdfUtil.createKiaoUri(rdfId.getNamespace(), id.toString()).toString()));
+//				} else {
+//					String message = String.format("Unable to extract RDF subject from field: %s. "
+//							+ "Expected Collection<ResourceIdentifier> but instead observed Collection<%s>.",
+//							fieldName, resource.getClass().getName());
+//					throw new RuntimeException(message);
+//				}
+//
+//			return resources;
+//		}
+//
+//		throw new RuntimeException(String.format("Unable to extract RDF subject from field: %s (observedValue=%s)",
+//				fieldName, fieldValue.toString()));
+//	}
 
 	/**
 	 * Output RDF record to a file based on record's file key.
