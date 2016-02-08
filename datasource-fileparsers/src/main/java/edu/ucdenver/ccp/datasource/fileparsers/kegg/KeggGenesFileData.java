@@ -144,8 +144,9 @@ public class KeggGenesFileData extends MultiLineFileRecord {
 		String databaseName = toks[0].replaceAll(":", "");
 		for (int i = 1; i < toks.length; i++) {
 			DataSourceIdentifier<?> id = DataSourceIdResolver.resolveId(databaseName, toks[i]);
-			if (id != null)
+			if (id != null) {
 				ids.add(id);
+			}
 		}
 		ids.remove(null);
 		return ids;

@@ -147,7 +147,9 @@ import edu.ucdenver.ccp.datasource.fileparsers.RecordField;
 import edu.ucdenver.ccp.datasource.identifiers.DataSource;
 import edu.ucdenver.ccp.datasource.identifiers.DataSourceIdentifier;
 import edu.ucdenver.ccp.datasource.identifiers.NucleotideAccessionResolver;
+import edu.ucdenver.ccp.datasource.identifiers.ProbableErrorDataSourceIdentifier;
 import edu.ucdenver.ccp.datasource.identifiers.ProteinAccessionResolver;
+import edu.ucdenver.ccp.datasource.identifiers.UnknownDataSourceIdentifier;
 import edu.ucdenver.ccp.datasource.identifiers.drugbank.DrugBankID;
 import edu.ucdenver.ccp.datasource.identifiers.drugbank.DrugsProductDatabaseID;
 import edu.ucdenver.ccp.datasource.identifiers.ebi.interpro.PfamID;
@@ -1304,14 +1306,14 @@ public class DrugBankDrugRecord extends FileRecord {
 			} catch (IllegalArgumentException e) {
 				if (identifier.matches("\\d+")) {
 					return new GiNumberID(identifier);
+				} else {
+					return new ProbableErrorDataSourceIdentifier("identifier", "GenBank",
+							"Observed invalid GenBank protein identifier: " + identifier);
 				}
-				logger.warn("Observed invalid GenBank protein identifier: " + identifier);
-				return null;
 			}
 		} else if (resource.equals("GenBank")) {
-			try {
-				return NucleotideAccessionResolver.resolveNucleotideAccession(identifier);
-			} catch (IllegalArgumentException e) {
+			DataSourceIdentifier<String> nucAccId = NucleotideAccessionResolver.resolveNucleotideAccession(identifier);
+			if (ProbableErrorDataSourceIdentifier.class.isInstance(nucAccId.getClass())) {
 				return ProteinAccessionResolver.resolveProteinAccession(identifier);
 			}
 		} else if (resource.equals("UniProtKB")) {
@@ -1354,7 +1356,7 @@ public class DrugBankDrugRecord extends FileRecord {
 				id = new UniProtID(identifier);
 			} catch (IllegalArgumentException e) {
 				logger.warn("Unhandled identifier type: " + resource + " (identifier=" + identifier + ")");
-				return null;
+				return new UnknownDataSourceIdentifier(identifier, resource);
 			}
 			if (id != null) {
 				return id;
@@ -1362,7 +1364,7 @@ public class DrugBankDrugRecord extends FileRecord {
 		}
 
 		System.out.println("Unhandled identifier type: " + resource + " (identifier=" + identifier + ")");
-		return null;
+		return new UnknownDataSourceIdentifier(identifier, resource);
 		// throw new IllegalArgumentException("Unhandled identifier type: " +
 		// resource +
 		// " (identifier=" + identifier

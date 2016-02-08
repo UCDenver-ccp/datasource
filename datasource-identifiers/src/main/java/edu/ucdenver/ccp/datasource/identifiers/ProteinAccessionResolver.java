@@ -39,6 +39,8 @@ package edu.ucdenver.ccp.datasource.identifiers;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import org.apache.log4j.Logger;
+
 import edu.ucdenver.ccp.datasource.identifiers.ebi.embl.EmblID;
 import edu.ucdenver.ccp.datasource.identifiers.ebi.uniprot.UniProtID;
 import edu.ucdenver.ccp.datasource.identifiers.ncbi.GenBankID;
@@ -49,10 +51,13 @@ import edu.ucdenver.ccp.datasource.identifiers.other.DdbjId;
  * Resolution of accession identifiers based on prefixes available here:
  * http://www.ncbi.nlm.nih.gov/Sequin/acc.html
  * 
- * @author Colorado Computational Pharmacology, UC Denver; ccpsupport@ucdenver.edu
+ * @author Colorado Computational Pharmacology, UC Denver;
+ *         ccpsupport@ucdenver.edu
  * 
  */
 public class ProteinAccessionResolver {
+	
+	private static final Logger logger = Logger.getLogger(ProteinAccessionResolver.class);
 
 	private static final Pattern ACC_PATTERN = Pattern.compile("([A-Z]{3})\\d+\\.?\\d*");
 	private static final String VALID_UNIPROT_PATTERN_1 = "[A-NR-Z][0-9][A-Z][A-Z0-9][A-Z0-9][0-9]";
@@ -100,7 +105,9 @@ public class ProteinAccessionResolver {
 				return new GenBankID(acc);
 			}
 		}
-		throw new IllegalArgumentException("Input is not a known protein accession pattern: " + acc);
+		logger.warn("Input is not a known protein accession pattern: " + acc);
+		return new ProbableErrorDataSourceIdentifier(acc, null, "Input is not a known protein accession pattern: "
+				+ acc);
 	}
 
 }

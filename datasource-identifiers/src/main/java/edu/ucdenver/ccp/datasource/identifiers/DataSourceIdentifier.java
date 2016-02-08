@@ -43,7 +43,7 @@ package edu.ucdenver.ccp.datasource.identifiers;
  */
 public abstract class DataSourceIdentifier<T> extends DataSourceElement<T> {
 
-	private final DataSource dataSource;
+	protected final DataSource dataSource;
 	
 	/**
 	 * Default constructor.

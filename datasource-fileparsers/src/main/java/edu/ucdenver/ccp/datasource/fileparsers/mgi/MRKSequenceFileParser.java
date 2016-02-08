@@ -132,13 +132,9 @@ public class MRKSequenceFileParser extends SingleLineFileRecordReader<MRKSequenc
 			String[] genBankIDs = toks[10].split(RegExPatterns.PIPE);
 			for (String genBankID : genBankIDs) {
 				if (genBankID.trim().length() > 0) {
-					try {
-						DataSourceIdentifier<String> resolveNucleotideAccession = NucleotideAccessionResolver
-								.resolveNucleotideAccession(genBankID);
-						genBankAccessionIDs.add(resolveNucleotideAccession);
-					} catch (IllegalArgumentException e) {
-						logger.warn("Unable to resolve supposed GenBank id: " + genBankID);
-					}
+					DataSourceIdentifier<String> resolveNucleotideAccession = NucleotideAccessionResolver
+							.resolveNucleotideAccession(genBankID);
+					genBankAccessionIDs.add(resolveNucleotideAccession);
 				}
 			}
 		}

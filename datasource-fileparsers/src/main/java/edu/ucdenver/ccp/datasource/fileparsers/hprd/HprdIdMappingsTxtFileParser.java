@@ -61,6 +61,7 @@ import edu.ucdenver.ccp.common.file.reader.Line;
 import edu.ucdenver.ccp.datasource.fileparsers.SingleLineFileRecordReader;
 import edu.ucdenver.ccp.datasource.identifiers.DataSourceIdentifier;
 import edu.ucdenver.ccp.datasource.identifiers.NucleotideAccessionResolver;
+import edu.ucdenver.ccp.datasource.identifiers.ProbableErrorDataSourceIdentifier;
 import edu.ucdenver.ccp.datasource.identifiers.ProteinAccessionResolver;
 import edu.ucdenver.ccp.datasource.identifiers.ebi.uniprot.UniProtID;
 import edu.ucdenver.ccp.datasource.identifiers.hprd.HprdID;
@@ -114,11 +115,11 @@ public class HprdIdMappingsTxtFileParser extends SingleLineFileRecordReader<Hprd
 	}
 
 	private DataSourceIdentifier<?> resolveAccession(String acc) {
-		try {
-			return NucleotideAccessionResolver.resolveNucleotideAccession(acc);
-		} catch (IllegalArgumentException e) {
+		DataSourceIdentifier<String> nucAccId = NucleotideAccessionResolver.resolveNucleotideAccession(acc);
+		if (ProbableErrorDataSourceIdentifier.class.isInstance(nucAccId)) {
 			return ProteinAccessionResolver.resolveProteinAccession(acc);
 		}
+		return nucAccId;
 	}
 
 }

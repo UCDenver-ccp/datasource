@@ -59,7 +59,9 @@ import edu.ucdenver.ccp.datasource.fileparsers.hgnc.HgncDownloadFileData.LocusSp
 import edu.ucdenver.ccp.datasource.fileparsers.hgnc.HgncDownloadFileData.SpecialistDbIdLinkPair;
 import edu.ucdenver.ccp.datasource.identifiers.DataSourceIdentifier;
 import edu.ucdenver.ccp.datasource.identifiers.NucleotideAccessionResolver;
+import edu.ucdenver.ccp.datasource.identifiers.ProbableErrorDataSourceIdentifier;
 import edu.ucdenver.ccp.datasource.identifiers.ProteinAccessionResolver;
+import edu.ucdenver.ccp.datasource.identifiers.UnknownDataSourceIdentifier;
 import edu.ucdenver.ccp.datasource.identifiers.ebi.uniprot.UniProtID;
 import edu.ucdenver.ccp.datasource.identifiers.ec.EnzymeCommissionID;
 import edu.ucdenver.ccp.datasource.identifiers.ensembl.EnsemblGeneID;
@@ -551,9 +553,7 @@ public class HgncDownloadFileParser extends SingleLineFileRecordReader<HgncDownl
 			return new SlcId(idStr);
 		}
 
-		logger.warn("Unable to resolve id from: " + link);
-		return null;
-		// throw new IllegalArgumentException("Unknown link type: " + link);
+		return new UnknownDataSourceIdentifier(idStr, null);
 	}
 
 	/**
@@ -564,14 +564,12 @@ public class HgncDownloadFileParser extends SingleLineFileRecordReader<HgncDownl
 		Set<DataSourceIdentifier<?>> accNumbers = new HashSet<DataSourceIdentifier<?>>();
 		if (!accListStr.isEmpty()) {
 			for (String acc : accListStr.split(",")) {
-				try {
-					accNumbers.add(NucleotideAccessionResolver.resolveNucleotideAccession(acc));
-				} catch (IllegalArgumentException e) {
-					try {
-						accNumbers.add(ProteinAccessionResolver.resolveProteinAccession(acc));
-					} catch (IllegalArgumentException e2) {
-						logger.warn("Cannot resolve: " + acc + " -- " + e.getMessage());
-					}
+				DataSourceIdentifier<String> nucAccId = NucleotideAccessionResolver.resolveNucleotideAccession(acc);
+				if (ProbableErrorDataSourceIdentifier.class.isInstance(nucAccId)) {
+					DataSourceIdentifier<String> proAccId = ProteinAccessionResolver.resolveProteinAccession(acc);
+					accNumbers.add(proAccId);
+				} else {
+					accNumbers.add(nucAccId);
 				}
 			}
 		}

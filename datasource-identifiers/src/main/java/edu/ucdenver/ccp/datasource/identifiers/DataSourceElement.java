@@ -45,7 +45,7 @@ public abstract class DataSourceElement<T> {
 	/**
 	 * raw data element
 	 */
-	private T dataElement;
+	protected T dataElement;
 	
 	/**
 	 * Default constructor. 

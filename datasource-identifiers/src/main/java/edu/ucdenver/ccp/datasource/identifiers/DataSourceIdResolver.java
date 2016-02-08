@@ -132,16 +132,18 @@ import edu.ucdenver.ccp.datasource.identifiers.wormbase.WormBaseID;
 import edu.ucdenver.ccp.identifier.publication.PubMedID;
 
 /**
- * provides various methods to map from an ID in database or ontology files to instances of
- * identifier classes under edu.ucdenver.ccp.datasource.identifiers.
+ * provides various methods to map from an ID in database or ontology files to
+ * instances of identifier classes under
+ * edu.ucdenver.ccp.datasource.identifiers.
  * 
- * These are basically factory methods. Given some information about where the ID came from and an
- * ID string, it creates an instance of an identifier class related to the source. This is done for
- * DataSourceIdentifiers, PMID identifiers and others.
+ * These are basically factory methods. Given some information about where the
+ * ID came from and an ID string, it creates an instance of an identifier class
+ * related to the source. This is done for DataSourceIdentifiers, PMID
+ * identifiers and others.
  * 
- * Three functions named resolveId(): - a value of the DataSource enum and an ID string. - a name of
- * a data source and and ID string. - an ID string that is parsed to discover the data source it
- * came from.
+ * Three functions named resolveId(): - a value of the DataSource enum and an ID
+ * string. - a name of a data source and and ID string. - an ID string that is
+ * parsed to discover the data source it came from.
  **/
 public class DataSourceIdResolver {
 
@@ -210,7 +212,8 @@ public class DataSourceIdResolver {
 
 	}
 
-	// TODO: remove this method and replace its use with resolveId(DataSource, String)
+	// TODO: remove this method and replace its use with resolveId(DataSource,
+	// String)
 	public static DataSourceIdentifier<?> resolveId(String databaseName, String databaseObjectID) {
 		if (databaseName.equalsIgnoreCase("MGI"))
 			return new MgiGeneID(databaseObjectID);
@@ -290,8 +293,9 @@ public class DataSourceIdResolver {
 				|| databaseName.equalsIgnoreCase("GenBank Protein Database"))
 			return new GenBankID(databaseObjectID);
 
-		logger.warn("Unable to resolve data source identifier: datasource=" + databaseName + " id=" + databaseObjectID);
-		return null;
+		logger.warn("Unable to resolve data source identifier: datasource=" + databaseName + " id=" + databaseObjectID
+				+ ". Using UnknownDataSourceIdentifier.");
+		return new UnknownDataSourceIdentifier(databaseObjectID, databaseName);
 	}
 
 	/**
@@ -445,14 +449,13 @@ public class DataSourceIdResolver {
 			else if (geneIDStr.startsWith("NCBITaxon:"))
 				return new NcbiTaxonomyID(StringUtil.removePrefix(geneIDStr, "NCBITaxon:"));
 
-			logger.error(String
-					.format("Unknown gene ID format: %s. Cannot create DataElementIdentifier<?>.", geneIDStr));
-
+			logger.warn(String.format("Unhandled gene ID format: %s. Creating UnknownDataSourceIdentifier.", geneIDStr));
+			return new UnknownDataSourceIdentifier(geneIDStr, null);
 		} catch (IllegalArgumentException e) {
-			logger.warn("Invalid ID detected... " +  e.getMessage());
+			logger.warn("Invalid ID detected... " + e.getMessage());
+			return new ProbableErrorDataSourceIdentifier(geneIDStr, null, e.getMessage());
 		}
 
-		return null;
 	}
 
 	/**
@@ -460,21 +463,23 @@ public class DataSourceIdResolver {
 	 * 
 	 * @param interactionIDStr
 	 *            id to resolve
-	 * @return identifier if argument is resolvable and supported; otherwise, return null.
+	 * @return identifier if argument is resolvable and supported; otherwise,
+	 *         return null.
 	 */
 	private static DataSourceIdentifier<?> resolveInteractionID(String interactionIDStr) {
-		if (interactionIDStr.startsWith("intact:"))
+		if (interactionIDStr.startsWith("intact:")) {
 			return new IntActID(StringUtil.removePrefix(interactionIDStr, "intact:"));
-		else if (interactionIDStr.startsWith("bind:"))
+		} else if (interactionIDStr.startsWith("bind:")) {
 			return new BindInteractionID(StringUtil.removePrefix(interactionIDStr, "bind:"));
-		else if (interactionIDStr.startsWith("grid:"))
+		} else if (interactionIDStr.startsWith("grid:")) {
 			return new BioGridID(StringUtil.removePrefix(interactionIDStr, "grid:"));
-		else if (interactionIDStr.startsWith("mint:"))
+		} else if (interactionIDStr.startsWith("mint:")) {
 			return new MintID(StringUtil.removePrefix(interactionIDStr, "mint:"));
+		}
 
-		logger.error(String.format("Unknown interaction ID format: %s. Cannot create DataElementIdentifier<?>.",
+		logger.warn(String.format("Unknown interaction ID format: %s. Cannot create DataElementIdentifier<?>.",
 				interactionIDStr));
-		return null;
+		return new UnknownDataSourceIdentifier(interactionIDStr, null);
 	}
 
 	/**
@@ -482,8 +487,8 @@ public class DataSourceIdResolver {
 	 * 
 	 * @param interactionIDStrs
 	 *            ids to resolve
-	 * @return identifier if all members of <code>interactionIDStrs</code> are resolvable and
-	 *         supported; otherwise, return null.
+	 * @return identifier if all members of <code>interactionIDStrs</code> are
+	 *         resolvable and supported; otherwise, return null.
 	 */
 	public static Set<DataSourceIdentifier<?>> resolveInteractionIDs(Set<String> interactionIDStrs) {
 		Set<DataSourceIdentifier<?>> interactionIDs = new HashSet<DataSourceIdentifier<?>>();
@@ -500,26 +505,29 @@ public class DataSourceIdResolver {
 	 * Resolve Pubmed ID from value that starts with prefix 'pubmed:'.
 	 * 
 	 * @param pmidStr
-	 * @return id if value following prefix is a positive integer; otherwise, null
+	 * @return id if value following prefix is a positive integer; otherwise,
+	 *         null
 	 */
-	public static PubMedID resolvePubMedID(String pmidStr) {
+	public static DataSourceIdentifier<?> resolvePubMedID(String pmidStr) {
 		String prefix = "pubmed:";
 		if (pmidStr.startsWith(prefix)) {
 			String id = StringUtil.removePrefix(pmidStr, prefix);
-			if (StringUtil.isIntegerGreaterThanZero(id))
+			if (StringUtil.isIntegerGreaterThanZero(id)) {
 				return new PubMedID(id);
+			}
 		}
 
-		logger.error(String.format("Unknown PubMed ID format: %s. Cannot create PubMedID.", pmidStr));
-		return null;
+		logger.warn(String.format("Unknown PubMed ID format: %s. Cannot create PubMedID.", pmidStr));
+		return new ProbableErrorDataSourceIdentifier(pmidStr, null, "Invalid PubMedID, must be an integer.");
 	}
 
-	public static Set<PubMedID> resolvePubMedIDs(Set<String> pmidStrs) {
-		Set<PubMedID> pmids = new HashSet<PubMedID>();
+	public static Set<DataSourceIdentifier<?>> resolvePubMedIDs(Set<String> pmidStrs) {
+		Set<DataSourceIdentifier<?>> pmids = new HashSet<DataSourceIdentifier<?>>();
 		for (String pmidStr : pmidStrs) {
-			PubMedID id = resolvePubMedID(pmidStr);
-			if (id == null)
+			DataSourceIdentifier<?> id = resolvePubMedID(pmidStr);
+			if (id == null) {
 				return null;
+			}
 
 			pmids.add(id);
 		}
@@ -530,8 +538,9 @@ public class DataSourceIdResolver {
 		Set<DataSourceIdentifier<?>> databaseObjectIDs = new HashSet<DataSourceIdentifier<?>>();
 		for (String databaseObjectIDStr : databaseObjectIDStrs) {
 			DataSourceIdentifier<?> id = resolveId(databaseObjectIDStr);
-			if (id != null)
+			if (id != null) {
 				databaseObjectIDs.add(id);
+			}
 		}
 		return databaseObjectIDs;
 	}

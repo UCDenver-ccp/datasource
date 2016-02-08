@@ -73,22 +73,24 @@ import edu.ucdenver.ccp.identifier.publication.PubMedID;
  * 
  * @author Bill Baumgartner
  * 
- *         ID _________ Association(Y/N) _________ Broad Phenotype Disease Class _________ Disease
- *         Class Code _________ MeSH Disease Terms _________ Chromosom _________ Chr-Band _________
- *         _________ Gene _________ DNA Start _________ DNA End P Value Reference _________ Pubmed
- *         ID _________ Allele Author Description _________ Allele Functional Effects _________
- *         Polymophism Class _________ Gene Name _________ RefSeq _________ Population _________
- *         MeSH Geolocation _________ Submitter _________ Locus Number _________ Unigene _________
- *         Narrow Phenotype _________ Mole. Phenotype Journal Title _________ rs Number _________
- *         OMIM ID Year _________ Conclusion _________ Study Info _________ Env. Factor _________ GI
- *         Gene A _________ GI Allele of Gene A _________ GI Gene B _________ GI Allele of Gene B
- *         _________ GI Gene C _________ GI Allele of Gene C _________ GI Association? GI combine
+ *         ID _________ Association(Y/N) _________ Broad Phenotype Disease Class
+ *         _________ Disease Class Code _________ MeSH Disease Terms _________
+ *         Chromosom _________ Chr-Band _________ _________ Gene _________ DNA
+ *         Start _________ DNA End P Value Reference _________ Pubmed ID
+ *         _________ Allele Author Description _________ Allele Functional
+ *         Effects _________ Polymophism Class _________ Gene Name _________
+ *         RefSeq _________ Population _________ MeSH Geolocation _________
+ *         Submitter _________ Locus Number _________ Unigene _________ Narrow
+ *         Phenotype _________ Mole. Phenotype Journal Title _________ rs Number
+ *         _________ OMIM ID Year _________ Conclusion _________ Study Info
+ *         _________ Env. Factor _________ GI Gene A _________ GI Allele of Gene
+ *         A _________ GI Gene B _________ GI Allele of Gene B _________ GI Gene
+ *         C _________ GI Allele of Gene C _________ GI Association? GI combine
  *         Env. Factor _________ GI relevant to Disease
  */
 
-@Record(dataSource = DataSource.GAD, schemaVersion="2", comment="Schema version is 2 b/c one field was dropped: GAD/CDC", label="GAD record")
+@Record(dataSource = DataSource.GAD, schemaVersion = "2", comment = "Schema version is 2 b/c one field was dropped: GAD/CDC", label = "GAD record")
 public class GeneticAssociationDbAllTxtFileData extends SingleLineFileRecord {
-	
 
 	private static final Logger logger = Logger.getLogger(GeneticAssociationDbAllTxtFileData.class);
 
@@ -422,7 +424,7 @@ public class GeneticAssociationDbAllTxtFileData extends SingleLineFileRecord {
 	}
 
 	public static GeneticAssociationDbAllTxtFileData parseGeneticAssociationDbAllTxtLine(Line line) {
-		String[] toks = line.getText().split("\\t",-1);
+		String[] toks = line.getText().split("\\t", -1);
 		if (toks.length < 23) {
 			logger.warn("Invalid line detected (" + line.getLineNumber() + "): " + line.getText());
 		}
@@ -454,9 +456,10 @@ public class GeneticAssociationDbAllTxtFileData extends SingleLineFileRecord {
 		String geneName = toks[17];
 		String refseqURL = null;
 		try {
-		 refseqURL = toks[18];
+			refseqURL = toks[18];
 		} catch (ArrayIndexOutOfBoundsException e) {
-			logger.error("Caught exception. Line: (" + line.getLineNumber() + ") #toks: " + toks.length+" Message: " + e.getMessage() + " LINE: " + line.getText());
+			logger.error("Caught exception. Line: (" + line.getLineNumber() + ") #toks: " + toks.length + " Message: "
+					+ e.getMessage() + " LINE: " + line.getText());
 		}
 
 		DataSourceIdentifier<?> nucleotideId = null;
@@ -470,13 +473,7 @@ public class GeneticAssociationDbAllTxtFileData extends SingleLineFileRecord {
 			if (acc.matches("\\d+")) {
 				nucleotideId = new GiNumberID(acc);
 			} else {
-				try {
-					nucleotideId = NucleotideAccessionResolver.resolveNucleotideAccession(acc);
-				} catch (IllegalArgumentException e) {
-					logger.info("tok: " + refseqURL + ";");
-					logger.warn(e.getMessage());
-					nucleotideId = null;
-				}
+				nucleotideId = NucleotideAccessionResolver.resolveNucleotideAccession(acc);
 			}
 		}
 

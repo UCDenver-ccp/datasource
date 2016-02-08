@@ -43,6 +43,8 @@ import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import org.apache.log4j.Logger;
+
 import edu.ucdenver.ccp.common.collections.CollectionsUtil;
 import edu.ucdenver.ccp.datasource.identifiers.ebi.embl.EmblID;
 import edu.ucdenver.ccp.datasource.identifiers.ncbi.GenBankID;
@@ -54,10 +56,13 @@ import edu.ucdenver.ccp.datasource.identifiers.other.DdbjId;
  * Resolution of accession identifiers based on prefixes available here:
  * http://www.ncbi.nlm.nih.gov/Sequin/acc.html
  * 
- * @author Colorado Computational Pharmacology, UC Denver; ccpsupport@ucdenver.edu
+ * @author Colorado Computational Pharmacology, UC Denver;
+ *         ccpsupport@ucdenver.edu
  * 
  */
 public class NucleotideAccessionResolver {
+
+	private static final Logger logger = Logger.getLogger(NucleotideAccessionResolver.class);
 
 	private static final Pattern ACC_PATTERN = Pattern.compile("([A-Z]+)\\d+\\.?\\d*");
 
@@ -136,7 +141,8 @@ public class NucleotideAccessionResolver {
 				}
 			}
 		}
-		throw new IllegalArgumentException("Input is not a known nucleotide accession: " + acc);
+		logger.warn("Input is not a known nucleotide accession: " + acc);
+		return new ProbableErrorDataSourceIdentifier(acc, null, "Input is not a known nucleotide accession: " + acc);
 	}
 
 }
