@@ -66,23 +66,26 @@ public class NucleotideAccessionResolver {
 
 	private static final Pattern ACC_PATTERN = Pattern.compile("([A-Z]+)\\d+\\.?\\d*");
 
-	private static final Set<String> GENBANK_ID_PREFIXES = CollectionsUtil.createSet("CH", "CM", "DS", "EM", "EN",
-			"EP", "EQ", "FA", "GG", "GL", "JH", "KB", "H", "N", "T", "R", "W", "AA", "AI", "AW", "BE", "BF", "BG",
-			"BI", "BM", "BQ", "BU", "CA", "CB", "CD", "CF", "CK", "CN", "CO", "CV", "CX", "DN", "DR", "DT", "DV", "DW",
-			"DY", "EB", "EC", "EE", "EG", "EH", "EL", "ES", "EV", "EW", "EX", "EY", "FC", "FD", "FE", "FF", "FG", "FK",
-			"FL", "GD", "GE", "GH", "GO", "GR", "GT", "GW", "HO", "HS", "JG", "JK", "JZ", "U", "AF", "AY", "DQ", "EF",
-			"EU", "FJ", "GQ", "GU", "HM", "HQ", "JF", "JN", "JQ", "JX", "KC", "AE", "CP", "CY", "B", "AQ", "AZ", "BH",
-			"BZ", "CC", "CE", "CG", "CL", "CW", "CZ", "DU", "DX", "ED", "EI", "EJ", "EK", "ER", "ET", "FH", "FI", "GS",
-			"HN", "HR", "JJ", "JM", "JS", "JY", "AC", "DP", "I", "AR", "DZ", "EA", "GC", "GP", "GV", "GX", "GY", "GZ",
-			"HJ", "HK", "HL", "G", "BV", "GF", "BK", "BL", "GJ", "GK", "EZ", "HP", "JI", "JL", "JO", "JP", "JR", "JT",
-			"JU", "JV", "JW", "KA", "S", "AD", "AH", "AS", "BC", "BT", "J", "K", "L", "M", "N");
+	private static final Set<String> GENBANK_ID_PREFIXES = CollectionsUtil.createSet("H", "N", "T", "R", "W", "AA",
+			"AI", "AW", "BE", "BF", "BG", "BI", "BM", "BQ", "BU", "CA", "CB", "CD", "CF", "CK", "CN", "CO", "CV", "CX",
+			"DN", "DR", "DT", "DV", "DW", "DY", "EB", "EC", "EE", "EG", "EH", "EL", "ES", "EV", "EW", "EX", "EY", "FC",
+			"FD", "FE", "FF", "FG", "FK", "FL", "GD", "GE", "GH", "GO", "GR", "GT", "GW", "HO", "HS", "JG", "JK", "JZ",
+			"U", "AF", "AY", "DQ", "EF", "EU", "FJ", "GQ", "GU", "HM", "HQ", "JF", "JN", "JQ", "JX", "KC", "KF", "KJ",
+			"KM", "KP", "KR", "KT", "KU", "AE", "CP", "CY", "B", "AQ", "AZ", "BH", "BZ", "CC", "CE", "CG", "CL", "CW",
+			"CZ", "DU", "DX", "ED", "EI", "EJ", "EK", "ER", "ET", "FH", "FI", "GS", "HN", "HR", "JJ", "JM", "JS", "JY",
+			"KG", "KO", "KS", "AC", "DP", "I", "AR", "DZ", "EA", "GC", "GP", "GV", "GX", "GY", "GZ", "HJ", "HK", "HL",
+			"G", "BV", "GF", "BK", "BL", "GJ", "GK", "EZ", "HP", "JI", "JL", "JO", "JP", "JR", "JT", "JU", "JV", "JW",
+			"KA", "S", "AD", "AH", "AS", "BC", "BT", "J", "K", "L", "M", "N", "CH", "CM", "DS", "EM", "EN", "EP", "EQ",
+			"FA", "GG", "GL", "JH", "KB", "KD", "KE", "KI", "KK", "KL", "KN", "KQ", "KV");
 	private static final Set<String> EMBL_ID_PREFIXES = CollectionsUtil.createSet("AN", "F", "V", "X", "Y", "Z", "AJ",
-			"AM", "FM", "FN", "HE", "HF", "HG", "FO", "AL", "BX", "CR", "CT", "CU", "FP", "FQ", "FR", "A", "AX", "CQ",
-			"CS", "FB", "GM", "GN", "HA", "HB", "HC", "HD", "HH", "HI", "JA", "JB", "JC", "JD", "JE", "BN");
-	private static final Set<String> DDBJ_ID_PREFIXES = CollectionsUtil.createSet("BA", "DF", "DG", "C", "AT", "AU",
-			"AV", "BB", "BJ", "BP", "BW", "BY", "CI", "CJ", "DA", "DB", "DC", "DK", "FS", "FY", "HX", "HY", "D", "AB",
-			"AP", "BS", "AG", "DE", "DH", "FT", "GA", "AK", "E", "BD", "DD", "DI", "DJ", "DL", "DM", "FU", "FV", "FW",
-			"FZ", "GB", "HV", "HW", "BR", "HT", "HU", "FX");
+			"AM", "FM", "FN", "HE", "HF", "HG", "FO", "LK", "LL", "LM", "LN", "LO", "LP", "LQ", "LR", "LS", "LT", "AL",
+			"BX", "CR", "CT", "CU", "FP", "FQ", "FR", "A", "AX", "CQ", "CS", "FB", "GM", "GN", "HA", "HB", "HC", "HD",
+			"HH", "HI", "JA", "JB", "JC", "JD", "JE", "BN");
+	private static final Set<String> DDBJ_ID_PREFIXES = CollectionsUtil.createSet("BA", "DF", "DG", "LD", "C", "AT",
+			"AU", "AV", "BB", "BJ", "BP", "BW", "BY", "CI", "CJ", "DA", "DB", "DC", "DK", "FS", "FY", "HX", "HY", "D",
+			"AB", "LC", "AP", "BS", "AG", "DE", "DH", "FT", "GA", "LB", "AK", "E", "BD", "DD", "DI", "DJ", "DL", "DM",
+			"FU", "FV", "FW", "FZ", "GB", "HV", "HW", "HZ", "LF", "LG", "BR", "HT", "HU", "FX", "LA", "LE", "LH", "LI",
+			"LJ");
 
 	private static Map<String, Class<? extends DataSourceIdentifier<String>>> prefixToIdClass;
 
@@ -113,13 +116,19 @@ public class NucleotideAccessionResolver {
 			if (prefix.length() == 5 && prefix.startsWith("A")) {
 				return new DdbjId(acc);
 			}
-			if (prefix.length() == 4 && (prefix.startsWith("A") || prefix.startsWith("D") || prefix.startsWith("G"))) {
+			if (prefix.length() == 4
+					&& (prefix.startsWith("A") || prefix.startsWith("D") || prefix.startsWith("G")
+							|| prefix.startsWith("J") || prefix.startsWith("L") || prefix.startsWith("M")
+							|| prefix.startsWith("N") || prefix.startsWith("K"))) {
 				return new GenBankID(acc);
 			}
-			if (prefix.length() == 4 && (prefix.startsWith("B") || prefix.startsWith("E"))) {
+			if (prefix.length() == 4
+					&& (prefix.startsWith("B") || prefix.startsWith("P") || prefix.startsWith("E") || prefix
+							.startsWith("I"))) {
 				return new DdbjId(acc);
 			}
-			if (prefix.length() == 4 && prefix.startsWith("C")) {
+			if (prefix.length() == 4 && prefix.startsWith("C") || prefix.startsWith("F") || prefix.startsWith("O")
+					|| prefix.startsWith("H")) {
 				return new EmblID(acc);
 			}
 			Class<? extends DataSourceIdentifier<String>> idClass = prefixToIdClass.get(prefix);
@@ -141,7 +150,7 @@ public class NucleotideAccessionResolver {
 				}
 			}
 		}
-		logger.warn("Input is not a known nucleotide accession: " + acc);
+		// logger.warn("Input is not a known nucleotide accession: " + acc);
 		return new ProbableErrorDataSourceIdentifier(acc, null, "Input is not a known nucleotide accession: " + acc);
 	}
 

@@ -56,11 +56,12 @@ import edu.ucdenver.ccp.datasource.identifiers.other.DdbjId;
  * 
  */
 public class ProteinAccessionResolver {
-	
+
 	private static final Logger logger = Logger.getLogger(ProteinAccessionResolver.class);
 
 	private static final Pattern ACC_PATTERN = Pattern.compile("([A-Z]{3})\\d+\\.?\\d*");
 	private static final String VALID_UNIPROT_PATTERN_1 = "[A-NR-Z][0-9][A-Z][A-Z0-9][A-Z0-9][0-9]";
+	private static final String VALID_UNIPROT_PATTERN_3 = "[A-NR-Z][0-9][A-Z][A-Z0-9][A-Z0-9][0-9][A-Z][A-Z0-9][A-Z0-9][0-9]";
 	private static final String VALID_UNIPROT_PATTERN_2 = "[OPQ][0-9][A-Z0-9][A-Z0-9][A-Z0-9][0-9]";
 
 	public static DataSourceIdentifier<String> resolveProteinAccession(String acc) {
@@ -68,7 +69,8 @@ public class ProteinAccessionResolver {
 		if (acc.matches("[A-Z][A-Z]_\\d+\\.?\\d*")) {
 			return new RefSeqID(acc);
 		}
-		if (acc.matches(VALID_UNIPROT_PATTERN_1) || acc.matches(VALID_UNIPROT_PATTERN_2)) {
+		if (acc.matches(VALID_UNIPROT_PATTERN_1) || acc.matches(VALID_UNIPROT_PATTERN_2)
+				|| acc.matches(VALID_UNIPROT_PATTERN_3)) {
 			return new UniProtID(acc);
 		}
 		Matcher m = ACC_PATTERN.matcher(acc);
@@ -102,6 +104,18 @@ public class ProteinAccessionResolver {
 				return new DdbjId(acc);
 			}
 			if (prefix.startsWith("J")) {
+				return new GenBankID(acc);
+			}
+			if (prefix.startsWith("K")) {
+				return new GenBankID(acc);
+			}
+			if (prefix.startsWith("L")) {
+				return new DdbjId(acc);
+			}
+			if (prefix.startsWith("M")) {
+				return new GenBankID(acc);
+			}
+			if (prefix.startsWith("N")) {
 				return new GenBankID(acc);
 			}
 		}
