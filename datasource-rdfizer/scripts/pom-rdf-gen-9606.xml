@@ -41,6 +41,7 @@
 						<argument>${compressRdf}</argument> <!-- compressRdf -->
 						<argument>${outputRecordLimit}</argument> <!-- outputRecordLimit -->
 						<argument>9606</argument> <!-- taxon identifiers to limit output to, comma-delimited -->
+						<argument>${redownloadDataSourceFiles}</argument> <!-- Re-download the data source files prior to processing? (true/false) -->
 						<argument>${datasourceNames}</argument> <!-- datasource names to process, comma-delimited -->
 						<argument>${date}</argument> <!-- date -->
 					</arguments>

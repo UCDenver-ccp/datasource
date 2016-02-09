@@ -35,23 +35,25 @@
 						<argument>-classpath</argument>
 						<classpath />
 						<argument>edu.ucdenver.ccp.datasource.rdfizer.rdf.ice.IceRdfGenerator</argument>
-                        <argument>NAME</argument>
-                        <!-- Directory for downloaded datasources -->
-                        <argument>${baseSourceDir}</argument>
-                        <!-- Directory into which to write RDF triple files
-                             parsed from downloaded datasources. -->
-                        <argument>${baseRdfDir}</argument>
-                        <!-- Compress the generated triple files? -->
-                        <argument>${compressRdf}</argument>
-                        <!-- outputRecordLimit -->
-                        <argument>${outputRecordLimit}</argument>
-                        <!-- Taxon identifiers to limit output to,
-                             comma-delimited; use "EMPTY" to not limit output -->
-                        <argument>${taxonIDs}</argument>
-                        <!-- comma-delimited list of datasources to process -->
-                        <argument>${datasourceNames}</argument>
-                        <!-- date -->
-                        <argument>${date}</argument>
+						<argument>NAME</argument>
+						<!-- Directory for downloaded datasources -->
+						<argument>${baseSourceDir}</argument>
+						<!-- Directory into which to write RDF triple files parsed from downloaded 
+							datasources. -->
+						<argument>${baseRdfDir}</argument>
+						<!-- Compress the generated triple files? -->
+						<argument>${compressRdf}</argument>
+						<!-- outputRecordLimit -->
+						<argument>${outputRecordLimit}</argument>
+						<!-- Taxon identifiers to limit output to, comma-delimited; use "EMPTY" 
+							to not limit output -->
+						<argument>${taxonIDs}</argument>
+						<!-- Re-download the data source files prior to processing? (true/false) -->
+						<argument>${redownloadDataSourceFiles}</argument>
+						<!-- comma-delimited list of datasources to process -->
+						<argument>${datasourceNames}</argument>
+						<!-- date -->
+						<argument>${date}</argument>
 					</arguments>
 				</configuration>
 			</plugin>
