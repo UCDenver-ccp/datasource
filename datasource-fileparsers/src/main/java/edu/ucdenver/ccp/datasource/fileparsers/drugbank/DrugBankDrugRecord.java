@@ -932,11 +932,17 @@ public class DrugBankDrugRecord extends FileRecord {
 		}
 		Set<Category> toReturn = new HashSet<Category>();
 		for (CategoryType p : list.getCategory()) {
-			MeshID meshId = null;
+			Set<MeshID> meshIds = new HashSet<MeshID>();
 			if (!p.getMeshId().trim().isEmpty()) {
-				meshId = new MeshID(p.getMeshId().trim());
+				String meshStr = p.getMeshId().trim();
+				meshStr = meshStr.replaceAll("\"", "");
+				meshStr = meshStr.replace("[", "");
+				meshStr = meshStr.replace("]", "");
+				for (String tok : meshStr.split(",")) {
+					meshIds.add(new MeshID(tok));
+				}
 			}
-			Category c = new Category(meshId, p.getCategory());
+			Category c = new Category(meshIds, p.getCategory());
 			toReturn.add(c);
 		}
 		return toReturn;
@@ -946,7 +952,7 @@ public class DrugBankDrugRecord extends FileRecord {
 	@Record(dataSource = DataSource.DRUGBANK)
 	private static class Category {
 		@RecordField
-		private final MeshID meshId;
+		private final Set<MeshID> meshIds;
 		@RecordField
 		private final String category;
 	}
@@ -1308,6 +1314,8 @@ public class DrugBankDrugRecord extends FileRecord {
 					"GenBank:" + identifier);
 			if (ProbableErrorDataSourceIdentifier.class.isInstance(nucAccId.getClass())) {
 				return ProteinAccessionResolver.resolveProteinAccession(identifier, "GenBank:" + identifier);
+			} else {
+				return nucAccId;
 			}
 		} else if (resource.equals("UniProtKB")) {
 			return new UniProtID(identifier);

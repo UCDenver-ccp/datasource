@@ -33,10 +33,8 @@ package edu.ucdenver.ccp.datasource.identifiers.ncbi;
  * #L%
  */
 
-import org.apache.commons.lang.math.NumberUtils;
-
-import edu.ucdenver.ccp.datasource.identifiers.DataSourceIdentifier;
 import edu.ucdenver.ccp.datasource.identifiers.DataSource;
+import edu.ucdenver.ccp.datasource.identifiers.DataSourceIdentifier;
 
 /**
  * ID for Medical Subject Heading definition as described by www.nlm.nih.gov/mesh
@@ -57,7 +55,7 @@ public class MeshID extends DataSourceIdentifier<String> {
 
 	@Override
 	public String validate(String resourceID) throws IllegalArgumentException {
-		if (resourceID != null && resourceID.matches("[A-Z]\\d+"))
+		if (resourceID != null)
 			return resourceID;
 
 		throw new IllegalArgumentException(String.format("Invalid Mesh ID : %s", resourceID));
