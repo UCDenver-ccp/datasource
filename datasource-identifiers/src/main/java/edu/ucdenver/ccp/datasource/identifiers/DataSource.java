@@ -341,6 +341,7 @@ public enum DataSource {
 	PROTONET("http://www.protonet.cs.huji.ac.il/"),
 	REBASE("http://rebase.neb.com/"),
 	REPRODUCTION_2DPAGE("http://reprod.njmu.edu.cn/"),
+	RNACENTRAL("http://rnacentral.org/rna/"),
 	ROUGE("http://www.kazusa.or.jp/rouge/"),
 	SABIO_RK("http://sabiork.h-its.org/"),
 	SBKB("http://sbkb.org/"),
