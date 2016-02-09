@@ -654,10 +654,20 @@ public class RdfRecordWriterImpl<T extends RecordReader<?>> {
 		// them in the filter. This saves some memory and also the time needed to check for
 		// something that is guaranteed to not be already observed
 		boolean checkFilter = needToCheckFilter(stmt.getSubject());
+		try {
 		if (!checkFilter || (checkFilter && !filter.alreadyObservedStatement(stmt))) {
 			if (!rollingCacheContains(stmt)) {
 				write(stmt, rdfWriter);
 				writtenStatementCount++;
+			}
+		}
+		} catch(IllegalStateException e) {
+			logger.error("Halting RDF Generation due to IllegalStateException.", e);
+			try {
+				closeFiles();
+				System.exit(-1);
+			} catch (IOException e1) {
+				e1.printStackTrace();
 			}
 		}
 	}
