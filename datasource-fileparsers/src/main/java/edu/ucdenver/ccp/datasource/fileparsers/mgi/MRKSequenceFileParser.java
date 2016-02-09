@@ -66,8 +66,7 @@ import edu.ucdenver.ccp.datasource.identifiers.other.VegaID;
  * 
  */
 public class MRKSequenceFileParser extends SingleLineFileRecordReader<MRKSequenceFileData> {
-
-	private static final String HEADER = "MGI Marker Accession ID\tMarker Symbol\tStatus\tMarker Type\tMarker Name\tcM position\tChromosome\tGenome Coordinate Start\tGenome Coordinate End\tStrand\tGenBank ID\tRefSeq transcript ID\tVEGA transcript ID\tEnsembl transcript ID\tUniProt ID\tTrEMBL ID\tVEGA protein ID\tEnsembl protein ID\tRefSeq protein ID\tUniGene ID";
+	private static final String HEADER = "MGI Marker Accession ID\tMarker Symbol\tStatus\tMarker Type\tMarker Name\tcM position\tChromosome\tGenome Coordinate Start\tGenome Coordinate End\tStrand\tGenBank IDs\tRefSeq transcript IDs\tVEGA transcript IDs\tEnsembl transcript IDs\tUniProt IDs\tTrEMBL IDs\tVEGA protein IDs\tEnsembl protein IDs\tRefSeq protein IDs\tUniGene IDs";
 
 	private static final Logger logger = Logger.getLogger(MRKSequenceFileParser.class);
 
