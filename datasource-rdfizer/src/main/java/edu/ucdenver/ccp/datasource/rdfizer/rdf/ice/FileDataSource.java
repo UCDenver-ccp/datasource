@@ -35,7 +35,9 @@ package edu.ucdenver.ccp.datasource.rdfizer.rdf.ice;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.Arrays;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import java.util.Set;
 
 import org.apache.log4j.Logger;
@@ -43,7 +45,6 @@ import org.apache.log4j.Logger;
 import edu.ucdenver.ccp.common.file.CharacterEncoding;
 import edu.ucdenver.ccp.common.file.FileUtil;
 import edu.ucdenver.ccp.datasource.fileparsers.FileRecordReader;
-import edu.ucdenver.ccp.datasource.fileparsers.dip.DipYYYYMMDDFileParser;
 import edu.ucdenver.ccp.datasource.fileparsers.drugbank.DrugbankXmlFileRecordReader;
 import edu.ucdenver.ccp.datasource.fileparsers.ebi.goa.GpAssociationGoaUniprotFileParser;
 import edu.ucdenver.ccp.datasource.fileparsers.ebi.interpro.InterPro2GoFileParser;
@@ -84,11 +85,12 @@ import edu.ucdenver.ccp.datasource.fileparsers.rgd.RgdRatGeneMpAnnotationFileRec
 import edu.ucdenver.ccp.datasource.fileparsers.rgd.RgdRatGeneNboAnnotationFileRecordReader;
 import edu.ucdenver.ccp.datasource.fileparsers.rgd.RgdRatGenePwAnnotationFileRecordReader;
 import edu.ucdenver.ccp.datasource.fileparsers.rgd.RgdRatGeneRdoAnnotationFileRecordReader;
-import edu.ucdenver.ccp.datasource.fileparsers.taxonaware.TaxonAwareSingleLineFileRecordReader;
 import edu.ucdenver.ccp.datasource.fileparsers.transfac.TransfacGeneDatFileParser;
 import edu.ucdenver.ccp.datasource.fileparsers.transfac.TransfacMatrixDatFileParser;
 import edu.ucdenver.ccp.datasource.identifiers.DataSource;
 import edu.ucdenver.ccp.datasource.identifiers.ncbi.taxonomy.NcbiTaxonomyID;
+import edu.ucdenver.ccp.datasource.rdfizer.rdf.ice.FileDataSourceParams.IsTaxonAware;
+import edu.ucdenver.ccp.datasource.rdfizer.rdf.ice.FileDataSourceParams.RequiresManualDownload;
 
 /**
  * This enum separates RDF generation by data source file. It is intended to
@@ -100,478 +102,327 @@ import edu.ucdenver.ccp.datasource.identifiers.ncbi.taxonomy.NcbiTaxonomyID;
  *         ccpsupport@ucdenver.edu
  * 
  */
+
 public enum FileDataSource {
 
-	
 	/*
-	 * DIP is now part of IRefWeb, so it has been commented out since it requires the extra manual step
-	 * of logging in to the DIP website and downloading the file (and IRefWeb does not).
+	 * DIP is now part of IRefWeb, so it has been commented out since it
+	 * requires the extra manual step of logging in to the DIP website and
+	 * downloading the file (and IRefWeb does not).
 	 */
-//	/**
-//	 * The DIP data file must be obtained manually. It is assumed to already be
-//	 * in place when RDF generation commences. It must be the only file in the
-//	 * DIP data source directory.
-//	 * 
-//	 */
-//	DIP(DataSource.DIP) {
-//
-//		@Override
-//		protected FileRecordReader<?> initFileRecordReader(File sourceFileDirectory, boolean cleanSourceFiles,
-//				File idListDir, Set<NcbiTaxonomyID> taxonIds) throws IOException {
-//			logger.info("sourceFileDirectory (exists): (" + sourceFileDirectory.exists() + ")" + sourceFileDirectory);
-//			logger.info("file listing: " + Arrays.toString(sourceFileDirectory.listFiles()));
-//			File dipDataFile = sourceFileDirectory.listFiles()[0];
-//			logger.info("File exists: " + dipDataFile.exists() + " -- " + dipDataFile.getAbsolutePath());
-//			FileUtil.validateFile(dipDataFile);
-//			return new DipYYYYMMDDFileParser(dipDataFile, CharacterEncoding.US_ASCII, taxonIds);
-//		}
-//
-//		@Override
-//		protected boolean isTaxonAware() {
-//			return true;
-//		}
-//	},
+	// /**
+	// * The DIP data file must be obtained manually. It is assumed to already
+	// be
+	// * in place when RDF generation commences. It must be the only file in the
+	// * DIP data source directory.
+	// *
+	// */
+	// DIP(DataSource.DIP) {
+	//
+	// @Override
+	// protected FileRecordReader<?> initFileRecordReader(File
+	// sourceFileDirectory, boolean cleanSourceFiles,
+	// File idListDir, Set<NcbiTaxonomyID> taxonIds) throws IOException {
+	// logger.info("sourceFileDirectory (exists): (" +
+	// sourceFileDirectory.exists() + ")" + sourceFileDirectory);
+	// logger.info("file listing: " +
+	// Arrays.toString(sourceFileDirectory.listFiles()));
+	// File dipDataFile = sourceFileDirectory.listFiles()[0];
+	// logger.info("File exists: " + dipDataFile.exists() + " -- " +
+	// dipDataFile.getAbsolutePath());
+	// FileUtil.validateFile(dipDataFile);
+	// return new DipYYYYMMDDFileParser(dipDataFile, CharacterEncoding.US_ASCII,
+	// taxonIds);
+	// }
+	//
+	// @Override
+	// protected boolean isTaxonAware() {
+	// return true;
+	// }
+	// },
 
 	/**
-	 *
+	 * 
 	 */
-	PHARMGKB_DISEASE(DataSource.PHARMGKB) {
+	PHARMGKB_DISEASE(DataSource.PHARMGKB, IsTaxonAware.NO, RequiresManualDownload.NO) {
 		@Override
 		protected FileRecordReader<?> initFileRecordReader(File sourceFileDirectory, boolean cleanSourceFiles,
 				File idListDir, Set<NcbiTaxonomyID> taxonIds) throws IOException {
 			return new PharmGkbDiseaseFileParser(sourceFileDirectory, cleanSourceFiles);
 		}
-
-		@Override
-		protected boolean isTaxonAware() {
-			return false;
-		}
 	},
 
-	PHARMGKB_GENE(DataSource.PHARMGKB) {
+	PHARMGKB_GENE(DataSource.PHARMGKB, IsTaxonAware.NO, RequiresManualDownload.NO) {
 		@Override
 		protected FileRecordReader<?> initFileRecordReader(File sourceFileDirectory, boolean cleanSourceFiles,
 				File idListDir, Set<NcbiTaxonomyID> taxonIds) throws IOException {
 			return new PharmGkbGeneFileParser(sourceFileDirectory, cleanSourceFiles);
 		}
-
-		@Override
-		protected boolean isTaxonAware() {
-			return false;
-		}
 	},
 
-
-
-	PHARMGKB_DRUG(DataSource.PHARMGKB) {
+	PHARMGKB_DRUG(DataSource.PHARMGKB, IsTaxonAware.NO, RequiresManualDownload.NO) {
 		@Override
 		protected FileRecordReader<?> initFileRecordReader(File sourceFileDirectory, boolean cleanSourceFiles,
 				File idListDir, Set<NcbiTaxonomyID> taxonIds) throws IOException {
 			return new PharmGkbDrugFileParser(sourceFileDirectory, cleanSourceFiles);
 		}
-
-		@Override
-		protected boolean isTaxonAware() {
-			return false;
-		}
 	},
 	/**
 	 * 
 	 *
 	 */
-	DRUGBANK(DataSource.DRUGBANK) {
+	DRUGBANK(DataSource.DRUGBANK, IsTaxonAware.NO, RequiresManualDownload.NO) {
 		@Override
 		protected FileRecordReader<?> initFileRecordReader(File sourceFileDirectory, boolean cleanSourceFiles,
 				File idListDir, Set<NcbiTaxonomyID> taxonIds) throws IOException {
 			return new DrugbankXmlFileRecordReader(sourceFileDirectory, cleanSourceFiles);
 		}
-
-		@Override
-		protected boolean isTaxonAware() {
-			return false;
-		}
 	},
 
 	/**
 	 * 
 	 */
-	HGNC(DataSource.HGNC) {
+	HGNC(DataSource.HGNC, IsTaxonAware.NO, RequiresManualDownload.NO) {
 		@Override
 		protected FileRecordReader<?> initFileRecordReader(File sourceFileDirectory, boolean cleanSourceFiles,
 				File idListDir, Set<NcbiTaxonomyID> taxonIds) throws IOException {
 			return new HgncDownloadFileParser(sourceFileDirectory, cleanSourceFiles, WithdrawnRecordTreatment.IGNORE);
 		}
-
-		@Override
-		protected boolean isTaxonAware() {
-			return false;
-		}
 	},
 	/**
 	 * 
 	 */
-	HOMOLOGENE(DataSource.HOMOLOGENE) {
+	HOMOLOGENE(DataSource.HOMOLOGENE, IsTaxonAware.YES, RequiresManualDownload.NO) {
 		@Override
 		protected FileRecordReader<?> initFileRecordReader(File sourceFileDirectory, boolean cleanSourceFiles,
 				File idListDir, Set<NcbiTaxonomyID> taxonIds) throws IOException {
 			return new HomoloGeneDataFileParser(sourceFileDirectory, cleanSourceFiles, taxonIds);
 		}
-
-		@Override
-		protected boolean isTaxonAware() {
-			return true;
-		}
 	},
 
 	/**
 	 * 
 	 */
-	IREFWEB(DataSource.IREFWEB) {
+	IREFWEB(DataSource.IREFWEB, IsTaxonAware.YES, RequiresManualDownload.NO) {
 		@Override
 		protected FileRecordReader<?> initFileRecordReader(File sourceFileDirectory, boolean cleanSourceFiles,
 				File idListDir, Set<NcbiTaxonomyID> taxonIds) throws IOException {
 			return new IRefWebPsiMitab2_6FileParser(sourceFileDirectory, cleanSourceFiles, taxonIds);
 		}
-
-		@Override
-		protected boolean isTaxonAware() {
-			return true;
-		}
 	},
 	/**
 	 * 
 	 * 
 	 */
-	MGI_ENTREZGENE(DataSource.MGI) {
+	MGI_ENTREZGENE(DataSource.MGI, IsTaxonAware.NO, RequiresManualDownload.NO) {
 		@Override
 		protected FileRecordReader<?> initFileRecordReader(File sourceFileDirectory, boolean cleanSourceFiles,
 				File idListDir, Set<NcbiTaxonomyID> taxonIds) throws IOException {
 			return new MGIEntrezGeneFileParser(sourceFileDirectory, cleanSourceFiles);
 		}
-
-		@Override
-		protected boolean isTaxonAware() {
-			return false;
-		}
 	},
-	MGI_MGIPHENOGENO(DataSource.MGI) {
+	MGI_MGIPHENOGENO(DataSource.MGI, IsTaxonAware.NO, RequiresManualDownload.NO) {
 		@Override
 		protected FileRecordReader<?> initFileRecordReader(File sourceFileDirectory, boolean cleanSourceFiles,
 				File idListDir, Set<NcbiTaxonomyID> taxonIds) throws IOException {
 			return new MGIPhenoGenoMPFileParser(sourceFileDirectory, cleanSourceFiles);
 		}
-
-		@Override
-		protected boolean isTaxonAware() {
-			return false;
-		}
 	},
-	MGI_MRKLIST(DataSource.MGI) {
+	MGI_MRKLIST(DataSource.MGI, IsTaxonAware.NO, RequiresManualDownload.NO) {
 		@Override
 		protected FileRecordReader<?> initFileRecordReader(File sourceFileDirectory, boolean cleanSourceFiles,
 				File idListDir, Set<NcbiTaxonomyID> taxonIds) throws IOException {
 			return new MRKListFileParser(sourceFileDirectory, cleanSourceFiles);
 		}
-
-		@Override
-		protected boolean isTaxonAware() {
-			return false;
-		}
 	},
-	MGI_MRKREFERENCE(DataSource.MGI) {
+	MGI_MRKREFERENCE(DataSource.MGI, IsTaxonAware.NO, RequiresManualDownload.NO) {
 		@Override
 		protected FileRecordReader<?> initFileRecordReader(File sourceFileDirectory, boolean cleanSourceFiles,
 				File idListDir, Set<NcbiTaxonomyID> taxonIds) throws IOException {
 			return new MRKReferenceFileParser(sourceFileDirectory, cleanSourceFiles);
 		}
-
-		@Override
-		protected boolean isTaxonAware() {
-			return false;
-		}
 	},
-	MGI_MRKSEQUENCE(DataSource.MGI) {
+	MGI_MRKSEQUENCE(DataSource.MGI, IsTaxonAware.NO, RequiresManualDownload.NO) {
 		@Override
 		protected FileRecordReader<?> initFileRecordReader(File sourceFileDirectory, boolean cleanSourceFiles,
 				File idListDir, Set<NcbiTaxonomyID> taxonIds) throws IOException {
 			return new MRKSequenceFileParser(sourceFileDirectory, cleanSourceFiles);
 		}
-
-		@Override
-		protected boolean isTaxonAware() {
-			return false;
-		}
 	},
-	MGI_MRKSWISSPROT(DataSource.MGI) {
+	MGI_MRKSWISSPROT(DataSource.MGI, IsTaxonAware.NO, RequiresManualDownload.NO) {
 		@Override
 		protected FileRecordReader<?> initFileRecordReader(File sourceFileDirectory, boolean cleanSourceFiles,
 				File idListDir, Set<NcbiTaxonomyID> taxonIds) throws IOException {
 			return new MRKSwissProtFileParser(sourceFileDirectory, cleanSourceFiles);
 		}
-
-		@Override
-		protected boolean isTaxonAware() {
-			return false;
-		}
 	},
-	MIRBASE(DataSource.MIRBASE) {
+	MIRBASE(DataSource.MIRBASE, IsTaxonAware.NO, RequiresManualDownload.NO) {
 		@Override
 		protected FileRecordReader<?> initFileRecordReader(File sourceFileDirectory, boolean cleanSourceFiles,
 				File idListDir, Set<NcbiTaxonomyID> taxonIds) throws IOException {
 			return new MirBaseMiRnaDatFileParser(sourceFileDirectory, cleanSourceFiles);
 		}
-
-		@Override
-		protected boolean isTaxonAware() {
-			return false;
-		}
 	},
-	
+
 	/**
 	 *
 	 */
-	RGD_GENES(DataSource.RGD) {
+	RGD_GENES(DataSource.RGD, IsTaxonAware.NO, RequiresManualDownload.NO) {
 		@Override
 		protected FileRecordReader<?> initFileRecordReader(File sourceFileDirectory, boolean cleanSourceFiles,
 				File idListDir, Set<NcbiTaxonomyID> taxonIds) throws IOException {
 			return new RgdRatGeneFileRecordReader(sourceFileDirectory, cleanSourceFiles);
 		}
-
-		@Override
-		protected boolean isTaxonAware() {
-			return false;
-		}
 	},
 
 	/**
 	 *
 	 */
-	RGD_GENE_MP(DataSource.RGD) {
+	RGD_GENE_MP(DataSource.RGD, IsTaxonAware.NO, RequiresManualDownload.NO) {
 		@Override
 		protected FileRecordReader<?> initFileRecordReader(File sourceFileDirectory, boolean cleanSourceFiles,
 				File idListDir, Set<NcbiTaxonomyID> taxonIds) throws IOException {
 			return new RgdRatGeneMpAnnotationFileRecordReader(sourceFileDirectory, cleanSourceFiles);
 		}
-
-		@Override
-		protected boolean isTaxonAware() {
-			return false;
-		}
 	},
 
 	/**
 	 *
 	 */
-	RGD_GENE_RDO(DataSource.RGD) {
+	RGD_GENE_RDO(DataSource.RGD, IsTaxonAware.NO, RequiresManualDownload.NO) {
 		@Override
 		protected FileRecordReader<?> initFileRecordReader(File sourceFileDirectory, boolean cleanSourceFiles,
 				File idListDir, Set<NcbiTaxonomyID> taxonIds) throws IOException {
 			return new RgdRatGeneRdoAnnotationFileRecordReader(sourceFileDirectory, cleanSourceFiles);
 		}
-
-		@Override
-		protected boolean isTaxonAware() {
-			return false;
-		}
 	},
 
 	/**
 	 *
 	 */
-	RGD_GENE_NBO(DataSource.RGD) {
+	RGD_GENE_NBO(DataSource.RGD, IsTaxonAware.NO, RequiresManualDownload.NO) {
 		@Override
 		protected FileRecordReader<?> initFileRecordReader(File sourceFileDirectory, boolean cleanSourceFiles,
 				File idListDir, Set<NcbiTaxonomyID> taxonIds) throws IOException {
 			return new RgdRatGeneNboAnnotationFileRecordReader(sourceFileDirectory, cleanSourceFiles);
 		}
-
-		@Override
-		protected boolean isTaxonAware() {
-			return false;
-		}
 	},
 
 	/**
 	 *
 	 */
-	RGD_GENE_PW(DataSource.RGD) {
+	RGD_GENE_PW(DataSource.RGD, IsTaxonAware.NO, RequiresManualDownload.NO) {
 		@Override
 		protected FileRecordReader<?> initFileRecordReader(File sourceFileDirectory, boolean cleanSourceFiles,
 				File idListDir, Set<NcbiTaxonomyID> taxonIds) throws IOException {
 			return new RgdRatGenePwAnnotationFileRecordReader(sourceFileDirectory, cleanSourceFiles);
 		}
-
-		@Override
-		protected boolean isTaxonAware() {
-			return false;
-		}
 	},
 
 	/**
 	 *
 	 */
-	PREMOD_HUMAN(DataSource.PREMOD) {
+	PREMOD_HUMAN(DataSource.PREMOD, IsTaxonAware.NO, RequiresManualDownload.NO) {
 		@Override
 		protected FileRecordReader<?> initFileRecordReader(File sourceFileDirectory, boolean cleanSourceFiles,
 				File idListDir, Set<NcbiTaxonomyID> taxonIds) throws IOException {
 			return new HumanPReModModuleTabFileParser(sourceFileDirectory, cleanSourceFiles);
 		}
-
-		@Override
-		protected boolean isTaxonAware() {
-			return false;
-		}
 	},
-	PREMOD_MOUSE(DataSource.PREMOD) {
+	PREMOD_MOUSE(DataSource.PREMOD, IsTaxonAware.NO, RequiresManualDownload.NO) {
 		@Override
 		protected FileRecordReader<?> initFileRecordReader(File sourceFileDirectory, boolean cleanSourceFiles,
 				File idListDir, Set<NcbiTaxonomyID> taxonIds) throws IOException {
 			return new MousePReModModuleTabFileParser(sourceFileDirectory, cleanSourceFiles);
 		}
-
-		@Override
-		protected boolean isTaxonAware() {
-			return false;
-		}
 	},
 
 	/**
 	 *
 	 */
-	PR_MAPPINGFILE(DataSource.PR) {
+	PR_MAPPINGFILE(DataSource.PR, IsTaxonAware.NO, RequiresManualDownload.NO) {
 		@Override
 		protected FileRecordReader<?> initFileRecordReader(File sourceFileDirectory, boolean cleanSourceFiles,
 				File idListDir, Set<NcbiTaxonomyID> taxonIds) throws IOException {
 			return new ProMappingFileParser(sourceFileDirectory, cleanSourceFiles);
 		}
-
-		@Override
-		protected boolean isTaxonAware() {
-			return false;
-		}
 	},
 	/**
 	 *
 	 */
-	REACTOME_UNIPROT2PATHWAYSTID(DataSource.REACTOME) {
+	REACTOME_UNIPROT2PATHWAYSTID(DataSource.REACTOME, IsTaxonAware.YES, RequiresManualDownload.NO) {
 		@Override
 		protected FileRecordReader<?> initFileRecordReader(File sourceFileDirectory, boolean cleanSourceFiles,
 				File idListDir, Set<NcbiTaxonomyID> taxonIds) throws IOException {
 			return new ReactomeUniprot2PathwayStidTxtFileParser(sourceFileDirectory, cleanSourceFiles, idListDir,
 					taxonIds);
 		}
-
-		@Override
-		protected boolean isTaxonAware() {
-			return true;
-		}
 	},
 	/**
 	 *
 	 */
-	REFSEQ_RELEASECATALOG(DataSource.REFSEQ, 3) {
+	REFSEQ_RELEASECATALOG(DataSource.REFSEQ, 3, IsTaxonAware.YES, RequiresManualDownload.NO) {
 		@Override
 		protected FileRecordReader<?> initFileRecordReader(File sourceFileDirectory, boolean cleanSourceFiles,
 				File idListDir, Set<NcbiTaxonomyID> taxonIds) throws IOException {
 			return new RefSeqReleaseCatalogFileParser(sourceFileDirectory, cleanSourceFiles, taxonIds);
 		}
-
-		@Override
-		protected boolean isTaxonAware() {
-			return true;
-		}
 	},
 	/**
 	 *
 	 */
-	NCBIGENE_GENE2REFSEQ(DataSource.EG) {
+	NCBIGENE_GENE2REFSEQ(DataSource.EG, IsTaxonAware.YES, RequiresManualDownload.NO) {
 		@Override
 		protected FileRecordReader<?> initFileRecordReader(File sourceFileDirectory, boolean cleanSourceFiles,
 				File idListDir, Set<NcbiTaxonomyID> taxonIds) throws IOException {
 			return new EntrezGene2RefseqFileParser(sourceFileDirectory, cleanSourceFiles, taxonIds);
 		}
-
-		@Override
-		protected boolean isTaxonAware() {
-			return true;
-		}
 	},
-	NCBIGENE_GENEINFO(DataSource.EG) {
+	NCBIGENE_GENEINFO(DataSource.EG, IsTaxonAware.YES, RequiresManualDownload.NO) {
 		@Override
 		protected FileRecordReader<?> initFileRecordReader(File sourceFileDirectory, boolean cleanSourceFiles,
 				File idListDir, Set<NcbiTaxonomyID> taxonIds) throws IOException {
 			return new EntrezGeneInfoFileParser(sourceFileDirectory, cleanSourceFiles, taxonIds);
 		}
-
-		@Override
-		protected boolean isTaxonAware() {
-			return true;
-		}
-
 	},
-	NCBIGENE_MIM2GENE(DataSource.EG) {
+	NCBIGENE_MIM2GENE(DataSource.EG, IsTaxonAware.NO, RequiresManualDownload.NO) {
 		@Override
 		protected FileRecordReader<?> initFileRecordReader(File sourceFileDirectory, boolean cleanSourceFiles,
 				File idListDir, Set<NcbiTaxonomyID> taxonIds) throws IOException {
 			return new EntrezGeneMim2GeneFileParser(sourceFileDirectory, cleanSourceFiles);
 		}
-
-		@Override
-		protected boolean isTaxonAware() {
-			return false;
-		}
 	},
-	NCBIGENE_REFSEQUNIPROTCOLLAB(DataSource.EG) {
+	NCBIGENE_REFSEQUNIPROTCOLLAB(DataSource.EG, IsTaxonAware.YES, RequiresManualDownload.NO) {
 		@Override
 		protected FileRecordReader<?> initFileRecordReader(File sourceFileDirectory, boolean cleanSourceFiles,
 				File idListDir, Set<NcbiTaxonomyID> taxonIds) throws IOException {
 			return new EntrezGeneRefSeqUniprotKbCollabFileParser(sourceFileDirectory, cleanSourceFiles, idListDir,
 					taxonIds);
 		}
-
-		@Override
-		protected boolean isTaxonAware() {
-			return true;
-		}
 	},
 	/**
 	 */
-	GOA(DataSource.GOA, 13) {
+	GOA(DataSource.GOA, 13, IsTaxonAware.YES, RequiresManualDownload.NO) {
 		@Override
 		protected FileRecordReader<?> initFileRecordReader(File sourceFileDirectory, boolean cleanSourceFiles,
 				File idListDir, Set<NcbiTaxonomyID> taxonIds) throws IOException {
 			return new GpAssociationGoaUniprotFileParser(sourceFileDirectory, cleanSourceFiles, idListDir, taxonIds);
 		}
-
-		@Override
-		protected boolean isTaxonAware() {
-			return true;
-		}
 	},
 	/**
 	 */
-	UNIPROT_SWISSPROT(DataSource.UNIPROT) {
+	UNIPROT_SWISSPROT(DataSource.UNIPROT, IsTaxonAware.YES, RequiresManualDownload.NO) {
 		@Override
 		protected FileRecordReader<?> initFileRecordReader(File sourceFileDirectory, boolean cleanSourceFiles,
 				File idListDir, Set<NcbiTaxonomyID> taxonIds) throws IOException {
 			return new SwissProtXmlFileRecordReader(sourceFileDirectory, cleanSourceFiles, taxonIds);
 		}
-
-		@Override
-		protected boolean isTaxonAware() {
-			return true;
-		}
 	},
-	UNIPROT_IDMAPPING(DataSource.UNIPROT, 3) {
+	UNIPROT_IDMAPPING(DataSource.UNIPROT, 3, IsTaxonAware.YES, RequiresManualDownload.NO) {
 		@Override
 		protected FileRecordReader<?> initFileRecordReader(File sourceFileDirectory, boolean cleanSourceFiles,
 				File idListDir, Set<NcbiTaxonomyID> taxonIds) throws IOException {
 			return new UniProtIDMappingFileRecordReader(sourceFileDirectory, cleanSourceFiles, taxonIds);
-		}
-
-		@Override
-		protected boolean isTaxonAware() {
-			return true;
 		}
 	},
 	// UNIPROT_TREMBL(DataSource.UNIPROT, 33, 1000000) {
@@ -584,65 +435,44 @@ public enum FileDataSource {
 	// cleanSourceFiles, taxonIds);
 	// }
 	// },
-	UNIPROT_TREMBL_SPARSE(DataSource.UNIPROT, 33, 1000000) {
+	UNIPROT_TREMBL_SPARSE(DataSource.UNIPROT, 33, 1000000, IsTaxonAware.YES, RequiresManualDownload.NO) {
 		@Override
 		protected FileRecordReader<?> initFileRecordReader(File sourceFileDirectory, boolean cleanSourceFiles,
 				File idListDir, Set<NcbiTaxonomyID> taxonIds) throws IOException {
 			return new SparseTremblXmlFileRecordReader(sourceFileDirectory, cleanSourceFiles, taxonIds);
 		}
-
-		@Override
-		protected boolean isTaxonAware() {
-			return true;
-		}
 	},
-	
 
 	/**
 	 * 
 	 */
-	INTERPRO_NAMESDAT(DataSource.INTERPRO) {
+	INTERPRO_NAMESDAT(DataSource.INTERPRO, IsTaxonAware.NO, RequiresManualDownload.NO) {
 		@Override
 		protected FileRecordReader<?> initFileRecordReader(File sourceFileDirectory, boolean cleanSourceFiles,
 				File idListDir, Set<NcbiTaxonomyID> taxonIds) throws IOException {
 			return new InterProNamesDatFileParser(sourceFileDirectory, cleanSourceFiles);
 		}
-
-		@Override
-		protected boolean isTaxonAware() {
-			return false;
-		}
 	},
-	INTERPRO_INTERPRO2GO(DataSource.INTERPRO) {
+	INTERPRO_INTERPRO2GO(DataSource.INTERPRO, IsTaxonAware.NO, RequiresManualDownload.NO) {
 		@Override
 		protected FileRecordReader<?> initFileRecordReader(File sourceFileDirectory, boolean cleanSourceFiles,
 				File idListDir, Set<NcbiTaxonomyID> taxonIds) throws IOException {
 			return new InterPro2GoFileParser(sourceFileDirectory, cleanSourceFiles);
 		}
-
-		@Override
-		protected boolean isTaxonAware() {
-			return false;
-		}
 	},
-	INTERPRO_PROTEIN2IPR(DataSource.INTERPRO, 13) {
+	INTERPRO_PROTEIN2IPR(DataSource.INTERPRO, 13, IsTaxonAware.YES, RequiresManualDownload.NO) {
 		@Override
 		protected FileRecordReader<?> initFileRecordReader(File sourceFileDirectory, boolean cleanSourceFiles,
 				File idListDir, Set<NcbiTaxonomyID> taxonIds) throws IOException {
 			return new InterProProtein2IprDatFileParser(sourceFileDirectory, cleanSourceFiles, idListDir, taxonIds);
 		}
-
-		@Override
-		protected boolean isTaxonAware() {
-			return true;
-		}
 	},
-	
+
 	/**
 	 * The HPRD HPRD_ID_MAPPINGS.txt file must be obtained manually. It is
 	 * assumed to already be in place when RDF generation commences.
 	 */
-	HPRD_ID_MAPPINGS(DataSource.HPRD) {
+	HPRD_ID_MAPPINGS(DataSource.HPRD, IsTaxonAware.NO, RequiresManualDownload.YES) {
 
 		@Override
 		protected FileRecordReader<?> initFileRecordReader(File sourceFileDirectory, boolean cleanSourceFiles,
@@ -652,17 +482,12 @@ public enum FileDataSource {
 			FileUtil.validateFile(hprdIdMappingFile);
 			return new HprdIdMappingsTxtFileParser(hprdIdMappingFile, CharacterEncoding.US_ASCII);
 		}
-
-		@Override
-		protected boolean isTaxonAware() {
-			return false;
-		}
 	},
 	/**
 	 * The TRANSFAC gene.dat and matrix.dat files must be obtained manually.
 	 * They are assumed to already be in place when RDF generation commences.
 	 */
-	TRANSFAC_GENE(DataSource.TRANSFAC) {
+	TRANSFAC_GENE(DataSource.TRANSFAC, IsTaxonAware.NO, RequiresManualDownload.YES) {
 		@Override
 		protected FileRecordReader<?> initFileRecordReader(File sourceFileDirectory, boolean cleanSourceFiles,
 				File idListDir, Set<NcbiTaxonomyID> taxonIds) throws IOException {
@@ -670,14 +495,9 @@ public enum FileDataSource {
 			FileUtil.validateFile(transfacGeneDatFile);
 			return new TransfacGeneDatFileParser(transfacGeneDatFile, CharacterEncoding.ISO_8859_1);
 		}
-
-		@Override
-		protected boolean isTaxonAware() {
-			return false;
-		}
 	},
 
-	TRANSFAC_MATRIX(DataSource.TRANSFAC) {
+	TRANSFAC_MATRIX(DataSource.TRANSFAC, IsTaxonAware.NO, RequiresManualDownload.YES) {
 		@Override
 		protected FileRecordReader<?> initFileRecordReader(File sourceFileDirectory, boolean cleanSourceFiles,
 				File idListDir, Set<NcbiTaxonomyID> taxonIds) throws IOException {
@@ -685,17 +505,12 @@ public enum FileDataSource {
 			FileUtil.validateFile(transfacMatrixDatFile);
 			return new TransfacMatrixDatFileParser(transfacMatrixDatFile, CharacterEncoding.ISO_8859_1);
 		}
-
-		@Override
-		protected boolean isTaxonAware() {
-			return false;
-		}
 	},
 	/**
 	 * The GAD all.txt data file must be obtained manually. It is assumed to
 	 * already be in place when RDF generation commences.
 	 */
-	GAD(DataSource.GAD) {
+	GAD(DataSource.GAD, IsTaxonAware.NO, RequiresManualDownload.YES) {
 		@Override
 		protected FileRecordReader<?> initFileRecordReader(File sourceFileDirectory, boolean cleanSourceFiles,
 				File idListDir, Set<NcbiTaxonomyID> taxonIds) throws IOException {
@@ -704,41 +519,25 @@ public enum FileDataSource {
 			FileUtil.validateFile(gadAllTxtFile);
 			return new GeneticAssociationDbAllTxtFileParser(gadAllTxtFile, CharacterEncoding.US_ASCII);
 		}
-
-		@Override
-		protected boolean isTaxonAware() {
-			return false;
-		}
 	},
 	/**
 	 *
 	 */
-	OMIM(DataSource.OMIM) {
+	OMIM(DataSource.OMIM, IsTaxonAware.NO, RequiresManualDownload.YES) {
 		@Override
 		protected FileRecordReader<?> initFileRecordReader(File sourceFileDirectory, boolean cleanSourceFiles,
 				File idListDir, Set<NcbiTaxonomyID> taxonIds) throws IOException {
 			return new OmimTxtFileParser(sourceFileDirectory, cleanSourceFiles);
 		}
-
-		@Override
-		protected boolean isTaxonAware() {
-			return false;
-		}
 	},
-	PHARMGKB_RELATION(DataSource.PHARMGKB) {
+	PHARMGKB_RELATION(DataSource.PHARMGKB, IsTaxonAware.NO, RequiresManualDownload.YES) {
 		@Override
 		protected FileRecordReader<?> initFileRecordReader(File sourceFileDirectory, boolean cleanSourceFiles,
 				File idListDir, Set<NcbiTaxonomyID> taxonIds) throws IOException {
 			File pharmgkbRelationshipsDataFile = new File(sourceFileDirectory, "relationships.tsv");
 			return new PharmGkbRelationFileParser(pharmgkbRelationshipsDataFile, CharacterEncoding.UTF_8);
 		}
-
-		@Override
-		protected boolean isTaxonAware() {
-			return false;
-		}
-	}
-	;
+	};
 
 	public enum Split {
 		BY_STAGES, NONE;
@@ -774,22 +573,35 @@ public enum FileDataSource {
 
 	private final Long blockRecordCount;
 
-	private FileDataSource(DataSource dataSource, int numberOfStages, long blockRecordCount) {
+	private final IsTaxonAware isTaxonAware;
+
+	private final RequiresManualDownload requiresManualDownload;
+
+	private FileDataSource(DataSource dataSource, int numberOfStages, long blockRecordCount, IsTaxonAware isTaxonAware,
+			RequiresManualDownload requiresManualDownload) {
 		this.dataSource = dataSource;
 		this.numberOfStages = numberOfStages;
 		this.blockRecordCount = blockRecordCount;
+		this.isTaxonAware = isTaxonAware;
+		this.requiresManualDownload = requiresManualDownload;
 	}
 
-	private FileDataSource(DataSource dataSource, int numberOfStages) {
+	private FileDataSource(DataSource dataSource, int numberOfStages, IsTaxonAware isTaxonAware,
+			RequiresManualDownload requiresManualDownload) {
 		this.dataSource = dataSource;
 		this.numberOfStages = numberOfStages;
 		this.blockRecordCount = null;
+		this.isTaxonAware = isTaxonAware;
+		this.requiresManualDownload = requiresManualDownload;
 	}
 
-	private FileDataSource(DataSource dataSource) {
+	private FileDataSource(DataSource dataSource, IsTaxonAware isTaxonAware,
+			RequiresManualDownload requiresManualDownload) {
 		this.dataSource = dataSource;
 		this.numberOfStages = 1;
 		this.blockRecordCount = null;
+		this.isTaxonAware = isTaxonAware;
+		this.requiresManualDownload = requiresManualDownload;
 	}
 
 	public DataSource dataSource() {
@@ -798,6 +610,14 @@ public enum FileDataSource {
 
 	public Long blockRecordCount() {
 		return blockRecordCount;
+	}
+
+	public boolean isTaxonAware() {
+		return isTaxonAware == IsTaxonAware.YES;
+	}
+
+	public boolean requiresManualDownload() {
+		return requiresManualDownload == RequiresManualDownload.YES;
 	}
 
 	// /**
@@ -861,8 +681,6 @@ public enum FileDataSource {
 
 	protected abstract FileRecordReader<?> initFileRecordReader(File sourceFileDirectory, boolean cleanSourceFiles,
 			File idListFileDirectory, Set<NcbiTaxonomyID> taxonIds) throws IOException;
-
-	protected abstract boolean isTaxonAware();
 
 	// /**
 	// * To be implemented by each DataSourceRdfGenerator instance.
@@ -986,23 +804,46 @@ public enum FileDataSource {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		int stageCount = 0;
-		System.out.println("BY STAGES: ");
-		for (FileDataSource source : FileDataSource.values()) {
-			for (int i = 0; i < source.getNumberOfStages(); i++) {
-				System.out.println("Global Stage: " + (i + 1 + stageCount) + " ==> " + source.name() + " Local Stage: "
-						+ (i + 1));
-			}
-			stageCount += source.getNumberOfStages();
-		}
-		System.out.println("Total # of stages: " + stageCount + "\n\n");
-		stageCount = 0;
-		System.out.println("SINGLE STAGE PER SOURCE:");
-		for (FileDataSource source : FileDataSource.values()) {
-			System.out.println("SGE index: " + (stageCount + 1) + " ==> " + source.name());
-			stageCount++;
-		}
+		// int stageCount = 0;
+		// System.out.println("BY STAGES: ");
+		// for (FileDataSource source : FileDataSource.values()) {
+		// for (int i = 0; i < source.getNumberOfStages(); i++) {
+		// System.out.println("Global Stage: " + (i + 1 + stageCount) + " ==> "
+		// + source.name() + " Local Stage: "
+		// + (i + 1));
+		// }
+		// stageCount += source.getNumberOfStages();
+		// }
+		// System.out.println("Total # of stages: " + stageCount + "\n\n");
+		// stageCount = 0;
+		// System.out.println("SINGLE STAGE PER SOURCE:");
+		// for (FileDataSource source : FileDataSource.values()) {
+		// System.out.println("SGE index: " + (stageCount + 1) + " ==> " +
+		// source.name());
+		// stageCount++;
+		// }
 
+		List<String> autoDownloadSources = new ArrayList<String>();
+		List<String> manualDownloadSources = new ArrayList<String>();
+
+		for (FileDataSource fds : values()) {
+			if (fds.requiresManualDownload()) {
+				manualDownloadSources.add(fds.name());
+			} else {
+				autoDownloadSources.add(fds.name());
+			}
+		}
+		
+		Collections.sort(autoDownloadSources);
+		Collections.sort(manualDownloadSources);
+		
+		for (String name : autoDownloadSources) {
+			System.out.println("DS: " + name);
+		}
+		System.out.println("DS: ==== BELOW REQUIRE MANUAL DOWNLOAD OF DATA SOURCE FILE ====");
+		for (String name : manualDownloadSources) {
+			System.out.println("DS: ==== " + name);
+		}
 	}
 
 }
