@@ -81,8 +81,8 @@ public class RgdAnnotationFileIdResolver implements IdResolver {
 			return new RgdID(idStr.substring(idStr.lastIndexOf(" ")));
 		}
 		if (idStr.matches("RGDG:\\d+")) {
-			// there is one instance of RGDG:
-			return new RgdID(idStr.substring(4));
+			// there is one instance of RGDG:733289
+			return new RgdID(idStr.substring(5));
 		}
 		if (idStr.matches("RDG:\\d+")) {
 			// there are a few typos where RDG appears instead of RGD
@@ -113,12 +113,6 @@ public class RgdAnnotationFileIdResolver implements IdResolver {
 		}
 		if (idStr.matches("PW:\\d+")) {
 			return new PwId(idStr);
-		}
-		if (idStr.matches("rno:\\d+")) {
-			logger.warn("Ignoring RNO identifier: " + idStr + ". Not sure what this references...");
-			// not sure what this is.. could be a kegg gene? it's used in the
-			// withOrFrom column
-			return null;
 		}
 		if (idStr.startsWith("UniProtKB:")) {
 			return new UniProtID(idStr.substring(10));
