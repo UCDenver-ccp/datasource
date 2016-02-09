@@ -66,7 +66,7 @@ public abstract class DuplicateFieldValueFilter implements DuplicateStatementFil
 	private final DiskBasedHash hash;
 	private List<File> noDupsFiles;
 	private String previousFieldValueKey = null;
-	private int _3inARowCount = 0;
+//	private int _3inARowCount = 0;
 
 	public DuplicateFieldValueFilter(DiskBasedHash hash) throws IOException {
 		this.hash = hash;
@@ -84,10 +84,11 @@ public abstract class DuplicateFieldValueFilter implements DuplicateStatementFil
 		if (isFieldRdfLine(subject)) {
 			String fieldValueKey = getFieldValueKey(subject);
 			if (!fieldValueKey.equals(previousFieldValueKey)) {
-				if (previousFieldValueKey != null && ((_3inARowCount % 3) != 0)) {
-					throw new IllegalStateException("3-in-a-row-count not equal to 3 (" + _3inARowCount + "): "
-							+ previousFieldValueKey);
-				}
+				/* Handling of unknown and probable error identifiers seems to break the 3 in a row count*/
+//				if (previousFieldValueKey != null && ((_3inARowCount % 3) != 0)) {
+//					throw new IllegalStateException("3-in-a-row-count not equal to 3 (" + _3inARowCount + "): "
+//							+ previousFieldValueKey);
+//				}
 				if (previousFieldValueKey != null) {
 					try {
 						hash.add(previousFieldValueKey);
@@ -96,9 +97,9 @@ public abstract class DuplicateFieldValueFilter implements DuplicateStatementFil
 					}
 				}
 				previousFieldValueKey = fieldValueKey;
-				_3inARowCount = 1;
+//				_3inARowCount = 1;
 			} else {
-				_3inARowCount++;
+//				_3inARowCount++;
 			}
 			if (!hash.contains(fieldValueKey)) {
 				return false;
