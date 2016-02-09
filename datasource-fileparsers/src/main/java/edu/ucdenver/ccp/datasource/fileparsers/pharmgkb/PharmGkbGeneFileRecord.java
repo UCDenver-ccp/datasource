@@ -35,6 +35,7 @@ package edu.ucdenver.ccp.datasource.fileparsers.pharmgkb;
 
 
 import java.util.Collection;
+import java.util.Set;
 
 import lombok.Data;
 
@@ -65,7 +66,7 @@ public class PharmGkbGeneFileRecord extends SingleLineFileRecord {
 	@RecordField
 	private final PharmGkbID accessionId;
 	@RecordField
-	private final EntrezGeneID entrezGeneId;
+	private final Set<EntrezGeneID> entrezGeneIds;
 	@RecordField
 	private final EnsemblGeneID ensemblGeneId;
 	@RecordField
@@ -105,14 +106,14 @@ public class PharmGkbGeneFileRecord extends SingleLineFileRecord {
 	 * @param hasVariantAnnotation
 	 * @param crossReferences
 	 */
-	public PharmGkbGeneFileRecord(PharmGkbID accessionId, EntrezGeneID entrezGeneId, EnsemblGeneID ensemblGeneId,
+	public PharmGkbGeneFileRecord(PharmGkbID accessionId, Set<EntrezGeneID> entrezGeneIds, EnsemblGeneID ensemblGeneId,
 			String name, String symbol, Collection<String> alternativeNames,
 			Collection<String> alternativeSymbols, boolean isVip, boolean hasVariantAnnotation,
 			Collection<DataSourceIdentifier<?>> crossReferences, boolean hasCpicDosingGuideline, String chromosome,
 			Integer chromosomalStart, Integer chromosomalEnd, long byteOffset, long lineNumber) {
 		super(byteOffset, lineNumber);
 		this.accessionId = accessionId;
-		this.entrezGeneId = entrezGeneId;
+		this.entrezGeneIds = entrezGeneIds;
 		this.ensemblGeneId = ensemblGeneId;
 		this.name = name;
 		this.symbol = symbol;

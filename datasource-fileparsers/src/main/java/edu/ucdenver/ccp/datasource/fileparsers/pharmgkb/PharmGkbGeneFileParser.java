@@ -37,7 +37,9 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
@@ -165,7 +167,7 @@ public class PharmGkbGeneFileParser extends SingleLineFileRecordReader<PharmGkbG
 	protected PharmGkbGeneFileRecord parseRecordFromLine(Line line) {
 		String[] toks = line.getText().split(RegExPatterns.TAB, -1);
 		PharmGkbID pharmGkbAccessionId = new PharmGkbID(toks[0]);
-		EntrezGeneID entrezGeneId = StringUtils.isNotBlank(toks[1]) ? new EntrezGeneID(toks[1]) : null;
+		Set<EntrezGeneID> entrezGeneIds = getEntrezGeneIDs(toks[1]);
 		EnsemblGeneID ensemblGeneId = StringUtils.isNotBlank(toks[2]) ? new EnsemblGeneID(toks[2]) : null;
 		String name = StringUtils.isNotBlank(toks[3]) ? new String(toks[3]) : null;
 		String symbol = StringUtils.isNotBlank(toks[4]) ? new String(toks[4]) : null;
@@ -202,10 +204,25 @@ public class PharmGkbGeneFileParser extends SingleLineFileRecordReader<PharmGkbG
 		Integer chromosomeStart = (toks[12].equalsIgnoreCase("null")) ? null : Integer.parseInt(toks[12]);
 		Integer chromosomeEnd = (toks[13].equalsIgnoreCase("null")) ? null : Integer.parseInt(toks[13]);
 
-		return new PharmGkbGeneFileRecord(pharmGkbAccessionId, entrezGeneId, ensemblGeneId, name, symbol,
+		return new PharmGkbGeneFileRecord(pharmGkbAccessionId, entrezGeneIds, ensemblGeneId, name, symbol,
 				alternativeNames, alternativeSymbols, isVip, hasVariantAnnotation, crossReferences,
 				hasCpicDosingGuideline, chromosome, chromosomeStart, chromosomeEnd, line.getByteOffset(),
 				line.getLineNumber());
+	}
+
+	private Set<EntrezGeneID> getEntrezGeneIDs(String idStr) {
+		Set<EntrezGeneID> ids = new HashSet<EntrezGeneID>();
+		if (StringUtils.isNotBlank(idStr)) {
+			if (idStr.contains(",")) {
+				idStr = idStr.replaceAll("\"", "");
+				for (String tok : idStr.split(",")) {
+					ids.add(new EntrezGeneID(tok));
+				}
+			} else {
+				ids.add(new EntrezGeneID(idStr));
+			}
+		}
+		return ids;
 	}
 
 	/**
