@@ -446,6 +446,8 @@ public class DataSourceIdResolver {
 				return new SnpRsId(geneIDStr);
 			else if (geneIDStr.startsWith("CL:"))
 				return new CellTypeOntologyID(geneIDStr);
+			else if (geneIDStr.startsWith("Vega:"))
+				return new VegaID(StringUtil.removePrefix(geneIDStr, "Vega:"));
 			else if (geneIDStr.startsWith("NCBITaxon:"))
 				return new NcbiTaxonomyID(StringUtil.removePrefix(geneIDStr, "NCBITaxon:"));
 
