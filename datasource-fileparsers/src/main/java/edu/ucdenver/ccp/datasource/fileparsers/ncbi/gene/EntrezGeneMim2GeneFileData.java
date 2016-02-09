@@ -79,19 +79,23 @@ public class EntrezGeneMim2GeneFileData extends SingleLineFileRecord {
 	@RecordField(comment = "The accession assigned by MedGen to this phenotype.  If the accession starts with a C followed by integers, the identifier is a concept ID (CUI) from UMLS. http://www.nlm.nih.gov/research/umls/ If it starts with a CN, no CUI in UMLS was identified, and NCBI created a placeholder.")
 	private final MedGenId medGenId;
 
+	@RecordField
+	private final String comment;
+
 	public EntrezGeneMim2GeneFileData(OmimID mimNumber, EntrezGeneID entrezGeneID, String associationType,
-			Set<String> sources, MedGenId medGenId, long byteOffset, long lineNumber) {
+			Set<String> sources, MedGenId medGenId, String comment, long byteOffset, long lineNumber) {
 		super(byteOffset, lineNumber);
 		this.mimNumber = mimNumber;
 		this.entrezGeneID = entrezGeneID;
 		this.associationType = associationType;
 		this.sources = sources;
 		this.medGenId = medGenId;
+		this.comment = comment;
 	}
 
 	public static EntrezGeneMim2GeneFileData parseMim2GeneLine(Line line) {
-		String[] toks = line.getText().split("\\t");
-		if (toks.length == 5) {
+		String[] toks = line.getText().split("\\t", -1);
+		if (toks.length == 6) {
 			OmimID mimNumber = new OmimID(toks[0]);
 			EntrezGeneID entrezGeneID = (toks[1].equals("-")) ? null : new EntrezGeneID(toks[1]);
 			String associationType = toks[2];
@@ -103,7 +107,8 @@ public class EntrezGeneMim2GeneFileData extends SingleLineFileRecord {
 				}
 			}
 			MedGenId medGenId = (toks[4].equals("-")) ? null : new MedGenId(toks[4].trim());
-			return new EntrezGeneMim2GeneFileData(mimNumber, entrezGeneID, associationType, sources, medGenId,
+			String comment = (toks[5].equals("-")) ? null : toks[5].trim();
+			return new EntrezGeneMim2GeneFileData(mimNumber, entrezGeneID, associationType, sources, medGenId, comment,
 					line.getByteOffset(), line.getLineNumber());
 		}
 
