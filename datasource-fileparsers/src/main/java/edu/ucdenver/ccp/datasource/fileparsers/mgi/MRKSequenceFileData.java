@@ -98,6 +98,8 @@ public class MRKSequenceFileData extends SingleLineFileRecord {
 	private final Set<RefSeqID> refseqProteinIds;
 	@RecordField
 	private final Set<UniGeneID> unigeneIds;
+	@RecordField
+	private final String featureType;
 	
 
 	/**
@@ -122,6 +124,7 @@ public class MRKSequenceFileData extends SingleLineFileRecord {
 	 * @param vegaProteinIds
 	 * @param ensemblProteinIds
 	 * @param refseqProteinIds
+	 * @param featureType 
 	 */
 	public MRKSequenceFileData(MgiGeneID mgiAccessionID, String markerSymbol, String status,
 			MgiGeneType markerType, String markerName, String cM_Position, String chromosome,
@@ -129,7 +132,7 @@ public class MRKSequenceFileData extends SingleLineFileRecord {
 			Set<DataSourceIdentifier<?>> genBankAccessionIDs, Set<RefSeqID> refseqTranscriptIds,
 			Set<VegaID> vegaTranscriptIds, Set<EnsemblGeneID> ensemblTranscriptId, Set<UniProtID> uniprotIds,
 			Set<UniProtID> tremblIds, Set<VegaID> vegaProteinIds, Set<EnsemblGeneID> ensemblProteinIds,
-			Set<RefSeqID> refseqProteinIds, Set<UniGeneID> unigeneIds, long byteOffset, long lineNumber) {
+			Set<RefSeqID> refseqProteinIds, Set<UniGeneID> unigeneIds, String featureType, long byteOffset, long lineNumber) {
 		super(byteOffset, lineNumber);
 		this.mgiAccessionID = mgiAccessionID;
 		this.markerSymbol = markerSymbol;
@@ -151,6 +154,7 @@ public class MRKSequenceFileData extends SingleLineFileRecord {
 		this.ensemblProteinIds = ensemblProteinIds;
 		this.refseqProteinIds = refseqProteinIds;
 		this.unigeneIds = unigeneIds;
+		this.featureType = featureType;
 	}
 
 	
