@@ -35,7 +35,7 @@
 						<argument>-classpath</argument>
 						<classpath />
 						<argument>edu.ucdenver.ccp.datasource.rdfizer.rdf.ice.IceRdfGenerator</argument>
-                        <argument>INDEX</argument>
+                        <argument>NAME</argument>
                         <!-- Directory for downloaded datasources -->
                         <argument>${baseSourceDir}</argument>
                         <!-- Directory into which to write RDF triple files
@@ -48,12 +48,8 @@
                         <!-- Taxon identifiers to limit output to,
                              comma-delimited; use "EMPTY" to not limit output -->
                         <argument>${taxonIDs}</argument>
-                        <!-- startStage -->
-                        <argument>${startStage}</argument>
-                        <!-- numStages -->
-                        <argument>${numStages}</argument>
-                        <!-- Split type -->
-                        <argument>NONE</argument>
+                        <!-- comma-delimited list of datasources to process -->
+                        <argument>${datasourceNames}</argument>
                         <!-- date -->
                         <argument>${date}</argument>
 					</arguments>

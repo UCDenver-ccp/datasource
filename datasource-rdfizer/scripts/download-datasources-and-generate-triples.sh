@@ -9,8 +9,8 @@ function print_usage {
     echo "$(basename $0) [OPTIONS]"
     echo "  <-d <download-directory>>: The directory into which to place the downloaded datasource files."
     echo "  <-r <rdf-output-directory>>: The directory into which to place the RDF triples parsed from the datasource files."
-    echo "  [-i <datasource-indices>]: The indices of the datasources to download; if not specified, all available datasources will be downloaded."
-    echo "  [-t <NCBI taxonomy IDS]: A comma-separated list of taxonomy IDs.  Only records for these IDs will be included in the RDF triple output.  If neither -t nor -m is specified, all records will be included."
+    echo "  [-i <datasource-names>]: The names of the datasources to download; if not specified, all available datasources will be downloaded."
+    echo "  [-t <NCBI taxonomy IDS]: A comma-separated list of taxonomy IDs.  Only records for these IDs will be included in the RDF triple output where applicable.  If neither -t nor -m is specified, all records will be included."
     echo "  [-m]: Include only human and the 7 model organisms in the generated RDF. If neither -t nor -m is specified, all records will be included."
 }
 
@@ -34,9 +34,9 @@ while getopts "d:r:i:t:mh" OPTION; do
         # parsing the downloaded datasource files should be placed.
         r) RDF_OUTPUT_DIR=$OPTARG
            ;;
-        # A comma-separated list of the IDs of the files to be downloaded (as
-        # shown by `list-download-file-indices.sh`
-        i) FILE_INDICES=$OPTARG
+        # A comma-separated list of the names of the datasources to be downloaded (as
+        # shown by `list-datasource-names.sh`
+        i) DS_NAMES=$OPTARG
            ;;
         # Include only data for a user-specified taxonomy ID in the RDF output.
         t) set_taxon_ids $OPTARG
@@ -61,17 +61,18 @@ if ! [[ -e README.md ]]; then
     exit 1
 fi
 
-if [[ -z $FILE_INDICES ]]; then
-    FILE_INDICES=$(datasource-rdfizer/scripts/list-download-file-indices.sh \
-        | cut -d " " -f 2 \
+if [[ -z $DS_NAMES ]]; then
+    DS_NAMES=$(datasource-rdfizer/scripts/list-datasource-names.sh \
+        | grep -v "====" \
         | xargs \
         | tr " " ",")
 fi
 
-for INDEX in $(echo $FILE_INDICES | tr -d "[:blank:]" | tr "," " "); do
+echo $DS_NAMES
+
+for INDEX in $(echo $DS_NAMES | tr -d "[:blank:]" | tr "," " "); do
     mvn -f datasource-rdfizer/scripts/pom-rdf-gen.xml exec:exec \
-        -DstartStage=$INDEX \
-        -DnumStages=1 \
+        -DdatasourceNames=$DS_NAMES \
         -DtaxonIDs=$TAXON_IDS \
         -DbaseSourceDir=$DOWNLOAD_DIR \
         -DbaseRdfDir=$RDF_OUTPUT_DIR \

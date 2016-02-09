@@ -10,10 +10,11 @@ fi
 
 TMPFILE=$(mktemp -t mvn)
 
-mvn -f datasource-rdfizer/scripts/pom-rdf-gen-ids.xml exec:exec \
+mvn -f datasource-rdfizer/scripts/pom-rdf-list-datasource-names.xml exec:exec \
     | tee $TMPFILE \
-    | grep "SGE index:" \
-    | cut -b 18-
+    | grep "DS:" \
+    | cut -c 12-
+
 
 # echo ${PIPESTATUS[*]}
 
