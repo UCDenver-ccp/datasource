@@ -80,7 +80,5 @@ public class FtpHost {
 	public static final String KEGG_GENEMAPTAB_PATH = "pub/kegg/pathway/organisms";
 	
 	public static final String MGI_REPORTS_PATH = "pub/reports";
-	
-	public static final String IREFWEB_HOST = "ftp.no.embnet.org";
 
 }
