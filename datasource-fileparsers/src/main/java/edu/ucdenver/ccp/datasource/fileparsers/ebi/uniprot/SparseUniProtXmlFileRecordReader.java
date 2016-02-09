@@ -97,7 +97,6 @@ public class SparseUniProtXmlFileRecordReader extends XmlFileRecordReader<Sparse
 		}
 		for (DbReference dbRef : record.getOrganism().getDbReference()) {
 			if (getTaxonsOfInterest().contains(dbRef.getId())) {
-				System.out.println("has taxon of interest: " + dbRef.getId());
 				return true;
 			}
 		}
