@@ -64,7 +64,16 @@ public class ProteinAccessionResolver {
 	private static final String VALID_UNIPROT_PATTERN_3 = "[A-NR-Z][0-9][A-Z][A-Z0-9][A-Z0-9][0-9][A-Z][A-Z0-9][A-Z0-9][0-9]";
 	private static final String VALID_UNIPROT_PATTERN_2 = "[OPQ][0-9][A-Z0-9][A-Z0-9][A-Z0-9][0-9]";
 
-	public static DataSourceIdentifier<String> resolveProteinAccession(String acc) {
+	/**
+	 * @param acc
+	 * @param idWithPrefix
+	 *            - optional, is only used as part of the error message if the
+	 *            acc cannot be resolved. Often the prefix is stripped prior to
+	 *            id resolution, this parameter allows the prefix to be included
+	 *            in the error message.
+	 * @return
+	 */
+	public static DataSourceIdentifier<String> resolveProteinAccession(String acc, String idWithPrefix) {
 		acc = acc.toUpperCase();
 		if (acc.matches("[A-Z][A-Z]_\\d+\\.?\\d*")) {
 			return new RefSeqID(acc);
@@ -119,9 +128,12 @@ public class ProteinAccessionResolver {
 				return new GenBankID(acc);
 			}
 		}
-		logger.warn("Input is not a known protein accession pattern: " + acc);
-		return new ProbableErrorDataSourceIdentifier(acc, null, "Input is not a known protein accession pattern: "
-				+ acc);
+//		logger.warn("Input is not a known protein accession pattern: " + acc);
+		if (idWithPrefix == null) {
+			idWithPrefix = acc;
+		}
+		return new ProbableErrorDataSourceIdentifier(idWithPrefix, null, "Input is not a known accession pattern: "
+				+ idWithPrefix);
 	}
 
 }

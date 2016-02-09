@@ -46,7 +46,6 @@ import edu.ucdenver.ccp.datasource.identifiers.irefweb.IcrigId;
 import edu.ucdenver.ccp.datasource.identifiers.irefweb.IrigId;
 import edu.ucdenver.ccp.datasource.identifiers.irefweb.RigId;
 import edu.ucdenver.ccp.datasource.identifiers.other.ImexId;
-import edu.ucdenver.ccp.identifier.publication.PubMedID;
 
 @Data
 @Record(dataSource = DataSource.IREFWEB, label="interaction")
@@ -57,7 +56,7 @@ public class IRefWebInteraction implements DataRecord {
 	@RecordField(comment = "Notes: According to MITAB2.6 format this column should contain a pipe-delimited list of author surnames in which the interaction has been shown.\nThis column will usually include only one author name reference. However, some experimental evidences have secondary references which could be included here. This filed also includes references which are not author names as in the following examples:\nOPHID Predicted Protein Interaction\nHPRD Text Mining Confirmation\nMINT Text Mining Confirmation")
 	private final String author;
 	@RecordField(comment = "Notes: This is a non-redundant list of PubMed identifiers pointing to literature that supports the interaction. According to MITAB2.6 format, this column should contain a pipe-delimited set of databaseName:identifier pairs such as pubmed:12345. The source database name is always pubmed.")
-	private final Set<PubMedID> pmids;
+	private final Set<DataSourceIdentifier<?>> pmids;
 	@RecordField
 	private final IRefWebInteractionType interactionType;
 	@RecordField(comment = "source interaction-database and accessions.\nExample: intact:EBI-761694|rigid:3ERiFkUFsm7ZUHIRJTx8ZlHILRA|irigid:1234|edgetype:X\nNotes: Each reference is presented as a database name:identifier pair.\nChange: The source database is listed first. Additional information is pipe-delimited and presented here for the convenience of PSICQUIC web-service users (these services presently truncate this file at column 15 as they only support MITAB2.5). See columns 35,45,53.\nThe source database names that appear in this column are taken from the PSI-MI controlled vocabulary at the following location (where possible): http://www.ebi.ac.uk/ontology-lookup/browse.do?ontName=MI\nIf an interaction record identifier is not provided by the source database, this entry will appear as database-name:- with the identifier region replaced with a dash (-).")

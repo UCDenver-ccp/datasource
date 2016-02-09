@@ -473,7 +473,7 @@ public class GeneticAssociationDbAllTxtFileData extends SingleLineFileRecord {
 			if (acc.matches("\\d+")) {
 				nucleotideId = new GiNumberID(acc);
 			} else {
-				nucleotideId = NucleotideAccessionResolver.resolveNucleotideAccession(acc);
+				nucleotideId = NucleotideAccessionResolver.resolveNucleotideAccession(acc, refseqURL);
 			}
 		}
 

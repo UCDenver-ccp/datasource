@@ -260,13 +260,13 @@ public class PharmGkbGeneFileParser extends SingleLineFileRecordReader<PharmGkbG
 			} else if (refStr.startsWith(OMIM_PREFIX)) {
 				return new OmimID(StringUtil.removePrefix(refStr, OMIM_PREFIX));
 			} else if (refStr.startsWith(REFSEQDNA_PREFIX)) {
-				return NucleotideAccessionResolver.resolveNucleotideAccession(StringUtil.removePrefix(refStr,
-						REFSEQDNA_PREFIX));
+				return NucleotideAccessionResolver.resolveNucleotideAccession(
+						StringUtil.removePrefix(refStr, REFSEQDNA_PREFIX), refStr);
 			} else if (refStr.startsWith(REFSEQRNA_PREFIX)) {
 				return new RefSeqID(StringUtil.removePrefix(refStr, REFSEQRNA_PREFIX));
 			} else if (refStr.startsWith(REFSEQPROTEIN_PREFIX)) {
-				return ProteinAccessionResolver.resolveProteinAccession(StringUtil.removePrefix(refStr,
-						REFSEQPROTEIN_PREFIX));
+				return ProteinAccessionResolver.resolveProteinAccession(
+						StringUtil.removePrefix(refStr, REFSEQPROTEIN_PREFIX), refStr);
 			} else if (refStr.startsWith(UCSCGENOMEBROWSER_PREFIX)) {
 				return new UcscGenomeBrowserId(StringUtil.removePrefix(refStr, UCSCGENOMEBROWSER_PREFIX));
 			} else if (refStr.startsWith(UNIPROT_PREFIX)) {

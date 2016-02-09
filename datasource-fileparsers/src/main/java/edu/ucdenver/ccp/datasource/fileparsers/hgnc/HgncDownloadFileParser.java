@@ -564,9 +564,9 @@ public class HgncDownloadFileParser extends SingleLineFileRecordReader<HgncDownl
 		Set<DataSourceIdentifier<?>> accNumbers = new HashSet<DataSourceIdentifier<?>>();
 		if (!accListStr.isEmpty()) {
 			for (String acc : accListStr.split(",")) {
-				DataSourceIdentifier<String> nucAccId = NucleotideAccessionResolver.resolveNucleotideAccession(acc);
+				DataSourceIdentifier<String> nucAccId = NucleotideAccessionResolver.resolveNucleotideAccession(acc, acc);
 				if (ProbableErrorDataSourceIdentifier.class.isInstance(nucAccId)) {
-					DataSourceIdentifier<String> proAccId = ProteinAccessionResolver.resolveProteinAccession(acc);
+					DataSourceIdentifier<String> proAccId = ProteinAccessionResolver.resolveProteinAccession(acc, acc);
 					accNumbers.add(proAccId);
 				} else {
 					accNumbers.add(nucAccId);

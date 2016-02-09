@@ -115,9 +115,9 @@ public class HprdIdMappingsTxtFileParser extends SingleLineFileRecordReader<Hprd
 	}
 
 	private DataSourceIdentifier<?> resolveAccession(String acc) {
-		DataSourceIdentifier<String> nucAccId = NucleotideAccessionResolver.resolveNucleotideAccession(acc);
+		DataSourceIdentifier<String> nucAccId = NucleotideAccessionResolver.resolveNucleotideAccession(acc, acc);
 		if (ProbableErrorDataSourceIdentifier.class.isInstance(nucAccId)) {
-			return ProteinAccessionResolver.resolveProteinAccession(acc);
+			return ProteinAccessionResolver.resolveProteinAccession(acc, acc);
 		}
 		return nucAccId;
 	}

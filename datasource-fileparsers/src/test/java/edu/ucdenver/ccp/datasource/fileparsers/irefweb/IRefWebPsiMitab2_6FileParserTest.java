@@ -250,8 +250,8 @@ public class IRefWebPsiMitab2_6FileParserTest extends RecordReaderTester {
 
 			assertFalse(record.getInteraction().isNegative());
 
-			assertEquals(new ProbableErrorDataSourceIdentifier("\"1FMO_I\"", null,
-					"Input is not a known protein accession pattern: \"1FMO_I\""), record.getInteractorA()
+			assertEquals(new ProbableErrorDataSourceIdentifier("GenBank:\"1FMO_I\"", null,
+					"Input is not a known accession pattern: GenBank:\"1FMO_I\""), record.getInteractorA()
 					.getOriginalReference());
 			assertEquals(new RefSeqID("NP_032880"), record.getInteractorB().getOriginalReference());
 			assertEquals(new PdbID("1FMO_I"), record.getInteractorA().getFinalReference());

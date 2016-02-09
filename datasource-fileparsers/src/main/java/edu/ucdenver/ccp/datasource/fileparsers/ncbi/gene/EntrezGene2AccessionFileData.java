@@ -60,19 +60,22 @@ import edu.ucdenver.ccp.datasource.identifiers.ncbi.taxonomy.NcbiTaxonomyID;
 @Record(dataSource = DataSource.EG, comment = "", license = License.NCBI, citation = "The NCBI handbook [Internet]. Bethesda (MD): National Library of Medicine (US), National Center for Biotechnology Information; 2002 Oct. Chapter 19 Gene: A Directory of Genes. Available from http://www.ncbi.nlm.nih.gov/books/NBK21091", label = "gene2accession record")
 public class EntrezGene2AccessionFileData extends SingleLineFileRecord {
 	/*
-	 * #Format: tax_id GeneID status RNA_nucleotide_accession.version RNA_nucleotide_gi
-	 * protein_accession.version protein_gi genomic_nucleotide_accession.version
-	 * genomic_nucleotide_gi start_position_on_the_genomic_accession
-	 * end_position_on_the_genomic_accession orientation assembly (tab is used as a separator, pound
-	 * sign - start of a comment)
+	 * #Format: tax_id GeneID status RNA_nucleotide_accession.version
+	 * RNA_nucleotide_gi protein_accession.version protein_gi
+	 * genomic_nucleotide_accession.version genomic_nucleotide_gi
+	 * start_position_on_the_genomic_accession
+	 * end_position_on_the_genomic_accession orientation assembly (tab is used
+	 * as a separator, pound sign - start of a comment)
 	 */
 
 	/*
-	 * #Format: tax_id GeneID status RNA_nucleotide_accession.version RNA_nucleotide_gi
-	 * protein_accession.version protein_gi genomic_nucleotide_accession.version
-	 * genomic_nucleotide_gi start_position_on_the_genomic_accession
-	 * end_position_on_the_genomic_accession orientation assembly mature_peptide_accession.version
-	 * mature_peptide_gi Symbol (tab is used as a separator, pound sign - start of a comment)
+	 * #Format: tax_id GeneID status RNA_nucleotide_accession.version
+	 * RNA_nucleotide_gi protein_accession.version protein_gi
+	 * genomic_nucleotide_accession.version genomic_nucleotide_gi
+	 * start_position_on_the_genomic_accession
+	 * end_position_on_the_genomic_accession orientation assembly
+	 * mature_peptide_accession.version mature_peptide_gi Symbol (tab is used as
+	 * a separator, pound sign - start of a comment)
 	 */
 
 	@RecordField(comment = "the unique identifier provided by NCBI Taxonomy for the species or strain/isolate")
@@ -196,7 +199,8 @@ public class EntrezGene2AccessionFileData extends SingleLineFileRecord {
 
 			DataSourceIdentifier<?> RNA_nucleotide_accession_dot_version = null;
 			if (!toks[3].equals("-") && status != null) {
-				RNA_nucleotide_accession_dot_version = NucleotideAccessionResolver.resolveNucleotideAccession(toks[3]);
+				RNA_nucleotide_accession_dot_version = NucleotideAccessionResolver.resolveNucleotideAccession(toks[3],
+						toks[3]);
 			}
 
 			String intStr = toks[4];
@@ -207,7 +211,7 @@ public class EntrezGene2AccessionFileData extends SingleLineFileRecord {
 
 			DataSourceIdentifier<?> protein_accession_dot_version = null;
 			if (!toks[5].equals("-") && status != null) {
-				protein_accession_dot_version = ProteinAccessionResolver.resolveProteinAccession(toks[5]);
+				protein_accession_dot_version = ProteinAccessionResolver.resolveProteinAccession(toks[5], toks[5]);
 			}
 
 			intStr = toks[6];
@@ -218,8 +222,8 @@ public class EntrezGene2AccessionFileData extends SingleLineFileRecord {
 
 			DataSourceIdentifier<?> genomic_nucleotide_accession_dot_version = null;
 			if (!toks[7].equals("-") && status != null) {
-				genomic_nucleotide_accession_dot_version = NucleotideAccessionResolver
-						.resolveNucleotideAccession(toks[7]);
+				genomic_nucleotide_accession_dot_version = NucleotideAccessionResolver.resolveNucleotideAccession(
+						toks[7], toks[7]);
 			}
 
 			intStr = toks[8];
@@ -257,7 +261,8 @@ public class EntrezGene2AccessionFileData extends SingleLineFileRecord {
 
 			DataSourceIdentifier<?> mature_peptide_accession_dot_version = null;
 			if (!toks[13].equals("-")) {
-				mature_peptide_accession_dot_version = ProteinAccessionResolver.resolveProteinAccession(toks[13]);
+				mature_peptide_accession_dot_version = ProteinAccessionResolver.resolveProteinAccession(toks[13],
+						toks[13]);
 			}
 
 			intStr = toks[14];

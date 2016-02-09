@@ -56,18 +56,15 @@ import java.io.IOException;
 import java.util.HashSet;
 import java.util.Set;
 
-import org.apache.log4j.BasicConfigurator;
 import org.apache.log4j.Logger;
 
-import edu.ucdenver.ccp.common.download.FtpDownload;
+import edu.ucdenver.ccp.common.download.HttpDownload;
 import edu.ucdenver.ccp.common.file.CharacterEncoding;
 import edu.ucdenver.ccp.common.file.reader.Line;
 import edu.ucdenver.ccp.common.file.reader.StreamLineReader;
-import edu.ucdenver.ccp.common.ftp.FTPUtil.FileType;
 import edu.ucdenver.ccp.common.string.RegExPatterns;
 import edu.ucdenver.ccp.common.string.StringConstants;
 import edu.ucdenver.ccp.common.string.StringUtil;
-import edu.ucdenver.ccp.datasource.fileparsers.download.FtpHost;
 import edu.ucdenver.ccp.datasource.fileparsers.obo.MiOntologyIdTermPair;
 import edu.ucdenver.ccp.datasource.fileparsers.obo.NcbiTaxonomyIdTermPair;
 import edu.ucdenver.ccp.datasource.fileparsers.taxonaware.TaxonAwareSingleLineFileRecordReader;
@@ -137,12 +134,9 @@ public class IRefWebPsiMitab2_6FileParser extends TaxonAwareSingleLineFileRecord
 
 	private static final String HEADER = "#uidA\tuidB\taltA\taltB\taliasA\taliasB\tmethod\tauthor\tpmids\ttaxa\ttaxb\tinteractionType\tsourcedb\tinteractionIdentifier\tconfidence\texpansion\tbiological_role_A\tbiological_role_B\texperimental_role_A\texperimental_role_B\tinteractor_type_A\tinteractor_type_B\txrefs_A\txrefs_B\txrefs_Interaction\tAnnotations_A\tAnnotations_B\tAnnotations_Interaction\tHost_organism_taxid\tparameters_Interaction\tCreation_date\tUpdate_date\tChecksum_A\tChecksum_B\tChecksum_Interaction\tNegative\tOriginalReferenceA\tOriginalReferenceB\tFinalReferenceA\tFinalReferenceB\tMappingScoreA\tMappingScoreB\tirogida\tirogidb\tirigid\tcrogida\tcrogidb\tcrigid\ticrogida\ticrogidb\ticrigid\timex_id\tedgetype\tnumParticipants";
 
-	// public static final String FTP_FILE_NAME = "All.mitab.03022013.txt.zip";
-	public static final String FTP_FILE_NAME = "All.mitab.07042015.txt.zip";
 	public static final CharacterEncoding ENCODING = CharacterEncoding.US_ASCII;
-	public static final String FTP_USER_NAME = "ftp";
 
-	@FtpDownload(server = FtpHost.IREFWEB_HOST, path = "irefindex/data/archive/release_10.0/psi_mitab/MITAB2.6/", filename = FTP_FILE_NAME, filetype = FileType.BINARY, username = FTP_USER_NAME, decompress = true, targetFileName = "All.mitab.04072015.txt")
+	@HttpDownload(url = "http://irefindex.org/download/irefindex/data/archive/release_14.0/psi_mitab/MITAB2.6/All.mitab.07042015.txt.zip", decompress = true, targetFileName = "All.mitab.04072015.txt")
 	private File allMitabTxtFile;
 
 	public IRefWebPsiMitab2_6FileParser(File file, CharacterEncoding encoding) throws IOException,
@@ -254,7 +248,7 @@ public class IRefWebPsiMitab2_6FileParser extends TaxonAwareSingleLineFileRecord
 					detectionMethodStr);
 		}
 		String author = (authorStr.trim().equals(StringConstants.HYPHEN_MINUS)) ? null : authorStr;
-		Set<PubMedID> pmids = parsePmidsStr(pmidsStr);
+		Set<DataSourceIdentifier<?>> pmids = parsePmidsStr(pmidsStr);
 		IRefWebInteractionType interactionType = null;
 		if (!interactionTypeStr.trim().equals(StringConstants.HYPHEN_MINUS)) {
 			interactionType = MiOntologyIdTermPair.parseString(IRefWebInteractionType.class, interactionTypeStr);
@@ -404,9 +398,9 @@ public class IRefWebPsiMitab2_6FileParser extends TaxonAwareSingleLineFileRecord
 			} else if (idStr.startsWith("icrogid:")) {
 				return new IcrogId(StringUtil.removePrefix(idStr, "icrogid:"));
 			} else if (idStr.startsWith("refseq:")) {
-				return getRefseqAccession(StringUtil.removePrefix(idStr, "refseq:").toUpperCase());
+				return getRefseqAccession(StringUtil.removePrefix(idStr, "refseq:").toUpperCase(), idStr);
 			} else if (idStr.startsWith("RefSeq:")) {
-				return getRefseqAccession(StringUtil.removePrefix(idStr, "RefSeq:").toUpperCase());
+				return getRefseqAccession(StringUtil.removePrefix(idStr, "RefSeq:").toUpperCase(), idStr);
 			} else if (idStr.startsWith("rogid:")) {
 				return new RogId(StringUtil.removePrefix(idStr, "rogid:"));
 			} else if (idStr.startsWith("irogid:")) {
@@ -464,21 +458,21 @@ public class IRefWebPsiMitab2_6FileParser extends TaxonAwareSingleLineFileRecord
 			} else if (idStr.startsWith("InnateDB:")) {
 				return new InnateDbId(StringUtil.removePrefix(idStr, "InnateDB:"));
 			} else if (idStr.startsWith("emb:")) {
-				return ProteinAccessionResolver.resolveProteinAccession(StringUtil.removePrefix(idStr, "emb:"));
+				return ProteinAccessionResolver.resolveProteinAccession(StringUtil.removePrefix(idStr, "emb:"), idStr);
 			} else if (idStr.startsWith("dbj:")) {
-				return getGenbankAccession(StringUtil.removePrefix(idStr, "dbj:"));
+				return getGenbankAccession(StringUtil.removePrefix(idStr, "dbj:"), idStr);
 			} else if (idStr.startsWith("ddbj/embl/genbank:")) {
-				return getGenbankAccession(StringUtil.removePrefix(idStr, "ddbj/embl/genbank:"));
+				return getGenbankAccession(StringUtil.removePrefix(idStr, "ddbj/embl/genbank:"), idStr);
 			} else if (idStr.startsWith("GenBank:")) {
-				return getGenbankAccession(StringUtil.removePrefix(idStr, "GenBank:"));
+				return getGenbankAccession(StringUtil.removePrefix(idStr, "GenBank:"), idStr);
 			} else if (idStr.startsWith("genbank indentifier:")) {
-				return getGenbankAccession(StringUtil.removePrefix(idStr, "genbank indentifier:"));
+				return getGenbankAccession(StringUtil.removePrefix(idStr, "genbank indentifier:"), idStr);
 			} else if (idStr.startsWith("GB:")) {
-				return getGenbankAccession(StringUtil.removePrefix(idStr, "GB:"));
+				return getGenbankAccession(StringUtil.removePrefix(idStr, "GB:"), idStr);
 			} else if (idStr.startsWith("gb:")) {
-				return getGenbankAccession(StringUtil.removePrefix(idStr, "gb:"));
+				return getGenbankAccession(StringUtil.removePrefix(idStr, "gb:"), idStr);
 			} else if (idStr.startsWith("tpg:")) {
-				return getGenbankAccession(StringUtil.removePrefix(idStr, "tpg:"));
+				return getGenbankAccession(StringUtil.removePrefix(idStr, "tpg:"), idStr);
 			} else if (idStr.startsWith("pdb:")) {
 				return new PdbID(StringUtil.removePrefix(idStr, "pdb:"));
 			} else if (idStr.startsWith("flybase:")) {
@@ -508,16 +502,15 @@ public class IRefWebPsiMitab2_6FileParser extends TaxonAwareSingleLineFileRecord
 			}
 			return new UniProtID(idStr);
 		} catch (IllegalArgumentException e) {
-			logger.warn("Detected invalid UniProt accession: " + idStr);
-			return null;
+			return new ProbableErrorDataSourceIdentifier(idStr, null, e.getMessage());
 		}
 	}
 
-	private DataSourceIdentifier<?> getRefseqAccession(String acc) {
+	private DataSourceIdentifier<?> getRefseqAccession(String acc, String accWithPrefix) {
 		try {
 			return new RefSeqID(acc);
 		} catch (IllegalArgumentException e) {
-			return getGenbankAccession(acc);
+			return getGenbankAccession(acc, accWithPrefix);
 		}
 	}
 
@@ -525,10 +518,11 @@ public class IRefWebPsiMitab2_6FileParser extends TaxonAwareSingleLineFileRecord
 	 * @param removePrefix
 	 * @return
 	 */
-	private DataSourceIdentifier<?> getGenbankAccession(String acc) {
-		DataSourceIdentifier<String> nucAccId = NucleotideAccessionResolver.resolveNucleotideAccession(acc);
+	private DataSourceIdentifier<?> getGenbankAccession(String acc, String accWithPrefix) {
+		DataSourceIdentifier<String> nucAccId = NucleotideAccessionResolver.resolveNucleotideAccession(acc,
+				accWithPrefix);
 		if (ProbableErrorDataSourceIdentifier.class.isInstance(nucAccId)) {
-			return ProteinAccessionResolver.resolveProteinAccession(acc);
+			return ProteinAccessionResolver.resolveProteinAccession(acc, accWithPrefix);
 		} else {
 			return nucAccId;
 		}
@@ -538,17 +532,17 @@ public class IRefWebPsiMitab2_6FileParser extends TaxonAwareSingleLineFileRecord
 	 * @param pmidsStr
 	 * @return
 	 */
-	private Set<PubMedID> parsePmidsStr(String pmidsStr) {
+	private Set<DataSourceIdentifier<?>> parsePmidsStr(String pmidsStr) {
 		if (pmidsStr.trim().equals(StringConstants.HYPHEN_MINUS) || pmidsStr.trim().equals("pubmed:0")) {
 			return null;
 		}
 		String[] toks = pmidsStr.split(RegExPatterns.PIPE);
-		Set<PubMedID> pmids = new HashSet<PubMedID>();
+		Set<DataSourceIdentifier<?>> pmids = new HashSet<DataSourceIdentifier<?>>();
 		for (String tok : toks) {
 			try {
 				pmids.add(new PubMedID(StringUtil.removePrefix(tok, "pubmed:")));
 			} catch (IllegalArgumentException e) {
-				logger.warn("Detected invalid pubmed id: " + e.getMessage());
+				pmids.add(new ProbableErrorDataSourceIdentifier(tok, null, e.getMessage()));
 			}
 		}
 		return pmids;
@@ -630,7 +624,7 @@ public class IRefWebPsiMitab2_6FileParser extends TaxonAwareSingleLineFileRecord
 	private Set<String> resolveAliasSymbols(String aliasStr) {
 		Set<String> aliases = new HashSet<String>();
 		for (String alias : aliasStr.split(RegExPatterns.PIPE)) {
-			String aliasSymbol = alias;//resolveAliasSymbol(alias);
+			String aliasSymbol = alias;// resolveAliasSymbol(alias);
 			if (aliasSymbol != null && !aliasSymbol.equals("-")) {
 				aliases.add(aliasSymbol);
 			}
@@ -638,16 +632,17 @@ public class IRefWebPsiMitab2_6FileParser extends TaxonAwareSingleLineFileRecord
 		return aliases;
 	}
 
-//	/**
-//	 * @param alias
-//	 * @return
-//	 */
-//	private String resolveAliasSymbol(String aliasStr) {
-//		if (aliasStr.startsWith("entrezgene/locuslink:")) {
-//			return new String(StringUtil.removePrefix(aliasStr, "entrezgene/locuslink:"));
-//		}
-//		return aliasStr;
-//	}
+	// /**
+	// * @param alias
+	// * @return
+	// */
+	// private String resolveAliasSymbol(String aliasStr) {
+	// if (aliasStr.startsWith("entrezgene/locuslink:")) {
+	// return new String(StringUtil.removePrefix(aliasStr,
+	// "entrezgene/locuslink:"));
+	// }
+	// return aliasStr;
+	// }
 
 	/**
 	 * @param aliasStr
@@ -684,7 +679,7 @@ public class IRefWebPsiMitab2_6FileParser extends TaxonAwareSingleLineFileRecord
 		} else if (aliasStr.startsWith("rogid:")) {
 			return new RogId(StringUtil.removePrefix(aliasStr, "rogid:"));
 		} else if (aliasStr.startsWith("refseq:")) {
-			return getRefseqAccession(StringUtil.removePrefix(aliasStr, "refseq:"));
+			return getRefseqAccession(StringUtil.removePrefix(aliasStr, "refseq:"), aliasStr);
 		} else if (aliasStr.startsWith("hgnc:")) {
 			return new HgncGeneSymbolID(StringUtil.removePrefix(aliasStr, "hgnc:"));
 		}

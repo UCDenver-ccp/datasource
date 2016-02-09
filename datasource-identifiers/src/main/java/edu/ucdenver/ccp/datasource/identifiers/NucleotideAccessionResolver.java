@@ -102,7 +102,16 @@ public class NucleotideAccessionResolver {
 		}
 	}
 
-	public static DataSourceIdentifier<String> resolveNucleotideAccession(String acc) {
+	/**
+	 * @param acc
+	 * @param idWithPrefix
+	 *            - optional, is only used as part of the error message if the
+	 *            acc cannot be resolved. Often the prefix is stripped prior to
+	 *            id resolution, this parameter allows the prefix to be included
+	 *            in the error message.
+	 * @return
+	 */
+	public static DataSourceIdentifier<String> resolveNucleotideAccession(String acc, String idWithPrefix) {
 		acc = acc.toUpperCase().trim();
 		if (acc.matches("[A-Z][A-Z]_\\d+\\.?\\d*")) {
 			return new RefSeqID(acc);
@@ -151,7 +160,11 @@ public class NucleotideAccessionResolver {
 			}
 		}
 		// logger.warn("Input is not a known nucleotide accession: " + acc);
-		return new ProbableErrorDataSourceIdentifier(acc, null, "Input is not a known nucleotide accession: " + acc);
+		if (idWithPrefix == null) {
+			idWithPrefix = acc;
+		}
+		return new ProbableErrorDataSourceIdentifier(idWithPrefix, null, "Input is not a known accession: "
+				+ idWithPrefix);
 	}
 
 }

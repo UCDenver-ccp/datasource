@@ -80,6 +80,10 @@ public class RgdAnnotationFileIdResolver implements IdResolver {
 			// there is one instance of RGD:[space]737465
 			return new RgdID(idStr.substring(idStr.lastIndexOf(" ")));
 		}
+		if (idStr.matches("RGDG:\\d+")) {
+			// there is one instance of RGDG:
+			return new RgdID(idStr.substring(4));
+		}
 		if (idStr.matches("RDG:\\d+")) {
 			// there are a few typos where RDG appears instead of RGD
 			return new RgdID(idStr.substring(4));

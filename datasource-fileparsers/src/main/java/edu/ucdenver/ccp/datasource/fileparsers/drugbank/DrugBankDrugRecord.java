@@ -160,7 +160,6 @@ import edu.ucdenver.ccp.datasource.identifiers.hprd.HprdID;
 import edu.ucdenver.ccp.datasource.identifiers.kegg.KeggCompoundID;
 import edu.ucdenver.ccp.datasource.identifiers.kegg.KeggDrugID;
 import edu.ucdenver.ccp.datasource.identifiers.ncbi.MeshID;
-import edu.ucdenver.ccp.datasource.identifiers.ncbi.gene.GiNumberID;
 import edu.ucdenver.ccp.datasource.identifiers.ncbi.snp.SnpRsId;
 import edu.ucdenver.ccp.datasource.identifiers.ncbi.taxonomy.NcbiTaxonomyID;
 import edu.ucdenver.ccp.datasource.identifiers.obo.ChebiOntologyID;
@@ -1299,22 +1298,16 @@ public class DrugBankDrugRecord extends FileRecord {
 		} else if (resource.equals("GeneCards")) {
 			return new GeneCardId(identifier);
 		} else if (resource.equals("GenBank Gene Database")) {
-			return NucleotideAccessionResolver.resolveNucleotideAccession(identifier);
+			return NucleotideAccessionResolver.resolveNucleotideAccession(identifier, "GenBank Gene Database:"
+					+ identifier);
 		} else if (resource.equals("GenBank Protein Database")) {
-			try {
-				return ProteinAccessionResolver.resolveProteinAccession(identifier);
-			} catch (IllegalArgumentException e) {
-				if (identifier.matches("\\d+")) {
-					return new GiNumberID(identifier);
-				} else {
-					return new ProbableErrorDataSourceIdentifier("identifier", "GenBank",
-							"Observed invalid GenBank protein identifier: " + identifier);
-				}
-			}
+			return ProteinAccessionResolver
+					.resolveProteinAccession(identifier, "GenBank Protein Database" + identifier);
 		} else if (resource.equals("GenBank")) {
-			DataSourceIdentifier<String> nucAccId = NucleotideAccessionResolver.resolveNucleotideAccession(identifier);
+			DataSourceIdentifier<String> nucAccId = NucleotideAccessionResolver.resolveNucleotideAccession(identifier,
+					"GenBank:" + identifier);
 			if (ProbableErrorDataSourceIdentifier.class.isInstance(nucAccId.getClass())) {
-				return ProteinAccessionResolver.resolveProteinAccession(identifier);
+				return ProteinAccessionResolver.resolveProteinAccession(identifier, "GenBank:" + identifier);
 			}
 		} else if (resource.equals("UniProtKB")) {
 			return new UniProtID(identifier);

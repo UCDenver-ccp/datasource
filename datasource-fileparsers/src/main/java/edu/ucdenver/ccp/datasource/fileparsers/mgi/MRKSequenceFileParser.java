@@ -142,7 +142,7 @@ public class MRKSequenceFileParser extends SingleLineFileRecordReader<MRKSequenc
 			for (String genBankID : genBankIDs) {
 				if (genBankID.trim().length() > 0) {
 					DataSourceIdentifier<String> resolveNucleotideAccession = NucleotideAccessionResolver
-							.resolveNucleotideAccession(genBankID);
+							.resolveNucleotideAccession(genBankID, genBankID);
 					genBankAccessionIDs.add(resolveNucleotideAccession);
 				}
 			}
@@ -233,13 +233,14 @@ public class MRKSequenceFileParser extends SingleLineFileRecordReader<MRKSequenc
 				}
 			}
 		}
-		
+
 		String featureType = toks[20];
 
 		return new MRKSequenceFileData(mgiAccessionID, markerSymbol, status, markerType, markerName, cM_Position,
 				chromosome, genomeCoordinateStart, genomeCoordinateEnd, strand, genBankAccessionIDs,
 				refseqTranscriptIds, vegaTranscriptIds, ensemblTranscriptIds, uniprotIds, tremblIds, vegaProteinIds,
-				ensemblProteinIds, refseqProteinIds, unigeneIds, featureType, line.getByteOffset(), line.getLineNumber());
+				ensemblProteinIds, refseqProteinIds, unigeneIds, featureType, line.getByteOffset(),
+				line.getLineNumber());
 
 	}
 

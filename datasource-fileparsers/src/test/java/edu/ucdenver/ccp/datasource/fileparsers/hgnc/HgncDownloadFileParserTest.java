@@ -108,7 +108,7 @@ public class HgncDownloadFileParserTest extends RecordReaderTester {
 			assertEquals("2012-10-12", dataRecord.getDateModified());
 			assertEquals("2010-11-25", dataRecord.getDateSymbolChanged());
 			assertEquals("2012-08-15", dataRecord.getDateNameChanged());
-			assertEquals(CollectionsUtil.createSet(NucleotideAccessionResolver.resolveNucleotideAccession("BC040926")),
+			assertEquals(CollectionsUtil.createSet(NucleotideAccessionResolver.resolveNucleotideAccession("BC040926", null)),
 					dataRecord.getAccessionNumbers());
 			assertEmpty(dataRecord.getEcNumbers());
 			assertEquals(new EntrezGeneID(503538), dataRecord.getEntrezGeneID());
@@ -158,7 +158,7 @@ public class HgncDownloadFileParserTest extends RecordReaderTester {
 			assertEquals("2011-07-21", dataRecord.getDateModified());
 			assertNull(dataRecord.getDateSymbolChanged());
 			assertNull(dataRecord.getDateNameChanged());
-			assertEquals(CollectionsUtil.createSet(NucleotideAccessionResolver.resolveNucleotideAccession("AF271790")),
+			assertEquals(CollectionsUtil.createSet(NucleotideAccessionResolver.resolveNucleotideAccession("AF271790", null)),
 					dataRecord.getAccessionNumbers());
 			assertEmpty(dataRecord.getEcNumbers());
 			assertEquals(new EntrezGeneID(29974), dataRecord.getEntrezGeneID());
