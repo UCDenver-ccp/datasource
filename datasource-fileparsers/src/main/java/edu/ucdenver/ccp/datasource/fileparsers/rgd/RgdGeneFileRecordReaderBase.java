@@ -55,7 +55,7 @@ import edu.ucdenver.ccp.datasource.fileparsers.SingleLineFileRecordReader;
  */
 public class RgdGeneFileRecordReaderBase extends SingleLineFileRecordReader<RgdGeneFileRecord> {
 
-	public static final String FTP_SERVER = "rgd.mcw.edu";
+	public static final String FTP_SERVER = "ftp.rgd.mcw.edu";
 	public static final String FTP_PATH = "pub/data_release";
 
 	public static final CharacterEncoding ENCODING = CharacterEncoding.UTF_8;

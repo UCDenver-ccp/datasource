@@ -45,8 +45,7 @@ import edu.ucdenver.ccp.datasource.rdfizer.rdf.ice.RdfUtil;
  */
 public enum IAO {
 
-	MENTIONS("mentions"),
-	//DENOTES("denotes");
+	MENTIONS("IAO_0000142"),
 	DENOTES("IAO_0000219"),
 	INFORMATION_CONTENT_ENITITY("IAO_0000030");
 

@@ -41,6 +41,7 @@ import static org.junit.Assert.fail;
 import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 
@@ -62,6 +63,7 @@ import edu.ucdenver.ccp.datasource.identifiers.hgnc.HgncID;
 import edu.ucdenver.ccp.datasource.identifiers.mgi.MgiGeneID;
 import edu.ucdenver.ccp.datasource.identifiers.ncbi.CcdsId;
 import edu.ucdenver.ccp.datasource.identifiers.ncbi.gene.EntrezGeneID;
+import edu.ucdenver.ccp.datasource.identifiers.ncbi.omim.OmimID;
 import edu.ucdenver.ccp.datasource.identifiers.ncbi.refseq.RefSeqID;
 import edu.ucdenver.ccp.datasource.identifiers.other.CosmicId;
 import edu.ucdenver.ccp.datasource.identifiers.other.UcscGenomeBrowserId;
@@ -108,7 +110,7 @@ public class HgncDownloadFileParserTest extends RecordReaderTester {
 			assertEquals("2012-10-12", dataRecord.getDateModified());
 			assertEquals("2010-11-25", dataRecord.getDateSymbolChanged());
 			assertEquals("2012-08-15", dataRecord.getDateNameChanged());
-			assertEquals(CollectionsUtil.createSet(NucleotideAccessionResolver.resolveNucleotideAccession("BC040926")),
+			assertEquals(CollectionsUtil.createSet(NucleotideAccessionResolver.resolveNucleotideAccession("BC040926", null)),
 					dataRecord.getAccessionNumbers());
 			assertEmpty(dataRecord.getEcNumbers());
 			assertEquals(new EntrezGeneID(503538), dataRecord.getEntrezGeneID());
@@ -127,13 +129,13 @@ public class HgncDownloadFileParserTest extends RecordReaderTester {
 			assertEmpty(dataRecord.getVegaIDs());
 			assertEmpty(dataRecord.getLocusSpecificDatabaseNameLinkPairings());
 			assertEquals(new EntrezGeneID(503538), dataRecord.getSuppliedEntrezGeneId());
-			assertNull(dataRecord.getSuppliedOmimId());
+			assertEmpty(dataRecord.getSuppliedOmimIds());
 			assertEquals(new RefSeqID("NR_015380"), dataRecord.getSuppliedRefseqId());
 			assertNull(dataRecord.getSuppliedUniprotId());
 			assertNull(dataRecord.getSuppliedEnsemblId());
 			assertEquals(new UcscGenomeBrowserId("uc002qsg.3"), dataRecord.getSuppliedUcscId());
 			assertEmpty(dataRecord.getSuppliedMgiIds());
-			assertEmpty(dataRecord.getSuppliedRgdId());
+			assertEmpty(dataRecord.getSuppliedRgdIds());
 		} else {
 			fail("Parser should have returned the first record.");
 		}
@@ -158,7 +160,7 @@ public class HgncDownloadFileParserTest extends RecordReaderTester {
 			assertEquals("2011-07-21", dataRecord.getDateModified());
 			assertNull(dataRecord.getDateSymbolChanged());
 			assertNull(dataRecord.getDateNameChanged());
-			assertEquals(CollectionsUtil.createSet(NucleotideAccessionResolver.resolveNucleotideAccession("AF271790")),
+			assertEquals(CollectionsUtil.createSet(NucleotideAccessionResolver.resolveNucleotideAccession("AF271790", null)),
 					dataRecord.getAccessionNumbers());
 			assertEmpty(dataRecord.getEcNumbers());
 			assertEquals(new EntrezGeneID(29974), dataRecord.getEntrezGeneID());
@@ -184,13 +186,13 @@ public class HgncDownloadFileParserTest extends RecordReaderTester {
 							"ALSOD, the Amyotrophic Lateral Sclerosis Online Genetic Database",
 							"http://alsod.iop.kcl.ac.uk/")), dataRecord.getLocusSpecificDatabaseNameLinkPairings());
 			assertEquals(new EntrezGeneID(29974), dataRecord.getSuppliedEntrezGeneId());
-			assertNull(dataRecord.getSuppliedOmimId());
+			assertEmpty(dataRecord.getSuppliedOmimIds());
 			assertEquals(new RefSeqID("NM_001198818"), dataRecord.getSuppliedRefseqId());
 			assertEquals(new UniProtID("Q9NQ94"), dataRecord.getSuppliedUniprotId());
 			assertEquals(new EnsemblGeneID("ENSG00000148584"), dataRecord.getSuppliedEnsemblId());
 			assertEquals(new UcscGenomeBrowserId("uc001jjj.3"), dataRecord.getSuppliedUcscId());
 			assertEquals(CollectionsUtil.createSet(new MgiGeneID("MGI:1917115")), dataRecord.getSuppliedMgiIds());
-			assertEquals(CollectionsUtil.createSet(new RgdID("619834")), dataRecord.getSuppliedRgdId());
+			assertEquals(CollectionsUtil.createSet(new RgdID("619834")), dataRecord.getSuppliedRgdIds());
 		} else {
 			fail("Parser should have returned the first record.");
 		}

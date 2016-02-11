@@ -39,6 +39,8 @@ package edu.ucdenver.ccp.datasource.identifiers;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import org.apache.log4j.Logger;
+
 import edu.ucdenver.ccp.datasource.identifiers.ebi.embl.EmblID;
 import edu.ucdenver.ccp.datasource.identifiers.ebi.uniprot.UniProtID;
 import edu.ucdenver.ccp.datasource.identifiers.ncbi.GenBankID;
@@ -49,21 +51,35 @@ import edu.ucdenver.ccp.datasource.identifiers.other.DdbjId;
  * Resolution of accession identifiers based on prefixes available here:
  * http://www.ncbi.nlm.nih.gov/Sequin/acc.html
  * 
- * @author Colorado Computational Pharmacology, UC Denver; ccpsupport@ucdenver.edu
+ * @author Colorado Computational Pharmacology, UC Denver;
+ *         ccpsupport@ucdenver.edu
  * 
  */
 public class ProteinAccessionResolver {
 
+	private static final Logger logger = Logger.getLogger(ProteinAccessionResolver.class);
+
 	private static final Pattern ACC_PATTERN = Pattern.compile("([A-Z]{3})\\d+\\.?\\d*");
 	private static final String VALID_UNIPROT_PATTERN_1 = "[A-NR-Z][0-9][A-Z][A-Z0-9][A-Z0-9][0-9]";
+	private static final String VALID_UNIPROT_PATTERN_3 = "[A-NR-Z][0-9][A-Z][A-Z0-9][A-Z0-9][0-9][A-Z][A-Z0-9][A-Z0-9][0-9]";
 	private static final String VALID_UNIPROT_PATTERN_2 = "[OPQ][0-9][A-Z0-9][A-Z0-9][A-Z0-9][0-9]";
 
-	public static DataSourceIdentifier<String> resolveProteinAccession(String acc) {
+	/**
+	 * @param acc
+	 * @param idWithPrefix
+	 *            - optional, is only used as part of the error message if the
+	 *            acc cannot be resolved. Often the prefix is stripped prior to
+	 *            id resolution, this parameter allows the prefix to be included
+	 *            in the error message.
+	 * @return
+	 */
+	public static DataSourceIdentifier<String> resolveProteinAccession(String acc, String idWithPrefix) {
 		acc = acc.toUpperCase();
 		if (acc.matches("[A-Z][A-Z]_\\d+\\.?\\d*")) {
 			return new RefSeqID(acc);
 		}
-		if (acc.matches(VALID_UNIPROT_PATTERN_1) || acc.matches(VALID_UNIPROT_PATTERN_2)) {
+		if (acc.matches(VALID_UNIPROT_PATTERN_1) || acc.matches(VALID_UNIPROT_PATTERN_2)
+				|| acc.matches(VALID_UNIPROT_PATTERN_3)) {
 			return new UniProtID(acc);
 		}
 		Matcher m = ACC_PATTERN.matcher(acc);
@@ -99,8 +115,25 @@ public class ProteinAccessionResolver {
 			if (prefix.startsWith("J")) {
 				return new GenBankID(acc);
 			}
+			if (prefix.startsWith("K")) {
+				return new GenBankID(acc);
+			}
+			if (prefix.startsWith("L")) {
+				return new DdbjId(acc);
+			}
+			if (prefix.startsWith("M")) {
+				return new GenBankID(acc);
+			}
+			if (prefix.startsWith("N")) {
+				return new GenBankID(acc);
+			}
 		}
-		throw new IllegalArgumentException("Input is not a known protein accession pattern: " + acc);
+//		logger.warn("Input is not a known protein accession pattern: " + acc);
+		if (idWithPrefix == null) {
+			idWithPrefix = acc;
+		}
+		return new ProbableErrorDataSourceIdentifier(idWithPrefix, null, "Input is not a known accession pattern: "
+				+ idWithPrefix);
 	}
 
 }

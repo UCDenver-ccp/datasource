@@ -33,12 +33,13 @@ package edu.ucdenver.ccp.datasource.fileparsers.pharmgkb;
  * #L%
  */
 
-
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
@@ -54,7 +55,9 @@ import edu.ucdenver.ccp.common.string.StringUtil.RemoveFieldEnclosures;
 import edu.ucdenver.ccp.datasource.fileparsers.SingleLineFileRecordReader;
 import edu.ucdenver.ccp.datasource.identifiers.DataSourceIdentifier;
 import edu.ucdenver.ccp.datasource.identifiers.NucleotideAccessionResolver;
+import edu.ucdenver.ccp.datasource.identifiers.ProbableErrorDataSourceIdentifier;
 import edu.ucdenver.ccp.datasource.identifiers.ProteinAccessionResolver;
+import edu.ucdenver.ccp.datasource.identifiers.UnknownDataSourceIdentifier;
 import edu.ucdenver.ccp.datasource.identifiers.ebi.uniprot.UniProtID;
 import edu.ucdenver.ccp.datasource.identifiers.ensembl.EnsemblGeneID;
 import edu.ucdenver.ccp.datasource.identifiers.hgnc.HgncID;
@@ -76,11 +79,13 @@ import edu.ucdenver.ccp.datasource.identifiers.other.UcscGenomeBrowserId;
 import edu.ucdenver.ccp.datasource.identifiers.pharmgkb.PharmGkbID;
 
 /**
- * The file format for the genes.tsv file has changed. This parser should be updated. New header:
- * PharmGKB Accession Id Entrez Id Ensembl Id Name Symbol Alternate Names Alternate Symbols Is VIP
- * Has Variant Annotation Cross-references
+ * The file format for the genes.tsv file has changed. This parser should be
+ * updated. New header: PharmGKB Accession Id Entrez Id Ensembl Id Name Symbol
+ * Alternate Names Alternate Symbols Is VIP Has Variant Annotation
+ * Cross-references
  * 
- * @author Colorado Computational Pharmacology, UC Denver; ccpsupport@ucdenver.edu
+ * @author Colorado Computational Pharmacology, UC Denver;
+ *         ccpsupport@ucdenver.edu
  * 
  */
 public class PharmGkbGeneFileParser extends SingleLineFileRecordReader<PharmGkbGeneFileRecord> {
@@ -162,7 +167,7 @@ public class PharmGkbGeneFileParser extends SingleLineFileRecordReader<PharmGkbG
 	protected PharmGkbGeneFileRecord parseRecordFromLine(Line line) {
 		String[] toks = line.getText().split(RegExPatterns.TAB, -1);
 		PharmGkbID pharmGkbAccessionId = new PharmGkbID(toks[0]);
-		EntrezGeneID entrezGeneId = StringUtils.isNotBlank(toks[1]) ? new EntrezGeneID(toks[1]) : null;
+		Set<EntrezGeneID> entrezGeneIds = getEntrezGeneIDs(toks[1]);
 		EnsemblGeneID ensemblGeneId = StringUtils.isNotBlank(toks[2]) ? new EnsemblGeneID(toks[2]) : null;
 		String name = StringUtils.isNotBlank(toks[3]) ? new String(toks[3]) : null;
 		String symbol = StringUtils.isNotBlank(toks[4]) ? new String(toks[4]) : null;
@@ -187,12 +192,7 @@ public class PharmGkbGeneFileParser extends SingleLineFileRecordReader<PharmGkbG
 		Collection<DataSourceIdentifier<?>> crossReferences = new ArrayList<DataSourceIdentifier<?>>();
 		if (!toks[9].isEmpty()) {
 			for (String refStr : toks[9].split(",")) {
-				DataSourceIdentifier<?> id = null;
-				try {
-					id = resolveCrossRefId(refStr);
-				} catch (IllegalArgumentException e) {
-					logger.warn("Unable to resolve cross-reference: " + refStr + " due to: " + e.getMessage());
-				}
+				DataSourceIdentifier<?> id = resolveCrossRefId(refStr);
 				if (id != null) {
 					crossReferences.add(id);
 				}
@@ -204,10 +204,25 @@ public class PharmGkbGeneFileParser extends SingleLineFileRecordReader<PharmGkbG
 		Integer chromosomeStart = (toks[12].equalsIgnoreCase("null")) ? null : Integer.parseInt(toks[12]);
 		Integer chromosomeEnd = (toks[13].equalsIgnoreCase("null")) ? null : Integer.parseInt(toks[13]);
 
-		return new PharmGkbGeneFileRecord(pharmGkbAccessionId, entrezGeneId, ensemblGeneId, name, symbol,
+		return new PharmGkbGeneFileRecord(pharmGkbAccessionId, entrezGeneIds, ensemblGeneId, name, symbol,
 				alternativeNames, alternativeSymbols, isVip, hasVariantAnnotation, crossReferences,
 				hasCpicDosingGuideline, chromosome, chromosomeStart, chromosomeEnd, line.getByteOffset(),
 				line.getLineNumber());
+	}
+
+	private Set<EntrezGeneID> getEntrezGeneIDs(String idStr) {
+		Set<EntrezGeneID> ids = new HashSet<EntrezGeneID>();
+		if (StringUtils.isNotBlank(idStr)) {
+			if (idStr.contains(",")) {
+				idStr = idStr.replaceAll("\"", "");
+				for (String tok : idStr.split(",")) {
+					ids.add(new EntrezGeneID(tok));
+				}
+			} else {
+				ids.add(new EntrezGeneID(idStr));
+			}
+		}
+		return ids;
 	}
 
 	/**
@@ -215,50 +230,54 @@ public class PharmGkbGeneFileParser extends SingleLineFileRecordReader<PharmGkbG
 	 * @return
 	 */
 	private DataSourceIdentifier<?> resolveCrossRefId(String refStr) {
-		if (refStr.startsWith(HUMANCYCGENE_PREFIX)) {
-			return new HumanCycGeneId(StringUtil.removePrefix(refStr, HUMANCYCGENE_PREFIX));
-		} else if (refStr.startsWith(ALFRED_PREFIX)) {
-			return new AlfredId(StringUtil.removePrefix(refStr, ALFRED_PREFIX));
-		} else if (refStr.startsWith(CTD_PREFIX)) {
-			return new CtdId(StringUtil.removePrefix(refStr, CTD_PREFIX));
-		} else if (refStr.startsWith(ENSEMBL_PREFIX)) {
-			return new EnsemblGeneID(StringUtil.removePrefix(refStr, ENSEMBL_PREFIX));
-		} else if (refStr.startsWith(ENTREZGENE_PREFIX)) {
-			return new EntrezGeneID(StringUtil.removePrefix(refStr, ENTREZGENE_PREFIX));
-		} else if (refStr.startsWith(GENEATLAS_PREFIX)) {
-			return new GenAtlasId(StringUtil.removePrefix(refStr, GENEATLAS_PREFIX));
-		} else if (refStr.startsWith(GENECARD_PREFIX)) {
-			return new GeneCardId(StringUtil.removePrefix(refStr, GENECARD_PREFIX));
-		} else if (refStr.startsWith(GO_PREFIX)) {
-			return new GeneOntologyID(StringUtil.removePrefix(refStr, GO_PREFIX));
-		} else if (refStr.startsWith(HGNC_PREFIX)) {
-			return new HgncID(StringUtil.removePrefix(refStr, HGNC_PREFIX));
-		} else if (refStr.startsWith(HUGE_PREFIX)) {
-			return new HugeId(StringUtil.removePrefix(refStr, HUGE_PREFIX));
-		} else if (refStr.startsWith(IUPHAR_RECEPTOR_PREFIX)) {
-			return new IupharReceptorId(StringUtil.removePrefix(refStr, IUPHAR_RECEPTOR_PREFIX));
-		} else if (refStr.startsWith(MODBASE_PREFIX)) {
-			return new ModBaseId(StringUtil.removePrefix(refStr, MODBASE_PREFIX));
-		} else if (refStr.startsWith(MUTDB_PREFIX)) {
-			return new MutDbId(StringUtil.removePrefix(refStr, MUTDB_PREFIX));
-		} else if (refStr.startsWith(OMIM_PREFIX)) {
-			return new OmimID(StringUtil.removePrefix(refStr, OMIM_PREFIX));
-		} else if (refStr.startsWith(REFSEQDNA_PREFIX)) {
-			return NucleotideAccessionResolver.resolveNucleotideAccession(StringUtil.removePrefix(refStr,
-					REFSEQDNA_PREFIX));
-		} else if (refStr.startsWith(REFSEQRNA_PREFIX)) {
-			return new RefSeqID(StringUtil.removePrefix(refStr, REFSEQRNA_PREFIX));
-		} else if (refStr.startsWith(REFSEQPROTEIN_PREFIX)) {
-			return ProteinAccessionResolver.resolveProteinAccession(StringUtil.removePrefix(refStr,
-					REFSEQPROTEIN_PREFIX));
-		} else if (refStr.startsWith(UCSCGENOMEBROWSER_PREFIX)) {
-			return new UcscGenomeBrowserId(StringUtil.removePrefix(refStr, UCSCGENOMEBROWSER_PREFIX));
-		} else if (refStr.startsWith(UNIPROT_PREFIX)) {
-			return new UniProtID(StringUtil.removePrefix(refStr, UNIPROT_PREFIX));
-		} else if (refStr.startsWith(URL_PREFIX)) {
-			return new CrossReferenceUrl(StringUtil.removePrefix(refStr, URL_PREFIX));
-		} else {
-			throw new IllegalArgumentException("Unknown cross-reference prefix: " + refStr);
+		try {
+			if (refStr.startsWith(HUMANCYCGENE_PREFIX)) {
+				return new HumanCycGeneId(StringUtil.removePrefix(refStr, HUMANCYCGENE_PREFIX));
+			} else if (refStr.startsWith(ALFRED_PREFIX)) {
+				return new AlfredId(StringUtil.removePrefix(refStr, ALFRED_PREFIX));
+			} else if (refStr.startsWith(CTD_PREFIX)) {
+				return new CtdId(StringUtil.removePrefix(refStr, CTD_PREFIX));
+			} else if (refStr.startsWith(ENSEMBL_PREFIX)) {
+				return new EnsemblGeneID(StringUtil.removePrefix(refStr, ENSEMBL_PREFIX));
+			} else if (refStr.startsWith(ENTREZGENE_PREFIX)) {
+				return new EntrezGeneID(StringUtil.removePrefix(refStr, ENTREZGENE_PREFIX));
+			} else if (refStr.startsWith(GENEATLAS_PREFIX)) {
+				return new GenAtlasId(StringUtil.removePrefix(refStr, GENEATLAS_PREFIX));
+			} else if (refStr.startsWith(GENECARD_PREFIX)) {
+				return new GeneCardId(StringUtil.removePrefix(refStr, GENECARD_PREFIX));
+			} else if (refStr.startsWith(GO_PREFIX)) {
+				return new GeneOntologyID(StringUtil.removePrefix(refStr, GO_PREFIX));
+			} else if (refStr.startsWith(HGNC_PREFIX)) {
+				return new HgncID(StringUtil.removePrefix(refStr, HGNC_PREFIX));
+			} else if (refStr.startsWith(HUGE_PREFIX)) {
+				return new HugeId(StringUtil.removePrefix(refStr, HUGE_PREFIX));
+			} else if (refStr.startsWith(IUPHAR_RECEPTOR_PREFIX)) {
+				return new IupharReceptorId(StringUtil.removePrefix(refStr, IUPHAR_RECEPTOR_PREFIX));
+			} else if (refStr.startsWith(MODBASE_PREFIX)) {
+				return new ModBaseId(StringUtil.removePrefix(refStr, MODBASE_PREFIX));
+			} else if (refStr.startsWith(MUTDB_PREFIX)) {
+				return new MutDbId(StringUtil.removePrefix(refStr, MUTDB_PREFIX));
+			} else if (refStr.startsWith(OMIM_PREFIX)) {
+				return new OmimID(StringUtil.removePrefix(refStr, OMIM_PREFIX));
+			} else if (refStr.startsWith(REFSEQDNA_PREFIX)) {
+				return NucleotideAccessionResolver.resolveNucleotideAccession(
+						StringUtil.removePrefix(refStr, REFSEQDNA_PREFIX), refStr);
+			} else if (refStr.startsWith(REFSEQRNA_PREFIX)) {
+				return new RefSeqID(StringUtil.removePrefix(refStr, REFSEQRNA_PREFIX));
+			} else if (refStr.startsWith(REFSEQPROTEIN_PREFIX)) {
+				return ProteinAccessionResolver.resolveProteinAccession(
+						StringUtil.removePrefix(refStr, REFSEQPROTEIN_PREFIX), refStr);
+			} else if (refStr.startsWith(UCSCGENOMEBROWSER_PREFIX)) {
+				return new UcscGenomeBrowserId(StringUtil.removePrefix(refStr, UCSCGENOMEBROWSER_PREFIX));
+			} else if (refStr.startsWith(UNIPROT_PREFIX)) {
+				return new UniProtID(StringUtil.removePrefix(refStr, UNIPROT_PREFIX));
+			} else if (refStr.startsWith(URL_PREFIX)) {
+				return new CrossReferenceUrl(StringUtil.removePrefix(refStr, URL_PREFIX));
+			} else {
+				return new UnknownDataSourceIdentifier(refStr, null);
+			}
+		} catch (IllegalArgumentException e) {
+			return new ProbableErrorDataSourceIdentifier(refStr, null, e.getMessage());
 		}
 	}
 

@@ -1,4 +1,3 @@
-
 package edu.ucdenver.ccp.datasource.fileparsers.kegg;
 
 /*
@@ -76,13 +75,8 @@ public class KeggGeneIdListFileData extends SingleLineFileRecord {
 			String keggGeneIDStr = toks[0].substring(toks[0].indexOf(":") + 1);
 			KeggGeneID keggInternalGeneID = new KeggGeneID(keggGeneIDStr);
 			DataSourceIdentifier<?> externalGeneID = DataSourceIdResolver.resolveId(toks[1]);
-			if (externalGeneID != null)
-				return new KeggGeneIdListFileData(keggInternalGeneID, externalGeneID, line.getByteOffset(),
-						line.getLineNumber());
-
-			logger.error("External gene id was not resolved from " + toks[1]);
-			return null;
-
+			return new KeggGeneIdListFileData(keggInternalGeneID, externalGeneID, line.getByteOffset(),
+					line.getLineNumber());
 		}
 
 		logger.error("Unexpected number of tokens (" + toks.length + ") on line: " + line.toString());

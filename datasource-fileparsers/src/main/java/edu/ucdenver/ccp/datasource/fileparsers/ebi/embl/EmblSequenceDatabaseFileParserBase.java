@@ -500,7 +500,7 @@ public abstract class EmblSequenceDatabaseFileParserBase<T extends EmblSequenceD
 	private EmblAssemblyInformation parseASLine(String line) {
 		String[] toks = line.split("\\s+");
 		String localSpan = toks[1];
-		DataSourceIdentifier<?> primaryIdentifier = NucleotideAccessionResolver.resolveNucleotideAccession(toks[2]);
+		DataSourceIdentifier<?> primaryIdentifier = NucleotideAccessionResolver.resolveNucleotideAccession(toks[2], toks[2]);
 		String primarySpan = toks[3];
 		boolean originatesFromComplementary = (toks.length == 5 && toks[4].trim().equalsIgnoreCase("c")) ? true : false;
 		return new EmblAssemblyInformation(localSpan, primaryIdentifier, primarySpan, originatesFromComplementary);

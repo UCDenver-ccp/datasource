@@ -53,6 +53,7 @@ import org.openrdf.model.Value;
 import org.openrdf.model.impl.StatementImpl;
 import org.openrdf.model.impl.URIImpl;
 
+import edu.ucdenver.ccp.common.collections.CollectionsUtil;
 import edu.ucdenver.ccp.common.reflection.PrivateAccessor;
 import edu.ucdenver.ccp.common.string.StringConstants;
 import edu.ucdenver.ccp.datasource.fileparsers.DataRecord;
@@ -60,6 +61,8 @@ import edu.ucdenver.ccp.datasource.fileparsers.Record;
 import edu.ucdenver.ccp.datasource.fileparsers.RecordField;
 import edu.ucdenver.ccp.datasource.fileparsers.RecordUtil;
 import edu.ucdenver.ccp.datasource.identifiers.DataSource;
+import edu.ucdenver.ccp.datasource.identifiers.ProbableErrorDataSourceIdentifier;
+import edu.ucdenver.ccp.datasource.identifiers.UnknownDataSourceIdentifier;
 import edu.ucdenver.ccp.datasource.rdfizer.rdf.filter.DuplicateStatementFilter;
 import edu.ucdenver.ccp.datasource.rdfizer.rdf.ice.RdfRecordUriFactory.IncludeVersion;
 import edu.ucdenver.ccp.datasource.rdfizer.rdf.vocabulary.DC;
@@ -72,26 +75,31 @@ import edu.ucdenver.ccp.datasource.rdfizer.rdf.vocabulary.RO;
 /**
  * Static utility functions for creating RDF
  * 
- * @author Colorado Computational Pharmacology, UC Denver; ccpsupport@ucdenver.edu
+ * @author Colorado Computational Pharmacology, UC Denver;
+ *         ccpsupport@ucdenver.edu
  */
 public class RdfRecordUtil {
 
-	private static final Logger logger = Logger.getLogger(RdfRecordUtil.class);
-	
+	// private static final Logger logger =
+	// Logger.getLogger(RdfRecordUtil.class);
+
 	// /**
 	// *
 	// *
 	// * @param recordClass
 	// * @return Collection of created statements
 	// */
-	// public static Collection<? extends Statement> getRecordSchemaStatements(Class<?> recordClass)
+	// public static Collection<? extends Statement>
+	// getRecordSchemaStatements(Class<?> recordClass)
 	// {
 	// Collection<Statement> stmts = new LinkedHashSet<Statement>();
-	// RdfNamespace ns = RdfNamespace.getNamespace(RecordUtil.getRecordDataSource(recordClass));
+	// RdfNamespace ns =
+	// RdfNamespace.getNamespace(RecordUtil.getRecordDataSource(recordClass));
 	// String recordComment = RecordUtil.getRecordComment(recordClass);
 	// String recordVersion = RecordUtil.getRecordSchemaVersion(recordClass);
 	//
-	// URIImpl recordClsUri = RdfUtil.createKiaoUri(ns, recordClass.getSimpleName());
+	// URIImpl recordClsUri = RdfUtil.createKiaoUri(ns,
+	// recordClass.getSimpleName());
 	// stmts.add(new StatementImpl(recordClsUri, RDFS.SUBCLASS_OF.uri(),
 	// IAO.INFORMATION_CONTENT_ENITITY.uri()));
 	// if (recordComment != null && !recordComment.isEmpty()) {
@@ -103,7 +111,8 @@ public class RdfRecordUtil {
 	//
 	// Map<Field, RecordField> fieldToRecordFieldAnnotationMap = RecordUtil
 	// .getFieldToRecordFieldAnnotationsMap(recordClass);
-	// for (Entry<Field, RecordField> entry : fieldToRecordFieldAnnotationMap.entrySet()) {
+	// for (Entry<Field, RecordField> entry :
+	// fieldToRecordFieldAnnotationMap.entrySet()) {
 	// if (isFieldSubRecord(entry.getKey())) {
 	// Field f = entry.getKey();
 	// if (Collection.class.isAssignableFrom(f.getType())) {
@@ -114,7 +123,8 @@ public class RdfRecordUtil {
 	// stmts.addAll(getRecordSchemaStatements((Class<?>) genericTypes[0]));
 	// }
 	// } else {
-	// throw new IllegalStateException("Non-parameterized collection detected in record class: "
+	// throw new
+	// IllegalStateException("Non-parameterized collection detected in record class: "
 	// + recordClass.getName() + " Please parameterize.");
 	// }
 	// } else {
@@ -122,14 +132,18 @@ public class RdfRecordUtil {
 	// }
 	// }
 	// String fieldName = entry.getKey().getName();
-	// String fieldComment = RecordUtil.getRecordFieldComment(recordClass, fieldName);
-	// String fieldVersion = RecordUtil.getRecordFieldVersion(recordClass, fieldName);
+	// String fieldComment = RecordUtil.getRecordFieldComment(recordClass,
+	// fieldName);
+	// String fieldVersion = RecordUtil.getRecordFieldVersion(recordClass,
+	// fieldName);
 	// boolean isKeyField = RecordUtil.isKeyRecordField(recordClass, fieldName);
 	//
-	// URIImpl fieldTemplateUri = RdfRecordUriFactory.createDataFieldTemplateUri(recordClass,
+	// URIImpl fieldTemplateUri =
+	// RdfRecordUriFactory.createDataFieldTemplateUri(recordClass,
 	// fieldName,
 	// IncludeVersion.YES);
-	// stmts.add(new StatementImpl(recordClsUri, RO.HAS_PART.uri(), fieldTemplateUri));
+	// stmts.add(new StatementImpl(recordClsUri, RO.HAS_PART.uri(),
+	// fieldTemplateUri));
 	// if (fieldComment != null && !fieldComment.isEmpty()) {
 	// stmts.add(new StatementImpl(fieldTemplateUri, RDFS.COMMENT.uri(),
 	// RdfUtil.createLiteral(fieldComment)));
@@ -140,7 +154,8 @@ public class RdfRecordUtil {
 	// if (isKeyField) {
 	// //stmts.add(new StatementImpl(fieldTemplateUri, DC.IDENTIFIER.uri(),
 	// RdfUtil.createLiteral(isKeyField)));
-	// stmts.add(new StatementImpl(recordClsUri, KIAO.HAS_KEY_FIELD.uri(), fieldTemplateUri));
+	// stmts.add(new StatementImpl(recordClsUri, KIAO.HAS_KEY_FIELD.uri(),
+	// fieldTemplateUri));
 	// }
 	// }
 	//
@@ -148,8 +163,10 @@ public class RdfRecordUtil {
 	// }
 
 	// /**
-	// * Generate statements about datasets, records and their types for specified namespace within
-	// * KABOB namespace. Each class represents a dataset made up of its class of records and their
+	// * Generate statements about datasets, records and their types for
+	// specified namespace within
+	// * KABOB namespace. Each class represents a dataset made up of its class
+	// of records and their
 	// * fields.
 	// *
 	// * @param recordTypes
@@ -157,11 +174,13 @@ public class RdfRecordUtil {
 	// * target namespace
 	// * @return statements
 	// */
-	// public static List<? extends Statement> getRecordSchemaDefinitionStatements(Class<? extends
+	// public static List<? extends Statement>
+	// getRecordSchemaDefinitionStatements(Class<? extends
 	// DataRecord> recordClass) {
 	// List<Statement> statements = new ArrayList<Statement>();
 	//
-	// RdfNamespace ns = RdfNamespace.getNamespace(RecordUtil.getRecordDataSource(recordClass));
+	// RdfNamespace ns =
+	// RdfNamespace.getNamespace(RecordUtil.getRecordDataSource(recordClass));
 	//
 	// URIImpl dataSourceUri = RdfUtil.createKiaoUri(ns, ns.lowerName() +
 	// KIAO.KABOB_DATASOURCE.termName());
@@ -188,14 +207,16 @@ public class RdfRecordUtil {
 	// statements.add(new StatementImpl(fieldUri, RDFS.SUBCLASS_OF.uri(),
 	// KIAO.KABOB_DATAFIELD.uri()));
 	//
-	// statements.addAll(getRecordFieldDeclarationStatements(recordClass, null));
+	// statements.addAll(getRecordFieldDeclarationStatements(recordClass,
+	// null));
 	//
 	// return statements;
 	// }
 
 	/**
-	 * Generate statements about class' fields specified namespace within KABOB namespace. Each
-	 * field is a subclass of generic field in namespace and part of dataset.
+	 * Generate statements about class' fields specified namespace within KABOB
+	 * namespace. Each field is a subclass of generic field in namespace and
+	 * part of dataset.
 	 * 
 	 * 
 	 * @param recordClass
@@ -205,13 +226,14 @@ public class RdfRecordUtil {
 	 * @param version
 	 *            structural version label
 	 * @param parentSchemaUri
-	 *            if not null, record schema is asserted to be {@link RdfPredicate#RO_PARTOF} parent
-	 *            schema.
+	 *            if not null, record schema is asserted to be
+	 *            {@link RdfPredicate#RO_PARTOF} parent schema.
 	 * @param fieldComment
-	 *            the field comment is used to capture @RecordField comments on fields that are
-	 *            subrecords
+	 *            the field comment is used to capture @RecordField comments on
+	 *            fields that are subrecords
 	 * @param isKeyField
-	 * @return statements about fields; empty result is returned for anonymous classes.
+	 * @return statements about fields; empty result is returned for anonymous
+	 *         classes.
 	 */
 	public static Collection<? extends Statement> getRecordSchemaStatements(Class<?> recordClass,
 			URIImpl parentSchemaUri, String fieldComment, boolean isKeyField) {
@@ -219,16 +241,18 @@ public class RdfRecordUtil {
 		Collection<Statement> statements = new ArrayList<Statement>();
 
 		/*
-		 * The following two statements are meta statements that will be redundant if multiple
-		 * record schemas are combined. Note that the first statement is supposed to be a self-loop.
+		 * The following two statements are meta statements that will be
+		 * redundant if multiple record schemas are combined. Note that the
+		 * first statement is supposed to be a self-loop.
 		 */
 		statements.add(new StatementImpl(KIAO.SCHEMA.uri(), RO.HAS_PART.uri(), KIAO.SCHEMA.uri()));
 		statements.add(new StatementImpl(KIAO.SCHEMA.uri(), RO.HAS_PART.uri(), KIAO.FIELD.uri()));
 
 		/*
-		 * The following adds the kiaosource:Record rdfs:subClassOf iao:IAO_0000030 (information
-		 * content entity) triple. This triple is not really part of the schema, however it only
-		 * needs to be added one time so this seems like a good place to put it.
+		 * The following adds the kiaosource:Record rdfs:subClassOf
+		 * iao:IAO_0000030 (information content entity) triple. This triple is
+		 * not really part of the schema, however it only needs to be added one
+		 * time so this seems like a good place to put it.
 		 */
 		URIImpl recordClsUri = RdfUtil.createKiaoUri(ns, recordClass.getSimpleName());
 		statements.add(new StatementImpl(recordClsUri, RDFS.SUBCLASS_OF.uri(), IAO.INFORMATION_CONTENT_ENITITY.uri()));
@@ -272,8 +296,8 @@ public class RdfRecordUtil {
 
 		for (Field field : sortedFields) {
 			/*
-			 * If the RecordField annotation is not present, then this field does not get serialized
-			 * in the RDF, e.g. the logger field
+			 * If the RecordField annotation is not present, then this field
+			 * does not get serialized in the RDF, e.g. the logger field
 			 */
 			if (field.isAnnotationPresent(RecordField.class)) {
 				String fComment = RecordUtil.getRecordFieldComment(recordClass, field.getName());
@@ -330,9 +354,10 @@ public class RdfRecordUtil {
 
 	/**
 	 * @param recordClass
-	 * @return a label for the record by first looking for an explicitly defined label in the @Record
-	 *         annotation. If not present, a label is generated by adding spaces to replace
-	 *         camel-case in the Record name
+	 * @return a label for the record by first looking for an explicitly defined
+	 *         label in the @Record annotation. If not present, a label is
+	 *         generated by adding spaces to replace camel-case in the Record
+	 *         name
 	 */
 	private static String getRecordLabel(Class<?> recordClass) {
 		String label = RecordUtil.getRecordLabel(recordClass);
@@ -351,7 +376,8 @@ public class RdfRecordUtil {
 	 * 
 	 * @param field
 	 *            to check
-	 * @return field type, or generic type if field's type is a {@link Collection}
+	 * @return field type, or generic type if field's type is a
+	 *         {@link Collection}
 	 */
 	private static Class<?> getFieldType(Field field) {
 		Class<?> klass = field.getType();
@@ -370,8 +396,8 @@ public class RdfRecordUtil {
 	}
 
 	/**
-	 * Determine whether class should be treated as sub-record definition. If field type is
-	 * collection, it's generic type is used.
+	 * Determine whether class should be treated as sub-record definition. If
+	 * field type is collection, it's generic type is used.
 	 * 
 	 * @param field
 	 *            to check
@@ -403,12 +429,16 @@ public class RdfRecordUtil {
 	private static boolean isFieldSubRecord(Class<?> klass) {
 		return klass.isAnnotationPresent(Record.class);
 		// return DataRecord.class.isAssignableFrom(klass);
-		// if (!(DataSourceElement.class.isAssignableFrom(klass) || klass.isPrimitive() ||
+		// if (!(DataSourceElement.class.isAssignableFrom(klass) ||
+		// klass.isPrimitive() ||
 		// klass.isArray()
 		// || klass.isEnum() || klass.isSynthetic() || klass.isAnnotation()
-		// || Collection.class.isAssignableFrom(klass) || String.class.isAssignableFrom(klass)
-		// || Number.class.isAssignableFrom(klass) || Boolean.class.isAssignableFrom(klass)
-		// || java.util.Date.class.isAssignableFrom(klass) || URI.class.isAssignableFrom(klass) ||
+		// || Collection.class.isAssignableFrom(klass) ||
+		// String.class.isAssignableFrom(klass)
+		// || Number.class.isAssignableFrom(klass) ||
+		// Boolean.class.isAssignableFrom(klass)
+		// || java.util.Date.class.isAssignableFrom(klass) ||
+		// URI.class.isAssignableFrom(klass) ||
 		// URL.class
 		// .isAssignableFrom(klass))) {
 		// return true;
@@ -418,7 +448,8 @@ public class RdfRecordUtil {
 	}
 
 	/**
-	 * Get collection of statements that instance datasource, records and fields for given record.
+	 * Get collection of statements that instance datasource, records and fields
+	 * for given record.
 	 * 
 	 * @param record
 	 * @param src
@@ -459,13 +490,13 @@ public class RdfRecordUtil {
 	}
 
 	/**
-	 * Generate instance statements about this particular instance of {@link DataRecord}. Statements
-	 * include assertions about record and it's fields types and values. All record fields are
-	 * included.
+	 * Generate instance statements about this particular instance of
+	 * {@link DataRecord}. Statements include assertions about record and it's
+	 * fields types and values. All record fields are included.
 	 * 
 	 * @param record
 	 *            instance
-	 * @param filter 
+	 * @param filter
 	 * @param src
 	 *            record source
 	 * @param alreadyObservedFieldUris
@@ -473,14 +504,16 @@ public class RdfRecordUtil {
 	 *            record instance index
 	 * @return statements
 	 */
-	public static List<Statement> getRecordInstanceStatements(DataRecord record, long createdTime, URIImpl recordUri, DuplicateStatementFilter filter) {
+	public static List<Statement> getRecordInstanceStatements(DataRecord record, long createdTime, URIImpl recordUri,
+			DuplicateStatementFilter filter) {
 		return getRecordInstanceStatements(record, createdTime, recordUri, null, StringConstants.BLANK, filter);
 	}
 
 	/**
-	 * Generate instance statements about this particular instance of {@link DataRecord}. Statements
-	 * include assertions about record and it's fields types and values. {@code rdfFields} will be
-	 * used to determine record exclusion rules and output format.
+	 * Generate instance statements about this particular instance of
+	 * {@link DataRecord}. Statements include assertions about record and it's
+	 * fields types and values. {@code rdfFields} will be used to determine
+	 * record exclusion rules and output format.
 	 * 
 	 * @param record
 	 *            instance
@@ -491,13 +524,14 @@ public class RdfRecordUtil {
 	 * @param rdfFields
 	 *            configuration info for field export
 	 * @param parentRecordUri
-	 *            if not null, used to indicate that record is a subrecord within record described
-	 *            by this value
+	 *            if not null, used to indicate that record is a subrecord
+	 *            within record described by this value
 	 * @param readerKey
-	 *            label used in generating dataset instance URI; if null, converted to
-	 *            {@link StringConstants#BLANK}
+	 *            label used in generating dataset instance URI; if null,
+	 *            converted to {@link StringConstants#BLANK}
 	 * @param alreadyObservedFieldUris
-	 * @return statements ; empty result is returned for anonymous {@code record} class.
+	 * @return statements ; empty result is returned for anonymous
+	 *         {@code record} class.
 	 */
 	public static List<Statement> getRecordInstanceStatements(Object record, long createdTime, URIImpl recordUri,
 			URIImpl parentRecordUri, String readerKey, DuplicateStatementFilter filter) {
@@ -538,14 +572,17 @@ public class RdfRecordUtil {
 		// record instance has template record schema
 		// URIImpl recordSchemaUri = RdfUtil.createKiaoUri(
 		// targetNs,
-		// targetNs.lowerName() + record.getClass().getSimpleName() + KIAO.KABOB_SCHEMA.termName()
+		// targetNs.lowerName() + record.getClass().getSimpleName() +
+		// KIAO.KABOB_SCHEMA.termName()
 		// + RecordUtil.getRecordSchemaVersion(record.getClass()));
 		URIImpl recordSchemaUri = RdfRecordUriFactory.createRecordSchemaUri(record.getClass(), IncludeVersion.YES);
 		statements.add(new StatementImpl(recordUri, KIAO.HAS_TEMPLATE.uri(), recordSchemaUri));
 
 		Set<Field> fields = RecordUtil.getFieldToRecordFieldAnnotationsMap(record.getClass()).keySet();
 		List<Field> sortedFields = new ArrayList<Field>(fields);
-		Collections.sort(sortedFields, new FieldNameComparator()); // sorted to ease unit testing
+		Collections.sort(sortedFields, new FieldNameComparator()); // sorted to
+																	// ease unit
+																	// testing
 
 		for (Field field : sortedFields) {
 			if (isFieldSubRecord(field)) {
@@ -568,13 +605,16 @@ public class RdfRecordUtil {
 					}
 				} else {
 					statements.addAll(getSubrecordStatements(createdTime, recordUri, readerKey, filter, subRecord));
-					// URIImpl subRecordUri = RdfRecordUriFactory.createRecordUri(subRecord);
-					// statements.addAll(getRecordInstanceStatements(subRecord, createdTime,
+					// URIImpl subRecordUri =
+					// RdfRecordUriFactory.createRecordUri(subRecord);
+					// statements.addAll(getRecordInstanceStatements(subRecord,
+					// createdTime,
 					// subRecordUri, recordUri,
 					// readerKey));
 				}
 			} else {
-				Collection<Statement> fieldValueStmts = getRdfFieldValueStatements(recordUri, record, field);
+				Collection<Statement> fieldValueStmts = getRdfFieldValueStatements(recordUri, record, field,
+						createdTime, filter);
 				if (fieldValueStmts.isEmpty()) {
 					continue;
 				}
@@ -599,13 +639,13 @@ public class RdfRecordUtil {
 			DuplicateStatementFilter filter, Object r) {
 		List<Statement> statements = new ArrayList<Statement>();
 		URIImpl subRecordUri = RdfRecordUriFactory.createRecordUri(r);
-		List<Statement> subRecordStmts = getRecordInstanceStatements(r, createdTime, subRecordUri,
-				recordUri, readerKey, filter);
+		List<Statement> subRecordStmts = getRecordInstanceStatements(r, createdTime, subRecordUri, recordUri,
+				readerKey, filter);
 		if (!filter.alreadyObservedRecordUri(subRecordUri)) {
 			statements.addAll(subRecordStmts);
 			filter.logRecordUri(subRecordUri);
 		} else {
-//			logger.info("already seen subrecord");
+			// logger.info("already seen subrecord");
 			statements.add(subRecordStmts.get(0));
 		}
 		return statements;
@@ -658,41 +698,46 @@ public class RdfRecordUtil {
 	 * Generate statements about record's field.
 	 * 
 	 * @param fieldInstanceUri
-	 *            initial field instance URI; template re-used if field type is a {@link Collection}
+	 *            initial field instance URI; template re-used if field type is
+	 *            a {@link Collection}
 	 * @param record
 	 *            instance with specified field
+	 * @param filter
 	 * @param fieldName
 	 *            field name
 	 * @param commonFieldStatements
 	 *            shared template statements to be asserted about every field
 	 * @return statements
 	 */
-	private static Collection<Statement> getRdfFieldValueStatements(URIImpl recordUri, Object record, Field field) {
-		Object fieldValue = PrivateAccessor.getFieldValue(record, field.getName()); 
+	private static Collection<Statement> getRdfFieldValueStatements(URIImpl recordUri, Object record, Field field,
+			long createdTime, DuplicateStatementFilter filter) {
+		Object fieldValue = PrivateAccessor.getFieldValue(record, field.getName());
 		if (fieldValue == null) {
 			return new ArrayList<Statement>();
 		}
-		int fieldCount = 0;
 		Collection<Statement> statements = new ArrayList<Statement>();
 
 		if (!(fieldValue instanceof Collection)) {
-			fieldCount = 1;
 			URIImpl fieldUri = RdfRecordUriFactory.createFieldUri(record, field, fieldValue);
 			statements.addAll(linkFieldToRecord(recordUri, fieldUri));
 			statements.addAll(createCommonFieldStatements(record, recordUri, fieldUri, field.getName()));
-			statements.add(getFieldDenotesValueStatement(fieldUri, fieldValue));
+			statements.addAll(getFieldDenotesValueStatement(fieldUri, fieldValue, createdTime, filter));
 		} else {
-			/* for each element in the collection a new fieldInstanceUri is generated */
+			/*
+			 * for each element in the collection a new fieldInstanceUri is
+			 * generated
+			 */
 			Collection<?> coll = (Collection<?>) fieldValue;
 			for (Object object : coll) {
 				URIImpl fieldUri = RdfRecordUriFactory.createFieldUri(record, field, object);
 				if (fieldUri != null) {
 					statements.addAll(linkFieldToRecord(recordUri, fieldUri));
-					statements.add(getFieldDenotesValueStatement(fieldUri, object));
+					statements.addAll(getFieldDenotesValueStatement(fieldUri, object, createdTime, filter));
 					statements.addAll(createCommonFieldStatements(record, recordUri, fieldUri, field.getName()));
 				}
 			}
-			// int startingFieldCount = Integer.valueOf(fieldInstanceUri.substring(fieldInstanceUri
+			// int startingFieldCount =
+			// Integer.valueOf(fieldInstanceUri.substring(fieldInstanceUri
 			// .lastIndexOf(FIELD_VALUE) + 1)) - 1;
 			//
 			// Collection<?> coll = (Collection<?>) fieldValue;
@@ -713,8 +758,9 @@ public class RdfRecordUtil {
 	}
 
 	/**
-	 * Generate statements about field (represented by {@code fieldInstanceUri}, and also a Subject
-	 * in RDF statement) and field's value. Statements generated:<br>
+	 * Generate statements about field (represented by {@code fieldInstanceUri},
+	 * and also a Subject in RDF statement) and field's value. Statements
+	 * generated:<br>
 	 * 
 	 * <pre>
 	 * <http://www.ncbi.nlm.nih.gov/gene/F_RdfRecordWriterImplTest%24GeneId2NameDatFileData_geneID_bZWMJYAy_y1wpq1BHpoB2OFoLlc> <http://purl.obolibrary.org/obo/IAO_0000219> <http://kabob.ucdenver.edu/iao/eg/EG_111_ICE> .
@@ -724,16 +770,66 @@ public class RdfRecordUtil {
 	 *            rdf field instance URI (subject)
 	 * @param fieldValue
 	 *            value
+	 * @param filter
 	 * @throws IllegalArgumentException
 	 *             if fieldValue's type is {@link Collection}
 	 * @return statements
 	 */
-	public static Statement getFieldDenotesValueStatement(URIImpl fieldInstanceUri, Object fieldValue) {
+	public static List<Statement> getFieldDenotesValueStatement(URIImpl fieldInstanceUri, Object fieldValue,
+			long createdTime, DuplicateStatementFilter filter) {
 		if (fieldValue instanceof Collection) {
 			throw new IllegalArgumentException("Collection fieldValue is not supported");
 		}
 		Value value = RdfUtil.getValue(fieldValue);
-		return new StatementImpl(fieldInstanceUri, IAO.DENOTES.uri(), value);
+
+		List<Statement> stmts = new ArrayList<Statement>();
+		/*
+		 * if we encounter a data source identifier that is declared either
+		 * unknown or a probable error, we create a record to hold the
+		 * identifier and optional data source string. The field then denotes
+		 * this new record. Unknown data source identifiers occur when the file
+		 * parsing code comes across an identifier for which it does not know
+		 * how to generate an appropriate URI. Perhaps "unknown" is not the
+		 * prefix to use here. Probably erroneous identifiers are identifiers
+		 * that the parsing code has detected to be incorrect, e.g. an UniProt
+		 * identifier that does not follow the regular expression pattern
+		 * stipulated by UniProt.
+		 */
+		if (fieldValue instanceof UnknownDataSourceIdentifier) {
+			UnknownDataSourceIdentifier id = (UnknownDataSourceIdentifier) fieldValue;
+			NonNormalizedIdentifierRecord record = new NonNormalizedIdentifierRecord(id.getDataElement(), id.getDataSourceStr());
+			URIImpl recordUri = RdfRecordUriFactory.createRecordUri(record);
+			URIImpl parentRecordUri = null;
+			String readerKey = null;
+			List<Statement> recordInstanceStatements = RdfRecordUtil.getRecordInstanceStatements(record, createdTime,
+					recordUri, parentRecordUri, readerKey, filter);
+			/*
+			 * the first statement returned is a dataset has_part record triple
+			 * which we do not need
+			 */
+			recordInstanceStatements.remove(0);
+			stmts.add(new StatementImpl(fieldInstanceUri, IAO.DENOTES.uri(), recordUri));
+			stmts.addAll(recordInstanceStatements);
+		} else if (fieldValue instanceof ProbableErrorDataSourceIdentifier) {
+			ProbableErrorDataSourceIdentifier id = (ProbableErrorDataSourceIdentifier) fieldValue;
+			ErroneousIdentifierRecord record = new ErroneousIdentifierRecord(id.getDataElement(),
+					id.getDataSourceStr(), id.getErrorMessage());
+			URIImpl recordUri = RdfRecordUriFactory.createRecordUri(record);
+			URIImpl parentRecordUri = null;
+			String readerKey = null;
+			List<Statement> recordInstanceStatements = RdfRecordUtil.getRecordInstanceStatements(record, createdTime,
+					recordUri, parentRecordUri, readerKey, filter);
+			/*
+			 * the first statement returned is a dataset has_part record triple
+			 * which we do not need
+			 */
+			recordInstanceStatements.remove(0);
+			stmts.add(new StatementImpl(fieldInstanceUri, IAO.DENOTES.uri(), recordUri));
+			stmts.addAll(recordInstanceStatements);
+		} else {
+			stmts.add(new StatementImpl(fieldInstanceUri, IAO.DENOTES.uri(), value));
+		}
+		return stmts;
 
 	}
 

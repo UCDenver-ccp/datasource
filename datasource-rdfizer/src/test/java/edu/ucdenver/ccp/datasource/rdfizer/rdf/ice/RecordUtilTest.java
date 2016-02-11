@@ -173,11 +173,11 @@ public class RecordUtilTest {
 	// "(http://kabob.ucdenver.edu/iao/kegg/keggDataField, http://www.w3.org/2000/01/rdf-schema#subClassOf, http://kabob.ucdenver.edu/iao/DataField)",
 	// "(http://kabob.ucdenver.edu/iao/kegg/TestDataRecordSchema1, http://www.w3.org/1999/02/22-rdf-syntax-ns#type, http://kabob.ucdenver.edu/iao/kegg/TestDataRecordSchema)",
 	// "(http://kabob.ucdenver.edu/iao/kegg/TestDataRecord_collectionFieldDataField1, http://www.w3.org/1999/02/22-rdf-syntax-ns#type, http://kabob.ucdenver.edu/iao/kegg/TestDataRecord_collectionFieldDataField)",
-	// "(http://kabob.ucdenver.edu/iao/kegg/TestDataRecordSchema1, http://purl.obolibrary.org/obo/has_part, http://kabob.ucdenver.edu/iao/kegg/TestDataRecord_collectionFieldDataField1)",
+	// "(http://kabob.ucdenver.edu/iao/kegg/TestDataRecordSchema1, http://purl.obolibrary.org/obo/BFO_0000051, http://kabob.ucdenver.edu/iao/kegg/TestDataRecord_collectionFieldDataField1)",
 	// "(http://kabob.ucdenver.edu/iao/kegg/TestDataRecord_primitiveIntFieldDataField1, http://www.w3.org/1999/02/22-rdf-syntax-ns#type, http://kabob.ucdenver.edu/iao/kegg/TestDataRecord_primitiveIntFieldDataField)",
-	// "(http://kabob.ucdenver.edu/iao/kegg/TestDataRecordSchema1, http://purl.obolibrary.org/obo/has_part, http://kabob.ucdenver.edu/iao/kegg/TestDataRecord_primitiveIntFieldDataField1)",
+	// "(http://kabob.ucdenver.edu/iao/kegg/TestDataRecordSchema1, http://purl.obolibrary.org/obo/BFO_0000051, http://kabob.ucdenver.edu/iao/kegg/TestDataRecord_primitiveIntFieldDataField1)",
 	// "(http://kabob.ucdenver.edu/iao/kegg/TestDataRecord_stringFieldDataField1, http://www.w3.org/1999/02/22-rdf-syntax-ns#type, http://kabob.ucdenver.edu/iao/kegg/TestDataRecord_stringFieldDataField)",
-	// "(http://kabob.ucdenver.edu/iao/kegg/TestDataRecordSchema1, http://purl.obolibrary.org/obo/has_part, http://kabob.ucdenver.edu/iao/kegg/TestDataRecord_stringFieldDataField1)");
+	// "(http://kabob.ucdenver.edu/iao/kegg/TestDataRecordSchema1, http://purl.obolibrary.org/obo/BFO_0000051, http://kabob.ucdenver.edu/iao/kegg/TestDataRecord_stringFieldDataField1)");
 	//
 	// List<? extends Statement> statements =
 	// RdfRecordUtil.getRecordSchemaDefinitionStatements(TestDataRecord.class);
@@ -201,17 +201,17 @@ public class RecordUtilTest {
 	// "(http://kabob.ucdenver.edu/iao/kegg/keggDataField, http://www.w3.org/2000/01/rdf-schema#subClassOf, http://kabob.ucdenver.edu/iao/DataField)",
 	// "(http://kabob.ucdenver.edu/iao/kegg/TestDataRecordWithSubrecordSchema1, http://www.w3.org/1999/02/22-rdf-syntax-ns#type, http://kabob.ucdenver.edu/iao/kegg/TestDataRecordWithSubrecordSchema)",
 	// "(http://kabob.ucdenver.edu/iao/kegg/TestDataRecordWithSubrecord_collectionFieldDataField1, http://www.w3.org/1999/02/22-rdf-syntax-ns#type, http://kabob.ucdenver.edu/iao/kegg/TestDataRecordWithSubrecord_collectionFieldDataField)",
-	// "(http://kabob.ucdenver.edu/iao/kegg/TestDataRecordWithSubrecordSchema1, http://purl.obolibrary.org/obo/has_part, http://kabob.ucdenver.edu/iao/kegg/TestDataRecordWithSubrecord_collectionFieldDataField1)",
+	// "(http://kabob.ucdenver.edu/iao/kegg/TestDataRecordWithSubrecordSchema1, http://purl.obolibrary.org/obo/BFO_0000051, http://kabob.ucdenver.edu/iao/kegg/TestDataRecordWithSubrecord_collectionFieldDataField1)",
 	// "(http://kabob.ucdenver.edu/iao/kegg/TestDataRecordWithSubrecord_primitiveIntFieldDataField1, http://www.w3.org/1999/02/22-rdf-syntax-ns#type, http://kabob.ucdenver.edu/iao/kegg/TestDataRecordWithSubrecord_primitiveIntFieldDataField)",
-	// "(http://kabob.ucdenver.edu/iao/kegg/TestDataRecordWithSubrecordSchema1, http://purl.obolibrary.org/obo/has_part, http://kabob.ucdenver.edu/iao/kegg/TestDataRecordWithSubrecord_primitiveIntFieldDataField1)",
+	// "(http://kabob.ucdenver.edu/iao/kegg/TestDataRecordWithSubrecordSchema1, http://purl.obolibrary.org/obo/BFO_0000051, http://kabob.ucdenver.edu/iao/kegg/TestDataRecordWithSubrecord_primitiveIntFieldDataField1)",
 	// "(http://kabob.ucdenver.edu/iao/kegg/TestDataRecordWithSubrecord_stringFieldDataField1, http://www.w3.org/1999/02/22-rdf-syntax-ns#type, http://kabob.ucdenver.edu/iao/kegg/TestDataRecordWithSubrecord_stringFieldDataField)",
-	// "(http://kabob.ucdenver.edu/iao/kegg/TestDataRecordWithSubrecordSchema1, http://purl.obolibrary.org/obo/has_part, http://kabob.ucdenver.edu/iao/kegg/TestDataRecordWithSubrecord_stringFieldDataField1)",
+	// "(http://kabob.ucdenver.edu/iao/kegg/TestDataRecordWithSubrecordSchema1, http://purl.obolibrary.org/obo/BFO_0000051, http://kabob.ucdenver.edu/iao/kegg/TestDataRecordWithSubrecord_stringFieldDataField1)",
 	// "(http://kabob.ucdenver.edu/iao/kegg/TestDataSubRecordSchema1, http://www.w3.org/1999/02/22-rdf-syntax-ns#type, http://kabob.ucdenver.edu/iao/kegg/TestDataSubRecordSchema)",
-	// "(http://kabob.ucdenver.edu/iao/kegg/TestDataRecordWithSubrecordSchema1, http://purl.obolibrary.org/obo/has_part, http://kabob.ucdenver.edu/iao/kegg/TestDataSubRecordSchema1)",
+	// "(http://kabob.ucdenver.edu/iao/kegg/TestDataRecordWithSubrecordSchema1, http://purl.obolibrary.org/obo/BFO_0000051, http://kabob.ucdenver.edu/iao/kegg/TestDataSubRecordSchema1)",
 	// "(http://kabob.ucdenver.edu/iao/kegg/TestDataSubRecord_subrecordStringFieldDataField1, http://www.w3.org/1999/02/22-rdf-syntax-ns#type, http://kabob.ucdenver.edu/iao/kegg/TestDataSubRecord_subrecordStringFieldDataField)",
-	// "(http://kabob.ucdenver.edu/iao/kegg/TestDataSubRecordSchema1, http://purl.obolibrary.org/obo/has_part, http://kabob.ucdenver.edu/iao/kegg/TestDataSubRecord_subrecordStringFieldDataField1)",
+	// "(http://kabob.ucdenver.edu/iao/kegg/TestDataSubRecordSchema1, http://purl.obolibrary.org/obo/BFO_0000051, http://kabob.ucdenver.edu/iao/kegg/TestDataSubRecord_subrecordStringFieldDataField1)",
 	// "(http://kabob.ucdenver.edu/iao/kegg/TestDataRecordWithSubrecord_subRecordDataField1, http://www.w3.org/1999/02/22-rdf-syntax-ns#type, http://kabob.ucdenver.edu/iao/kegg/TestDataRecordWithSubrecord_subRecordDataField)",
-	// "(http://kabob.ucdenver.edu/iao/kegg/TestDataRecordWithSubrecordSchema1, http://purl.obolibrary.org/obo/has_part, http://kabob.ucdenver.edu/iao/kegg/TestDataRecordWithSubrecord_subRecordDataField1)");
+	// "(http://kabob.ucdenver.edu/iao/kegg/TestDataRecordWithSubrecordSchema1, http://purl.obolibrary.org/obo/BFO_0000051, http://kabob.ucdenver.edu/iao/kegg/TestDataRecordWithSubrecord_subRecordDataField1)");
 	//
 	// Collection<? extends Statement> statements = RdfRecordUtil
 	// .getRecordSchemaStatements(TestDataRecordWithSubrecord.class, null, null, false);
@@ -232,11 +232,11 @@ public class RecordUtilTest {
 	// .createSet(
 	// "(http://kabob.ucdenver.edu/iao/kegg/TestDataRecordSchema1, http://www.w3.org/1999/02/22-rdf-syntax-ns#type, http://kabob.ucdenver.edu/iao/kegg/TestDataRecordSchema)",
 	// "(http://kabob.ucdenver.edu/iao/kegg/TestDataRecord_collectionFieldDataField1, http://www.w3.org/1999/02/22-rdf-syntax-ns#type, http://kabob.ucdenver.edu/iao/kegg/TestDataRecord_collectionFieldDataField)",
-	// "(http://kabob.ucdenver.edu/iao/kegg/TestDataRecordSchema1, http://purl.obolibrary.org/obo/has_part, http://kabob.ucdenver.edu/iao/kegg/TestDataRecord_collectionFieldDataField1)",
+	// "(http://kabob.ucdenver.edu/iao/kegg/TestDataRecordSchema1, http://purl.obolibrary.org/obo/BFO_0000051, http://kabob.ucdenver.edu/iao/kegg/TestDataRecord_collectionFieldDataField1)",
 	// "(http://kabob.ucdenver.edu/iao/kegg/TestDataRecord_primitiveIntFieldDataField1, http://www.w3.org/1999/02/22-rdf-syntax-ns#type, http://kabob.ucdenver.edu/iao/kegg/TestDataRecord_primitiveIntFieldDataField)",
-	// "(http://kabob.ucdenver.edu/iao/kegg/TestDataRecordSchema1, http://purl.obolibrary.org/obo/has_part, http://kabob.ucdenver.edu/iao/kegg/TestDataRecord_primitiveIntFieldDataField1)",
+	// "(http://kabob.ucdenver.edu/iao/kegg/TestDataRecordSchema1, http://purl.obolibrary.org/obo/BFO_0000051, http://kabob.ucdenver.edu/iao/kegg/TestDataRecord_primitiveIntFieldDataField1)",
 	// "(http://kabob.ucdenver.edu/iao/kegg/TestDataRecord_stringFieldDataField1, http://www.w3.org/1999/02/22-rdf-syntax-ns#type, http://kabob.ucdenver.edu/iao/kegg/TestDataRecord_stringFieldDataField)",
-	// "(http://kabob.ucdenver.edu/iao/kegg/TestDataRecordSchema1, http://purl.obolibrary.org/obo/has_part, http://kabob.ucdenver.edu/iao/kegg/TestDataRecord_stringFieldDataField1)");
+	// "(http://kabob.ucdenver.edu/iao/kegg/TestDataRecordSchema1, http://purl.obolibrary.org/obo/BFO_0000051, http://kabob.ucdenver.edu/iao/kegg/TestDataRecord_stringFieldDataField1)");
 	//
 	// Collection<? extends Statement> statements =
 	// RdfRecordUtil.getRecordFieldDeclarationStatements(
@@ -265,7 +265,7 @@ public class RecordUtilTest {
 				"(http://kabob.ucdenver.edu/iao/kegg/keggTestDataRecordDataSet20101221, http://kabob.ucdenver.edu/iao/hasTemplate, http://kabob.ucdenver.edu/iao/kegg/keggTestDataRecordSchema1)",
 				it.next().toString());
 		assertEquals(
-				"(http://kabob.ucdenver.edu/iao/kegg/keggDataSource20101221, http://purl.obolibrary.org/obo/has_part, http://kabob.ucdenver.edu/iao/kegg/keggTestDataRecordDataSet20101221)",
+				"(http://kabob.ucdenver.edu/iao/kegg/keggDataSource20101221, http://purl.obolibrary.org/obo/BFO_0000051, http://kabob.ucdenver.edu/iao/kegg/keggTestDataRecordDataSet20101221)",
 				it.next().toString());
 		assertEquals(
 				"(http://kabob.ucdenver.edu/iao/kegg/keggTestDataRecordDataSet20101221, http://www.w3.org/1999/02/22-rdf-syntax-ns#type, http://kabob.ucdenver.edu/iao/DataSet)",
@@ -283,22 +283,22 @@ public class RecordUtilTest {
 
 		Set<String> expectedStatements = CollectionsUtil
 				.createSet(
-						"(http://kabob.ucdenver.edu/iao/kegg/keggTestExcludeFieldDataRecordDataSet20101221, http://purl.obolibrary.org/obo/has_part, http://record.uri)",
+						"(http://kabob.ucdenver.edu/iao/kegg/keggTestExcludeFieldDataRecordDataSet20101221, http://purl.obolibrary.org/obo/BFO_0000051, http://record.uri)",
 						"(http://record.uri, http://www.w3.org/1999/02/22-rdf-syntax-ns#type, http://kabob.ucdenver.edu/iao/kegg/TestExcludeFieldDataRecord)",
 						"(http://record.uri, http://kabob.ucdenver.edu/iao/hasTemplate, http://kabob.ucdenver.edu/iao/kegg/TestExcludeFieldDataRecordSchema1)",
-						"(http://record.uri, http://purl.obolibrary.org/obo/has_part, http://kabob.ucdenver.edu/iao/kegg/F_TestExcludeFieldDataRecord_collectionField_O0waxDNfQT_lFeO4grbgwHJ_bxs)",
+						"(http://record.uri, http://purl.obolibrary.org/obo/BFO_0000051, http://kabob.ucdenver.edu/iao/kegg/F_TestExcludeFieldDataRecord_collectionField_O0waxDNfQT_lFeO4grbgwHJ_bxs)",
 						"(http://kabob.ucdenver.edu/iao/kegg/F_TestExcludeFieldDataRecord_collectionField_O0waxDNfQT_lFeO4grbgwHJ_bxs, http://purl.obolibrary.org/obo/IAO_0000219, \"1\"@en)",
 						"(http://kabob.ucdenver.edu/iao/kegg/F_TestExcludeFieldDataRecord_collectionField_O0waxDNfQT_lFeO4grbgwHJ_bxs, http://kabob.ucdenver.edu/iao/hasTemplate, http://kabob.ucdenver.edu/iao/kegg/TestExcludeFieldDataRecord_collectionFieldDataField1)",
 						"(http://kabob.ucdenver.edu/iao/kegg/F_TestExcludeFieldDataRecord_collectionField_O0waxDNfQT_lFeO4grbgwHJ_bxs, http://www.w3.org/1999/02/22-rdf-syntax-ns#type, http://kabob.ucdenver.edu/iao/FieldValue)",
-						"(http://record.uri, http://purl.obolibrary.org/obo/has_part, http://kabob.ucdenver.edu/iao/kegg/F_TestExcludeFieldDataRecord_collectionField_oHpC_sn17AbL7y86SQEkK6oZqgA)",
+						"(http://record.uri, http://purl.obolibrary.org/obo/BFO_0000051, http://kabob.ucdenver.edu/iao/kegg/F_TestExcludeFieldDataRecord_collectionField_oHpC_sn17AbL7y86SQEkK6oZqgA)",
 						"(http://kabob.ucdenver.edu/iao/kegg/F_TestExcludeFieldDataRecord_collectionField_oHpC_sn17AbL7y86SQEkK6oZqgA, http://purl.obolibrary.org/obo/IAO_0000219, \"2\"@en)",
 						"(http://kabob.ucdenver.edu/iao/kegg/F_TestExcludeFieldDataRecord_collectionField_oHpC_sn17AbL7y86SQEkK6oZqgA, http://kabob.ucdenver.edu/iao/hasTemplate, http://kabob.ucdenver.edu/iao/kegg/TestExcludeFieldDataRecord_collectionFieldDataField1)",
 						"(http://kabob.ucdenver.edu/iao/kegg/F_TestExcludeFieldDataRecord_collectionField_oHpC_sn17AbL7y86SQEkK6oZqgA, http://www.w3.org/1999/02/22-rdf-syntax-ns#type, http://kabob.ucdenver.edu/iao/FieldValue)",
-						"(http://record.uri, http://purl.obolibrary.org/obo/has_part, http://kabob.ucdenver.edu/iao/kegg/F_TestExcludeFieldDataRecord_primitiveIntField_K1E3g8ozXlcQiV3vtNaH7ikWY5I)",
+						"(http://record.uri, http://purl.obolibrary.org/obo/BFO_0000051, http://kabob.ucdenver.edu/iao/kegg/F_TestExcludeFieldDataRecord_primitiveIntField_K1E3g8ozXlcQiV3vtNaH7ikWY5I)",
 						"(http://kabob.ucdenver.edu/iao/kegg/F_TestExcludeFieldDataRecord_primitiveIntField_K1E3g8ozXlcQiV3vtNaH7ikWY5I, http://kabob.ucdenver.edu/iao/hasTemplate, http://kabob.ucdenver.edu/iao/kegg/TestExcludeFieldDataRecord_primitiveIntFieldDataField1)",
 						"(http://kabob.ucdenver.edu/iao/kegg/F_TestExcludeFieldDataRecord_primitiveIntField_K1E3g8ozXlcQiV3vtNaH7ikWY5I, http://www.w3.org/1999/02/22-rdf-syntax-ns#type, http://kabob.ucdenver.edu/iao/FieldValue)",
 						"(http://kabob.ucdenver.edu/iao/kegg/F_TestExcludeFieldDataRecord_primitiveIntField_K1E3g8ozXlcQiV3vtNaH7ikWY5I, http://purl.obolibrary.org/obo/IAO_0000219, \"2\"^^<http://www.w3.org/2001/XMLSchema#integer>)",
-						"(http://record.uri, http://purl.obolibrary.org/obo/has_part, http://kabob.ucdenver.edu/iao/kegg/F_TestExcludeFieldDataRecord_stringField_wM4OI6HAehQ_w0UDN6cjfEXbpXg)",
+						"(http://record.uri, http://purl.obolibrary.org/obo/BFO_0000051, http://kabob.ucdenver.edu/iao/kegg/F_TestExcludeFieldDataRecord_stringField_wM4OI6HAehQ_w0UDN6cjfEXbpXg)",
 						"(http://kabob.ucdenver.edu/iao/kegg/F_TestExcludeFieldDataRecord_stringField_wM4OI6HAehQ_w0UDN6cjfEXbpXg, http://kabob.ucdenver.edu/iao/hasTemplate, http://kabob.ucdenver.edu/iao/kegg/TestExcludeFieldDataRecord_stringFieldDataField1)",
 						"(http://kabob.ucdenver.edu/iao/kegg/F_TestExcludeFieldDataRecord_stringField_wM4OI6HAehQ_w0UDN6cjfEXbpXg, http://www.w3.org/1999/02/22-rdf-syntax-ns#type, http://kabob.ucdenver.edu/iao/FieldValue)",
 						"(http://kabob.ucdenver.edu/iao/kegg/F_TestExcludeFieldDataRecord_stringField_wM4OI6HAehQ_w0UDN6cjfEXbpXg, http://purl.obolibrary.org/obo/IAO_0000219, \"1\"@en)");
@@ -323,29 +323,29 @@ public class RecordUtilTest {
 
 		Set<String> expectedStatements = CollectionsUtil
 				.createSet(
-						"(http://kabob.ucdenver.edu/iao/kegg/keggTestDataRecordWithSubrecordDataSet20101221, http://purl.obolibrary.org/obo/has_part, http://record.uri)",
+						"(http://kabob.ucdenver.edu/iao/kegg/keggTestDataRecordWithSubrecordDataSet20101221, http://purl.obolibrary.org/obo/BFO_0000051, http://record.uri)",
 						"(http://record.uri, http://www.w3.org/1999/02/22-rdf-syntax-ns#type, http://kabob.ucdenver.edu/iao/kegg/TestDataRecordWithSubrecord)",
 						"(http://record.uri, http://kabob.ucdenver.edu/iao/hasTemplate, http://kabob.ucdenver.edu/iao/kegg/TestDataRecordWithSubrecordSchema1)",
-						"(http://record.uri, http://purl.obolibrary.org/obo/has_part, http://kabob.ucdenver.edu/iao/kegg/F_TestDataRecordWithSubrecord_collectionField_DnIjgkTYdCorX3kHXYaWJhzcHJY)",
+						"(http://record.uri, http://purl.obolibrary.org/obo/BFO_0000051, http://kabob.ucdenver.edu/iao/kegg/F_TestDataRecordWithSubrecord_collectionField_DnIjgkTYdCorX3kHXYaWJhzcHJY)",
 						"(http://kabob.ucdenver.edu/iao/kegg/F_TestDataRecordWithSubrecord_collectionField_DnIjgkTYdCorX3kHXYaWJhzcHJY, http://purl.obolibrary.org/obo/IAO_0000219, \"1\"@en)",
 						"(http://kabob.ucdenver.edu/iao/kegg/F_TestDataRecordWithSubrecord_collectionField_DnIjgkTYdCorX3kHXYaWJhzcHJY, http://kabob.ucdenver.edu/iao/hasTemplate, http://kabob.ucdenver.edu/iao/kegg/TestDataRecordWithSubrecord_collectionFieldDataField1)",
 						"(http://kabob.ucdenver.edu/iao/kegg/F_TestDataRecordWithSubrecord_collectionField_DnIjgkTYdCorX3kHXYaWJhzcHJY, http://www.w3.org/1999/02/22-rdf-syntax-ns#type, http://kabob.ucdenver.edu/iao/FieldValue)",
-						"(http://record.uri, http://purl.obolibrary.org/obo/has_part, http://kabob.ucdenver.edu/iao/kegg/F_TestDataRecordWithSubrecord_collectionField_L5wUWixEQDDNsXhJedMS4OBYRm0)",
+						"(http://record.uri, http://purl.obolibrary.org/obo/BFO_0000051, http://kabob.ucdenver.edu/iao/kegg/F_TestDataRecordWithSubrecord_collectionField_L5wUWixEQDDNsXhJedMS4OBYRm0)",
 						"(http://kabob.ucdenver.edu/iao/kegg/F_TestDataRecordWithSubrecord_collectionField_L5wUWixEQDDNsXhJedMS4OBYRm0, http://purl.obolibrary.org/obo/IAO_0000219, \"2\"@en)",
 						"(http://kabob.ucdenver.edu/iao/kegg/F_TestDataRecordWithSubrecord_collectionField_L5wUWixEQDDNsXhJedMS4OBYRm0, http://kabob.ucdenver.edu/iao/hasTemplate, http://kabob.ucdenver.edu/iao/kegg/TestDataRecordWithSubrecord_collectionFieldDataField1)",
 						"(http://kabob.ucdenver.edu/iao/kegg/F_TestDataRecordWithSubrecord_collectionField_L5wUWixEQDDNsXhJedMS4OBYRm0, http://www.w3.org/1999/02/22-rdf-syntax-ns#type, http://kabob.ucdenver.edu/iao/FieldValue)",
-						"(http://record.uri, http://purl.obolibrary.org/obo/has_part, http://kabob.ucdenver.edu/iao/kegg/F_TestDataRecordWithSubrecord_primitiveIntField_6OTcnDKpkfNEWVrrykNM-emmlhk)",
+						"(http://record.uri, http://purl.obolibrary.org/obo/BFO_0000051, http://kabob.ucdenver.edu/iao/kegg/F_TestDataRecordWithSubrecord_primitiveIntField_6OTcnDKpkfNEWVrrykNM-emmlhk)",
 						"(http://kabob.ucdenver.edu/iao/kegg/F_TestDataRecordWithSubrecord_primitiveIntField_6OTcnDKpkfNEWVrrykNM-emmlhk, http://kabob.ucdenver.edu/iao/hasTemplate, http://kabob.ucdenver.edu/iao/kegg/TestDataRecordWithSubrecord_primitiveIntFieldDataField1)",
 						"(http://kabob.ucdenver.edu/iao/kegg/F_TestDataRecordWithSubrecord_primitiveIntField_6OTcnDKpkfNEWVrrykNM-emmlhk, http://www.w3.org/1999/02/22-rdf-syntax-ns#type, http://kabob.ucdenver.edu/iao/FieldValue)",
 						"(http://kabob.ucdenver.edu/iao/kegg/F_TestDataRecordWithSubrecord_primitiveIntField_6OTcnDKpkfNEWVrrykNM-emmlhk, http://purl.obolibrary.org/obo/IAO_0000219, \"2\"^^<http://www.w3.org/2001/XMLSchema#integer>)",
-						"(http://record.uri, http://purl.obolibrary.org/obo/has_part, http://kabob.ucdenver.edu/iao/kegg/F_TestDataRecordWithSubrecord_stringField_jw2tCkX01xySTT2rYV5FCpiqRw0)",
+						"(http://record.uri, http://purl.obolibrary.org/obo/BFO_0000051, http://kabob.ucdenver.edu/iao/kegg/F_TestDataRecordWithSubrecord_stringField_jw2tCkX01xySTT2rYV5FCpiqRw0)",
 						"(http://kabob.ucdenver.edu/iao/kegg/F_TestDataRecordWithSubrecord_stringField_jw2tCkX01xySTT2rYV5FCpiqRw0, http://kabob.ucdenver.edu/iao/hasTemplate, http://kabob.ucdenver.edu/iao/kegg/TestDataRecordWithSubrecord_stringFieldDataField1)",
 						"(http://kabob.ucdenver.edu/iao/kegg/F_TestDataRecordWithSubrecord_stringField_jw2tCkX01xySTT2rYV5FCpiqRw0, http://www.w3.org/1999/02/22-rdf-syntax-ns#type, http://kabob.ucdenver.edu/iao/FieldValue)",
 						"(http://kabob.ucdenver.edu/iao/kegg/F_TestDataRecordWithSubrecord_stringField_jw2tCkX01xySTT2rYV5FCpiqRw0, http://purl.obolibrary.org/obo/IAO_0000219, \"1\"@en)",
-						"(http://record.uri, http://purl.obolibrary.org/obo/has_part, http://kabob.ucdenver.edu/iao/kegg/R_TestDataSubRecord_7VVwQkWKCGaD8uZQ2SMe2RFUNeU)",
+						"(http://record.uri, http://purl.obolibrary.org/obo/BFO_0000051, http://kabob.ucdenver.edu/iao/kegg/R_TestDataSubRecord_7VVwQkWKCGaD8uZQ2SMe2RFUNeU)",
 						"(http://kabob.ucdenver.edu/iao/kegg/R_TestDataSubRecord_7VVwQkWKCGaD8uZQ2SMe2RFUNeU, http://www.w3.org/1999/02/22-rdf-syntax-ns#type, http://kabob.ucdenver.edu/iao/kegg/TestDataSubRecord)",
 						"(http://kabob.ucdenver.edu/iao/kegg/R_TestDataSubRecord_7VVwQkWKCGaD8uZQ2SMe2RFUNeU, http://kabob.ucdenver.edu/iao/hasTemplate, http://kabob.ucdenver.edu/iao/kegg/TestDataSubRecordSchema1)",
-						"(http://kabob.ucdenver.edu/iao/kegg/R_TestDataSubRecord_7VVwQkWKCGaD8uZQ2SMe2RFUNeU, http://purl.obolibrary.org/obo/has_part, http://kabob.ucdenver.edu/iao/kegg/F_TestDataSubRecord_subrecordStringField_7VVwQkWKCGaD8uZQ2SMe2RFUNeU)",
+						"(http://kabob.ucdenver.edu/iao/kegg/R_TestDataSubRecord_7VVwQkWKCGaD8uZQ2SMe2RFUNeU, http://purl.obolibrary.org/obo/BFO_0000051, http://kabob.ucdenver.edu/iao/kegg/F_TestDataSubRecord_subrecordStringField_7VVwQkWKCGaD8uZQ2SMe2RFUNeU)",
 						"(http://kabob.ucdenver.edu/iao/kegg/F_TestDataSubRecord_subrecordStringField_7VVwQkWKCGaD8uZQ2SMe2RFUNeU, http://kabob.ucdenver.edu/iao/hasTemplate, http://kabob.ucdenver.edu/iao/kegg/TestDataSubRecord_subrecordStringFieldDataField1)",
 						"(http://kabob.ucdenver.edu/iao/kegg/F_TestDataSubRecord_subrecordStringField_7VVwQkWKCGaD8uZQ2SMe2RFUNeU, http://www.w3.org/1999/02/22-rdf-syntax-ns#type, http://kabob.ucdenver.edu/iao/FieldValue)",
 						"(http://kabob.ucdenver.edu/iao/kegg/F_TestDataSubRecord_subrecordStringField_7VVwQkWKCGaD8uZQ2SMe2RFUNeU, http://purl.obolibrary.org/obo/IAO_0000219, \"sub\"@en)");
@@ -370,22 +370,22 @@ public class RecordUtilTest {
 
 		Set<String> expectedStatements = CollectionsUtil
 				.createSet(
-						"(http://kabob.ucdenver.edu/iao/kegg/keggTestExcludeFieldDataRecordKeyDataSet20101221, http://purl.obolibrary.org/obo/has_part, http://record.uri)",
+						"(http://kabob.ucdenver.edu/iao/kegg/keggTestExcludeFieldDataRecordKeyDataSet20101221, http://purl.obolibrary.org/obo/BFO_0000051, http://record.uri)",
 						"(http://record.uri, http://www.w3.org/1999/02/22-rdf-syntax-ns#type, http://kabob.ucdenver.edu/iao/kegg/TestExcludeFieldDataRecord)",
 						"(http://record.uri, http://kabob.ucdenver.edu/iao/hasTemplate, http://kabob.ucdenver.edu/iao/kegg/TestExcludeFieldDataRecordSchema1)",
-						"(http://record.uri, http://purl.obolibrary.org/obo/has_part, http://kabob.ucdenver.edu/iao/kegg/F_TestExcludeFieldDataRecord_collectionField_O0waxDNfQT_lFeO4grbgwHJ_bxs)",
+						"(http://record.uri, http://purl.obolibrary.org/obo/BFO_0000051, http://kabob.ucdenver.edu/iao/kegg/F_TestExcludeFieldDataRecord_collectionField_O0waxDNfQT_lFeO4grbgwHJ_bxs)",
 						"(http://kabob.ucdenver.edu/iao/kegg/F_TestExcludeFieldDataRecord_collectionField_O0waxDNfQT_lFeO4grbgwHJ_bxs, http://purl.obolibrary.org/obo/IAO_0000219, \"1\"@en)",
 						"(http://kabob.ucdenver.edu/iao/kegg/F_TestExcludeFieldDataRecord_collectionField_O0waxDNfQT_lFeO4grbgwHJ_bxs, http://kabob.ucdenver.edu/iao/hasTemplate, http://kabob.ucdenver.edu/iao/kegg/TestExcludeFieldDataRecord_collectionFieldDataField1)",
 						"(http://kabob.ucdenver.edu/iao/kegg/F_TestExcludeFieldDataRecord_collectionField_O0waxDNfQT_lFeO4grbgwHJ_bxs, http://www.w3.org/1999/02/22-rdf-syntax-ns#type, http://kabob.ucdenver.edu/iao/FieldValue)",
-						"(http://record.uri, http://purl.obolibrary.org/obo/has_part, http://kabob.ucdenver.edu/iao/kegg/F_TestExcludeFieldDataRecord_collectionField_oHpC_sn17AbL7y86SQEkK6oZqgA)",
+						"(http://record.uri, http://purl.obolibrary.org/obo/BFO_0000051, http://kabob.ucdenver.edu/iao/kegg/F_TestExcludeFieldDataRecord_collectionField_oHpC_sn17AbL7y86SQEkK6oZqgA)",
 						"(http://kabob.ucdenver.edu/iao/kegg/F_TestExcludeFieldDataRecord_collectionField_oHpC_sn17AbL7y86SQEkK6oZqgA, http://purl.obolibrary.org/obo/IAO_0000219, \"2\"@en)",
 						"(http://kabob.ucdenver.edu/iao/kegg/F_TestExcludeFieldDataRecord_collectionField_oHpC_sn17AbL7y86SQEkK6oZqgA, http://kabob.ucdenver.edu/iao/hasTemplate, http://kabob.ucdenver.edu/iao/kegg/TestExcludeFieldDataRecord_collectionFieldDataField1)",
 						"(http://kabob.ucdenver.edu/iao/kegg/F_TestExcludeFieldDataRecord_collectionField_oHpC_sn17AbL7y86SQEkK6oZqgA, http://www.w3.org/1999/02/22-rdf-syntax-ns#type, http://kabob.ucdenver.edu/iao/FieldValue)",
-						"(http://record.uri, http://purl.obolibrary.org/obo/has_part, http://kabob.ucdenver.edu/iao/kegg/F_TestExcludeFieldDataRecord_primitiveIntField_K1E3g8ozXlcQiV3vtNaH7ikWY5I)",
+						"(http://record.uri, http://purl.obolibrary.org/obo/BFO_0000051, http://kabob.ucdenver.edu/iao/kegg/F_TestExcludeFieldDataRecord_primitiveIntField_K1E3g8ozXlcQiV3vtNaH7ikWY5I)",
 						"(http://kabob.ucdenver.edu/iao/kegg/F_TestExcludeFieldDataRecord_primitiveIntField_K1E3g8ozXlcQiV3vtNaH7ikWY5I, http://kabob.ucdenver.edu/iao/hasTemplate, http://kabob.ucdenver.edu/iao/kegg/TestExcludeFieldDataRecord_primitiveIntFieldDataField1)",
 						"(http://kabob.ucdenver.edu/iao/kegg/F_TestExcludeFieldDataRecord_primitiveIntField_K1E3g8ozXlcQiV3vtNaH7ikWY5I, http://www.w3.org/1999/02/22-rdf-syntax-ns#type, http://kabob.ucdenver.edu/iao/FieldValue)",
 						"(http://kabob.ucdenver.edu/iao/kegg/F_TestExcludeFieldDataRecord_primitiveIntField_K1E3g8ozXlcQiV3vtNaH7ikWY5I, http://purl.obolibrary.org/obo/IAO_0000219, \"2\"^^<http://www.w3.org/2001/XMLSchema#integer>)",
-						"(http://record.uri, http://purl.obolibrary.org/obo/has_part, http://kabob.ucdenver.edu/iao/kegg/F_TestExcludeFieldDataRecord_stringField_wM4OI6HAehQ_w0UDN6cjfEXbpXg)",
+						"(http://record.uri, http://purl.obolibrary.org/obo/BFO_0000051, http://kabob.ucdenver.edu/iao/kegg/F_TestExcludeFieldDataRecord_stringField_wM4OI6HAehQ_w0UDN6cjfEXbpXg)",
 						"(http://kabob.ucdenver.edu/iao/kegg/F_TestExcludeFieldDataRecord_stringField_wM4OI6HAehQ_w0UDN6cjfEXbpXg, http://kabob.ucdenver.edu/iao/hasTemplate, http://kabob.ucdenver.edu/iao/kegg/TestExcludeFieldDataRecord_stringFieldDataField1)",
 						"(http://kabob.ucdenver.edu/iao/kegg/F_TestExcludeFieldDataRecord_stringField_wM4OI6HAehQ_w0UDN6cjfEXbpXg, http://www.w3.org/1999/02/22-rdf-syntax-ns#type, http://kabob.ucdenver.edu/iao/FieldValue)",
 						"(http://kabob.ucdenver.edu/iao/kegg/F_TestExcludeFieldDataRecord_stringField_wM4OI6HAehQ_w0UDN6cjfEXbpXg, http://purl.obolibrary.org/obo/IAO_0000219, \"1\"@en)");

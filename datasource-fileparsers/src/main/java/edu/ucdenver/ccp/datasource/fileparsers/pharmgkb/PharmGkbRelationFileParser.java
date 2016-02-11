@@ -51,6 +51,7 @@ import edu.ucdenver.ccp.common.string.StringUtil;
 import edu.ucdenver.ccp.common.string.StringUtil.RemoveFieldEnclosures;
 import edu.ucdenver.ccp.datasource.fileparsers.SingleLineFileRecordReader;
 import edu.ucdenver.ccp.datasource.identifiers.DataSourceIdentifier;
+import edu.ucdenver.ccp.datasource.identifiers.UnknownDataSourceIdentifier;
 import edu.ucdenver.ccp.datasource.identifiers.ncbi.RefSnpID;
 import edu.ucdenver.ccp.datasource.identifiers.pharmgkb.PharmGkbHaplotypeId;
 import edu.ucdenver.ccp.datasource.identifiers.pharmgkb.PharmGkbID;
@@ -127,7 +128,7 @@ public class PharmGkbRelationFileParser extends SingleLineFileRecordReader<Pharm
 			} else if (entityType.equals(ENTITY_TYPE_VARIANT_LOCATION)) {
 				ids.add(new PharmGkbVariantLocationId(id));
 			} else {
-				logger.warn("Unhandled PharmGkb entity type detected: " + idStr + " type = " + entityType);
+				ids.add(new UnknownDataSourceIdentifier(id, null));
 			}
 		}
 		return ids;

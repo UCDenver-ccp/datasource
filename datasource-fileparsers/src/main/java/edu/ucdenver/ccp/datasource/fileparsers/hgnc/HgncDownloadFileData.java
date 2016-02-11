@@ -35,6 +35,9 @@ package edu.ucdenver.ccp.datasource.fileparsers.hgnc;
 
 import java.util.Set;
 
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+
 import org.apache.log4j.Logger;
 
 import edu.ucdenver.ccp.datasource.fileparsers.Record;
@@ -153,6 +156,8 @@ import edu.ucdenver.ccp.identifier.publication.PubMedID;
  * @author Center for Computational Pharmacology; ccpsupport@ucdenver.edu
  * 
  */
+@Data
+@EqualsAndHashCode(callSuper = false)
 @Record(dataSource = DataSource.HGNC, schemaVersion = "2", comment = "Previous version of this record represented only a subset of the data in the HGNC download file. This version represents all data and includes the new \"gene family description\" column.", label = "HGNC record")
 public class HgncDownloadFileData extends SingleLineFileRecord {
 
@@ -262,13 +267,15 @@ public class HgncDownloadFileData extends SingleLineFileRecord {
 	@RecordField
 	private final EntrezGeneID suppliedEntrezGeneId;
 	@RecordField
-	private final OmimID suppliedOmimId;
+	private final Set<OmimID> suppliedOmimIds;
 	@RecordField
 	private final RefSeqID suppliedRefseqId;
 	@RecordField
 	private final UniProtID suppliedUniprotId;
 	@RecordField
 	private final EnsemblGeneID suppliedEnsemblId;
+	@RecordField
+	private final VegaID suppliedVegaId;
 	@RecordField
 	private final UcscGenomeBrowserId suppliedUcscId;
 	@RecordField
@@ -319,10 +326,10 @@ public class HgncDownloadFileData extends SingleLineFileRecord {
 	 * @param suppliedMgiId
 	 * @param suppliedRgdId
 	 */
-	public HgncDownloadFileData(HgncID hgncID, HgncGeneSymbolID hgncGeneSymbol, String hgncGeneName,
-			String status, String locusType, String locusGroup, Set<String> previousSymbols,
-			Set<String> previousNames, Set<String> synonyms, Set<String> nameSynonyms, String chromosome,
-			String dateApproved, String dateModified, String dateSymbolChanged, String dateNameChanged,
+	public HgncDownloadFileData(HgncID hgncID, HgncGeneSymbolID hgncGeneSymbol, String hgncGeneName, String status,
+			String locusType, String locusGroup, Set<String> previousSymbols, Set<String> previousNames,
+			Set<String> synonyms, Set<String> nameSynonyms, String chromosome, String dateApproved,
+			String dateModified, String dateSymbolChanged, String dateNameChanged,
 			Set<DataSourceIdentifier<?>> accessionNumbers, Set<EnzymeCommissionID> ecNumbers,
 			EntrezGeneID entrezGeneID, EnsemblGeneID ensemblGeneID, Set<MgiGeneID> mgiIDs,
 			Set<SpecialistDbIdLinkPair> specialistDatabaseIdLinkPairings, Set<PubMedID> pubmedIDs,
@@ -330,9 +337,10 @@ public class HgncDownloadFileData extends SingleLineFileRecord {
 			String recordType, Set<DataSourceIdentifier<?>> primaryIds, Set<DataSourceIdentifier<?>> secondaryIds,
 			Set<CcdsId> ccdsIDs, Set<VegaID> vegaIDs,
 			Set<LocusSpecificDatabaseNameLinkPair> locusSpecificDatabaseNameLinkPairings,
-			EntrezGeneID suppliedEntrezGeneId, OmimID suppliedOmimId, RefSeqID suppliedRefseqId,
-			UniProtID suppliedUniprotId, EnsemblGeneID suppliedEnsemblId, UcscGenomeBrowserId suppliedUcscId,
-			Set<MgiGeneID> suppliedMgiIds, Set<RgdID> suppliedRgdIds, long byteOffset, long lineNumber) {
+			EntrezGeneID suppliedEntrezGeneId, Set<OmimID> suppliedOmimIds, RefSeqID suppliedRefseqId,
+			UniProtID suppliedUniprotId, EnsemblGeneID suppliedEnsemblId, VegaID suppliedVegaId,
+			UcscGenomeBrowserId suppliedUcscId, Set<MgiGeneID> suppliedMgiIds, Set<RgdID> suppliedRgdIds,
+			long byteOffset, long lineNumber) {
 		super(byteOffset, lineNumber);
 		this.hgncID = hgncID;
 		this.hgncGeneSymbol = hgncGeneSymbol;
@@ -365,281 +373,17 @@ public class HgncDownloadFileData extends SingleLineFileRecord {
 		this.vegaIDs = vegaIDs;
 		this.locusSpecificDatabaseNameLinkPairings = locusSpecificDatabaseNameLinkPairings;
 		this.suppliedEntrezGeneId = suppliedEntrezGeneId;
-		this.suppliedOmimId = suppliedOmimId;
+		this.suppliedOmimIds = suppliedOmimIds;
 		this.suppliedRefseqId = suppliedRefseqId;
 		this.suppliedUniprotId = suppliedUniprotId;
 		this.suppliedEnsemblId = suppliedEnsemblId;
+		this.suppliedVegaId = suppliedVegaId;
 		this.suppliedUcscId = suppliedUcscId;
 		this.suppliedMgiIds = suppliedMgiIds;
 		this.suppliedRgdIds = suppliedRgdIds;
 	}
 
-	/**
-	 * @return the hgncID
-	 */
-	public HgncID getHgncID() {
-		return hgncID;
-	}
-
-	/**
-	 * @return the hgncGeneSymbol
-	 */
-	public HgncGeneSymbolID getHgncGeneSymbol() {
-		return hgncGeneSymbol;
-	}
-
-	/**
-	 * @return the hgncGeneName
-	 */
-	public String getHgncGeneName() {
-		return hgncGeneName;
-	}
-
-	/**
-	 * @return the status
-	 */
-	public String getStatus() {
-		return status;
-	}
-
-	/**
-	 * @return the locusType
-	 */
-	public String getLocusType() {
-		return locusType;
-	}
-
-	/**
-	 * @return the locusGroup
-	 */
-	public String getLocusGroup() {
-		return locusGroup;
-	}
-
-	/**
-	 * @return the previousSymbols
-	 */
-	public Set<String> getPreviousSymbols() {
-		return previousSymbols;
-	}
-
-	/**
-	 * @return the previousNames
-	 */
-	public Set<String> getPreviousNames() {
-		return previousNames;
-	}
-
-	/**
-	 * @return the synonyms
-	 */
-	public Set<String> getSynonyms() {
-		return synonyms;
-	}
-
-	/**
-	 * @return the nameSynonyms
-	 */
-	public Set<String> getNameSynonyms() {
-		return nameSynonyms;
-	}
-
-	/**
-	 * @return the chromosome
-	 */
-	public String getChromosome() {
-		return chromosome;
-	}
-
-	/**
-	 * @return the dateApproved
-	 */
-	public String getDateApproved() {
-		return dateApproved;
-	}
-
-	/**
-	 * @return the dateModified
-	 */
-	public String getDateModified() {
-		return dateModified;
-	}
-
-	/**
-	 * @return the dateSymbolChanged
-	 */
-	public String getDateSymbolChanged() {
-		return dateSymbolChanged;
-	}
-
-	/**
-	 * @return the dateNameChanged
-	 */
-	public String getDateNameChanged() {
-		return dateNameChanged;
-	}
-
-	/**
-	 * @return the accessionNumbers
-	 */
-	public Set<DataSourceIdentifier<?>> getAccessionNumbers() {
-		return accessionNumbers;
-	}
-
-	/**
-	 * @return the ecNumbers
-	 */
-	public Set<EnzymeCommissionID> getEcNumbers() {
-		return ecNumbers;
-	}
-
-	/**
-	 * @return the entrezGeneID
-	 */
-	public EntrezGeneID getEntrezGeneID() {
-		return entrezGeneID;
-	}
-
-	/**
-	 * @return the ensemblGeneID
-	 */
-	public EnsemblGeneID getEnsemblGeneID() {
-		return ensemblGeneID;
-	}
-
-	/**
-	 * @return the mgiID
-	 */
-	public Set<MgiGeneID> getMgiIDs() {
-		return mgiIDs;
-	}
-
-	/**
-	 * @return the specialistDatabaseIdLinkPairings
-	 */
-	public Set<SpecialistDbIdLinkPair> getSpecialistDatabaseIdLinkPairings() {
-		return specialistDatabaseIdLinkPairings;
-	}
-
-	/**
-	 * @return the pubmedIDs
-	 */
-	public Set<PubMedID> getPubmedIDs() {
-		return pubmedIDs;
-	}
-
-	/**
-	 * @return the refseqIDs
-	 */
-	public Set<RefSeqID> getRefseqIDs() {
-		return refseqIDs;
-	}
-
-	/**
-	 * @return the geneFamilyTagDescriptionPairings
-	 */
-	public Set<GeneFamilyTagDescriptionPair> getGeneFamilyTagDescriptionPairings() {
-		return geneFamilyTagDescriptionPairings;
-	}
-
-	/**
-	 * @return the recordType
-	 */
-	public String getRecordType() {
-		return recordType;
-	}
-
-	/**
-	 * @return the primaryIds
-	 */
-	public Set<DataSourceIdentifier<?>> getPrimaryIds() {
-		return primaryIds;
-	}
-
-	/**
-	 * @return the secondaryIds
-	 */
-	public Set<DataSourceIdentifier<?>> getSecondaryIds() {
-		return secondaryIds;
-	}
-
-	/**
-	 * @return the ccdsIDs
-	 */
-	public Set<CcdsId> getCcdsIDs() {
-		return ccdsIDs;
-	}
-
-	/**
-	 * @return the vegaIDs
-	 */
-	public Set<VegaID> getVegaIDs() {
-		return vegaIDs;
-	}
-
-	/**
-	 * @return the locusSpecificDatabaseNameLinkPairings
-	 */
-	public Set<LocusSpecificDatabaseNameLinkPair> getLocusSpecificDatabaseNameLinkPairings() {
-		return locusSpecificDatabaseNameLinkPairings;
-	}
-
-	/**
-	 * @return the suppliedEntrezGeneId
-	 */
-	public EntrezGeneID getSuppliedEntrezGeneId() {
-		return suppliedEntrezGeneId;
-	}
-
-	/**
-	 * @return the suppliedOmimId
-	 */
-	public OmimID getSuppliedOmimId() {
-		return suppliedOmimId;
-	}
-
-	/**
-	 * @return the suppliedRefseqId
-	 */
-	public RefSeqID getSuppliedRefseqId() {
-		return suppliedRefseqId;
-	}
-
-	/**
-	 * @return the suppliedUniprotId
-	 */
-	public UniProtID getSuppliedUniprotId() {
-		return suppliedUniprotId;
-	}
-
-	/**
-	 * @return the suppliedEnsemblId
-	 */
-	public EnsemblGeneID getSuppliedEnsemblId() {
-		return suppliedEnsemblId;
-	}
-
-	/**
-	 * @return the suppliedUcscId
-	 */
-	public UcscGenomeBrowserId getSuppliedUcscId() {
-		return suppliedUcscId;
-	}
-
-	/**
-	 * @return the suppliedMgiId
-	 */
-	public Set<MgiGeneID> getSuppliedMgiIds() {
-		return suppliedMgiIds;
-	}
-
-	/**
-	 * @return the suppliedRgdId
-	 */
-	public Set<RgdID> getSuppliedRgdId() {
-		return suppliedRgdIds;
-	}
-
+	@Data
 	@Record(dataSource = DataSource.HGNC)
 	public static class SpecialistDbIdLinkPair {
 		@RecordField
@@ -656,75 +400,9 @@ public class HgncDownloadFileData extends SingleLineFileRecord {
 			this.specialistDbId = specialistDbId;
 			this.specialistDbUrl = specialistDbUrl;
 		}
-
-		/**
-		 * @return the specialistDbId
-		 */
-		public DataSourceIdentifier<?> getSpecialistDbId() {
-			return specialistDbId;
-		}
-
-		/**
-		 * @return the specialistDbUrl
-		 */
-		public String getSpecialistDbUrl() {
-			return specialistDbUrl;
-		}
-
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see java.lang.Object#hashCode()
-		 */
-		@Override
-		public int hashCode() {
-			final int prime = 31;
-			int result = 1;
-			result = prime * result + ((specialistDbId == null) ? 0 : specialistDbId.hashCode());
-			result = prime * result + ((specialistDbUrl == null) ? 0 : specialistDbUrl.hashCode());
-			return result;
-		}
-
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see java.lang.Object#equals(java.lang.Object)
-		 */
-		@Override
-		public boolean equals(Object obj) {
-			if (this == obj)
-				return true;
-			if (obj == null)
-				return false;
-			if (getClass() != obj.getClass())
-				return false;
-			SpecialistDbIdLinkPair other = (SpecialistDbIdLinkPair) obj;
-			if (specialistDbId == null) {
-				if (other.specialistDbId != null)
-					return false;
-			} else if (!specialistDbId.equals(other.specialistDbId))
-				return false;
-			if (specialistDbUrl == null) {
-				if (other.specialistDbUrl != null)
-					return false;
-			} else if (!specialistDbUrl.equals(other.specialistDbUrl))
-				return false;
-			return true;
-		}
-
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see java.lang.Object#toString()
-		 */
-		@Override
-		public String toString() {
-			return "SpecialistDbIdLinkPair [specialistDbId=" + specialistDbId + ", specialistDbUrl=" + specialistDbUrl
-					+ "]";
-		}
-
 	}
 
+	@Data
 	@Record(dataSource = DataSource.HGNC)
 	public static class GeneFamilyTagDescriptionPair {
 		@RecordField
@@ -742,74 +420,9 @@ public class HgncDownloadFileData extends SingleLineFileRecord {
 			this.geneFamilyDescription = geneFamilyDescription;
 		}
 
-		/**
-		 * @return the geneFamilyTag
-		 */
-		public String getGeneFamilyTag() {
-			return geneFamilyTag;
-		}
-
-		/**
-		 * @return the geneFamilyDescription
-		 */
-		public String getGeneFamilyDescription() {
-			return geneFamilyDescription;
-		}
-
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see java.lang.Object#hashCode()
-		 */
-		@Override
-		public int hashCode() {
-			final int prime = 31;
-			int result = 1;
-			result = prime * result + ((geneFamilyDescription == null) ? 0 : geneFamilyDescription.hashCode());
-			result = prime * result + ((geneFamilyTag == null) ? 0 : geneFamilyTag.hashCode());
-			return result;
-		}
-
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see java.lang.Object#equals(java.lang.Object)
-		 */
-		@Override
-		public boolean equals(Object obj) {
-			if (this == obj)
-				return true;
-			if (obj == null)
-				return false;
-			if (getClass() != obj.getClass())
-				return false;
-			GeneFamilyTagDescriptionPair other = (GeneFamilyTagDescriptionPair) obj;
-			if (geneFamilyDescription == null) {
-				if (other.geneFamilyDescription != null)
-					return false;
-			} else if (!geneFamilyDescription.equals(other.geneFamilyDescription))
-				return false;
-			if (geneFamilyTag == null) {
-				if (other.geneFamilyTag != null)
-					return false;
-			} else if (!geneFamilyTag.equals(other.geneFamilyTag))
-				return false;
-			return true;
-		}
-
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see java.lang.Object#toString()
-		 */
-		@Override
-		public String toString() {
-			return "GeneFamilyTagDescriptionPair [geneFamilyTag=" + geneFamilyTag + ", geneFamilyDescription="
-					+ geneFamilyDescription + "]";
-		}
-
 	}
 
+	@Data
 	@Record(dataSource = DataSource.HGNC)
 	public static class LocusSpecificDatabaseNameLinkPair {
 		@RecordField
@@ -825,71 +438,6 @@ public class HgncDownloadFileData extends SingleLineFileRecord {
 			super();
 			this.databaseName = databaseName;
 			this.link = link;
-		}
-
-		/**
-		 * @return the databaseName
-		 */
-		public String getDatabaseName() {
-			return databaseName;
-		}
-
-		/**
-		 * @return the link
-		 */
-		public String getLink() {
-			return link;
-		}
-
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see java.lang.Object#hashCode()
-		 */
-		@Override
-		public int hashCode() {
-			final int prime = 31;
-			int result = 1;
-			result = prime * result + ((databaseName == null) ? 0 : databaseName.hashCode());
-			result = prime * result + ((link == null) ? 0 : link.hashCode());
-			return result;
-		}
-
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see java.lang.Object#equals(java.lang.Object)
-		 */
-		@Override
-		public boolean equals(Object obj) {
-			if (this == obj)
-				return true;
-			if (obj == null)
-				return false;
-			if (getClass() != obj.getClass())
-				return false;
-			LocusSpecificDatabaseNameLinkPair other = (LocusSpecificDatabaseNameLinkPair) obj;
-			if (databaseName == null) {
-				if (other.databaseName != null)
-					return false;
-			} else if (!databaseName.equals(other.databaseName))
-				return false;
-			if (link == null) {
-				if (other.link != null)
-					return false;
-			} else if (!link.equals(other.link))
-				return false;
-			return true;
-		}
-
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see java.lang.Object#toString()
-		 */
-		@Override
-		public String toString() {
-			return "LocusSpecificDatabaseNameLinkPair [databaseName=" + databaseName + ", link=" + link + "]";
 		}
 
 	}

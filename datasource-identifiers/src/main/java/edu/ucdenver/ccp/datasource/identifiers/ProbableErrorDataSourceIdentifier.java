@@ -2,9 +2,10 @@ package edu.ucdenver.ccp.datasource.identifiers;
 
 /*
  * #%L
- * Colorado Computational Pharmacology's common module
+ * Colorado Computational Pharmacology's datasource
+ * 							project
  * %%
- * Copyright (C) 2012 - 2014 Regents of the University of Colorado
+ * Copyright (C) 2012 - 2016 Regents of the University of Colorado
  * %%
  * Redistribution and use in source and binary forms, with or without modification,
  * are permitted provided that the following conditions are met:
@@ -33,87 +34,66 @@ package edu.ucdenver.ccp.datasource.identifiers;
  * #L%
  */
 
+public class ProbableErrorDataSourceIdentifier extends DataSourceIdentifier<String> {
 
-/**
- * Generic superclass for all data source elements, i.e. fields in data files that are parsed.
- * 
- * @author Center for Computational Pharmacology; ccpsupport@ucdenver.edu
- * 
- */
-public abstract class DataSourceElement<T> {
+	private final String dataSourceStr;
+	private final String errorMessage;
 
-	/**
-	 * raw data element
-	 */
-	protected T dataElement;
-	
-	/**
-	 * Default constructor. 
-	 * 
-	 * @param dataElement
-	 */
-	public DataSourceElement(T dataElement) {
-		setDataElement(dataElement);
+	public ProbableErrorDataSourceIdentifier(String resourceID, String dataSourceStr, String errorMessage) {
+		super(resourceID, DataSource.PROBABLE_ERROR);
+		this.dataSourceStr = dataSourceStr;
+		this.errorMessage = errorMessage;
 	}
 
-	/**
-	 * 
-	 * Implement hashCode based on data element.
-	 */
+	@Override
+	public String validate(String resourceID) throws IllegalArgumentException {
+		return resourceID;
+	}
+
+	public String getDataSourceStr() {
+		return dataSourceStr;
+	}
+
+	public String getErrorMessage() {
+		return errorMessage;
+	}
+
+	@Override
+	public String toString() {
+		return "ProbableErrorDataSourceIdentifier [dataSourceStr=" + dataSourceStr + ", errorMessage=" + errorMessage
+				+ ", getDataElement()=" + getDataElement() + "]";
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((getDataElement() == null) ? 0 : getDataElement().hashCode());
+		int result = super.hashCode();
+		result = prime * result + ((dataSourceStr == null) ? 0 : dataSourceStr.hashCode());
 		return result;
 	}
 
-	/**
-	 * Implement equals based on data element.
-	 */
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
 			return true;
-		if (obj == null)
+		if (!super.equals(obj))
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		DataSourceElement<?> other = (DataSourceElement<?>) obj;
-		if (getDataElement() == null) {
-			if (other.getDataElement() != null)
+		ProbableErrorDataSourceIdentifier other = (ProbableErrorDataSourceIdentifier) obj;
+		if (dataSourceStr == null) {
+			if (other.dataSourceStr != null)
 				return false;
-		} else if (!getDataElement().equals(other.getDataElement()))
+		} else if (!dataSourceStr.equals(other.dataSourceStr))
 			return false;
 		return true;
 	}
+	
+	
 
-	/**
-	 * Get data element.
-	 * 
-	 * @return data element
-	 */
-	public T getDataElement() {
-		return dataElement;
-	}
 	
-	/**
-	 * Set data element. 
-	 * 
-	 * @param dataElement
-	 */
-	protected void setDataElement(T dataElement) {
-		// setter needed only b/c of validation in DataElementIdentifier - could be improved
-		this.dataElement = dataElement;
-	}
+	
+	
+	
 
-	/**
-	 * Use dataElement's toString().
-	 */
-	@Override
-	public String toString() {
-		return getDataElement().toString();
-	}
-	
-	
 }

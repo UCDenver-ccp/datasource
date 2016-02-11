@@ -7,7 +7,7 @@
 	<groupId>edu.ucdenver.ccp</groupId>
 	<artifactId>datasource-rdfizer-rdf-gen</artifactId>
 	<packaging>pom</packaging>
-    <version>0.6</version>
+    <version>0.6.1</version>
 
 	<properties>
       <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -17,7 +17,7 @@
       <dependency>
         <groupId>edu.ucdenver.ccp</groupId>
         <artifactId>datasource-rdfizer</artifactId>
-        <version>0.6</version>
+        <version>0.6.1</version>
         <type>jar</type>
         <scope>compile</scope>
       </dependency>
@@ -37,27 +37,25 @@
 						<argument>-classpath</argument>
 						<classpath />
 						<argument>edu.ucdenver.ccp.datasource.rdfizer.rdf.ice.IceRdfGenerator</argument>
-                        <argument>INDEX</argument>
-                        <!-- Directory for downloaded datasources -->
-                        <argument>${baseSourceDir}</argument>
-                        <!-- Directory into which to write RDF triple files
-                             parsed from downloaded datasources. -->
-                        <argument>${baseRdfDir}</argument>
-                        <!-- Compress the generated triple files? -->
-                        <argument>${compressRdf}</argument>
-                        <!-- outputRecordLimit -->
-                        <argument>${outputRecordLimit}</argument>
-                        <!-- Taxon identifiers to limit output to,
-                             comma-delimited; use "EMPTY" to not limit output -->
-                        <argument>${taxonIDs}</argument>
-                        <!-- startStage -->
-                        <argument>${startStage}</argument>
-                        <!-- numStages -->
-                        <argument>${numStages}</argument>
-                        <!-- Split type -->
-                        <argument>NONE</argument>
-                        <!-- date -->
-                        <argument>${date}</argument>
+						<argument>NAME</argument>
+						<!-- Directory for downloaded datasources -->
+						<argument>${baseSourceDir}</argument>
+						<!-- Directory into which to write RDF triple files parsed from downloaded 
+							datasources. -->
+						<argument>${baseRdfDir}</argument>
+						<!-- Compress the generated triple files? -->
+						<argument>${compressRdf}</argument>
+						<!-- outputRecordLimit -->
+						<argument>${outputRecordLimit}</argument>
+						<!-- Taxon identifiers to limit output to, comma-delimited; use "EMPTY" 
+							to not limit output -->
+						<argument>${taxonIDs}</argument>
+						<!-- Re-download the data source files prior to processing? (true/false) -->
+						<argument>${redownloadDataSourceFiles}</argument>
+						<!-- comma-delimited list of datasources to process -->
+						<argument>${datasourceNames}</argument>
+						<!-- date -->
+						<argument>${date}</argument>
 					</arguments>
 				</configuration>
 			</plugin>
@@ -66,8 +64,8 @@
 				<artifactId>maven-compiler-plugin</artifactId>
 				<version>3.3</version>
 				<configuration>
-					<source>1.7</source>
-					<target>1.7</target>
+					<source>1.8</source>
+					<target>1.8</target>
 				</configuration>
 			</plugin>
 		</plugins>

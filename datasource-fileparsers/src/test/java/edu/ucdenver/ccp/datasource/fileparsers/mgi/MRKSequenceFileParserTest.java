@@ -96,14 +96,14 @@ public class MRKSequenceFileParserTest extends RecordReaderTester {
 				assertEquals(MgiGeneType.GENE, record1.getMarkerType());
 				assertEquals(new String("RIKEN cDNA 0610007P14 gene"), record1.getMarkerName());
 				Set<DataSourceIdentifier<?>> expectedGenBankIds = new HashSet<DataSourceIdentifier<?>>();
-				expectedGenBankIds.add(NucleotideAccessionResolver.resolveNucleotideAccession("AF270646"));
-				expectedGenBankIds.add(NucleotideAccessionResolver.resolveNucleotideAccession("AK002308"));
-				expectedGenBankIds.add(NucleotideAccessionResolver.resolveNucleotideAccession("AK004480"));
-				expectedGenBankIds.add(NucleotideAccessionResolver.resolveNucleotideAccession("AK152230"));
-				expectedGenBankIds.add(NucleotideAccessionResolver.resolveNucleotideAccession("AU019315"));
-				expectedGenBankIds.add(NucleotideAccessionResolver.resolveNucleotideAccession("BC004591"));
-				expectedGenBankIds.add(NucleotideAccessionResolver.resolveNucleotideAccession("BG066052"));
-				expectedGenBankIds.add(NucleotideAccessionResolver.resolveNucleotideAccession("C77855"));
+				expectedGenBankIds.add(NucleotideAccessionResolver.resolveNucleotideAccession("AF270646", null));
+				expectedGenBankIds.add(NucleotideAccessionResolver.resolveNucleotideAccession("AK002308", null));
+				expectedGenBankIds.add(NucleotideAccessionResolver.resolveNucleotideAccession("AK004480", null));
+				expectedGenBankIds.add(NucleotideAccessionResolver.resolveNucleotideAccession("AK152230", null));
+				expectedGenBankIds.add(NucleotideAccessionResolver.resolveNucleotideAccession("AU019315", null));
+				expectedGenBankIds.add(NucleotideAccessionResolver.resolveNucleotideAccession("BC004591", null));
+				expectedGenBankIds.add(NucleotideAccessionResolver.resolveNucleotideAccession("BG066052", null));
+				expectedGenBankIds.add(NucleotideAccessionResolver.resolveNucleotideAccession("C77855", null));
 				assertEquals(expectedGenBankIds, record1.getGenBankAccessionIDs());
 				
 				Set<RefSeqID> expectedRefseqTranscriptIds = new HashSet<RefSeqID>();

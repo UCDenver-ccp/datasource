@@ -161,13 +161,7 @@ public class EntrezGeneInfoFileParser extends TaxonAwareSingleLineFileRecordRead
 		Set<DataSourceIdentifier<?>> dbXrefs = new HashSet<DataSourceIdentifier<?>>();
 		if (!toks[5].equals("-")) {
 			for (String id : toks[5].split("\\|")) {
-				DataSourceIdentifier<?> resolveGeneID = null;
-				try {
-					resolveGeneID = DataSourceIdResolver.resolveId(id);
-				} catch (IllegalArgumentException e) {
-					logger.warn("Exception during ID resolution for id: " + id);
-					resolveGeneID = null;
-				}
+				DataSourceIdentifier<?> resolveGeneID = DataSourceIdResolver.resolveId(id);
 				if (resolveGeneID != null) {
 					dbXrefs.add(resolveGeneID);
 				}

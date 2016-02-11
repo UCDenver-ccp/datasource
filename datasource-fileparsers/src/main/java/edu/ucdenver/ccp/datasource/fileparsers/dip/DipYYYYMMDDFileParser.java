@@ -68,6 +68,7 @@ import edu.ucdenver.ccp.common.string.StringUtil;
 import edu.ucdenver.ccp.datasource.fileparsers.obo.MiOntologyIdTermPair;
 import edu.ucdenver.ccp.datasource.fileparsers.taxonaware.TaxonAwareSingleLineFileRecordReader;
 import edu.ucdenver.ccp.datasource.identifiers.DataSourceIdentifier;
+import edu.ucdenver.ccp.datasource.identifiers.ProbableErrorDataSourceIdentifier;
 import edu.ucdenver.ccp.datasource.identifiers.ProteinAccessionResolver;
 import edu.ucdenver.ccp.datasource.identifiers.dip.DipInteractionID;
 import edu.ucdenver.ccp.datasource.identifiers.dip.DipInteractorID;
@@ -77,8 +78,8 @@ import edu.ucdenver.ccp.datasource.identifiers.ncbi.taxonomy.NcbiTaxonomyID;
 import edu.ucdenver.ccp.identifier.publication.PubMedID;
 
 /**
- * This class is used to parse DIPYYYMMDD files which can be downloaded from the DIP website:
- * http://dip.doe-mbi.ucla.edu/dip/Main.cgi
+ * This class is used to parse DIPYYYMMDD files which can be downloaded from the
+ * DIP website: http://dip.doe-mbi.ucla.edu/dip/Main.cgi
  * 
  * @author Bill Baumgartner
  * 
@@ -197,7 +198,8 @@ public class DipYYYYMMDDFileParser extends TaxonAwareSingleLineFileRecordReader<
 			DipInteractionType interactionType = MiOntologyIdTermPair.parseString(DipInteractionType.class,
 					interactionTypes[i]);
 			DipProcessingStatus processingStatus = getDipProcessingStatus(processingStatuses[i], line);
-			String firstAuthorName = null; // change if the first author column ever contains names
+			String firstAuthorName = null; // change if the first author column
+											// ever contains names
 			DipPublication publication = getDipPublication(firstAuthorName, pmids[i * 2], pmids[i * 2 + 1]);
 
 			experiments.add(new DipInteractionExperiment(publication, processingStatus, detectionMethod,
@@ -212,9 +214,9 @@ public class DipYYYYMMDDFileParser extends TaxonAwareSingleLineFileRecordReader<
 	 * @param string
 	 * @param string2
 	 * @param pmids
-	 * @return {@link DipPublication} from first author name and conversions of strings like
-	 *         "pubmed:9194558" and "pubmed:DIP-209S" into a {@link PubMedID} and a
-	 *         {@link DipPublicationId}
+	 * @return {@link DipPublication} from first author name and conversions of
+	 *         strings like "pubmed:9194558" and "pubmed:DIP-209S" into a
+	 *         {@link PubMedID} and a {@link DipPublicationId}
 	 */
 	private DipPublication getDipPublication(String firstAuthorName, String pmidStr, String dipPubIdStr) {
 		PubMedID pmid;
@@ -230,7 +232,8 @@ public class DipYYYYMMDDFileParser extends TaxonAwareSingleLineFileRecordReader<
 
 	/**
 	 * @param string
-	 * @return {@link DipProcessingStatus} parsed from a string such as: "dip:0002(small scale)"
+	 * @return {@link DipProcessingStatus} parsed from a string such as:
+	 *         "dip:0002(small scale)"
 	 */
 	private DipProcessingStatus getDipProcessingStatus(String statusStr, String line) {
 		Pattern p = Pattern.compile("(dip:\\d+)\\((.*?)\\)");
@@ -258,8 +261,9 @@ public class DipYYYYMMDDFileParser extends TaxonAwareSingleLineFileRecordReader<
 				}
 
 				/*
-				 * The columns for alternate IDs and aliases are always set to "-". If this is no
-				 * longer the case then an exception will be thrown and code changes required.
+				 * The columns for alternate IDs and aliases are always set to
+				 * "-". If this is no longer the case then an exception will be
+				 * thrown and code changes required.
 				 */
 				Set<DipInteractorID> alternateIds = null;
 				if (!alternateIdsStr.trim().equals("-")) {
@@ -318,13 +322,7 @@ public class DipYYYYMMDDFileParser extends TaxonAwareSingleLineFileRecordReader<
 			return new DipInteractorID(idStr);
 		}
 		if (idStr.startsWith("refseq:")) {
-			try {
-				return ProteinAccessionResolver.resolveProteinAccession(StringUtil.removePrefix(idStr, "refseq:"));
-				// return new RefSeqID(StringUtil.removePrefix(idStr, "refseq:"));
-			} catch (IllegalArgumentException e) {
-				logger.warn("Invalid RefSeq identifier detected: " + idStr);
-				return null;
-			}
+			return ProteinAccessionResolver.resolveProteinAccession(StringUtil.removePrefix(idStr, "refseq:"), idStr);
 		}
 		if (idStr.startsWith("uniprotkb:")) {
 			if (idStr.contains(StringConstants.HYPHEN_MINUS)) {
@@ -333,8 +331,7 @@ public class DipYYYYMMDDFileParser extends TaxonAwareSingleLineFileRecordReader<
 			try {
 				return new UniProtID(StringUtil.removePrefix(idStr, "uniprotkb:"));
 			} catch (IllegalArgumentException e) {
-				logger.warn("Invalid UniProt identifier detected: " + idStr);
-				return null;
+				return new ProbableErrorDataSourceIdentifier(idStr, null, e.getMessage());
 			}
 		}
 		throw new IllegalArgumentException("Unhandled identifier type: " + idStr);
@@ -347,16 +344,16 @@ public class DipYYYYMMDDFileParser extends TaxonAwareSingleLineFileRecordReader<
 	// * MI id
 	// * @return id if recognized; otherwise, null
 	// */
-	// private static MolecularInteractionOntologyTermID extractMiId(String inputStr) {
+	// private static MolecularInteractionOntologyTermID extractMiId(String
+	// inputStr) {
 	// Pattern methodIDPattern = Pattern.compile("(MI:\\d+),?\\(");
 	// Matcher m = methodIDPattern.matcher(inputStr);
 	// if (m.find()) {
 	// return new MolecularInteractionOntologyTermID(m.group(1));
 	// }
-	// logger.error("Unable to locate ExperimentalMethod MI ID in String: " + inputStr);
+	// logger.error("Unable to locate ExperimentalMethod MI ID in String: " +
+	// inputStr);
 	// return null;
 	// }
-
-	
 
 }

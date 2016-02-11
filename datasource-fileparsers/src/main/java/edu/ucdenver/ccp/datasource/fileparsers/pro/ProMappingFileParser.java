@@ -41,10 +41,16 @@ import edu.ucdenver.ccp.common.file.CharacterEncoding;
 import edu.ucdenver.ccp.common.file.reader.Line;
 import edu.ucdenver.ccp.common.file.reader.StreamLineReader;
 import edu.ucdenver.ccp.common.ftp.FTPUtil.FileType;
+import edu.ucdenver.ccp.common.string.StringUtil;
 import edu.ucdenver.ccp.datasource.fileparsers.SingleLineFileRecordReader;
-import edu.ucdenver.ccp.datasource.identifiers.DataSourceIdResolver;
 import edu.ucdenver.ccp.datasource.identifiers.DataSourceIdentifier;
+import edu.ucdenver.ccp.datasource.identifiers.ProbableErrorDataSourceIdentifier;
+import edu.ucdenver.ccp.datasource.identifiers.UnknownDataSourceIdentifier;
+import edu.ucdenver.ccp.datasource.identifiers.ebi.uniprot.UniProtID;
+import edu.ucdenver.ccp.datasource.identifiers.hgnc.HgncID;
+import edu.ucdenver.ccp.datasource.identifiers.mgi.MgiGeneID;
 import edu.ucdenver.ccp.datasource.identifiers.obo.ProteinOntologyId;
+import edu.ucdenver.ccp.datasource.identifiers.rgd.RgdID;
 
 /**
  * File parser for Protein Ongology promapping.txt file.
@@ -95,8 +101,8 @@ public class ProMappingFileParser extends SingleLineFileRecordReader<ProMappingR
 	 * (non-Javadoc)
 	 * 
 	 * @see
-	 * edu.ucdenver.ccp.fileparsers.SingleLineFileRecordReader#parseRecordFromLine(edu.ucdenver.
-	 * ccp.common.file.reader.LineReader.Line)
+	 * edu.ucdenver.ccp.fileparsers.SingleLineFileRecordReader#parseRecordFromLine
+	 * (edu.ucdenver. ccp.common.file.reader.LineReader.Line)
 	 */
 	@Override
 	protected ProMappingRecord parseRecordFromLine(Line line) {
@@ -106,16 +112,33 @@ public class ProMappingFileParser extends SingleLineFileRecordReader<ProMappingR
 		if (text.startsWith("PR:")) {
 
 			String[] tokens = text.split("\t");
-			ProteinOntologyId fromId = (ProteinOntologyId) DataSourceIdResolver.resolveId(tokens[0].trim());
-			if (tokens[1].trim().startsWith("UniProtKB_VAR"))
-				return null;
-
-			DataSourceIdentifier targetId = DataSourceIdResolver.resolveId(tokens[1].trim());
+			ProteinOntologyId fromId = new ProteinOntologyId(tokens[0].trim());
+			DataSourceIdentifier<?> targetId = resolveId(tokens[1].trim());
 			String mappingType = tokens[2].trim();
 
 			r = new ProMappingRecord(fromId, targetId, mappingType, line.getByteOffset(), line.getLineNumber());
 		}
 
 		return r;
+	}
+
+	private DataSourceIdentifier<?> resolveId(String idStr) {
+		try {
+			if (idStr.startsWith("MGI:")) {
+				return new MgiGeneID(idStr);
+			}
+			if (idStr.startsWith("RGD:")) {
+				return new RgdID(StringUtil.removePrefix(idStr, "RGD:"));
+			}
+			if (idStr.startsWith("HGNC:")) {
+				return new HgncID(idStr);
+			}
+			if (idStr.startsWith("UniProtKB:")) {
+				return new UniProtID(StringUtil.removePrefix(idStr, "UniProtKB:"));
+			}
+		} catch (IllegalArgumentException e) {
+			return new ProbableErrorDataSourceIdentifier(idStr, null, e.getMessage());
+		}
+		return new UnknownDataSourceIdentifier(idStr, null);
 	}
 }

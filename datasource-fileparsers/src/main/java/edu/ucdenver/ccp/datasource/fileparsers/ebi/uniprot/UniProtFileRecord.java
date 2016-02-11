@@ -80,6 +80,8 @@ import edu.ucdenver.ccp.datasource.fileparsers.Record;
 import edu.ucdenver.ccp.datasource.fileparsers.RecordField;
 import edu.ucdenver.ccp.datasource.identifiers.DataSource;
 import edu.ucdenver.ccp.datasource.identifiers.DataSourceIdentifier;
+import edu.ucdenver.ccp.datasource.identifiers.ProbableErrorDataSourceIdentifier;
+import edu.ucdenver.ccp.datasource.identifiers.UnknownDataSourceIdentifier;
 import edu.ucdenver.ccp.datasource.identifiers.dip.DipInteractorID;
 import edu.ucdenver.ccp.datasource.identifiers.drugbank.DrugBankID;
 import edu.ucdenver.ccp.datasource.identifiers.ebi.embl.EmblID;
@@ -899,14 +901,10 @@ public class UniProtFileRecord extends FileRecord {
 					return new PirnrId(idStr);
 				}
 			} catch (IllegalArgumentException e) {
-				logger.warn("Invalid identifier detected: " + e.getMessage());
-				return null;
+				return new ProbableErrorDataSourceIdentifier(idStr, type, e.getMessage());
 			}
 
-			// throw new IllegalArgumentException("Unhandled identifier type: "
-			// + type + " :: " + idStr);
-			logger.warn("Unhandled identifier type: " + type + " :: " + idStr);
-			return null;
+			return new UnknownDataSourceIdentifier(idStr, type);
 		}
 	}
 

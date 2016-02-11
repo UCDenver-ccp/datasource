@@ -63,6 +63,7 @@ import edu.ucdenver.ccp.datasource.identifiers.ebi.uniprot.UniProtID;
 import edu.ucdenver.ccp.datasource.identifiers.ebi.uniprot.UniProtIsoformID;
 import edu.ucdenver.ccp.datasource.identifiers.ncbi.taxonomy.NcbiTaxonomyID;
 import edu.ucdenver.ccp.datasource.identifiers.obo.GeneOntologyID;
+import edu.ucdenver.ccp.datasource.identifiers.other.RnaCentralId;
 import edu.ucdenver.ccp.datasource.identifiers.reactome.ReactomeReactionID;
 import edu.ucdenver.ccp.identifier.publication.DOI;
 import edu.ucdenver.ccp.identifier.publication.PubMedID;
@@ -316,6 +317,9 @@ public class GpAssociationGoaUniprotFileParser extends
 			}
 			if (database.equals("IntAct")) {
 				return new IntActID(databaseObjectIDStr);
+			}
+			if (database.equals("RNAcentral")) {
+				return new RnaCentralId(databaseObjectIDStr);
 			}
 		} catch (IllegalArgumentException e) {
 			logger.warn(e.getMessage());

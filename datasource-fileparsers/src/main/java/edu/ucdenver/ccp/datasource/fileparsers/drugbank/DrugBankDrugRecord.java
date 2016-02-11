@@ -147,7 +147,9 @@ import edu.ucdenver.ccp.datasource.fileparsers.RecordField;
 import edu.ucdenver.ccp.datasource.identifiers.DataSource;
 import edu.ucdenver.ccp.datasource.identifiers.DataSourceIdentifier;
 import edu.ucdenver.ccp.datasource.identifiers.NucleotideAccessionResolver;
+import edu.ucdenver.ccp.datasource.identifiers.ProbableErrorDataSourceIdentifier;
 import edu.ucdenver.ccp.datasource.identifiers.ProteinAccessionResolver;
+import edu.ucdenver.ccp.datasource.identifiers.UnknownDataSourceIdentifier;
 import edu.ucdenver.ccp.datasource.identifiers.drugbank.DrugBankID;
 import edu.ucdenver.ccp.datasource.identifiers.drugbank.DrugsProductDatabaseID;
 import edu.ucdenver.ccp.datasource.identifiers.ebi.interpro.PfamID;
@@ -158,7 +160,6 @@ import edu.ucdenver.ccp.datasource.identifiers.hprd.HprdID;
 import edu.ucdenver.ccp.datasource.identifiers.kegg.KeggCompoundID;
 import edu.ucdenver.ccp.datasource.identifiers.kegg.KeggDrugID;
 import edu.ucdenver.ccp.datasource.identifiers.ncbi.MeshID;
-import edu.ucdenver.ccp.datasource.identifiers.ncbi.gene.GiNumberID;
 import edu.ucdenver.ccp.datasource.identifiers.ncbi.snp.SnpRsId;
 import edu.ucdenver.ccp.datasource.identifiers.ncbi.taxonomy.NcbiTaxonomyID;
 import edu.ucdenver.ccp.datasource.identifiers.obo.ChebiOntologyID;
@@ -931,11 +932,17 @@ public class DrugBankDrugRecord extends FileRecord {
 		}
 		Set<Category> toReturn = new HashSet<Category>();
 		for (CategoryType p : list.getCategory()) {
-			MeshID meshId = null;
+			Set<MeshID> meshIds = new HashSet<MeshID>();
 			if (!p.getMeshId().trim().isEmpty()) {
-				meshId = new MeshID(p.getMeshId().trim());
+				String meshStr = p.getMeshId().trim();
+				meshStr = meshStr.replaceAll("\"", "");
+				meshStr = meshStr.replace("[", "");
+				meshStr = meshStr.replace("]", "");
+				for (String tok : meshStr.split(",")) {
+					meshIds.add(new MeshID(tok));
+				}
 			}
-			Category c = new Category(meshId, p.getCategory());
+			Category c = new Category(meshIds, p.getCategory());
 			toReturn.add(c);
 		}
 		return toReturn;
@@ -945,7 +952,7 @@ public class DrugBankDrugRecord extends FileRecord {
 	@Record(dataSource = DataSource.DRUGBANK)
 	private static class Category {
 		@RecordField
-		private final MeshID meshId;
+		private final Set<MeshID> meshIds;
 		@RecordField
 		private final String category;
 	}
@@ -1297,22 +1304,18 @@ public class DrugBankDrugRecord extends FileRecord {
 		} else if (resource.equals("GeneCards")) {
 			return new GeneCardId(identifier);
 		} else if (resource.equals("GenBank Gene Database")) {
-			return NucleotideAccessionResolver.resolveNucleotideAccession(identifier);
+			return NucleotideAccessionResolver.resolveNucleotideAccession(identifier, "GenBank Gene Database:"
+					+ identifier);
 		} else if (resource.equals("GenBank Protein Database")) {
-			try {
-				return ProteinAccessionResolver.resolveProteinAccession(identifier);
-			} catch (IllegalArgumentException e) {
-				if (identifier.matches("\\d+")) {
-					return new GiNumberID(identifier);
-				}
-				logger.warn("Observed invalid GenBank protein identifier: " + identifier);
-				return null;
-			}
+			return ProteinAccessionResolver
+					.resolveProteinAccession(identifier, "GenBank Protein Database" + identifier);
 		} else if (resource.equals("GenBank")) {
-			try {
-				return NucleotideAccessionResolver.resolveNucleotideAccession(identifier);
-			} catch (IllegalArgumentException e) {
-				return ProteinAccessionResolver.resolveProteinAccession(identifier);
+			DataSourceIdentifier<String> nucAccId = NucleotideAccessionResolver.resolveNucleotideAccession(identifier,
+					"GenBank:" + identifier);
+			if (ProbableErrorDataSourceIdentifier.class.isInstance(nucAccId.getClass())) {
+				return ProteinAccessionResolver.resolveProteinAccession(identifier, "GenBank:" + identifier);
+			} else {
+				return nucAccId;
 			}
 		} else if (resource.equals("UniProtKB")) {
 			return new UniProtID(identifier);
@@ -1354,7 +1357,7 @@ public class DrugBankDrugRecord extends FileRecord {
 				id = new UniProtID(identifier);
 			} catch (IllegalArgumentException e) {
 				logger.warn("Unhandled identifier type: " + resource + " (identifier=" + identifier + ")");
-				return null;
+				return new UnknownDataSourceIdentifier(identifier, resource);
 			}
 			if (id != null) {
 				return id;
@@ -1362,7 +1365,7 @@ public class DrugBankDrugRecord extends FileRecord {
 		}
 
 		System.out.println("Unhandled identifier type: " + resource + " (identifier=" + identifier + ")");
-		return null;
+		return new UnknownDataSourceIdentifier(identifier, resource);
 		// throw new IllegalArgumentException("Unhandled identifier type: " +
 		// resource +
 		// " (identifier=" + identifier

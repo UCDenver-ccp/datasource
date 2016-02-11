@@ -48,6 +48,7 @@ import edu.ucdenver.ccp.common.collections.CollectionsUtil;
 import edu.ucdenver.ccp.common.file.CharacterEncoding;
 import edu.ucdenver.ccp.datasource.fileparsers.test.RecordReaderTester;
 import edu.ucdenver.ccp.datasource.identifiers.DataSourceIdentifier;
+import edu.ucdenver.ccp.datasource.identifiers.ProbableErrorDataSourceIdentifier;
 import edu.ucdenver.ccp.datasource.identifiers.bind.BindInteractionID;
 import edu.ucdenver.ccp.datasource.identifiers.ebi.uniprot.UniProtEntryName;
 import edu.ucdenver.ccp.datasource.identifiers.ebi.uniprot.UniProtID;
@@ -94,22 +95,28 @@ public class IRefWebPsiMitab2_6FileParserTest extends RecordReaderTester {
 			 * uniprotkb:P38276|refseq:NP_009695|entrezgene/locuslink
 			 * :852434|rogid:UsO9ZYVJXLI50JBd/g0C1NtSeXI559292|irogid:16835195
 			 * uniprotkb:P38276|refseq
-			 * :NP_009695|entrezgene/locuslink:852434|rogid:UsO9ZYVJXLI50JBd/g0C1NtSeXI559292
-			 * |irogid:16835195
-			 * uniprotkb:YBY7_YEAST|entrezgene/locuslink:YBR137W|crogid:UsO9ZYVJXLI50JBd
+			 * :NP_009695|entrezgene/locuslink:852434|rogid
+			 * :UsO9ZYVJXLI50JBd/g0C1NtSeXI559292 |irogid:16835195
+			 * uniprotkb:YBY7_YEAST
+			 * |entrezgene/locuslink:YBR137W|crogid:UsO9ZYVJXLI50JBd
 			 * /g0C1NtSeXI559292|icrogid:16835195
 			 * uniprotkb:YBY7_YEAST|entrezgene/locuslink:YBR137W|crogid
-			 * :UsO9ZYVJXLI50JBd/g0C1NtSeXI559292|icrogid:16835195 MI:0018(2 hybrid) -
-			 * pubmed:10655498 taxid:559292(Saccharomyces cerevisiae S288c)
-			 * taxid:559292(Saccharomyces cerevisiae S288c) - MI:0000(BIND_Translation)
-			 * BIND_Translation:1261|rigid:+++94o2VtVJcuk6jD3H2JZXaVYc|irigid:617101|edgetype:X
-			 * lpr:4518|hpr:5191|np:2 none MI:0000(unspecified) MI:0000(unspecified)
-			 * MI:0000(unspecified) MI:0000(unspecified) MI:0326(protein) MI:0326(protein) - - - - -
-			 * - - - 2010/05/18 2010/05/18 rogid:UsO9ZYVJXLI50JBd/g0C1NtSeXI559292
-			 * rogid:UsO9ZYVJXLI50JBd/g0C1NtSeXI559292 rigid:+++94o2VtVJcuk6jD3H2JZXaVYc false
-			 * refseq:NP_009695 refseq:NP_009695 refseq:NP_009695 refseq:NP_009695 P P 16835195
-			 * 16835195 617101 UsO9ZYVJXLI50JBd/g0C1NtSeXI559292 UsO9ZYVJXLI50JBd/g0C1NtSeXI559292
-			 * +++94o2VtVJcuk6jD3H2JZXaVYc 16835195 16835195 617101 - X 2
+			 * :UsO9ZYVJXLI50JBd/g0C1NtSeXI559292|icrogid:16835195 MI:0018(2
+			 * hybrid) - pubmed:10655498 taxid:559292(Saccharomyces cerevisiae
+			 * S288c) taxid:559292(Saccharomyces cerevisiae S288c) -
+			 * MI:0000(BIND_Translation)
+			 * BIND_Translation:1261|rigid:+++94o2VtVJcuk6jD3H2JZXaVYc
+			 * |irigid:617101|edgetype:X lpr:4518|hpr:5191|np:2 none
+			 * MI:0000(unspecified) MI:0000(unspecified) MI:0000(unspecified)
+			 * MI:0000(unspecified) MI:0326(protein) MI:0326(protein) - - - - -
+			 * - - - 2010/05/18 2010/05/18
+			 * rogid:UsO9ZYVJXLI50JBd/g0C1NtSeXI559292
+			 * rogid:UsO9ZYVJXLI50JBd/g0C1NtSeXI559292
+			 * rigid:+++94o2VtVJcuk6jD3H2JZXaVYc false refseq:NP_009695
+			 * refseq:NP_009695 refseq:NP_009695 refseq:NP_009695 P P 16835195
+			 * 16835195 617101 UsO9ZYVJXLI50JBd/g0C1NtSeXI559292
+			 * UsO9ZYVJXLI50JBd/g0C1NtSeXI559292 +++94o2VtVJcuk6jD3H2JZXaVYc
+			 * 16835195 16835195 617101 - X 2
 			 */
 			parser.next();
 
@@ -122,23 +129,29 @@ public class IRefWebPsiMitab2_6FileParserTest extends RecordReaderTester {
 			/*
 			 * rogid:Ivetsb7L/rt8ds+TyhtJZKxTtVE9796 uniprotkb:P05132
 			 * PDB:1YDT_I|PDB:1YDR_I|PDB:1YDS_I
-			 * |PDB:1FMO_I|PDB:1STC_I|rogid:Ivetsb7L/rt8ds+TyhtJZKxTtVE9796|irogid:9981084
-			 * uniprotkb:
-			 * P05132|refseq:NP_032880|entrezgene/locuslink:18747|rogid:HdW51RuiujpUxo0Fu8TbWz3Yk8c10090
+			 * |PDB:1FMO_I|PDB:1STC_I|rogid:Ivetsb7L
+			 * /rt8ds+TyhtJZKxTtVE9796|irogid:9981084 uniprotkb:
+			 * P05132|refseq:NP_032880
+			 * |entrezgene/locuslink:18747|rogid:HdW51RuiujpUxo0Fu8TbWz3Yk8c10090
 			 * |irogid:2201887
-			 * rogid:Ivetsb7L/rt8ds+TyhtJZKxTtVE9796|crogid:Ivetsb7L/rt8ds+TyhtJZKxTtVE9796
-			 * |icrogid:9981084|-
-			 * uniprotkb:KAPCA_MOUSE|entrezgene/locuslink:Prkaca|crogid:HdW51RuiujpUxo0Fu8TbWz3Yk8c10090
-			 * |icrogid:2201887 MI:0114(three-dimensional-structure) - pubmed:1862342
-			 * taxid:9796(Equus caballus) taxid:10090(Mus musculus) - MI:0462(bind)
-			 * bind:76262|rigid:++f9f/9TQhDLvdrGu56SalIhHSA|irigid:617146|edgetype:X
-			 * lpr:1|hpr:6|np:6 none MI:0000(unspecified) MI:0000(unspecified) MI:0000(unspecified)
-			 * MI:0000(unspecified) MI:0326(protein) MI:0326(protein) - - - - - - - - 2010/05/18
-			 * 2010/05/18 rogid:Ivetsb7L/rt8ds+TyhtJZKxTtVE9796
-			 * rogid:HdW51RuiujpUxo0Fu8TbWz3Yk8c10090 rigid:++f9f/9TQhDLvdrGu56SalIhHSA false
-			 * GenBank:"1FMO_I" GenBank:NP_032880 PDB:1FMO_I refseq:NP_032880 PT P 9981084 2201887
-			 * 617146 Ivetsb7L/rt8ds+TyhtJZKxTtVE9796 HdW51RuiujpUxo0Fu8TbWz3Yk8c10090
-			 * ++f9f/9TQhDLvdrGu56SalIhHSA 9981084 2201887 617146 - X 2
+			 * rogid:Ivetsb7L/rt8ds+TyhtJZKxTtVE9796|crogid:Ivetsb7L
+			 * /rt8ds+TyhtJZKxTtVE9796 |icrogid:9981084|-
+			 * uniprotkb:KAPCA_MOUSE|entrezgene
+			 * /locuslink:Prkaca|crogid:HdW51RuiujpUxo0Fu8TbWz3Yk8c10090
+			 * |icrogid:2201887 MI:0114(three-dimensional-structure) -
+			 * pubmed:1862342 taxid:9796(Equus caballus) taxid:10090(Mus
+			 * musculus) - MI:0462(bind)
+			 * bind:76262|rigid:++f9f/9TQhDLvdrGu56SalIhHSA
+			 * |irigid:617146|edgetype:X lpr:1|hpr:6|np:6 none
+			 * MI:0000(unspecified) MI:0000(unspecified) MI:0000(unspecified)
+			 * MI:0000(unspecified) MI:0326(protein) MI:0326(protein) - - - - -
+			 * - - - 2010/05/18 2010/05/18 rogid:Ivetsb7L/rt8ds+TyhtJZKxTtVE9796
+			 * rogid:HdW51RuiujpUxo0Fu8TbWz3Yk8c10090
+			 * rigid:++f9f/9TQhDLvdrGu56SalIhHSA false GenBank:"1FMO_I"
+			 * GenBank:NP_032880 PDB:1FMO_I refseq:NP_032880 PT P 9981084
+			 * 2201887 617146 Ivetsb7L/rt8ds+TyhtJZKxTtVE9796
+			 * HdW51RuiujpUxo0Fu8TbWz3Yk8c10090 ++f9f/9TQhDLvdrGu56SalIhHSA
+			 * 9981084 2201887 617146 - X 2
 			 */
 
 			IRefWebPsiMitab2_6FileData record = parser.next();
@@ -175,9 +188,12 @@ public class IRefWebPsiMitab2_6FileParserTest extends RecordReaderTester {
 			expectedAliasesB.add(new IcrogId("2201887"));
 			assertEquals(expectedAliasesB, record.getInteractorB().getAliasIds());
 
-			assertEmpty(record.getInteractorA().getAliasSymbols());
+			assertEquals(CollectionsUtil.createSet("rogid:Ivetsb7L/rt8ds+TyhtJZKxTtVE9796",
+					"crogid:Ivetsb7L/rt8ds+TyhtJZKxTtVE9796", "icrogid:9981084"), record.getInteractorA()
+					.getAliasSymbols());
 
-			Set<String> expectedAliasBSymbols = CollectionsUtil.createSet(new String("Prkaca"));
+			Set<String> expectedAliasBSymbols = CollectionsUtil.createSet("crogid:HdW51RuiujpUxo0Fu8TbWz3Yk8c10090",
+					"entrezgene/locuslink:Prkaca", "icrogid:2201887", "uniprotkb:KAPCA_MOUSE");
 			assertEquals(expectedAliasBSymbols, record.getInteractorB().getAliasSymbols());
 
 			assertEquals(new IRefWebInteractionDetectionMethod(new MolecularInteractionOntologyTermID("MI:0114"),
@@ -189,12 +205,13 @@ public class IRefWebPsiMitab2_6FileParserTest extends RecordReaderTester {
 
 			assertEquals(new IRefWebInteractorOrganism(new NcbiTaxonomyID(9796), "Equus caballus"), record
 					.getInteractorA().getNcbiTaxonomyId());
-			assertEquals(new IRefWebInteractorOrganism(new NcbiTaxonomyID(10090), "Mus musculus"), record.getInteractorB()
-					.getNcbiTaxonomyId());
+			assertEquals(new IRefWebInteractorOrganism(new NcbiTaxonomyID(10090), "Mus musculus"), record
+					.getInteractorB().getNcbiTaxonomyId());
 
 			assertNull(record.getInteraction().getInteractionType());
 
-			assertEquals(new IRefWebInteractionSourceDatabase(new MolecularInteractionOntologyTermID("MI:0462"), "bind"),
+			assertEquals(
+					new IRefWebInteractionSourceDatabase(new MolecularInteractionOntologyTermID("MI:0462"), "bind"),
 					record.getSourceDb());
 
 			Set<DataSourceIdentifier<?>> expectedInteractionDbIds = new HashSet<DataSourceIdentifier<?>>();
@@ -208,55 +225,57 @@ public class IRefWebPsiMitab2_6FileParserTest extends RecordReaderTester {
 
 			assertEquals("none", record.getInteraction().getExpansion());
 
-			assertEquals(new IRefWebInteractorBiologicalRole(new MolecularInteractionOntologyTermID("MI:0000"), "unspecified"),
-					record.getInteractorA().getBiologicalRole());
-			assertEquals(new IRefWebInteractorBiologicalRole(new MolecularInteractionOntologyTermID("MI:0000"), "unspecified"),
-					record.getInteractorB().getBiologicalRole());
-			assertEquals(new IRefWebInteractorExperimentalRole(new MolecularInteractionOntologyTermID("MI:0000"), "unspecified"),
-					record.getInteractorA().getExperimentalRole());
-			assertEquals(new IRefWebInteractorExperimentalRole(new MolecularInteractionOntologyTermID("MI:0000"), "unspecified"),
-					record.getInteractorB().getExperimentalRole());
+			assertEquals(new IRefWebInteractorBiologicalRole(new MolecularInteractionOntologyTermID("MI:0000"),
+					"unspecified"), record.getInteractorA().getBiologicalRole());
+			assertEquals(new IRefWebInteractorBiologicalRole(new MolecularInteractionOntologyTermID("MI:0000"),
+					"unspecified"), record.getInteractorB().getBiologicalRole());
+			assertEquals(new IRefWebInteractorExperimentalRole(new MolecularInteractionOntologyTermID("MI:0000"),
+					"unspecified"), record.getInteractorA().getExperimentalRole());
+			assertEquals(new IRefWebInteractorExperimentalRole(new MolecularInteractionOntologyTermID("MI:0000"),
+					"unspecified"), record.getInteractorB().getExperimentalRole());
 
-			assertEquals(new IRefWebInteractorType(new MolecularInteractionOntologyTermID("MI:0326"), "protein"), record
-					.getInteractorA().getInteractorType());
-			assertEquals(new IRefWebInteractorType(new MolecularInteractionOntologyTermID("MI:0326"), "protein"), record
-					.getInteractorB().getInteractorType());
+			assertEquals(new IRefWebInteractorType(new MolecularInteractionOntologyTermID("MI:0326"), "protein"),
+					record.getInteractorA().getInteractorType());
+			assertEquals(new IRefWebInteractorType(new MolecularInteractionOntologyTermID("MI:0326"), "protein"),
+					record.getInteractorB().getInteractorType());
 
 			assertNull(record.getInteraction().getHostOrgTaxonomyId());
-			
+
 			assertEquals("2010/05/18", record.getCreationDate());
 			assertEquals("2010/05/18", record.getUpdateDate());
-			
+
 			assertEquals(new RogId("Ivetsb7L/rt8ds+TyhtJZKxTtVE9796"), record.getInteractorA().getChecksum());
 			assertEquals(new RogId("HdW51RuiujpUxo0Fu8TbWz3Yk8c10090"), record.getInteractorB().getChecksum());
 			assertEquals(new RigId("++f9f/9TQhDLvdrGu56SalIhHSA"), record.getInteraction().getChecksumInteraction());
-			
+
 			assertFalse(record.getInteraction().isNegative());
-			
-			assertNull(record.getInteractorA().getOriginalReference());
+
+			assertEquals(new ProbableErrorDataSourceIdentifier("GenBank:\"1FMO_I\"", null,
+					"Input is not a known accession pattern: GenBank:\"1FMO_I\""), record.getInteractorA()
+					.getOriginalReference());
 			assertEquals(new RefSeqID("NP_032880"), record.getInteractorB().getOriginalReference());
 			assertEquals(new PdbID("1FMO_I"), record.getInteractorA().getFinalReference());
 			assertEquals(new RefSeqID("NP_032880"), record.getInteractorB().getFinalReference());
-			
+
 			assertEquals("PT", record.getInteractorA().getMappingScore());
 			assertEquals("P", record.getInteractorB().getMappingScore());
-			
+
 			assertEquals(new IrogId("9981084"), record.getInteractorA().getIrogid());
 			assertEquals(new IrogId("2201887"), record.getInteractorB().getIrogid());
 			assertEquals(new IrigId("617146"), record.getInteraction().getIrigid());
-			
+
 			assertEquals(new CrogId("Ivetsb7L/rt8ds+TyhtJZKxTtVE9796"), record.getInteractorA().getCrogid());
 			assertEquals(new CrogId("HdW51RuiujpUxo0Fu8TbWz3Yk8c10090"), record.getInteractorB().getCrogid());
 			assertEquals(new CrigId("++f9f/9TQhDLvdrGu56SalIhHSA"), record.getInteraction().getCrigid());
-			
+
 			assertEquals(new IcrogId("9981084"), record.getInteractorA().getIcrogid());
 			assertEquals(new IcrogId("2201887"), record.getInteractorB().getIcrogid());
 			assertEquals(new IcrigId("617146"), record.getInteraction().getIcrigid());
-			
+
 			assertNull(record.getInteraction().getImexId());
-			
+
 			assertEquals("X", record.getInteraction().getEdgeType());
-			
+
 			assertEquals(2, record.getInteraction().getNumParticipants());
 
 		} else {

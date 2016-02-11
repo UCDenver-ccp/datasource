@@ -59,7 +59,9 @@ import edu.ucdenver.ccp.datasource.fileparsers.hgnc.HgncDownloadFileData.LocusSp
 import edu.ucdenver.ccp.datasource.fileparsers.hgnc.HgncDownloadFileData.SpecialistDbIdLinkPair;
 import edu.ucdenver.ccp.datasource.identifiers.DataSourceIdentifier;
 import edu.ucdenver.ccp.datasource.identifiers.NucleotideAccessionResolver;
+import edu.ucdenver.ccp.datasource.identifiers.ProbableErrorDataSourceIdentifier;
 import edu.ucdenver.ccp.datasource.identifiers.ProteinAccessionResolver;
+import edu.ucdenver.ccp.datasource.identifiers.UnknownDataSourceIdentifier;
 import edu.ucdenver.ccp.datasource.identifiers.ebi.uniprot.UniProtID;
 import edu.ucdenver.ccp.datasource.identifiers.ec.EnzymeCommissionID;
 import edu.ucdenver.ccp.datasource.identifiers.ensembl.EnsemblGeneID;
@@ -106,7 +108,7 @@ import edu.ucdenver.ccp.identifier.publication.PubMedID;
 public class HgncDownloadFileParser extends SingleLineFileRecordReader<HgncDownloadFileData> {
 
 	private static final Logger logger = Logger.getLogger(HgncDownloadFileParser.class);
-	private static final String HEADER = "HGNC ID\tApproved Symbol\tApproved Name\tStatus\tLocus Type\tLocus Group\tPrevious Symbols\tPrevious Names\tSynonyms\tName Synonyms\tChromosome\tDate Approved\tDate Modified\tDate Symbol Changed\tDate Name Changed\tAccession Numbers\tEnzyme IDs\tEntrez Gene ID\tEnsembl Gene ID\tMouse Genome Database ID\tSpecialist Database Links\tSpecialist Database IDs\tPubmed IDs\tRefSeq IDs\tGene Family Tag\tGene family description\tRecord Type\tPrimary IDs\tSecondary IDs\tCCDS IDs\tVEGA IDs\tLocus Specific Databases\tEntrez Gene ID (supplied by NCBI)\tOMIM ID (supplied by NCBI)\tRefSeq (supplied by NCBI)\tUniProt ID (supplied by UniProt)\tEnsembl ID (supplied by Ensembl)\tUCSC ID (supplied by UCSC)\tMouse Genome Database ID (supplied by MGI)\tRat Genome Database ID (supplied by RGD)";
+	private static final String HEADER = "HGNC ID\tApproved Symbol\tApproved Name\tStatus\tLocus Type\tLocus Group\tPrevious Symbols\tPrevious Names\tSynonyms\tName Synonyms\tChromosome\tDate Approved\tDate Modified\tDate Symbol Changed\tDate Name Changed\tAccession Numbers\tEnzyme IDs\tEntrez Gene ID\tEnsembl Gene ID\tMouse Genome Database ID\tSpecialist Database Links\tSpecialist Database IDs\tPubmed IDs\tRefSeq IDs\tGene Family Tag\tGene family description\tRecord Type\tPrimary IDs\tSecondary IDs\tCCDS IDs\tVEGA IDs\tLocus Specific Databases\tEntrez Gene ID (supplied by NCBI)\tOMIM ID (supplied by NCBI)\tRefSeq (supplied by NCBI)\tUniProt ID (supplied by UniProt)\tEnsembl ID (supplied by Ensembl)\tVega ID (supplied by Vega)\tUCSC ID (supplied by UCSC)\tMouse Genome Database ID (supplied by MGI)\tRat Genome Database ID (supplied by RGD)";
 
 	public enum WithdrawnRecordTreatment {
 		IGNORE, INCLUDE
@@ -151,7 +153,7 @@ public class HgncDownloadFileParser extends SingleLineFileRecordReader<HgncDownl
 	@Override
 	protected HgncDownloadFileData parseRecordFromLine(Line line) {
 		String[] toks = line.getText().split("\\t", -1);
-		if (toks.length == 40) {
+		if (toks.length == 41) {
 			int column = 0;
 			HgncID hgncID = new HgncID(toks[column++]);
 			HgncGeneSymbolID hgncGeneSymbol = new HgncGeneSymbolID(toks[column++]);
@@ -324,13 +326,11 @@ public class HgncDownloadFileParser extends SingleLineFileRecordReader<HgncDownl
 				suppliedEntrezGeneId = new EntrezGeneID(columnValue);
 			}
 
-			OmimID suppliedOmimId = null;
+			Set<OmimID> suppliedOmimIds = new HashSet<OmimID>();
 			columnValue = toks[column++];
 			if (!columnValue.isEmpty()) {
-				try {
-					suppliedOmimId = new OmimID(columnValue);
-				} catch (IllegalArgumentException iae) {
-					logger.warn(iae);
+				for (String tok : columnValue.split(",")) {
+					suppliedOmimIds.add(new OmimID(tok.trim()));
 				}
 			}
 
@@ -350,6 +350,12 @@ public class HgncDownloadFileParser extends SingleLineFileRecordReader<HgncDownl
 			columnValue = toks[column++];
 			if (!columnValue.isEmpty()) {
 				suppliedEnsemblId = new EnsemblGeneID(columnValue);
+			}
+
+			VegaID suppliedVegaId = null;
+			columnValue = toks[column++];
+			if (!columnValue.isEmpty()) {
+				suppliedVegaId = new VegaID(columnValue);
 			}
 
 			UcscGenomeBrowserId suppliedUcscId = null;
@@ -379,11 +385,12 @@ public class HgncDownloadFileParser extends SingleLineFileRecordReader<HgncDownl
 					dateSymbolChanged, dateNameChanged, accessionNumbers, ecNumbers, entrezGeneId, ensemblGeneID,
 					mgiIDs, specialistDatabaseLinks, pubmedIDs, refseqIDs, geneFamilyTagDescriptionPairs, recordType,
 					primaryIds, secondaryIds, ccdsIds, vegaIds, locusSpecificDatabaseNameLinkPairs,
-					suppliedEntrezGeneId, suppliedOmimId, suppliedRefseqId, suppliedUniProtId, suppliedEnsemblId,
-					suppliedUcscId, suppliedMgiIds, suppliedRgdIds, line.getByteOffset(), line.getLineNumber());
+					suppliedEntrezGeneId, suppliedOmimIds, suppliedRefseqId, suppliedUniProtId, suppliedEnsemblId,
+					suppliedVegaId, suppliedUcscId, suppliedMgiIds, suppliedRgdIds, line.getByteOffset(),
+					line.getLineNumber());
 		}
 
-		logger.error("Unexpected number of tokens (" + toks.length + "; expected 40) on line: "
+		logger.error("Unexpected number of tokens (" + toks.length + "; expected 41) on line: "
 				+ line.getText().replaceAll("\\t", " [TAB] "));
 		return null;
 
@@ -551,9 +558,7 @@ public class HgncDownloadFileParser extends SingleLineFileRecordReader<HgncDownl
 			return new SlcId(idStr);
 		}
 
-		logger.warn("Unable to resolve id from: " + link);
-		return null;
-		// throw new IllegalArgumentException("Unknown link type: " + link);
+		return new UnknownDataSourceIdentifier(idStr, null);
 	}
 
 	/**
@@ -564,14 +569,13 @@ public class HgncDownloadFileParser extends SingleLineFileRecordReader<HgncDownl
 		Set<DataSourceIdentifier<?>> accNumbers = new HashSet<DataSourceIdentifier<?>>();
 		if (!accListStr.isEmpty()) {
 			for (String acc : accListStr.split(",")) {
-				try {
-					accNumbers.add(NucleotideAccessionResolver.resolveNucleotideAccession(acc));
-				} catch (IllegalArgumentException e) {
-					try {
-						accNumbers.add(ProteinAccessionResolver.resolveProteinAccession(acc));
-					} catch (IllegalArgumentException e2) {
-						logger.warn("Cannot resolve: " + acc + " -- " + e.getMessage());
-					}
+				DataSourceIdentifier<String> nucAccId = NucleotideAccessionResolver
+						.resolveNucleotideAccession(acc, acc);
+				if (ProbableErrorDataSourceIdentifier.class.isInstance(nucAccId)) {
+					DataSourceIdentifier<String> proAccId = ProteinAccessionResolver.resolveProteinAccession(acc, acc);
+					accNumbers.add(proAccId);
+				} else {
+					accNumbers.add(nucAccId);
 				}
 			}
 		}

@@ -44,15 +44,19 @@ import java.util.List;
 import java.util.Map.Entry;
 import java.util.Set;
 
+import org.openrdf.model.Statement;
 import org.openrdf.model.Value;
 import org.openrdf.model.impl.URIImpl;
 import org.openrdf.rio.ntriples.NTriplesUtil;
 
+import edu.ucdenver.ccp.common.collections.CollectionsUtil;
 import edu.ucdenver.ccp.common.digest.DigestUtil;
 import edu.ucdenver.ccp.common.reflection.PrivateAccessor;
 import edu.ucdenver.ccp.datasource.fileparsers.RecordField;
 import edu.ucdenver.ccp.datasource.fileparsers.RecordUtil;
 import edu.ucdenver.ccp.datasource.identifiers.DataSource;
+import edu.ucdenver.ccp.datasource.identifiers.ProbableErrorDataSourceIdentifier;
+import edu.ucdenver.ccp.datasource.identifiers.UnknownDataSourceIdentifier;
 import edu.ucdenver.ccp.datasource.rdfizer.rdf.vocabulary.KIAO;
 
 /**
@@ -178,6 +182,30 @@ public class RdfRecordUriFactory {
 	 *            could be a collection, if so we return one string per value
 	 */
 	private static String getFieldValueUri(Object fieldValue) {
+		/* address unknown and probable error data source identifiers here? */
+		if (fieldValue instanceof UnknownDataSourceIdentifier) {
+			UnknownDataSourceIdentifier id = (UnknownDataSourceIdentifier) fieldValue;
+			NonNormalizedIdentifierRecord record = new NonNormalizedIdentifierRecord(id.getDataElement(), id.getDataSourceStr());
+			URIImpl recordUri = RdfRecordUriFactory.createRecordUri(record);
+			List<Statement> recordInstanceStatements = RdfRecordUtil.getRecordInstanceStatements(record, System.currentTimeMillis(),
+					recordUri, null, null, null);
+			recordInstanceStatements.remove(0);
+			/* this is used to generate sha1 hashes, so it doesn't need to be a true uri */
+			return CollectionsUtil.createDelimitedString(recordInstanceStatements, " ");
+		} else if (fieldValue instanceof ProbableErrorDataSourceIdentifier) {
+			ProbableErrorDataSourceIdentifier id = (ProbableErrorDataSourceIdentifier) fieldValue;
+			ErroneousIdentifierRecord record = new ErroneousIdentifierRecord(id.getDataElement(),
+					id.getDataSourceStr(), id.getErrorMessage());
+			URIImpl recordUri = RdfRecordUriFactory.createRecordUri(record);
+			List<Statement> recordInstanceStatements = RdfRecordUtil.getRecordInstanceStatements(record, System.currentTimeMillis(),
+					recordUri, null, null, null);
+			/*
+			 * the first statement returned is a dataset has_part record triple
+			 * which we do not need
+			 */
+			recordInstanceStatements.remove(0);
+			return CollectionsUtil.createDelimitedString(recordInstanceStatements, " ");
+		}
 		Value value = RdfUtil.getValue(fieldValue);
 		return NTriplesUtil.toNTriplesString(value);
 	}
@@ -224,7 +252,6 @@ public class RdfRecordUriFactory {
 			return null;
 		}
 
-		int fieldCount = 0;
 		Collection<Object> fieldValues = new ArrayList<Object>();
 
 		if (!(fieldValue instanceof Collection)) {

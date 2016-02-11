@@ -366,18 +366,25 @@ public class IceRdfGenerator {
 	 *            gzipped<br>
 	 *            args[4]: output record limit: can be used to produce a "light"
 	 *            set of RDF. -1 to output all records, i.e. no limit<br>
-	 * <br>
+	 *            args[5]: list of comma-delimited taxonomy identifiers (from
+	 *            NCBI Taxonomy) that will be used to limit RDF generation where
+	 *            applicable, e.g. 9606 to convert only human-related database
+	 *            records to RDF <br>
+	 *            args[6]: Clean data source files (if true, then the data
+	 *            source files will be deleted and re-downloaded)
+	 * 
 	 *            The remaining input arguments depend on args[0]:<br>
 	 *            if NAME:<br>
-	 *            args[5]: name of the FileDataSource to process <br>
-	 *            args[6]: [OPTIONAL] date to use in the form yyyy-mm-dd. If not
+	 *            args[7]: comma-delimited list of FileDataSource names to
+	 *            process <br>
+	 *            args[8]: [OPTIONAL] date to use in the form yyyy-mm-dd. If not
 	 *            included or if "null" then the current date will be used<br>
 	 * <br>
 	 *            if INDEX: <br>
-	 *            args[5]: start stage args<br>
-	 *            [6]: the number of stages to process<br>
-	 *            args[7]: the Split type: either BY_STAGES or NONE<br>
-	 *            if BY_STAGES, then the index in args[5] corresponds to a
+	 *            args[7]: start stage args<br>
+	 *            args[8]: the number of stages to process<br>
+	 *            args[9]: the Split type: either BY_STAGES or NONE<br>
+	 *            if BY_STAGES, then the index in args[7] corresponds to a
 	 *            particular stage of a FileDataSource. Many of the
 	 *            FileDataSources are processed in a single stage, however some
 	 *            of the larger files are split into multiple stages to speed up
@@ -387,7 +394,7 @@ public class IceRdfGenerator {
 	 *            stage. This will result in longer execution times for the
 	 *            larger files, however duplicate triple removal can be done
 	 *            concurrently.<br>
-	 *            args[8]: [OPTIONAL] date to use in the form yyyy-mm-dd. If not
+	 *            args[10]: [OPTIONAL] date to use in the form yyyy-mm-dd. If not
 	 *            included or if "null" then the current date will be used
 	 * 
 	 */
@@ -405,7 +412,6 @@ public class IceRdfGenerator {
 
 		File baseSourceFileDirectory = new File(args[index++]);
 		File baseRdfOutputDirectory = new File(args[index++]);
-		boolean cleanSourceFiles = false;// Boolean.valueOf(args[index++]);
 		boolean compress = Boolean.valueOf(args[index++]);
 		int outputRecordLimit = Integer.valueOf(args[index++]);
 		String taxonIdsStr = args[index++];
@@ -418,6 +424,7 @@ public class IceRdfGenerator {
 				taxonIds.add(new NcbiTaxonomyID(id));
 			}
 		}
+		boolean cleanSourceFiles = Boolean.valueOf(args[index++]);
 
 		try {
 
@@ -436,10 +443,13 @@ public class IceRdfGenerator {
 				break;
 
 			case NAME:
-				FileDataSource source = FileDataSource.valueOf(args[index++].toUpperCase());
-				time = getTime(args, index);
-				generateIceRdf(source, time, baseSourceFileDirectory, baseRdfOutputDirectory, cleanSourceFiles,
-						compress, outputRecordLimit, taxonIds);
+				String datasourceStr = args[index++].toUpperCase();
+				for (String ds : datasourceStr.split(",")) {
+					FileDataSource source = FileDataSource.valueOf(ds);
+					time = getTime(args, index);
+					generateIceRdf(source, time, baseSourceFileDirectory, baseRdfOutputDirectory, cleanSourceFiles,
+							compress, outputRecordLimit, taxonIds);
+				}
 				break;
 			default:
 				throw new IllegalArgumentException("Unhandled RunBy option: " + runBy.name());

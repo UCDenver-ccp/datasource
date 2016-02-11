@@ -54,12 +54,12 @@ public class ProteinAccessionResolverTest {
 
 	@Test
 	public void testProteinAccessionResolution() {
-		assertEquals(new GenBankID("AAI00916"), ProteinAccessionResolver.resolveProteinAccession("AAI00916"));
-		assertEquals(new GenBankID("AAI00916.2"), ProteinAccessionResolver.resolveProteinAccession("AAI00916.2"));
-		assertEquals(new EmblID("CAI00916"), ProteinAccessionResolver.resolveProteinAccession("CAI00916"));
-		assertEquals(new DdbjId("GAI00916"), ProteinAccessionResolver.resolveProteinAccession("GAI00916"));
-		assertEquals(new RefSeqID("NP_795370"), ProteinAccessionResolver.resolveProteinAccession("NP_795370"));
-		assertEquals(new UniProtID("P59543"), ProteinAccessionResolver.resolveProteinAccession("P59543"));
+		assertEquals(new GenBankID("AAI00916"), ProteinAccessionResolver.resolveProteinAccession("AAI00916", null));
+		assertEquals(new GenBankID("AAI00916.2"), ProteinAccessionResolver.resolveProteinAccession("AAI00916.2", null));
+		assertEquals(new EmblID("CAI00916"), ProteinAccessionResolver.resolveProteinAccession("CAI00916", null));
+		assertEquals(new DdbjId("GAI00916"), ProteinAccessionResolver.resolveProteinAccession("GAI00916", null));
+		assertEquals(new RefSeqID("NP_795370"), ProteinAccessionResolver.resolveProteinAccession("NP_795370", null));
+		assertEquals(new UniProtID("P59543"), ProteinAccessionResolver.resolveProteinAccession("P59543", null));
 	}
 
 }

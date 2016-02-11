@@ -88,7 +88,7 @@ public class PharmGkbGeneFileParserTest extends RecordReaderTester {
 		RecordReader<PharmGkbGeneFileRecord> reader = initSampleRecordReader();
 		PharmGkbGeneFileRecord r = reader.next();
 		assertEquals("PA100", r.getAccessionId().getDataElement());
-		assertEquals(995, r.getEntrezGeneId().getDataElement().intValue());
+		assertEquals(995, r.getEntrezGeneIds().iterator().next().getDataElement().intValue());
 		assertEquals("ENSG00000158402", r.getEnsemblGeneId().getDataElement());
 		assertEquals("cell division cycle 25 homolog C (S. pombe)", r.getName());
 		assertEquals("CDC25C", r.getSymbol());
@@ -159,7 +159,7 @@ public class PharmGkbGeneFileParserTest extends RecordReaderTester {
 
 		r = reader.next();
 		assertEquals("PA101", r.getAccessionId().getDataElement());
-		assertEquals(1017, r.getEntrezGeneId().getDataElement().intValue());
+		assertEquals(1017, r.getEntrezGeneIds().iterator().next().getDataElement().intValue());
 
 		assertFalse(reader.hasNext());
 	}

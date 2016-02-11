@@ -52,7 +52,7 @@ import edu.ucdenver.ccp.datasource.fileparsers.download.FtpHost;
  */
 public class EntrezGeneMim2GeneFileParser extends SingleLineFileRecordReader<EntrezGeneMim2GeneFileData> {
 
-	private static final String HEADER = "#MIM number\tGeneID\ttype\tSource\tMedGenCUI";
+	private static final String HEADER = "#MIM number\tGeneID\ttype\tSource\tMedGenCUI\tComment";
 	public static final String FTP_FILE_NAME = "mim2gene_medgen";
 	public static final CharacterEncoding ENCODING = CharacterEncoding.US_ASCII;
 

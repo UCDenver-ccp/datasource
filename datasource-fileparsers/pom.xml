@@ -3,7 +3,7 @@
 	<parent>
 		<artifactId>datasource</artifactId>
 		<groupId>edu.ucdenver.ccp</groupId>
-		<version>0.6</version>
+		<version>0.6.1</version>
 	</parent>
 	<artifactId>datasource-fileparsers</artifactId>
 

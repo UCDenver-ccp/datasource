@@ -33,14 +33,22 @@ package edu.ucdenver.ccp.datasource.fileparsers.pro;
  * #L%
  */
 
-import java.io.IOException;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.fail;
 
-import org.junit.Ignore;
+import java.io.IOException;
+import java.util.NoSuchElementException;
+
 import org.junit.Test;
 
 import edu.ucdenver.ccp.common.file.CharacterEncoding;
-import edu.ucdenver.ccp.datasource.fileparsers.RecordReader;
 import edu.ucdenver.ccp.datasource.fileparsers.test.RecordReaderTester;
+import edu.ucdenver.ccp.datasource.identifiers.DataSourceIdentifier;
+import edu.ucdenver.ccp.datasource.identifiers.UnknownDataSourceIdentifier;
+import edu.ucdenver.ccp.datasource.identifiers.ebi.uniprot.UniProtID;
+import edu.ucdenver.ccp.datasource.identifiers.hgnc.HgncID;
+import edu.ucdenver.ccp.datasource.identifiers.obo.ProteinOntologyId;
 
 /**
  * 
@@ -57,16 +65,60 @@ public class ProMappingFileParserTest extends RecordReaderTester {
 	}
 
 	@Override
-	protected RecordReader<?> initSampleRecordReader() throws IOException {
+	protected ProMappingFileParser initSampleRecordReader() throws IOException {
 		return new ProMappingFileParser(sampleInputFile, CharacterEncoding.US_ASCII);
 	}
 
-	@Ignore("Test not yet implemented.. ")
 	@Test
-	public void testParser() {
-		
+	public void testParser() throws IOException {
+		ProMappingFileParser parser = initSampleRecordReader();
+
+		if (parser.hasNext()) {
+			validateRecord1(parser.next());
+		} else {
+			fail("Parser should have returned a record here.");
+		}
+
+		if (parser.hasNext()) {
+			validateRecord2(parser.next());
+		} else {
+			fail("Parser should have returned a record here.");
+		}
+
+		if (parser.hasNext()) {
+			validateRecord3(parser.next());
+		} else {
+			fail("Parser should have returned a record here.");
+		}
+		assertFalse(parser.hasNext());
+
+		try {
+			parser.next();
+			fail("Should have thrown a NoSuchElementException.");
+		} catch (NoSuchElementException nsee) {
+			// do nothing, exception expected
+		}
 
 	}
 
-	
+	private void validateRecord(ProMappingRecord record, ProteinOntologyId expectedPrId, String expectedMappingType,
+			DataSourceIdentifier<?> expectedTargetId) {
+		assertEquals(expectedPrId, record.getProteinOntologyId());
+		assertEquals(expectedMappingType, record.getMappingType());
+		assertEquals(expectedTargetId, record.getTargetRecordId());
+	}
+
+	private void validateRecord1(ProMappingRecord record) {
+		validateRecord(record, new ProteinOntologyId("PR:000000005"), "is_a", new HgncID("HGNC:11773"));
+	}
+
+	private void validateRecord2(ProMappingRecord record) {
+		validateRecord(record, new ProteinOntologyId("PR:000000005"), "is_a", new UnknownDataSourceIdentifier(
+				"UniProtKB_VAR:VAR_022359", null));
+	}
+
+	private void validateRecord3(ProMappingRecord record) {
+		validateRecord(record, new ProteinOntologyId("PR:000000006"), "exact", new UniProtID("P37173"));
+	}
+
 }

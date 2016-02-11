@@ -49,7 +49,7 @@ import edu.ucdenver.ccp.datasource.fileparsers.format.gaf2.Gaf2FileRecordReader;
  */
 public class RgdRatGeneRdoAnnotationFileRecordReader extends Gaf2FileRecordReader<RgdAnnotationGaf2FileRecord> {
 
-	@FtpDownload(server = "rgd.mcw.edu", path = "pub/data_release/annotated_rgd_objects_by_ontology/", filename = "rattus_genes_rdo", filetype = FileType.ASCII)
+	@FtpDownload(server = "ftp.rgd.mcw.edu", path = "pub/data_release/annotated_rgd_objects_by_ontology/", filename = "rattus_genes_rdo", filetype = FileType.ASCII)
 	private File annotationFile;
 
 	/**

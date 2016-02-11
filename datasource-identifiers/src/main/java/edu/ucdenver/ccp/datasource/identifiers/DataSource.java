@@ -341,6 +341,7 @@ public enum DataSource {
 	PROTONET("http://www.protonet.cs.huji.ac.il/"),
 	REBASE("http://rebase.neb.com/"),
 	REPRODUCTION_2DPAGE("http://reprod.njmu.edu.cn/"),
+	RNACENTRAL("http://rnacentral.org/rna/"),
 	ROUGE("http://www.kazusa.or.jp/rouge/"),
 	SABIO_RK("http://sabiork.h-its.org/"),
 	SBKB("http://sbkb.org/"),
@@ -372,7 +373,19 @@ public enum DataSource {
 	KIAODIP("http://kabob.ucdenver.edu/iao/dip/"),
 	KIAOIREFWEB("http://kabob.ucdenver.edu/iao/irefweb/"),
 	KIAOEMBL("http://kabob.ucdenver.edu/iao/embl/"),
-	KRO("http://kabob.ucdenver.edu/ro/");
+	KRO("http://kabob.ucdenver.edu/ro/"),
+	
+	/**
+	 * to be used for data source identifiers whose source is unknown or not yet modeled.
+	 */
+	UNKNOWN(null),
+	/**
+	 * to be used for data source identifiers that are thought to be incorrect, e.g. 
+	 * a UniProt ID that doesn't match the expected regular expression or an NCBI Gene 
+	 * ID that is not an integer.
+	 */
+	PROBABLE_ERROR(null);
+		
 	public final String longName;
 
 	DataSource(String longName) {

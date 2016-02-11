@@ -1,10 +1,11 @@
-package edu.ucdenver.ccp.datasource.rdfizer.rdf.vocabulary;
+package edu.ucdenver.ccp.datasource.rdfizer.rdf.ice;
 
 /*
  * #%L
- * Colorado Computational Pharmacology's common module
+ * Colorado Computational Pharmacology's datasource
+ * 							project
  * %%
- * Copyright (C) 2012 - 2015 Regents of the University of Colorado
+ * Copyright (C) 2012 - 2016 Regents of the University of Colorado
  * %%
  * Redistribution and use in source and binary forms, with or without modification,
  * are permitted provided that the following conditions are met:
@@ -33,31 +34,39 @@ package edu.ucdenver.ccp.datasource.rdfizer.rdf.vocabulary;
  * #L%
  */
 
-import org.openrdf.model.URI;
-import org.openrdf.model.impl.URIImpl;
-
+import edu.ucdenver.ccp.datasource.fileparsers.Record;
+import edu.ucdenver.ccp.datasource.fileparsers.RecordField;
 import edu.ucdenver.ccp.datasource.identifiers.DataSource;
-import edu.ucdenver.ccp.datasource.rdfizer.rdf.ice.RdfUtil;
 
-/**
- * @author Center for Computational Pharmacology, UC Denver; ccpsupport@ucdenver.edu
- * 
- */
-public enum RO {
+@Record(dataSource = DataSource.KABOB)
+public class ErroneousIdentifierRecord {
 
-	LOCATED_IN("RO_0001025"),
-	PART_OF("BFO_0000050"),
-	HAS_PART("BFO_0000051"),
-	HAS_PARTICIPANT("RO_0000057");
+	@RecordField
+	private final String identifier;
 
-	private final String termName;
+	@RecordField
+	private final String datasource;
 
-	private RO(String termName) {
-		this.termName = termName;
+	@RecordField
+	private final String comment;
+
+	public ErroneousIdentifierRecord(String identifier, String datasource, String comment) {
+		super();
+		this.identifier = identifier;
+		this.datasource = datasource;
+		this.comment = comment;
 	}
 
-	public URI uri() {
-		return new URIImpl(RdfUtil.createUri(DataSource.RO, termName).toString());
+	public String getIdentifier() {
+		return identifier;
+	}
+
+	public String getDatasource() {
+		return datasource;
+	}
+
+	public String getComment() {
+		return comment;
 	}
 
 }

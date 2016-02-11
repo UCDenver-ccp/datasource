@@ -1,10 +1,11 @@
-package edu.ucdenver.ccp.datasource.rdfizer.rdf.vocabulary;
+package edu.ucdenver.ccp.datasource.rdfizer.rdf.ice;
 
 /*
  * #%L
- * Colorado Computational Pharmacology's common module
+ * Colorado Computational Pharmacology's datasource
+ * 							project
  * %%
- * Copyright (C) 2012 - 2015 Regents of the University of Colorado
+ * Copyright (C) 2012 - 2016 Regents of the University of Colorado
  * %%
  * Redistribution and use in source and binary forms, with or without modification,
  * are permitted provided that the following conditions are met:
@@ -33,31 +34,16 @@ package edu.ucdenver.ccp.datasource.rdfizer.rdf.vocabulary;
  * #L%
  */
 
-import org.openrdf.model.URI;
-import org.openrdf.model.impl.URIImpl;
+public class FileDataSourceParams {
 
-import edu.ucdenver.ccp.datasource.identifiers.DataSource;
-import edu.ucdenver.ccp.datasource.rdfizer.rdf.ice.RdfUtil;
-
-/**
- * @author Center for Computational Pharmacology, UC Denver; ccpsupport@ucdenver.edu
- * 
- */
-public enum RO {
-
-	LOCATED_IN("RO_0001025"),
-	PART_OF("BFO_0000050"),
-	HAS_PART("BFO_0000051"),
-	HAS_PARTICIPANT("RO_0000057");
-
-	private final String termName;
-
-	private RO(String termName) {
-		this.termName = termName;
+	public static enum RequiresManualDownload {
+		YES,
+		NO
 	}
-
-	public URI uri() {
-		return new URIImpl(RdfUtil.createUri(DataSource.RO, termName).toString());
+	
+	public static enum IsTaxonAware {
+		YES,
+		NO
 	}
-
+	
 }
