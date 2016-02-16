@@ -8,7 +8,7 @@ if ! [[ -e README.md ]]; then
     exit 1
 fi
 
-TMPFILE=$(mktemp -t mvn)
+TMPFILE=$(mktemp -t mvn_output.XXXX)
 
 mvn -f datasource-rdfizer/scripts/pom-rdf-list-datasource-names.xml exec:exec \
     | tee $TMPFILE \
