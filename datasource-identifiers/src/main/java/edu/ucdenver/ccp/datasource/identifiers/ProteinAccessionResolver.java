@@ -127,6 +127,12 @@ public class ProteinAccessionResolver {
 			if (prefix.startsWith("N")) {
 				return new GenBankID(acc);
 			}
+			if (prefix.startsWith("O")) {
+				return new GenBankID(acc);
+			}
+			if (prefix.startsWith("P")) {
+				return new GenBankID(acc);
+			}
 		}
 //		logger.warn("Input is not a known protein accession pattern: " + acc);
 		if (idWithPrefix == null) {

@@ -128,7 +128,8 @@ public class NucleotideAccessionResolver {
 			if (prefix.length() == 4
 					&& (prefix.startsWith("A") || prefix.startsWith("D") || prefix.startsWith("G")
 							|| prefix.startsWith("J") || prefix.startsWith("L") || prefix.startsWith("M")
-							|| prefix.startsWith("N") || prefix.startsWith("K"))) {
+							|| prefix.startsWith("N") || prefix.startsWith("K") || prefix.startsWith("P")
+							|| prefix.startsWith("Q") || prefix.startsWith("R"))) {
 				return new GenBankID(acc);
 			}
 			if (prefix.length() == 4
