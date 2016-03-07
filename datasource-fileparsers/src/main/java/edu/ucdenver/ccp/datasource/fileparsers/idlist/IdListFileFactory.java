@@ -135,6 +135,13 @@ public class IdListFileFactory {
 					createUniProtIdListFile(taxonIds, cleanSourceFiles, sourceFileDirectory, writer);
 					break;
 				case INTACT:
+					/*
+					 * The IntAct Ids are being mined from the IREFWEB resource,
+					 * so to prevent duplicate download of the IRefWeb resource
+					 * we use the IRefWeb DataSource to create the
+					 * sourceFileDirectory
+					 */
+					sourceFileDirectory = new File(baseSourceFileDirectory, DataSource.IREFWEB.name().toLowerCase());
 					createIntActIdListFile(taxonIds, cleanSourceFiles, sourceFileDirectory, writer);
 					break;
 				default:
