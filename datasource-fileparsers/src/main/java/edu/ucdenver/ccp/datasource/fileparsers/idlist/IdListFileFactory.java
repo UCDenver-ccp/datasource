@@ -52,6 +52,7 @@ import edu.ucdenver.ccp.common.collections.CollectionsUtil;
 import edu.ucdenver.ccp.common.digest.DigestUtil;
 import edu.ucdenver.ccp.common.file.CharacterEncoding;
 import edu.ucdenver.ccp.common.file.FileReaderUtil;
+import edu.ucdenver.ccp.common.file.FileUtil;
 import edu.ucdenver.ccp.common.file.FileWriterUtil;
 import edu.ucdenver.ccp.common.reflection.ConstructorUtil;
 import edu.ucdenver.ccp.datasource.fileparsers.ebi.uniprot.SparseTremblDatFileRecordReader;
@@ -118,109 +119,22 @@ public class IdListFileFactory {
 		}
 		File sourceFileDirectory = new File(baseSourceFileDirectory, ds.name().toLowerCase());
 		File outputFile = getIdListFile(outputDirectory, ds, taxonIds);
+		File semaphoreFile = new File(outputFile.getAbsolutePath() + ".ready");
 		/* Only create it if it doesn't exist or if cleanSourceFiles == true */
 		if (cleanSourceFiles || !outputFile.exists()) {
 			logger.info("Creating ID list file: " + outputFile);
+			FileUtil.deleteFile(semaphoreFile);
 			BufferedWriter writer = FileWriterUtil.initBufferedWriter(outputFile);
 			try {
 				switch (ds) {
 				case EG:
-					EntrezGeneInfoFileParser eg_rr = new EntrezGeneInfoFileParser(sourceFileDirectory,
-							cleanSourceFiles, taxonIds);
-					int count = 0;
-					while (eg_rr.hasNext()) {
-						if (count++ % 100000 == 0) {
-							logger.info("(EG) Id list generation progress: " + (count - 1));
-						}
-						EntrezGeneInfoFileData record = eg_rr.next();
-						writer.write(record.getGeneID().getDataElement() + "\n");
-					}
+					createEntrezGeneIdListFile(taxonIds, cleanSourceFiles, sourceFileDirectory, writer);
 					break;
 				case UNIPROT:
-					SwissProtXmlFileRecordReader sp_rr = new SwissProtXmlFileRecordReader(sourceFileDirectory,
-							cleanSourceFiles, taxonIds);
-					count = 0;
-					while (sp_rr.hasNext()) {
-						if (count++ % 100000 == 0) {
-							logger.info("(UNIPROT SP) Id list generation progress: " + (count - 1));
-						}
-						UniProtFileRecord record = sp_rr.next();
-						Set<UniProtID> accessions = new HashSet<UniProtID>(record.getAccession());
-						accessions.add(record.getPrimaryAccession()); // adding
-																		// just
-																		// to
-																		// make
-																		// sure
-																		// it's
-																		// in
-																		// there
-						for (UniProtID id : accessions) {
-							writer.write(id.getDataElement() + "\n");
-						}
-					}
-
-					SparseTremblDatFileRecordReader trembl_rr = new SparseTremblDatFileRecordReader(
-							sourceFileDirectory, CharacterEncoding.UTF_8, cleanSourceFiles, taxonIds);
-					count = 0;
-					while (trembl_rr.hasNext()) {
-						if (count++ % 100000 == 0) {
-							logger.info("(UNIPROT TREMBL) Id list generation progress: " + (count - 1));
-						}
-						SparseUniProtFileRecord record = trembl_rr.next();
-						Set<UniProtID> accessions = new HashSet<UniProtID>(record.getAccession());
-						accessions.add(record.getPrimaryAccession()); // adding
-																		// just
-																		// to
-																		// make
-																		// sure
-																		// it's
-																		// in
-																		// there
-						for (UniProtID id : accessions) {
-							writer.write(id.getDataElement() + "\n");
-						}
-					}
-
+					createUniProtIdListFile(taxonIds, cleanSourceFiles, sourceFileDirectory, writer);
 					break;
 				case IREFWEB:
-					/*
-					 * The switch here uses IREFWEB however we are really just
-					 * cataloging IntAct IDs b/c they are used by GOA. IREFEW
-					 * web needs to be used so that the sourceFileDirectory is
-					 * correctely populated.
-					 */
-					IRefWebPsiMitab2_6FileParser irefweb_rr = new IRefWebPsiMitab2_6FileParser(sourceFileDirectory,
-							cleanSourceFiles, taxonIds);
-					count = 0;
-					Set<String> alreadyWritten = new HashSet<String>();
-					while (irefweb_rr.hasNext()) {
-						if (count++ % 100000 == 0) {
-							logger.info("(INTACT via IREFWEB) Id list generation progress: " + (count - 1));
-						}
-						IRefWebPsiMitab2_6FileData record = irefweb_rr.next();
-						NcbiTaxonomyID ncbiTaxonomyIdA = null;
-						NcbiTaxonomyID ncbiTaxonomyIdB = null;
-						if (record.getInteractorA() != null && record.getInteractorA().getNcbiTaxonomyId() != null) {
-							ncbiTaxonomyIdA = record.getInteractorA().getNcbiTaxonomyId().getTaxonomyId();
-						}
-						if (record.getInteractorB() != null && record.getInteractorB().getNcbiTaxonomyId() != null) {
-							ncbiTaxonomyIdB = record.getInteractorB().getNcbiTaxonomyId().getTaxonomyId();
-						}
-						// if the interactors have the same taxon id we then
-						// look for an intact identifier in the sourcedb field
-						// we assign the common taxon ID to the IntAct id in the
-						// sourcedb field
-						if (ncbiTaxonomyIdA != null && ncbiTaxonomyIdB != null
-								&& ncbiTaxonomyIdA.equals(ncbiTaxonomyIdB)) {
-							IntActID intactId = getIntActID(record.getInteraction().getInteractionDbIds());
-							if (intactId != null) {
-								if (!alreadyWritten.contains(intactId.getDataElement())) {
-									writer.write(intactId.getDataElement() + "\n");
-									alreadyWritten.add(intactId.getDataElement());
-								}
-							}
-						}
-					}
+					createIntActIdListFile(taxonIds, cleanSourceFiles, sourceFileDirectory, writer);
 					break;
 				default:
 					throw new IllegalArgumentException("The IdListFileFactory does not yet handle the identifiers for "
@@ -228,11 +142,124 @@ public class IdListFileFactory {
 				}
 			} finally {
 				writer.close();
+				/*
+				 * signal that the id-list file generation is complete by
+				 * writing the semaphore file
+				 */
+				semaphoreFile.createNewFile();
 			}
 		} else {
+			/*
+			 * The ID list file exists, so it is either complete or being built.
+			 * We check to see if the semaphore file exists and wait for it if
+			 * it does not.
+			 */
+			while (!semaphoreFile.exists()) {
+				logger.info("ID list generation appears to already be in progress for data source: " + ds.name()
+						+ ". This program will check every 2 minutes for the existence of the following file: "
+						+ semaphoreFile.getAbsolutePath() + ". Once that file appears, then the program will continue.");
+				try {
+					Thread.sleep(120000);
+				} catch (InterruptedException e) {
+					logger.error("Interruption while waiting for ID list semaphore file to appear.", e);
+					System.exit(-1);
+				}
+			}
 			logger.info("ID List file already exists: " + outputFile);
 		}
 		return outputFile;
+	}
+
+	private static void createIntActIdListFile(Set<NcbiTaxonomyID> taxonIds, boolean cleanSourceFiles,
+			File sourceFileDirectory, BufferedWriter writer) throws IOException {
+		/*
+		 * The switch here uses IREFWEB however we are really just cataloging
+		 * IntAct IDs b/c they are used by GOA. IREFEB web needs to be used so
+		 * that the sourceFileDirectory is correctly populated.
+		 */
+		IRefWebPsiMitab2_6FileParser irefweb_rr = new IRefWebPsiMitab2_6FileParser(sourceFileDirectory,
+				cleanSourceFiles, taxonIds);
+		int count = 0;
+		Set<String> alreadyWritten = new HashSet<String>();
+		while (irefweb_rr.hasNext()) {
+			if (count++ % 100000 == 0) {
+				logger.info("(INTACT via IREFWEB) Id list generation progress: " + (count - 1));
+			}
+			IRefWebPsiMitab2_6FileData record = irefweb_rr.next();
+			NcbiTaxonomyID ncbiTaxonomyIdA = null;
+			NcbiTaxonomyID ncbiTaxonomyIdB = null;
+			if (record.getInteractorA() != null && record.getInteractorA().getNcbiTaxonomyId() != null) {
+				ncbiTaxonomyIdA = record.getInteractorA().getNcbiTaxonomyId().getTaxonomyId();
+			}
+			if (record.getInteractorB() != null && record.getInteractorB().getNcbiTaxonomyId() != null) {
+				ncbiTaxonomyIdB = record.getInteractorB().getNcbiTaxonomyId().getTaxonomyId();
+			}
+			// if the interactors have the same taxon id we then
+			// look for an intact identifier in the sourcedb field
+			// we assign the common taxon ID to the IntAct id in the
+			// sourcedb field
+			if (ncbiTaxonomyIdA != null && ncbiTaxonomyIdB != null && ncbiTaxonomyIdA.equals(ncbiTaxonomyIdB)) {
+				IntActID intactId = getIntActID(record.getInteraction().getInteractionDbIds());
+				if (intactId != null) {
+					if (!alreadyWritten.contains(intactId.getDataElement())) {
+						writer.write(intactId.getDataElement() + "\n");
+						alreadyWritten.add(intactId.getDataElement());
+					}
+				}
+			}
+		}
+	}
+
+	private static void createUniProtIdListFile(Set<NcbiTaxonomyID> taxonIds, boolean cleanSourceFiles,
+			File sourceFileDirectory, BufferedWriter writer) throws IOException {
+		SwissProtXmlFileRecordReader sp_rr = new SwissProtXmlFileRecordReader(sourceFileDirectory, cleanSourceFiles,
+				taxonIds);
+		int count = 0;
+		while (sp_rr.hasNext()) {
+			if (count++ % 100000 == 0) {
+				logger.info("(UNIPROT SP) Id list generation progress: " + (count - 1));
+			}
+			UniProtFileRecord record = sp_rr.next();
+			Set<UniProtID> accessions = new HashSet<UniProtID>(record.getAccession());
+			/*
+			 * adding just to make sure it's in there
+			 */
+			accessions.add(record.getPrimaryAccession());
+			for (UniProtID id : accessions) {
+				writer.write(id.getDataElement() + "\n");
+			}
+		}
+
+		SparseTremblDatFileRecordReader trembl_rr = new SparseTremblDatFileRecordReader(sourceFileDirectory,
+				CharacterEncoding.UTF_8, cleanSourceFiles, taxonIds);
+		count = 0;
+		while (trembl_rr.hasNext()) {
+			if (count++ % 100000 == 0) {
+				logger.info("(UNIPROT TREMBL) Id list generation progress: " + (count - 1));
+			}
+			SparseUniProtFileRecord record = trembl_rr.next();
+			Set<UniProtID> accessions = new HashSet<UniProtID>(record.getAccession());
+			/*
+			 * adding just to make sure it's in there
+			 */
+			accessions.add(record.getPrimaryAccession());
+			for (UniProtID id : accessions) {
+				writer.write(id.getDataElement() + "\n");
+			}
+		}
+	}
+
+	private static void createEntrezGeneIdListFile(Set<NcbiTaxonomyID> taxonIds, boolean cleanSourceFiles,
+			File sourceFileDirectory, BufferedWriter writer) throws IOException {
+		EntrezGeneInfoFileParser eg_rr = new EntrezGeneInfoFileParser(sourceFileDirectory, cleanSourceFiles, taxonIds);
+		int count = 0;
+		while (eg_rr.hasNext()) {
+			if (count++ % 100000 == 0) {
+				logger.info("(EG) Id list generation progress: " + (count - 1));
+			}
+			EntrezGeneInfoFileData record = eg_rr.next();
+			writer.write(record.getGeneID().getDataElement() + "\n");
+		}
 	}
 
 	private static IntActID getIntActID(Set<DataSourceIdentifier<?>> interactionDbIds) {
@@ -243,20 +270,5 @@ public class IdListFileFactory {
 		}
 		return null;
 	}
-
-	// public static void main(String[] args) {
-	// BasicConfigurator.configure();
-	// try {
-	// // createIdListFile(DataSource.EG, CollectionsUtil.createSet(new
-	// NcbiTaxonomyID(9606)), new File("/tmp/src"), false, new
-	// File("/tmp/out"));
-	// createIdListFile(DataSource.UNIPROT, CollectionsUtil.createSet(new
-	// NcbiTaxonomyID(9606)), new File("/tmp/src"), false, new
-	// File("/tmp/out"));
-	// } catch (IOException e) {
-	// // TODO Auto-generated catch block
-	// e.printStackTrace();
-	// }
-	// }
 
 }
