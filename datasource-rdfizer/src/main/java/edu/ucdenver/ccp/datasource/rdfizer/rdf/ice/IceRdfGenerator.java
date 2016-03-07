@@ -103,9 +103,10 @@ public class IceRdfGenerator {
 				File rdfOutputDirectory = getOutputDirectory(baseRdfOutputDirectory, rdfSource);
 
 				File idListFileDirectory = null;
-				if (rdfSource.isTaxonAware() && taxonIds != null && taxonIds.size() > 0) {
-					idListFileDirectory = generateIdListFiles(baseSourceFileDirectory, baseRdfOutputDirectory,
-							cleanSourceFiles, taxonIds);
+				if (rdfSource.isTaxonAware() && taxonIds != null && taxonIds.size() > 0
+						&& rdfSource.requiresExternalIdToTaxonMappings()) {
+					idListFileDirectory = IdListFileFactory.generateIdListFiles(baseSourceFileDirectory,
+							baseRdfOutputDirectory, cleanSourceFiles, taxonIds);
 				}
 				FileRecordReader<?> rr = rdfSource.initFileRecordReader(sourceFileDirectory, cleanSourceFiles,
 						idListFileDirectory, taxonIds);
@@ -129,9 +130,10 @@ public class IceRdfGenerator {
 					logger.info("SOURCE DIR: " + sourceFileDirectory.getAbsolutePath());
 					logger.info("RDF OUT DIR: " + rdfOutputDirectory.getAbsolutePath());
 					File idListFileDirectory = null;
-					if (rdfSource.isTaxonAware() && taxonIds != null && taxonIds.size() > 0) {
-						idListFileDirectory = generateIdListFiles(baseSourceFileDirectory, baseRdfOutputDirectory,
-								cleanSourceFiles, taxonIds);
+					if (rdfSource.isTaxonAware() && taxonIds != null && taxonIds.size() > 0
+							&& rdfSource.requiresExternalIdToTaxonMappings()) {
+						idListFileDirectory = IdListFileFactory.generateIdListFiles(baseSourceFileDirectory,
+								baseRdfOutputDirectory, cleanSourceFiles, taxonIds);
 					}
 					FileRecordReader<?> rr = rdfSource.initFileRecordReader(sourceFileDirectory, cleanSourceFiles,
 							idListFileDirectory, taxonIds);
@@ -145,36 +147,6 @@ public class IceRdfGenerator {
 				globalStageIndex++;
 			}
 		}
-	}
-
-	/**
-	 * @param baseSourceFileDirectory
-	 * @param baseRdfOutputDirectory
-	 * @param cleanSourceFiles
-	 * @param taxonIds
-	 * @return
-	 * @throws IOException
-	 */
-	private static File generateIdListFiles(File baseSourceFileDirectory, File baseRdfOutputDirectory,
-			boolean cleanSourceFiles, Set<NcbiTaxonomyID> taxonIds) throws IOException {
-		File outputDir = new File(baseRdfOutputDirectory, "id-lists");
-		if (cleanSourceFiles) {
-			FileUtil.cleanDirectory(outputDir);
-		} else {
-			if (!outputDir.exists()) {
-				System.out.println("dir exists:" + outputDir.exists());
-				FileUtil.mkdir(outputDir);
-			}
-		}
-
-		IdListFileFactory.createIdListFile(DataSource.EG, taxonIds, baseSourceFileDirectory, cleanSourceFiles,
-				outputDir);
-		IdListFileFactory.createIdListFile(DataSource.UNIPROT, taxonIds, baseSourceFileDirectory, cleanSourceFiles,
-				outputDir);
-		IdListFileFactory.createIdListFile(DataSource.IREFWEB, taxonIds, baseSourceFileDirectory, cleanSourceFiles,
-				outputDir);
-
-		return outputDir;
 	}
 
 	/**
@@ -195,9 +167,10 @@ public class IceRdfGenerator {
 		File sourceFileDirectory = getSourceFileDirectory(baseSourceFileDirectory, fileDataSource.dataSource());
 		File rdfOutputDirectory = getOutputDirectory(baseRdfOutputDirectory, fileDataSource);
 		File idListFileDirectory = null;
-		if (fileDataSource.isTaxonAware() && taxonIds != null && taxonIds.size() > 0) {
-			idListFileDirectory = generateIdListFiles(baseSourceFileDirectory, baseRdfOutputDirectory,
-					cleanSourceFiles, taxonIds);
+		if (fileDataSource.isTaxonAware() && taxonIds != null && taxonIds.size() > 0
+				&& fileDataSource.requiresExternalIdToTaxonMappings()) {
+			idListFileDirectory = IdListFileFactory.generateIdListFiles(baseSourceFileDirectory,
+					baseRdfOutputDirectory, cleanSourceFiles, taxonIds);
 		}
 		FileRecordReader<?> rr = fileDataSource.initFileRecordReader(sourceFileDirectory, cleanSourceFiles,
 				idListFileDirectory, taxonIds);
@@ -394,8 +367,8 @@ public class IceRdfGenerator {
 	 *            stage. This will result in longer execution times for the
 	 *            larger files, however duplicate triple removal can be done
 	 *            concurrently.<br>
-	 *            args[10]: [OPTIONAL] date to use in the form yyyy-mm-dd. If not
-	 *            included or if "null" then the current date will be used
+	 *            args[10]: [OPTIONAL] date to use in the form yyyy-mm-dd. If
+	 *            not included or if "null" then the current date will be used
 	 * 
 	 */
 	public static void main(String[] args) {

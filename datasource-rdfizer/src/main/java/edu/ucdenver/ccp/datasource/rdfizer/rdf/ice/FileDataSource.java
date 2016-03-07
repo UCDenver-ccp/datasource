@@ -350,7 +350,8 @@ public enum FileDataSource {
 	/**
 	 *
 	 */
-	REACTOME_UNIPROT2PATHWAYSTID(DataSource.REACTOME, IsTaxonAware.YES, RequiresManualDownload.NO) {
+	REACTOME_UNIPROT2PATHWAYSTID(DataSource.REACTOME, IsTaxonAware.YES_BUT_REQUIRES_EXTERNAL_ID_TO_TAXON_MAPPINGS,
+			RequiresManualDownload.NO) {
 		@Override
 		protected FileRecordReader<?> initFileRecordReader(File sourceFileDirectory, boolean cleanSourceFiles,
 				File idListDir, Set<NcbiTaxonomyID> taxonIds) throws IOException {
@@ -392,7 +393,8 @@ public enum FileDataSource {
 			return new EntrezGeneMim2GeneFileParser(sourceFileDirectory, cleanSourceFiles);
 		}
 	},
-	NCBIGENE_REFSEQUNIPROTCOLLAB(DataSource.EG, IsTaxonAware.YES, RequiresManualDownload.NO) {
+	NCBIGENE_REFSEQUNIPROTCOLLAB(DataSource.EG, IsTaxonAware.YES_BUT_REQUIRES_EXTERNAL_ID_TO_TAXON_MAPPINGS,
+			RequiresManualDownload.NO) {
 		@Override
 		protected FileRecordReader<?> initFileRecordReader(File sourceFileDirectory, boolean cleanSourceFiles,
 				File idListDir, Set<NcbiTaxonomyID> taxonIds) throws IOException {
@@ -402,7 +404,7 @@ public enum FileDataSource {
 	},
 	/**
 	 */
-	GOA(DataSource.GOA, 13, IsTaxonAware.YES, RequiresManualDownload.NO) {
+	GOA(DataSource.GOA, 13, IsTaxonAware.YES_BUT_REQUIRES_EXTERNAL_ID_TO_TAXON_MAPPINGS, RequiresManualDownload.NO) {
 		@Override
 		protected FileRecordReader<?> initFileRecordReader(File sourceFileDirectory, boolean cleanSourceFiles,
 				File idListDir, Set<NcbiTaxonomyID> taxonIds) throws IOException {
@@ -460,7 +462,8 @@ public enum FileDataSource {
 			return new InterPro2GoFileParser(sourceFileDirectory, cleanSourceFiles);
 		}
 	},
-	INTERPRO_PROTEIN2IPR(DataSource.INTERPRO, 13, IsTaxonAware.YES, RequiresManualDownload.NO) {
+	INTERPRO_PROTEIN2IPR(DataSource.INTERPRO, 13, IsTaxonAware.YES_BUT_REQUIRES_EXTERNAL_ID_TO_TAXON_MAPPINGS,
+			RequiresManualDownload.NO) {
 		@Override
 		protected FileRecordReader<?> initFileRecordReader(File sourceFileDirectory, boolean cleanSourceFiles,
 				File idListDir, Set<NcbiTaxonomyID> taxonIds) throws IOException {
@@ -613,7 +616,12 @@ public enum FileDataSource {
 	}
 
 	public boolean isTaxonAware() {
-		return isTaxonAware == IsTaxonAware.YES;
+		return isTaxonAware == IsTaxonAware.YES_BUT_REQUIRES_EXTERNAL_ID_TO_TAXON_MAPPINGS
+				|| isTaxonAware == IsTaxonAware.YES;
+	}
+	
+	public boolean requiresExternalIdToTaxonMappings() {
+		return isTaxonAware == IsTaxonAware.YES_BUT_REQUIRES_EXTERNAL_ID_TO_TAXON_MAPPINGS;
 	}
 
 	public boolean requiresManualDownload() {
@@ -833,10 +841,10 @@ public enum FileDataSource {
 				autoDownloadSources.add(fds.name());
 			}
 		}
-		
+
 		Collections.sort(autoDownloadSources);
 		Collections.sort(manualDownloadSources);
-		
+
 		for (String name : autoDownloadSources) {
 			System.out.println("DS: " + name);
 		}
