@@ -28,12 +28,12 @@ function set_taxon_ids {
 DS_NAMES="EMPTY"
 
 function set_ds_names {
-if ! [[ $DS_NAMES == "EMPTY" ]]; then
-echo "Please use either -s or -a options, but not both."
-exit 1
-else
-DS_NAMES=$1
-fi
+    if ! [[ $DS_NAMES == "EMPTY" ]]; then
+        echo "Please use either -s or -a options, but not both."
+        exit 1
+    else
+        DS_NAMES=$1
+    fi
 }
 
 CLEAN_SOURCES="false"
@@ -51,8 +51,7 @@ while getopts "d:o:s:t:amhc" OPTION; do
         s) set_ds_names $OPTARG
            ;;
         # Generate taxon-specific ID lists for all available data sources
-        a) set_ds_names
-            "EG,UNIPROT,INTACT"
+        a) set_ds_names "EG,UNIPROT,INTACT"
            ;;
         # Include only data for a user-specified taxonomy ID in the RDF output.
         t) set_taxon_ids $OPTARG
