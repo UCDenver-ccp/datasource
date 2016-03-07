@@ -56,6 +56,8 @@ public class OntologyUtil {
 	private static final Logger logger = Logger.getLogger(OntologyUtil.class);
 	private static final String EXACT_SYN_PROP = "<http://www.geneontology.org/formats/oboInOwl#hasExactSynonym>";
 	private static final String EXACT_SYN_PROP_ALT = "<http://purl.obolibrary.org/obo/exact_synonym>";
+	private static final String IAO_EDITOR_PREFERRED_LABEL = "<http://purl.obolibrary.org/obo/IAO_0000118>";
+	private static final String IAO_ALTERNATIVE_TERM = "<http://purl.obolibrary.org/obo/IAO_0000111>";
 	private static final String RELATED_SYN_PROP = "<http://www.geneontology.org/formats/oboInOwl#hasRelatedSynonym>";
 	private static final String RELATED_SYN_PROP_ALT = "<http://purl.obolibrary.org/obo/related_synonym>";
 	private static final String NARROW_SYN_PROP = "<http://www.geneontology.org/formats/oboInOwl#hasNarrowSynonym>";
@@ -151,8 +153,10 @@ public class OntologyUtil {
 		Set<OWLAnnotation> annotations = cls.getAnnotations(ont);
 		for (OWLAnnotation annotation : annotations) {
 			String property = annotation.getProperty().toString();
+			System.out.println("prop: " + property);
 			if ((synType == SynonymType.EXACT || synType == SynonymType.ALL)
-					&& (property.equals(EXACT_SYN_PROP) || property.equals(EXACT_SYN_PROP_ALT))) {
+					&& (property.equals(EXACT_SYN_PROP) || property.equals(EXACT_SYN_PROP_ALT)
+							|| property.equals(IAO_EDITOR_PREFERRED_LABEL) || property.equals(IAO_ALTERNATIVE_TERM))) {
 				String s = annotation.getValue().toString();
 				s = StringUtils.removePrefix(s, "\"");
 				s = StringUtils.removeSuffix(s, "\"^^xsd:string");
