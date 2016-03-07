@@ -41,6 +41,7 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
@@ -100,7 +101,7 @@ public class IdListFileFactory {
 		return taxonSpecificIds;
 	}
 
-	public static File getIdListFile(File idListDirectory, DataSource ds, Set<NcbiTaxonomyID> taxonIds) {
+	private static File getIdListFile(File idListDirectory, DataSource ds, Set<NcbiTaxonomyID> taxonIds) {
 		if (taxonIds == null || taxonIds.isEmpty()) {
 			return null;
 		}
@@ -133,7 +134,7 @@ public class IdListFileFactory {
 				case UNIPROT:
 					createUniProtIdListFile(taxonIds, cleanSourceFiles, sourceFileDirectory, writer);
 					break;
-				case IREFWEB:
+				case INTACT:
 					createIntActIdListFile(taxonIds, cleanSourceFiles, sourceFileDirectory, writer);
 					break;
 				default:
@@ -271,4 +272,71 @@ public class IdListFileFactory {
 		return null;
 	}
 
+	/**
+	 * @param baseSourceFileDirectory
+	 * @param baseRdfOutputDirectory
+	 * @param cleanSourceFiles
+	 * @param taxonIds
+	 * @return
+	 * @throws IOException
+	 */
+	public static File generateIdListFiles(File baseSourceFileDirectory, File baseRdfOutputDirectory,
+			boolean cleanSourceFiles, Set<NcbiTaxonomyID> taxonIds, DataSource... dataSources) throws IOException {
+		File outputDir = new File(baseRdfOutputDirectory, "id-lists");
+		if (cleanSourceFiles) {
+			FileUtil.cleanDirectory(outputDir);
+		} else {
+			if (!outputDir.exists()) {
+				System.out.println("dir exists:" + outputDir.exists());
+				FileUtil.mkdir(outputDir);
+			}
+		}
+
+		for (DataSource ds : dataSources) {
+			IdListFileFactory.createIdListFile(ds, taxonIds, baseSourceFileDirectory, cleanSourceFiles, outputDir);
+		}
+
+		return outputDir;
+	}
+
+	/**
+	 * @param args
+	 *            args[0] = base directory for resource data files<br>
+	 *            args[1] = base directory for output; ID list files will be
+	 *            placed in the [BASE_OUTPUT_DIR]/id-list directory<br>
+	 *            args[2] = boolean, clean id-list files (and underlying source
+	 *            files)<br>
+	 *            args[3] = comma-delimited list of NCBI Taxonomy IDs<br>
+	 *            args[4] = comma-delimited list of DataSources (available
+	 *            options: UNIPROT, INTACT, EG)
+	 * 
+	 */
+	public static void main(String[] args) {
+		File baseSourceFileDirectory = new File(args[0]);
+		File baseRdfOutputDirectory = new File(args[1]);
+		boolean cleanSourceFiles = Boolean.parseBoolean(args[2]);
+
+		Set<NcbiTaxonomyID> taxonIds = new HashSet<NcbiTaxonomyID>();
+		if (!args[3].equals("EMPTY")) {
+			taxonIds = new HashSet<NcbiTaxonomyID>(CollectionsUtil.fromDelimitedString(args[3], ",",
+					NcbiTaxonomyID.class));
+		} else {
+			logger.warn("You are attempting to generate taxon-specific lists of gene and protein identifiers, "
+					+ "however you have not specified any taxonomy IDs. There is no reason to generate these files "
+					+ "unless you are interested in filtering data based on taxonomy. Please specify at least one NCBI Taxonomy ID.");
+			System.exit(-1);
+		}
+		Set<DataSource> dataSources = new HashSet<DataSource>();
+		for (String tok : args[4].split(",")) {
+			dataSources.add(DataSource.valueOf(tok.toUpperCase()));
+		}
+
+		try {
+			generateIdListFiles(baseSourceFileDirectory, baseRdfOutputDirectory, cleanSourceFiles, taxonIds,
+					dataSources.toArray(new DataSource[dataSources.size()]));
+		} catch (IOException e) {
+			e.printStackTrace();
+			System.exit(-1);
+		}
+	}
 }
