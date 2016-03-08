@@ -224,7 +224,7 @@ public class IdListFileFactory {
 				taxonIds);
 		int count = 0;
 		while (sp_rr.hasNext()) {
-			if (count++ % 100000 == 0) {
+			if (count++ % 1000 == 0) {
 				logger.info("(UNIPROT SP) Id list generation progress: " + (count - 1));
 			}
 			UniProtFileRecord record = sp_rr.next();
@@ -242,7 +242,7 @@ public class IdListFileFactory {
 				CharacterEncoding.UTF_8, cleanSourceFiles, taxonIds);
 		count = 0;
 		while (trembl_rr.hasNext()) {
-			if (count++ % 100000 == 0) {
+			if (count++ % 1000 == 0) {
 				logger.info("(UNIPROT TREMBL) Id list generation progress: " + (count - 1));
 			}
 			SparseUniProtFileRecord record = trembl_rr.next();
