@@ -582,19 +582,4 @@ public class HgncDownloadFileParser extends SingleLineFileRecordReader<HgncDownl
 		return accNumbers;
 	}
 
-	public static void main(String[] args) {
-		BasicConfigurator.configure();
-		File hgncFile = new File("/tmp/hgnc_complete_set.txt.gz");
-		File dir = new File("/tmp");
-		HgncDownloadFileParser parser = null;
-		try {
-			parser = new HgncDownloadFileParser(dir, false, WithdrawnRecordTreatment.INCLUDE);
-			while (parser.hasNext()) {
-				parser.next();
-			}
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-
-	}
 }
