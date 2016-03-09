@@ -33,11 +33,11 @@ package edu.ucdenver.ccp.datasource.fileparsers.pharmgkb;
  * #L%
  */
 
-
 import java.util.Collection;
 import java.util.Set;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 import org.apache.log4j.Logger;
 
@@ -48,6 +48,7 @@ import edu.ucdenver.ccp.datasource.fileparsers.SingleLineFileRecord;
 import edu.ucdenver.ccp.datasource.identifiers.DataSource;
 import edu.ucdenver.ccp.datasource.identifiers.DataSourceIdentifier;
 import edu.ucdenver.ccp.datasource.identifiers.ensembl.EnsemblGeneID;
+import edu.ucdenver.ccp.datasource.identifiers.hgnc.HgncID;
 import edu.ucdenver.ccp.datasource.identifiers.ncbi.gene.EntrezGeneID;
 import edu.ucdenver.ccp.datasource.identifiers.pharmgkb.PharmGkbID;
 
@@ -59,6 +60,7 @@ import edu.ucdenver.ccp.datasource.identifiers.pharmgkb.PharmGkbID;
  * 
  */
 @Record(dataSource = DataSource.PHARMGKB, schemaVersion = "2", license = License.PHARMGKB, licenseUri = "http://www.pharmgkb.org/download.action?filename=PharmGKB_License.pdf", comment = "data from PharmGKB's genes.tsv file", citation = "M. Whirl-Carrillo, E.M. McDonagh, J. M. Hebert, L. Gong, K. Sangkuhl, C.F. Thorn, R.B. Altman and T.E. Klein. \"Pharmacogenomics Knowledge for Personalized Medicine\" Clinical Pharmacology & Therapeutics (2012) 92(4): 414-417", label = "gene record")
+@EqualsAndHashCode(callSuper = false)
 @Data
 public class PharmGkbGeneFileRecord extends SingleLineFileRecord {
 
@@ -67,6 +69,8 @@ public class PharmGkbGeneFileRecord extends SingleLineFileRecord {
 	private final PharmGkbID accessionId;
 	@RecordField
 	private final Set<EntrezGeneID> entrezGeneIds;
+	@RecordField
+	private Set<HgncID> hgncIds;
 	@RecordField
 	private final EnsemblGeneID ensemblGeneId;
 	@RecordField
@@ -96,6 +100,7 @@ public class PharmGkbGeneFileRecord extends SingleLineFileRecord {
 	 * @param byteOffset
 	 * @param lineNumber
 	 * @param accessionId
+	 * @param hgncIds
 	 * @param entrezGeneId
 	 * @param ensemblGeneId
 	 * @param name
@@ -106,14 +111,15 @@ public class PharmGkbGeneFileRecord extends SingleLineFileRecord {
 	 * @param hasVariantAnnotation
 	 * @param crossReferences
 	 */
-	public PharmGkbGeneFileRecord(PharmGkbID accessionId, Set<EntrezGeneID> entrezGeneIds, EnsemblGeneID ensemblGeneId,
-			String name, String symbol, Collection<String> alternativeNames,
+	public PharmGkbGeneFileRecord(PharmGkbID accessionId, Set<EntrezGeneID> entrezGeneIds, Set<HgncID> hgncIds,
+			EnsemblGeneID ensemblGeneId, String name, String symbol, Collection<String> alternativeNames,
 			Collection<String> alternativeSymbols, boolean isVip, boolean hasVariantAnnotation,
 			Collection<DataSourceIdentifier<?>> crossReferences, boolean hasCpicDosingGuideline, String chromosome,
 			Integer chromosomalStart, Integer chromosomalEnd, long byteOffset, long lineNumber) {
 		super(byteOffset, lineNumber);
 		this.accessionId = accessionId;
 		this.entrezGeneIds = entrezGeneIds;
+		this.hgncIds = hgncIds;
 		this.ensemblGeneId = ensemblGeneId;
 		this.name = name;
 		this.symbol = symbol;
