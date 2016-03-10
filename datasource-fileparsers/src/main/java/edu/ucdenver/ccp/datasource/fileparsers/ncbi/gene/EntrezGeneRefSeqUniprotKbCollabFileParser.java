@@ -82,17 +82,18 @@ public class EntrezGeneRefSeqUniprotKbCollabFileParser extends
 	}
 
 	public EntrezGeneRefSeqUniprotKbCollabFileParser(File gene2PubmedFile, CharacterEncoding encoding,
-			File idListDirectory, Set<NcbiTaxonomyID> taxonIds) throws IOException {
+			File idListDirectory, Set<NcbiTaxonomyID> taxonIds, File baseSourceFileDirectory, boolean cleanIdListFiles)
+			throws IOException {
 		super(gene2PubmedFile, encoding, taxonIds);
-		taxonSpecificIds = IdListFileFactory.getIdListFromFile(idListDirectory, DataSource.UNIPROT, taxonIds,
-				UniProtID.class);
+		taxonSpecificIds = IdListFileFactory.getIdListFromFile(idListDirectory, baseSourceFileDirectory,
+				DataSource.UNIPROT, taxonIds, UniProtID.class, cleanIdListFiles);
 	}
 
 	public EntrezGeneRefSeqUniprotKbCollabFileParser(File workDirectory, boolean clean, File idListDirectory,
-			Set<NcbiTaxonomyID> taxonIds) throws IOException {
+			Set<NcbiTaxonomyID> taxonIds, File baseSourceFileDirectory, boolean cleanIdListFiles) throws IOException {
 		super(workDirectory, ENCODING, null, null, null, clean, taxonIds);
-		taxonSpecificIds = IdListFileFactory.getIdListFromFile(idListDirectory, DataSource.UNIPROT, taxonIds,
-				UniProtID.class);
+		taxonSpecificIds = IdListFileFactory.getIdListFromFile(idListDirectory, baseSourceFileDirectory,
+				DataSource.UNIPROT, taxonIds, UniProtID.class, cleanIdListFiles);
 	}
 
 	@Override
@@ -121,8 +122,10 @@ public class EntrezGeneRefSeqUniprotKbCollabFileParser extends
 	protected NcbiTaxonomyID getLineTaxon(Line line) {
 		EntrezGeneRefSeqUniprotKbCollabFileData record = parseRecordFromLine(line);
 		if (taxonSpecificIds != null && !taxonSpecificIds.isEmpty() && taxonSpecificIds.contains(record.getUniprotId())) {
-			// here we have matched the record uniprot id as one of the ids of interest. We don't
-			// know exactly what taxon it is however so we just return one (arbitrarily) of the
+			// here we have matched the record uniprot id as one of the ids of
+			// interest. We don't
+			// know exactly what taxon it is however so we just return one
+			// (arbitrarily) of the
 			// taxon ids of interest. this will ensure this record is returned.
 			return taxonsOfInterest.iterator().next();
 		}

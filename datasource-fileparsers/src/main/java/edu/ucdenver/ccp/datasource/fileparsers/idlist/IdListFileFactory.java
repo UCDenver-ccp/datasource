@@ -41,7 +41,6 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
@@ -84,13 +83,19 @@ public class IdListFileFactory {
 
 	private static final Logger logger = Logger.getLogger(IdListFileFactory.class);
 
-	public static <T> Set<T> getIdListFromFile(File idListDirectory, DataSource ds, Set<NcbiTaxonomyID> taxonIds,
-			Class<T> cls) throws IOException {
+	public static <T> Set<T> getIdListFromFile(File idListDirectory, File baseSourceFileDirectory, DataSource ds,
+			Set<NcbiTaxonomyID> taxonIds, Class<T> cls, boolean cleanIdListFiles) throws IOException {
 		if (taxonIds == null || taxonIds.isEmpty()) {
 			return null;
 		}
 		Set<T> taxonSpecificIds = new HashSet<T>();
 		File idListFile = getIdListFile(idListDirectory, ds, taxonIds);
+
+		/* if the ID list file does not exist, then it should be created */
+		if (!idListFile.exists()) {
+			createIdListFile(ds, taxonIds, baseSourceFileDirectory, cleanIdListFiles, idListDirectory);
+		}
+
 		String line;
 		BufferedReader reader = FileReaderUtil.initBufferedReader(idListFile, CharacterEncoding.UTF_8);
 		while ((line = reader.readLine()) != null) {
@@ -113,7 +118,7 @@ public class IdListFileFactory {
 		return new File(idListDirectory, filename);
 	}
 
-	public static File createIdListFile(DataSource ds, Set<NcbiTaxonomyID> taxonIds, File baseSourceFileDirectory,
+	private static File createIdListFile(DataSource ds, Set<NcbiTaxonomyID> taxonIds, File baseSourceFileDirectory,
 			boolean cleanSourceFiles, File outputDirectory) throws IOException {
 		if (taxonIds == null || taxonIds.isEmpty()) {
 			return null;
@@ -279,6 +284,10 @@ public class IdListFileFactory {
 		return null;
 	}
 
+	public static File getIdListFileDirectory(File baseOutputDirectory) {
+		return new File(baseOutputDirectory, "id-lists");
+	}
+	
 	/**
 	 * @param baseSourceFileDirectory
 	 * @param baseRdfOutputDirectory
@@ -289,7 +298,7 @@ public class IdListFileFactory {
 	 */
 	public static File generateIdListFiles(File baseSourceFileDirectory, File baseRdfOutputDirectory,
 			boolean cleanSourceFiles, Set<NcbiTaxonomyID> taxonIds, DataSource... dataSources) throws IOException {
-		File outputDir = new File(baseRdfOutputDirectory, "id-lists");
+		File outputDir = getIdListFileDirectory(baseRdfOutputDirectory);
 		if (cleanSourceFiles) {
 			FileUtil.cleanDirectory(outputDir);
 		} else {

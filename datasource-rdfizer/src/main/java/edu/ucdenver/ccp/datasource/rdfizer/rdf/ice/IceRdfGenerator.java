@@ -89,27 +89,30 @@ public class IceRdfGenerator {
 	 * @param baseSourceFileDirectory
 	 * @param baseRdfOutputDirectory
 	 * @param cleanSourceFiles
+	 *            if true, the data source file for a given parser will be
+	 *            deleted and re-downloaded (assuming automatic download is
+	 *            supported by the parser)
+	 * @param cleanIdListFiles
+	 *            if true, the species-specific ID list files will be recreated
+	 *            and the files used to recreate them (NCBI gene_info, UniProt,
+	 *            IRefWeb) will be deleted and re-downloaded
 	 * @param compress
 	 * @param outputRecordLimit
 	 * @throws IOException
 	 */
 	public static void generateIceRdf(Split split, long currentTime, int stageStartNumber, int stagesToProcessCount,
-			File baseSourceFileDirectory, File baseRdfOutputDirectory, boolean cleanSourceFiles, boolean compress,
-			long outputRecordLimit, Set<NcbiTaxonomyID> taxonIds) throws IOException {
+			File baseSourceFileDirectory, File baseRdfOutputDirectory, boolean cleanSourceFiles,
+			boolean cleanIdListFiles, boolean compress, long outputRecordLimit, Set<NcbiTaxonomyID> taxonIds)
+			throws IOException {
 		int globalStageIndex = 1;
 		if (split.equals(Split.BY_STAGES)) {
 			for (FileDataSource rdfSource : FileDataSource.values()) {
 				File sourceFileDirectory = getSourceFileDirectory(baseSourceFileDirectory, rdfSource.dataSource());
 				File rdfOutputDirectory = getOutputDirectory(baseRdfOutputDirectory, rdfSource);
 
-				File idListFileDirectory = null;
-				if (rdfSource.isTaxonAware() && taxonIds != null && taxonIds.size() > 0
-						&& rdfSource.requiresExternalIdToTaxonMappings()) {
-					idListFileDirectory = IdListFileFactory.generateIdListFiles(baseSourceFileDirectory,
-							baseRdfOutputDirectory, cleanSourceFiles, taxonIds);
-				}
+				File idListFileDirectory = IdListFileFactory.getIdListFileDirectory(baseRdfOutputDirectory);
 				FileRecordReader<?> rr = rdfSource.initFileRecordReader(sourceFileDirectory, cleanSourceFiles,
-						idListFileDirectory, taxonIds);
+						cleanIdListFiles, idListFileDirectory, taxonIds);
 
 				for (int stageIndex = 1; stageIndex <= rdfSource.getNumberOfStages(); stageIndex++) {
 					if (globalStageIndex >= stageStartNumber
@@ -129,14 +132,9 @@ public class IceRdfGenerator {
 					File rdfOutputDirectory = getOutputDirectory(baseRdfOutputDirectory, rdfSource);
 					logger.info("SOURCE DIR: " + sourceFileDirectory.getAbsolutePath());
 					logger.info("RDF OUT DIR: " + rdfOutputDirectory.getAbsolutePath());
-					File idListFileDirectory = null;
-					if (rdfSource.isTaxonAware() && taxonIds != null && taxonIds.size() > 0
-							&& rdfSource.requiresExternalIdToTaxonMappings()) {
-						idListFileDirectory = IdListFileFactory.generateIdListFiles(baseSourceFileDirectory,
-								baseRdfOutputDirectory, cleanSourceFiles, taxonIds);
-					}
+					File idListFileDirectory = IdListFileFactory.getIdListFileDirectory(baseRdfOutputDirectory);
 					FileRecordReader<?> rr = rdfSource.initFileRecordReader(sourceFileDirectory, cleanSourceFiles,
-							idListFileDirectory, taxonIds);
+							cleanIdListFiles, idListFileDirectory, taxonIds);
 					File cacheFilePrefix = FileUtil.appendPathElementsToDirectory(rdfOutputDirectory, "filter-cache",
 							"filter");
 					// DuplicateStatementFilter filter = new
@@ -162,18 +160,13 @@ public class IceRdfGenerator {
 	 * @throws IOException
 	 */
 	public static void generateIceRdf(FileDataSource fileDataSource, long currentTime, File baseSourceFileDirectory,
-			File baseRdfOutputDirectory, boolean cleanSourceFiles, boolean compress, long outputRecordLimit,
-			Set<NcbiTaxonomyID> taxonIds) throws IOException {
+			File baseRdfOutputDirectory, boolean cleanSourceFiles, boolean cleanIdListFiles, boolean compress,
+			long outputRecordLimit, Set<NcbiTaxonomyID> taxonIds) throws IOException {
 		File sourceFileDirectory = getSourceFileDirectory(baseSourceFileDirectory, fileDataSource.dataSource());
 		File rdfOutputDirectory = getOutputDirectory(baseRdfOutputDirectory, fileDataSource);
-		File idListFileDirectory = null;
-		if (fileDataSource.isTaxonAware() && taxonIds != null && taxonIds.size() > 0
-				&& fileDataSource.requiresExternalIdToTaxonMappings()) {
-			idListFileDirectory = IdListFileFactory.generateIdListFiles(baseSourceFileDirectory,
-					baseRdfOutputDirectory, cleanSourceFiles, taxonIds);
-		}
+		File idListFileDirectory = IdListFileFactory.getIdListFileDirectory(baseRdfOutputDirectory);
 		FileRecordReader<?> rr = fileDataSource.initFileRecordReader(sourceFileDirectory, cleanSourceFiles,
-				idListFileDirectory, taxonIds);
+				cleanIdListFiles, idListFileDirectory, taxonIds);
 		File cacheFilePrefix = FileUtil.appendPathElementsToDirectory(rdfOutputDirectory, "filter-cache", "filter");
 		DuplicateStatementFilter filter = new DefaultDuplicateStatementFilter(cacheFilePrefix);
 		generateRdf(currentTime, rr, rdfOutputDirectory, compress, outputRecordLimit, filter);
@@ -398,6 +391,7 @@ public class IceRdfGenerator {
 			}
 		}
 		boolean cleanSourceFiles = Boolean.valueOf(args[index++]);
+		boolean cleanIdListFiles = Boolean.valueOf(args[index++]);
 
 		try {
 
@@ -412,7 +406,8 @@ public class IceRdfGenerator {
 				Split split = Split.valueOf(args[index++]);
 				long time = getTime(args, index);
 				generateIceRdf(split, time, stageStartNumber, stagesToProcessCount, baseSourceFileDirectory,
-						baseRdfOutputDirectory, cleanSourceFiles, compress, outputRecordLimit, taxonIds);
+						baseRdfOutputDirectory, cleanSourceFiles, cleanIdListFiles, compress, outputRecordLimit,
+						taxonIds);
 				break;
 
 			case NAME:
@@ -421,7 +416,7 @@ public class IceRdfGenerator {
 					FileDataSource source = FileDataSource.valueOf(ds);
 					time = getTime(args, index);
 					generateIceRdf(source, time, baseSourceFileDirectory, baseRdfOutputDirectory, cleanSourceFiles,
-							compress, outputRecordLimit, taxonIds);
+							cleanIdListFiles, compress, outputRecordLimit, taxonIds);
 				}
 				break;
 			default:

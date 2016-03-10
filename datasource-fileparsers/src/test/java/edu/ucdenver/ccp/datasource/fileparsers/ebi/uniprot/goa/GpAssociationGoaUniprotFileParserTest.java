@@ -77,7 +77,10 @@ public class GpAssociationGoaUniprotFileParserTest extends RecordReaderTester {
 
 	@Override
 	protected RecordReader<?> initSampleRecordReader() throws IOException {
-		return new GpAssociationGoaUniprotFileParser(sampleGpAssociationGoaUniprotFile, CharacterEncoding.US_ASCII, null, null);
+		File baseSourceFileDirectory = null;
+		boolean cleanIdListFiles = false;
+		return new GpAssociationGoaUniprotFileParser(sampleGpAssociationGoaUniprotFile, CharacterEncoding.US_ASCII,
+				null, null, baseSourceFileDirectory, cleanIdListFiles);
 	}
 
 	@Before
@@ -141,7 +144,7 @@ public class GpAssociationGoaUniprotFileParserTest extends RecordReaderTester {
 	@Test
 	public void testParser() throws Exception {
 		GpAssociationGoaUniprotFileParser parser = new GpAssociationGoaUniprotFileParser(
-				sampleGpAssociationGoaUniprotFile, CharacterEncoding.US_ASCII, null, null);
+				sampleGpAssociationGoaUniprotFile, CharacterEncoding.US_ASCII, null, null, null, false);
 		assertTrue(String.format("should have the first of two records."), parser.hasNext());
 		GpAssociationGoaUniprotFileData dataRecord = parser.next();
 		TestUtil.conductBeanComparison(getExpectedRecord1(), dataRecord);
@@ -153,29 +156,28 @@ public class GpAssociationGoaUniprotFileParserTest extends RecordReaderTester {
 		assertFalse(String.format("should only have 2 records"), parser.hasNext());
 
 	}
-	
-	
+
 	@Test
 	public void testParser_withTaxon() throws Exception {
 		initializeSampleGpAssociationGoaUniprotFile(getMoreSampleGpAssociationGoaUniProtFileLines());
 		GpAssociationGoaUniprotFileParser parser = new GpAssociationGoaUniprotFileParser(
-				sampleGpAssociationGoaUniprotFile, CharacterEncoding.US_ASCII, idListDirectory, CollectionsUtil.createSet(new NcbiTaxonomyID(9606)));
+				sampleGpAssociationGoaUniprotFile, CharacterEncoding.US_ASCII, idListDirectory,
+				CollectionsUtil.createSet(new NcbiTaxonomyID(9606)), null, false);
 		assertTrue(String.format("should have the first of one record."), parser.hasNext());
-		GpAssociationGoaUniprotFileData dataRecord = parser.next();
+		parser.next();
 		assertFalse(String.format("should only have 1 record; the other record is unparseable"), parser.hasNext());
 
 	}
 
-	
 	@Test
 	public void testParser_withTaxon_nomatches() throws Exception {
 		initializeSampleGpAssociationGoaUniprotFile(getMoreSampleGpAssociationGoaUniProtFileLines());
 		GpAssociationGoaUniprotFileParser parser = new GpAssociationGoaUniprotFileParser(
-				sampleGpAssociationGoaUniprotFile, CharacterEncoding.US_ASCII, idListDirectory, CollectionsUtil.createSet(new NcbiTaxonomyID(10090)));
+				sampleGpAssociationGoaUniprotFile, CharacterEncoding.US_ASCII, idListDirectory,
+				CollectionsUtil.createSet(new NcbiTaxonomyID(10090)), null, false);
 		assertFalse(String.format("should only have 0 records"), parser.hasNext());
 
 	}
-
 
 	private List<String> getLinesThatFailedInRealDataParser() {
 		return CollectionsUtil
@@ -197,21 +199,20 @@ public class GpAssociationGoaUniprotFileParserTest extends RecordReaderTester {
 
 	private GpAssociationGoaUniprotFileData getExpectedRecordFromFailedRealParse1() {
 		return new GpAssociationGoaUniprotFileData(new String("UniProtKB"), new UniProtID("C0LGT6"), null,
-				new GeneOntologyID("GO:0005515"), new PubMedID("PMID:18158241"), new String("IPI"),
-				"UniProtKB:Q87Y16", new NcbiTaxonomyID(323), "20090924", "UniProtKB", null, null, -1, 23);
+				new GeneOntologyID("GO:0005515"), new PubMedID("PMID:18158241"), new String("IPI"), "UniProtKB:Q87Y16",
+				new NcbiTaxonomyID(323), "20090924", "UniProtKB", null, null, -1, 23);
 	}
 
 	private GpAssociationGoaUniprotFileData getExpectedRecord1() {
 		return new GpAssociationGoaUniprotFileData(new String("IPI"), new IpiID("IPI00197411"), null,
-				new GeneOntologyID("GO:0000900"), new PubMedID("PMID:12933792"), new String("IDA"),
-				null, null, "20061230", "HGNC", null, null, -1, 23);
+				new GeneOntologyID("GO:0000900"), new PubMedID("PMID:12933792"), new String("IDA"), null, null,
+				"20061230", "HGNC", null, null, -1, 23);
 	}
 
 	private GpAssociationGoaUniprotFileData getExpectedRecord2() {
-		return new GpAssociationGoaUniprotFileData(new String("IPI"), new IpiID("IPI00693437"),
-				"colocalizes_with", new GeneOntologyID("GO:0005657"), new PubMedID("PMID:10490843"),
-				new String("ISS"), "UniProtKB:P41182", null, "20070622", "UniProtKB", null, null, -1,
-				24);
+		return new GpAssociationGoaUniprotFileData(new String("IPI"), new IpiID("IPI00693437"), "colocalizes_with",
+				new GeneOntologyID("GO:0005657"), new PubMedID("PMID:10490843"), new String("ISS"), "UniProtKB:P41182",
+				null, "20070622", "UniProtKB", null, null, -1, 24);
 	}
 
 	protected Map<File, List<String>> getExpectedOutputFile2LinesMap() {
