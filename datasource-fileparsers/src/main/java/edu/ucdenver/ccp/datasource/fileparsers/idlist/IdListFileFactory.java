@@ -111,8 +111,12 @@ public class IdListFileFactory {
 		String line;
 		BufferedReader reader = FileReaderUtil.initBufferedReader(idListFile, CharacterEncoding.UTF_8);
 		while ((line = reader.readLine()) != null) {
-			Object obj = ConstructorUtil.invokeConstructor(cls.getName(), line);
-			taxonSpecificIds.add((T) obj);
+			try {
+				Object obj = ConstructorUtil.invokeConstructor(cls.getName(), line);
+				taxonSpecificIds.add((T) obj);
+			} catch (IllegalArgumentException e) {
+				logger.warn("Excluding an invalid taxon-specific identifier: " + line, e);
+			}
 		}
 		logger.info("Loaded " + taxonSpecificIds.size() + " taxon-specific id's for taxons: " + taxonIds.toString());
 		return taxonSpecificIds;
