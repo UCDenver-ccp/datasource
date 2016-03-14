@@ -40,6 +40,7 @@ import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
 import java.nio.file.FileSystems;
 import java.nio.file.Path;
 import java.nio.file.StandardWatchEventKinds;
@@ -114,7 +115,7 @@ public class IdListFileFactory {
 			try {
 				Object obj = ConstructorUtil.invokeConstructor(cls.getName(), line);
 				taxonSpecificIds.add((T) obj);
-			} catch (IllegalArgumentException e) {
+			} catch (RuntimeException e) {
 				logger.warn("Excluding an invalid taxon-specific identifier: " + line, e);
 			}
 		}
