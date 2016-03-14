@@ -52,6 +52,8 @@
 						<argument>${taxonIDs}</argument>
 						<!-- Re-download the data source files prior to processing? (true/false) -->
 						<argument>${redownloadDataSourceFiles}</argument>
+						<!-- Re-create the taxon-specific ID list files used by some of the taxon-aware file parsers -->
+						<argument>${recreateTaxonSpecificIdListFiles}</argument>
 						<!-- comma-delimited list of datasources to process -->
 						<argument>${datasourceNames}</argument>
 						<!-- date -->

@@ -13,6 +13,7 @@ function print_usage {
     echo "  [-t <NCBI taxonomy IDS]: A comma-separated list of taxonomy IDs.  Only records for these IDs will be included in the RDF triple output where applicable.  If neither -t nor -m is specified, all records will be included."
     echo "  [-m]: Include only human and the 7 model organisms in the generated RDF. If neither -t nor -m is specified, all records will be included."
     echo "  [-c]: Clean the data source files. If set, this flag will cause the data source files to be re-downloaded prior to processing."
+    echo "  [-l]: Clean the taxon-specific ID list files used by some taxon-aware file parsers. If set, this flag will cause the taxon-specific ID list files to be re-created (if they are needed)."
 }
 
 TAXON_IDS="EMPTY"
@@ -27,8 +28,9 @@ function set_taxon_ids {
 }
 
 CLEAN_SOURCES="false"
+CLEAN_ID_LISTS="false"
 
-while getopts "d:r:i:t:mhc" OPTION; do
+while getopts "d:r:i:t:mhcl" OPTION; do
     case $OPTION in
         # The directory into which we should download the datasource files.
         d) DOWNLOAD_DIR=$OPTARG
@@ -50,6 +52,9 @@ while getopts "d:r:i:t:mhc" OPTION; do
            ;;
         # Clean the data sources (causes them to be re-downloaded prior to processing).   
         c) CLEAN_SOURCES="true"
+           ;;
+        # Clean the taxon-specific ID list files (causes them to be re-created if they are to be used).   
+        l) CLEAN_ID_LISTS="true"
            ;;
         # HELP!
         h) print_usage; exit 0
@@ -81,6 +86,7 @@ for INDEX in $(echo $DS_NAMES | tr -d "[:blank:]" | tr "," " "); do
         -DdatasourceNames=$DS_NAMES \
         -DtaxonIDs=$TAXON_IDS \
         -DredownloadDataSourceFiles=$CLEAN_SOURCES \
+        -DrecreateTaxonSpecificIdListFiles=$CLEAN_ID_LISTS \
         -DbaseSourceDir=$DOWNLOAD_DIR \
         -DbaseRdfDir=$RDF_OUTPUT_DIR \
         -DcompressRdf=true \
