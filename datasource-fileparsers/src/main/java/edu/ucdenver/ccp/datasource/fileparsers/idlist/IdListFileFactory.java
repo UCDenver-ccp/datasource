@@ -40,6 +40,12 @@ import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.FileSystems;
+import java.nio.file.Path;
+import java.nio.file.StandardWatchEventKinds;
+import java.nio.file.WatchEvent;
+import java.nio.file.WatchKey;
+import java.nio.file.WatchService;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
@@ -83,6 +89,8 @@ public class IdListFileFactory {
 
 	private static final Logger logger = Logger.getLogger(IdListFileFactory.class);
 
+	private static final String WORK_IN_PROGRESS_SUFFIX = ".building";
+
 	public static <T> Set<T> getIdListFromFile(File idListDirectory, File baseSourceFileDirectory, DataSource ds,
 			Set<NcbiTaxonomyID> taxonIds, Class<T> cls, boolean cleanIdListFiles) throws IOException {
 		if (taxonIds == null || taxonIds.isEmpty()) {
@@ -93,7 +101,11 @@ public class IdListFileFactory {
 
 		/* if the ID list file does not exist, then it should be created */
 		if (!idListFile.exists()) {
-			createIdListFile(ds, taxonIds, baseSourceFileDirectory, cleanIdListFiles, idListDirectory);
+			try {
+				createIdListFile(ds, taxonIds, baseSourceFileDirectory, cleanIdListFiles, idListDirectory);
+			} catch (InterruptedException e) {
+				throw new IllegalStateException(e);
+			}
 		}
 
 		String line;
@@ -119,18 +131,51 @@ public class IdListFileFactory {
 	}
 
 	private static File createIdListFile(DataSource ds, Set<NcbiTaxonomyID> taxonIds, File baseSourceFileDirectory,
-			boolean cleanSourceFiles, File outputDirectory) throws IOException {
+			boolean cleanSourceFiles, File outputDirectory) throws IOException, InterruptedException {
 		if (taxonIds == null || taxonIds.isEmpty()) {
 			return null;
 		}
 		File sourceFileDirectory = new File(baseSourceFileDirectory, ds.name().toLowerCase());
 		File outputFile = getIdListFile(outputDirectory, ds, taxonIds);
-		File semaphoreFile = new File(outputFile.getAbsolutePath() + ".ready");
-		/* Only create it if it doesn't exist or if cleanSourceFiles == true */
+		File workInProgressFile = new File(outputFile.getAbsolutePath() + WORK_IN_PROGRESS_SUFFIX);
+		/*
+		 * if the workInProgressFile exists, then another process is likely
+		 * already building this file so we watch the directory for the creation
+		 * of the outputFile
+		 */
+		if (workInProgressFile.exists()) {
+			WatchService watcher = FileSystems.getDefault().newWatchService();
+			Path p = outputFile.getParentFile().toPath();
+			p.register(watcher, StandardWatchEventKinds.ENTRY_CREATE);
+			while (true) {
+				final WatchKey wk = watcher.take();
+				for (WatchEvent<?> event : wk.pollEvents()) {
+					final Path eventPath = (Path) event.context();
+					if (eventPath.endsWith(outputFile.getName())) {
+						/* The file now exists, so return it. */
+						return eventPath.toFile();
+					}
+				}
+				// reset the key
+				boolean valid = wk.reset();
+				if (!valid) {
+					String errorMsg = "Unable to continue checking for existence of ID list file: "
+							+ outputFile.getAbsolutePath();
+					logger.error(errorMsg);
+					throw new IllegalStateException(errorMsg);
+				}
+			}
+		}
+
+		/*
+		 * either no file exists, or a previous version of the file exists. We
+		 * re-create the file if it doesn't exist or if cleanSourceFiles=true
+		 */
 		if (cleanSourceFiles || !outputFile.exists()) {
 			logger.info("Creating ID list file: " + outputFile);
-			FileUtil.deleteFile(semaphoreFile);
-			BufferedWriter writer = FileWriterUtil.initBufferedWriter(outputFile);
+			FileUtil.deleteFile(workInProgressFile);
+			FileUtil.deleteFile(outputFile);
+			BufferedWriter writer = FileWriterUtil.initBufferedWriter(workInProgressFile);
 			try {
 				switch (ds) {
 				case EG:
@@ -156,30 +201,13 @@ public class IdListFileFactory {
 			} finally {
 				writer.close();
 				/*
-				 * signal that the id-list file generation is complete by
-				 * writing the semaphore file
+				 * ID list file generation is complete, so we rename the
+				 * work-in-progress file to the output file
 				 */
-				semaphoreFile.createNewFile();
+				workInProgressFile.renameTo(outputFile);
 			}
-		} else {
-			/*
-			 * The ID list file exists, so it is either complete or being built.
-			 * We check to see if the semaphore file exists and wait for it if
-			 * it does not.
-			 */
-			while (!semaphoreFile.exists()) {
-				logger.info("ID list generation appears to already be in progress for data source: " + ds.name()
-						+ ". This program will check every 2 minutes for the existence of the following file: "
-						+ semaphoreFile.getAbsolutePath() + ". Once that file appears, then the program will continue.");
-				try {
-					Thread.sleep(120000);
-				} catch (InterruptedException e) {
-					logger.error("Interruption while waiting for ID list semaphore file to appear.", e);
-					System.exit(-1);
-				}
-			}
-			logger.info("ID List file already exists: " + outputFile);
 		}
+
 		return outputFile;
 	}
 
@@ -287,7 +315,7 @@ public class IdListFileFactory {
 	public static File getIdListFileDirectory(File baseOutputDirectory) {
 		return new File(baseOutputDirectory, "id-lists");
 	}
-	
+
 	/**
 	 * @param baseSourceFileDirectory
 	 * @param baseRdfOutputDirectory
@@ -295,9 +323,11 @@ public class IdListFileFactory {
 	 * @param taxonIds
 	 * @return
 	 * @throws IOException
+	 * @throws InterruptedException
 	 */
 	public static File generateIdListFiles(File baseSourceFileDirectory, File baseRdfOutputDirectory,
-			boolean cleanSourceFiles, Set<NcbiTaxonomyID> taxonIds, DataSource... dataSources) throws IOException {
+			boolean cleanSourceFiles, Set<NcbiTaxonomyID> taxonIds, DataSource... dataSources) throws IOException,
+			InterruptedException {
 		File outputDir = getIdListFileDirectory(baseRdfOutputDirectory);
 		if (cleanSourceFiles) {
 			FileUtil.cleanDirectory(outputDir);
@@ -350,7 +380,7 @@ public class IdListFileFactory {
 		try {
 			generateIdListFiles(baseSourceFileDirectory, baseRdfOutputDirectory, cleanSourceFiles, taxonIds,
 					dataSources.toArray(new DataSource[dataSources.size()]));
-		} catch (IOException e) {
+		} catch (IOException | InterruptedException e) {
 			e.printStackTrace();
 			System.exit(-1);
 		}
