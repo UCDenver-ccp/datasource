@@ -57,7 +57,8 @@ import edu.ucdenver.ccp.datasource.fileparsers.gad.GeneticAssociationDbAllTxtFil
 import edu.ucdenver.ccp.datasource.fileparsers.hgnc.HgncDownloadFileParser;
 import edu.ucdenver.ccp.datasource.fileparsers.hgnc.HgncDownloadFileParser.WithdrawnRecordTreatment;
 import edu.ucdenver.ccp.datasource.fileparsers.hprd.HprdIdMappingsTxtFileParser;
-import edu.ucdenver.ccp.datasource.fileparsers.irefweb.IRefWebPsiMitab2_6FileParser;
+import edu.ucdenver.ccp.datasource.fileparsers.irefweb.IRefWebPsiMitab2_6FileParser_AllSpecies;
+import edu.ucdenver.ccp.datasource.fileparsers.irefweb.IRefWebPsiMitab2_6FileParser_HumanOnly;
 import edu.ucdenver.ccp.datasource.fileparsers.mgi.MGIEntrezGeneFileParser;
 import edu.ucdenver.ccp.datasource.fileparsers.mgi.MGIPhenoGenoMPFileParser;
 import edu.ucdenver.ccp.datasource.fileparsers.mgi.MRKListFileParser;
@@ -207,9 +208,21 @@ public enum FileDataSource {
 		@Override
 		protected FileRecordReader<?> initFileRecordReader(File sourceFileDirectory, boolean cleanSourceFiles,
 				boolean cleanIdListFiles, File idListDir, Set<NcbiTaxonomyID> taxonIds) throws IOException {
-			return new IRefWebPsiMitab2_6FileParser(sourceFileDirectory, cleanSourceFiles, taxonIds);
+			return new IRefWebPsiMitab2_6FileParser_AllSpecies(sourceFileDirectory, cleanSourceFiles, taxonIds);
 		}
 	},
+	
+	/**
+	 * 
+	 */
+	IREFWEB_HUMAN_ONLY(DataSource.IREFWEB, IsTaxonAware.YES, RequiresManualDownload.NO) {
+		@Override
+		protected FileRecordReader<?> initFileRecordReader(File sourceFileDirectory, boolean cleanSourceFiles,
+				boolean cleanIdListFiles, File idListDir, Set<NcbiTaxonomyID> taxonIds) throws IOException {
+			return new IRefWebPsiMitab2_6FileParser_HumanOnly(sourceFileDirectory, cleanSourceFiles, taxonIds);
+		}
+	},
+	
 	/**
 	 * 
 	 * 
