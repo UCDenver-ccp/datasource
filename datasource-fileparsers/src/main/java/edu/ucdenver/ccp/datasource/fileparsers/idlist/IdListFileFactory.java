@@ -68,6 +68,8 @@ import edu.ucdenver.ccp.datasource.fileparsers.ebi.uniprot.SwissProtXmlFileRecor
 import edu.ucdenver.ccp.datasource.fileparsers.ebi.uniprot.UniProtFileRecord;
 import edu.ucdenver.ccp.datasource.fileparsers.irefweb.IRefWebPsiMitab2_6FileData;
 import edu.ucdenver.ccp.datasource.fileparsers.irefweb.IRefWebPsiMitab2_6FileParser;
+import edu.ucdenver.ccp.datasource.fileparsers.irefweb.IRefWebPsiMitab2_6FileParser_AllSpecies;
+import edu.ucdenver.ccp.datasource.fileparsers.irefweb.IRefWebPsiMitab2_6FileParser_HumanOnly;
 import edu.ucdenver.ccp.datasource.fileparsers.ncbi.gene.EntrezGeneInfoFileData;
 import edu.ucdenver.ccp.datasource.fileparsers.ncbi.gene.EntrezGeneInfoFileParser;
 import edu.ucdenver.ccp.datasource.identifiers.DataSource;
@@ -223,8 +225,12 @@ public class IdListFileFactory {
 		 * IntAct IDs b/c they are used by GOA. IREFEB web needs to be used so
 		 * that the sourceFileDirectory is correctly populated.
 		 */
-		IRefWebPsiMitab2_6FileParser irefweb_rr = new IRefWebPsiMitab2_6FileParser(sourceFileDirectory,
-				cleanSourceFiles, taxonIds);
+		IRefWebPsiMitab2_6FileParser irefweb_rr = null;
+		if (taxonIds.size() == 1 && taxonIds.iterator().next().equals(NcbiTaxonomyID.HOMO_SAPIENS)) {
+			irefweb_rr = new IRefWebPsiMitab2_6FileParser_HumanOnly(sourceFileDirectory, cleanSourceFiles, taxonIds);
+		} else {
+			irefweb_rr = new IRefWebPsiMitab2_6FileParser_AllSpecies(sourceFileDirectory, cleanSourceFiles, taxonIds);
+		}
 		int count = 0;
 		Set<String> alreadyWritten = new HashSet<String>();
 		while (irefweb_rr.hasNext()) {

@@ -92,9 +92,9 @@ public class GpAssociationGoaUniprotFileParserTest extends RecordReaderTester {
 		FileWriterUtil.printLines(CollectionsUtil.createList("A0A000"), idList9606, CharacterEncoding.UTF_8);
 		File idList10090 = new File(idListDirectory, "UNIPROT.dZoQfILgUb0wGOCiZE6bDGREJY4.utf8");
 		FileWriterUtil.printLines(CollectionsUtil.createList("A0A123"), idList10090, CharacterEncoding.UTF_8);
-		File intactIdList9606 = new File(idListDirectory, "IREFWEB.ixJNsZVcfKFuXrgmTw2kKOorPq4.utf8");
+		File intactIdList9606 = new File(idListDirectory, "INTACT.ixJNsZVcfKFuXrgmTw2kKOorPq4.utf8");
 		FileWriterUtil.printLines(new ArrayList<String>(), intactIdList9606, CharacterEncoding.UTF_8);
-		File intactIdList10090 = new File(idListDirectory, "IREFWEB.dZoQfILgUb0wGOCiZE6bDGREJY4.utf8");
+		File intactIdList10090 = new File(idListDirectory, "INTACT.dZoQfILgUb0wGOCiZE6bDGREJY4.utf8");
 		FileWriterUtil.printLines(new ArrayList<String>(), intactIdList10090, CharacterEncoding.UTF_8);
 	}
 

@@ -146,7 +146,7 @@ public class GpAssociationGoaUniprotFileParser extends
 		Set<UniProtID> uniprotIdsForTaxon = IdListFileFactory.getIdListFromFile(idListDirectory,
 				baseSourceFileDirectory, DataSource.UNIPROT, taxonIds, UniProtID.class, cleanIdListFiles);
 		Set<IntActID> intactIdsForTaxon = IdListFileFactory.getIdListFromFile(idListDirectory, baseSourceFileDirectory,
-				DataSource.IREFWEB, taxonIds, IntActID.class, cleanIdListFiles);
+				DataSource.INTACT, taxonIds, IntActID.class, cleanIdListFiles);
 		Set<DataSourceIdentifier<?>> ids = new HashSet<DataSourceIdentifier<?>>();
 		if (uniprotIdsForTaxon != null) {
 			ids.addAll(uniprotIdsForTaxon);
