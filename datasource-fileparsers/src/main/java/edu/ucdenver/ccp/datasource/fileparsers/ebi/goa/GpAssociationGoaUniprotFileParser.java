@@ -376,9 +376,7 @@ public class GpAssociationGoaUniprotFileParser extends
 						 */
 						return taxonsOfInterest.iterator().next();
 					}
-				}
-
-				else {
+				} else {
 					logger.warn("Unhandled non-UniProt id in GO data while trying to create a species specific subset: "
 							+ databaseObjectID.getDataSource() + " -- " + databaseObjectID);
 				}
