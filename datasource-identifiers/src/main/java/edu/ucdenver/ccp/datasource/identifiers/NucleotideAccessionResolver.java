@@ -71,7 +71,7 @@ public class NucleotideAccessionResolver {
 			"DN", "DR", "DT", "DV", "DW", "DY", "EB", "EC", "EE", "EG", "EH", "EL", "ES", "EV", "EW", "EX", "EY", "FC",
 			"FD", "FE", "FF", "FG", "FK", "FL", "GD", "GE", "GH", "GO", "GR", "GT", "GW", "HO", "HS", "JG", "JK", "JZ",
 			"U", "AF", "AY", "DQ", "EF", "EU", "FJ", "GQ", "GU", "HM", "HQ", "JF", "JN", "JQ", "JX", "KC", "KF", "KJ",
-			"KM", "KP", "KR", "KT", "KU", "AE", "CP", "CY", "B", "AQ", "AZ", "BH", "BZ", "CC", "CE", "CG", "CL", "CW",
+			"KM", "KP", "KR", "KT", "KU", "KX", "AE", "CP", "CY", "B", "AQ", "AZ", "BH", "BZ", "CC", "CE", "CG", "CL", "CW",
 			"CZ", "DU", "DX", "ED", "EI", "EJ", "EK", "ER", "ET", "FH", "FI", "GS", "HN", "HR", "JJ", "JM", "JS", "JY",
 			"KG", "KO", "KS", "AC", "DP", "I", "AR", "DZ", "EA", "GC", "GP", "GV", "GX", "GY", "GZ", "HJ", "HK", "HL",
 			"G", "BV", "GF", "BK", "BL", "GJ", "GK", "EZ", "HP", "JI", "JL", "JO", "JP", "JR", "JT", "JU", "JV", "JW",
@@ -133,7 +133,7 @@ public class NucleotideAccessionResolver {
 				return new GenBankID(acc);
 			}
 			if (prefix.length() == 4
-					&& (prefix.startsWith("B") || prefix.startsWith("P") || prefix.startsWith("E") || prefix
+					&& (prefix.startsWith("B") || prefix.startsWith("E") || prefix
 							.startsWith("I"))) {
 				return new DdbjId(acc);
 			}

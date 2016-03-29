@@ -5,7 +5,7 @@
 
 
 wget http://www.ncbi.nlm.nih.gov/Sequin/acc.html
-if grep -q "February 11, 2016" acc.html; then
+if grep -q "March 25, 2016" acc.html; then
     rm acc.html
     exit 0
 else
