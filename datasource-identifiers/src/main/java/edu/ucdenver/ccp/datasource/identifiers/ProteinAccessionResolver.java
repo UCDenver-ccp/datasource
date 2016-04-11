@@ -73,6 +73,11 @@ public class ProteinAccessionResolver {
 	 *            in the error message.
 	 * @return
 	 */
+	
+	public static DataSourceIdentifier<String> resolveProteinAccession(String acc) {
+		return resolveProteinAccession(acc, null);
+	}
+	
 	public static DataSourceIdentifier<String> resolveProteinAccession(String acc, String idWithPrefix) {
 		acc = acc.toUpperCase();
 		if (acc.matches("[A-Z][A-Z]_\\d+\\.?\\d*")) {

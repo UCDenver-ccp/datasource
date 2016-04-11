@@ -111,6 +111,10 @@ public class NucleotideAccessionResolver {
 	 *            in the error message.
 	 * @return
 	 */
+	public static DataSourceIdentifier<String> resolveNucleotideAccession(String acc) {
+		return resolveNucleotideAccession(acc, null);
+	}
+	
 	public static DataSourceIdentifier<String> resolveNucleotideAccession(String acc, String idWithPrefix) {
 		acc = acc.toUpperCase().trim();
 		if (acc.matches("[A-Z][A-Z]_\\d+\\.?\\d*")) {
