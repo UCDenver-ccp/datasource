@@ -167,7 +167,7 @@ public enum DataSource {
 	MESH("http://www.nlm.nih.gov/mesh/"),
 	MGI("http://www.informatics.jax.org/"),
 	MGI_REFERENCE("http://www.informatics.jax.org/searches/reference.cgi?"),
-	MI_ONTOLOGY("http://purl.obolibrary.org/obo/"),
+	MI("http://purl.obolibrary.org/obo/"),
 	MINT("http://mint.bio.uniroma2.it/mint/"),
 	MIRBASE("http://www.mirbase.org/"),
 	MIRTE("http://www.russelllab.org/"),
