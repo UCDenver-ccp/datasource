@@ -43,7 +43,7 @@ public class UnNormalizedMolecularInteractionOntologyTermID extends MolecularInt
 
 	@Override
 	public DataSource getDataSource() {
-		return DataSource.MI_ONTOLOGY;
+		return DataSource.MI;
 	}
 
 	@Override

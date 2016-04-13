@@ -41,7 +41,7 @@ public class MolecularInteractionOntologyTermID extends OntologyID {
 	
 	
 	public MolecularInteractionOntologyTermID(String resourceID) {
-		super(resourceID, DataSource.MI_ONTOLOGY);
+		super(resourceID, DataSource.MI);
 	}
 
 
