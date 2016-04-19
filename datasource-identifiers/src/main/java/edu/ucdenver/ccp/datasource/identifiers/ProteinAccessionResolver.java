@@ -138,6 +138,9 @@ public class ProteinAccessionResolver {
 			if (prefix.startsWith("P")) {
 				return new GenBankID(acc);
 			}
+			if (prefix.startsWith("S")) {
+				return new EmblID(acc);
+			}
 		}
 //		logger.warn("Input is not a known protein accession pattern: " + acc);
 		if (idWithPrefix == null) {
