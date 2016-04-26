@@ -152,7 +152,7 @@ public class OntologyUtil {
 		for (OWLAnnotation annotation : annotations) {
 			String property = annotation.getProperty().toString();
 			if ((synType == SynonymType.EXACT || synType == SynonymType.ALL)
-					&& (property.equals(EXACT_SYN_PROP) || property.equals(EXACT_SYN_PROP_ALT))) {
+					&& (property.equalsIgnoreCase(EXACT_SYN_PROP) || property.equalsIgnoreCase(EXACT_SYN_PROP_ALT))) {
 				String s = annotation.getValue().toString();
 				s = StringUtils.removePrefix(s, "\"");
 				s = StringUtils.removeSuffix(s, "\"^^xsd:string");
@@ -160,7 +160,7 @@ public class OntologyUtil {
 				s = StringUtils.removeSuffix(s, "\\\" []");
 				synonyms.add(s);
 			} else if ((synType == SynonymType.RELATED || synType == SynonymType.ALL)
-					&& (property.equals(RELATED_SYN_PROP) || property.equals(RELATED_SYN_PROP_ALT))) {
+					&& (property.equalsIgnoreCase(RELATED_SYN_PROP) || property.equalsIgnoreCase(RELATED_SYN_PROP_ALT))) {
 				String s = annotation.getValue().toString();
 				s = StringUtils.removePrefix(s, "\"");
 				s = StringUtils.removeSuffix(s, "\"^^xsd:string");
@@ -168,7 +168,7 @@ public class OntologyUtil {
 				s = StringUtils.removeSuffix(s, "\\\" []");
 				synonyms.add(s);
 			} else if ((synType == SynonymType.BROAD || synType == SynonymType.ALL)
-					&& (property.equals(BROAD_SYN_PROP) || property.equals(BROAD_SYN_PROP_ALT))) {
+					&& (property.equalsIgnoreCase(BROAD_SYN_PROP) || property.equalsIgnoreCase(BROAD_SYN_PROP_ALT))) {
 				String s = annotation.getValue().toString();
 				s = StringUtils.removePrefix(s, "\"");
 				s = StringUtils.removeSuffix(s, "\"^^xsd:string");
@@ -176,7 +176,7 @@ public class OntologyUtil {
 				s = StringUtils.removeSuffix(s, "\\\" []");
 				synonyms.add(s);
 			} else if ((synType == SynonymType.NARROW || synType == SynonymType.ALL)
-					&& (property.equals(NARROW_SYN_PROP) || property.equals(NARROW_SYN_PROP_ALT))) {
+					&& (property.equalsIgnoreCase(NARROW_SYN_PROP) || property.equalsIgnoreCase(NARROW_SYN_PROP_ALT))) {
 				String s = annotation.getValue().toString();
 				s = StringUtils.removePrefix(s, "\"");
 				s = StringUtils.removeSuffix(s, "\"^^xsd:string");
@@ -186,10 +186,10 @@ public class OntologyUtil {
 			}
 
 			if (property.contains("ynonym")
-					&& !(property.equals(BROAD_SYN_PROP) || property.equals(BROAD_SYN_PROP_ALT)
-							|| property.equals(EXACT_SYN_PROP) || property.equals(EXACT_SYN_PROP_ALT)
-							|| property.equals(NARROW_SYN_PROP) || property.equals(NARROW_SYN_PROP_ALT)
-							|| property.equals(RELATED_SYN_PROP) || property.equals(RELATED_SYN_PROP_ALT))) {
+					&& !(property.equalsIgnoreCase(BROAD_SYN_PROP) || property.equalsIgnoreCase(BROAD_SYN_PROP_ALT)
+							|| property.equalsIgnoreCase(EXACT_SYN_PROP) || property.equalsIgnoreCase(EXACT_SYN_PROP_ALT)
+							|| property.equalsIgnoreCase(NARROW_SYN_PROP) || property.equalsIgnoreCase(NARROW_SYN_PROP_ALT)
+							|| property.equalsIgnoreCase(RELATED_SYN_PROP) || property.equalsIgnoreCase(RELATED_SYN_PROP_ALT))) {
 				logger.error("Unhandled synonym type: " + annotation.getProperty());
 			}
 
@@ -204,7 +204,7 @@ public class OntologyUtil {
 		Set<OWLAnnotation> annotations = cls.getAnnotations(ont);
 		for (OWLAnnotation annotation : annotations) {
 			if (annotation.getProperty().toString()
-					.equals("<http://www.geneontology.org/formats/oboInOwl#hasOBONamespace>")) {
+					.equalsIgnoreCase("<http://www.geneontology.org/formats/oboInOwl#hasOBONamespace>")) {
 				String s = annotation.getValue().toString();
 				s = StringUtils.removePrefix(s, "\"");
 				s = StringUtils.removeSuffix(s, "\"^^xsd:string");
