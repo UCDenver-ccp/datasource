@@ -137,15 +137,41 @@ public class OntologyUtilTest extends DefaultTestCase {
 
 	@Test
 	public void testNcbiTaxonOboFile() throws OWLOntologyCreationException, IOException {
-		testSampleOntologyFile(sampleNcbiTaxonOboFile, 8);
+		testSampleOntologyFile(sampleNcbiTaxonOboFile, 8, "ncbi_taxonomy");
 	}
 
 	@Test
 	public void testNcbiTaxonOwlFile() throws OWLOntologyCreationException, IOException {
-		testSampleOntologyFile(sampleNcbiTaxonOwlFile, 8);
+		testSampleOntologyFile(sampleNcbiTaxonOwlFile, 8, "ncbi_taxonomy");
 	}
 
-	private static void testSampleOntologyFile(File ontFile, int expectedClassCount)
+	/**
+	 * This test was written in response to
+	 * https://github.com/UCDenver-ccp/datasource/issues/5
+	 * 
+	 * The user reported an "unhandled synonym type" error when processing the
+	 * NCBI Taxonomy ontology. This error stems from an inconsistency in the OWL
+	 * API when processing OBO files vs. OWL files. Specifically, the oboInOwl
+	 * namespace when parsing an OBO file is set to:
+	 * http://www.geneontology.org/formats/oboInOWL# whereas in OWL files the
+	 * following is used: http://www.geneontology.org/formats/oboInOwl#. Note
+	 * the difference in capitalization, oboInOWL vs. oboInOwl. The error
+	 * appears when retrieving synonyms for a concept and the oboInOwl namespace
+	 * is used for the various synonym types (related, exact, broad, narrow,
+	 * etc.) It also appears when retrieving the namespace of a concept.
+	 *
+	 * This test processes a sample ontology file and exercises the synonym
+	 * retrieval code. If an "unhandled synonym type" error is logged, the test
+	 * fails.
+	 * 
+	 * This test also checks to make sure the returned namespace is as expected.
+	 * 
+	 * @param ontFile
+	 * @param expectedClassCount
+	 * @throws OWLOntologyCreationException
+	 * @throws IOException
+	 */
+	private static void testSampleOntologyFile(File ontFile, int expectedClassCount, String expectedNamespace)
 			throws OWLOntologyCreationException, IOException {
 		final TestAppender appender = new TestAppender();
 		final Logger logger = Logger.getLogger(OntologyUtil.class);
@@ -157,6 +183,7 @@ public class OntologyUtilTest extends DefaultTestCase {
 			count++;
 			OWLClass owlCls = classIterator.next();
 			ontUtil.getSynonyms(owlCls, SynonymType.RELATED);
+			assertEquals(expectedNamespace, ontUtil.getNamespace(owlCls));
 		}
 		ontUtil.close();
 		assertEquals(expectedClassCount, count);
