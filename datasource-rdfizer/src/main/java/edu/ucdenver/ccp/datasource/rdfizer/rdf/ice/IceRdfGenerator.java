@@ -46,7 +46,7 @@ import org.apache.log4j.Logger;
 
 import edu.ucdenver.ccp.common.file.FileComparisonUtil;
 import edu.ucdenver.ccp.common.file.FileUtil;
-import edu.ucdenver.ccp.datasource.fileparsers.FileRecordReader;
+import edu.ucdenver.ccp.datasource.fileparsers.RecordReader;
 import edu.ucdenver.ccp.datasource.fileparsers.idlist.IdListFileFactory;
 import edu.ucdenver.ccp.datasource.identifiers.DataSource;
 import edu.ucdenver.ccp.datasource.identifiers.ncbi.taxonomy.NcbiTaxonomyID;
@@ -111,7 +111,7 @@ public class IceRdfGenerator {
 				File rdfOutputDirectory = getOutputDirectory(baseRdfOutputDirectory, rdfSource);
 
 				File idListFileDirectory = IdListFileFactory.getIdListFileDirectory(baseRdfOutputDirectory);
-				FileRecordReader<?> rr = rdfSource.initFileRecordReader(sourceFileDirectory, cleanSourceFiles,
+				RecordReader<?> rr = rdfSource.initFileRecordReader(sourceFileDirectory, cleanSourceFiles,
 						cleanIdListFiles, idListFileDirectory, taxonIds);
 
 				for (int stageIndex = 1; stageIndex <= rdfSource.getNumberOfStages(); stageIndex++) {
@@ -133,7 +133,7 @@ public class IceRdfGenerator {
 					logger.info("SOURCE DIR: " + sourceFileDirectory.getAbsolutePath());
 					logger.info("RDF OUT DIR: " + rdfOutputDirectory.getAbsolutePath());
 					File idListFileDirectory = IdListFileFactory.getIdListFileDirectory(baseRdfOutputDirectory);
-					FileRecordReader<?> rr = rdfSource.initFileRecordReader(sourceFileDirectory, cleanSourceFiles,
+					RecordReader<?> rr = rdfSource.initFileRecordReader(sourceFileDirectory, cleanSourceFiles,
 							cleanIdListFiles, idListFileDirectory, taxonIds);
 					File cacheFilePrefix = FileUtil.appendPathElementsToDirectory(rdfOutputDirectory, "filter-cache",
 							"filter");
@@ -165,7 +165,7 @@ public class IceRdfGenerator {
 		File sourceFileDirectory = getSourceFileDirectory(baseSourceFileDirectory, fileDataSource.dataSource());
 		File rdfOutputDirectory = getOutputDirectory(baseRdfOutputDirectory, fileDataSource);
 		File idListFileDirectory = IdListFileFactory.getIdListFileDirectory(baseRdfOutputDirectory);
-		FileRecordReader<?> rr = fileDataSource.initFileRecordReader(sourceFileDirectory, cleanSourceFiles,
+		RecordReader<?> rr = fileDataSource.initFileRecordReader(sourceFileDirectory, cleanSourceFiles,
 				cleanIdListFiles, idListFileDirectory, taxonIds);
 		File cacheFilePrefix = FileUtil.appendPathElementsToDirectory(rdfOutputDirectory, "filter-cache", "filter");
 		DuplicateStatementFilter filter = new DefaultDuplicateStatementFilter(cacheFilePrefix);
@@ -210,7 +210,7 @@ public class IceRdfGenerator {
 	 * @return
 	 */
 	private static void generateRdfStage(File rdfOutputDirectory, long createdTime, boolean compress,
-			long outputRecordLimit, int stageNum, FileRecordReader<?> recordReader, DuplicateStatementFilter filter,
+			long outputRecordLimit, int stageNum, RecordReader<?> recordReader, DuplicateStatementFilter filter,
 			Long blockRecordCount, int numStages) {
 
 		long blockCount = (blockRecordCount == null) ? BLOCK_RECORD_COUNT : blockRecordCount;
@@ -241,7 +241,7 @@ public class IceRdfGenerator {
 	 * @param filter
 	 * @return
 	 */
-	private static void generateRdf(long createdTime, FileRecordReader<?> recordReader, File outputDirectory,
+	private static void generateRdf(long createdTime, RecordReader<?> recordReader, File outputDirectory,
 			boolean compress, long outputRecordLimit, DuplicateStatementFilter filter) {
 		long skip = 0;
 		int batchNum = 0;
@@ -271,7 +271,7 @@ public class IceRdfGenerator {
 	 *            into distinct files.
 	 * @return returns references to the RDF files that are created
 	 */
-	public static void generateRdf(final long createdTime, final FileRecordReader<?> recordReader,
+	public static void generateRdf(final long createdTime, final RecordReader<?> recordReader,
 			final File outputDirectory, boolean compress, long skip, long outputRecordLimit, int batchNumber,
 			DuplicateStatementFilter filter) {
 		RdfRecordWriterImpl<?> recordWriter = null;

@@ -45,6 +45,7 @@ import org.apache.log4j.Logger;
 import edu.ucdenver.ccp.common.file.CharacterEncoding;
 import edu.ucdenver.ccp.common.file.FileUtil;
 import edu.ucdenver.ccp.datasource.fileparsers.FileRecordReader;
+import edu.ucdenver.ccp.datasource.fileparsers.RecordReader;
 import edu.ucdenver.ccp.datasource.fileparsers.drugbank.DrugbankXmlFileRecordReader;
 import edu.ucdenver.ccp.datasource.fileparsers.ebi.goa.GpAssociationGoaUniprotFileParser;
 import edu.ucdenver.ccp.datasource.fileparsers.ebi.interpro.InterPro2GoFileParser;
@@ -59,6 +60,8 @@ import edu.ucdenver.ccp.datasource.fileparsers.hgnc.HgncDownloadFileParser.Withd
 import edu.ucdenver.ccp.datasource.fileparsers.hprd.HprdIdMappingsTxtFileParser;
 import edu.ucdenver.ccp.datasource.fileparsers.irefweb.IRefWebPsiMitab2_6FileParser_AllSpecies;
 import edu.ucdenver.ccp.datasource.fileparsers.irefweb.IRefWebPsiMitab2_6FileParser_HumanOnly;
+import edu.ucdenver.ccp.datasource.fileparsers.kegg.KeggGenesFileParserFactory;
+import edu.ucdenver.ccp.datasource.fileparsers.kegg.KeggMapTitleTabFileParser;
 import edu.ucdenver.ccp.datasource.fileparsers.mgi.MGIEntrezGeneFileParser;
 import edu.ucdenver.ccp.datasource.fileparsers.mgi.MGIPhenoGenoMPFileParser;
 import edu.ucdenver.ccp.datasource.fileparsers.mgi.MRKListFileParser;
@@ -143,6 +146,26 @@ public enum FileDataSource {
 	// },
 
 	/**
+	 * this data source represents genes as defined by the KEGG resource
+	 */
+	KEGG_GENE(DataSource.KEGG, IsTaxonAware.YES, RequiresManualDownload.YES) {
+		@Override
+		protected RecordReader<?> initFileRecordReader(File sourceFileDirectory, boolean cleanSourceFiles,
+				boolean cleanIdListFiles, File idListDir, Set<NcbiTaxonomyID> taxonIds) throws IOException {
+			return KeggGenesFileParserFactory.getAggregateRecordReader(taxonIds, sourceFileDirectory);
+		}
+	},
+
+	KEGG_PATHWAY_NAMES(DataSource.KEGG, IsTaxonAware.NO, RequiresManualDownload.YES) {
+		@Override
+		protected FileRecordReader<?> initFileRecordReader(File sourceFileDirectory, boolean cleanSourceFiles,
+				boolean cleanIdListFiles, File idListDir, Set<NcbiTaxonomyID> taxonIds) throws IOException {
+			File keggMapTitleTabFile = new File(sourceFileDirectory, "map_title.tab");
+			FileUtil.validateFile(keggMapTitleTabFile);
+			return new KeggMapTitleTabFileParser(keggMapTitleTabFile, CharacterEncoding.US_ASCII);
+		}
+	},
+	/**
 	 * 
 	 */
 	PHARMGKB_DISEASE(DataSource.PHARMGKB, IsTaxonAware.NO, RequiresManualDownload.NO) {
@@ -211,7 +234,7 @@ public enum FileDataSource {
 			return new IRefWebPsiMitab2_6FileParser_AllSpecies(sourceFileDirectory, cleanSourceFiles, taxonIds);
 		}
 	},
-	
+
 	/**
 	 * 
 	 */
@@ -222,7 +245,7 @@ public enum FileDataSource {
 			return new IRefWebPsiMitab2_6FileParser_HumanOnly(sourceFileDirectory, cleanSourceFiles, taxonIds);
 		}
 	},
-	
+
 	/**
 	 * 
 	 * 
@@ -702,7 +725,7 @@ public enum FileDataSource {
 	// outputRecordLimit, DO_ALL_STAGES);
 	// }
 
-	protected abstract FileRecordReader<?> initFileRecordReader(File sourceFileDirectory, boolean cleanSourceFiles,
+	protected abstract RecordReader<?> initFileRecordReader(File sourceFileDirectory, boolean cleanSourceFiles,
 			boolean cleanIdListFiles, File idListFileDirectory, Set<NcbiTaxonomyID> taxonIds) throws IOException;
 
 	// /**
