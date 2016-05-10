@@ -34,7 +34,9 @@ package edu.ucdenver.ccp.datasource.fileparsers.kegg;
  */
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.util.zip.GZIPInputStream;
 
 import edu.ucdenver.ccp.common.file.CharacterEncoding;
 import edu.ucdenver.ccp.datasource.fileparsers.MultiLineFileRecordReader;
@@ -48,7 +50,8 @@ import edu.ucdenver.ccp.datasource.fileparsers.MultiLineFileRecordReader;
 public class KeggGenesFileParser extends MultiLineFileRecordReader<KeggGenesFileData> {
 
 	public KeggGenesFileParser(File file, CharacterEncoding encoding) throws IOException {
-		super(file, encoding, null);
+		super((file.getName().endsWith(".gz") ? new GZIPInputStream(new FileInputStream(file)) : new FileInputStream(
+				file)), encoding, null);
 	}
 
 	@Override
