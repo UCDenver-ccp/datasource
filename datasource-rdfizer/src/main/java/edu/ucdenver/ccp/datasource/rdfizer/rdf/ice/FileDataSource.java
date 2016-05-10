@@ -152,7 +152,9 @@ public enum FileDataSource {
 		@Override
 		protected RecordReader<?> initFileRecordReader(File sourceFileDirectory, boolean cleanSourceFiles,
 				boolean cleanIdListFiles, File idListDir, Set<NcbiTaxonomyID> taxonIds) throws IOException {
-			return KeggGenesFileParserFactory.getAggregateRecordReader(taxonIds, sourceFileDirectory);
+			File genesFileDirectory = new File(sourceFileDirectory, "gene-files");
+			FileUtil.validateDirectory(genesFileDirectory);
+			return KeggGenesFileParserFactory.getAggregateRecordReader(taxonIds, genesFileDirectory);
 		}
 	},
 
