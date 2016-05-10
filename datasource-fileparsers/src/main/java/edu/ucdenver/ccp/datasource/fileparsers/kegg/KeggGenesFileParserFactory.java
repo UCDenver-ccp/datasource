@@ -9,6 +9,8 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
+import org.apache.log4j.Logger;
+
 import edu.ucdenver.ccp.common.collections.IteratorUtil;
 import edu.ucdenver.ccp.common.file.CharacterEncoding;
 import edu.ucdenver.ccp.common.file.FileUtil;
@@ -23,6 +25,8 @@ import edu.ucdenver.ccp.datasource.identifiers.ncbi.taxonomy.NcbiTaxonomyID;
  */
 public class KeggGenesFileParserFactory {
 
+	private static final Logger logger = Logger.getLogger(KeggGenesFileParserFactory.class);
+
 	public static RecordReader<KeggGenesFileData> getAggregateRecordReader(Set<NcbiTaxonomyID> taxonIds,
 			File genesFileDirectory) throws IOException {
 		/*
@@ -32,13 +36,30 @@ public class KeggGenesFileParserFactory {
 
 		Set<String> abbreviatedSpeciesNames = getAbbreviatedSpeciesNamesForTaxonIds(taxonIds, genesFileDirectory);
 
+		logger.info("ABBREVIATED SPECIES NAMES: " + abbreviatedSpeciesNames.toString());
+
 		/* get the files to process */
 		Set<File> genesFilesToProcess = getGenesFilesToProcess(abbreviatedSpeciesNames, genesFileDirectory);
 
+		logger.info("GENE FILES TO PROCESS: " + genesFilesToProcess.toString());
 		/*
 		 * build a FileRecordReader that will iterate through all of the genes
 		 * files
 		 */
+		return buildAggregateRecordReader(genesFilesToProcess);
+
+	}
+
+	/**
+	 * 
+	 * @param genesFilesToProcess
+	 * @return Given a collection of files to process, this method returns an
+	 *         aggregate record reader that will iterate over all records in
+	 *         each of the input files
+	 * @throws IOException
+	 */
+	static RecordReader<KeggGenesFileData> buildAggregateRecordReader(Set<File> genesFilesToProcess)
+			throws IOException {
 		List<Iterator<KeggGenesFileData>> parserList = new ArrayList<Iterator<KeggGenesFileData>>();
 		for (File genesFile : genesFilesToProcess) {
 			KeggGenesFileParser p = new KeggGenesFileParser(genesFile, CharacterEncoding.UTF_8);
@@ -67,7 +88,6 @@ public class KeggGenesFileParserFactory {
 			}
 
 		};
-
 	}
 
 	/**
