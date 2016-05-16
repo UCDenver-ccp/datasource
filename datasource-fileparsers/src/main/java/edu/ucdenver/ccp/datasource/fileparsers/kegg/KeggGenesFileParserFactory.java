@@ -34,7 +34,8 @@ public class KeggGenesFileParserFactory {
 		 * name that will be used as the name of the gene file
 		 */
 
-		Set<String> abbreviatedSpeciesNames = getAbbreviatedSpeciesNamesForTaxonIds(taxonIds, genesFileDirectory);
+		File genomeFile = new File(genesFileDirectory, "genome.gz");
+		Set<String> abbreviatedSpeciesNames = getAbbreviatedSpeciesNamesForTaxonIds(taxonIds, genomeFile);
 
 		logger.info("ABBREVIATED SPECIES NAMES: " + abbreviatedSpeciesNames.toString());
 
@@ -58,8 +59,7 @@ public class KeggGenesFileParserFactory {
 	 *         each of the input files
 	 * @throws IOException
 	 */
-	static RecordReader<KeggGenesFileData> buildAggregateRecordReader(Set<File> genesFilesToProcess)
-			throws IOException {
+	static RecordReader<KeggGenesFileData> buildAggregateRecordReader(Set<File> genesFilesToProcess) throws IOException {
 		List<Iterator<KeggGenesFileData>> parserList = new ArrayList<Iterator<KeggGenesFileData>>();
 		for (File genesFile : genesFilesToProcess) {
 			KeggGenesFileParser p = new KeggGenesFileParser(genesFile, CharacterEncoding.UTF_8);
@@ -124,19 +124,20 @@ public class KeggGenesFileParserFactory {
 	 *         input set of NCBI Taxonomy identifiers
 	 * @throws IOException
 	 */
-	private static Set<String> getAbbreviatedSpeciesNamesForTaxonIds(Set<NcbiTaxonomyID> taxonIds,
-			File genesFileDirectory) throws IOException {
-		File genomeFile = new File(genesFileDirectory, "genome.gz");
-		FileUtil.validateFile(genomeFile);
+	static Set<String> getAbbreviatedSpeciesNamesForTaxonIds(Set<NcbiTaxonomyID> taxonIds, File keggGenomeFile)
+			throws IOException {
+		FileUtil.validateFile(keggGenomeFile);
 
 		Set<String> abbreviatedSpeciesNames = new HashSet<String>();
 
-		for (KeggGenomeFileParser parser = new KeggGenomeFileParser(genomeFile, CharacterEncoding.UTF_8); parser
+		for (KeggGenomeFileParser parser = new KeggGenomeFileParser(keggGenomeFile, CharacterEncoding.UTF_8); parser
 				.hasNext();) {
 			KeggGenomeFileData record = parser.next();
-			NcbiTaxonomyID ncbiTaxonomyID = record.getNcbiTaxonomyID();
-			if (taxonIds.contains(ncbiTaxonomyID)) {
-				abbreviatedSpeciesNames.add(record.getKeggSpeciesAbbreviatedName());
+			if (record != null) {
+				NcbiTaxonomyID ncbiTaxonomyID = record.getNcbiTaxonomyID();
+				if (taxonIds.contains(ncbiTaxonomyID)) {
+					abbreviatedSpeciesNames.add(record.getKeggSpeciesAbbreviatedName());
+				}
 			}
 		}
 
