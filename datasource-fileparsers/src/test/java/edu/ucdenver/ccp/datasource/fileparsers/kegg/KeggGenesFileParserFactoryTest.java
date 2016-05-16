@@ -23,12 +23,6 @@ public class KeggGenesFileParserFactoryTest extends RecordReaderTester {
 	}
 
 
-	@Test
-	public void test() {
-		
-	}
-
-
 	@Override
 	protected RecordReader<?> initSampleRecordReader() throws IOException {
 		/* make a copy of the sample input file to mimic multiple input files*/
