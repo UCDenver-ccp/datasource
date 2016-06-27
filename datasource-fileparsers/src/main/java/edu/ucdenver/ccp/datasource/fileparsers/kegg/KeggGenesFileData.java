@@ -53,13 +53,14 @@ import edu.ucdenver.ccp.datasource.identifiers.kegg.KeggGeneID;
 import edu.ucdenver.ccp.datasource.identifiers.kegg.KeggPathwayID;
 
 /**
- * Data structure used to represent KEGG genes file downloaded as part of genes.tar.gz - one of the
- * bulk download files from KEGG Incomplete implementation.
+ * Data structure used to represent KEGG genes file downloaded as part of
+ * genes.tar.gz - one of the bulk download files from KEGG Incomplete
+ * implementation.
  * 
  * @author Bill Baumgartner
  * 
  */
-@Record(dataSource=DataSource.KEGG)
+@Record(dataSource = DataSource.KEGG)
 public class KeggGenesFileData extends FileRecord {
 	public static final String RECORD_NAME_PREFIX = "KEGG_SPECIES_CODE_2_NCBI_TAXONOMYID_RECORD_";
 
@@ -165,9 +166,22 @@ public class KeggGenesFileData extends FileRecord {
 	 */
 	private static KeggPathwayID getKeggPathwayId(String line) {
 		String[] toks = line.trim().split("\\s+");
-		if (line.startsWith(PATHWAY))
-			return new KeggPathwayID(toks[1]);
-		return new KeggPathwayID(toks[0]);
+		if (line.startsWith(PATHWAY)) {
+			return new KeggPathwayID(dropSpeciesCode(toks[1]));
+		}
+		return new KeggPathwayID(dropSpeciesCode(toks[0]));
+	}
+
+	/**
+	 * @param string
+	 * @return the input pathway ID without the prefixed species 3/4-letter code
+	 */
+	private static String dropSpeciesCode(String pathwayId) {
+		/*
+		 * strips any letters at the beginning of the pathway Id, leaving only
+		 * numbers
+		 */
+		return StringUtil.removePrefixRegex(pathwayId, "[a-z]+");
 	}
 
 	/**
