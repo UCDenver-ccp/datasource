@@ -227,7 +227,7 @@ public enum FileDataSource {
 		}
 	},
 
-	HP_ANNOTATIONS_ALL_SOURCES(DataSource.HPO, IsTaxonAware.NO, RequiresManualDownload.NO) {
+	HP_ANNOTATIONS_ALL_SOURCES(DataSource.HP, IsTaxonAware.NO, RequiresManualDownload.NO) {
 		@Override
 		protected FileRecordReader<?> initFileRecordReader(File sourceFileDirectory, boolean cleanSourceFiles,
 				boolean cleanIdListFiles, File idListDir, Set<NcbiTaxonomyID> taxonIds) throws IOException {
