@@ -81,7 +81,7 @@ import edu.ucdenver.ccp.datasource.identifiers.other.ZfinID;
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
-@Record(dataSource = DataSource.HPO, label = "human phenotype annotation record")
+@Record(dataSource = DataSource.ZFIN)
 public class ZpMappingTxtFileRecord extends SingleLineFileRecord {
 
 	@RecordField
