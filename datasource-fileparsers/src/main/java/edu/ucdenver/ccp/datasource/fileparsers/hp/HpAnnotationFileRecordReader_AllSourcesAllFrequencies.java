@@ -1,9 +1,7 @@
 package edu.ucdenver.ccp.datasource.fileparsers.hp;
 
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
-import java.util.zip.GZIPInputStream;
 
 import edu.ucdenver.ccp.common.download.HttpDownload;
 import edu.ucdenver.ccp.common.file.CharacterEncoding;
@@ -23,12 +21,7 @@ public class HpAnnotationFileRecordReader_AllSourcesAllFrequencies extends HpAnn
 	@Override
 	protected StreamLineReader initializeLineReaderFromDownload(CharacterEncoding encoding, String skipLinePrefix)
 			throws IOException {
-		/*
-		 * Note: this file is downloaded in a compressed format even though it
-		 * does not have a .gz suffix
-		 */
-		return new StreamLineReader(new GZIPInputStream(new FileInputStream(hpAnnotationFile)), encoding,
-				skipLinePrefix);
+		return new StreamLineReader(hpAnnotationFile, encoding, skipLinePrefix);
 	}
 
 }
