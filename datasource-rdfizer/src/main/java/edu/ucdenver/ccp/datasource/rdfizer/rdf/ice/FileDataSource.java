@@ -57,6 +57,7 @@ import edu.ucdenver.ccp.datasource.fileparsers.ebi.uniprot.UniProtIDMappingFileR
 import edu.ucdenver.ccp.datasource.fileparsers.gad.GeneticAssociationDbAllTxtFileParser;
 import edu.ucdenver.ccp.datasource.fileparsers.hgnc.HgncDownloadFileParser;
 import edu.ucdenver.ccp.datasource.fileparsers.hgnc.HgncDownloadFileParser.WithdrawnRecordTreatment;
+import edu.ucdenver.ccp.datasource.fileparsers.hp.HpAnnotationFileRecordReader_AllSourcesAllFrequencies;
 import edu.ucdenver.ccp.datasource.fileparsers.hprd.HprdIdMappingsTxtFileParser;
 import edu.ucdenver.ccp.datasource.fileparsers.irefweb.IRefWebPsiMitab2_6FileParser_AllSpecies;
 import edu.ucdenver.ccp.datasource.fileparsers.irefweb.IRefWebPsiMitab2_6FileParser_HumanOnly;
@@ -226,6 +227,13 @@ public enum FileDataSource {
 		}
 	},
 
+	HP_ANNOTATIONS_ALL_SOURCES(DataSource.HPO, IsTaxonAware.NO, RequiresManualDownload.NO) {
+		@Override
+		protected FileRecordReader<?> initFileRecordReader(File sourceFileDirectory, boolean cleanSourceFiles,
+				boolean cleanIdListFiles, File idListDir, Set<NcbiTaxonomyID> taxonIds) throws IOException {
+			return new HpAnnotationFileRecordReader_AllSourcesAllFrequencies(sourceFileDirectory, cleanSourceFiles);
+		}
+	},
 	/**
 	 * 
 	 */
