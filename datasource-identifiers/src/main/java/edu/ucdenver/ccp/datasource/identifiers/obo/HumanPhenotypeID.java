@@ -39,7 +39,7 @@ import edu.ucdenver.ccp.datasource.identifiers.StringDataSourceIdentifier;
 public class HumanPhenotypeID extends StringDataSourceIdentifier {
 
 	public HumanPhenotypeID(String resourceID) {
-		super(resourceID,DataSource.HPO);
+		super(resourceID,DataSource.HP);
 	}
 
 }
