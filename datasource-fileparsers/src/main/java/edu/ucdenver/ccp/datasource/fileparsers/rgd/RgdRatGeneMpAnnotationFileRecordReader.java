@@ -61,7 +61,7 @@ public class RgdRatGeneMpAnnotationFileRecordReader extends Gaf2FileRecordReader
 	 * @throws IOException
 	 */
 	public RgdRatGeneMpAnnotationFileRecordReader(File file, CharacterEncoding encoding) throws IOException {
-		super(file, encoding, RgdAnnotationFileIdResolver.class);
+		super(file, encoding, null, RgdAnnotationFileIdResolver.class);
 	}
 
 	/**
@@ -72,7 +72,7 @@ public class RgdRatGeneMpAnnotationFileRecordReader extends Gaf2FileRecordReader
 	 * @throws IOException
 	 */
 	public RgdRatGeneMpAnnotationFileRecordReader(File workDirectory, boolean clean) throws IOException {
-		super(workDirectory, CharacterEncoding.US_ASCII, clean, RgdAnnotationFileIdResolver.class);
+		super(workDirectory, CharacterEncoding.US_ASCII, clean, null, RgdAnnotationFileIdResolver.class);
 	}
 
 	@Override

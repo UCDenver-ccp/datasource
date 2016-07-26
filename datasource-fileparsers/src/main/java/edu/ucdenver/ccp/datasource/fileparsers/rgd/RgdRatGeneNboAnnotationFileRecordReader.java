@@ -59,7 +59,7 @@ public class RgdRatGeneNboAnnotationFileRecordReader extends Gaf2FileRecordReade
 	 * @throws IOException
 	 */
 	public RgdRatGeneNboAnnotationFileRecordReader(File file, CharacterEncoding encoding) throws IOException {
-		super(file, encoding, RgdAnnotationFileIdResolver.class);
+		super(file, encoding, null, RgdAnnotationFileIdResolver.class);
 	}
 
 	/**
@@ -70,7 +70,7 @@ public class RgdRatGeneNboAnnotationFileRecordReader extends Gaf2FileRecordReade
 	 * @throws IOException
 	 */
 	public RgdRatGeneNboAnnotationFileRecordReader(File workDirectory, boolean clean) throws IOException {
-		super(workDirectory, CharacterEncoding.US_ASCII, clean, RgdAnnotationFileIdResolver.class);
+		super(workDirectory, CharacterEncoding.US_ASCII, clean, null, RgdAnnotationFileIdResolver.class);
 	}
 
 	@Override
