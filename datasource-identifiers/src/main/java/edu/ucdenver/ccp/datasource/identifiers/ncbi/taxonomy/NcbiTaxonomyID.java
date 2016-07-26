@@ -42,8 +42,22 @@ public class NcbiTaxonomyID extends IntegerDataSourceIdentifier {
 
 	public static final NcbiTaxonomyID ALL = new NcbiTaxonomyID(Integer.MAX_VALUE);
 	public static final NcbiTaxonomyID HOMO_SAPIENS = new NcbiTaxonomyID(9606);
+	public static final NcbiTaxonomyID HUMAN = new NcbiTaxonomyID(9606);
 	public static final NcbiTaxonomyID MUS_MUSCULUS = new NcbiTaxonomyID(10090);
+	public static final NcbiTaxonomyID MOUSE = new NcbiTaxonomyID(10090);
 	public static final NcbiTaxonomyID RATTUS_NORVEGICUS = new NcbiTaxonomyID(10116);
+	public static final NcbiTaxonomyID RAT = new NcbiTaxonomyID(10116);
+	public static final NcbiTaxonomyID ARABIDOPSIS = new NcbiTaxonomyID(3702);
+	public static final NcbiTaxonomyID CHICKEN = new NcbiTaxonomyID(9031);
+	public static final NcbiTaxonomyID COW = new NcbiTaxonomyID(9913);
+	public static final NcbiTaxonomyID DICTY = new NcbiTaxonomyID(44689);
+	public static final NcbiTaxonomyID DOG = new NcbiTaxonomyID(9615);
+	public static final NcbiTaxonomyID FLY = new NcbiTaxonomyID(7227);
+	public static final NcbiTaxonomyID PIG = new NcbiTaxonomyID(9823);
+	public static final NcbiTaxonomyID WORM = new NcbiTaxonomyID(6239);
+	public static final NcbiTaxonomyID SACCHAROMYCES_CEREVISIAE_S288C = new NcbiTaxonomyID(559292);
+	public static final NcbiTaxonomyID ZEBRAFISH = new NcbiTaxonomyID(7955);
+	
 
 	public NcbiTaxonomyID(Integer taxonomyID) {
 		super(taxonomyID,DataSource.NCBI_TAXON);
