@@ -47,6 +47,7 @@ import edu.ucdenver.ccp.common.file.FileUtil;
 import edu.ucdenver.ccp.datasource.fileparsers.FileRecordReader;
 import edu.ucdenver.ccp.datasource.fileparsers.drugbank.DrugbankXmlFileRecordReader;
 import edu.ucdenver.ccp.datasource.fileparsers.ebi.goa.GpAssociationGoaUniprotFileParser;
+import edu.ucdenver.ccp.datasource.fileparsers.ebi.goa.gaf.GoaGafFileRecordReaderFactory;
 import edu.ucdenver.ccp.datasource.fileparsers.ebi.interpro.InterPro2GoFileParser;
 import edu.ucdenver.ccp.datasource.fileparsers.ebi.interpro.InterProNamesDatFileParser;
 import edu.ucdenver.ccp.datasource.fileparsers.ebi.interpro.InterProProtein2IprDatFileParser;
@@ -402,11 +403,18 @@ public enum FileDataSource {
 	},
 	/**
 	 */
-	GOA(DataSource.GOA, 13, IsTaxonAware.YES, RequiresManualDownload.NO) {
+	GOA(DataSource.GOA, IsTaxonAware.YES, RequiresManualDownload.NO) {
 		@Override
 		protected FileRecordReader<?> initFileRecordReader(File sourceFileDirectory, boolean cleanSourceFiles,
 				File idListDir, Set<NcbiTaxonomyID> taxonIds) throws IOException {
-			return new GpAssociationGoaUniprotFileParser(sourceFileDirectory, cleanSourceFiles, idListDir, taxonIds);
+			return  GoaGafFileRecordReaderFactory.getRecordReader(sourceFileDirectory, taxonIds, cleanSourceFiles);
+		}
+	},
+	GOA_HUMAN(DataSource.GOA, IsTaxonAware.YES, RequiresManualDownload.NO) {
+		@Override
+		protected FileRecordReader<?> initFileRecordReader(File sourceFileDirectory, boolean cleanSourceFiles,
+				File idListDir, Set<NcbiTaxonomyID> taxonIds) throws IOException {
+			return  GoaGafFileRecordReaderFactory.getRecordReader(sourceFileDirectory, NcbiTaxonomyID.HUMAN, cleanSourceFiles);
 		}
 	},
 	/**
