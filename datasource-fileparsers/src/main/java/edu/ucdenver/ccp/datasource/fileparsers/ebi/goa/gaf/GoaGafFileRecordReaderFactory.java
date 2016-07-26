@@ -3,7 +3,6 @@ package edu.ucdenver.ccp.datasource.fileparsers.ebi.goa.gaf;
 import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -14,7 +13,6 @@ import edu.ucdenver.ccp.common.file.CharacterEncoding;
 import edu.ucdenver.ccp.common.file.FileUtil;
 import edu.ucdenver.ccp.common.ftp.FTPUtil;
 import edu.ucdenver.ccp.common.ftp.FTPUtil.FileType;
-import edu.ucdenver.ccp.datasource.fileparsers.format.gaf2.Gaf2FileRecord;
 import edu.ucdenver.ccp.datasource.fileparsers.format.gaf2.Gaf2FileRecordReader;
 import edu.ucdenver.ccp.datasource.identifiers.IdResolver;
 import edu.ucdenver.ccp.datasource.identifiers.ncbi.taxonomy.NcbiTaxonomyID;
@@ -47,7 +45,7 @@ public class GoaGafFileRecordReaderFactory {
 		// not instantiable - utility class
 	}
 
-	public static Gaf2FileRecordReader<Gaf2FileRecord> getRecordReader(File dataDirectory, Set<NcbiTaxonomyID> taxonIds, boolean clean) throws IOException {
+	public static Gaf2FileRecordReader<GoaGaf2FileRecord> getRecordReader(File dataDirectory, Set<NcbiTaxonomyID> taxonIds, boolean clean) throws IOException {
 		if (taxonIds != null && taxonIds.size() == 1) {
 			/* if there is only a single taxon Id, then try to download it individually to save time*/
 			return getRecordReader(dataDirectory, CollectionsUtil.getSingleElement(taxonIds), clean);
@@ -57,12 +55,12 @@ public class GoaGafFileRecordReaderFactory {
 		if (!DownloadUtil.readySemaphoreFileExists(goaFile)) {
 			DownloadUtil.writeReadySemaphoreFile(goaFile);
 		}
-		return new Gaf2FileRecordReader<Gaf2FileRecord>(goaFile, ENCODING, 
+		return new Gaf2FileRecordReader<GoaGaf2FileRecord>(goaFile, ENCODING, 
 				taxonIds, ID_RESOLVER_CLASS);
 	}
 	
 	
-	public static Gaf2FileRecordReader<Gaf2FileRecord> getRecordReader(File dataDirectory, NcbiTaxonomyID taxonomyID, boolean clean)
+	public static Gaf2FileRecordReader<GoaGaf2FileRecord> getRecordReader(File dataDirectory, NcbiTaxonomyID taxonomyID, boolean clean)
 			throws IOException {
 		File goaFile = null;
 		if (!taxonomyID2goaFilePathMap.containsKey(taxonomyID)) {
@@ -73,7 +71,7 @@ public class GoaGafFileRecordReaderFactory {
 		if (!DownloadUtil.readySemaphoreFileExists(goaFile)) {
 			DownloadUtil.writeReadySemaphoreFile(goaFile);
 		}
-		return new Gaf2FileRecordReader<Gaf2FileRecord>(goaFile, ENCODING, 
+		return new Gaf2FileRecordReader<GoaGaf2FileRecord>(goaFile, ENCODING, 
 				CollectionsUtil.createSet(taxonomyID), ID_RESOLVER_CLASS);
 	}
 
