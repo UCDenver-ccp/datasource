@@ -274,7 +274,7 @@ public class PharmGkbGeneFileParser extends SingleLineFileRecordReader<PharmGkbG
 			} else if (refStr.startsWith(URL_PREFIX)) {
 				return new CrossReferenceUrl(StringUtil.removePrefix(refStr, URL_PREFIX));
 			} else {
-				return new UnknownDataSourceIdentifier(refStr, null);
+				return new UnknownDataSourceIdentifier(refStr);
 			}
 		} catch (IllegalArgumentException e) {
 			return new ProbableErrorDataSourceIdentifier(refStr, null, e.getMessage());

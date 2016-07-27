@@ -109,16 +109,24 @@ public class ProMappingFileParserTest extends RecordReaderTester {
 	}
 
 	private void validateRecord1(ProMappingRecord record) {
-		validateRecord(record, new ProteinOntologyId("PR:000000005"), "is_a", new HgncID("HGNC:11773"));
+        validateRecord(record,
+                       new ProteinOntologyId("PR:000000005"),
+                       "is_a",
+                       new HgncID("HGNC:11773"));
 	}
 
 	private void validateRecord2(ProMappingRecord record) {
-		validateRecord(record, new ProteinOntologyId("PR:000000005"), "is_a", new UnknownDataSourceIdentifier(
-				"UniProtKB_VAR:VAR_022359", null));
+        validateRecord(record,
+                       new ProteinOntologyId("PR:000000005"),
+                       "is_a",
+                       new UnknownDataSourceIdentifier("UniProtKB_VAR:VAR_022359"));
 	}
 
 	private void validateRecord3(ProMappingRecord record) {
-		validateRecord(record, new ProteinOntologyId("PR:000000006"), "exact", new UniProtID("P37173"));
+        validateRecord(record,
+                       new ProteinOntologyId("PR:000000006"),
+                       "exact",
+                       new UniProtID("P37173"));
 	}
 
 }

@@ -452,7 +452,7 @@ public class DataSourceIdResolver {
 				return new NcbiTaxonomyID(StringUtil.removePrefix(geneIDStr, "NCBITaxon:"));
 
 			logger.warn(String.format("Unhandled gene ID format: %s. Creating UnknownDataSourceIdentifier.", geneIDStr));
-			return new UnknownDataSourceIdentifier(geneIDStr, null);
+			return new UnknownDataSourceIdentifier(geneIDStr);
 		} catch (IllegalArgumentException e) {
 			logger.warn("Invalid ID detected... " + e.getMessage());
 			return new ProbableErrorDataSourceIdentifier(geneIDStr, null, e.getMessage());
@@ -481,7 +481,7 @@ public class DataSourceIdResolver {
 
 		logger.warn(String.format("Unknown interaction ID format: %s. Cannot create DataElementIdentifier<?>.",
 				interactionIDStr));
-		return new UnknownDataSourceIdentifier(interactionIDStr, null);
+		return new UnknownDataSourceIdentifier(interactionIDStr);
 	}
 
 	/**

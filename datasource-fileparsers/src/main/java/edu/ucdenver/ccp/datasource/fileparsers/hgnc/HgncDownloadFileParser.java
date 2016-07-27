@@ -558,7 +558,7 @@ public class HgncDownloadFileParser extends SingleLineFileRecordReader<HgncDownl
 			return new SlcId(idStr);
 		}
 
-		return new UnknownDataSourceIdentifier(idStr, null);
+		return new UnknownDataSourceIdentifier(idStr);
 	}
 
 	/**
