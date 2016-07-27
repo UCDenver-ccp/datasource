@@ -48,6 +48,7 @@ import edu.ucdenver.ccp.datasource.fileparsers.FileRecordReader;
 import edu.ucdenver.ccp.datasource.fileparsers.drugbank.DrugbankXmlFileRecordReader;
 import edu.ucdenver.ccp.datasource.fileparsers.ebi.goa.GpAssociationGoaUniprotFileParser;
 import edu.ucdenver.ccp.datasource.fileparsers.ebi.goa.gaf.GoaGafFileRecordReaderFactory;
+import edu.ucdenver.ccp.datasource.fileparsers.ebi.goa.gaf.GoaGafFileRecordReaderFactory.AnnotationType;
 import edu.ucdenver.ccp.datasource.fileparsers.ebi.interpro.InterPro2GoFileParser;
 import edu.ucdenver.ccp.datasource.fileparsers.ebi.interpro.InterProNamesDatFileParser;
 import edu.ucdenver.ccp.datasource.fileparsers.ebi.interpro.InterProProtein2IprDatFileParser;
@@ -407,14 +408,35 @@ public enum FileDataSource {
 		@Override
 		protected FileRecordReader<?> initFileRecordReader(File sourceFileDirectory, boolean cleanSourceFiles,
 				File idListDir, Set<NcbiTaxonomyID> taxonIds) throws IOException {
-			return  GoaGafFileRecordReaderFactory.getRecordReader(sourceFileDirectory, taxonIds, cleanSourceFiles);
+			return  GoaGafFileRecordReaderFactory.getRecordReader(sourceFileDirectory, taxonIds, AnnotationType.CANONICAL, cleanSourceFiles);
 		}
 	},
 	GOA_HUMAN(DataSource.GOA, IsTaxonAware.YES, RequiresManualDownload.NO) {
 		@Override
 		protected FileRecordReader<?> initFileRecordReader(File sourceFileDirectory, boolean cleanSourceFiles,
 				File idListDir, Set<NcbiTaxonomyID> taxonIds) throws IOException {
-			return  GoaGafFileRecordReaderFactory.getRecordReader(sourceFileDirectory, NcbiTaxonomyID.HUMAN, cleanSourceFiles);
+			return  GoaGafFileRecordReaderFactory.getRecordReader(sourceFileDirectory, NcbiTaxonomyID.HUMAN, AnnotationType.CANONICAL, cleanSourceFiles);
+		}
+	},
+	GOA_HUMAN_ISOFORM(DataSource.GOA, IsTaxonAware.YES, RequiresManualDownload.NO) {
+		@Override
+		protected FileRecordReader<?> initFileRecordReader(File sourceFileDirectory, boolean cleanSourceFiles,
+				File idListDir, Set<NcbiTaxonomyID> taxonIds) throws IOException {
+			return  GoaGafFileRecordReaderFactory.getRecordReader(sourceFileDirectory, NcbiTaxonomyID.HUMAN, AnnotationType.ISOFORM, cleanSourceFiles);
+		}
+	},
+	GOA_HUMAN_COMPLEX(DataSource.GOA, IsTaxonAware.YES, RequiresManualDownload.NO) {
+		@Override
+		protected FileRecordReader<?> initFileRecordReader(File sourceFileDirectory, boolean cleanSourceFiles,
+				File idListDir, Set<NcbiTaxonomyID> taxonIds) throws IOException {
+			return  GoaGafFileRecordReaderFactory.getRecordReader(sourceFileDirectory, NcbiTaxonomyID.HUMAN, AnnotationType.COMPLEX, cleanSourceFiles);
+		}
+	},
+	GOA_HUMAN_RNA(DataSource.GOA, IsTaxonAware.YES, RequiresManualDownload.NO) {
+		@Override
+		protected FileRecordReader<?> initFileRecordReader(File sourceFileDirectory, boolean cleanSourceFiles,
+				File idListDir, Set<NcbiTaxonomyID> taxonIds) throws IOException {
+			return  GoaGafFileRecordReaderFactory.getRecordReader(sourceFileDirectory, NcbiTaxonomyID.HUMAN, AnnotationType.RNA, cleanSourceFiles);
 		}
 	},
 	/**

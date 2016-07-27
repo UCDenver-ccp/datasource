@@ -250,6 +250,12 @@ public class GoaFileIdResolver implements IdResolver {
 		if (db.equals("UniProtKB")) {
 			return new UniProtID(id);
 		}
+		if (db.equals("IntAct")) {
+			return new IntActID(id);
+		}
+		if (db.equals("RNAcentral")) {
+			return new RnaCentralId(id);
+		}
 		logger.warn("Encountered unknown id/db: " + id + " -- " + db);
 		return new UnknownDataSourceIdentifier(id, db);
 	}
