@@ -53,6 +53,7 @@ import java.util.Arrays;
 import java.util.GregorianCalendar;
 
 import org.hamcrest.Matchers;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.openrdf.model.Statement;
 import org.openrdf.model.Value;
@@ -65,7 +66,6 @@ import org.openrdf.rio.RDFWriter;
 import org.openrdf.rio.Rio;
 
 import edu.ucdenver.ccp.common.test.DefaultTestCase;
-import edu.ucdenver.ccp.datasource.identifiers.DataSource;
 import edu.ucdenver.ccp.datasource.identifiers.DataSource;
 import edu.ucdenver.ccp.datasource.rdfizer.rdf.vocabulary.KIAO;
 import edu.ucdenver.ccp.datasource.rdfizer.rdf.vocabulary.RDF;
@@ -190,6 +190,7 @@ public class RdfUtilTest extends DefaultTestCase {
 		assertEquals("object:", object, s.getObject().toString());
 	}
 
+	@Ignore("This test has been observed to fail in some instances, e.g. on AWS, when a different GMT adjustment is used. Consider rewriting useing Java ZonedDateTime available in Java 8.")
 	@Test
 	public final void testGetCreationTimeStampStatement() {
 		long timeInMillis = 1292541019138L;
