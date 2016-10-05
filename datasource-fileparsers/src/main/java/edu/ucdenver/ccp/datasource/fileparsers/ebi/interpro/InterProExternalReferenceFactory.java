@@ -34,6 +34,7 @@ package edu.ucdenver.ccp.datasource.fileparsers.ebi.interpro;
  */
 
 import edu.ucdenver.ccp.datasource.identifiers.DataSourceIdentifier;
+import edu.ucdenver.ccp.datasource.identifiers.UnknownDataSourceIdentifier;
 import edu.ucdenver.ccp.datasource.identifiers.ebi.interpro.Gene3dID;
 import edu.ucdenver.ccp.datasource.identifiers.ebi.interpro.HamapAnnotationRuleID;
 import edu.ucdenver.ccp.datasource.identifiers.ebi.interpro.PantherID;
@@ -88,8 +89,8 @@ public class InterProExternalReferenceFactory {
 			return new HamapAnnotationRuleID(databaseReferenceID);
 		if (databaseReferenceID.startsWith(PRODOM_PREFIX))
 			return new ProDomID(databaseReferenceID);
-		throw new IllegalArgumentException(String.format("Unknown external database ID type for ID: %s",
-				databaseReferenceID));
+		
+		return new UnknownDataSourceIdentifier(databaseReferenceID, null);
 	}
 
 }
