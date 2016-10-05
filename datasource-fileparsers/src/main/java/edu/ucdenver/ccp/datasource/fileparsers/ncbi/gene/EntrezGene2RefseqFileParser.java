@@ -62,7 +62,7 @@ import edu.ucdenver.ccp.datasource.identifiers.ncbi.taxonomy.NcbiTaxonomyID;
  */
 public class EntrezGene2RefseqFileParser extends TaxonAwareSingleLineFileRecordReader<EntrezGene2RefseqFileData> {
 
-	private static final String HEADER = "#Format: tax_id GeneID status RNA_nucleotide_accession.version RNA_nucleotide_gi protein_accession.version protein_gi genomic_nucleotide_accession.version genomic_nucleotide_gi start_position_on_the_genomic_accession end_position_on_the_genomic_accession orientation assembly mature_peptide_accession.version mature_peptide_gi Symbol (tab is used as a separator, pound sign - start of a comment)";
+	private static final String HEADER = "#tax_id\tGeneID\tstatus\tRNA_nucleotide_accession.version\tRNA_nucleotide_gi\tprotein_accession.version\tprotein_gi\tgenomic_nucleotide_accession.version\tgenomic_nucleotide_gi\tstart_position_on_the_genomic_accession\tend_position_on_the_genomic_accession\torientation\tassembly\tmature_peptide_accession.version\tmature_peptide_gi\tSymbol";
 
 	public static final String FTP_FILE_NAME = "gene2refseq.gz";
 	public static final CharacterEncoding ENCODING = CharacterEncoding.US_ASCII;
@@ -197,5 +197,5 @@ public class EntrezGene2RefseqFileParser extends TaxonAwareSingleLineFileRecordR
 		return proteinAccessionID2EntrezGeneIDMap;
 	}
 
-
+	
 }
