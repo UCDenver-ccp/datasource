@@ -340,10 +340,12 @@ public class HgncDownloadFileParser extends SingleLineFileRecordReader<HgncDownl
 				suppliedRefseqId = new RefSeqID(columnValue);
 			}
 
-			UniProtID suppliedUniProtId = null;
+			Set<UniProtID> suppliedUniProtIds = new HashSet<UniProtID>();
 			columnValue = toks[column++];
 			if (!columnValue.isEmpty() && !columnValue.equals("-")) {
-				suppliedUniProtId = new UniProtID(columnValue);
+				for (String val : columnValue.split(",")) {
+ 				   suppliedUniProtIds.add(new UniProtID(val.trim()));
+				}
 			}
 
 			EnsemblGeneID suppliedEnsemblId = null;
@@ -385,7 +387,7 @@ public class HgncDownloadFileParser extends SingleLineFileRecordReader<HgncDownl
 					dateSymbolChanged, dateNameChanged, accessionNumbers, ecNumbers, entrezGeneId, ensemblGeneID,
 					mgiIDs, specialistDatabaseLinks, pubmedIDs, refseqIDs, geneFamilyTagDescriptionPairs, recordType,
 					primaryIds, secondaryIds, ccdsIds, vegaIds, locusSpecificDatabaseNameLinkPairs,
-					suppliedEntrezGeneId, suppliedOmimIds, suppliedRefseqId, suppliedUniProtId, suppliedEnsemblId,
+					suppliedEntrezGeneId, suppliedOmimIds, suppliedRefseqId, suppliedUniProtIds, suppliedEnsemblId,
 					suppliedVegaId, suppliedUcscId, suppliedMgiIds, suppliedRgdIds, line.getByteOffset(),
 					line.getLineNumber());
 		}
@@ -588,7 +590,7 @@ public class HgncDownloadFileParser extends SingleLineFileRecordReader<HgncDownl
 		File dir = new File("/tmp");
 		HgncDownloadFileParser parser = null;
 		try {
-			parser = new HgncDownloadFileParser(dir, false, WithdrawnRecordTreatment.INCLUDE);
+			parser = new HgncDownloadFileParser(dir, false, WithdrawnRecordTreatment.IGNORE);
 			while (parser.hasNext()) {
 				parser.next();
 			}
