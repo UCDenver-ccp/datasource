@@ -49,11 +49,13 @@ import static org.junit.Assert.fail;
 
 import java.io.File;
 import java.io.StringWriter;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.GregorianCalendar;
 
 import org.hamcrest.Matchers;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.openrdf.model.Statement;
 import org.openrdf.model.Value;
@@ -190,11 +192,13 @@ public class RdfUtilTest extends DefaultTestCase {
 		assertEquals("object:", object, s.getObject().toString());
 	}
 
-	@Ignore("This test has been observed to fail in some instances, e.g. on AWS, when a different GMT adjustment is used. Consider rewriting useing Java ZonedDateTime available in Java 8.")
 	@Test
 	public final void testGetCreationTimeStampStatement() {
 		long timeInMillis = 1292541019138L;
-		String expectedTime = "\"2010-12-16T16:10:19.138-07:00\"^^<http://www.w3.org/2001/XMLSchema#dateTime>";
+		Calendar cal = new GregorianCalendar();
+        cal.setTimeInMillis(timeInMillis);
+        DateFormat df = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSXXX");
+		String expectedTime = "\""+df.format(cal.getTime())+"\"^^<http://www.w3.org/2001/XMLSchema#dateTime>";
 		Statement s = getCreationTimeStampStatement(new URIImpl("http://myfile"), timeInMillis);
 		validateStatement("http://myfile", KIAO.HAS_CREATION_DATE.uri().toString(), expectedTime, s);
 	}
