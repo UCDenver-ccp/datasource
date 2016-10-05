@@ -152,7 +152,7 @@ public class RdfUtilTest extends DefaultTestCase {
 		long timeInMillis = 1292541019138L;
 		Value value = getDateLiteral(timeInMillis);
 		assertThat(value, Matchers.instanceOf(CalendarLiteralImpl.class));
-		assertEquals("\"2010-12-16T16:10:19.138-07:00\"^^<http://www.w3.org/2001/XMLSchema#dateTime>", value.toString());
+		assertEquals(getExpectedTimeStamp(timeInMillis), value.toString());
 	}
 
 	@Test
@@ -162,7 +162,7 @@ public class RdfUtilTest extends DefaultTestCase {
 		c.setTimeInMillis(timeInMillis);
 		Value value = getDateLiteral(c);
 		assertThat(value, Matchers.instanceOf(CalendarLiteralImpl.class));
-		assertEquals("\"2010-12-16T16:10:19.138-07:00\"^^<http://www.w3.org/2001/XMLSchema#dateTime>", value.toString());
+		assertEquals(getExpectedTimeStamp(timeInMillis), value.toString());
 	}
 
 	@Test
@@ -192,15 +192,26 @@ public class RdfUtilTest extends DefaultTestCase {
 		assertEquals("object:", object, s.getObject().toString());
 	}
 
+	
+	
 	@Test
 	public final void testGetCreationTimeStampStatement() {
 		long timeInMillis = 1292541019138L;
+		String expectedTime = getExpectedTimeStamp(timeInMillis);
+		Statement s = getCreationTimeStampStatement(new URIImpl("http://myfile"), timeInMillis);
+		validateStatement("http://myfile", KIAO.HAS_CREATION_DATE.uri().toString(), expectedTime, s);
+	}
+
+	/**
+	 * @param timeInMillis
+	 * @return a time stamp String formatted as if it were in an RDF statement
+	 */
+	private String getExpectedTimeStamp(long timeInMillis) {
 		Calendar cal = new GregorianCalendar();
         cal.setTimeInMillis(timeInMillis);
         DateFormat df = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSXXX");
 		String expectedTime = "\""+df.format(cal.getTime())+"\"^^<http://www.w3.org/2001/XMLSchema#dateTime>";
-		Statement s = getCreationTimeStampStatement(new URIImpl("http://myfile"), timeInMillis);
-		validateStatement("http://myfile", KIAO.HAS_CREATION_DATE.uri().toString(), expectedTime, s);
+		return expectedTime;
 	}
 
 	@Test
