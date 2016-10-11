@@ -206,7 +206,7 @@ public class RdfUtilTest extends DefaultTestCase {
 	 * @param timeInMillis
 	 * @return a time stamp String formatted as if it were in an RDF statement
 	 */
-	private String getExpectedTimeStamp(long timeInMillis) {
+	static String getExpectedTimeStamp(long timeInMillis) {
 		Calendar cal = new GregorianCalendar();
         cal.setTimeInMillis(timeInMillis);
         DateFormat df = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSXXX");

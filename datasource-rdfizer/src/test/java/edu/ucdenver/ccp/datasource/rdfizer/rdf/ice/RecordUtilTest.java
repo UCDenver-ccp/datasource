@@ -271,7 +271,7 @@ public class RecordUtilTest {
 				"(http://kabob.ucdenver.edu/iao/kegg/keggTestDataRecordDataSet20101221, http://www.w3.org/1999/02/22-rdf-syntax-ns#type, http://kabob.ucdenver.edu/iao/DataSet)",
 				it.next().toString());
 		assertEquals(
-				"(http://kabob.ucdenver.edu/iao/kegg/keggTestDataRecordDataSet20101221, http://kabob.ucdenver.edu/iao/hasCreationDate, \"2010-12-21T00:00:00.000-07:00\"^^<http://www.w3.org/2001/XMLSchema#dateTime>)",
+				"(http://kabob.ucdenver.edu/iao/kegg/keggTestDataRecordDataSet20101221, http://kabob.ucdenver.edu/iao/hasCreationDate, " + RdfUtilTest.getExpectedTimeStamp(createdTimeInMillis) + ")",
 				it.next().toString());
 		assertFalse(it.hasNext());
 	}

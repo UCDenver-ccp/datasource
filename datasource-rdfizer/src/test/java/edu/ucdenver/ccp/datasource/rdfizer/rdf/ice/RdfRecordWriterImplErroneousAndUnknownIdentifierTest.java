@@ -105,12 +105,12 @@ public class RdfRecordWriterImplErroneousAndUnknownIdentifierTest extends Defaul
 			System.err.println(l);
 		}
 
-		List<String> expectedLines = getExpectedLines();
+		List<String> expectedLines = getExpectedLines(RdfUtilTest.getExpectedTimeStamp(createdTimeInMillis20101217));
 		assertTrue("N-Triple Lines should be as expected.", FileComparisonUtil.hasExpectedLines(outputFile,
 				CharacterEncoding.UTF_8, expectedLines, null, LineOrder.ANY_ORDER, ColumnOrder.AS_IN_FILE));
 	}
 
-	private List<String> getExpectedLines() {
+	private List<String> getExpectedLines(String timestamp) {
 
 		return CollectionsUtil
 				.createList(
@@ -119,7 +119,7 @@ public class RdfRecordWriterImplErroneousAndUnknownIdentifierTest extends Defaul
 						"<http://kabob.ucdenver.edu/iao/pr/prProMappingRecordDataSet20101217> <http://kabob.ucdenver.edu/iao/hasTemplate> <http://kabob.ucdenver.edu/iao/pr/prProMappingRecordSchema1> .",
 						"<http://kabob.ucdenver.edu/iao/pr/prDataSource20101217> <http://purl.obolibrary.org/obo/BFO_0000051> <http://kabob.ucdenver.edu/iao/pr/prProMappingRecordDataSet20101217> .",
 						"<http://kabob.ucdenver.edu/iao/pr/prProMappingRecordDataSet20101217> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://kabob.ucdenver.edu/iao/DataSet> .",
-						"<http://kabob.ucdenver.edu/iao/pr/prProMappingRecordDataSet20101217> <http://kabob.ucdenver.edu/iao/hasCreationDate> \"2010-12-17T00:00:00.000-07:00\"^^<http://www.w3.org/2001/XMLSchema#dateTime> .",
+						"<http://kabob.ucdenver.edu/iao/pr/prProMappingRecordDataSet20101217> <http://kabob.ucdenver.edu/iao/hasCreationDate> " + timestamp + " .",
 						"<http://kabob.ucdenver.edu/iao/pr/prProMappingRecordDataSet20101217> <http://purl.obolibrary.org/obo/BFO_0000051> <http://kabob.ucdenver.edu/iao/pr/R_ProMappingRecord_WZhKO4jkiAbN2hT_3flYHMxyvEc> .",
 						"<http://kabob.ucdenver.edu/iao/pr/R_ProMappingRecord_WZhKO4jkiAbN2hT_3flYHMxyvEc> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://kabob.ucdenver.edu/iao/pr/ProMappingRecord> .",
 						"<http://kabob.ucdenver.edu/iao/pr/R_ProMappingRecord_WZhKO4jkiAbN2hT_3flYHMxyvEc> <http://kabob.ucdenver.edu/iao/hasTemplate> <http://kabob.ucdenver.edu/iao/pr/ProMappingRecordSchema1> .",
