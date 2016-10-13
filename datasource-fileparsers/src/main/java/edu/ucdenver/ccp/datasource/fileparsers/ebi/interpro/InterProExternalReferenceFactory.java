@@ -92,6 +92,7 @@ public class InterProExternalReferenceFactory {
 		if (databaseReferenceID.startsWith(PRODOM_PREFIX))
             return new ProDomID(databaseReferenceID);
 
+		
         return new UnknownDataSourceIdentifier(databaseReferenceID);
 	}
 
