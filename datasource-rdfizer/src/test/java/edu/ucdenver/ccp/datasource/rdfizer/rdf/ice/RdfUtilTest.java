@@ -56,6 +56,7 @@ import java.util.Calendar;
 import java.util.GregorianCalendar;
 
 import org.hamcrest.Matchers;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.openrdf.model.Statement;
 import org.openrdf.model.Value;
@@ -192,8 +193,6 @@ public class RdfUtilTest extends DefaultTestCase {
 		assertEquals("object:", object, s.getObject().toString());
 	}
 
-	
-	
 	@Test
 	public final void testGetCreationTimeStampStatement() {
 		long timeInMillis = 1292541019138L;

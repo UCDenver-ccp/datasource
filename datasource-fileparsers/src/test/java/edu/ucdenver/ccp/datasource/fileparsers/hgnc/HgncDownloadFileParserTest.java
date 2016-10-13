@@ -131,7 +131,7 @@ public class HgncDownloadFileParserTest extends RecordReaderTester {
 			assertEquals(new EntrezGeneID(503538), dataRecord.getSuppliedEntrezGeneId());
 			assertEmpty(dataRecord.getSuppliedOmimIds());
 			assertEquals(new RefSeqID("NR_015380"), dataRecord.getSuppliedRefseqId());
-			assertNull(dataRecord.getSuppliedUniprotId());
+			assertEmpty(dataRecord.getSuppliedUniprotIds());
 			assertNull(dataRecord.getSuppliedEnsemblId());
 			assertEquals(new UcscGenomeBrowserId("uc002qsg.3"), dataRecord.getSuppliedUcscId());
 			assertEmpty(dataRecord.getSuppliedMgiIds());
@@ -188,7 +188,7 @@ public class HgncDownloadFileParserTest extends RecordReaderTester {
 			assertEquals(new EntrezGeneID(29974), dataRecord.getSuppliedEntrezGeneId());
 			assertEmpty(dataRecord.getSuppliedOmimIds());
 			assertEquals(new RefSeqID("NM_001198818"), dataRecord.getSuppliedRefseqId());
-			assertEquals(new UniProtID("Q9NQ94"), dataRecord.getSuppliedUniprotId());
+			assertEquals(CollectionsUtil.createSet(new UniProtID("Q9NQ94")), dataRecord.getSuppliedUniprotIds());
 			assertEquals(new EnsemblGeneID("ENSG00000148584"), dataRecord.getSuppliedEnsemblId());
 			assertEquals(new UcscGenomeBrowserId("uc001jjj.3"), dataRecord.getSuppliedUcscId());
 			assertEquals(CollectionsUtil.createSet(new MgiGeneID("MGI:1917115")), dataRecord.getSuppliedMgiIds());
