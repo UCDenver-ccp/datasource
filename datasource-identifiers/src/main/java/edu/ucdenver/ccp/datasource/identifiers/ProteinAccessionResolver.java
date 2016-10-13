@@ -73,6 +73,11 @@ public class ProteinAccessionResolver {
 	 *            in the error message.
 	 * @return
 	 */
+	
+	public static DataSourceIdentifier<String> resolveProteinAccession(String acc) {
+		return resolveProteinAccession(acc, null);
+	}
+	
 	public static DataSourceIdentifier<String> resolveProteinAccession(String acc, String idWithPrefix) {
 		acc = acc.toUpperCase();
 		if (acc.matches("[A-Z][A-Z]_\\d+\\.?\\d*")) {
@@ -126,6 +131,15 @@ public class ProteinAccessionResolver {
 			}
 			if (prefix.startsWith("N")) {
 				return new GenBankID(acc);
+			}
+			if (prefix.startsWith("O")) {
+				return new GenBankID(acc);
+			}
+			if (prefix.startsWith("P")) {
+				return new GenBankID(acc);
+			}
+			if (prefix.startsWith("S")) {
+				return new EmblID(acc);
 			}
 		}
 //		logger.warn("Input is not a known protein accession pattern: " + acc);

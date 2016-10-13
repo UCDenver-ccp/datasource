@@ -133,26 +133,26 @@ public class GpAssociationGoaUniprotFileParser extends
 	// }
 
 	public GpAssociationGoaUniprotFileParser(File inputFile, CharacterEncoding encoding, File idListDirectory,
-			Set<NcbiTaxonomyID> taxonIds) throws IOException {
+			Set<NcbiTaxonomyID> taxonIds, File baseSourceFileDirectory, boolean cleanIdListFiles) throws IOException {
 		super(inputFile, encoding, COMMENT_INDICATOR, taxonIds);
-		taxonSpecificIds = loadTaxonSpecificIds(idListDirectory, taxonIds);
+		taxonSpecificIds = loadTaxonSpecificIds(idListDirectory, taxonIds, baseSourceFileDirectory, cleanIdListFiles);
 		if (!isLineOfInterest(line)) {
 			advanceToNextLineWithTaxonOfInterest();
 		}
 	}
 
-	private Set<DataSourceIdentifier<?>> loadTaxonSpecificIds(File idListDirectory, Set<NcbiTaxonomyID> taxonIds)
-			throws IOException {
-		Set<UniProtID> uniprotIdsForTaxon = IdListFileFactory.getIdListFromFile(idListDirectory, DataSource.UNIPROT,
-				taxonIds, UniProtID.class);
-		Set<IntActID> intactIdsForTaxon = IdListFileFactory.getIdListFromFile(idListDirectory, DataSource.IREFWEB,
-				taxonIds, IntActID.class);
+	private Set<DataSourceIdentifier<?>> loadTaxonSpecificIds(File idListDirectory, Set<NcbiTaxonomyID> taxonIds,
+			File baseSourceFileDirectory, boolean cleanIdListFiles) throws IOException {
+		Set<UniProtID> uniprotIdsForTaxon = IdListFileFactory.getIdListFromFile(idListDirectory,
+				baseSourceFileDirectory, DataSource.UNIPROT, taxonIds, UniProtID.class, cleanIdListFiles);
+		Set<IntActID> intactIdsForTaxon = IdListFileFactory.getIdListFromFile(idListDirectory, baseSourceFileDirectory,
+				DataSource.INTACT, taxonIds, IntActID.class, cleanIdListFiles);
 		Set<DataSourceIdentifier<?>> ids = new HashSet<DataSourceIdentifier<?>>();
 		if (uniprotIdsForTaxon != null) {
 			ids.addAll(uniprotIdsForTaxon);
 		}
 		if (intactIdsForTaxon != null) {
-		ids.addAll(intactIdsForTaxon);
+			ids.addAll(intactIdsForTaxon);
 		}
 		if (ids.isEmpty()) {
 			return null;
@@ -161,9 +161,9 @@ public class GpAssociationGoaUniprotFileParser extends
 	}
 
 	public GpAssociationGoaUniprotFileParser(File workDirectory, boolean clean, File idListDirectory,
-			Set<NcbiTaxonomyID> taxonIds) throws IOException {
+			Set<NcbiTaxonomyID> taxonIds, File baseSourceFileDirectory, boolean cleanIdListFiles) throws IOException {
 		super(workDirectory, ENCODING, COMMENT_INDICATOR, null, null, clean, taxonIds);
-		taxonSpecificIds = loadTaxonSpecificIds(idListDirectory, taxonIds);
+		taxonSpecificIds = loadTaxonSpecificIds(idListDirectory, taxonIds, baseSourceFileDirectory, cleanIdListFiles);
 		if (!isLineOfInterest(line)) {
 			advanceToNextLineWithTaxonOfInterest();
 		}
@@ -376,9 +376,7 @@ public class GpAssociationGoaUniprotFileParser extends
 						 */
 						return taxonsOfInterest.iterator().next();
 					}
-				}
-
-				else {
+				} else {
 					logger.warn("Unhandled non-UniProt id in GO data while trying to create a species specific subset: "
 							+ databaseObjectID.getDataSource() + " -- " + databaseObjectID);
 				}

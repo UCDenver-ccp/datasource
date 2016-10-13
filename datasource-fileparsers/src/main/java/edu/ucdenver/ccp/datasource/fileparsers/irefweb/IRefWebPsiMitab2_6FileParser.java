@@ -136,9 +136,6 @@ public class IRefWebPsiMitab2_6FileParser extends TaxonAwareSingleLineFileRecord
 
 	public static final CharacterEncoding ENCODING = CharacterEncoding.US_ASCII;
 
-	@HttpDownload(url = "http://irefindex.org/download/irefindex/data/archive/release_14.0/psi_mitab/MITAB2.6/All.mitab.07042015.txt.zip", decompress = true, targetFileName = "All.mitab.04072015.txt")
-	private File allMitabTxtFile;
-
 	public IRefWebPsiMitab2_6FileParser(File file, CharacterEncoding encoding) throws IOException,
 			IllegalArgumentException {
 		super(file, encoding, null);
@@ -171,12 +168,6 @@ public class IRefWebPsiMitab2_6FileParser extends TaxonAwareSingleLineFileRecord
 			return interactorB.getNcbiTaxonomyId().getTaxonomyId();
 		}
 		return null;
-	}
-
-	@Override
-	protected StreamLineReader initializeLineReaderFromDownload(CharacterEncoding encoding, String skipLinePrefix)
-			throws IOException {
-		return new StreamLineReader(allMitabTxtFile, encoding, skipLinePrefix);
 	}
 
 	@Override

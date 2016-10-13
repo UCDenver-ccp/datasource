@@ -33,6 +33,7 @@ package edu.ucdenver.ccp.datasource.rdfizer.rdf.ice;
  * #L%
  */
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 import java.net.URISyntaxException;
@@ -287,14 +288,14 @@ public class SubRecordUtilTest {
 						"(http://record.uri, http://purl.obolibrary.org/obo/BFO_0000051, http://kabob.ucdenver.edu/iao/kegg/R_NestedSubRecord_QrM2DZEWgi_Lp-In-_vZnXBaPWU)",
 						"(http://kabob.ucdenver.edu/iao/kegg/R_NestedSubRecord_QrM2DZEWgi_Lp-In-_vZnXBaPWU, http://www.w3.org/1999/02/22-rdf-syntax-ns#type, http://kabob.ucdenver.edu/iao/kegg/NestedSubRecord)",
 						"(http://kabob.ucdenver.edu/iao/kegg/R_NestedSubRecord_QrM2DZEWgi_Lp-In-_vZnXBaPWU, http://kabob.ucdenver.edu/iao/hasTemplate, http://kabob.ucdenver.edu/iao/kegg/NestedSubRecordSchema1)",
-						"(http://kabob.ucdenver.edu/iao/kegg/R_NestedSubRecord_QrM2DZEWgi_Lp-In-_vZnXBaPWU, http://purl.obolibrary.org/obo/BFO_0000051, http://kabob.ucdenver.edu/iao/irefweb/R_IRefWebInteractionSourceDatabase_IPNOgWa085q7R1Ww21fz-xD4MV0)",
-						"(http://kabob.ucdenver.edu/iao/irefweb/R_IRefWebInteractionSourceDatabase_IPNOgWa085q7R1Ww21fz-xD4MV0, http://www.w3.org/1999/02/22-rdf-syntax-ns#type, http://kabob.ucdenver.edu/iao/irefweb/IRefWebInteractionSourceDatabase)",
-						"(http://kabob.ucdenver.edu/iao/irefweb/R_IRefWebInteractionSourceDatabase_IPNOgWa085q7R1Ww21fz-xD4MV0, http://kabob.ucdenver.edu/iao/hasTemplate, http://kabob.ucdenver.edu/iao/irefweb/IRefWebInteractionSourceDatabaseSchema1)",
-						"(http://kabob.ucdenver.edu/iao/irefweb/R_IRefWebInteractionSourceDatabase_IPNOgWa085q7R1Ww21fz-xD4MV0, http://purl.obolibrary.org/obo/BFO_0000051, http://kabob.ucdenver.edu/iao/irefweb/F_IRefWebInteractionSourceDatabase_sourceDatabaseId_hxLOHMRgT97VZ1vytl4H1dILsuc)",
-						"(http://kabob.ucdenver.edu/iao/irefweb/F_IRefWebInteractionSourceDatabase_sourceDatabaseId_hxLOHMRgT97VZ1vytl4H1dILsuc, http://kabob.ucdenver.edu/iao/hasTemplate, http://kabob.ucdenver.edu/iao/irefweb/IRefWebInteractionSourceDatabase_sourceDatabaseIdDataField1)",
-						"(http://kabob.ucdenver.edu/iao/irefweb/F_IRefWebInteractionSourceDatabase_sourceDatabaseId_hxLOHMRgT97VZ1vytl4H1dILsuc, http://www.w3.org/1999/02/22-rdf-syntax-ns#type, http://kabob.ucdenver.edu/iao/FieldValue)",
-						"(http://kabob.ucdenver.edu/iao/irefweb/F_IRefWebInteractionSourceDatabase_sourceDatabaseId_hxLOHMRgT97VZ1vytl4H1dILsuc, http://purl.obolibrary.org/obo/IAO_0000219, http://kabob.ucdenver.edu/iao/mi_ontology/MI_ONTOLOGY_MI_0123_ICE)",
-						"(http://kabob.ucdenver.edu/iao/irefweb/R_IRefWebInteractionSourceDatabase_IPNOgWa085q7R1Ww21fz-xD4MV0, http://purl.obolibrary.org/obo/BFO_0000051, http://kabob.ucdenver.edu/iao/irefweb/F_IRefWebInteractionSourceDatabase_sourceDatabaseName_8f_AI3EeN_eQ7M4Y6Ds14YrZmcU)",
+						"(http://kabob.ucdenver.edu/iao/kegg/R_NestedSubRecord_QrM2DZEWgi_Lp-In-_vZnXBaPWU, http://purl.obolibrary.org/obo/BFO_0000051, http://kabob.ucdenver.edu/iao/irefweb/R_IRefWebInteractionSourceDatabase_ngBtrmwImWPs5G7VIcb8LT0YmRQ)",
+						"(http://kabob.ucdenver.edu/iao/irefweb/R_IRefWebInteractionSourceDatabase_ngBtrmwImWPs5G7VIcb8LT0YmRQ, http://www.w3.org/1999/02/22-rdf-syntax-ns#type, http://kabob.ucdenver.edu/iao/irefweb/IRefWebInteractionSourceDatabase)",
+						"(http://kabob.ucdenver.edu/iao/irefweb/R_IRefWebInteractionSourceDatabase_ngBtrmwImWPs5G7VIcb8LT0YmRQ, http://kabob.ucdenver.edu/iao/hasTemplate, http://kabob.ucdenver.edu/iao/irefweb/IRefWebInteractionSourceDatabaseSchema1)",
+						"(http://kabob.ucdenver.edu/iao/irefweb/R_IRefWebInteractionSourceDatabase_ngBtrmwImWPs5G7VIcb8LT0YmRQ, http://purl.obolibrary.org/obo/BFO_0000051, http://kabob.ucdenver.edu/iao/irefweb/F_IRefWebInteractionSourceDatabase_sourceDatabaseId_OQ6MB4TaBkNXN6mQ_jmDABOSbPM)",
+						"(http://kabob.ucdenver.edu/iao/irefweb/F_IRefWebInteractionSourceDatabase_sourceDatabaseId_OQ6MB4TaBkNXN6mQ_jmDABOSbPM, http://kabob.ucdenver.edu/iao/hasTemplate, http://kabob.ucdenver.edu/iao/irefweb/IRefWebInteractionSourceDatabase_sourceDatabaseIdDataField1)",
+						"(http://kabob.ucdenver.edu/iao/irefweb/F_IRefWebInteractionSourceDatabase_sourceDatabaseId_OQ6MB4TaBkNXN6mQ_jmDABOSbPM, http://www.w3.org/1999/02/22-rdf-syntax-ns#type, http://kabob.ucdenver.edu/iao/FieldValue)",
+						"(http://kabob.ucdenver.edu/iao/irefweb/F_IRefWebInteractionSourceDatabase_sourceDatabaseId_OQ6MB4TaBkNXN6mQ_jmDABOSbPM, http://purl.obolibrary.org/obo/IAO_0000219, http://kabob.ucdenver.edu/iao/mi/MI_0123_ICE)",
+						"(http://kabob.ucdenver.edu/iao/irefweb/R_IRefWebInteractionSourceDatabase_ngBtrmwImWPs5G7VIcb8LT0YmRQ, http://purl.obolibrary.org/obo/BFO_0000051, http://kabob.ucdenver.edu/iao/irefweb/F_IRefWebInteractionSourceDatabase_sourceDatabaseName_8f_AI3EeN_eQ7M4Y6Ds14YrZmcU)",
 						"(http://kabob.ucdenver.edu/iao/irefweb/F_IRefWebInteractionSourceDatabase_sourceDatabaseName_8f_AI3EeN_eQ7M4Y6Ds14YrZmcU, http://kabob.ucdenver.edu/iao/hasTemplate, http://kabob.ucdenver.edu/iao/irefweb/IRefWebInteractionSourceDatabase_sourceDatabaseNameDataField1)",
 						"(http://kabob.ucdenver.edu/iao/irefweb/F_IRefWebInteractionSourceDatabase_sourceDatabaseName_8f_AI3EeN_eQ7M4Y6Ds14YrZmcU, http://www.w3.org/1999/02/22-rdf-syntax-ns#type, http://kabob.ucdenver.edu/iao/FieldValue)",
 						"(http://kabob.ucdenver.edu/iao/irefweb/F_IRefWebInteractionSourceDatabase_sourceDatabaseName_8f_AI3EeN_eQ7M4Y6Ds14YrZmcU, http://purl.obolibrary.org/obo/IAO_0000219, \"miTerm123\"@en)",
@@ -309,10 +310,11 @@ public class SubRecordUtilTest {
 
 		Collection<? extends Statement> statements = RdfRecordUtil.getRecordInstanceStatements(r, createdTimeInMillis,
 				new URIImpl("http://record.uri"), new NoOpDuplicateStatementFilter());
+		assertEquals(expectedStatements.size(), statements.size());
 		Iterator<? extends Statement> it = statements.iterator();
 		while (it.hasNext()) {
 			String triple = it.next().toString();
-			// System.out.println(triple);
+			System.out.println(triple);
 			assertTrue("Not in expected set: " + triple, expectedStatements.remove(triple));
 		}
 

@@ -92,49 +92,50 @@ public class PharmGkbGeneFileParser extends SingleLineFileRecordReader<PharmGkbG
 
 	private static final Logger logger = Logger.getLogger(PharmGkbGeneFileParser.class);
 
-	private static final String HEADER = "PharmGKB Accession Id\tEntrez Id\tEnsembl Id\tName\tSymbol\tAlternate Names\tAlternate Symbols\tIs VIP\tHas Variant Annotation\tCross-references\tHas CPIC Dosing Guideline\tChromosome\tChromosomal Start\tChromosomal Stop";
+	private static final String HEADER = "PharmGKB Accession Id\tNCBI Gene ID\tHGNC ID\tEnsembl Id\tName\tSymbol\tAlternate Names\tAlternate Symbols\tIs VIP\tHas Variant Annotation\tCross-references\tHas CPIC Dosing Guideline\tChromosome\tChromosomal Start\tChromosomal Stop";
 
 	private static final CharacterEncoding ENCODING = CharacterEncoding.US_ASCII;
 
-	private static final String HUMANCYCGENE_PREFIX = "HumanCycGene:";
+	private static final String HUMANCYCGENE_PREFIX = "HumanCyc Gene:";
 
-	private static final String ALFRED_PREFIX = "alfred:";
+	private static final String ALFRED_PREFIX = "ALFRED:";
 
-	private static final String CTD_PREFIX = "ctd:";
+	private static final String CTD_PREFIX = "Comparative Toxicogenomics Database:";
 
-	private static final String ENSEMBL_PREFIX = "ensembl:";
+	private static final String ENSEMBL_PREFIX = "Ensembl:";
 
-	private static final String ENTREZGENE_PREFIX = "entrezGene:";
+	private static final String ENTREZGENE_PREFIX = "NCBI Gene:";
 
-	private static final String GENEATLAS_PREFIX = "genAtlas:";
+	private static final String GENEATLAS_PREFIX = "GenAtlas:";
 
-	private static final String GENECARD_PREFIX = "geneCard:";
+	private static final String GENECARD_PREFIX = "GeneCard:";
 
-	private static final String GO_PREFIX = "go:";
+	private static final String GO_PREFIX = "GO:";
 
-	private static final String HGNC_PREFIX = "hgnc:";
+	private static final String HGNC_PREFIX = "HGNC:";
 
-	private static final String HUGE_PREFIX = "huge:";
+	private static final String HUGE_PREFIX = "HuGE:";
 
-	private static final String IUPHAR_RECEPTOR_PREFIX = "iupharReceptor:";
+	private static final String IUPHAR_RECEPTOR_PREFIX = "IUPHAR Receptor:";
 
-	private static final String MODBASE_PREFIX = "modBase:";
+	private static final String MODBASE_PREFIX = "ModBase:";
 
-	private static final String MUTDB_PREFIX = "mutDb:";
+	private static final String MUTDB_PREFIX = "MutDB:";
 
-	private static final String OMIM_PREFIX = "omim:";
+	private static final String OMIM_PREFIX = "OMIM:";
 
-	private static final String REFSEQDNA_PREFIX = "refSeqDna:";
+	private static final String REFSEQDNA_PREFIX = "RefSeq DNA:";
 
-	private static final String REFSEQPROTEIN_PREFIX = "refSeqProtein:";
+	private static final String REFSEQPROTEIN_PREFIX = "RefSeq Protein:";
 
-	private static final String REFSEQRNA_PREFIX = "refSeqRna:";
+	private static final String REFSEQRNA_PREFIX = "RefSeq RNA:";
 
-	private static final String UCSCGENOMEBROWSER_PREFIX = "ucscGenomeBrowser:";
+	private static final String UCSCGENOMEBROWSER_PREFIX = "UCSC Genome Browser:";
 
-	private static final String UNIPROT_PREFIX = "uniProtKb:";
+	private static final String UNIPROT_PREFIX = "UniProtKB:";
 
-	private static final String URL_PREFIX = "url:";
+	private static final String URL_PREFIX = "Web Resource:";
+	
 
 	@HttpDownload(url = "https://www.pharmgkb.org/download.do?objId=genes.zip&dlCls=common", fileName = "genes.zip", targetFileName = "genes.tsv", decompress = true)
 	private File pharmGkbGenesFile;
@@ -165,46 +166,48 @@ public class PharmGkbGeneFileParser extends SingleLineFileRecordReader<PharmGkbG
 
 	@Override
 	protected PharmGkbGeneFileRecord parseRecordFromLine(Line line) {
+		int index = 0;
 		String[] toks = line.getText().split(RegExPatterns.TAB, -1);
-		PharmGkbID pharmGkbAccessionId = new PharmGkbID(toks[0]);
-		Set<EntrezGeneID> entrezGeneIds = getEntrezGeneIDs(toks[1]);
-		EnsemblGeneID ensemblGeneId = StringUtils.isNotBlank(toks[2]) ? new EnsemblGeneID(toks[2]) : null;
-		String name = StringUtils.isNotBlank(toks[3]) ? new String(toks[3]) : null;
-		String symbol = StringUtils.isNotBlank(toks[4]) ? new String(toks[4]) : null;
+		PharmGkbID pharmGkbAccessionId = new PharmGkbID(toks[index++]);
+		Set<EntrezGeneID> entrezGeneIds = getEntrezGeneIDs(toks[index++]);
+		Set<HgncID> hgncIds = getHgncIds(toks[index++]);
+		EnsemblGeneID ensemblGeneId = StringUtils.isNotBlank(toks[index++]) ? new EnsemblGeneID(toks[index - 1]) : null;
+		String name = StringUtils.isNotBlank(toks[index++]) ? new String(toks[index - 1]) : null;
+		String symbol = StringUtils.isNotBlank(toks[index++]) ? new String(toks[index - 1]) : null;
 		Collection<String> alternativeNames = new ArrayList<String>();
-		if (!toks[5].isEmpty()) {
-			List<String> alternativeNameStrs = StringUtil.delimitAndTrim(toks[5], StringConstants.COMMA,
+		if (!toks[index++].isEmpty()) {
+			List<String> alternativeNameStrs = StringUtil.delimitAndTrim(toks[index - 1], StringConstants.COMMA,
 					StringConstants.QUOTATION_MARK, RemoveFieldEnclosures.TRUE);
 			for (String altNameStr : alternativeNameStrs) {
 				alternativeNames.add(new String(altNameStr));
 			}
 		}
 		Collection<String> alternativeSymbols = new ArrayList<String>();
-		if (!toks[6].isEmpty()) {
-			List<String> alternativeSymbolStrs = StringUtil.delimitAndTrim(toks[6], StringConstants.COMMA,
+		if (!toks[index++].isEmpty()) {
+			List<String> alternativeSymbolStrs = StringUtil.delimitAndTrim(toks[index - 1], StringConstants.COMMA,
 					StringConstants.QUOTATION_MARK, RemoveFieldEnclosures.TRUE);
 			for (String altSymbolStr : alternativeSymbolStrs) {
 				alternativeSymbols.add(new String(altSymbolStr));
 			}
 		}
-		boolean isVip = Boolean.parseBoolean(toks[7]);
-		boolean hasVariantAnnotation = Boolean.parseBoolean(toks[8]);
+		boolean isVip = Boolean.parseBoolean(toks[index++]);
+		boolean hasVariantAnnotation = Boolean.parseBoolean(toks[index++]);
 		Collection<DataSourceIdentifier<?>> crossReferences = new ArrayList<DataSourceIdentifier<?>>();
-		if (!toks[9].isEmpty()) {
-			for (String refStr : toks[9].split(",")) {
+		if (!toks[index++].isEmpty()) {
+			for (String refStr : toks[index - 1].split(",")) {
 				DataSourceIdentifier<?> id = resolveCrossRefId(refStr);
 				if (id != null) {
 					crossReferences.add(id);
 				}
 			}
 		}
-		boolean hasCpicDosingGuideline = Boolean.parseBoolean(toks[10]);
+		boolean hasCpicDosingGuideline = Boolean.parseBoolean(toks[index++]);
 
-		String chromosome = (toks[11].equalsIgnoreCase("null")) ? null : toks[11];
-		Integer chromosomeStart = (toks[12].equalsIgnoreCase("null")) ? null : Integer.parseInt(toks[12]);
-		Integer chromosomeEnd = (toks[13].equalsIgnoreCase("null")) ? null : Integer.parseInt(toks[13]);
+		String chromosome = (toks[index++].equalsIgnoreCase("null")) ? null : toks[index - 1];
+		Integer chromosomeStart = (toks[index++].equalsIgnoreCase("null")) ? null : Integer.parseInt(toks[index - 1]);
+		Integer chromosomeEnd = (toks[index++].equalsIgnoreCase("null")) ? null : Integer.parseInt(toks[index - 1]);
 
-		return new PharmGkbGeneFileRecord(pharmGkbAccessionId, entrezGeneIds, ensemblGeneId, name, symbol,
+		return new PharmGkbGeneFileRecord(pharmGkbAccessionId, entrezGeneIds, hgncIds, ensemblGeneId, name, symbol,
 				alternativeNames, alternativeSymbols, isVip, hasVariantAnnotation, crossReferences,
 				hasCpicDosingGuideline, chromosome, chromosomeStart, chromosomeEnd, line.getByteOffset(),
 				line.getLineNumber());
@@ -225,12 +228,31 @@ public class PharmGkbGeneFileParser extends SingleLineFileRecordReader<PharmGkbG
 		return ids;
 	}
 
+	private Set<HgncID> getHgncIds(String idStr) {
+		Set<HgncID> ids = new HashSet<HgncID>();
+		if (StringUtils.isNotBlank(idStr)) {
+			if (idStr.contains(",")) {
+				idStr = idStr.replaceAll("\"", "");
+				for (String tok : idStr.split(",")) {
+					ids.add(new HgncID(tok));
+				}
+			} else {
+				ids.add(new HgncID(idStr));
+			}
+		}
+		return ids;
+	}
+
 	/**
 	 * @param refStr
 	 * @return
 	 */
 	private DataSourceIdentifier<?> resolveCrossRefId(String refStr) {
 		try {
+			if (refStr.startsWith("\"") && refStr.endsWith("\"")) {
+				refStr = refStr.substring(1);
+				refStr = StringUtil.removeLastCharacter(refStr);
+			}
 			if (refStr.startsWith(HUMANCYCGENE_PREFIX)) {
 				return new HumanCycGeneId(StringUtil.removePrefix(refStr, HUMANCYCGENE_PREFIX));
 			} else if (refStr.startsWith(ALFRED_PREFIX)) {
@@ -274,10 +296,22 @@ public class PharmGkbGeneFileParser extends SingleLineFileRecordReader<PharmGkbG
 			} else if (refStr.startsWith(URL_PREFIX)) {
 				return new CrossReferenceUrl(StringUtil.removePrefix(refStr, URL_PREFIX));
 			} else {
+				logger.warn("Unknown Data Source Identifier: " + refStr);
 				return new UnknownDataSourceIdentifier(refStr);
 			}
 		} catch (IllegalArgumentException e) {
+			logger.warn("Illegal data source identifier detected: '" + refStr + "' due to: " + e.getMessage());
 			return new ProbableErrorDataSourceIdentifier(refStr, null, e.getMessage());
+		}
+	}
+
+	public static void main(String[] args) {
+		try {
+			for (PharmGkbGeneFileParser p = new PharmGkbGeneFileParser(new File("/tmp/pharmgkb"), false); p.hasNext();) {
+				p.next();
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
 		}
 	}
 

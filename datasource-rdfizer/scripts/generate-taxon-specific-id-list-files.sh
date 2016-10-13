@@ -1,19 +1,17 @@
 #!/bin/bash
 
-# Retrieve a collection of datasource files from the authoritative upstream
-# sources, parse them and extract from their content the RDF schema and triples
-# that they contain.
+# Generate taxonomy-specific lists of gene/protein identifiers
 
 function print_usage {
     echo "Usage:"
     echo "$(basename $0) [OPTIONS]"
     echo "  <-d <download-directory>>: The directory into which to place the downloaded datasource files."
-    echo "  <-r <rdf-output-directory>>: The directory into which to place the RDF triples parsed from the datasource files."
-    echo "  [-i <datasource-names>]: The names of the datasources to download; if not specified, all available datasources will be downloaded."
-    echo "  [-t <NCBI taxonomy IDS]: A comma-separated list of taxonomy IDs.  Only records for these IDs will be included in the RDF triple output where applicable.  If neither -t nor -m is specified, all records will be included."
-    echo "  [-m]: Include only human and the 7 model organisms in the generated RDF. If neither -t nor -m is specified, all records will be included."
+    echo "  <-o <output-directory>>: The base directory into which to place the generated ID list files. Files will be placed in [base_dir]/id-lists."
+    echo "  [-t <NCBI taxonomy IDS]: A comma-separated list of taxonomy IDs.  Only records for these IDs will be included in the RDF triple output where applicable.  If neither -t nor -m is specified, all records will be included, in which case there is no need to create these taxon-specific files."
+    echo "  [-m]: Include only human and the 7 model organisms in the generated RDF. If neither -t nor -m is specified, all records will be included in which case there is no need to create these taxon-specific files."
+    echo "  [-s <Data sources>]: A comma-separated list of data sources to use. One taxonomy-specific file will be generated for each source. Available sources for use by this script include: EG, UNIPROT, INTACT."
+    echo "  [-a]: Use all available data sources for ID list generation, i.e. EG, UNIPROT, and INTACT."
     echo "  [-c]: Clean the data source files. If set, this flag will cause the data source files to be re-downloaded prior to processing."
-    echo "  [-l]: Clean the taxon-specific ID list files used by some taxon-aware file parsers. If set, this flag will cause the taxon-specific ID list files to be re-created (if they are needed)."
 }
 
 TAXON_IDS="EMPTY"
@@ -27,21 +25,33 @@ function set_taxon_ids {
     fi
 }
 
-CLEAN_SOURCES="false"
-CLEAN_ID_LISTS="false"
+DS_NAMES="EMPTY"
 
-while getopts "d:r:i:t:mhcl" OPTION; do
+function set_ds_names {
+    if ! [[ $DS_NAMES == "EMPTY" ]]; then
+        echo "Please use either -s or -a options, but not both."
+        exit 1
+    else
+        DS_NAMES=$1
+    fi
+}
+
+CLEAN_SOURCES="false"
+
+while getopts "d:o:s:t:amhc" OPTION; do
     case $OPTION in
         # The directory into which we should download the datasource files.
         d) DOWNLOAD_DIR=$OPTARG
            ;;
         # The directory into which the RDF triple files that are created by
         # parsing the downloaded datasource files should be placed.
-        r) RDF_OUTPUT_DIR=$OPTARG
+        o) OUTPUT_DIR=$OPTARG
            ;;
-        # A comma-separated list of the names of the datasources to be downloaded (as
-        # shown by `list-datasource-names.sh`
-        i) DS_NAMES=$OPTARG
+        # A comma-separated list of the names of the datasources to be used for ID list generation. Options include: EG, UNIPROT, and INTACT
+        s) set_ds_names $OPTARG
+           ;;
+        # Generate taxon-specific ID lists for all available data sources
+        a) set_ds_names "EG,UNIPROT,INTACT"
            ;;
         # Include only data for a user-specified taxonomy ID in the RDF output.
         t) set_taxon_ids $OPTARG
@@ -53,16 +63,13 @@ while getopts "d:r:i:t:mhcl" OPTION; do
         # Clean the data sources (causes them to be re-downloaded prior to processing).   
         c) CLEAN_SOURCES="true"
            ;;
-        # Clean the taxon-specific ID list files (causes them to be re-created if they are to be used).   
-        l) CLEAN_ID_LISTS="true"
-           ;;
         # HELP!
         h) print_usage; exit 0
            ;;
     esac
 done
 
-if [[ -z $DOWNLOAD_DIR || -z $RDF_OUTPUT_DIR ]]; then
+if [[ -z $DOWNLOAD_DIR || -z $OUTPUT_DIR ]]; then
     print_usage
     exit 1
 fi
@@ -72,24 +79,10 @@ if ! [[ -e README.md ]]; then
     exit 1
 fi
 
-if [[ -z $DS_NAMES ]]; then
-    DS_NAMES=$(datasource-rdfizer/scripts/list-datasource-names.sh \
-        | grep -v "====" \
-        | xargs \
-        | tr " " ",")
-fi
 
-echo $DS_NAMES
-
-for INDEX in $(echo $DS_NAMES | tr -d "[:blank:]" | tr "," " "); do
-    mvn -f datasource-rdfizer/scripts/pom-rdf-gen.xml exec:exec \
-        -DdatasourceNames=$DS_NAMES \
+mvn -f datasource-rdfizer/scripts/pom-id-list-gen.xml exec:exec \
+        -DdataSources=$DS_NAMES \
         -DtaxonIDs=$TAXON_IDS \
-        -DredownloadDataSourceFiles=$CLEAN_SOURCES \
-        -DrecreateTaxonSpecificIdListFiles=$CLEAN_ID_LISTS \
+        -Dclean=$CLEAN_SOURCES \
         -DbaseSourceDir=$DOWNLOAD_DIR \
-        -DbaseRdfDir=$RDF_OUTPUT_DIR \
-        -DcompressRdf=true \
-        -DoutputRecordLimit=-1 \
-        -Ddate=$(date -u "+%Y-%m-%d")
-done
+        -DbaseOutputDir=$OUTPUT_DIR \

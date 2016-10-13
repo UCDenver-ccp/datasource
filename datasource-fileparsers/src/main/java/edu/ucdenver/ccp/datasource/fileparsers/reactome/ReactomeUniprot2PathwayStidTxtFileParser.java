@@ -85,19 +85,19 @@ public class ReactomeUniprot2PathwayStidTxtFileParser extends
 	// }
 
 	public ReactomeUniprot2PathwayStidTxtFileParser(File file, CharacterEncoding encoding, File idListDirectory,
-			Set<NcbiTaxonomyID> taxonIds) throws IOException {
+			Set<NcbiTaxonomyID> taxonIds, File baseSourceFileDirectory, boolean cleanIdListFiles) throws IOException {
 		super(file, encoding, null, taxonIds);
-		taxonSpecificIds = IdListFileFactory.getIdListFromFile(idListDirectory, DataSource.UNIPROT, taxonIds,
-				UniProtID.class);
+		taxonSpecificIds = IdListFileFactory.getIdListFromFile(idListDirectory, baseSourceFileDirectory,
+				DataSource.UNIPROT, taxonIds, UniProtID.class, cleanIdListFiles);
 		logger.info("Loaded " + ((taxonIds == null) ? "0" : taxonSpecificIds.size())
 				+ " taxon specific ids for taxon(s): " + ((taxonIds == null) ? "none specified" : taxonIds.toString()));
 	}
 
 	public ReactomeUniprot2PathwayStidTxtFileParser(File workDirectory, boolean clean, File idListDirectory,
-			Set<NcbiTaxonomyID> taxonIds) throws IOException {
+			Set<NcbiTaxonomyID> taxonIds, File baseSourceFileDirectory, boolean cleanIdListFiles) throws IOException {
 		super(workDirectory, ENCODING, null, null, null, clean, taxonIds);
-		taxonSpecificIds = IdListFileFactory.getIdListFromFile(idListDirectory, DataSource.UNIPROT, taxonIds,
-				UniProtID.class);
+		taxonSpecificIds = IdListFileFactory.getIdListFromFile(idListDirectory, baseSourceFileDirectory,
+				DataSource.UNIPROT, taxonIds, UniProtID.class, cleanIdListFiles);
 		logger.info("Loaded " + ((taxonIds == null) ? "0" : taxonSpecificIds.size())
 				+ " taxon specific ids for taxon(s): " + ((taxonIds == null) ? "none specified" : taxonIds.toString()));
 	}
@@ -138,49 +138,5 @@ public class ReactomeUniprot2PathwayStidTxtFileParser extends
 
 		return null;
 	}
-
-	/**
-	 * Create a mapping between the KEGG pathway ID and the KEGG pathway name
-	 */
-	public static Map<ReactomeReactionID, String> createReactomeReactionID2NameMap(File uniprot2pathwaysStidTxtFile,
-			CharacterEncoding encoding) throws IOException {
-		Map<ReactomeReactionID, String> reactomeReactionID2NameMap = new HashMap<ReactomeReactionID, String>();
-
-		ReactomeUniprot2PathwayStidTxtFileParser parser = null;
-		try {
-			parser = new ReactomeUniprot2PathwayStidTxtFileParser(uniprot2pathwaysStidTxtFile, encoding, null, null);
-			while (parser.hasNext()) {
-				ReactomeUniprot2PathwayStidTxtFileData dataRecord = parser.next();
-				ReactomeReactionID reactionID = dataRecord.getReactionID();
-				String reactionName = dataRecord.getReactionName();
-
-				if (!reactomeReactionID2NameMap.containsKey(reactionID)) {
-					reactomeReactionID2NameMap.put(reactionID, reactionName);
-				} else {
-					if (!reactomeReactionID2NameMap.get(reactionID).equals(reactionName)) {
-						logger.error("Reaction ID (" + reactionID + ") with multiple reaction names discovered in: "
-								+ uniprot2pathwaysStidTxtFile);
-					}
-				}
-			}
-			return reactomeReactionID2NameMap;
-		} finally {
-			if (parser != null) {
-				parser.close();
-			}
-		}
-	}
-
-	public static void main(String[] args) {
-		BasicConfigurator.configure();
-		try {
-			for (ReactomeUniprot2PathwayStidTxtFileParser parser = new ReactomeUniprot2PathwayStidTxtFileParser(
-					new File("/Users/bill/Downloads/UniProt2Reactome_All_Levels.txt")); parser.hasNext();) {
-				parser.next();
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-
+	
 }

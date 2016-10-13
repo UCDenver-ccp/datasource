@@ -306,9 +306,12 @@ public class DataSourceIdResolver {
 	 */
 	public static DataSourceIdentifier<?> resolveId(String geneIDStr) {
 		try {
-			if (geneIDStr.startsWith("MGI:"))
+			if (geneIDStr.startsWith("MGI:")) {
+				if (geneIDStr.startsWith("MGI:MGI:")) {
+					return new MgiGeneID(StringUtil.removePrefix(geneIDStr, "MGI:")); 
+				}
 				return new MgiGeneID(geneIDStr);
-			else if (geneIDStr.startsWith("ncbi-geneid:"))
+			} else if (geneIDStr.startsWith("ncbi-geneid:"))
 				return new EntrezGeneID(StringUtil.removePrefix(geneIDStr, "ncbi-geneid:"));
 			else if (geneIDStr.startsWith(IREFWEB_ENTREZGENE_ID_PREFIX))
 				return new EntrezGeneID(StringUtil.removePrefix(geneIDStr, IREFWEB_ENTREZGENE_ID_PREFIX));
@@ -378,9 +381,12 @@ public class DataSourceIdResolver {
 				return new XenBaseID(StringUtil.removePrefix(geneIDStr, "Xenbase:"));
 			else if (geneIDStr.startsWith("CGNC:"))
 				return new CgncID(StringUtil.removePrefix(geneIDStr, "CGNC:"));
-			else if (geneIDStr.startsWith("HGNC:"))
+			else if (geneIDStr.startsWith("HGNC:")) {
+				if (geneIDStr.startsWith("HGNC:HGNC:")) {
+					return new HgncID(StringUtil.removePrefix(geneIDStr, "HGNC:")); 
+				}
 				return new HgncID(geneIDStr);
-			else if (geneIDStr.startsWith("MIM:"))
+			} else if (geneIDStr.startsWith("MIM:"))
 				return new OmimID(StringUtil.removePrefix(geneIDStr, "MIM:"));
 			else if (geneIDStr.startsWith("HPRD:"))
 				return new HprdID(StringUtil.removePrefix(geneIDStr, "HPRD:"));
