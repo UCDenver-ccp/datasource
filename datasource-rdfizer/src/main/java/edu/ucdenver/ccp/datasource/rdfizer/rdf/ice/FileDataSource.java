@@ -47,6 +47,8 @@ import edu.ucdenver.ccp.common.file.FileUtil;
 import edu.ucdenver.ccp.datasource.fileparsers.FileRecordReader;
 import edu.ucdenver.ccp.datasource.fileparsers.drugbank.DrugbankXmlFileRecordReader;
 import edu.ucdenver.ccp.datasource.fileparsers.ebi.goa.GpAssociationGoaUniprotFileParser;
+import edu.ucdenver.ccp.datasource.fileparsers.ebi.goa.gaf.GoaGafFileRecordReaderFactory;
+import edu.ucdenver.ccp.datasource.fileparsers.ebi.goa.gaf.GoaGafFileRecordReaderFactory.AnnotationType;
 import edu.ucdenver.ccp.datasource.fileparsers.ebi.interpro.InterPro2GoFileParser;
 import edu.ucdenver.ccp.datasource.fileparsers.ebi.interpro.InterProNamesDatFileParser;
 import edu.ucdenver.ccp.datasource.fileparsers.ebi.interpro.InterProProtein2IprDatFileParser;
@@ -415,14 +417,40 @@ public enum FileDataSource {
 					taxonIds, sourceFileDirectory, cleanIdListFiles);
 		}
 	},
-	/**
-	 */
-	GOA(DataSource.GOA, 13, IsTaxonAware.YES_BUT_REQUIRES_EXTERNAL_ID_TO_TAXON_MAPPINGS, RequiresManualDownload.NO) {
+
+	GOA(DataSource.GOA, IsTaxonAware.YES_BUT_REQUIRES_EXTERNAL_ID_TO_TAXON_MAPPINGS, RequiresManualDownload.NO) {
 		@Override
 		protected FileRecordReader<?> initFileRecordReader(File sourceFileDirectory, boolean cleanSourceFiles,
 				boolean cleanIdListFiles, File idListDir, Set<NcbiTaxonomyID> taxonIds) throws IOException {
-			return new GpAssociationGoaUniprotFileParser(sourceFileDirectory, cleanSourceFiles, idListDir, taxonIds,
-					sourceFileDirectory, cleanIdListFiles);
+			return  GoaGafFileRecordReaderFactory.getRecordReader(sourceFileDirectory, taxonIds, AnnotationType.CANONICAL, cleanSourceFiles);
+		}
+	},
+	GOA_HUMAN(DataSource.GOA, IsTaxonAware.YES_BUT_REQUIRES_EXTERNAL_ID_TO_TAXON_MAPPINGS, RequiresManualDownload.NO) {
+		@Override
+		protected FileRecordReader<?> initFileRecordReader(File sourceFileDirectory, boolean cleanSourceFiles,
+				boolean cleanIdListFiles, File idListDir, Set<NcbiTaxonomyID> taxonIds) throws IOException {
+			return  GoaGafFileRecordReaderFactory.getRecordReader(sourceFileDirectory, NcbiTaxonomyID.HUMAN, AnnotationType.CANONICAL, cleanSourceFiles);
+		}
+	},
+	GOA_HUMAN_ISOFORM(DataSource.GOA, IsTaxonAware.YES_BUT_REQUIRES_EXTERNAL_ID_TO_TAXON_MAPPINGS, RequiresManualDownload.NO) {
+		@Override
+		protected FileRecordReader<?> initFileRecordReader(File sourceFileDirectory, boolean cleanSourceFiles,
+				boolean cleanIdListFiles, File idListDir, Set<NcbiTaxonomyID> taxonIds) throws IOException {
+			return  GoaGafFileRecordReaderFactory.getRecordReader(sourceFileDirectory, NcbiTaxonomyID.HUMAN, AnnotationType.ISOFORM, cleanSourceFiles);
+		}
+	},
+	GOA_HUMAN_COMPLEX(DataSource.GOA, IsTaxonAware.YES_BUT_REQUIRES_EXTERNAL_ID_TO_TAXON_MAPPINGS, RequiresManualDownload.NO) {
+		@Override
+		protected FileRecordReader<?> initFileRecordReader(File sourceFileDirectory, boolean cleanSourceFiles,
+				boolean cleanIdListFiles, File idListDir, Set<NcbiTaxonomyID> taxonIds) throws IOException {
+			return  GoaGafFileRecordReaderFactory.getRecordReader(sourceFileDirectory, NcbiTaxonomyID.HUMAN, AnnotationType.COMPLEX, cleanSourceFiles);
+		}
+	},
+	GOA_HUMAN_RNA(DataSource.GOA, IsTaxonAware.YES_BUT_REQUIRES_EXTERNAL_ID_TO_TAXON_MAPPINGS, RequiresManualDownload.NO) {
+		@Override
+		protected FileRecordReader<?> initFileRecordReader(File sourceFileDirectory, boolean cleanSourceFiles,
+				boolean cleanIdListFiles, File idListDir, Set<NcbiTaxonomyID> taxonIds) throws IOException {
+			return  GoaGafFileRecordReaderFactory.getRecordReader(sourceFileDirectory, NcbiTaxonomyID.HUMAN, AnnotationType.RNA, cleanSourceFiles);
 		}
 	},
 	/**

@@ -225,7 +225,9 @@ public class Gaf2FileRecord extends SingleLineFileRecord {
 	@Data
 	@Record(dataSource=DataSource.GOA)
 	public static class AnnotationExtension {
+		@RecordField
 		private final String relation;
+		@RecordField
 		private final DataSourceIdentifier<?> ontologyTerm;
 	}
 	
