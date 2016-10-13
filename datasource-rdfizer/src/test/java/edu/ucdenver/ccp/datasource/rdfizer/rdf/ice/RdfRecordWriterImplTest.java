@@ -126,7 +126,7 @@ public class RdfRecordWriterImplTest extends DefaultTestCase {
 		System.out.println("dir contents: " + Arrays.toString(outputDirectory.list()));
 		assertTrue("Output file should have been created.", outputFile.exists());
 
-		List<String> expectedLines = getExpectedLines();
+		List<String> expectedLines = getExpectedLines(RdfUtilTest.getExpectedTimeStamp(createdTimeInMillis20101217));
 		assertTrue("N-Triple Lines should be as expected.", FileComparisonUtil.hasExpectedLines(outputFile,
 				CharacterEncoding.UTF_8, expectedLines, null, LineOrder.ANY_ORDER, ColumnOrder.AS_IN_FILE));
 	}
@@ -148,7 +148,7 @@ public class RdfRecordWriterImplTest extends DefaultTestCase {
 		// System.out.println("TRIPLE: " + line);
 		// }
 		File unzippedOutputFile = FileArchiveUtil.gunzipFile(zippedOutputFile);
-		List<String> expectedLines = getExpectedLines();
+		List<String> expectedLines = getExpectedLines(RdfUtilTest.getExpectedTimeStamp(createdTimeInMillis20101217));
 		assertTrue("N-Triple Lines should be as expected.", FileComparisonUtil.hasExpectedLines(unzippedOutputFile,
 				CharacterEncoding.UTF_8, expectedLines, null, LineOrder.ANY_ORDER, ColumnOrder.AS_IN_FILE));
 	}
@@ -168,12 +168,12 @@ public class RdfRecordWriterImplTest extends DefaultTestCase {
 		recordWriter.processRecordReader(parser, createdTimeInMillis20101217, 1);
 		File outputFile = FileUtil.appendPathElementsToDirectory(outputDirectory, expectedOutputFileName);
 		assertTrue("Output file should have been created.", outputFile.exists());
-		List<String> expectedLines = getExpectedLines().subList(0, 32);
+		List<String> expectedLines = getExpectedLines(RdfUtilTest.getExpectedTimeStamp(createdTimeInMillis20101217)).subList(0, 32);
 		assertTrue("N-Triple Lines should be as expected.", FileComparisonUtil.hasExpectedLines(outputFile,
 				CharacterEncoding.UTF_8, expectedLines, null, LineOrder.ANY_ORDER, ColumnOrder.AS_IN_FILE));
 	}
 
-	private List<String> getExpectedLines() {
+	private List<String> getExpectedLines(String timestamp) {
 
 		return CollectionsUtil
 				.createList(
@@ -182,7 +182,7 @@ public class RdfRecordWriterImplTest extends DefaultTestCase {
 						"<http://kabob.ucdenver.edu/iao/eg/egGeneId2NameDatFileDataDataSet20101217> <http://kabob.ucdenver.edu/iao/hasTemplate> <http://kabob.ucdenver.edu/iao/eg/egGeneId2NameDatFileDataSchema1> .",
 						"<http://kabob.ucdenver.edu/iao/eg/egDataSource20101217> <http://purl.obolibrary.org/obo/BFO_0000051> <http://kabob.ucdenver.edu/iao/eg/egGeneId2NameDatFileDataDataSet20101217> .",
 						"<http://kabob.ucdenver.edu/iao/eg/egGeneId2NameDatFileDataDataSet20101217> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://kabob.ucdenver.edu/iao/DataSet> .",
-						"<http://kabob.ucdenver.edu/iao/eg/egGeneId2NameDatFileDataDataSet20101217> <http://kabob.ucdenver.edu/iao/hasCreationDate> \"2010-12-17T00:00:00.000-07:00\"^^<http://www.w3.org/2001/XMLSchema#dateTime> .",
+						"<http://kabob.ucdenver.edu/iao/eg/egGeneId2NameDatFileDataDataSet20101217> <http://kabob.ucdenver.edu/iao/hasCreationDate> " + timestamp + " .",
 						"<http://kabob.ucdenver.edu/iao/eg/egGeneId2NameDatFileDataDataSet20101217> <http://purl.obolibrary.org/obo/BFO_0000051> <http://kabob.ucdenver.edu/iao/eg/R_GeneId2NameDatFileData_SLEJJYDvYbjNjgDeZpwYtYyDzDE> .",
 						"<http://kabob.ucdenver.edu/iao/eg/R_GeneId2NameDatFileData_SLEJJYDvYbjNjgDeZpwYtYyDzDE> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://kabob.ucdenver.edu/iao/eg/GeneId2NameDatFileData> .",
 						"<http://kabob.ucdenver.edu/iao/eg/R_GeneId2NameDatFileData_SLEJJYDvYbjNjgDeZpwYtYyDzDE> <http://kabob.ucdenver.edu/iao/hasTemplate> <http://kabob.ucdenver.edu/iao/eg/GeneId2NameDatFileDataSchema1> .",
