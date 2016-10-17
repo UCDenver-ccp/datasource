@@ -60,7 +60,7 @@ import edu.ucdenver.ccp.datasource.identifiers.ncbi.taxonomy.NcbiTaxonomyID;
 public class EntrezGeneRefSeqUniprotKbCollabFileParser extends
 		TaxonAwareSingleLineFileRecordReader<EntrezGeneRefSeqUniprotKbCollabFileData> {
 
-	private static final String HEADER = "NCBI_protein_accession\tUniProtKB_protein_accession";
+	private static final String HEADER = "#NCBI_protein_accession\tUniProtKB_protein_accession";
 
 	public static final String FTP_FILE_NAME = "gene_refseq_uniprotkb_collab.gz";
 	public static final CharacterEncoding ENCODING = CharacterEncoding.US_ASCII;
