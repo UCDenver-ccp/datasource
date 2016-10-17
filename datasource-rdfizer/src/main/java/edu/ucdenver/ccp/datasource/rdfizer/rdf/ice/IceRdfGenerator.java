@@ -111,7 +111,7 @@ public class IceRdfGenerator {
 				File rdfOutputDirectory = getOutputDirectory(baseRdfOutputDirectory, rdfSource);
 
 				File idListFileDirectory = IdListFileFactory.getIdListFileDirectory(baseRdfOutputDirectory);
-				RecordReader<?> rr = rdfSource.initFileRecordReader(sourceFileDirectory, cleanSourceFiles,
+				RecordReader<?> rr = rdfSource.initFileRecordReader(sourceFileDirectory, baseSourceFileDirectory, cleanSourceFiles,
 						cleanIdListFiles, idListFileDirectory, taxonIds);
 
 				for (int stageIndex = 1; stageIndex <= rdfSource.getNumberOfStages(); stageIndex++) {
@@ -133,7 +133,7 @@ public class IceRdfGenerator {
 					logger.info("SOURCE DIR: " + sourceFileDirectory.getAbsolutePath());
 					logger.info("RDF OUT DIR: " + rdfOutputDirectory.getAbsolutePath());
 					File idListFileDirectory = IdListFileFactory.getIdListFileDirectory(baseRdfOutputDirectory);
-					RecordReader<?> rr = rdfSource.initFileRecordReader(sourceFileDirectory, cleanSourceFiles,
+					RecordReader<?> rr = rdfSource.initFileRecordReader(sourceFileDirectory, baseSourceFileDirectory, cleanSourceFiles,
 							cleanIdListFiles, idListFileDirectory, taxonIds);
 					File cacheFilePrefix = FileUtil.appendPathElementsToDirectory(rdfOutputDirectory, "filter-cache",
 							"filter");
@@ -165,7 +165,7 @@ public class IceRdfGenerator {
 		File sourceFileDirectory = getSourceFileDirectory(baseSourceFileDirectory, fileDataSource.dataSource());
 		File rdfOutputDirectory = getOutputDirectory(baseRdfOutputDirectory, fileDataSource);
 		File idListFileDirectory = IdListFileFactory.getIdListFileDirectory(baseRdfOutputDirectory);
-		RecordReader<?> rr = fileDataSource.initFileRecordReader(sourceFileDirectory, cleanSourceFiles,
+		RecordReader<?> rr = fileDataSource.initFileRecordReader(sourceFileDirectory, baseSourceFileDirectory, cleanSourceFiles,
 				cleanIdListFiles, idListFileDirectory, taxonIds);
 		File cacheFilePrefix = FileUtil.appendPathElementsToDirectory(rdfOutputDirectory, "filter-cache", "filter");
 		DuplicateStatementFilter filter = new DefaultDuplicateStatementFilter(cacheFilePrefix);
