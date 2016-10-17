@@ -275,6 +275,8 @@ public class DataSourceIdResolver {
 			return new IupharLigandId(databaseObjectID);
 		else if (databaseName.equalsIgnoreCase("ndc"))
 			return new NationalDrugCodeDirectoryId(databaseObjectID);
+		else if (databaseName.equalsIgnoreCase("VectorBase"))
+			return new VectorBaseID(databaseObjectID);
 		else if (databaseName.equalsIgnoreCase("pdb")) {
 			if (databaseObjectID.length() == 3) {
 				return new PdbLigandId(databaseObjectID);
@@ -292,6 +294,8 @@ public class DataSourceIdResolver {
 		} else if (databaseName.equalsIgnoreCase("GenBank") || databaseName.equalsIgnoreCase("GenBank Gene Database")
 				|| databaseName.equalsIgnoreCase("GenBank Protein Database"))
 			return new GenBankID(databaseObjectID);
+		else if (databaseName.equalsIgnoreCase("FlyBase"))
+			return new FlyBaseID(databaseObjectID);
 
 		logger.warn("Unable to resolve data source identifier: datasource=" + databaseName + " id=" + databaseObjectID
 				+ ". Using UnknownDataSourceIdentifier.");

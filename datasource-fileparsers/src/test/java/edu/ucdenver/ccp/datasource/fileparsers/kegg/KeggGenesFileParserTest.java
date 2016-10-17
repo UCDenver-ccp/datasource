@@ -112,7 +112,7 @@ public class KeggGenesFileParserTest extends RecordReaderTester {
 			expectedIds.add(new EnsemblGeneID("ENSG00000197409"));
 			expectedIds.add(new UniProtID("P68431"));
 			assertEquals(expectedIds, record.getDbLinks());
-			assertEquals(CollectionsUtil.createSet(new KeggPathwayID("hsa05322")), record.getPathwayIds());
+			assertEquals(CollectionsUtil.createSet(new KeggPathwayID("05322")), record.getPathwayIds());
 		} else {
 			fail("Parser should have returned a record here.");
 		}
@@ -130,7 +130,7 @@ public class KeggGenesFileParserTest extends RecordReaderTester {
 			expectedIds.add(new UniProtID("O95336"));
 			expectedIds.add(new UniProtID("D3DUQ8"));
 			assertEquals(expectedIds, record.getDbLinks());
-			assertEquals(CollectionsUtil.createSet(new KeggPathwayID("hsa00030"), new KeggPathwayID("hsa01100")),
+			assertEquals(CollectionsUtil.createSet(new KeggPathwayID("00030"), new KeggPathwayID("01100")),
 					record.getPathwayIds());
 		} else {
 			fail("Parser should have returned a record here.");

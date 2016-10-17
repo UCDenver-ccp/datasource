@@ -36,7 +36,10 @@ package edu.ucdenver.ccp.datasource.fileparsers.kegg;
 import org.apache.log4j.Logger;
 
 import edu.ucdenver.ccp.common.file.reader.Line;
+import edu.ucdenver.ccp.datasource.fileparsers.Record;
+import edu.ucdenver.ccp.datasource.fileparsers.RecordField;
 import edu.ucdenver.ccp.datasource.fileparsers.SingleLineFileRecord;
+import edu.ucdenver.ccp.datasource.identifiers.DataSource;
 import edu.ucdenver.ccp.datasource.identifiers.kegg.KeggPathwayID;
 
 /**
@@ -45,12 +48,14 @@ import edu.ucdenver.ccp.datasource.identifiers.kegg.KeggPathwayID;
  * @author Bill Baumgartner
  * 
  */
+@Record(dataSource=DataSource.KEGG)
 public class KeggMapTitleTabFileData extends SingleLineFileRecord {
 	public static final String RECORD_NAME_PREFIX = "KEGG_MAP_TITLE_RECORD_";
 	private static final Logger logger = Logger.getLogger(KeggMapTitleTabFileData.class);
 
+	@RecordField
 	private final KeggPathwayID keggPathwayID;
-
+	@RecordField
 	private final String keggPathwayName;
 
 	public KeggMapTitleTabFileData(KeggPathwayID keggPathwayID, String keggPathwayName, long byteOffset,

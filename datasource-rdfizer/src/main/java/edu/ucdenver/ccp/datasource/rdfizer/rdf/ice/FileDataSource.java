@@ -45,6 +45,7 @@ import org.apache.log4j.Logger;
 import edu.ucdenver.ccp.common.file.CharacterEncoding;
 import edu.ucdenver.ccp.common.file.FileUtil;
 import edu.ucdenver.ccp.datasource.fileparsers.FileRecordReader;
+import edu.ucdenver.ccp.datasource.fileparsers.RecordReader;
 import edu.ucdenver.ccp.datasource.fileparsers.drugbank.DrugbankXmlFileRecordReader;
 import edu.ucdenver.ccp.datasource.fileparsers.ebi.goa.GpAssociationGoaUniprotFileParser;
 import edu.ucdenver.ccp.datasource.fileparsers.ebi.goa.gaf.GoaGafFileRecordReaderFactory;
@@ -58,9 +59,12 @@ import edu.ucdenver.ccp.datasource.fileparsers.ebi.uniprot.UniProtIDMappingFileR
 import edu.ucdenver.ccp.datasource.fileparsers.gad.GeneticAssociationDbAllTxtFileParser;
 import edu.ucdenver.ccp.datasource.fileparsers.hgnc.HgncDownloadFileParser;
 import edu.ucdenver.ccp.datasource.fileparsers.hgnc.HgncDownloadFileParser.WithdrawnRecordTreatment;
+import edu.ucdenver.ccp.datasource.fileparsers.hp.HpAnnotationFileRecordReader_AllSourcesAllFrequencies;
 import edu.ucdenver.ccp.datasource.fileparsers.hprd.HprdIdMappingsTxtFileParser;
 import edu.ucdenver.ccp.datasource.fileparsers.irefweb.IRefWebPsiMitab2_6FileParser_AllSpecies;
 import edu.ucdenver.ccp.datasource.fileparsers.irefweb.IRefWebPsiMitab2_6FileParser_HumanOnly;
+import edu.ucdenver.ccp.datasource.fileparsers.kegg.KeggGenesFileParserFactory;
+import edu.ucdenver.ccp.datasource.fileparsers.kegg.KeggMapTitleTabFileParser;
 import edu.ucdenver.ccp.datasource.fileparsers.mgi.MGIEntrezGeneFileParser;
 import edu.ucdenver.ccp.datasource.fileparsers.mgi.MGIPhenoGenoMPFileParser;
 import edu.ucdenver.ccp.datasource.fileparsers.mgi.MRKListFileParser;
@@ -90,6 +94,7 @@ import edu.ucdenver.ccp.datasource.fileparsers.rgd.RgdRatGenePwAnnotationFileRec
 import edu.ucdenver.ccp.datasource.fileparsers.rgd.RgdRatGeneRdoAnnotationFileRecordReader;
 import edu.ucdenver.ccp.datasource.fileparsers.transfac.TransfacGeneDatFileParser;
 import edu.ucdenver.ccp.datasource.fileparsers.transfac.TransfacMatrixDatFileParser;
+import edu.ucdenver.ccp.datasource.fileparsers.vectorbase.VectorBaseFastaFileRecordReader_aael_transcripts;
 import edu.ucdenver.ccp.datasource.identifiers.DataSource;
 import edu.ucdenver.ccp.datasource.identifiers.ncbi.taxonomy.NcbiTaxonomyID;
 import edu.ucdenver.ccp.datasource.rdfizer.rdf.ice.FileDataSourceParams.IsTaxonAware;
@@ -144,6 +149,28 @@ public enum FileDataSource {
 	// }
 	// },
 
+	/**
+	 * this data source represents genes as defined by the KEGG resource
+	 */
+	KEGG_GENE(DataSource.KEGG, IsTaxonAware.YES, RequiresManualDownload.YES) {
+		@Override
+		protected RecordReader<?> initFileRecordReader(File sourceFileDirectory, boolean cleanSourceFiles,
+				boolean cleanIdListFiles, File idListDir, Set<NcbiTaxonomyID> taxonIds) throws IOException {
+			File genesFileDirectory = new File(sourceFileDirectory, "gene-files");
+			FileUtil.validateDirectory(genesFileDirectory);
+			return KeggGenesFileParserFactory.getAggregateRecordReader(taxonIds, genesFileDirectory);
+		}
+	},
+
+	KEGG_PATHWAY_NAMES(DataSource.KEGG, IsTaxonAware.NO, RequiresManualDownload.YES) {
+		@Override
+		protected FileRecordReader<?> initFileRecordReader(File sourceFileDirectory, boolean cleanSourceFiles,
+				boolean cleanIdListFiles, File idListDir, Set<NcbiTaxonomyID> taxonIds) throws IOException {
+			File keggMapTitleTabFile = new File(sourceFileDirectory, "map_title.tab");
+			FileUtil.validateFile(keggMapTitleTabFile);
+			return new KeggMapTitleTabFileParser(keggMapTitleTabFile, CharacterEncoding.US_ASCII);
+		}
+	},
 	/**
 	 * 
 	 */
@@ -203,6 +230,13 @@ public enum FileDataSource {
 		}
 	},
 
+	HP_ANNOTATIONS_ALL_SOURCES(DataSource.HP, IsTaxonAware.NO, RequiresManualDownload.NO) {
+		@Override
+		protected FileRecordReader<?> initFileRecordReader(File sourceFileDirectory, boolean cleanSourceFiles,
+				boolean cleanIdListFiles, File idListDir, Set<NcbiTaxonomyID> taxonIds) throws IOException {
+			return new HpAnnotationFileRecordReader_AllSourcesAllFrequencies(sourceFileDirectory, cleanSourceFiles);
+		}
+	},
 	/**
 	 * 
 	 */
@@ -213,7 +247,7 @@ public enum FileDataSource {
 			return new IRefWebPsiMitab2_6FileParser_AllSpecies(sourceFileDirectory, cleanSourceFiles, taxonIds);
 		}
 	},
-	
+
 	/**
 	 * 
 	 */
@@ -224,7 +258,7 @@ public enum FileDataSource {
 			return new IRefWebPsiMitab2_6FileParser_HumanOnly(sourceFileDirectory, cleanSourceFiles, taxonIds);
 		}
 	},
-	
+
 	/**
 	 * 
 	 * 
@@ -487,6 +521,14 @@ public enum FileDataSource {
 		}
 	},
 
+	VECTORBASE_AAEL_TRANSCRIPTS(DataSource.VECTORBASE, IsTaxonAware.NO, RequiresManualDownload.NO) {
+		@Override
+		protected FileRecordReader<?> initFileRecordReader(File sourceFileDirectory, boolean cleanSourceFiles,
+				boolean cleanIdListFiles, File idListDir, Set<NcbiTaxonomyID> taxonIds) throws IOException {
+			return new VectorBaseFastaFileRecordReader_aael_transcripts(sourceFileDirectory, cleanSourceFiles);
+		}
+	},
+
 	/**
 	 * 
 	 */
@@ -730,7 +772,7 @@ public enum FileDataSource {
 	// outputRecordLimit, DO_ALL_STAGES);
 	// }
 
-	protected abstract FileRecordReader<?> initFileRecordReader(File sourceFileDirectory, boolean cleanSourceFiles,
+	protected abstract RecordReader<?> initFileRecordReader(File sourceFileDirectory, boolean cleanSourceFiles,
 			boolean cleanIdListFiles, File idListFileDirectory, Set<NcbiTaxonomyID> taxonIds) throws IOException;
 
 	// /**

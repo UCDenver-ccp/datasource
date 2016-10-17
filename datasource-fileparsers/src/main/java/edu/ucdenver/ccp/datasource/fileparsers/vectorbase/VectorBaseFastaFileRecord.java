@@ -1,10 +1,10 @@
-package edu.ucdenver.ccp.datasource.identifiers.obo;
+package edu.ucdenver.ccp.datasource.fileparsers.vectorbase;
 
 /*
  * #%L
  * Colorado Computational Pharmacology's common module
  * %%
- * Copyright (C) 2012 - 2014 Regents of the University of Colorado
+ * Copyright (C) 2012 - 2015 Regents of the University of Colorado
  * %%
  * Redistribution and use in source and binary forms, with or without modification,
  * are permitted provided that the following conditions are met:
@@ -33,13 +33,53 @@ package edu.ucdenver.ccp.datasource.identifiers.obo;
  * #L%
  */
 
+import lombok.Getter;
+
+import org.apache.log4j.Logger;
+
+import edu.ucdenver.ccp.datasource.fileparsers.FileRecord;
+import edu.ucdenver.ccp.datasource.fileparsers.Record;
+import edu.ucdenver.ccp.datasource.fileparsers.RecordField;
 import edu.ucdenver.ccp.datasource.identifiers.DataSource;
-import edu.ucdenver.ccp.datasource.identifiers.StringDataSourceIdentifier;
+import edu.ucdenver.ccp.datasource.identifiers.other.VectorBaseID;
 
-public class HumanPhenotypeID extends StringDataSourceIdentifier {
+@Getter
+@Record(dataSource = DataSource.VECTORBASE, label = "vectorbase fasta record")
+public class VectorBaseFastaFileRecord extends FileRecord {
 
-	public HumanPhenotypeID(String resourceID) {
-		super(resourceID,DataSource.HP);
+	private static final Logger logger = Logger.getLogger(VectorBaseFastaFileRecord.class);
+
+	@RecordField(isKeyField = true)
+	private final VectorBaseID sequenceId;
+	@RecordField
+	private final String sequenceName;
+	@RecordField
+	private final String sequenceType;
+	@RecordField
+	private final String contig;
+	@RecordField
+	private final VectorBaseID geneId;
+	@RecordField
+	private final String sequence;
+
+	/**
+	 * @param byteOffset
+	 * @param primaryAccession
+	 * @param accession
+	 * @param name
+	 * @param organism
+	 * @param organismHost
+	 * @param dbReference
+	 */
+	public VectorBaseFastaFileRecord(VectorBaseID sequenceId, String sequenceName, String sequenceType, String contig,
+			VectorBaseID geneId, String sequence, long byteOffset) {
+		super(byteOffset);
+		this.sequenceId = sequenceId;
+		this.sequenceName = sequenceName;
+		this.sequenceType = sequenceType;
+		this.contig = contig;
+		this.geneId = geneId;
+		this.sequence = sequence;
 	}
 
 }
