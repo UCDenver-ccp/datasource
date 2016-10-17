@@ -153,6 +153,8 @@ public class IdListFileFactory {
 		 * of the outputFile
 		 */
 		if (workInProgressFile.exists()) {
+			logger.info("Id list file is in progress. This process will wait until it is finished before proceeding: " + 
+					workInProgressFile.getAbsolutePath());
 			WatchService watcher = FileSystems.getDefault().newWatchService();
 			Path p = outputFile.getParentFile().toPath();
 			p.register(watcher, StandardWatchEventKinds.ENTRY_CREATE);
