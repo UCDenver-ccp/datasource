@@ -76,7 +76,7 @@ fi
 
 echo $DS_NAMES
 
-for INDEX in $(echo $DS_NAMES | tr -d "[:blank:]" | tr "," " "); do
+
     mvn -f datasource-rdfizer/scripts/pom-rdf-gen.xml exec:exec \
         -DdatasourceNames=$DS_NAMES \
         -DtaxonIDs=$TAXON_IDS \
@@ -86,4 +86,4 @@ for INDEX in $(echo $DS_NAMES | tr -d "[:blank:]" | tr "," " "); do
         -DcompressRdf=true \
         -DoutputRecordLimit=-1 \
         -Ddate=$(date -u "+%Y-%m-%d")
-done
+
