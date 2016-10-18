@@ -136,6 +136,7 @@ public class GoaGafFileRecordReaderFactory {
 	 * @throws IOException
 	 */
 	public static GoaGaf2FileRecordReader getRecordReader(File dataDirectory, Set<NcbiTaxonomyID> taxonIds, AnnotationType annotType, boolean clean) throws IOException {
+		FileUtil.mkdir(dataDirectory);
 		if (taxonIds != null && taxonIds.size() == 1) {
 			/* if there is only a single taxon Id, then try to download it individually to save time*/
 			return getRecordReader(dataDirectory, CollectionsUtil.getSingleElement(taxonIds), annotType, clean);
@@ -190,6 +191,7 @@ public class GoaGafFileRecordReaderFactory {
 		String fileName = fileInfo.getFilePrefix() + annotType.suffix();
 		File localFile = FileUtil.appendPathElementsToDirectory(dataDirectory, fileName);
 		if (!DownloadUtil.fileExists(localFile, null, clean, false)) {
+			FileUtil.mkdir(localFile.getParentFile());
 			localFile = FTPUtil.downloadFile(fileInfo.getFtpServer(), fileInfo.getFtpPath(), fileName, FileType.BINARY, dataDirectory);
 		}
 		return localFile;
