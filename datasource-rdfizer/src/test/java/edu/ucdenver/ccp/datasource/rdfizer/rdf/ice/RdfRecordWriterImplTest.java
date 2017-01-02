@@ -37,7 +37,10 @@ import static org.junit.Assert.assertTrue;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.URL;
 import java.util.Arrays;
+import java.util.Calendar;
+import java.util.Collections;
 import java.util.GregorianCalendar;
 import java.util.HashSet;
 import java.util.List;
@@ -45,8 +48,12 @@ import java.util.Set;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.openrdf.model.impl.URIImpl;
+import org.openrdf.model.vocabulary.DC;
+import org.openrdf.model.vocabulary.RDF;
 
 import edu.ucdenver.ccp.common.collections.CollectionsUtil;
+import edu.ucdenver.ccp.common.download.DownloadMetadata;
 import edu.ucdenver.ccp.common.file.CharacterEncoding;
 import edu.ucdenver.ccp.common.file.FileArchiveUtil;
 import edu.ucdenver.ccp.common.file.FileComparisonUtil;
@@ -66,6 +73,8 @@ import edu.ucdenver.ccp.datasource.fileparsers.SingleLineFileRecordReader;
 import edu.ucdenver.ccp.datasource.identifiers.DataSource;
 import edu.ucdenver.ccp.datasource.identifiers.DataSourceIdentifier;
 import edu.ucdenver.ccp.datasource.rdfizer.rdf.ice.RdfUtil.RdfFormat;
+import edu.ucdenver.ccp.datasource.rdfizer.rdf.vocabulary.KDC;
+import edu.ucdenver.ccp.datasource.rdfizer.rdf.vocabulary.KIAO;
 import edu.ucdenver.ccp.datasource.rdfizer.rdf.vocabulary.RDFS;
 
 public class RdfRecordWriterImplTest extends DefaultTestCase {
@@ -120,7 +129,7 @@ public class RdfRecordWriterImplTest extends DefaultTestCase {
 		RdfRecordWriterImpl<GeneId2NameDatFileParser> recordWriter = new RdfRecordWriterImpl<GeneId2NameDatFileParser>(
 				outputDirectory, RdfFormat.NTRIPLES);
 		long createdTimeInMillis20101217 = new GregorianCalendar(2010, 11, 17).getTimeInMillis();
-		recordWriter.processRecordReader(parser, createdTimeInMillis20101217);
+		recordWriter.processRecordReader(parser, createdTimeInMillis20101217, Collections.emptySet());
 
 		File outputFile = FileUtil.appendPathElementsToDirectory(outputDirectory, expectedOutputFileName);
 		System.out.println("dir contents: " + Arrays.toString(outputDirectory.list()));
@@ -138,12 +147,13 @@ public class RdfRecordWriterImplTest extends DefaultTestCase {
 		RdfRecordWriterImpl<GeneId2NameDatFileParser> recordWriter = new RdfRecordWriterImpl<GeneId2NameDatFileParser>(
 				outputDirectory, RdfFormat.NTRIPLES, compress, -1, 0, new SimpleDuplicateTripleFilter());
 		long createdTimeInMillis20101217 = new GregorianCalendar(2010, 11, 17).getTimeInMillis();
-		recordWriter.processRecordReader(parser, createdTimeInMillis20101217);
+		recordWriter.processRecordReader(parser, createdTimeInMillis20101217, Collections.emptySet());
 
 		File zippedOutputFile = FileUtil.appendPathElementsToDirectory(outputDirectory, expectedOutputFileName + ".gz");
 		assertTrue("Output file should have been created.", zippedOutputFile.exists());
 
-		// for (String line : FileReaderUtil.loadLinesFromFile(outputFile, CharacterEncoding.UTF_8))
+		// for (String line : FileReaderUtil.loadLinesFromFile(outputFile,
+		// CharacterEncoding.UTF_8))
 		// {
 		// System.out.println("TRIPLE: " + line);
 		// }
@@ -154,8 +164,8 @@ public class RdfRecordWriterImplTest extends DefaultTestCase {
 	}
 
 	/**
-	 * Tests that setting the output record limit works as expected by capping the number of records
-	 * output
+	 * Tests that setting the output record limit works as expected by capping
+	 * the number of records output
 	 * 
 	 * @throws IOException
 	 */
@@ -165,14 +175,54 @@ public class RdfRecordWriterImplTest extends DefaultTestCase {
 		RdfRecordWriterImpl<GeneId2NameDatFileParser> recordWriter = new RdfRecordWriterImpl<GeneId2NameDatFileParser>(
 				outputDirectory, RdfFormat.NTRIPLES);
 		long createdTimeInMillis20101217 = new GregorianCalendar(2010, 11, 17).getTimeInMillis();
-		recordWriter.processRecordReader(parser, createdTimeInMillis20101217, 1);
+		recordWriter.processRecordReader(parser, createdTimeInMillis20101217, 1, Collections.emptySet());
 		File outputFile = FileUtil.appendPathElementsToDirectory(outputDirectory, expectedOutputFileName);
 		assertTrue("Output file should have been created.", outputFile.exists());
-		List<String> expectedLines = getExpectedLines(RdfUtilTest.getExpectedTimeStamp(createdTimeInMillis20101217)).subList(0, 32);
+		List<String> expectedLines = getExpectedLines(RdfUtilTest.getExpectedTimeStamp(createdTimeInMillis20101217))
+				.subList(0, 32);
 		assertTrue("N-Triple Lines should be as expected.", FileComparisonUtil.hasExpectedLines(outputFile,
 				CharacterEncoding.UTF_8, expectedLines, null, LineOrder.ANY_ORDER, ColumnOrder.AS_IN_FILE));
 	}
 
+	@Test
+	public void testWriteRdf_WithDownloadMetadata() throws IOException {
+		GeneId2NameDatFileParser parser = new GeneId2NameDatFileParser(geneId2NameDatFile);
+		RdfRecordWriterImpl<GeneId2NameDatFileParser> recordWriter = new RdfRecordWriterImpl<GeneId2NameDatFileParser>(
+				outputDirectory, RdfFormat.NTRIPLES);
+		long createdTimeInMillis20101217 = new GregorianCalendar(2010, 11, 17).getTimeInMillis();
+
+		Calendar downloadDate = new GregorianCalendar(2010, 01, 25);
+		File downloadedFile = folder.newFile("datasource.txt");
+		long fileSizeInBytes = 1234567;
+		Calendar lastModifiedDate = new GregorianCalendar(2010, 01, 21);
+		URL downloadUrl = new URL("http://path/datasource.txt");
+
+		DownloadMetadata dmd = new DownloadMetadata(downloadDate, downloadedFile, fileSizeInBytes, lastModifiedDate,
+				downloadUrl);
+
+		recordWriter.processRecordReader(parser, createdTimeInMillis20101217, CollectionsUtil.createSet(dmd));
+
+		File outputFile = FileUtil.appendPathElementsToDirectory(outputDirectory, expectedOutputFileName);
+		System.out.println("dir contents: " + Arrays.toString(outputDirectory.list()));
+		assertTrue("Output file should have been created.", outputFile.exists());
+
+		List<String> expectedLines = getExpectedLines(RdfUtilTest.getExpectedTimeStamp(createdTimeInMillis20101217));
+		expectedLines.addAll(getExpectedMetadatalines(dmd));
+		assertTrue("N-Triple Lines should be as expected.", FileComparisonUtil.hasExpectedLines(outputFile,
+				CharacterEncoding.UTF_8, expectedLines, null, LineOrder.ANY_ORDER, ColumnOrder.AS_IN_FILE));
+	}
+
+	private List<String> getExpectedMetadatalines(DownloadMetadata dmd) {
+		URIImpl metadataUri = RdfRecordWriterImpl.computeDownloadMetadataUri(dmd);
+		return CollectionsUtil.createList(
+				"<http://kabob.ucdenver.edu/iao/eg/egGeneId2NameDatFileDataDataSet20101217> <" + DC.SOURCE + "> <" + metadataUri + "> .",
+				"<" + metadataUri + "> <" + RDF.TYPE + "> <" + KIAO.SOURCE_METADATA.uri() + "> .",
+				"<" + metadataUri + "> <" + KDC.DATE_OF_DOWNLOAD.uri() + "> " + RdfUtil.getDateLiteral(dmd.getDownloadDate().getTimeInMillis()) + " .",
+				"<" + metadataUri + "> <" + KDC.DATE_OF_LAST_MODIFIED.uri() + "> " + RdfUtil.getDateLiteral(dmd.getFileLastModifiedDate().getTimeInMillis()) + " .",
+				"<" + metadataUri + "> <" + KDC.FILE_SIZE_IN_BYTES.uri() + "> " + RdfUtil.createLiteral(dmd.getFileSizeInBytes()) + " .",
+				"<" + metadataUri + "> <" + DC.SOURCE + "> <" + dmd.getDownloadUrl() + "> .");
+	}
+	
 	private List<String> getExpectedLines(String timestamp) {
 
 		return CollectionsUtil
@@ -182,7 +232,8 @@ public class RdfRecordWriterImplTest extends DefaultTestCase {
 						"<http://kabob.ucdenver.edu/iao/eg/egGeneId2NameDatFileDataDataSet20101217> <http://kabob.ucdenver.edu/iao/hasTemplate> <http://kabob.ucdenver.edu/iao/eg/egGeneId2NameDatFileDataSchema1> .",
 						"<http://kabob.ucdenver.edu/iao/eg/egDataSource20101217> <http://purl.obolibrary.org/obo/BFO_0000051> <http://kabob.ucdenver.edu/iao/eg/egGeneId2NameDatFileDataDataSet20101217> .",
 						"<http://kabob.ucdenver.edu/iao/eg/egGeneId2NameDatFileDataDataSet20101217> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://kabob.ucdenver.edu/iao/DataSet> .",
-						"<http://kabob.ucdenver.edu/iao/eg/egGeneId2NameDatFileDataDataSet20101217> <http://kabob.ucdenver.edu/iao/hasCreationDate> " + timestamp + " .",
+						"<http://kabob.ucdenver.edu/iao/eg/egGeneId2NameDatFileDataDataSet20101217> <http://kabob.ucdenver.edu/iao/hasCreationDate> "
+								+ timestamp + " .",
 						"<http://kabob.ucdenver.edu/iao/eg/egGeneId2NameDatFileDataDataSet20101217> <http://purl.obolibrary.org/obo/BFO_0000051> <http://kabob.ucdenver.edu/iao/eg/R_GeneId2NameDatFileData_SLEJJYDvYbjNjgDeZpwYtYyDzDE> .",
 						"<http://kabob.ucdenver.edu/iao/eg/R_GeneId2NameDatFileData_SLEJJYDvYbjNjgDeZpwYtYyDzDE> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://kabob.ucdenver.edu/iao/eg/GeneId2NameDatFileData> .",
 						"<http://kabob.ucdenver.edu/iao/eg/R_GeneId2NameDatFileData_SLEJJYDvYbjNjgDeZpwYtYyDzDE> <http://kabob.ucdenver.edu/iao/hasTemplate> <http://kabob.ucdenver.edu/iao/eg/GeneId2NameDatFileDataSchema1> .",
@@ -260,13 +311,16 @@ public class RdfRecordWriterImplTest extends DefaultTestCase {
 	// this test needs the expected lines in order to work
 	// @Test
 	// public void testWriteRdf_DataRecordHasASet() throws IOException {
-	// GeneId2NameDatFileParser parser = new GeneId2NameDatFileParser(geneId2NameDatFile);
+	// GeneId2NameDatFileParser parser = new
+	// GeneId2NameDatFileParser(geneId2NameDatFile);
 	// RdfRecordWriterImpl<GeneId2NameDatFileParser> recordWriter = new
 	// RdfRecordWriterImpl<GeneId2NameDatFileParser>(
 	// outputDirectory, RdfFormat.NTRIPLES);
-	// long createdTimeInMillis20101217 = new GregorianCalendar(2010, 11, 17).getTimeInMillis();
+	// long createdTimeInMillis20101217 = new GregorianCalendar(2010, 11,
+	// 17).getTimeInMillis();
 	// recordWriter
-	// .setRdfSource(new BaseRdfSource(RdfNamespace.EG, createdTimeInMillis20101217));
+	// .setRdfSource(new BaseRdfSource(RdfNamespace.EG,
+	// createdTimeInMillis20101217));
 	// recordWriter.processRecordReader(parser);
 	//
 	// File outputFile = FileUtil.appendPathElementsToDirectory(outputDirectory,
@@ -275,7 +329,8 @@ public class RdfRecordWriterImplTest extends DefaultTestCase {
 	//
 	// assertTrue("N-Triple Lines should be as expected.",
 	// FileComparisonUtil.hasExpectedLines(outputFile,
-	// CharacterEncoding.UTF_8, expectedLines, null, LineOrder.ANY_ORDER, ColumnOrder.AS_IN_FILE));
+	// CharacterEncoding.UTF_8, expectedLines, null, LineOrder.ANY_ORDER,
+	// ColumnOrder.AS_IN_FILE));
 	// }
 
 	private String createExpectedNTripleLine_GeneID2Name(Integer geneID, String geneName) {
@@ -380,7 +435,5 @@ public class RdfRecordWriterImplTest extends DefaultTestCase {
 		}
 
 	}
-
-	
 
 }

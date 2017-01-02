@@ -469,8 +469,7 @@ public class RdfRecordUtil {
 		// datasource instance type of datasource class
 		statements.add(new StatementImpl(dataSourceInstanceUri, RDF.TYPE.uri(), dataSourceClassUri));
 
-		URIImpl dataSetInstanceUri = RdfUtil.createKiaoUri(ns, ns.lowerName() + record.getClass().getSimpleName()
-				+ KIAO.DATASET.termName() + yyyyMMdd);
+		URIImpl dataSetInstanceUri = getDataSetInstanceUri(record, createdTime);
 		URIImpl recordSchemaUri = RdfUtil.createKiaoUri(ns, ns.lowerName() + record.getClass().getSimpleName()
 				+ KIAO.SCHEMA.termName() + RecordUtil.getRecordSchemaVersion(record.getClass()));
 
@@ -487,6 +486,14 @@ public class RdfRecordUtil {
 		statements.add(RdfUtil.getCreationTimeStampStatement(dataSetInstanceUri, createdTime));
 
 		return statements;
+	}
+
+	public static URIImpl getDataSetInstanceUri(DataRecord record, long createdTime) {
+		DateFormat formatter = new SimpleDateFormat("yyyyMMdd");
+		String yyyyMMdd = formatter.format(new Date(createdTime));
+		DataSource ns = DataSource.getNamespace(RecordUtil.getRecordDataSource(record.getClass()));
+		return RdfUtil.createKiaoUri(ns, ns.lowerName() + record.getClass().getSimpleName()
+				+ KIAO.DATASET.termName() + yyyyMMdd);
 	}
 
 	/**

@@ -2,9 +2,10 @@ package edu.ucdenver.ccp.datasource.rdfizer.rdf.vocabulary;
 
 /*
  * #%L
- * Colorado Computational Pharmacology's common module
+ * Colorado Computational Pharmacology's datasource
+ * 							project
  * %%
- * Copyright (C) 2012 - 2015 Regents of the University of Colorado
+ * Copyright (C) 2012 - 2016 Regents of the University of Colorado
  * %%
  * Redistribution and use in source and binary forms, with or without modification,
  * are permitted provided that the following conditions are met:
@@ -40,58 +41,26 @@ import edu.ucdenver.ccp.datasource.identifiers.DataSource;
 import edu.ucdenver.ccp.datasource.rdfizer.rdf.ice.RdfUtil;
 
 /**
- * @author Center for Computational Pharmacology, UC Denver; ccpsupport@ucdenver.edu
+ * @author Center for Computational Pharmacology, UC Denver;
+ *         ccpsupport@ucdenver.edu
  * 
  */
-public enum KIAO {
+public enum KDC {
 
-	MENTIONS_PROTOCOL("mentionsProtocol"),
-	MENTIONS_DISEASE("mentionsDisease"),
-	MENTIONS_GEOGRAPHIC_REGION("mentionsGeographicRegion"),
-	RDF_RESOURCE_ANNOTATION("rdfResourceAnnotation"),
-	RESOURCE_ANNOTATION("resourceAnnotation"),
-	ANNOTATES("annotates"),
-	ANNOTATION("annotation"), 
-	ANNOTATOR("annotator"),  // creator of the annotation
-	TEXT_SPAN("textSpan"),   // the selector that references  has_start_position etc. below
-	HAS_START_POSITION("hasStartPosition"),
-	HAS_END_POSITION("hasEndPosition"),
-	HAS_EXACT("hasExact"),
-
-    HAS_CREATION_DATE("hasCreationDate"),
-    HAS_LOCAL_FILE_PATH("hasLocalFilePath"),
-	HAS_KEY_PART("hasKeyPart"),
-    SCHEMA("Schema"),
-    DATAFIELD("DataField"),
-    DATASET("DataSet"), // TODO: this should be changed to RecordSet
-    DATARECORD("Record"),
-    DATASOURCE("DataSource"),
-    FIELDVALUE("FieldValue"),
-    FIELD("Field"),
-    HAS_TEMPLATE("hasTemplate"),
-    SPECIFIES_TARGET_GRAPH("specifiesTargetGraph"),
-    SPECIFIES_SOURCE("specifiesSourceFile"),
-    
-    
-    HAS_SCORE("has_score"),
-    HAS_RELIABILITY_SCORE("has_reliability_score"),
-    HAS_AVG_SCORE("has_avg_score"),
-    HAS_HANISCH_SCORE("has_hanisch_score"),
-    LINKS("links"),
-    
-    SOURCE_METADATA("SourceMetadata"),
-    RULE_METADATA("RuleMetadata");
+	DATE_OF_DOWNLOAD("downloadDate"), DATE_OF_LAST_MODIFIED("lastModifiedDate"), FILE_SIZE_IN_BYTES("fileSizeInBytes");
 
 	private final String termName;
 
-	private KIAO(String termName) {
+	private KDC(String termName) {
 		this.termName = termName;
 	}
 
-	public String termName() { return termName; }
+	public String termName() {
+		return termName;
+	}
 
 	public URI uri() {
-		return new URIImpl(RdfUtil.createUri(DataSource.KIAO, termName).toString());
+		return new URIImpl(RdfUtil.createUri(DataSource.KDC, termName).toString());
 	}
 
 }

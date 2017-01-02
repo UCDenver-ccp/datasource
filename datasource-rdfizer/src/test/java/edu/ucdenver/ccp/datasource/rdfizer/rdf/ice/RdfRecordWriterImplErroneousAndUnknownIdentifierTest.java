@@ -38,6 +38,7 @@ import static org.junit.Assert.assertTrue;
 import java.io.File;
 import java.io.IOException;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.GregorianCalendar;
 import java.util.List;
 
@@ -94,7 +95,7 @@ public class RdfRecordWriterImplErroneousAndUnknownIdentifierTest extends Defaul
 		RdfRecordWriterImpl<ProMappingFileParser> recordWriter = new RdfRecordWriterImpl<ProMappingFileParser>(
 				outputDirectory, RdfFormat.NTRIPLES);
 		long createdTimeInMillis20101217 = new GregorianCalendar(2010, 11, 17).getTimeInMillis();
-		recordWriter.processRecordReader(parser, createdTimeInMillis20101217);
+		recordWriter.processRecordReader(parser, createdTimeInMillis20101217, Collections.emptySet());
 
 		File outputFile = FileUtil.appendPathElementsToDirectory(outputDirectory, expectedOutputFileName);
 		System.err.println("dir contents: " + Arrays.toString(outputDirectory.list()));
