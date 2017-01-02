@@ -36,6 +36,8 @@ package edu.ucdenver.ccp.datasource.fileparsers.ebi.goa.gaf;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
@@ -52,8 +54,11 @@ import edu.ucdenver.ccp.datasource.identifiers.IdResolver;
 import edu.ucdenver.ccp.datasource.identifiers.ncbi.taxonomy.NcbiTaxonomyID;
 
 /**
- * A factory class for producing {@link RecordReader} instances for the GOA data set.
- * @author Center for Computational Pharmacology, UC Denver; ccpsupport@ucdenver.edu
+ * A factory class for producing {@link RecordReader} instances for the GOA data
+ * set.
+ * 
+ * @author Center for Computational Pharmacology, UC Denver;
+ *         ccpsupport@ucdenver.edu
  *
  */
 public class GoaGafFileRecordReaderFactory {
@@ -76,20 +81,19 @@ public class GoaGafFileRecordReaderFactory {
 	 * goa_uniprot annotation set (goa_uniprot_all.[gaf|gpa]).
 	 */
 	public enum AnnotationType {
-		CANONICAL(".gaf.gz"), 
-		ISOFORM("_isoform.gaf.gz"), 
-		COMPLEX("_complex.gaf.gz"), 
-		RNA("_rna.gaf.gz");
-		
+		CANONICAL(".gaf.gz"), ISOFORM("_isoform.gaf.gz"), COMPLEX("_complex.gaf.gz"), RNA("_rna.gaf.gz");
+
 		private final String suffix;
+
 		private AnnotationType(String suffix) {
 			this.suffix = suffix;
 		}
+
 		public String suffix() {
 			return this.suffix;
 		}
 	}
-	
+
 	/* @formatter:off */
 	//@formatter:off
 	private static final Map<NcbiTaxonomyID, FileInfo> taxonomyID2goaFilePathMap = new HashMap<NcbiTaxonomyID, FileInfo>();
@@ -113,8 +117,8 @@ public class GoaGafFileRecordReaderFactory {
 	private static final CharacterEncoding ENCODING = CharacterEncoding.UTF_8;
 	private static final Class<? extends IdResolver> ID_RESOLVER_CLASS = GoaFileIdResolver.class;
 
-	private static final FileInfo ALL_SPECIES = new FileInfo("pub/databases/GO/goa/UNIPROT","goa_uniprot_all");
-	
+	private static final FileInfo ALL_SPECIES = new FileInfo("pub/databases/GO/goa/UNIPROT", "goa_uniprot_all");
+
 	private GoaGafFileRecordReaderFactory() {
 		// not instantiable - utility class
 	}
@@ -135,22 +139,39 @@ public class GoaGafFileRecordReaderFactory {
 	 *         for the "all" data set.
 	 * @throws IOException
 	 */
-	public static GoaGaf2FileRecordReader getRecordReader(File dataDirectory, Set<NcbiTaxonomyID> taxonIds, AnnotationType annotType, boolean clean) throws IOException {
+	public static GoaGaf2FileRecordReader getRecordReader(File dataDirectory, Set<NcbiTaxonomyID> taxonIds,
+			AnnotationType annotType, boolean clean) throws IOException {
 		FileUtil.mkdir(dataDirectory);
 		if (taxonIds != null && taxonIds.size() == 1) {
-			/* if there is only a single taxon Id, then try to download it individually to save time*/
+			/*
+			 * if there is only a single taxon Id, then try to download it
+			 * individually to save time
+			 */
 			return getRecordReader(dataDirectory, CollectionsUtil.getSingleElement(taxonIds), annotType, clean);
 		}
-		/* otherwise, if there are no taxon ids or multiple taxon ids, then download the ALL file */
+		/*
+		 * otherwise, if there are no taxon ids or multiple taxon ids, then
+		 * download the ALL file
+		 */
 		File goaFile = downloadGoaFile(dataDirectory, ALL_SPECIES, AnnotationType.CANONICAL, clean);
 		if (!DownloadUtil.readySemaphoreFileExists(goaFile)) {
-			DownloadUtil.writeReadySemaphoreFile(goaFile);
+			DownloadUtil.writeReadySemaphoreFile(goaFile, ALL_SPECIES.getUrl(annotType));
 		}
-		return new GoaGaf2FileRecordReader(goaFile, ENCODING, 
-				taxonIds, ID_RESOLVER_CLASS);
+		return new GoaGaf2FileRecordReader(goaFile, ENCODING, taxonIds, ID_RESOLVER_CLASS);
 	}
-	
-	
+
+	public static FileInfo getDownloadFileInfo(Set<NcbiTaxonomyID> taxonIds, AnnotationType annotType) {
+		if (taxonIds != null && taxonIds.size() == 1) {
+			NcbiTaxonomyID taxId = CollectionsUtil.getSingleElement(taxonIds);
+			if (!taxonomyID2goaFilePathMap.containsKey(taxId)) {
+				return ALL_SPECIES;
+			} else {
+				return taxonomyID2goaFilePathMap.get(taxId);
+			}
+		}
+		return ALL_SPECIES;
+	}
+
 	/**
 	 * @param dataDirectory
 	 * @param taxonomyID
@@ -163,19 +184,21 @@ public class GoaGafFileRecordReaderFactory {
 	 *         taxon of interest.
 	 * @throws IOException
 	 */
-	public static GoaGaf2FileRecordReader getRecordReader(File dataDirectory, NcbiTaxonomyID taxonomyID, AnnotationType annotType, boolean clean)
-			throws IOException {
+	public static GoaGaf2FileRecordReader getRecordReader(File dataDirectory, NcbiTaxonomyID taxonomyID,
+			AnnotationType annotType, boolean clean) throws IOException {
 		File goaFile = null;
+		URL goaFileUrl = null;
 		if (!taxonomyID2goaFilePathMap.containsKey(taxonomyID)) {
 			goaFile = downloadGoaFile(dataDirectory, ALL_SPECIES, annotType, clean);
+			goaFileUrl = ALL_SPECIES.getUrl(annotType);
 		} else {
-			goaFile	= downloadGoaFile(dataDirectory, taxonomyID2goaFilePathMap.get(taxonomyID), annotType, clean);
+			goaFile = downloadGoaFile(dataDirectory, taxonomyID2goaFilePathMap.get(taxonomyID), annotType, clean);
+			goaFileUrl = taxonomyID2goaFilePathMap.get(taxonomyID).getUrl(annotType);
 		}
 		if (!DownloadUtil.readySemaphoreFileExists(goaFile)) {
-			DownloadUtil.writeReadySemaphoreFile(goaFile);
+			DownloadUtil.writeReadySemaphoreFile(goaFile, goaFileUrl);
 		}
-		return new GoaGaf2FileRecordReader(goaFile, ENCODING, 
-				CollectionsUtil.createSet(taxonomyID), ID_RESOLVER_CLASS);
+		return new GoaGaf2FileRecordReader(goaFile, ENCODING, CollectionsUtil.createSet(taxonomyID), ID_RESOLVER_CLASS);
 	}
 
 	/**
@@ -192,20 +215,29 @@ public class GoaGafFileRecordReaderFactory {
 		File localFile = FileUtil.appendPathElementsToDirectory(dataDirectory, fileName);
 		if (!DownloadUtil.fileExists(localFile, null, clean, false)) {
 			FileUtil.mkdir(localFile.getParentFile());
-			localFile = FTPUtil.downloadFile(fileInfo.getFtpServer(), fileInfo.getFtpPath(), fileName, FileType.BINARY, dataDirectory);
+			localFile = FTPUtil.downloadFile(fileInfo.getFtpServer(), fileInfo.getFtpPath(), fileName, FileType.BINARY,
+					dataDirectory);
 		}
 		return localFile;
 
 	}
-	
+
 	/**
 	 * A simple class to store FTP information for a file
 	 */
 	@Data
-	private static class FileInfo {
+	public static class FileInfo {
 		private final String ftpPath;
 		private final String filePrefix;
 		private final String ftpServer = "ftp.ebi.ac.uk";
+
+		public String getFilenameToDownload(AnnotationType annotType) {
+			return filePrefix + annotType.suffix();
+		}
+
+		public URL getUrl(AnnotationType annotType) throws MalformedURLException {
+			return new URL("ftp://" + ftpServer + "/" + ftpPath + "/" + getFilenameToDownload(annotType));
+		}
 	}
-	
+
 }

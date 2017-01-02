@@ -92,7 +92,7 @@ public class RefSeqReleaseCatalogFileParser extends TaxonAwareSingleLineFileReco
 		FtpInfo ftpInfo = new FtpInfo("anonymous", "anonymous", FtpHost.REFSEQ_HOST, -1, FtpHost.REFSEQ_CATALOG_PATH, 
 				catalogFileName, FileType.BINARY, false, null);
 		File downloadedFile = DownloadUtil.handleFtpDownload(getWorkDirectory(), ftpInfo, isClean());
-		DownloadUtil.writeReadySemaphoreFile(downloadedFile);
+		DownloadUtil.writeReadySemaphoreFile(downloadedFile, ftpInfo.getUrl());
 		return new StreamLineReader(new GZIPInputStream(new FileInputStream(downloadedFile)), encoding,
 				skipLinePrefix);
 	}
