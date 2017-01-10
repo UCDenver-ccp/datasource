@@ -112,13 +112,13 @@ public class IceRdfGenerator {
 			for (FileDataSource rdfSource : FileDataSource.values()) {
 				File sourceFileDirectory = getSourceFileDirectory(baseSourceFileDirectory, rdfSource.dataSource());
 				File rdfOutputDirectory = getOutputDirectory(baseRdfOutputDirectory, rdfSource);
-				Set<DownloadMetadata> metadata = rdfSource.getDownloadMetadata(rdfSource.getRecordReaderClass(),
-						sourceFileDirectory, taxonIds);
 
 				File idListFileDirectory = IdListFileFactory.getIdListFileDirectory(baseRdfOutputDirectory);
 				RecordReader<?> rr = rdfSource.initFileRecordReader(sourceFileDirectory, baseSourceFileDirectory,
 						cleanSourceFiles, cleanIdListFiles, idListFileDirectory, taxonIds);
 
+				Set<DownloadMetadata> metadata = rdfSource.getDownloadMetadata(rdfSource.getRecordReaderClass(),
+						sourceFileDirectory, taxonIds);
 				for (int stageIndex = 1; stageIndex <= rdfSource.getNumberOfStages(); stageIndex++) {
 					if (globalStageIndex >= stageStartNumber
 							&& globalStageIndex < (stageStartNumber + stagesToProcessCount)) {
@@ -137,8 +137,6 @@ public class IceRdfGenerator {
 					File rdfOutputDirectory = getOutputDirectory(baseRdfOutputDirectory, rdfSource);
 					logger.info("SOURCE DIR: " + sourceFileDirectory.getAbsolutePath());
 					logger.info("RDF OUT DIR: " + rdfOutputDirectory.getAbsolutePath());
-					Set<DownloadMetadata> metadata = rdfSource.getDownloadMetadata(rdfSource.getRecordReaderClass(),
-							sourceFileDirectory, taxonIds);
 					File idListFileDirectory = IdListFileFactory.getIdListFileDirectory(baseRdfOutputDirectory);
 					RecordReader<?> rr = rdfSource.initFileRecordReader(sourceFileDirectory, baseSourceFileDirectory,
 							cleanSourceFiles, cleanIdListFiles, idListFileDirectory, taxonIds);
@@ -147,6 +145,8 @@ public class IceRdfGenerator {
 					// DuplicateStatementFilter filter = new
 					// InMemoryDuplicateStatementFilter();
 					DuplicateStatementFilter filter = new DefaultDuplicateStatementFilter(cacheFilePrefix);
+					Set<DownloadMetadata> metadata = rdfSource.getDownloadMetadata(rdfSource.getRecordReaderClass(),
+							sourceFileDirectory, taxonIds);
 					generateRdf(currentTime, rr, rdfOutputDirectory, compress, outputRecordLimit, filter, metadata);
 				}
 				globalStageIndex++;
@@ -172,13 +172,13 @@ public class IceRdfGenerator {
 			long outputRecordLimit, Set<NcbiTaxonomyID> taxonIds) throws IOException, ParseException {
 		File sourceFileDirectory = getSourceFileDirectory(baseSourceFileDirectory, fileDataSource.dataSource());
 		File rdfOutputDirectory = getOutputDirectory(baseRdfOutputDirectory, fileDataSource);
-		Set<DownloadMetadata> metadata = fileDataSource.getDownloadMetadata(fileDataSource.getRecordReaderClass(),
-				sourceFileDirectory, taxonIds);
 		File idListFileDirectory = IdListFileFactory.getIdListFileDirectory(baseRdfOutputDirectory);
 		RecordReader<?> rr = fileDataSource.initFileRecordReader(sourceFileDirectory, baseSourceFileDirectory,
 				cleanSourceFiles, cleanIdListFiles, idListFileDirectory, taxonIds);
 		File cacheFilePrefix = FileUtil.appendPathElementsToDirectory(rdfOutputDirectory, "filter-cache", "filter");
 		DuplicateStatementFilter filter = new DefaultDuplicateStatementFilter(cacheFilePrefix);
+		Set<DownloadMetadata> metadata = fileDataSource.getDownloadMetadata(fileDataSource.getRecordReaderClass(),
+				sourceFileDirectory, taxonIds);
 		generateRdf(currentTime, rr, rdfOutputDirectory, compress, outputRecordLimit, filter, metadata);
 	}
 
