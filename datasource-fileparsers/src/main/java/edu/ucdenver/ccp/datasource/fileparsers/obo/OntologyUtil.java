@@ -48,11 +48,15 @@ import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
+import org.semanticweb.owlapi.model.OWLProperty;
 
 import owltools.graph.OWLGraphWrapper;
 
 public class OntologyUtil {
 
+	private static final String INVALID_OBO_IN_OWL_NAMESPACE = "http://www.geneontology.org/formats/oboInOWL#";
+	private static final String NAMESPACE_PROP = "<http://purl.obolibrary.org/obo/namespace>";
+	private static final String NAMESPACE_PROP_ALT = "<http://www.geneontology.org/formats/oboInOwl#hasOBONamespace>";
 	private static final Logger logger = Logger.getLogger(OntologyUtil.class);
 	private static final String EXACT_SYN_PROP = "<http://www.geneontology.org/formats/oboInOwl#hasExactSynonym>";
 	private static final String EXACT_SYN_PROP_ALT = "<http://purl.obolibrary.org/obo/exact_synonym>";
@@ -148,12 +152,37 @@ public class OntologyUtil {
 		return null;
 	}
 
+	/**
+	 * This method was composed in response to the following issue:
+	 * https://github.com/UCDenver-ccp/datasource/issues/5
+	 * 
+	 * The user uncovered an inconsistency in the oboInOwl namespace returned by
+	 * the OWL API OBO parser. The inconsistency involves the capitalization of
+	 * "OWL" in oboInOWL. The OBO parsers uses
+	 * http://www.geneontology.org/formats/oboInOWL# whereas the namespace
+	 * appears as http://www.geneontology.org/formats/oboInOwl# in OWL files in
+	 * the wild. This method swaps out the oboInOWL for oboInOwl when it is
+	 * observed.
+	 * 
+	 * @param annotation
+	 * @return the {@link OWLProperty} IRI for the input {@link OWLAnnotation}.
+	 *         If the invalid version of the oboInOwl namespace is detected
+	 *         (used by the OWL API OBO parser), it is replaced with the valid
+	 *         version which differs only in capitalization.
+	 */
+	public static String getAnnotationPropertyUri(OWLAnnotation annotation) {
+		String propertyUri = annotation.getProperty().toString();
+		if (propertyUri.startsWith("<" + INVALID_OBO_IN_OWL_NAMESPACE)) {
+			propertyUri = propertyUri.replaceFirst("oboInOWL", "oboInOwl");
+		}
+		return propertyUri;
+	}
+
 	public Set<String> getSynonyms(OWLClass cls, SynonymType synType) {
 		Set<String> synonyms = new HashSet<String>();
 		Set<OWLAnnotation> annotations = cls.getAnnotations(ont);
 		for (OWLAnnotation annotation : annotations) {
-			String property = annotation.getProperty().toString();
-			System.out.println("prop: " + property);
+			String property = getAnnotationPropertyUri(annotation);
 			if ((synType == SynonymType.EXACT || synType == SynonymType.ALL)
 					&& (property.equals(EXACT_SYN_PROP) || property.equals(EXACT_SYN_PROP_ALT)
 							|| property.equals(IAO_EDITOR_PREFERRED_LABEL) || property.equals(IAO_ALTERNATIVE_TERM))) {
@@ -207,8 +236,8 @@ public class OntologyUtil {
 	public String getNamespace(OWLClass cls) {
 		Set<OWLAnnotation> annotations = cls.getAnnotations(ont);
 		for (OWLAnnotation annotation : annotations) {
-			if (annotation.getProperty().toString()
-					.equals("<http://www.geneontology.org/formats/oboInOwl#hasOBONamespace>")) {
+			String propertyUri = getAnnotationPropertyUri(annotation);
+			if (propertyUri.equals(NAMESPACE_PROP_ALT) || propertyUri.equals(NAMESPACE_PROP)) {
 				String s = annotation.getValue().toString();
 				s = StringUtils.removePrefix(s, "\"");
 				s = StringUtils.removeSuffix(s, "\"^^xsd:string");

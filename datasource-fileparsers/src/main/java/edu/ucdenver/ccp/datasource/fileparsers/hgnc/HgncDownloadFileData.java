@@ -271,7 +271,7 @@ public class HgncDownloadFileData extends SingleLineFileRecord {
 	@RecordField
 	private final RefSeqID suppliedRefseqId;
 	@RecordField
-	private final UniProtID suppliedUniprotId;
+	private final Set<UniProtID> suppliedUniprotIds;
 	@RecordField
 	private final EnsemblGeneID suppliedEnsemblId;
 	@RecordField
@@ -338,7 +338,7 @@ public class HgncDownloadFileData extends SingleLineFileRecord {
 			Set<CcdsId> ccdsIDs, Set<VegaID> vegaIDs,
 			Set<LocusSpecificDatabaseNameLinkPair> locusSpecificDatabaseNameLinkPairings,
 			EntrezGeneID suppliedEntrezGeneId, Set<OmimID> suppliedOmimIds, RefSeqID suppliedRefseqId,
-			UniProtID suppliedUniprotId, EnsemblGeneID suppliedEnsemblId, VegaID suppliedVegaId,
+			Set<UniProtID> suppliedUniprotIds, EnsemblGeneID suppliedEnsemblId, VegaID suppliedVegaId,
 			UcscGenomeBrowserId suppliedUcscId, Set<MgiGeneID> suppliedMgiIds, Set<RgdID> suppliedRgdIds,
 			long byteOffset, long lineNumber) {
 		super(byteOffset, lineNumber);
@@ -375,7 +375,7 @@ public class HgncDownloadFileData extends SingleLineFileRecord {
 		this.suppliedEntrezGeneId = suppliedEntrezGeneId;
 		this.suppliedOmimIds = suppliedOmimIds;
 		this.suppliedRefseqId = suppliedRefseqId;
-		this.suppliedUniprotId = suppliedUniprotId;
+		this.suppliedUniprotIds = suppliedUniprotIds;
 		this.suppliedEnsemblId = suppliedEnsemblId;
 		this.suppliedVegaId = suppliedVegaId;
 		this.suppliedUcscId = suppliedUcscId;

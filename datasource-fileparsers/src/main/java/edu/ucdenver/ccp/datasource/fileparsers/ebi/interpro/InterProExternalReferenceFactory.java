@@ -34,6 +34,7 @@ package edu.ucdenver.ccp.datasource.fileparsers.ebi.interpro;
  */
 
 import edu.ucdenver.ccp.datasource.identifiers.DataSourceIdentifier;
+import edu.ucdenver.ccp.datasource.identifiers.UnknownDataSourceIdentifier;
 import edu.ucdenver.ccp.datasource.identifiers.ebi.interpro.Gene3dID;
 import edu.ucdenver.ccp.datasource.identifiers.ebi.interpro.HamapAnnotationRuleID;
 import edu.ucdenver.ccp.datasource.identifiers.ebi.interpro.PantherID;
@@ -63,7 +64,9 @@ public class InterProExternalReferenceFactory {
 	private static final String PRODOM_PREFIX = "PD";
 
 
-	public static DataSourceIdentifier<String> parseExternalReference(String databaseReferenceID) {
+    public static DataSourceIdentifier<String> parseExternalReference(
+			String databaseReferenceID)
+    {
 		if (databaseReferenceID.startsWith(PFAM_PREFIX))
 			return new PfamID(databaseReferenceID);
 		if (databaseReferenceID.startsWith(TIGRFAMS_PREFIX))
@@ -87,9 +90,10 @@ public class InterProExternalReferenceFactory {
 		if (databaseReferenceID.startsWith(HAMAP_PREFIX))
 			return new HamapAnnotationRuleID(databaseReferenceID);
 		if (databaseReferenceID.startsWith(PRODOM_PREFIX))
-			return new ProDomID(databaseReferenceID);
-		throw new IllegalArgumentException(String.format("Unknown external database ID type for ID: %s",
-				databaseReferenceID));
+            return new ProDomID(databaseReferenceID);
+
+		
+        return new UnknownDataSourceIdentifier(databaseReferenceID);
 	}
 
 }

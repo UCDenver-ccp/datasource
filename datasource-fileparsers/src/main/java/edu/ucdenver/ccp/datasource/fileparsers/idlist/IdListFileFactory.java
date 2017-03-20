@@ -63,6 +63,8 @@ import edu.ucdenver.ccp.common.file.FileUtil;
 import edu.ucdenver.ccp.common.file.FileWriterUtil;
 import edu.ucdenver.ccp.common.reflection.ConstructorUtil;
 import edu.ucdenver.ccp.datasource.fileparsers.ebi.uniprot.SparseTremblDatFileRecordReader;
+import edu.ucdenver.ccp.datasource.fileparsers.ebi.uniprot.SparseTremblDatFileRecordReader_HumanOnly;
+import edu.ucdenver.ccp.datasource.fileparsers.ebi.uniprot.SparseUniProtDatFileRecordReader;
 import edu.ucdenver.ccp.datasource.fileparsers.ebi.uniprot.SparseUniProtFileRecord;
 import edu.ucdenver.ccp.datasource.fileparsers.ebi.uniprot.SwissProtXmlFileRecordReader;
 import edu.ucdenver.ccp.datasource.fileparsers.ebi.uniprot.UniProtFileRecord;
@@ -151,6 +153,8 @@ public class IdListFileFactory {
 		 * of the outputFile
 		 */
 		if (workInProgressFile.exists()) {
+			logger.info("Id list file is in progress. This process will wait until it is finished before proceeding: " + 
+					workInProgressFile.getAbsolutePath());
 			WatchService watcher = FileSystems.getDefault().newWatchService();
 			Path p = outputFile.getParentFile().toPath();
 			p.register(watcher, StandardWatchEventKinds.ENTRY_CREATE);
@@ -282,8 +286,15 @@ public class IdListFileFactory {
 			}
 		}
 
-		SparseTremblDatFileRecordReader trembl_rr = new SparseTremblDatFileRecordReader(sourceFileDirectory,
-				CharacterEncoding.UTF_8, cleanSourceFiles, taxonIds);
+		SparseUniProtDatFileRecordReader trembl_rr = null;
+		
+		if (taxonIds.size() == 1 && CollectionsUtil.getSingleElement(taxonIds).equals(NcbiTaxonomyID.HOMO_SAPIENS)) {
+			trembl_rr = new SparseTremblDatFileRecordReader_HumanOnly(
+					sourceFileDirectory, CharacterEncoding.UTF_8, cleanSourceFiles, taxonIds);
+		} else {
+			trembl_rr = new SparseTremblDatFileRecordReader(
+				sourceFileDirectory, CharacterEncoding.UTF_8, cleanSourceFiles, taxonIds);
+		}
 		count = 0;
 		while (trembl_rr.hasNext()) {
 			if (count++ % 1000 == 0) {

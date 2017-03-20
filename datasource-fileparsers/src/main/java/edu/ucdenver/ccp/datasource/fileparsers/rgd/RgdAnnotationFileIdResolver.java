@@ -117,7 +117,7 @@ public class RgdAnnotationFileIdResolver implements IdResolver {
 		if (idStr.startsWith("UniProtKB:")) {
 			return new UniProtID(idStr.substring(10));
 		}
-		return new UnknownDataSourceIdentifier(idStr, null);
+		return new UnknownDataSourceIdentifier(idStr);
 	}
 
 	/*

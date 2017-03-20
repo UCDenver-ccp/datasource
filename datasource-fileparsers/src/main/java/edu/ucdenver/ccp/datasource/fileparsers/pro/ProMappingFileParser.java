@@ -139,6 +139,6 @@ public class ProMappingFileParser extends SingleLineFileRecordReader<ProMappingR
 		} catch (IllegalArgumentException e) {
 			return new ProbableErrorDataSourceIdentifier(idStr, null, e.getMessage());
 		}
-		return new UnknownDataSourceIdentifier(idStr, null);
+		return new UnknownDataSourceIdentifier(idStr);
 	}
 }

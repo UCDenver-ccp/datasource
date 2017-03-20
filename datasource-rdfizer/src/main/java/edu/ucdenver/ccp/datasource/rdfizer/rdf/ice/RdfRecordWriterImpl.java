@@ -41,23 +41,30 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.io.Writer;
+import java.net.URISyntaxException;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.zip.GZIPOutputStream;
 
+import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.log4j.Logger;
 import org.openrdf.model.Resource;
 import org.openrdf.model.Statement;
+import org.openrdf.model.impl.StatementImpl;
 import org.openrdf.model.impl.URIImpl;
+import org.openrdf.model.vocabulary.DC;
+import org.openrdf.model.vocabulary.RDF;
 import org.openrdf.rio.RDFHandlerException;
 import org.openrdf.rio.RDFWriter;
 
+import edu.ucdenver.ccp.common.download.DownloadMetadata;
 import edu.ucdenver.ccp.common.file.CharacterEncoding;
 import edu.ucdenver.ccp.common.file.FileUtil;
 import edu.ucdenver.ccp.common.string.StringConstants;
@@ -68,10 +75,12 @@ import edu.ucdenver.ccp.datasource.identifiers.DataSource;
 import edu.ucdenver.ccp.datasource.rdfizer.rdf.filter.DuplicateStatementFilter;
 import edu.ucdenver.ccp.datasource.rdfizer.rdf.filter.InMemoryDuplicateStatementFilter;
 import edu.ucdenver.ccp.datasource.rdfizer.rdf.ice.RdfUtil.RdfFormat;
+import edu.ucdenver.ccp.datasource.rdfizer.rdf.vocabulary.KDC;
+import edu.ucdenver.ccp.datasource.rdfizer.rdf.vocabulary.KIAO;
 
 /**
- * RDF generator that handles data provided by {@link RecordReader} instances in combination with
- * reader-specific config files (XML).
+ * RDF generator that handles data provided by {@link RecordReader} instances in
+ * combination with reader-specific config files (XML).
  * 
  * @param <T>
  *            reader type
@@ -92,8 +101,8 @@ public class RdfRecordWriterImpl<T extends RecordReader<?>> {
 	/**
 	 * Part of output file name driven by reader.
 	 * <p>
-	 * This is useful in places where the same reader class is used to read several files (ex:
-	 * multiple species).
+	 * This is useful in places where the same reader class is used to read
+	 * several files (ex: multiple species).
 	 */
 	private String readerKey = StringConstants.BLANK;
 
@@ -102,18 +111,22 @@ public class RdfRecordWriterImpl<T extends RecordReader<?>> {
 	/** indicator for whether to compress serialized rdf files */
 	private boolean compress;
 
-	/** maximum number of statements per output file ; -1 or 0 for unlimited - default */
+	/**
+	 * maximum number of statements per output file ; -1 or 0 for unlimited -
+	 * default
+	 */
 	private long maxStatementsPerFile = -1;
 
 	/**
-	 * tracks the number of statements written to file. This count is used to split files when the
-	 * {@link #maxStatementsPerFile} variable is set to a number > 0
+	 * tracks the number of statements written to file. This count is used to
+	 * split files when the {@link #maxStatementsPerFile} variable is set to a
+	 * number > 0
 	 */
 	private long writtenStatementCount;
 
 	/**
-	 * this number will be appended to the output file name to allow multiple stages to process a
-	 * single file but output the RDF into distinct files.
+	 * this number will be appended to the output file name to allow multiple
+	 * stages to process a single file but output the RDF into distinct files.
 	 */
 	private final int batchNumber;
 
@@ -129,13 +142,15 @@ public class RdfRecordWriterImpl<T extends RecordReader<?>> {
 	private CharacterEncoding encoding = CharacterEncoding.UTF_8;
 
 	/**
-	 * A reference to the {@link RecordReader} being processed is stored b/c it is used during the
-	 * output file name creation process. See {@link #getOutputFileName()}
+	 * A reference to the {@link RecordReader} being processed is stored b/c it
+	 * is used during the output file name creation process. See
+	 * {@link #getOutputFileName()}
 	 */
 	private RecordReader<?> recordReader = null;
 
 	/**
-	 * Stores references to all RDF files generated during processing of a {@link RecordReader}
+	 * Stores references to all RDF files generated during processing of a
+	 * {@link RecordReader}
 	 */
 	private Collection<File> generatedRdfFiles = new ArrayList<File>();
 
@@ -187,7 +202,8 @@ public class RdfRecordWriterImpl<T extends RecordReader<?>> {
 	 * @param compress
 	 *            whether to compress (gz) files or not
 	 * @param maxStatementsPerFile
-	 *            maximum number of statements per output file ; -1 for unlimited
+	 *            maximum number of statements per output file ; -1 for
+	 *            unlimited
 	 * @param batchNumber
 	 * @throws FileNotFoundException
 	 */
@@ -210,7 +226,8 @@ public class RdfRecordWriterImpl<T extends RecordReader<?>> {
 	}
 
 	/**
-	 * Process file data by converting each item to RDF format and writing it out to an RDF file.
+	 * Process file data by converting each item to RDF format and writing it
+	 * out to an RDF file.
 	 * 
 	 * @param <E>
 	 * 
@@ -220,14 +237,16 @@ public class RdfRecordWriterImpl<T extends RecordReader<?>> {
 	 *            rdf source
 	 * @throws IOException
 	 */
-	public <E extends DataRecord> void processRecordReader(RecordReader<E> recordReader, long createdTime)
-			throws IOException {
-		// -1 for the outputRecordLimit signifies that all records should be output
-		processRecordReader(recordReader, createdTime, 0, -1);
+	public <E extends DataRecord> void processRecordReader(RecordReader<E> recordReader, long createdTime,
+			Set<DownloadMetadata> metadata) throws IOException {
+		// -1 for the outputRecordLimit signifies that all records should be
+		// output
+		processRecordReader(recordReader, createdTime, 0, -1, metadata);
 	}
 
 	/**
-	 * Process file data by converting each item to RDF format and writing it out to an RDF file.
+	 * Process file data by converting each item to RDF format and writing it
+	 * out to an RDF file.
 	 * 
 	 * @param dataRecordIterator
 	 * @param dataSpecificFileSuffix
@@ -236,13 +255,15 @@ public class RdfRecordWriterImpl<T extends RecordReader<?>> {
 	 * @throws IOException
 	 */
 	private <E extends DataRecord> Collection<File> processRecordReader(RecordReader<E> dataRecordIterator,
-			String dataSpecificFileSuffix, long createdTime, long outputRecordLimit) throws IOException {
+			String dataSpecificFileSuffix, long createdTime, long outputRecordLimit, Set<DownloadMetadata> metadata)
+			throws IOException {
 		setReaderKey(dataSpecificFileSuffix);
-		return processRecordReader(dataRecordIterator, createdTime, 0, outputRecordLimit);
+		return processRecordReader(dataRecordIterator, createdTime, 0, outputRecordLimit, metadata);
 	}
 
 	/**
-	 * Process file data by converting each item to RDF format and writing it out to an RDF file.
+	 * Process file data by converting each item to RDF format and writing it
+	 * out to an RDF file.
 	 * 
 	 * @param <E>
 	 * 
@@ -258,7 +279,7 @@ public class RdfRecordWriterImpl<T extends RecordReader<?>> {
 	 * @throws IOException
 	 */
 	public <E extends DataRecord> Collection<File> processRecordReader(RecordReader<E> recordReader, long createdTime,
-			long recordSkipCount, long outputRecordLimit) throws IOException {
+			long recordSkipCount, long outputRecordLimit, Set<DownloadMetadata> metadata) throws IOException {
 
 		this.recordReader = recordReader;
 
@@ -281,15 +302,18 @@ public class RdfRecordWriterImpl<T extends RecordReader<?>> {
 			if (record != null) {
 				if ((instanceCount - recordSkipCount) % 100000 == 0) {
 					logger.info("RDF GENERATION PROGRESS: " + (instanceCount - recordSkipCount));
-					// alreadyObservedFieldUris = cullObservedFieldUris(alreadyObservedFieldUris,
+					// alreadyObservedFieldUris =
+					// cullObservedFieldUris(alreadyObservedFieldUris,
 					// (instanceCount - recordSkipCount));
 				}
 				instanceCount++;
 				if (instanceCount == 1) {
 					primaryKeyFieldNames = RecordUtil.getKeyFieldNames(record.getClass());
+					DataSource ns = DataSource.getNamespace(RecordUtil.getRecordDataSource(record.getClass()));
 					writeDataSourceInstanceStatements(
-							RdfRecordUtil.getDataSourceInstanceStatements(record, createdTime),
-							DataSource.getNamespace(RecordUtil.getRecordDataSource(record.getClass())));
+							RdfRecordUtil.getDataSourceInstanceStatements(record, createdTime), ns);
+					writeDownloadMetadataStatements(metadata, RdfRecordUtil.getDataSetInstanceUri(record, createdTime),
+							ns);
 					writeSchemaDefinitionRdfFile(record.getClass());
 				}
 
@@ -297,8 +321,8 @@ public class RdfRecordWriterImpl<T extends RecordReader<?>> {
 				processRecord(record, recordReader.getDataSpecificKey(), recordUri);
 			}
 			/*
-			 * if the outputRecordLimit is > -1 then cap the number or records that are output to
-			 * file
+			 * if the outputRecordLimit is > -1 then cap the number or records
+			 * that are output to file
 			 */
 			if (outputRecordLimit > -1 && instanceCount >= (outputRecordLimit + recordSkipCount)) {
 				break;
@@ -308,6 +332,54 @@ public class RdfRecordWriterImpl<T extends RecordReader<?>> {
 		filter.shutdown();
 		logger.info("DUPLICATE TRIPLE FILTER WAS LEAK-PROOF = " + filter.isLeakProof());
 		return generatedRdfFiles;
+	}
+
+	private void writeDownloadMetadataStatements(Set<DownloadMetadata> metadata, URIImpl dataSetInstanceUri,
+			DataSource ns) throws IOException {
+		for (DownloadMetadata md : metadata) {
+			Collection<Statement> stmts = getDownloadMetadataStatements(md, dataSetInstanceUri);
+			for (Statement s : stmts) {
+				write(s, ns);
+			}
+		}
+	}
+
+	/**
+	 * @param dmd
+	 * @return a unique (reproducible) URI to represent the DownloadMetadata
+	 */
+	static URIImpl computeDownloadMetadataUri(DownloadMetadata dmd) {
+		String s = dmd.getDownloadDate().getTimeInMillis() + dmd.getDownloadedFile().getName()
+				+ dmd.getDownloadUrl().toString() + dmd.getFileSizeInBytes();
+
+		String digest = DigestUtils.sha256Hex(s);
+
+		return new URIImpl("http://kabob.ucdenver.edu/iao/SourceMetadata_" + digest);
+	}
+
+	private Collection<Statement> getDownloadMetadataStatements(DownloadMetadata dmd, URIImpl dataSetInstanceUri)
+			throws IOException
+			 {
+		List<Statement> statements = new ArrayList<Statement>();
+		URIImpl metadataUri = computeDownloadMetadataUri(dmd);
+
+		statements.add(new StatementImpl(dataSetInstanceUri, DC.SOURCE, metadataUri));
+		statements.add(new StatementImpl(metadataUri, RDF.TYPE, KIAO.SOURCE_METADATA.uri()));
+		statements.add(new StatementImpl(metadataUri, KDC.DATE_OF_DOWNLOAD.uri(), RdfUtil.getDateLiteral(dmd
+				.getDownloadDate().getTimeInMillis())));
+		statements.add(new StatementImpl(metadataUri, KDC.DATE_OF_LAST_MODIFIED.uri(), RdfUtil.getDateLiteral(dmd
+				.getFileLastModifiedDate().getTimeInMillis())));
+		statements.add(new StatementImpl(metadataUri, KDC.FILE_SIZE_IN_BYTES.uri(), RdfUtil.createLiteral(dmd
+				.getFileSizeInBytes())));
+		if (dmd.getDownloadUrl() != null) {
+			try {
+				statements.add(new StatementImpl(metadataUri, DC.SOURCE, new URIImpl(dmd.getDownloadUrl().toURI().toString())));
+			} catch (URISyntaxException e) {
+				throw new IOException(e);
+			}
+		}
+
+		return statements;
 	}
 
 	/**
@@ -332,11 +404,14 @@ public class RdfRecordWriterImpl<T extends RecordReader<?>> {
 	// * @return a mapping from field uris to observation counts
 	// */
 	// private static Map<String, ObservationCount> cullObservedFieldUris(
-	// Map<String, ObservationCount> alreadyObservedFieldUris, long processedRecordsCount) {
-	// Map<String, ObservationCount> culledMap = new HashMap<String, ObservationCount>();
+	// Map<String, ObservationCount> alreadyObservedFieldUris, long
+	// processedRecordsCount) {
+	// Map<String, ObservationCount> culledMap = new HashMap<String,
+	// ObservationCount>();
 	//
 	// int beforeSize = alreadyObservedFieldUris.size();
-	// for (Entry<String, ObservationCount> entry : alreadyObservedFieldUris.entrySet()) {
+	// for (Entry<String, ObservationCount> entry :
+	// alreadyObservedFieldUris.entrySet()) {
 	// ObservationCount oc = entry.getValue();
 	// if (oc.getObservedCount() > 1) {
 	// culledMap.put(entry.getKey(), entry.getValue());
@@ -346,7 +421,8 @@ public class RdfRecordWriterImpl<T extends RecordReader<?>> {
 	// }
 	// }
 	// int afterSize = culledMap.size();
-	// logger.info("Culled already observed field uris. Size before = " + beforeSize +
+	// logger.info("Culled already observed field uris. Size before = " +
+	// beforeSize +
 	// " Size after = " + afterSize);
 	// return culledMap;
 	// }
@@ -372,9 +448,9 @@ public class RdfRecordWriterImpl<T extends RecordReader<?>> {
 	}
 
 	/**
-	 * Write data source, and field instantiation statements that records and their fields will
-	 * reference. These initialization statements are written out to every output file as specified
-	 * in parser configuration file.
+	 * Write data source, and field instantiation statements that records and
+	 * their fields will reference. These initialization statements are written
+	 * out to every output file as specified in parser configuration file.
 	 * 
 	 * @param rdfFiles
 	 * @param dataSourceInstanceStatements
@@ -387,8 +463,8 @@ public class RdfRecordWriterImpl<T extends RecordReader<?>> {
 	}
 
 	/**
-	 * Set rdf resource from which a lot of meta-data statements will be derived, including
-	 * datasets, records and their fields.
+	 * Set rdf resource from which a lot of meta-data statements will be
+	 * derived, including datasets, records and their fields.
 	 * 
 	 * @param rdfSource
 	 */
@@ -408,9 +484,11 @@ public class RdfRecordWriterImpl<T extends RecordReader<?>> {
 	// * @return record
 	// * @throws IOException
 	// */
-	// public <E extends DataRecord> void processRecordReader(RecordReader<E> dataRecordIterator,
+	// public <E extends DataRecord> void processRecordReader(RecordReader<E>
+	// dataRecordIterator,
 	// long createdTime) throws IOException {
-	// processRecordReader(dataRecordIterator, StringConstants.BLANK, createdTime, -1);
+	// processRecordReader(dataRecordIterator, StringConstants.BLANK,
+	// createdTime, -1);
 	// }
 
 	/**
@@ -428,12 +506,13 @@ public class RdfRecordWriterImpl<T extends RecordReader<?>> {
 	 * @throws IOException
 	 */
 	public <E extends DataRecord> void processRecordReader(RecordReader<E> dataRecordIterator, long createdTime,
-			long outputRecordLimit) throws IOException {
-		processRecordReader(dataRecordIterator, StringConstants.BLANK, createdTime, outputRecordLimit);
+			long outputRecordLimit, Set<DownloadMetadata> metadata) throws IOException {
+		processRecordReader(dataRecordIterator, StringConstants.BLANK, createdTime, outputRecordLimit, metadata);
 	}
 
 	/**
-	 * Process file data by converting to RDF format and writing it out to an RDF file.
+	 * Process file data by converting to RDF format and writing it out to an
+	 * RDF file.
 	 * 
 	 * @param readerKey
 	 *            label to differentiate records
@@ -453,192 +532,231 @@ public class RdfRecordWriterImpl<T extends RecordReader<?>> {
 		}
 	}
 
-//	/**
-//	 * Constant is assumed to be a valid URI String
-//	 * 
-//	 * @param tripleObj
-//	 * @param <E>
-//	 * @return
-//	 */
-//	private <E extends DataRecord> Map<Class<?>, Collection<Value>> getConstantValues(String value) {
-//		Map<Class<?>, Collection<Value>> type2valuesMap = new HashMap<Class<?>, Collection<Value>>();
-//		Value constantValue = new URIImpl(value);
-//		CollectionsUtil.addToOne2ManyMap(String.class, constantValue, type2valuesMap);
-//		return type2valuesMap;
-//	}
+	// /**
+	// * Constant is assumed to be a valid URI String
+	// *
+	// * @param tripleObj
+	// * @param <E>
+	// * @return
+	// */
+	// private <E extends DataRecord> Map<Class<?>, Collection<Value>>
+	// getConstantValues(String value) {
+	// Map<Class<?>, Collection<Value>> type2valuesMap = new HashMap<Class<?>,
+	// Collection<Value>>();
+	// Value constantValue = new URIImpl(value);
+	// CollectionsUtil.addToOne2ManyMap(String.class, constantValue,
+	// type2valuesMap);
+	// return type2valuesMap;
+	// }
 
-//	/**
-//	 * 
-//	 * @param <E>
-//	 * @param record
-//	 * @param tripleObj
-//	 * @return
-//	 */
-//	private <E extends DataRecord> Map<Class<?>, Collection<Value>> getLiteralValues(E record, String fieldName) {
-//		Map<Class<?>, Collection<Value>> type2valuesMap = new HashMap<Class<?>, Collection<Value>>();
-//		Object fieldValue = PrivateAccessor.getFieldValue(record, fieldName);
-//		if (fieldValue == null)
-//			return type2valuesMap;
-//		if (fieldValue instanceof DataSourceElement<?>) {
-//			DataSourceElement<?> element = (DataSourceElement<?>) fieldValue;
-//			Value literalValue = RdfUtil.createLiteral(element.getDataElement());
-//			CollectionsUtil.addToOne2ManyMap(fieldValue.getClass(), literalValue, type2valuesMap);
-//			return type2valuesMap;
-//		}
-//		if (fieldValue instanceof Collection<?>) {
-//			for (Object value : ((Collection<?>) fieldValue))
-//				if (value instanceof DataSourceElement<?>) {
-//					DataSourceElement<?> element = (DataSourceElement<?>) fieldValue;
-//					Value literalValue = RdfUtil.createLiteral(element.getDataElement());
-//					CollectionsUtil.addToOne2ManyMap(value.getClass(), literalValue, type2valuesMap);
-//				} else
-//					throw new RuntimeException(String.format("Unable to extract RDF object from field: %s. "
-//							+ "Expected Collection<ResourceComponent> but instead observed Collection<%s>.", fieldName,
-//							value.getClass().getName()));
-//			return type2valuesMap;
-//		}
-//		throw new RuntimeException(String.format("Unable to extract RDF object from field: %s (observedValue=%s)",
-//				fieldName, fieldValue.toString()));
-//	}
+	// /**
+	// *
+	// * @param <E>
+	// * @param record
+	// * @param tripleObj
+	// * @return
+	// */
+	// private <E extends DataRecord> Map<Class<?>, Collection<Value>>
+	// getLiteralValues(E record, String fieldName) {
+	// Map<Class<?>, Collection<Value>> type2valuesMap = new HashMap<Class<?>,
+	// Collection<Value>>();
+	// Object fieldValue = PrivateAccessor.getFieldValue(record, fieldName);
+	// if (fieldValue == null)
+	// return type2valuesMap;
+	// if (fieldValue instanceof DataSourceElement<?>) {
+	// DataSourceElement<?> element = (DataSourceElement<?>) fieldValue;
+	// Value literalValue = RdfUtil.createLiteral(element.getDataElement());
+	// CollectionsUtil.addToOne2ManyMap(fieldValue.getClass(), literalValue,
+	// type2valuesMap);
+	// return type2valuesMap;
+	// }
+	// if (fieldValue instanceof Collection<?>) {
+	// for (Object value : ((Collection<?>) fieldValue))
+	// if (value instanceof DataSourceElement<?>) {
+	// DataSourceElement<?> element = (DataSourceElement<?>) fieldValue;
+	// Value literalValue = RdfUtil.createLiteral(element.getDataElement());
+	// CollectionsUtil.addToOne2ManyMap(value.getClass(), literalValue,
+	// type2valuesMap);
+	// } else
+	// throw new
+	// RuntimeException(String.format("Unable to extract RDF object from field: %s. "
+	// +
+	// "Expected Collection<ResourceComponent> but instead observed Collection<%s>.",
+	// fieldName,
+	// value.getClass().getName()));
+	// return type2valuesMap;
+	// }
+	// throw new
+	// RuntimeException(String.format("Unable to extract RDF object from field: %s (observedValue=%s)",
+	// fieldName, fieldValue.toString()));
+	// }
 
-//	/**
-//	 * Get values for triple definition where value is specified to use ICE formatting (ex:
-//	 * {@code <object use-ice-id="true">ensemblGeneId</object>})
-//	 * 
-//	 * @param record
-//	 * @param tripleObj
-//	 * @return values
-//	 */
-//	private Map<Class<?>, Collection<Value>> getInformationContentEntityIDValues(DataRecord record, String fieldName) {
-//		Map<Class<?>, Collection<Value>> type2valuesMap = new HashMap<Class<?>, Collection<Value>>();
-//		Object fieldValue = PrivateAccessor.getFieldValue(record, fieldName);
-//		if (fieldValue == null)
-//			return type2valuesMap;
-//
-//		if (fieldValue instanceof DataSourceIdentifier<?>) {
-//			DataSourceIdentifier<?> id = (DataSourceIdentifier<?>) fieldValue;
-//			RdfId rdfId = new RdfId(id);
-//			Value iceIdValue = new URIImpl(RdfUtil.createKiaoUri(rdfId.getNamespace(), rdfId.getICE_ID()).toString());
-//			CollectionsUtil.addToOne2ManyMap(fieldValue.getClass(), iceIdValue, type2valuesMap);
-//			return type2valuesMap;
-//		}
-//
-//		if (fieldValue instanceof Collection<?>) {
-//			for (Object value : ((Collection<?>) fieldValue))
-//				if (value instanceof DataSourceElement<?>) {
-//					DataSourceIdentifier<?> id = (DataSourceIdentifier<?>) value;
-//					RdfId rdfId = new RdfId(id);
-//					Value iceIdValue = new URIImpl(RdfUtil.createKiaoUri(rdfId.getNamespace(), rdfId.getICE_ID())
-//							.toString());
-//					CollectionsUtil.addToOne2ManyMap(value.getClass(), iceIdValue, type2valuesMap);
-//				} else
-//					throw new RuntimeException(String.format("Unable to extract RDF object from field: %s. "
-//							+ "Expected Collection<DataElementIdentifier<?>> but instead observed Collection<%s>.",
-//							fieldName, value.getClass().getName()));
-//			return type2valuesMap;
-//		}
-//
-//		throw new RuntimeException(String.format("Unable to extract RDF object from field: %s (observedValue=%s)",
-//				fieldName, fieldValue.toString()));
-//	}
+	// /**
+	// * Get values for triple definition where value is specified to use ICE
+	// formatting (ex:
+	// * {@code <object use-ice-id="true">ensemblGeneId</object>})
+	// *
+	// * @param record
+	// * @param tripleObj
+	// * @return values
+	// */
+	// private Map<Class<?>, Collection<Value>>
+	// getInformationContentEntityIDValues(DataRecord record, String fieldName)
+	// {
+	// Map<Class<?>, Collection<Value>> type2valuesMap = new HashMap<Class<?>,
+	// Collection<Value>>();
+	// Object fieldValue = PrivateAccessor.getFieldValue(record, fieldName);
+	// if (fieldValue == null)
+	// return type2valuesMap;
+	//
+	// if (fieldValue instanceof DataSourceIdentifier<?>) {
+	// DataSourceIdentifier<?> id = (DataSourceIdentifier<?>) fieldValue;
+	// RdfId rdfId = new RdfId(id);
+	// Value iceIdValue = new
+	// URIImpl(RdfUtil.createKiaoUri(rdfId.getNamespace(),
+	// rdfId.getICE_ID()).toString());
+	// CollectionsUtil.addToOne2ManyMap(fieldValue.getClass(), iceIdValue,
+	// type2valuesMap);
+	// return type2valuesMap;
+	// }
+	//
+	// if (fieldValue instanceof Collection<?>) {
+	// for (Object value : ((Collection<?>) fieldValue))
+	// if (value instanceof DataSourceElement<?>) {
+	// DataSourceIdentifier<?> id = (DataSourceIdentifier<?>) value;
+	// RdfId rdfId = new RdfId(id);
+	// Value iceIdValue = new
+	// URIImpl(RdfUtil.createKiaoUri(rdfId.getNamespace(), rdfId.getICE_ID())
+	// .toString());
+	// CollectionsUtil.addToOne2ManyMap(value.getClass(), iceIdValue,
+	// type2valuesMap);
+	// } else
+	// throw new
+	// RuntimeException(String.format("Unable to extract RDF object from field: %s. "
+	// +
+	// "Expected Collection<DataElementIdentifier<?>> but instead observed Collection<%s>.",
+	// fieldName, value.getClass().getName()));
+	// return type2valuesMap;
+	// }
+	//
+	// throw new
+	// RuntimeException(String.format("Unable to extract RDF object from field: %s (observedValue=%s)",
+	// fieldName, fieldValue.toString()));
+	// }
 
-//	/**
-//	 * Parser {@link DataRecord} from field of record.
-//	 * 
-//	 * @param <E>
-//	 *            record type
-//	 * @param record
-//	 *            instance
-//	 * @param fieldName
-//	 *            field in record
-//	 * @return record
-//	 */
-//	private <E extends DataRecord> Map<Class<?>, Collection<Value>> getValues(E record, String fieldName) {
-//		Map<Class<?>, Collection<Value>> type2valuesMap = new HashMap<Class<?>, Collection<Value>>();
-//		Object fieldValue = PrivateAccessor.getFieldValue(record, fieldName);
-//		if (fieldValue == null)
-//			return type2valuesMap;
-//
-//		if (fieldValue instanceof DataSourceElement<?>) {
-//			DataSourceElement<?> id = (DataSourceElement<?>) fieldValue;
-//			Value rdfValue = null;
-//
-//			if (id instanceof DataSourceIdentifier<?>) {
-//				RdfId rdfId = new RdfId((DataSourceIdentifier<?>) id);
-//				rdfValue = rdfId.getRdfValue();
-//			} else
-//				rdfValue = RdfUtil.createLiteral(id.getDataElement());
-//
-//			CollectionsUtil.addToOne2ManyMap(fieldValue.getClass(), rdfValue, type2valuesMap);
-//			return type2valuesMap;
-//		}
-//
-//		if (fieldValue instanceof Collection<?>) {
-//			for (Object value : ((Collection<?>) fieldValue)) {
-//				if (value instanceof DataSourceElement<?>) {
-//					DataSourceElement<?> id = (DataSourceElement<?>) value;
-//					Value rdfValue = null;
-//
-//					if (id instanceof DataSourceIdentifier<?>) {
-//						RdfId rdfId = new RdfId((DataSourceIdentifier<?>) id);
-//						rdfValue = rdfId.getRdfValue();
-//					} else
-//						rdfValue = RdfUtil.createLiteral(id.getDataElement());
-//
-//					CollectionsUtil.addToOne2ManyMap(value.getClass(), rdfValue, type2valuesMap);
-//				} else {
-//					throw new RuntimeException(String.format("Unable to extract RDF object from field: %s. "
-//							+ "Expected Collection<ResourceComponent> but instead observed Collection<%s>.", fieldName,
-//							value.getClass().getName()));
-//				}
-//			}
-//
-//			return type2valuesMap;
-//		}
-//
-//		throw new RuntimeException(String.format("Unable to extract RDF object from field: %s (observedValue=%s)",
-//				fieldName, fieldValue.toString()));
-//	}
-//
-//	/**
-//	 * Returns the subject Resource representation of the value of the field with the given name
-//	 * contained in the input DataRecord. The field must be of type ResourceIdentifier.
-//	 * 
-//	 * @param record
-//	 * @param fieldName
-//	 * @return
-//	 * 
-//	 */
-//	private Collection<Resource> getSubjectResources(DataRecord record, String fieldName) {
-//		Collection<Resource> resources = new ArrayList<Resource>();
-//		Object fieldValue = PrivateAccessor.getFieldValue(record, fieldName);
-//
-//		if (fieldValue instanceof DataSourceIdentifier<?>) {
-//			DataSourceIdentifier<?> id = (DataSourceIdentifier<?>) fieldValue;
-//			RdfId rdfId = new RdfId(id);
-//			resources.add(new URIImpl(RdfUtil.createKiaoUri(rdfId.getNamespace(), id.toString()).toString()));
-//			return resources;
-//		}
-//
-//		if (fieldValue instanceof Collection<?>) {
-//			for (Object resource : ((Collection<?>) fieldValue))
-//				if (resource instanceof DataSourceIdentifier<?>) {
-//					DataSourceIdentifier<?> id = (DataSourceIdentifier<?>) resource;
-//					RdfId rdfId = new RdfId(id);
-//					resources.add(new URIImpl(RdfUtil.createKiaoUri(rdfId.getNamespace(), id.toString()).toString()));
-//				} else {
-//					String message = String.format("Unable to extract RDF subject from field: %s. "
-//							+ "Expected Collection<ResourceIdentifier> but instead observed Collection<%s>.",
-//							fieldName, resource.getClass().getName());
-//					throw new RuntimeException(message);
-//				}
-//
-//			return resources;
-//		}
-//
-//		throw new RuntimeException(String.format("Unable to extract RDF subject from field: %s (observedValue=%s)",
-//				fieldName, fieldValue.toString()));
-//	}
+	// /**
+	// * Parser {@link DataRecord} from field of record.
+	// *
+	// * @param <E>
+	// * record type
+	// * @param record
+	// * instance
+	// * @param fieldName
+	// * field in record
+	// * @return record
+	// */
+	// private <E extends DataRecord> Map<Class<?>, Collection<Value>>
+	// getValues(E record, String fieldName) {
+	// Map<Class<?>, Collection<Value>> type2valuesMap = new HashMap<Class<?>,
+	// Collection<Value>>();
+	// Object fieldValue = PrivateAccessor.getFieldValue(record, fieldName);
+	// if (fieldValue == null)
+	// return type2valuesMap;
+	//
+	// if (fieldValue instanceof DataSourceElement<?>) {
+	// DataSourceElement<?> id = (DataSourceElement<?>) fieldValue;
+	// Value rdfValue = null;
+	//
+	// if (id instanceof DataSourceIdentifier<?>) {
+	// RdfId rdfId = new RdfId((DataSourceIdentifier<?>) id);
+	// rdfValue = rdfId.getRdfValue();
+	// } else
+	// rdfValue = RdfUtil.createLiteral(id.getDataElement());
+	//
+	// CollectionsUtil.addToOne2ManyMap(fieldValue.getClass(), rdfValue,
+	// type2valuesMap);
+	// return type2valuesMap;
+	// }
+	//
+	// if (fieldValue instanceof Collection<?>) {
+	// for (Object value : ((Collection<?>) fieldValue)) {
+	// if (value instanceof DataSourceElement<?>) {
+	// DataSourceElement<?> id = (DataSourceElement<?>) value;
+	// Value rdfValue = null;
+	//
+	// if (id instanceof DataSourceIdentifier<?>) {
+	// RdfId rdfId = new RdfId((DataSourceIdentifier<?>) id);
+	// rdfValue = rdfId.getRdfValue();
+	// } else
+	// rdfValue = RdfUtil.createLiteral(id.getDataElement());
+	//
+	// CollectionsUtil.addToOne2ManyMap(value.getClass(), rdfValue,
+	// type2valuesMap);
+	// } else {
+	// throw new
+	// RuntimeException(String.format("Unable to extract RDF object from field: %s. "
+	// +
+	// "Expected Collection<ResourceComponent> but instead observed Collection<%s>.",
+	// fieldName,
+	// value.getClass().getName()));
+	// }
+	// }
+	//
+	// return type2valuesMap;
+	// }
+	//
+	// throw new
+	// RuntimeException(String.format("Unable to extract RDF object from field: %s (observedValue=%s)",
+	// fieldName, fieldValue.toString()));
+	// }
+	//
+	// /**
+	// * Returns the subject Resource representation of the value of the field
+	// with the given name
+	// * contained in the input DataRecord. The field must be of type
+	// ResourceIdentifier.
+	// *
+	// * @param record
+	// * @param fieldName
+	// * @return
+	// *
+	// */
+	// private Collection<Resource> getSubjectResources(DataRecord record,
+	// String fieldName) {
+	// Collection<Resource> resources = new ArrayList<Resource>();
+	// Object fieldValue = PrivateAccessor.getFieldValue(record, fieldName);
+	//
+	// if (fieldValue instanceof DataSourceIdentifier<?>) {
+	// DataSourceIdentifier<?> id = (DataSourceIdentifier<?>) fieldValue;
+	// RdfId rdfId = new RdfId(id);
+	// resources.add(new URIImpl(RdfUtil.createKiaoUri(rdfId.getNamespace(),
+	// id.toString()).toString()));
+	// return resources;
+	// }
+	//
+	// if (fieldValue instanceof Collection<?>) {
+	// for (Object resource : ((Collection<?>) fieldValue))
+	// if (resource instanceof DataSourceIdentifier<?>) {
+	// DataSourceIdentifier<?> id = (DataSourceIdentifier<?>) resource;
+	// RdfId rdfId = new RdfId(id);
+	// resources.add(new URIImpl(RdfUtil.createKiaoUri(rdfId.getNamespace(),
+	// id.toString()).toString()));
+	// } else {
+	// String message =
+	// String.format("Unable to extract RDF subject from field: %s. "
+	// +
+	// "Expected Collection<ResourceIdentifier> but instead observed Collection<%s>.",
+	// fieldName, resource.getClass().getName());
+	// throw new RuntimeException(message);
+	// }
+	//
+	// return resources;
+	// }
+	//
+	// throw new
+	// RuntimeException(String.format("Unable to extract RDF subject from field: %s (observedValue=%s)",
+	// fieldName, fieldValue.toString()));
+	// }
 
 	/**
 	 * Output RDF record to a file based on record's file key.
@@ -650,18 +768,20 @@ public class RdfRecordWriterImpl<T extends RecordReader<?>> {
 	 */
 	private void write(Statement stmt, DataSource ns) {
 		RDFWriter rdfWriter = getWriter(ns);
-		// primary key field values will always be printed, so there's no reason to check and store
-		// them in the filter. This saves some memory and also the time needed to check for
+		// primary key field values will always be printed, so there's no reason
+		// to check and store
+		// them in the filter. This saves some memory and also the time needed
+		// to check for
 		// something that is guaranteed to not be already observed
 		boolean checkFilter = needToCheckFilter(stmt.getSubject());
 		try {
-		if (!checkFilter || (checkFilter && !filter.alreadyObservedStatement(stmt))) {
-			if (!rollingCacheContains(stmt)) {
-				write(stmt, rdfWriter);
-				writtenStatementCount++;
+			if (!checkFilter || (checkFilter && !filter.alreadyObservedStatement(stmt))) {
+				if (!rollingCacheContains(stmt)) {
+					write(stmt, rdfWriter);
+					writtenStatementCount++;
+				}
 			}
-		}
-		} catch(IllegalStateException e) {
+		} catch (IllegalStateException e) {
 			logger.error("Halting RDF Generation due to IllegalStateException.", e);
 			try {
 				closeFiles();
@@ -673,14 +793,16 @@ public class RdfRecordWriterImpl<T extends RecordReader<?>> {
 	}
 
 	/**
-	 * if the input subject matches one of the prefixes for a primary key field then we do not need
-	 * to check the filter b/c there is no way that field has been previously observed. Aside from
-	 * saving time, this will also save on memory b/c there's no point in caching this field since
-	 * it should not be observed again given its "primary key" status
+	 * if the input subject matches one of the prefixes for a primary key field
+	 * then we do not need to check the filter b/c there is no way that field
+	 * has been previously observed. Aside from saving time, this will also save
+	 * on memory b/c there's no point in caching this field since it should not
+	 * be observed again given its "primary key" status
 	 * 
 	 * @param subject
 	 * @param primaryKeyFieldValues
-	 *            will contain things like: F_SparseUniProtDatFileRecord_accession_
+	 *            will contain things like:
+	 *            F_SparseUniProtDatFileRecord_accession_
 	 * @return true if the filter should be checked, false otherwise
 	 */
 	private boolean needToCheckFilter(Resource subject) {
@@ -694,8 +816,8 @@ public class RdfRecordWriterImpl<T extends RecordReader<?>> {
 	}
 
 	/**
-	 * keeps track of the most recent 1000 statements and returns true if the input statement is in
-	 * the cache
+	 * keeps track of the most recent 1000 statements and returns true if the
+	 * input statement is in the cache
 	 * 
 	 * @param stmt
 	 * @return
@@ -759,7 +881,8 @@ public class RdfRecordWriterImpl<T extends RecordReader<?>> {
 				throw new RuntimeException("Error occured while creating rdf writer to " + getOutputFile(ns), e);
 			}
 
-			// ensure calls to Rio.createWriter are synchronized on class creating concurrent rdf
+			// ensure calls to Rio.createWriter are synchronized on class
+			// creating concurrent rdf
 			// writers
 			synchronized (RdfRecordWriterImpl.class) {
 				RDFWriter rdfWriter = rdfFormat.createWriter(writer);
@@ -855,9 +978,11 @@ public class RdfRecordWriterImpl<T extends RecordReader<?>> {
 	}
 
 	// /**
-	// * By convention, the configuration file directing RDF output lives on the classpath in the
+	// * By convention, the configuration file directing RDF output lives on the
+	// classpath in the
 	// same
-	// * package as the parser to which it belongs. The name of the configuration file is the name
+	// * package as the parser to which it belongs. The name of the
+	// configuration file is the name
 	// of
 	// * the parser lowercased with the .rdf-config.xml suffix.
 	// *
@@ -865,7 +990,8 @@ public class RdfRecordWriterImpl<T extends RecordReader<?>> {
 	// * @return
 	// * @throws IOException
 	// */
-	// private List<RdfFile> getRdfFilesToCreate(InputStream configStream) throws IOException {
+	// private List<RdfFile> getRdfFilesToCreate(InputStream configStream)
+	// throws IOException {
 	// return RdfConfigFileReader.parseRdfConfig(configStream);
 	// }
 	//
@@ -929,7 +1055,8 @@ public class RdfRecordWriterImpl<T extends RecordReader<?>> {
 	}
 
 	/**
-	 * Wrapper that captures {@link RDFWriter} and underlying {@link Writer} for post processing.
+	 * Wrapper that captures {@link RDFWriter} and underlying {@link Writer} for
+	 * post processing.
 	 */
 	private static class RdfWriterResource {
 		/** rdf writer */

@@ -325,7 +325,7 @@ public class IRefWebPsiMitab2_6FileParser extends TaxonAwareSingleLineFileRecord
 				} else if (id.startsWith("HPRD")) {
 					ids.add(new HprdID(StringUtil.removePrefix(id, "HPRD:")));
 				} else {
-					ids.add(new UnknownDataSourceIdentifier(id, null));
+					ids.add(new UnknownDataSourceIdentifier(id));
 				}
 			} catch (IllegalArgumentException e) {
 				ids.add(new ProbableErrorDataSourceIdentifier(id, null, e.getMessage()));
@@ -351,10 +351,10 @@ public class IRefWebPsiMitab2_6FileParser extends TaxonAwareSingleLineFileRecord
 			return null;
 		}
 		if (idStr.startsWith("xx:")) {
-			return new UnknownDataSourceIdentifier(idStr, null);
+			return new UnknownDataSourceIdentifier(idStr);
 		}
 		if (idStr.startsWith("other:")) {
-			return new UnknownDataSourceIdentifier(idStr, null);
+			return new UnknownDataSourceIdentifier(idStr);
 		}
 		if (idStr.equals("null")) {
 			return null;
@@ -477,7 +477,7 @@ public class IRefWebPsiMitab2_6FileParser extends TaxonAwareSingleLineFileRecord
 			return new ProbableErrorDataSourceIdentifier(idStr, null, e.getMessage());
 		}
 
-		return new UnknownDataSourceIdentifier(idStr, null);
+		return new UnknownDataSourceIdentifier(idStr);
 	}
 
 	/**
@@ -674,7 +674,7 @@ public class IRefWebPsiMitab2_6FileParser extends TaxonAwareSingleLineFileRecord
 		} else if (aliasStr.startsWith("hgnc:")) {
 			return new HgncGeneSymbolID(StringUtil.removePrefix(aliasStr, "hgnc:"));
 		}
-		return new UnknownDataSourceIdentifier(aliasStr, null);
+		return new UnknownDataSourceIdentifier(aliasStr);
 	}
 
 }

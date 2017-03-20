@@ -34,25 +34,20 @@ package edu.ucdenver.ccp.datasource.fileparsers.ebi.goa;
  */
 
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
-import java.util.zip.GZIPInputStream;
 
 import org.apache.log4j.Logger;
 
-import edu.ucdenver.ccp.common.download.FtpDownload;
 import edu.ucdenver.ccp.common.file.CharacterEncoding;
 import edu.ucdenver.ccp.common.file.FileReaderUtil;
 import edu.ucdenver.ccp.common.file.reader.Line;
-import edu.ucdenver.ccp.common.file.reader.StreamLineReader;
-import edu.ucdenver.ccp.common.ftp.FTPUtil.FileType;
 import edu.ucdenver.ccp.common.string.RegExPatterns;
 import edu.ucdenver.ccp.common.string.StringConstants;
 import edu.ucdenver.ccp.common.string.StringUtil;
-import edu.ucdenver.ccp.datasource.fileparsers.download.FtpHost;
+import edu.ucdenver.ccp.datasource.fileparsers.ebi.goa.gaf.GoaGaf2FileRecordReader;
 import edu.ucdenver.ccp.datasource.fileparsers.idlist.IdListFileFactory;
 import edu.ucdenver.ccp.datasource.fileparsers.taxonaware.TaxonAwareSingleLineFileRecordReader;
 import edu.ucdenver.ccp.datasource.identifiers.DataSource;
@@ -69,12 +64,14 @@ import edu.ucdenver.ccp.identifier.publication.DOI;
 import edu.ucdenver.ccp.identifier.publication.PubMedID;
 
 /**
- * Parser for the gp_association.goa_uniprot file available here:
- * ftp://ftp.ebi.ac.uk/pub/databases/GO/goa/UNIPROT/
+ * NOTE: This class has been deprecated as the file format that it parses has been
+ * discontinued by UniProt and is no longer made available on their FTP site.
+ * Please use {@link GoaGaf2FileRecordReader} as a replacement.
  * 
  * @author Bill Baumgartner
  * 
  */
+@Deprecated
 public class GpAssociationGoaUniprotFileParser extends
 		TaxonAwareSingleLineFileRecordReader<GpAssociationGoaUniprotFileData> {
 
@@ -108,10 +105,7 @@ public class GpAssociationGoaUniprotFileParser extends
 
 	/* @formatter:on */
 
-	public static final String FTP_FILE_NAME = "gp_association.goa_uniprot.gz";
 	public static final CharacterEncoding ENCODING = CharacterEncoding.US_ASCII;
-	@FtpDownload(server = FtpHost.GOA_HOST, path = FtpHost.GOA_PATH, filename = FTP_FILE_NAME, filetype = FileType.BINARY)
-	private File goaDataFile;
 
 	public static final String DELIMITER_REGEX = RegExPatterns.TAB;
 	private static final int FILE_COLUMN_COUNT = 10;
@@ -158,21 +152,6 @@ public class GpAssociationGoaUniprotFileParser extends
 			return null;
 		}
 		return ids;
-	}
-
-	public GpAssociationGoaUniprotFileParser(File workDirectory, boolean clean, File idListDirectory,
-			Set<NcbiTaxonomyID> taxonIds, File baseSourceFileDirectory, boolean cleanIdListFiles) throws IOException {
-		super(workDirectory, ENCODING, COMMENT_INDICATOR, null, null, clean, taxonIds);
-		taxonSpecificIds = loadTaxonSpecificIds(idListDirectory, taxonIds, baseSourceFileDirectory, cleanIdListFiles);
-		if (!isLineOfInterest(line)) {
-			advanceToNextLineWithTaxonOfInterest();
-		}
-	}
-
-	@Override
-	protected StreamLineReader initializeLineReaderFromDownload(CharacterEncoding encoding, String skipLinePrefix)
-			throws IOException {
-		return new StreamLineReader(new GZIPInputStream(new FileInputStream(goaDataFile)), encoding, skipLinePrefix);
 	}
 
 	@Override

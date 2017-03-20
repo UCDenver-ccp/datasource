@@ -77,8 +77,10 @@ public enum KIAO {
     HAS_RELIABILITY_SCORE("has_reliability_score"),
     HAS_AVG_SCORE("has_avg_score"),
     HAS_HANISCH_SCORE("has_hanisch_score"),
-    LINKS("links")
-	;
+    LINKS("links"),
+    
+    SOURCE_METADATA("SourceMetadata"),
+    RULE_METADATA("RuleMetadata");
 
 	private final String termName;
 

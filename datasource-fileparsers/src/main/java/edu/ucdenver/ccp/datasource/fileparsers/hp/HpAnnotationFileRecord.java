@@ -44,7 +44,7 @@ import edu.ucdenver.ccp.datasource.identifiers.obo.HumanPhenotypeID;
 
 @Data
 @EqualsAndHashCode(callSuper = false)
-@Record(dataSource = DataSource.HPO, label = "human phenotype annotation record")
+@Record(dataSource = DataSource.HP, label = "human phenotype annotation record")
 public class HpAnnotationFileRecord extends SingleLineFileRecord {
 
 	@RecordField

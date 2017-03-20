@@ -36,6 +36,7 @@ package edu.ucdenver.ccp.datasource.rdfizer.rdf.ice;
 import java.io.File;
 import java.io.IOException;
 import java.sql.Date;
+import java.text.ParseException;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
@@ -44,9 +45,10 @@ import org.apache.log4j.BasicConfigurator;
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 
+import edu.ucdenver.ccp.common.download.DownloadMetadata;
 import edu.ucdenver.ccp.common.file.FileComparisonUtil;
 import edu.ucdenver.ccp.common.file.FileUtil;
-import edu.ucdenver.ccp.datasource.fileparsers.FileRecordReader;
+import edu.ucdenver.ccp.datasource.fileparsers.RecordReader;
 import edu.ucdenver.ccp.datasource.fileparsers.idlist.IdListFileFactory;
 import edu.ucdenver.ccp.datasource.identifiers.DataSource;
 import edu.ucdenver.ccp.datasource.identifiers.ncbi.taxonomy.NcbiTaxonomyID;
@@ -99,11 +101,12 @@ public class IceRdfGenerator {
 	 * @param compress
 	 * @param outputRecordLimit
 	 * @throws IOException
+	 * @throws ParseException
 	 */
 	public static void generateIceRdf(Split split, long currentTime, int stageStartNumber, int stagesToProcessCount,
 			File baseSourceFileDirectory, File baseRdfOutputDirectory, boolean cleanSourceFiles,
 			boolean cleanIdListFiles, boolean compress, long outputRecordLimit, Set<NcbiTaxonomyID> taxonIds)
-			throws IOException {
+			throws IOException, ParseException {
 		int globalStageIndex = 1;
 		if (split.equals(Split.BY_STAGES)) {
 			for (FileDataSource rdfSource : FileDataSource.values()) {
@@ -111,15 +114,17 @@ public class IceRdfGenerator {
 				File rdfOutputDirectory = getOutputDirectory(baseRdfOutputDirectory, rdfSource);
 
 				File idListFileDirectory = IdListFileFactory.getIdListFileDirectory(baseRdfOutputDirectory);
-				FileRecordReader<?> rr = rdfSource.initFileRecordReader(sourceFileDirectory, cleanSourceFiles,
-						cleanIdListFiles, idListFileDirectory, taxonIds);
+				RecordReader<?> rr = rdfSource.initFileRecordReader(sourceFileDirectory, baseSourceFileDirectory,
+						cleanSourceFiles, cleanIdListFiles, idListFileDirectory, taxonIds);
 
+				Set<DownloadMetadata> metadata = rdfSource.getDownloadMetadata(rdfSource.getRecordReaderClass(),
+						sourceFileDirectory, taxonIds);
 				for (int stageIndex = 1; stageIndex <= rdfSource.getNumberOfStages(); stageIndex++) {
 					if (globalStageIndex >= stageStartNumber
 							&& globalStageIndex < (stageStartNumber + stagesToProcessCount)) {
 						DuplicateStatementFilter filter = new NoOpDuplicateStatementFilter();
 						generateRdfStage(rdfOutputDirectory, currentTime, compress, outputRecordLimit, stageIndex, rr,
-								filter, rdfSource.blockRecordCount(), rdfSource.getNumberOfStages());
+								filter, rdfSource.blockRecordCount(), rdfSource.getNumberOfStages(), metadata);
 					}
 					globalStageIndex++;
 				}
@@ -133,14 +138,16 @@ public class IceRdfGenerator {
 					logger.info("SOURCE DIR: " + sourceFileDirectory.getAbsolutePath());
 					logger.info("RDF OUT DIR: " + rdfOutputDirectory.getAbsolutePath());
 					File idListFileDirectory = IdListFileFactory.getIdListFileDirectory(baseRdfOutputDirectory);
-					FileRecordReader<?> rr = rdfSource.initFileRecordReader(sourceFileDirectory, cleanSourceFiles,
-							cleanIdListFiles, idListFileDirectory, taxonIds);
+					RecordReader<?> rr = rdfSource.initFileRecordReader(sourceFileDirectory, baseSourceFileDirectory,
+							cleanSourceFiles, cleanIdListFiles, idListFileDirectory, taxonIds);
 					File cacheFilePrefix = FileUtil.appendPathElementsToDirectory(rdfOutputDirectory, "filter-cache",
 							"filter");
 					// DuplicateStatementFilter filter = new
 					// InMemoryDuplicateStatementFilter();
 					DuplicateStatementFilter filter = new DefaultDuplicateStatementFilter(cacheFilePrefix);
-					generateRdf(currentTime, rr, rdfOutputDirectory, compress, outputRecordLimit, filter);
+					Set<DownloadMetadata> metadata = rdfSource.getDownloadMetadata(rdfSource.getRecordReaderClass(),
+							sourceFileDirectory, taxonIds);
+					generateRdf(currentTime, rr, rdfOutputDirectory, compress, outputRecordLimit, filter, metadata);
 				}
 				globalStageIndex++;
 			}
@@ -158,18 +165,21 @@ public class IceRdfGenerator {
 	 * @param compress
 	 * @param outputRecordLimit
 	 * @throws IOException
+	 * @throws ParseException 
 	 */
 	public static void generateIceRdf(FileDataSource fileDataSource, long currentTime, File baseSourceFileDirectory,
 			File baseRdfOutputDirectory, boolean cleanSourceFiles, boolean cleanIdListFiles, boolean compress,
-			long outputRecordLimit, Set<NcbiTaxonomyID> taxonIds) throws IOException {
+			long outputRecordLimit, Set<NcbiTaxonomyID> taxonIds) throws IOException, ParseException {
 		File sourceFileDirectory = getSourceFileDirectory(baseSourceFileDirectory, fileDataSource.dataSource());
 		File rdfOutputDirectory = getOutputDirectory(baseRdfOutputDirectory, fileDataSource);
 		File idListFileDirectory = IdListFileFactory.getIdListFileDirectory(baseRdfOutputDirectory);
-		FileRecordReader<?> rr = fileDataSource.initFileRecordReader(sourceFileDirectory, cleanSourceFiles,
-				cleanIdListFiles, idListFileDirectory, taxonIds);
+		RecordReader<?> rr = fileDataSource.initFileRecordReader(sourceFileDirectory, baseSourceFileDirectory,
+				cleanSourceFiles, cleanIdListFiles, idListFileDirectory, taxonIds);
 		File cacheFilePrefix = FileUtil.appendPathElementsToDirectory(rdfOutputDirectory, "filter-cache", "filter");
 		DuplicateStatementFilter filter = new DefaultDuplicateStatementFilter(cacheFilePrefix);
-		generateRdf(currentTime, rr, rdfOutputDirectory, compress, outputRecordLimit, filter);
+		Set<DownloadMetadata> metadata = fileDataSource.getDownloadMetadata(fileDataSource.getRecordReaderClass(),
+				sourceFileDirectory, taxonIds);
+		generateRdf(currentTime, rr, rdfOutputDirectory, compress, outputRecordLimit, filter, metadata);
 	}
 
 	/**
@@ -210,8 +220,8 @@ public class IceRdfGenerator {
 	 * @return
 	 */
 	private static void generateRdfStage(File rdfOutputDirectory, long createdTime, boolean compress,
-			long outputRecordLimit, int stageNum, FileRecordReader<?> recordReader, DuplicateStatementFilter filter,
-			Long blockRecordCount, int numStages) {
+			long outputRecordLimit, int stageNum, RecordReader<?> recordReader, DuplicateStatementFilter filter,
+			Long blockRecordCount, int numStages, Set<DownloadMetadata> metadata) {
 
 		long blockCount = (blockRecordCount == null) ? BLOCK_RECORD_COUNT : blockRecordCount;
 		long skip = 0;
@@ -226,7 +236,8 @@ public class IceRdfGenerator {
 			skip = (stageNum - 1) * blockCount;
 			recordsToProcess = outputRecordLimit;
 		}
-		generateRdf(createdTime, recordReader, rdfOutputDirectory, compress, skip, recordsToProcess, stageNum, filter);
+		generateRdf(createdTime, recordReader, rdfOutputDirectory, compress, skip, recordsToProcess, stageNum, filter,
+				metadata);
 	}
 
 	/**
@@ -241,11 +252,11 @@ public class IceRdfGenerator {
 	 * @param filter
 	 * @return
 	 */
-	private static void generateRdf(long createdTime, FileRecordReader<?> recordReader, File outputDirectory,
-			boolean compress, long outputRecordLimit, DuplicateStatementFilter filter) {
+	private static void generateRdf(long createdTime, RecordReader<?> recordReader, File outputDirectory,
+			boolean compress, long outputRecordLimit, DuplicateStatementFilter filter, Set<DownloadMetadata> metadata) {
 		long skip = 0;
 		int batchNum = 0;
-		generateRdf(createdTime, recordReader, outputDirectory, compress, skip, outputRecordLimit, batchNum, filter);
+		generateRdf(createdTime, recordReader, outputDirectory, compress, skip, outputRecordLimit, batchNum, filter, metadata);
 	}
 
 	/**
@@ -271,9 +282,9 @@ public class IceRdfGenerator {
 	 *            into distinct files.
 	 * @return returns references to the RDF files that are created
 	 */
-	public static void generateRdf(final long createdTime, final FileRecordReader<?> recordReader,
+	public static void generateRdf(final long createdTime, final RecordReader<?> recordReader,
 			final File outputDirectory, boolean compress, long skip, long outputRecordLimit, int batchNumber,
-			DuplicateStatementFilter filter) {
+			DuplicateStatementFilter filter, Set<DownloadMetadata> metadata) {
 		RdfRecordWriterImpl<?> recordWriter = null;
 		logger.info("Creating RDF for Record Reader: " + recordReader.getClass().getName() + " SKIP=" + skip
 				+ " COMPRESS=" + compress + " OUTPUT_RECORD_LIMIT=" + outputRecordLimit + " BATCH_NUMBER="
@@ -283,7 +294,7 @@ public class IceRdfGenerator {
 			recordWriter = new RdfRecordWriterImpl(outputDirectory, RdfFormat.NTRIPLES, compress, -1, batchNumber,
 					filter);
 			Collection<File> generatedRdfFiles = recordWriter.processRecordReader(recordReader, createdTime, skip,
-					outputRecordLimit);
+					outputRecordLimit, metadata);
 			createMd5CheckSumsForGeneratedRdfFiles(generatedRdfFiles);
 		} catch (IOException ioe) {
 			throw new RuntimeException(String.format("IO Error while processing RecordWriter: %s", recordWriter
@@ -422,7 +433,7 @@ public class IceRdfGenerator {
 			default:
 				throw new IllegalArgumentException("Unhandled RunBy option: " + runBy.name());
 			}
-		} catch (IOException e) {
+		} catch (IOException | ParseException e) {
 			e.printStackTrace();
 			System.exit(-1);
 		}

@@ -49,10 +49,14 @@ import static org.junit.Assert.fail;
 
 import java.io.File;
 import java.io.StringWriter;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.GregorianCalendar;
 
 import org.hamcrest.Matchers;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.openrdf.model.Statement;
 import org.openrdf.model.Value;
@@ -65,7 +69,6 @@ import org.openrdf.rio.RDFWriter;
 import org.openrdf.rio.Rio;
 
 import edu.ucdenver.ccp.common.test.DefaultTestCase;
-import edu.ucdenver.ccp.datasource.identifiers.DataSource;
 import edu.ucdenver.ccp.datasource.identifiers.DataSource;
 import edu.ucdenver.ccp.datasource.rdfizer.rdf.vocabulary.KIAO;
 import edu.ucdenver.ccp.datasource.rdfizer.rdf.vocabulary.RDF;
@@ -150,7 +153,7 @@ public class RdfUtilTest extends DefaultTestCase {
 		long timeInMillis = 1292541019138L;
 		Value value = getDateLiteral(timeInMillis);
 		assertThat(value, Matchers.instanceOf(CalendarLiteralImpl.class));
-		assertEquals("\"2010-12-16T16:10:19.138-07:00\"^^<http://www.w3.org/2001/XMLSchema#dateTime>", value.toString());
+		assertEquals(getExpectedTimeStamp(timeInMillis), value.toString());
 	}
 
 	@Test
@@ -160,7 +163,7 @@ public class RdfUtilTest extends DefaultTestCase {
 		c.setTimeInMillis(timeInMillis);
 		Value value = getDateLiteral(c);
 		assertThat(value, Matchers.instanceOf(CalendarLiteralImpl.class));
-		assertEquals("\"2010-12-16T16:10:19.138-07:00\"^^<http://www.w3.org/2001/XMLSchema#dateTime>", value.toString());
+		assertEquals(getExpectedTimeStamp(timeInMillis), value.toString());
 	}
 
 	@Test
@@ -193,9 +196,21 @@ public class RdfUtilTest extends DefaultTestCase {
 	@Test
 	public final void testGetCreationTimeStampStatement() {
 		long timeInMillis = 1292541019138L;
-		String expectedTime = "\"2010-12-16T16:10:19.138-07:00\"^^<http://www.w3.org/2001/XMLSchema#dateTime>";
+		String expectedTime = getExpectedTimeStamp(timeInMillis);
 		Statement s = getCreationTimeStampStatement(new URIImpl("http://myfile"), timeInMillis);
 		validateStatement("http://myfile", KIAO.HAS_CREATION_DATE.uri().toString(), expectedTime, s);
+	}
+
+	/**
+	 * @param timeInMillis
+	 * @return a time stamp String formatted as if it were in an RDF statement
+	 */
+	static String getExpectedTimeStamp(long timeInMillis) {
+		Calendar cal = new GregorianCalendar();
+        cal.setTimeInMillis(timeInMillis);
+        DateFormat df = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSXXX");
+		String expectedTime = "\""+df.format(cal.getTime())+"\"^^<http://www.w3.org/2001/XMLSchema#dateTime>";
+		return expectedTime;
 	}
 
 	@Test

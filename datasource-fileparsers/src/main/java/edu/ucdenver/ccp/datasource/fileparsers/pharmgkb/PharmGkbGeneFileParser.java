@@ -297,7 +297,7 @@ public class PharmGkbGeneFileParser extends SingleLineFileRecordReader<PharmGkbG
 				return new CrossReferenceUrl(StringUtil.removePrefix(refStr, URL_PREFIX));
 			} else {
 				logger.warn("Unknown Data Source Identifier: " + refStr);
-				return new UnknownDataSourceIdentifier(refStr, null);
+				return new UnknownDataSourceIdentifier(refStr);
 			}
 		} catch (IllegalArgumentException e) {
 			logger.warn("Illegal data source identifier detected: '" + refStr + "' due to: " + e.getMessage());
