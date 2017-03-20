@@ -63,7 +63,7 @@ import edu.ucdenver.ccp.datasource.identifiers.ncbi.taxonomy.NcbiTaxonomyID;
  */
 public class EntrezGeneInfoFileParser extends TaxonAwareSingleLineFileRecordReader<EntrezGeneInfoFileData> {
 
-	private static final String HEADER = "#Format: tax_id GeneID Symbol LocusTag Synonyms dbXrefs chromosome map_location description type_of_gene Symbol_from_nomenclature_authority Full_name_from_nomenclature_authority Nomenclature_status Other_designations Modification_date (tab is used as a separator, pound sign - start of a comment)";
+	private static final String HEADER = "#tax_id\tGeneID\tSymbol\tLocusTag\tSynonyms\tdbXrefs\tchromosome\tmap_location\tdescription\ttype_of_gene\tSymbol_from_nomenclature_authority\tFull_name_from_nomenclature_authority\tNomenclature_status\tOther_designations\tModification_date";
 
 	private final static Logger logger = Logger.getLogger(EntrezGeneInfoFileParser.class);
 	private static final String COMMENT_INDICATOR = null;// StringConstants.POUND_SIGN;
