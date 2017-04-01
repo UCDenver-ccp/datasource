@@ -84,9 +84,7 @@ import edu.ucdenver.ccp.common.string.StringUtil;
 import edu.ucdenver.ccp.datasource.identifiers.DataSource;
 import edu.ucdenver.ccp.datasource.identifiers.DataSourceElement;
 import edu.ucdenver.ccp.datasource.identifiers.DataSourceIdentifier;
-import edu.ucdenver.ccp.datasource.identifiers.DataSource;
 import edu.ucdenver.ccp.datasource.rdfizer.rdf.RdfId;
-import edu.ucdenver.ccp.datasource.rdfizer.rdf.RdfPartition;
 import edu.ucdenver.ccp.datasource.rdfizer.rdf.vocabulary.KIAO;
 import edu.ucdenver.ccp.datasource.rdfizer.rdf.vocabulary.RDF;
 
@@ -461,7 +459,7 @@ public class RdfUtil {
 	 * @return URI
 	 */
 	public static URIImpl createKiaoUri(DataSource targetNamespace, String localName) {
-		String baseUri = DataSource.KABOB.longName() + RdfPartition.IAO.toString().toLowerCase()
+		String baseUri = DataSource.KABOB.longName() + "iao"
 				+ NAMESPACE_PARTITION_DELIMITER + targetNamespace.lowerName() + NAMESPACE_PARTITION_DELIMITER;
 		return createUriImpl(baseUri, localName, targetNamespace);
 
