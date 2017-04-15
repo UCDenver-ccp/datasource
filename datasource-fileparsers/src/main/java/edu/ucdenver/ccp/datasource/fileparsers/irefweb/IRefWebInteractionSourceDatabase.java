@@ -37,6 +37,7 @@ package edu.ucdenver.ccp.datasource.fileparsers.irefweb;
  */
 
 import lombok.Getter;
+import edu.ucdenver.ccp.datasource.fileparsers.CcpExtensionOntology;
 import edu.ucdenver.ccp.datasource.fileparsers.Record;
 import edu.ucdenver.ccp.datasource.fileparsers.RecordField;
 import edu.ucdenver.ccp.datasource.fileparsers.obo.MiOntologyIdTermPair;
@@ -48,13 +49,13 @@ import edu.ucdenver.ccp.datasource.identifiers.obo.MolecularInteractionOntologyT
  *         ccpsupport@ucdenver.edu
  * 
  */
-@Record(dataSource = DataSource.IREFWEB, label = "source db")
+@Record(dataSource = DataSource.IREFWEB, label = "source db", ontClass = CcpExtensionOntology.IREFWEB_INTERACTION_SOURCE_DATABASE_RECORD)
 @Getter
 public class IRefWebInteractionSourceDatabase extends MiOntologyIdTermPair {
 
-	@RecordField
+	@RecordField(ontClass = CcpExtensionOntology.SOURCE_DATABASE_IDENTIFIER_FIELD_VALUE)
 	private final MolecularInteractionOntologyTermID sourceDatabaseId;
-	@RecordField
+	@RecordField(ontClass = CcpExtensionOntology.SOURCE_DATABASE_NAME_FIELD_VALUE)
 	private final String sourceDatabaseName;
 
 	/**
