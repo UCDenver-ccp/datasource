@@ -44,98 +44,100 @@ import java.util.List;
 import java.util.Map.Entry;
 import java.util.Set;
 
-import org.openrdf.model.Statement;
 import org.openrdf.model.Value;
 import org.openrdf.model.impl.URIImpl;
 import org.openrdf.rio.ntriples.NTriplesUtil;
 
-import edu.ucdenver.ccp.common.collections.CollectionsUtil;
 import edu.ucdenver.ccp.common.digest.DigestUtil;
 import edu.ucdenver.ccp.common.reflection.PrivateAccessor;
+import edu.ucdenver.ccp.datasource.fileparsers.CcpExtensionOntology;
 import edu.ucdenver.ccp.datasource.fileparsers.RecordField;
 import edu.ucdenver.ccp.datasource.fileparsers.RecordUtil;
 import edu.ucdenver.ccp.datasource.identifiers.DataSource;
 import edu.ucdenver.ccp.datasource.identifiers.ProbableErrorDataSourceIdentifier;
 import edu.ucdenver.ccp.datasource.identifiers.UnknownDataSourceIdentifier;
-import edu.ucdenver.ccp.datasource.rdfizer.rdf.vocabulary.KIAO;
 
 /**
- * @author Colorado Computational Pharmacology, UC Denver; ccpsupport@ucdenver.edu
+ * @author Colorado Computational Pharmacology, UC Denver;
+ *         ccpsupport@ucdenver.edu
  * 
  */
 public class RdfRecordUriFactory {
 
-	public enum IncludeVersion {
-		YES,
-		NO
+	/**
+	 * @param record
+	 * @return the URI for the input Record. The URI should take the form
+	 *         CCP:R_[SHA1 DIGEST FOR SORTED FIELDS AND VALUE URIs]<br>
+	 *         The string that is input into the sha1 algorithm should consist
+	 *         of field value URIs sorted first by the field then by the values.
+	 *         The field-value URI pairs are then added to the string with no
+	 *         spaces. Each URI is surrounded by angle brackets.
+	 */
+	public static URIImpl createRecordUri(Object record) {
+		String sha1Str = RdfRecordUriFactory.sha1DigestForSortedFieldsAndValues(record);
+		return RdfUtil.createUriImpl(DataSource.CCP, UriPrefix.RECORD.prefix() + sha1Str);
+	}
+
+	// public static URIImpl createRecordSchemaUri(Class<?> recordClass,
+	// IncludeVersion includeVersion) {
+	// String inputFileType = recordClass.getSimpleName();
+	// DataSource ns =
+	// DataSource.getNamespace(RecordUtil.getRecordDataSource(recordClass));
+	// String localName = inputFileType + KIAO.SCHEMA.termName();
+	// if (includeVersion.equals(IncludeVersion.YES)) {
+	// localName += RecordUtil.getRecordSchemaVersion(recordClass);
+	// }
+	// return RdfUtil.createCcpUri(ns, localName);
+	// }
+
+	/**
+	 * @param recordClass
+	 * @return the URI for the record type for the specified record pair. This
+	 *         type is retrieved from the Record annotation and is of type
+	 *         {@link CcpExtensionOntology}
+	 */
+	public static URIImpl getRecordTypeUri(Class<?> recordClass) {
+		return RdfUtil.getUri(RecordUtil.getRecordType(recordClass));
 	}
 
 	/**
 	 * @param record
-	 * @return the URI for the input Record. The URI should take the form
-	 *         [NAMESPACE]:R_[FILENAME]_[SHA1 DIGEST FOR SORTED FIELDS AND VALUE URIs]<br>
-	 *         The string that is input into the sha1 algorithm should consist of field value URIs
-	 *         sorted first by the field then by the values. The field-value URI pairs are then
-	 *         added to the string with no spaces. Each URI is surrounded by angle brackets.
+	 * @param field
+	 * @param value
+	 * @return a unique URI for this particular field/value pairing. This method
+	 *         uses the SHA1 hash algorithm to create a reproducible but unique
+	 *         URI.
 	 */
-	public static URIImpl createRecordUri(Object record) {
-		String inputFileType = record.getClass().getSimpleName();
-		DataSource ns = DataSource.getNamespace(RecordUtil.getRecordDataSource(record.getClass()));
-		String sha1Str = RdfRecordUriFactory.sha1DigestForSortedFieldsAndValues(record);
-		return RdfUtil.createKiaoUri(ns, "R_" + inputFileType + "_" + sha1Str);
-	}
-
-	public static URIImpl createRecordSchemaUri(Class<?> recordClass, IncludeVersion includeVersion) {
-		String inputFileType = recordClass.getSimpleName();
-		DataSource ns = DataSource.getNamespace(RecordUtil.getRecordDataSource(recordClass));
-		String localName = inputFileType + KIAO.SCHEMA.termName();
-		if (includeVersion.equals(IncludeVersion.YES)) {
-			localName += RecordUtil.getRecordSchemaVersion(recordClass);
-		}
-		return RdfUtil.createKiaoUri(ns, localName);
-	}
-
-	public static URIImpl createRecordTypeUri(Class<?> recordClass) {
-		DataSource ns = DataSource.getNamespace(RecordUtil.getRecordDataSource(recordClass));
-		return RdfUtil.createKiaoUri(ns, recordClass.getSimpleName());
-	}
-
 	public static URIImpl createFieldUri(Object record, Field field, Object value) {
 		if (value == null) {
 			return null;
 		}
-		String sha1DigestForFieldValues = RdfRecordUriFactory.getSha1DigestForFieldValuePairing(record, field, value);
-		if (sha1DigestForFieldValues == null) {
+		String sha1Str = RdfRecordUriFactory.getSha1DigestForFieldValuePairing(record, field, value);
+		if (sha1Str == null) {
 			return null;
 		}
-		DataSource ns = DataSource.getNamespace(RecordUtil.getRecordDataSource(record.getClass()));
-		return RdfUtil.createKiaoUri(ns, "F_" + record.getClass().getSimpleName() + "_" + field.getName() + "_"
-				+ sha1DigestForFieldValues);
+		return RdfUtil.createUriImpl(DataSource.CCP, UriPrefix.RECORD_FIELD.prefix() + sha1Str);
 	}
 
 	/**
-	 * @param src
-	 * @param inputFileType
+	 * @param recordClass
 	 * @param fieldName
-	 * @return
+	 * @return the URI for the record field type for the specified record/field
+	 *         pair. This type is retrieved from the RecordField annotation on
+	 *         the field name and is of type {@link CcpExtensionOntology}
 	 */
-	public static URIImpl createDataFieldTemplateUri(Class<?> recordClass, String fieldName,
-			IncludeVersion includeVersion) {
-		DataSource ns = DataSource.getNamespace(RecordUtil.getRecordDataSource(recordClass));
-		String localName = recordClass.getSimpleName() + "_" + fieldName + KIAO.DATAFIELD.termName();
-		if (includeVersion.equals(IncludeVersion.YES)) {
-			localName += RecordUtil.getRecordFieldVersion(recordClass, fieldName);
-		}
-		return RdfUtil.createKiaoUri(ns, localName);
+	public static URIImpl getRecordFieldTypeUri(Class<?> recordClass, String fieldName) {
+		return RdfUtil.getUri(RecordUtil.getRecordFieldType(recordClass, fieldName));
 	}
 
 	/**
 	 * @param record
 	 * @param rdfSource
 	 * @param inputFileType
-	 * @return a sorted {@link LinkedHashMap} containing mappings from field names to field values
-	 *         sorted as strings. Only record fields that are annotated with {@link RecordField} are
-	 *         included in the mapping.
+	 * @return a sorted {@link LinkedHashMap} containing mappings from field
+	 *         names to field values sorted as strings. Only record fields that
+	 *         are annotated with {@link RecordField} are included in the
+	 *         mapping.
 	 */
 	private static LinkedHashMap<String, List<String>> getSortedFieldAndValueUriStrs(Object record) {
 		LinkedHashMap<String, List<String>> sortedFieldsAndValues = new LinkedHashMap<String, List<String>>();
@@ -148,12 +150,12 @@ public class RdfRecordUriFactory {
 		List<Field> sortedFields = new ArrayList<Field>(fields);
 		Collections.sort(sortedFields, new FieldNameComparator());
 		for (Field field : sortedFields) {
+			System.out.println("Field: " + field.getName());
 			Collection<Object> fieldValues = getFieldValues(record, field);
 			if (fieldValues != null) {
-				URIImpl dataFileNameUri = createDataFieldTemplateUri(record.getClass(), field.getName(),
-						IncludeVersion.YES);
+				URIImpl recordFieldTypeUri = getRecordFieldTypeUri(record.getClass(), field.getName());
 				List<String> fieldValueUriStrs = getSortedFieldValueUriStrs(fieldValues);
-				sortedFieldsAndValues.put("<" + dataFileNameUri.toString() + ">", fieldValueUriStrs);
+				sortedFieldsAndValues.put("<" + recordFieldTypeUri.toString() + ">", fieldValueUriStrs);
 			}
 		}
 		return sortedFieldsAndValues;
@@ -161,7 +163,8 @@ public class RdfRecordUriFactory {
 
 	/**
 	 * @param fieldValues
-	 * @return
+	 * @return a sorted list of String representations for the input field
+	 *         values
 	 */
 	private static List<String> getSortedFieldValueUriStrs(Collection<Object> fieldValues) {
 		List<String> fieldValueUriStrs = new ArrayList<String>();
@@ -173,8 +176,9 @@ public class RdfRecordUriFactory {
 	}
 
 	/**
-	 * Generates the appropriate URI or constant value for the input field value. This method takes
-	 * advantage of the {@link RdfUtil#getFieldDenotesValueStatement(URI, Object)} method by
+	 * Generates the appropriate URI or constant value for the input field
+	 * value. This method takes advantage of the
+	 * {@link RdfUtil#getFieldDenotesValueStatement(URI, Object)} method by
 	 * generating the complete statement then parsing out the Object field.
 	 * 
 	 * @param fieldValueUriStrs
@@ -185,26 +189,10 @@ public class RdfRecordUriFactory {
 		/* address unknown and probable error data source identifiers here? */
 		if (fieldValue instanceof UnknownDataSourceIdentifier) {
 			UnknownDataSourceIdentifier id = (UnknownDataSourceIdentifier) fieldValue;
-			NonNormalizedIdentifierRecord record = new NonNormalizedIdentifierRecord(id.getDataElement(), id.getDataSourceStr());
-			URIImpl recordUri = RdfRecordUriFactory.createRecordUri(record);
-			List<Statement> recordInstanceStatements = RdfRecordUtil.getRecordInstanceStatements(record, System.currentTimeMillis(),
-					recordUri, null, null, null);
-			recordInstanceStatements.remove(0);
-			/* this is used to generate sha1 hashes, so it doesn't need to be a true uri */
-			return CollectionsUtil.createDelimitedString(recordInstanceStatements, " ");
+			return id.getId();
 		} else if (fieldValue instanceof ProbableErrorDataSourceIdentifier) {
 			ProbableErrorDataSourceIdentifier id = (ProbableErrorDataSourceIdentifier) fieldValue;
-			ErroneousIdentifierRecord record = new ErroneousIdentifierRecord(id.getDataElement(),
-					id.getDataSourceStr(), id.getErrorMessage());
-			URIImpl recordUri = RdfRecordUriFactory.createRecordUri(record);
-			List<Statement> recordInstanceStatements = RdfRecordUtil.getRecordInstanceStatements(record, System.currentTimeMillis(),
-					recordUri, null, null, null);
-			/*
-			 * the first statement returned is a dataset has_part record triple
-			 * which we do not need
-			 */
-			recordInstanceStatements.remove(0);
-			return CollectionsUtil.createDelimitedString(recordInstanceStatements, " ");
+			return id.getId();
 		}
 		Value value = RdfUtil.getValue(fieldValue);
 		return NTriplesUtil.toNTriplesString(value);
@@ -223,22 +211,29 @@ public class RdfRecordUriFactory {
 
 	static String sha1DigestForSortedFieldsAndValues(Object record) {
 		String sortedStr = getSortedFieldsAndValuesStr(record);
+		System.out.println("SORTED STR: " + sortedStr);
 		if (sortedStr == null) {
 			return null;
 		}
 		return DigestUtil.getBase64Sha1Digest(sortedStr);
 	}
 
+	/**
+	 * @param record
+	 * @param field
+	 * @param fieldValue
+	 * @return a hash of the field type + field value strings
+	 */
 	private static String getSha1DigestForFieldValuePairing(Object record, Field field, Object fieldValue) {
 		if (fieldValue instanceof Collection) {
 			throw new IllegalArgumentException("Collection input argument not allowed");
 		}
-		URIImpl dataFileNameUri = createDataFieldTemplateUri(record.getClass(), field.getName(), IncludeVersion.YES);
+		URIImpl recordFieldTypeUri = getRecordFieldTypeUri(record.getClass(), field.getName());
 		String fieldValueUri = getFieldValueUri(fieldValue);
 		if (fieldValueUri == null) {
 			return null;
 		}
-		String fieldValueStr = "<" + dataFileNameUri + ">" + fieldValueUri;
+		String fieldValueStr = "<" + recordFieldTypeUri + ">" + fieldValueUri;
 		return DigestUtil.getBase64Sha1Digest(fieldValueStr);
 	}
 

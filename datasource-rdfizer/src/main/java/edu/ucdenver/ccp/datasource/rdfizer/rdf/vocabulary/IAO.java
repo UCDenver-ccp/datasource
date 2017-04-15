@@ -34,7 +34,6 @@ package edu.ucdenver.ccp.datasource.rdfizer.rdf.vocabulary;
  */
 
 import org.openrdf.model.URI;
-import org.openrdf.model.impl.URIImpl;
 
 import edu.ucdenver.ccp.datasource.identifiers.DataSource;
 import edu.ucdenver.ccp.datasource.rdfizer.rdf.ice.RdfUtil;
@@ -45,9 +44,13 @@ import edu.ucdenver.ccp.datasource.rdfizer.rdf.ice.RdfUtil;
  */
 public enum IAO {
 
+	IS_ABOUT("IAO_0000136"),
 	MENTIONS("IAO_0000142"),
 	DENOTES("IAO_0000219"),
-	INFORMATION_CONTENT_ENITITY("IAO_0000030");
+	
+	INFORMATION_CONTENT_ENTITY("IAO_0000030"),
+	CENTRALLY_REGISTERED_IDENTIFIER("IAO_0000578"),
+	DOCUMENT("IAO_0000310");
 
 	private final String termName;
 
@@ -56,7 +59,7 @@ public enum IAO {
 	}
 
 	public URI uri() {
-		return new URIImpl(RdfUtil.createUri(DataSource.IAO, termName).toString());
+		return RdfUtil.createUriImpl(DataSource.IAO, termName);
 	}
 
 }

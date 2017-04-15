@@ -285,13 +285,13 @@ public class IceRdfGenerator {
 	public static void generateRdf(final long createdTime, final RecordReader<?> recordReader,
 			final File outputDirectory, boolean compress, long skip, long outputRecordLimit, int batchNumber,
 			DuplicateStatementFilter filter, Set<DownloadMetadata> metadata) {
-		RdfRecordWriterImpl<?> recordWriter = null;
+		RdfRecordWriter<?> recordWriter = null;
 		logger.info("Creating RDF for Record Reader: " + recordReader.getClass().getName() + " SKIP=" + skip
 				+ " COMPRESS=" + compress + " OUTPUT_RECORD_LIMIT=" + outputRecordLimit + " BATCH_NUMBER="
 				+ batchNumber + " OUTPUT_DIRECTORY=" + outputDirectory.getAbsolutePath());
 		long startTime = System.currentTimeMillis();
 		try {
-			recordWriter = new RdfRecordWriterImpl(outputDirectory, RdfFormat.NTRIPLES, compress, -1, batchNumber,
+			recordWriter = new RdfRecordWriter(outputDirectory, RdfFormat.NTRIPLES, compress, -1, batchNumber,
 					filter);
 			Collection<File> generatedRdfFiles = recordWriter.processRecordReader(recordReader, createdTime, skip,
 					outputRecordLimit, metadata);

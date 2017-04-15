@@ -68,6 +68,7 @@ import edu.ucdenver.ccp.common.download.DownloadMetadata;
 import edu.ucdenver.ccp.common.file.CharacterEncoding;
 import edu.ucdenver.ccp.common.file.FileUtil;
 import edu.ucdenver.ccp.common.string.StringConstants;
+import edu.ucdenver.ccp.datasource.fileparsers.CcpExtensionOntology;
 import edu.ucdenver.ccp.datasource.fileparsers.DataRecord;
 import edu.ucdenver.ccp.datasource.fileparsers.RecordReader;
 import edu.ucdenver.ccp.datasource.fileparsers.RecordUtil;
@@ -75,8 +76,7 @@ import edu.ucdenver.ccp.datasource.identifiers.DataSource;
 import edu.ucdenver.ccp.datasource.rdfizer.rdf.filter.DuplicateStatementFilter;
 import edu.ucdenver.ccp.datasource.rdfizer.rdf.filter.InMemoryDuplicateStatementFilter;
 import edu.ucdenver.ccp.datasource.rdfizer.rdf.ice.RdfUtil.RdfFormat;
-import edu.ucdenver.ccp.datasource.rdfizer.rdf.vocabulary.KDC;
-import edu.ucdenver.ccp.datasource.rdfizer.rdf.vocabulary.KIAO;
+import edu.ucdenver.ccp.datasource.rdfizer.rdf.vocabulary.IAO;
 
 /**
  * RDF generator that handles data provided by {@link RecordReader} instances in
@@ -85,12 +85,12 @@ import edu.ucdenver.ccp.datasource.rdfizer.rdf.vocabulary.KIAO;
  * @param <T>
  *            reader type
  */
-public class RdfRecordWriterImpl<T extends RecordReader<?>> {
+public class RdfRecordWriter<T extends RecordReader<?>> {
 
 	/**
 	 * logger
 	 */
-	private static final Logger logger = Logger.getLogger(RdfRecordWriterImpl.class);
+	private static final Logger logger = Logger.getLogger(RdfRecordWriter.class);
 
 	/** output directory */
 	private final File outputDirectory;
@@ -167,7 +167,7 @@ public class RdfRecordWriterImpl<T extends RecordReader<?>> {
 	 * @param rdfFormat
 	 * @throws FileNotFoundException
 	 */
-	public RdfRecordWriterImpl(File outputDirectory, RdfFormat rdfFormat) throws FileNotFoundException {
+	public RdfRecordWriter(File outputDirectory, RdfFormat rdfFormat) throws FileNotFoundException {
 		this(outputDirectory, rdfFormat, 0, new InMemoryDuplicateStatementFilter());
 	}
 
@@ -177,16 +177,16 @@ public class RdfRecordWriterImpl<T extends RecordReader<?>> {
 	 * @param batchNumber
 	 * @throws FileNotFoundException
 	 */
-	public RdfRecordWriterImpl(File outputDirectory, RdfFormat rdfFormat, int batchNumber,
-			DuplicateStatementFilter filter) throws FileNotFoundException {
+	public RdfRecordWriter(File outputDirectory, RdfFormat rdfFormat, int batchNumber, DuplicateStatementFilter filter)
+			throws FileNotFoundException {
 		this.batchNumber = batchNumber;
 		this.outputDirectory = outputDirectory;
 		this.rdfFormat = rdfFormat;
 		this.filter = filter;
 
 		if (!this.outputDirectory.exists() && !this.outputDirectory.mkdirs()) {
-			throw new RuntimeException(String.format("Output directory %s does not exist and cannot be created",
-					outputDirectory));
+			throw new RuntimeException(
+					String.format("Output directory %s does not exist and cannot be created", outputDirectory));
 		}
 
 		file2RdfWriterMap = new HashMap<File, RdfWriterResource>();
@@ -207,7 +207,7 @@ public class RdfRecordWriterImpl<T extends RecordReader<?>> {
 	 * @param batchNumber
 	 * @throws FileNotFoundException
 	 */
-	public RdfRecordWriterImpl(File outputDirectory, RdfFormat rdfFormat, boolean compress, long maxStatementsPerFile,
+	public RdfRecordWriter(File outputDirectory, RdfFormat rdfFormat, boolean compress, long maxStatementsPerFile,
 			int batchNumber, DuplicateStatementFilter filter) throws FileNotFoundException {
 		this(outputDirectory, rdfFormat, batchNumber, filter);
 		this.compress = compress;
@@ -220,8 +220,7 @@ public class RdfRecordWriterImpl<T extends RecordReader<?>> {
 	 * @param compress
 	 * @throws FileNotFoundException
 	 */
-	public RdfRecordWriterImpl(File outputDirectory, RdfFormat rdfFormat, boolean compress)
-			throws FileNotFoundException {
+	public RdfRecordWriter(File outputDirectory, RdfFormat rdfFormat, boolean compress) throws FileNotFoundException {
 		this(outputDirectory, rdfFormat, compress, -1, 0, new InMemoryDuplicateStatementFilter());
 	}
 
@@ -302,19 +301,15 @@ public class RdfRecordWriterImpl<T extends RecordReader<?>> {
 			if (record != null) {
 				if ((instanceCount - recordSkipCount) % 100000 == 0) {
 					logger.info("RDF GENERATION PROGRESS: " + (instanceCount - recordSkipCount));
-					// alreadyObservedFieldUris =
-					// cullObservedFieldUris(alreadyObservedFieldUris,
-					// (instanceCount - recordSkipCount));
 				}
 				instanceCount++;
 				if (instanceCount == 1) {
 					primaryKeyFieldNames = RecordUtil.getKeyFieldNames(record.getClass());
 					DataSource ns = DataSource.getNamespace(RecordUtil.getRecordDataSource(record.getClass()));
 					writeDataSourceInstanceStatements(
-							RdfRecordUtil.getDataSourceInstanceStatements(record, createdTime), ns);
-					writeDownloadMetadataStatements(metadata, RdfRecordUtil.getDataSetInstanceUri(record, createdTime),
-							ns);
-					writeSchemaDefinitionRdfFile(record.getClass());
+							RdfRecordUtil.getRecordSetInstanceStatements(record, readerKey, createdTime), ns);
+					writeDownloadMetadataStatements(metadata,
+							RdfRecordUtil.getRecordSetInstanceUri(record, readerKey, createdTime), ns);
 				}
 
 				URIImpl recordUri = RdfRecordUriFactory.createRecordUri(record);
@@ -353,27 +348,29 @@ public class RdfRecordWriterImpl<T extends RecordReader<?>> {
 				+ dmd.getDownloadUrl().toString() + dmd.getFileSizeInBytes();
 
 		String digest = DigestUtils.sha256Hex(s);
-
-		return new URIImpl("http://kabob.ucdenver.edu/iao/SourceMetadata_" + digest);
+		return new URIImpl("http://ccp.ucdenver.edu/obo/ext/S_" + digest);
 	}
 
 	private Collection<Statement> getDownloadMetadataStatements(DownloadMetadata dmd, URIImpl dataSetInstanceUri)
-			throws IOException
-			 {
+			throws IOException {
 		List<Statement> statements = new ArrayList<Statement>();
 		URIImpl metadataUri = computeDownloadMetadataUri(dmd);
 
 		statements.add(new StatementImpl(dataSetInstanceUri, DC.SOURCE, metadataUri));
-		statements.add(new StatementImpl(metadataUri, RDF.TYPE, KIAO.SOURCE_METADATA.uri()));
-		statements.add(new StatementImpl(metadataUri, KDC.DATE_OF_DOWNLOAD.uri(), RdfUtil.getDateLiteral(dmd
-				.getDownloadDate().getTimeInMillis())));
-		statements.add(new StatementImpl(metadataUri, KDC.DATE_OF_LAST_MODIFIED.uri(), RdfUtil.getDateLiteral(dmd
-				.getFileLastModifiedDate().getTimeInMillis())));
-		statements.add(new StatementImpl(metadataUri, KDC.FILE_SIZE_IN_BYTES.uri(), RdfUtil.createLiteral(dmd
-				.getFileSizeInBytes())));
+		statements.add(new StatementImpl(metadataUri, RDF.TYPE, IAO.DOCUMENT.uri()));
+		statements.add(
+				new StatementImpl(metadataUri, new URIImpl(CcpExtensionOntology.DOWNLOAD_DATE.uri().toString()),
+						RdfUtil.getDateLiteral(dmd.getDownloadDate().getTimeInMillis())));
+		statements.add(new StatementImpl(metadataUri,
+				new URIImpl(CcpExtensionOntology.LAST_MODIFIED_DATE.uri().toString()),
+				RdfUtil.getDateLiteral(dmd.getFileLastModifiedDate().getTimeInMillis())));
+		statements.add(
+				new StatementImpl(metadataUri, new URIImpl(CcpExtensionOntology.FILE_SIZE_BYTES.uri().toString()),
+						RdfUtil.createLiteral(dmd.getFileSizeInBytes())));
 		if (dmd.getDownloadUrl() != null) {
 			try {
-				statements.add(new StatementImpl(metadataUri, DC.SOURCE, new URIImpl(dmd.getDownloadUrl().toURI().toString())));
+				statements.add(new StatementImpl(metadataUri, DC.SOURCE,
+						new URIImpl(dmd.getDownloadUrl().toURI().toString())));
 			} catch (URISyntaxException e) {
 				throw new IOException(e);
 			}
@@ -382,21 +379,26 @@ public class RdfRecordWriterImpl<T extends RecordReader<?>> {
 		return statements;
 	}
 
-	/**
-	 * @param recordClass
-	 * @return a reference to the schema definition RDF file
-	 */
-	private void writeSchemaDefinitionRdfFile(Class<? extends DataRecord> recordClass) {
-		String schemaDefinitionFileName = recordClass.getSimpleName() + ".schema." + rdfFormat.defaultFileExtension();
-		File schemaDefinitionRdfFile = new File(outputDirectory, schemaDefinitionFileName);
-		Collection<? extends Statement> stmts = RdfRecordUtil.getRecordSchemaStatements(recordClass, null, null, false);
-		RDFWriter rdfWriter = RdfUtil.openWriter(schemaDefinitionRdfFile, encoding, rdfFormat);
-		for (Statement s : stmts) {
-			write(s, rdfWriter);
-		}
-		RdfUtil.closeWriter(rdfWriter);
-		generatedRdfFiles.add(schemaDefinitionRdfFile);
-	}
+	// /**
+	// * @param recordClass
+	// * @return a reference to the schema definition RDF file
+	// */
+	// private void writeSchemaDefinitionRdfFile(Class<? extends DataRecord>
+	// recordClass) {
+	// String schemaDefinitionFileName = recordClass.getSimpleName() +
+	// ".schema." + rdfFormat.defaultFileExtension();
+	// File schemaDefinitionRdfFile = new File(outputDirectory,
+	// schemaDefinitionFileName);
+	// Collection<? extends Statement> stmts =
+	// RdfRecordUtil.getRecordSchemaStatements(recordClass, null, null, false);
+	// RDFWriter rdfWriter = RdfUtil.openWriter(schemaDefinitionRdfFile,
+	// encoding, rdfFormat);
+	// for (Statement s : stmts) {
+	// write(s, rdfWriter);
+	// }
+	// RdfUtil.closeWriter(rdfWriter);
+	// generatedRdfFiles.add(schemaDefinitionRdfFile);
+	// }
 
 	// /**
 	// * @param alreadyObservedFieldUris
@@ -579,15 +581,18 @@ public class RdfRecordWriterImpl<T extends RecordReader<?>> {
 	// type2valuesMap);
 	// } else
 	// throw new
-	// RuntimeException(String.format("Unable to extract RDF object from field: %s. "
+	// RuntimeException(String.format("Unable to extract RDF object from field:
+	// %s. "
 	// +
-	// "Expected Collection<ResourceComponent> but instead observed Collection<%s>.",
+	// "Expected Collection<ResourceComponent> but instead observed
+	// Collection<%s>.",
 	// fieldName,
 	// value.getClass().getName()));
 	// return type2valuesMap;
 	// }
 	// throw new
-	// RuntimeException(String.format("Unable to extract RDF object from field: %s (observedValue=%s)",
+	// RuntimeException(String.format("Unable to extract RDF object from field:
+	// %s (observedValue=%s)",
 	// fieldName, fieldValue.toString()));
 	// }
 
@@ -632,15 +637,18 @@ public class RdfRecordWriterImpl<T extends RecordReader<?>> {
 	// type2valuesMap);
 	// } else
 	// throw new
-	// RuntimeException(String.format("Unable to extract RDF object from field: %s. "
+	// RuntimeException(String.format("Unable to extract RDF object from field:
+	// %s. "
 	// +
-	// "Expected Collection<DataElementIdentifier<?>> but instead observed Collection<%s>.",
+	// "Expected Collection<DataElementIdentifier<?>> but instead observed
+	// Collection<%s>.",
 	// fieldName, value.getClass().getName()));
 	// return type2valuesMap;
 	// }
 	//
 	// throw new
-	// RuntimeException(String.format("Unable to extract RDF object from field: %s (observedValue=%s)",
+	// RuntimeException(String.format("Unable to extract RDF object from field:
+	// %s (observedValue=%s)",
 	// fieldName, fieldValue.toString()));
 	// }
 
@@ -694,9 +702,11 @@ public class RdfRecordWriterImpl<T extends RecordReader<?>> {
 	// type2valuesMap);
 	// } else {
 	// throw new
-	// RuntimeException(String.format("Unable to extract RDF object from field: %s. "
+	// RuntimeException(String.format("Unable to extract RDF object from field:
+	// %s. "
 	// +
-	// "Expected Collection<ResourceComponent> but instead observed Collection<%s>.",
+	// "Expected Collection<ResourceComponent> but instead observed
+	// Collection<%s>.",
 	// fieldName,
 	// value.getClass().getName()));
 	// }
@@ -706,7 +716,8 @@ public class RdfRecordWriterImpl<T extends RecordReader<?>> {
 	// }
 	//
 	// throw new
-	// RuntimeException(String.format("Unable to extract RDF object from field: %s (observedValue=%s)",
+	// RuntimeException(String.format("Unable to extract RDF object from field:
+	// %s (observedValue=%s)",
 	// fieldName, fieldValue.toString()));
 	// }
 	//
@@ -745,7 +756,8 @@ public class RdfRecordWriterImpl<T extends RecordReader<?>> {
 	// String message =
 	// String.format("Unable to extract RDF subject from field: %s. "
 	// +
-	// "Expected Collection<ResourceIdentifier> but instead observed Collection<%s>.",
+	// "Expected Collection<ResourceIdentifier> but instead observed
+	// Collection<%s>.",
 	// fieldName, resource.getClass().getName());
 	// throw new RuntimeException(message);
 	// }
@@ -754,7 +766,8 @@ public class RdfRecordWriterImpl<T extends RecordReader<?>> {
 	// }
 	//
 	// throw new
-	// RuntimeException(String.format("Unable to extract RDF subject from field: %s (observedValue=%s)",
+	// RuntimeException(String.format("Unable to extract RDF subject from field:
+	// %s (observedValue=%s)",
 	// fieldName, fieldValue.toString()));
 	// }
 
@@ -870,13 +883,14 @@ public class RdfRecordWriterImpl<T extends RecordReader<?>> {
 			generatedRdfFiles.add(outputFile);
 			Writer writer = null;
 			try {
-				logger.info("Initializing new RDF writer. Compress flag = " + compress + " Output file = " + outputFile);
+				logger.info(
+						"Initializing new RDF writer. Compress flag = " + compress + " Output file = " + outputFile);
 				OutputStream os = new FileOutputStream(outputFile);
 				if (compress) {
 					os = new GZIPOutputStream(os);
 				}
-				writer = new BufferedWriter(new OutputStreamWriter(os, Charset.forName(encoding.getCharacterSetName())
-						.newEncoder()));
+				writer = new BufferedWriter(
+						new OutputStreamWriter(os, Charset.forName(encoding.getCharacterSetName()).newEncoder()));
 			} catch (IOException e) {
 				throw new RuntimeException("Error occured while creating rdf writer to " + getOutputFile(ns), e);
 			}
@@ -884,7 +898,7 @@ public class RdfRecordWriterImpl<T extends RecordReader<?>> {
 			// ensure calls to Rio.createWriter are synchronized on class
 			// creating concurrent rdf
 			// writers
-			synchronized (RdfRecordWriterImpl.class) {
+			synchronized (RdfRecordWriter.class) {
 				RDFWriter rdfWriter = rdfFormat.createWriter(writer);
 				try {
 					rdfWriter.startRDF();
@@ -950,12 +964,13 @@ public class RdfRecordWriterImpl<T extends RecordReader<?>> {
 	 */
 	private String getOutputFileName(DataSource ns) {
 		String recordReaderClass = recordReader.getClass().getSimpleName();
-		recordReaderClass = (recordReader.getDataSpecificKey().isEmpty()) ? recordReaderClass : recordReaderClass
-				+ StringConstants.HYPHEN_MINUS + recordReader.getDataSpecificKey();
+		recordReaderClass = (recordReader.getDataSpecificKey().isEmpty()) ? recordReaderClass
+				: recordReaderClass + StringConstants.HYPHEN_MINUS + recordReader.getDataSpecificKey();
 		String fileName = ns.name().toLowerCase() + StringConstants.HYPHEN_MINUS + recordReaderClass
-				+ (getReaderKey().isEmpty() ? StringConstants.BLANK : StringConstants.HYPHEN_MINUS) + getReaderKey()
-				+ StringConstants.PERIOD + getOutFileIndex() + StringConstants.HYPHEN_MINUS + batchNumber
-				+ StringConstants.PERIOD + rdfFormat.defaultFileExtension();
+				+ (getReaderKey().isEmpty() ? StringConstants.BLANK : StringConstants.HYPHEN_MINUS)
+				+ getReaderKey().replaceAll(" ", "_") + StringConstants.PERIOD + getOutFileIndex()
+				+ StringConstants.HYPHEN_MINUS + batchNumber + StringConstants.PERIOD
+				+ rdfFormat.defaultFileExtension();
 		fileName = (compress) ? fileName + ".gz" : fileName;
 		return fileName;
 	}

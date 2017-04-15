@@ -602,7 +602,7 @@ public enum FileDataSource {
 	/**
 	 *
 	 */
-	NCBIGENE_GENE2REFSEQ(DataSource.EG, IsTaxonAware.YES, RequiresManualDownload.NO) {
+	NCBIGENE_GENE2REFSEQ(DataSource.NCBI_GENE, IsTaxonAware.YES, RequiresManualDownload.NO) {
 		@Override
 		protected FileRecordReader<?> initFileRecordReader(File sourceFileDirectory, File baseSourceFileDirectory,
 				boolean cleanSourceFiles, boolean cleanIdListFiles, File idListDir, Set<NcbiTaxonomyID> taxonIds)
@@ -615,7 +615,7 @@ public enum FileDataSource {
 			return EntrezGene2RefseqFileParser.class;
 		}
 	},
-	NCBIGENE_GENEINFO(DataSource.EG, IsTaxonAware.YES, RequiresManualDownload.NO) {
+	NCBIGENE_GENEINFO(DataSource.NCBI_GENE, IsTaxonAware.YES, RequiresManualDownload.NO) {
 		@Override
 		protected FileRecordReader<?> initFileRecordReader(File sourceFileDirectory, File baseSourceFileDirectory,
 				boolean cleanSourceFiles, boolean cleanIdListFiles, File idListDir, Set<NcbiTaxonomyID> taxonIds)
@@ -628,7 +628,7 @@ public enum FileDataSource {
 			return EntrezGeneInfoFileParser.class;
 		}
 	},
-	NCBIGENE_MIM2GENE(DataSource.EG, IsTaxonAware.NO, RequiresManualDownload.NO) {
+	NCBIGENE_MIM2GENE(DataSource.NCBI_GENE, IsTaxonAware.NO, RequiresManualDownload.NO) {
 		@Override
 		protected FileRecordReader<?> initFileRecordReader(File sourceFileDirectory, File baseSourceFileDirectory,
 				boolean cleanSourceFiles, boolean cleanIdListFiles, File idListDir, Set<NcbiTaxonomyID> taxonIds)
@@ -641,7 +641,7 @@ public enum FileDataSource {
 			return EntrezGeneMim2GeneFileParser.class;
 		}
 	},
-	NCBIGENE_REFSEQUNIPROTCOLLAB(DataSource.EG, IsTaxonAware.YES_BUT_REQUIRES_EXTERNAL_ID_TO_TAXON_MAPPINGS,
+	NCBIGENE_REFSEQUNIPROTCOLLAB(DataSource.NCBI_GENE, IsTaxonAware.YES_BUT_REQUIRES_EXTERNAL_ID_TO_TAXON_MAPPINGS,
 			RequiresManualDownload.NO) {
 		@Override
 		protected FileRecordReader<?> initFileRecordReader(File sourceFileDirectory, File baseSourceFileDirectory,
