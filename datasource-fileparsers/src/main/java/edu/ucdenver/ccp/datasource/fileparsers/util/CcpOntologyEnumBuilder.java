@@ -39,15 +39,16 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Iterator;
-import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import org.semanticweb.owlapi.model.IRI;
+import org.semanticweb.owlapi.model.OWLAnnotationProperty;
 import org.semanticweb.owlapi.model.OWLClass;
+import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 
 import edu.ucdenver.ccp.common.collections.CollectionsUtil;
@@ -55,43 +56,65 @@ import edu.ucdenver.ccp.common.collections.CollectionsUtil.SortOrder;
 import edu.ucdenver.ccp.common.file.FileUtil;
 import edu.ucdenver.ccp.common.file.FileWriterUtil;
 import edu.ucdenver.ccp.common.string.StringUtil;
-import edu.ucdenver.ccp.datasource.fileparsers.CcpExtensionOntologyClass;
+import edu.ucdenver.ccp.datasource.fileparsers.CcpExtensionOntology;
 import edu.ucdenver.ccp.datasource.fileparsers.obo.OntologyUtil;
 
 /**
- * This class builds the {@link CcpExtensionOntologyClass} enum by processing
+ * This class builds the {@link CcpExtensionOntology} enum by processing
  * the CCP ontology file
  */
-public class CcpOntologyClassEnumBuilder {
+public class CcpOntologyEnumBuilder {
 
-	private static final String FILE_PREFIX = "package edu.ucdenver.ccp.datasource.fileparsers;\n" + "\n" + "/**\n"
-			+ "* This class is automatically generated from the CCP ontology.\n" + "*\n" + "*/\n"
-			+ "public enum CcpExtensionOntologyClass {\n";
+	private static final String FILE_PREFIX = "package edu.ucdenver.ccp.datasource.fileparsers;\n" + "\n"
 
-	private static final String FILE_SUFFIX = "\tprivate final String label;\n" + "\n"
-			+ "\tprivate CcpExtensionOntologyClass(String label) {\n" + "\t\tthis.label = label;\n" + "\t}\n" + "\n"
-			+ "\tpublic String label() {\n" + "\t\treturn this.label;\n" + "\t}\n" + "\n" + "}\n";
+			+ "import java.net.URI;\n" + "import java.net.URISyntaxException;\n" + "\n"
+			+ "import edu.ucdenver.ccp.datasource.identifiers.DataSource;\n" + "\n"
+
+			+ "/**\n" + "* This class is automatically generated from the CCP ontology.\n" + "*\n" + "*/\n"
+			+ "public enum CcpExtensionOntology {\n";
+
+	private static final String FILE_SUFFIX = "\tprivate final String id;\n" + "\n"
+			+ "\tprivate CcpExtensionOntology(String id) {\n" + "\t\tthis.id = id;\n" + "\t}\n" + "\n"
+			+ "\tpublic String id() {\n" + "\t\treturn this.id;\n" + "\t}\n" + "\n" + "\tpublic URI uri()  {\n"
+			+ "\t\ttry {\n" + "\t\t\treturn new URI(DataSource.CCP + id);\n" + "\t\t} catch (URISyntaxException e) {\n"
+			+ "\t\t\tthrow new IllegalStateException(e);\n" + "\t\t}\n" + "\t}\n" + "\n" + "}";
 
 	private static final String CCP_NAMESPACE = "http://ccp.ucdenver.edu/obo/ext/";
 
 	public static void buildEnum(File ontologyFile, File sourceFile) throws OWLOntologyCreationException, IOException {
 
-		Map<String, String> label2idMap = new HashMap<String, String>();
+		Map<String, String> classLabel2idMap = new HashMap<String, String>();
 
 		OntologyUtil ontUtil = new OntologyUtil(ontologyFile);
 		for (Iterator<OWLClass> classIter = ontUtil.getClassIterator(); classIter.hasNext();) {
 			OWLClass cls = classIter.next();
-			String namespace = cls.getIRI().getNamespace();
-			if (namespace != null && namespace.equals(CCP_NAMESPACE)) {
-				String label = ontUtil.getLabel(cls);
-				String id = cls.getIRI().getShortForm();
-				label2idMap.put(createEnumLabel(label), id);
-				System.out.println("ID: " + id + " label: " + label);
-			}
+			cacheId2LabelMapping(classLabel2idMap, ontUtil.getLabel(cls), cls.getIRI());
 		}
 
-		writeClassFile(label2idMap, sourceFile);
+		Map<String, String> annotPropertyLabel2idMap = new HashMap<String, String>();
+		for (Iterator<OWLAnnotationProperty> annotPropIter = ontUtil.getAnnotationPropertyIterator(); annotPropIter
+				.hasNext();) {
+			OWLAnnotationProperty prop = annotPropIter.next();
+			cacheId2LabelMapping(annotPropertyLabel2idMap, ontUtil.getLabel(prop), prop.getIRI());
+		}
 
+		Map<String, String> objectPropertyLabel2idMap = new HashMap<String, String>();
+		for (Iterator<OWLObjectProperty> objectPropIter = ontUtil.getObjectPropertyIterator(); objectPropIter
+				.hasNext();) {
+			OWLObjectProperty prop = objectPropIter.next();
+			cacheId2LabelMapping(objectPropertyLabel2idMap, ontUtil.getLabel(prop), prop.getIRI());
+		}
+		
+		writeFile(classLabel2idMap, annotPropertyLabel2idMap, objectPropertyLabel2idMap, sourceFile);
+
+	}
+
+	private static void cacheId2LabelMapping(Map<String, String> label2idMap, String label, IRI iri) {
+		String namespace = iri.getNamespace();
+		if (namespace != null && namespace.equals(CCP_NAMESPACE)) {
+			String id = iri.getShortForm();
+			label2idMap.put(createEnumLabel(label), id);
+		}
 	}
 
 	private static String createEnumLabel(String label) {
@@ -135,36 +158,18 @@ public class CcpOntologyClassEnumBuilder {
 
 	}
 
-	/**
-	 * @param map
-	 * @return a map sorted by the values in the input map, however case is
-	 *         ignored so the labels starting with capitals don't all appear
-	 *         first but are instead mixed in with the labels that start with
-	 *         lowercase letters
-	 */
-	private static Map<String, String> sortMapByValuesIgnoreCase(Map<String, String> inputMap,
-			final SortOrder sortOrder) {
-		ArrayList<Entry<String, String>> entryList = new ArrayList<Entry<String, String>>(inputMap.entrySet());
-		Collections.sort(entryList, new Comparator<Entry<String, String>>() {
-
-			@Override
-			public int compare(Entry<String, String> entry1, Entry<String, String> entry2) {
-				return entry1.getValue().toLowerCase().compareTo(entry2.getValue().toLowerCase())
-						* sortOrder.modifier();
-			}
-
-		});
-		Map<String, String> sortedMap = new LinkedHashMap<String, String>();
-		for (Entry<String, String> entry : entryList) {
-			sortedMap.put(entry.getKey(), entry.getValue());
-		}
-		return sortedMap;
-	}
-
-	private static void writeClassFile(Map<String, String> id2labelMap, File sourceFile) throws IOException {
+	private static void writeFile(Map<String, String> classLabel2IdMap, Map<String, String> annotationPropertyLabel2IdMap,
+			Map<String, String> objectPropertyLabel2idMap, File sourceFile) throws IOException {
 		StringBuilder builder = new StringBuilder(FILE_PREFIX);
 
-		addSortedEnumClasses(id2labelMap, builder);
+		builder.append("\t/* Annotation Properties */\n");
+		addSortedEnumClasses(annotationPropertyLabel2IdMap, builder);
+		
+		builder.append("\t/* Object Properties */\n");
+		addSortedEnumClasses(objectPropertyLabel2idMap, builder);
+
+		builder.append("\t/* Classes */\n");
+		addSortedEnumClasses(classLabel2IdMap, builder);
 
 		/* delete the final comma and replace with a semi-colon */
 		builder.deleteCharAt(builder.length() - 1);
@@ -198,7 +203,7 @@ public class CcpOntologyClassEnumBuilder {
 		File sourceFile = new File(args[1]);
 		try {
 			FileUtil.validateFile(ontologyFile);
-			CcpOntologyClassEnumBuilder.buildEnum(ontologyFile, sourceFile);
+			CcpOntologyEnumBuilder.buildEnum(ontologyFile, sourceFile);
 		} catch (OWLOntologyCreationException | IOException e) {
 			e.printStackTrace();
 			System.exit(-1);

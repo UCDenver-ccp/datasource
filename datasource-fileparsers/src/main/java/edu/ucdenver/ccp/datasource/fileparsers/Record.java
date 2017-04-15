@@ -91,5 +91,7 @@ public @interface Record {
 	 * @return a URI describing the license
 	 */
 	String licenseUri() default "";
+	
+	CcpExtensionOntology ontClass() default CcpExtensionOntology.RECORD;
 
 }

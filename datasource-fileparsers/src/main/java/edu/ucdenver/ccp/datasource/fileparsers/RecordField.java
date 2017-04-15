@@ -69,5 +69,7 @@ public @interface RecordField {
 	 *         in relational database parlance.
 	 */
 	boolean isKeyField() default false;
+	
+	CcpExtensionOntology ontClass() default CcpExtensionOntology.RECORD_FIELD_VALUE;
 
 }
