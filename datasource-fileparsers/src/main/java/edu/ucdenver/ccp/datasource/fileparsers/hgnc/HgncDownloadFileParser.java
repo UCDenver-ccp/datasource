@@ -69,7 +69,7 @@ import edu.ucdenver.ccp.datasource.identifiers.hgnc.HgncGeneSymbolID;
 import edu.ucdenver.ccp.datasource.identifiers.hgnc.HgncID;
 import edu.ucdenver.ccp.datasource.identifiers.mgi.MgiGeneID;
 import edu.ucdenver.ccp.datasource.identifiers.ncbi.CcdsId;
-import edu.ucdenver.ccp.datasource.identifiers.ncbi.gene.EntrezGeneID;
+import edu.ucdenver.ccp.datasource.identifiers.ncbi.gene.NcbiGeneId;
 import edu.ucdenver.ccp.datasource.identifiers.ncbi.omim.OmimID;
 import edu.ucdenver.ccp.datasource.identifiers.ncbi.refseq.RefSeqID;
 import edu.ucdenver.ccp.datasource.identifiers.other.CosmicId;
@@ -157,7 +157,7 @@ public class HgncDownloadFileParser extends SingleLineFileRecordReader<HgncDownl
 			int column = 0;
 			HgncID hgncID = new HgncID(toks[column++]);
 			HgncGeneSymbolID hgncGeneSymbol = new HgncGeneSymbolID(toks[column++]);
-			if (hgncGeneSymbol.getDataElement().contains("withdrawn")
+			if (hgncGeneSymbol.getId().contains("withdrawn")
 					&& withdrawnRecordTreatment.equals(WithdrawnRecordTreatment.IGNORE)) {
 				return null;
 			}
@@ -234,10 +234,10 @@ public class HgncDownloadFileParser extends SingleLineFileRecordReader<HgncDownl
 					}
 				}
 
-			EntrezGeneID entrezGeneId = null;
+			NcbiGeneId entrezGeneId = null;
 			columnValue = toks[column++];
 			if (!columnValue.isEmpty()) {
-				entrezGeneId = new EntrezGeneID(columnValue);
+				entrezGeneId = new NcbiGeneId(columnValue);
 			}
 
 			EnsemblGeneID ensemblGeneID = null;
@@ -320,10 +320,10 @@ public class HgncDownloadFileParser extends SingleLineFileRecordReader<HgncDownl
 			// "GDB:"));
 			// }
 
-			EntrezGeneID suppliedEntrezGeneId = null;
+			NcbiGeneId suppliedEntrezGeneId = null;
 			columnValue = toks[column++];
 			if (!columnValue.isEmpty()) {
-				suppliedEntrezGeneId = new EntrezGeneID(columnValue);
+				suppliedEntrezGeneId = new NcbiGeneId(columnValue);
 			}
 
 			Set<OmimID> suppliedOmimIds = new HashSet<OmimID>();

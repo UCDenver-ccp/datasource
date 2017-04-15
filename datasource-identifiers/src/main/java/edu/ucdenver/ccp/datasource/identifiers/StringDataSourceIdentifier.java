@@ -53,7 +53,7 @@ public abstract class StringDataSourceIdentifier extends DataSourceIdentifier<St
 	}
 
 	protected String getStringRepresentation() {
-		return getDataElement().toString();
+		return getId().toString();
 	}
 
 }

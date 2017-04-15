@@ -49,7 +49,7 @@ import edu.ucdenver.ccp.common.collections.CollectionsUtil;
 import edu.ucdenver.ccp.common.file.CharacterEncoding;
 import edu.ucdenver.ccp.common.file.FileUtil;
 import edu.ucdenver.ccp.datasource.fileparsers.test.RecordReaderTester;
-import edu.ucdenver.ccp.datasource.identifiers.ncbi.gene.EntrezGeneID;
+import edu.ucdenver.ccp.datasource.identifiers.ncbi.gene.NcbiGeneId;
 import edu.ucdenver.ccp.datasource.identifiers.ncbi.taxonomy.NcbiTaxonomyID;
 import edu.ucdenver.ccp.identifier.publication.PubMedID;
 
@@ -90,7 +90,7 @@ public class EntrezGene2PubmedFileParserTest extends RecordReaderTester {
 			String expectedEntrezGeneID, String expectedPubMedId) {
 		assertEquals(String.format("Taxonomy ID not as expected."), new NcbiTaxonomyID(expectedTaxonomyId),
 				record.getTaxonomyID());
-		assertEquals(String.format("EntrezGeneID not as expected."), new EntrezGeneID(expectedEntrezGeneID),
+		assertEquals(String.format("EntrezGeneID not as expected."), new NcbiGeneId(expectedEntrezGeneID),
 				record.getEntrezGeneID());
 		assertEquals(String.format("PubMed ID not as expected."), new PubMedID(expectedPubMedId), record.getPubmedID());
 

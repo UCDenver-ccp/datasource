@@ -151,7 +151,7 @@ public class KeggGenesFileData extends FileRecord {
 		String[] toks = line.trim().split("\\s+");
 		String databaseName = toks[0].replaceAll(":", "");
 		for (int i = 1; i < toks.length; i++) {
-			DataSourceIdentifier<?> id = DataSourceIdResolver.resolveId(databaseName, toks[i]);
+			DataSourceIdentifier<?> id = DataSourceIdResolver.resolveId(databaseName, toks[i], "Source: " + toks[0] + " ID: " + toks[i]);
 			if (id != null) {
 				ids.add(id);
 			}

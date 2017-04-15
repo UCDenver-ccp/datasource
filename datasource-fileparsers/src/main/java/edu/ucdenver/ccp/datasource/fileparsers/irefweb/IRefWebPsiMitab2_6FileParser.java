@@ -97,7 +97,7 @@ import edu.ucdenver.ccp.datasource.identifiers.irefweb.RigId;
 import edu.ucdenver.ccp.datasource.identifiers.irefweb.RogId;
 import edu.ucdenver.ccp.datasource.identifiers.kegg.KeggGeneID;
 import edu.ucdenver.ccp.datasource.identifiers.mint.MintID;
-import edu.ucdenver.ccp.datasource.identifiers.ncbi.gene.EntrezGeneID;
+import edu.ucdenver.ccp.datasource.identifiers.ncbi.gene.NcbiGeneId;
 import edu.ucdenver.ccp.datasource.identifiers.ncbi.gene.GiNumberID;
 import edu.ucdenver.ccp.datasource.identifiers.ncbi.refseq.RefSeqID;
 import edu.ucdenver.ccp.datasource.identifiers.ncbi.taxonomy.NcbiTaxonomyID;
@@ -377,9 +377,9 @@ public class IRefWebPsiMitab2_6FileParser extends TaxonAwareSingleLineFileRecord
 			} else if (idStr.startsWith("TREMBL")) {
 				return getUniprotId(StringUtil.removePrefix(idStr, "TREMBL:"));
 			} else if (idStr.startsWith("entrezgene/locuslink:")) {
-				return new EntrezGeneID(StringUtil.removePrefix(idStr, "entrezgene/locuslink:"));
+				return new NcbiGeneId(StringUtil.removePrefix(idStr, "entrezgene/locuslink:"));
 			} else if (idStr.startsWith("entrez gene/locuslink:")) {
-				return new EntrezGeneID(StringUtil.removePrefix(idStr, "entrez gene/locuslink:"));
+				return new NcbiGeneId(StringUtil.removePrefix(idStr, "entrez gene/locuslink:"));
 			} else if (idStr.startsWith("HPRD:")) {
 				return new HprdID(StringUtil.removePrefix(idStr, "HPRD:"));
 			} else if (idStr.startsWith("CORUM:")) {
@@ -471,7 +471,7 @@ public class IRefWebPsiMitab2_6FileParser extends TaxonAwareSingleLineFileRecord
 			} else if (idStr.startsWith("sgd:")) {
 				return new FlyBaseID(StringUtil.removePrefix(idStr, "sgd:"));
 			} else if (idStr.startsWith("entrezgene:")) {
-				return new EntrezGeneID(StringUtil.removePrefix(idStr, "entrezgene:"));
+				return new NcbiGeneId(StringUtil.removePrefix(idStr, "entrezgene:"));
 			}
 		} catch (IllegalArgumentException e) {
 			return new ProbableErrorDataSourceIdentifier(idStr, null, e.getMessage());

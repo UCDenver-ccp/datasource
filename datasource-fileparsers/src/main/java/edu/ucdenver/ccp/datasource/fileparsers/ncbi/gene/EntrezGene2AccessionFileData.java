@@ -46,7 +46,7 @@ import edu.ucdenver.ccp.datasource.identifiers.DataSource;
 import edu.ucdenver.ccp.datasource.identifiers.DataSourceIdentifier;
 import edu.ucdenver.ccp.datasource.identifiers.NucleotideAccessionResolver;
 import edu.ucdenver.ccp.datasource.identifiers.ProteinAccessionResolver;
-import edu.ucdenver.ccp.datasource.identifiers.ncbi.gene.EntrezGeneID;
+import edu.ucdenver.ccp.datasource.identifiers.ncbi.gene.NcbiGeneId;
 import edu.ucdenver.ccp.datasource.identifiers.ncbi.gene.GiNumberID;
 import edu.ucdenver.ccp.datasource.identifiers.ncbi.taxonomy.NcbiTaxonomyID;
 
@@ -57,7 +57,7 @@ import edu.ucdenver.ccp.datasource.identifiers.ncbi.taxonomy.NcbiTaxonomyID;
  * 
  */
 @Getter
-@Record(dataSource = DataSource.EG, comment = "", license = License.NCBI, citation = "The NCBI handbook [Internet]. Bethesda (MD): National Library of Medicine (US), National Center for Biotechnology Information; 2002 Oct. Chapter 19 Gene: A Directory of Genes. Available from http://www.ncbi.nlm.nih.gov/books/NBK21091", label = "gene2accession record")
+@Record(dataSource = DataSource.NCBI_GENE, comment = "", license = License.NCBI, citation = "The NCBI handbook [Internet]. Bethesda (MD): National Library of Medicine (US), National Center for Biotechnology Information; 2002 Oct. Chapter 19 Gene: A Directory of Genes. Available from http://www.ncbi.nlm.nih.gov/books/NBK21091", label = "gene2accession record")
 public class EntrezGene2AccessionFileData extends SingleLineFileRecord {
 	/*
 	 * #Format: tax_id GeneID status RNA_nucleotide_accession.version
@@ -82,7 +82,7 @@ public class EntrezGene2AccessionFileData extends SingleLineFileRecord {
 	private final NcbiTaxonomyID taxonID;
 
 	@RecordField(comment = "the unique identifier for a gene")
-	private final EntrezGeneID geneID;
+	private final NcbiGeneId geneID;
 
 	@RecordField(comment = "status of the RefSeq if a refseq, else '-' RefSeq values are: INFERRED, MODEL, NA, PREDICTED, PROVISIONAL, REVIEWED, SUPPRESSED, VALIDATED")
 	private final String status;
@@ -146,7 +146,7 @@ public class EntrezGene2AccessionFileData extends SingleLineFileRecord {
 	 * @param mature_peptide_gi
 	 * @param symbol
 	 */
-	private EntrezGene2AccessionFileData(NcbiTaxonomyID taxonID, EntrezGeneID geneID, String status,
+	private EntrezGene2AccessionFileData(NcbiTaxonomyID taxonID, NcbiGeneId geneID, String status,
 			DataSourceIdentifier<?> rNA_nucleotide_accession_dot_version, GiNumberID rNA_nucleotide_gi,
 			DataSourceIdentifier<?> protein_accession_dot_version, GiNumberID protein_gi,
 			DataSourceIdentifier<?> genomic_nucleotide_accession_dot_version, GiNumberID genomic_nucleotide_gi,
@@ -190,7 +190,7 @@ public class EntrezGene2AccessionFileData extends SingleLineFileRecord {
 			}
 
 			NcbiTaxonomyID taxonID = new NcbiTaxonomyID(toks[0]);
-			EntrezGeneID geneID = new EntrezGeneID(toks[1]);
+			NcbiGeneId geneID = new NcbiGeneId(toks[1]);
 
 			String status = toks[2];
 			if (status.equals("-")) {

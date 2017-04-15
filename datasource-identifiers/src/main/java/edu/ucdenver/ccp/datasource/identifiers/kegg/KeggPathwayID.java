@@ -46,7 +46,7 @@ public class KeggPathwayID extends StringDataSourceIdentifier {
 
 	@Override
 	public String getStringRepresentation() {
-		return ID_PREFIX + getDataElement().toString();
+		return ID_PREFIX + getId().toString();
 	}
 	
 }

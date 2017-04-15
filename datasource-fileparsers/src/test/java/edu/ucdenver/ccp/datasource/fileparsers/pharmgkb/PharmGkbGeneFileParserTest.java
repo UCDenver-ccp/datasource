@@ -56,7 +56,7 @@ import edu.ucdenver.ccp.datasource.identifiers.DataSourceIdentifier;
 import edu.ucdenver.ccp.datasource.identifiers.ebi.uniprot.UniProtID;
 import edu.ucdenver.ccp.datasource.identifiers.ensembl.EnsemblGeneID;
 import edu.ucdenver.ccp.datasource.identifiers.hgnc.HgncID;
-import edu.ucdenver.ccp.datasource.identifiers.ncbi.gene.EntrezGeneID;
+import edu.ucdenver.ccp.datasource.identifiers.ncbi.gene.NcbiGeneId;
 import edu.ucdenver.ccp.datasource.identifiers.ncbi.omim.OmimID;
 import edu.ucdenver.ccp.datasource.identifiers.ncbi.refseq.RefSeqID;
 import edu.ucdenver.ccp.datasource.identifiers.obo.GeneOntologyID;
@@ -87,9 +87,9 @@ public class PharmGkbGeneFileParserTest extends RecordReaderTester {
 	public void testParser() throws IOException {
 		RecordReader<PharmGkbGeneFileRecord> reader = initSampleRecordReader();
 		PharmGkbGeneFileRecord r = reader.next();
-		assertEquals("PA100", r.getAccessionId().getDataElement());
-		assertEquals(1, r.getEntrezGeneIds().iterator().next().getDataElement().intValue());
-		assertEquals("ENSG00000121410", r.getEnsemblGeneId().getDataElement());
+		assertEquals("PA100", r.getAccessionId().getId());
+		assertEquals(1, r.getEntrezGeneIds().iterator().next().getId().intValue());
+		assertEquals("ENSG00000121410", r.getEnsemblGeneId().getId());
 		assertEquals("alpha-1-B glycoprotein", r.getName());
 		assertEquals("A1BG", r.getSymbol());
 
@@ -103,7 +103,7 @@ public class PharmGkbGeneFileParserTest extends RecordReaderTester {
 		assertFalse(r.hasVariantAnnotation());
 
 		Set<DataSourceIdentifier<?>> expectedCrossReferences = new HashSet<DataSourceIdentifier<?>>();
-		expectedCrossReferences.add(new EntrezGeneID(1));
+		expectedCrossReferences.add(new NcbiGeneId(1));
 		expectedCrossReferences.add(new OmimID("138670"));
 		expectedCrossReferences.add(new UcscGenomeBrowserId("NM_130786"));
 		expectedCrossReferences.add(new GeneOntologyID("GO:0000004"));
@@ -135,8 +135,8 @@ public class PharmGkbGeneFileParserTest extends RecordReaderTester {
 		assertEquals(58874865, r.getChromosomalEnd().intValue());
 		
 		r = reader.next();
-		assertEquals("PA12345678", r.getAccessionId().getDataElement());
-		assertEquals(45345, r.getEntrezGeneIds().iterator().next().getDataElement().intValue());
+		assertEquals("PA12345678", r.getAccessionId().getId());
+		assertEquals(45345, r.getEntrezGeneIds().iterator().next().getId().intValue());
 
 		assertFalse(reader.hasNext());
 	}

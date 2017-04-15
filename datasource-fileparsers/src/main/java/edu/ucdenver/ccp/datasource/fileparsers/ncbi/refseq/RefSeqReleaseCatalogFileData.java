@@ -101,7 +101,7 @@ public class RefSeqReleaseCatalogFileData extends SingleLineFileRecord {
 	 */
 	private boolean getIsPredicted(RefSeqID refseqId) {
 		Set<String> predictedPrefixes = CollectionsUtil.createSet("XM", "XR", "XP", "ZP");
-		String prefix = refseqId.getDataElement().substring(0, 2);
+		String prefix = refseqId.getId().substring(0, 2);
 		return predictedPrefixes.contains(prefix);
 	}
 
@@ -114,7 +114,7 @@ public class RefSeqReleaseCatalogFileData extends SingleLineFileRecord {
 		Set<String> rnaPrefixes = CollectionsUtil.createSet("NR", "XR");
 		Set<String> mrnaPrefixes = CollectionsUtil.createSet("NM", "XM");
 		Set<String> proteinPrefixes = CollectionsUtil.createSet("AP", "NP", "YP", "XP", "ZP", "WP");
-		String prefix = refseqId.getDataElement().substring(0, 2);
+		String prefix = refseqId.getId().substring(0, 2);
 		if (genomicPrefixes.contains(prefix))
 			return "Genomic";
 		if (rnaPrefixes.contains(prefix))
@@ -123,7 +123,7 @@ public class RefSeqReleaseCatalogFileData extends SingleLineFileRecord {
 			return "mRNA";
 		if (proteinPrefixes.contains(prefix))
 			return "Protein";
-		throw new IllegalArgumentException("Unknown RefSeq prefix: " + refseqId.getDataElement());
+		throw new IllegalArgumentException("Unknown RefSeq prefix: " + refseqId.getId());
 	}
 
 	public NcbiTaxonomyID getTaxId() {

@@ -1,10 +1,11 @@
-package edu.ucdenver.ccp.datasource.identifiers.ncbi.gene;
+package edu.ucdenver.ccp.datasource.rdfizer.rdf.ice;
 
 /*
  * #%L
- * Colorado Computational Pharmacology's common module
+ * Colorado Computational Pharmacology's datasource
+ * 							project
  * %%
- * Copyright (C) 2012 - 2014 Regents of the University of Colorado
+ * Copyright (C) 2012 - 2017 Regents of the University of Colorado
  * %%
  * Redistribution and use in source and binary forms, with or without modification,
  * are permitted provided that the following conditions are met:
@@ -33,25 +34,18 @@ package edu.ucdenver.ccp.datasource.identifiers.ncbi.gene;
  * #L%
  */
 
-import edu.ucdenver.ccp.datasource.identifiers.DataSource;
-import edu.ucdenver.ccp.datasource.identifiers.IntegerDataSourceIdentifier;
+public enum UriPrefix {
 
-/**
- * This class represents the Entrez Gene ID concept. Entrez Gene IDs are unique integers
- * representing gene concepts in the Entrez Gene database:
- * http://www.ncbi.nlm.nih.gov/sites/entrez?db=gene
- * 
- * @author Center for Computational Pharmacology; ccpsupport@ucdenver.edu
- * 
- */
-public class EntrezGeneID extends IntegerDataSourceIdentifier {
+	RECORD("R_"), RECORD_FIELD("F_");
 
-	public EntrezGeneID(Integer resourceID) {
-		super(resourceID,DataSource.EG);
+	private final String prefix;
+
+	private UriPrefix(String prefix) {
+		this.prefix = prefix;
 	}
 
-	public EntrezGeneID(String geneIDStr) {
-		super(geneIDStr,DataSource.EG);
+	public String prefix() {
+		return this.prefix;
 	}
 
 }

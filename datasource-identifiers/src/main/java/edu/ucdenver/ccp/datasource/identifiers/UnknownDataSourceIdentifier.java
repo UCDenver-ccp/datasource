@@ -66,14 +66,14 @@ package edu.ucdenver.ccp.datasource.identifiers;
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
-public class UnknownDataSourceIdentifier extends DataSourceIdentifier<String> {
+public class UnknownDataSourceIdentifier extends StringDataSourceIdentifier {
 
-	private final String dataSourceStr;
+//	private final String dataSourceStr;
 
-	public UnknownDataSourceIdentifier(String resourceID,  String dataSourceStr) {
-		super(resourceID, DataSource.UNKNOWN);
-		this.dataSourceStr = dataSourceStr;
-	}
+//	public UnknownDataSourceIdentifier(String resourceID,  String dataSourceStr) {
+//		super(resourceID, DataSource.UNKNOWN);
+//		this.dataSourceStr = dataSourceStr;
+//	}
 
     /**
      * Constructor that may be used when a canonical identifier for the source
@@ -83,7 +83,7 @@ public class UnknownDataSourceIdentifier extends DataSourceIdentifier<String> {
      *   The identifier for the resource in the external, unknown source.
      */
 	public UnknownDataSourceIdentifier(String resourceID) {
-		this(resourceID, null);
+		super(resourceID, DataSource.UNKNOWN);
 	}
 
 	@Override
@@ -91,8 +91,8 @@ public class UnknownDataSourceIdentifier extends DataSourceIdentifier<String> {
 		return resourceID;
 	}
 
-	public String getDataSourceStr() {
-		return dataSourceStr;
-	}
+//	public String getDataSourceStr() {
+//		return dataSourceStr;
+//	}
 
 }

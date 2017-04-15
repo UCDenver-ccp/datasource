@@ -61,7 +61,7 @@ public class ProbableErrorDataSourceIdentifier extends DataSourceIdentifier<Stri
 	@Override
 	public String toString() {
 		return "ProbableErrorDataSourceIdentifier [dataSourceStr=" + dataSourceStr + ", errorMessage=" + errorMessage
-				+ ", getDataElement()=" + getDataElement() + "]";
+				+ ", getDataElement()=" + getId() + "]";
 	}
 
 	@Override

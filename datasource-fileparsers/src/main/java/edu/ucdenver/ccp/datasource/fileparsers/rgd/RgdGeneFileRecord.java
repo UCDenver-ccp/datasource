@@ -55,7 +55,7 @@ import edu.ucdenver.ccp.datasource.identifiers.hprd.HprdID;
 import edu.ucdenver.ccp.datasource.identifiers.mgi.MgiGeneID;
 import edu.ucdenver.ccp.datasource.identifiers.ncbi.GenBankID;
 import edu.ucdenver.ccp.datasource.identifiers.ncbi.UniGeneID;
-import edu.ucdenver.ccp.datasource.identifiers.ncbi.gene.EntrezGeneID;
+import edu.ucdenver.ccp.datasource.identifiers.ncbi.gene.NcbiGeneId;
 import edu.ucdenver.ccp.datasource.identifiers.ncbi.omim.OmimID;
 import edu.ucdenver.ccp.datasource.identifiers.other.MedlineId;
 import edu.ucdenver.ccp.datasource.identifiers.rgd.RgdID;
@@ -160,7 +160,7 @@ public class RgdGeneFileRecord extends SingleLineFileRecord {
 	@RecordField
 	private final Set<PubMedID> uncuratedPubmedReferencesOnGene;
 	@RecordField
-	private final Set<EntrezGeneID> entrezGeneIds;
+	private final Set<NcbiGeneId> entrezGeneIds;
 	@RecordField
 	private final Set<UniProtID> uniprotIds;
 	@RecordField
@@ -220,7 +220,7 @@ public class RgdGeneFileRecord extends SingleLineFileRecord {
 
 	public RgdGeneFileRecord(RgdID geneId, String geneSymbol, String geneName, String geneDescription, String fishBand,
 			Set<RgdID> curatedRgdReferencesOnGene, Set<PubMedID> curatedPubmedReferencesOnGene,
-			Set<PubMedID> uncuratedPubmedReferencesOnGene, Set<EntrezGeneID> entrezGeneIds, Set<UniProtID> uniprotIds,
+			Set<PubMedID> uncuratedPubmedReferencesOnGene, Set<NcbiGeneId> entrezGeneIds, Set<UniProtID> uniprotIds,
 			MedlineId uncuratedMedlineReference, Set<GenBankID> genbankNucleotideIds, Set<String> tigrIds,
 			Set<GenBankID> genbankProteinIds, Set<UniGeneID> unigeneIds, Set<RgdID> sslpRgdIds, String sslpSymbol,
 			Set<String> oldGeneSymbolAliases, Set<String> oldGeneNameAliases, Set<RgdID> qtlRgdIds, String qtlSymbol,
@@ -344,8 +344,8 @@ public class RgdGeneFileRecord extends SingleLineFileRecord {
 				toks[index - 1], StringConstants.SEMICOLON, PubMedID.class);
 		Set<PubMedID> uncuratedPubmedReferencesOnGene = isHyphenOrEmpty(toks[index++]) ? null : setFromDelimitedString(
 				toks[index - 1], StringConstants.SEMICOLON, PubMedID.class);
-		Set<EntrezGeneID> entrezGeneIds = isHyphenOrEmpty(toks[index++]) ? null : setFromDelimitedString(
-				toks[index - 1], StringConstants.SEMICOLON, EntrezGeneID.class);
+		Set<NcbiGeneId> entrezGeneIds = isHyphenOrEmpty(toks[index++]) ? null : setFromDelimitedString(
+				toks[index - 1], StringConstants.SEMICOLON, NcbiGeneId.class);
 		Set<UniProtID> uniprotIds = isHyphenOrEmpty(toks[index++]) ? null : setFromDelimitedString(toks[index - 1],
 				StringConstants.SEMICOLON, UniProtID.class);
 		MedlineId uncuratedMedlineReference = isHyphenOrEmpty(toks[index++]) ? null : new MedlineId(toks[index - 1]);

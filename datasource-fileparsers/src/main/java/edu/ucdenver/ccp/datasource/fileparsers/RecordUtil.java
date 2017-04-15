@@ -85,6 +85,10 @@ public class RecordUtil {
 	public static DataSource getRecordDataSource(Class<?> recordClass) {
 		return getRecordAnnotation(recordClass).dataSource();
 	}
+	
+	public static CcpExtensionOntology getRecordType(Class<?> recordClass) {
+		return getRecordAnnotation(recordClass).ontClass();
+	}
 
 	public static String getRecordComment(Class<?> recordClass) {
 		return getRecordAnnotation(recordClass).comment();
@@ -125,6 +129,10 @@ public class RecordUtil {
 
 	public static String getRecordFieldVersion(Class<?> recordClass, String fieldName) {
 		return getRecordFieldAnnotation(recordClass, fieldName).version();
+	}
+	
+	public static CcpExtensionOntology getRecordFieldType(Class<?> recordClass, String fieldName) {
+		return getRecordFieldAnnotation(recordClass, fieldName).ontClass();
 	}
 
 	public static String getRecordFieldComment(Class<?> recordClass, String fieldName) {

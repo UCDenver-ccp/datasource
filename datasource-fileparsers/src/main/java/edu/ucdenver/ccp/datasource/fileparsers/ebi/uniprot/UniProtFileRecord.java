@@ -113,7 +113,7 @@ import edu.ucdenver.ccp.datasource.identifiers.mgi.MgiGeneID;
 import edu.ucdenver.ccp.datasource.identifiers.mint.MintID;
 import edu.ucdenver.ccp.datasource.identifiers.ncbi.GenBankID;
 import edu.ucdenver.ccp.datasource.identifiers.ncbi.UniGeneID;
-import edu.ucdenver.ccp.datasource.identifiers.ncbi.gene.EntrezGeneID;
+import edu.ucdenver.ccp.datasource.identifiers.ncbi.gene.NcbiGeneId;
 import edu.ucdenver.ccp.datasource.identifiers.ncbi.omim.OmimID;
 import edu.ucdenver.ccp.datasource.identifiers.ncbi.refseq.RefSeqID;
 import edu.ucdenver.ccp.datasource.identifiers.ncbi.taxonomy.NcbiTaxonomyID;
@@ -568,7 +568,8 @@ public class UniProtFileRecord extends FileRecord {
 			}
 			this.type = xmlType.getType();
 			this.evidence = (xmlType.getEvidence() == null) ? null : new ArrayList<Integer>(xmlType.getEvidence());
-			this.id = resolveDatabaseIdentifer(xmlType.getType(), xmlType.getId());
+			this.id = resolveDatabaseIdentifer(xmlType.getType(), xmlType.getId(),
+					"Source: " + xmlType.getType() + " ID: " + xmlType.getId());
 		}
 
 		/**
@@ -580,7 +581,7 @@ public class UniProtFileRecord extends FileRecord {
 		 * @param id
 		 * @return
 		 */
-		private DataSourceIdentifier<?> resolveDatabaseIdentifer(String type, String idStr) {
+		private DataSourceIdentifier<?> resolveDatabaseIdentifer(String type, String idStr, String originalIdString) {
 			try {
 				if (type.equalsIgnoreCase("pubmed")) {
 					return new PubMedID(idStr);
@@ -679,7 +680,7 @@ public class UniProtFileRecord extends FileRecord {
 				} else if (type.equalsIgnoreCase("GeneFarm")) {
 					return new GeneFarmId(idStr);
 				} else if (type.equalsIgnoreCase("GeneID")) {
-					return new EntrezGeneID(idStr);
+					return new NcbiGeneId(idStr);
 				} else if (type.equalsIgnoreCase("GeneTree")) {
 					return new GeneTreeId(idStr);
 				} else if (type.equalsIgnoreCase("Genevestigator")) {
@@ -904,7 +905,7 @@ public class UniProtFileRecord extends FileRecord {
 				return new ProbableErrorDataSourceIdentifier(idStr, type, e.getMessage());
 			}
 
-			return new UnknownDataSourceIdentifier(idStr, type);
+			return new UnknownDataSourceIdentifier(originalIdString);
 		}
 	}
 
@@ -934,8 +935,8 @@ public class UniProtFileRecord extends FileRecord {
 		private EvidencedString(EvidencedStringType xmlType) {
 			this.value = xmlType.getValue();
 			this.status = xmlType.getStatus();
-			this.evidence = (xmlType.getEvidence() == null) ? new ArrayList<Integer>() : new ArrayList<Integer>(
-					xmlType.getEvidence());
+			this.evidence = (xmlType.getEvidence() == null) ? new ArrayList<Integer>()
+					: new ArrayList<Integer>(xmlType.getEvidence());
 		}
 
 		public static EvidencedString getInstance(EvidencedStringType xmlType) {
@@ -990,15 +991,15 @@ public class UniProtFileRecord extends FileRecord {
 
 		public Feature(FeatureType xmlType) {
 			this.original = xmlType.getOriginal();
-			this.variation = (xmlType.getVariation() == null) ? new ArrayList<String>() : new ArrayList<String>(
-					xmlType.getVariation());
+			this.variation = (xmlType.getVariation() == null) ? new ArrayList<String>()
+					: new ArrayList<String>(xmlType.getVariation());
 			this.location = (xmlType.getLocation() == null) ? null : new Location(xmlType.getLocation());
 			this.type = xmlType.getType();
 			this.status = xmlType.getStatus();
 			this.id = xmlType.getId();
 			this.description = xmlType.getDescription();
-			this.evidence = (xmlType.getEvidence() == null) ? new ArrayList<Integer>() : new ArrayList<Integer>(
-					xmlType.getEvidence());
+			this.evidence = (xmlType.getEvidence() == null) ? new ArrayList<Integer>()
+					: new ArrayList<Integer>(xmlType.getEvidence());
 			this.ref = xmlType.getRef();
 		}
 	}
@@ -1051,8 +1052,8 @@ public class UniProtFileRecord extends FileRecord {
 					this.status.add(new Status(type));
 				}
 			}
-			this.evidence = (xmlType.getEvidence() == null) ? new ArrayList<Integer>() : new ArrayList<Integer>(
-					xmlType.getEvidence());
+			this.evidence = (xmlType.getEvidence() == null) ? new ArrayList<Integer>()
+					: new ArrayList<Integer>(xmlType.getEvidence());
 			this.type = xmlType.getType();
 		}
 	}
@@ -1070,8 +1071,8 @@ public class UniProtFileRecord extends FileRecord {
 
 		public GeneName(GeneNameType xmlType) {
 			this.value = xmlType.getValue();
-			this.evidence = (xmlType.getEvidence() == null) ? new ArrayList<Integer>() : new ArrayList<Integer>(
-					xmlType.getEvidence());
+			this.evidence = (xmlType.getEvidence() == null) ? new ArrayList<Integer>()
+					: new ArrayList<Integer>(xmlType.getEvidence());
 			this.type = xmlType.getType();
 		}
 	}
@@ -1100,8 +1101,9 @@ public class UniProtFileRecord extends FileRecord {
 		private final IntActID intactId;
 
 		public Interactant(InteractantType xmlType) {
-			id = (xmlType.getId() == null) ? null : (xmlType.getId().contains("-")) ? new UniProtIsoformID(
-					xmlType.getId()) : new UniProtID(xmlType.getId());
+			id = (xmlType.getId() == null) ? null
+					: (xmlType.getId().contains("-")) ? new UniProtIsoformID(xmlType.getId())
+							: new UniProtID(xmlType.getId());
 			this.label = xmlType.getLabel();
 			intactId = (xmlType.getIntactId() == null) ? null : new IntActID(xmlType.getIntactId());
 		}
@@ -1148,8 +1150,8 @@ public class UniProtFileRecord extends FileRecord {
 
 			public Name(IsoformType.Name xmlType) {
 				this.value = xmlType.getValue();
-				this.evidence = (xmlType.getEvidence() == null) ? new ArrayList<Integer>() : new ArrayList<Integer>(
-						xmlType.getEvidence());
+				this.evidence = (xmlType.getEvidence() == null) ? new ArrayList<Integer>()
+						: new ArrayList<Integer>(xmlType.getEvidence());
 			}
 		}
 
@@ -1164,8 +1166,8 @@ public class UniProtFileRecord extends FileRecord {
 
 			public Note(IsoformType.Note xmlType) {
 				this.value = xmlType.getValue();
-				this.evidence = (xmlType.getEvidence() == null) ? new ArrayList<Integer>() : new ArrayList<Integer>(
-						xmlType.getEvidence());
+				this.evidence = (xmlType.getEvidence() == null) ? new ArrayList<Integer>()
+						: new ArrayList<Integer>(xmlType.getEvidence());
 			}
 		}
 
@@ -1199,8 +1201,8 @@ public class UniProtFileRecord extends FileRecord {
 
 		public Keyword(KeywordType xmlType) {
 			this.value = xmlType.getValue();
-			this.evidence = (xmlType.getEvidence() == null) ? new ArrayList<Integer>() : new ArrayList<Integer>(
-					xmlType.getEvidence());
+			this.evidence = (xmlType.getEvidence() == null) ? new ArrayList<Integer>()
+					: new ArrayList<Integer>(xmlType.getEvidence());
 			this.id = xmlType.getId();
 		}
 	}
@@ -1243,8 +1245,8 @@ public class UniProtFileRecord extends FileRecord {
 				this.consortiumOrPerson = "consortium";
 				this.name = ((ConsortiumType) xmlType).getName();
 			} else {
-				throw new IllegalArgumentException("Excepted person or consortium but observed: "
-						+ xmlType.getClass().getName());
+				throw new IllegalArgumentException(
+						"Excepted person or consortium but observed: " + xmlType.getClass().getName());
 			}
 		}
 	}
@@ -1301,8 +1303,8 @@ public class UniProtFileRecord extends FileRecord {
 			private final List<String> taxon;
 
 			public Lineage(OrganismType.Lineage xmlType) {
-				this.taxon = (xmlType.getTaxon() == null) ? new ArrayList<String>() : new ArrayList<String>(
-						xmlType.getTaxon());
+				this.taxon = (xmlType.getTaxon() == null) ? new ArrayList<String>()
+						: new ArrayList<String>(xmlType.getTaxon());
 			}
 		}
 	}
@@ -1388,8 +1390,8 @@ public class UniProtFileRecord extends FileRecord {
 		private final List<Protein.Component> component;
 
 		public Protein(ProteinType xmlType) {
-			this.recommendedName = (xmlType.getRecommendedName() == null) ? null : new Protein.RecommendedName(
-					xmlType.getRecommendedName());
+			this.recommendedName = (xmlType.getRecommendedName() == null) ? null
+					: new Protein.RecommendedName(xmlType.getRecommendedName());
 			this.alternativeName = new ArrayList<Protein.AlternativeName>();
 			if (xmlType.getAlternativeName() != null) {
 				for (ProteinType.AlternativeName name : xmlType.getAlternativeName()) {
@@ -1478,8 +1480,8 @@ public class UniProtFileRecord extends FileRecord {
 			private final List<EvidencedString> innName;
 
 			public Component(ProteinType.Component xmlType) {
-				this.recommendedName = (xmlType.getRecommendedName() == null) ? null : new Protein.RecommendedName(
-						xmlType.getRecommendedName());
+				this.recommendedName = (xmlType.getRecommendedName() == null) ? null
+						: new Protein.RecommendedName(xmlType.getRecommendedName());
 				this.alternativeName = new ArrayList<Protein.AlternativeName>();
 				if (xmlType.getAlternativeName() != null) {
 					for (ProteinType.AlternativeName name : xmlType.getAlternativeName()) {
@@ -1529,8 +1531,8 @@ public class UniProtFileRecord extends FileRecord {
 			private final List<EvidencedString> innName;
 
 			public Domain(ProteinType.Domain xmlType) {
-				this.recommendedName = (xmlType.getRecommendedName() == null) ? null : new Protein.RecommendedName(
-						xmlType.getRecommendedName());
+				this.recommendedName = (xmlType.getRecommendedName() == null) ? null
+						: new Protein.RecommendedName(xmlType.getRecommendedName());
 				this.alternativeName = new ArrayList<Protein.AlternativeName>();
 				if (xmlType.getAlternativeName() != null) {
 					for (ProteinType.AlternativeName name : xmlType.getAlternativeName()) {
@@ -1626,16 +1628,16 @@ public class UniProtFileRecord extends FileRecord {
 
 		public Reference(ReferenceType xmlType) {
 			this.citation = (xmlType.getCitation() == null) ? null : new Citation(xmlType.getCitation());
-			this.scope = (xmlType.getScope() == null) ? new ArrayList<String>() : new ArrayList<String>(
-					xmlType.getScope());
+			this.scope = (xmlType.getScope() == null) ? new ArrayList<String>()
+					: new ArrayList<String>(xmlType.getScope());
 			this.source = new ArrayList<SourceData>();
 			if (xmlType.getSource() != null) {
 				for (Object sdt : xmlType.getSource().getStrainOrPlasmidOrTransposon()) {
 					source.add(new SourceData(sdt));
 				}
 			}
-			this.evidence = (xmlType.getEvidence() == null) ? new ArrayList<Integer>() : new ArrayList<Integer>(
-					xmlType.getEvidence());
+			this.evidence = (xmlType.getEvidence() == null) ? new ArrayList<Integer>()
+					: new ArrayList<Integer>(xmlType.getEvidence());
 			this.key = xmlType.getKey();
 		}
 	}
@@ -1689,26 +1691,26 @@ public class UniProtFileRecord extends FileRecord {
 				this.type = "tissue";
 				SourceDataType.Tissue t = (SourceDataType.Tissue) xmlType;
 				this.value = t.getValue();
-				this.evidence = (t.getEvidence() == null) ? new ArrayList<Integer>() : new ArrayList<Integer>(
-						t.getEvidence());
+				this.evidence = (t.getEvidence() == null) ? new ArrayList<Integer>()
+						: new ArrayList<Integer>(t.getEvidence());
 			} else if (xmlType instanceof SourceDataType.Transposon) {
 				this.type = "transposon";
 				SourceDataType.Transposon t = (SourceDataType.Transposon) xmlType;
 				this.value = t.getValue();
-				this.evidence = (t.getEvidence() == null) ? new ArrayList<Integer>() : new ArrayList<Integer>(
-						t.getEvidence());
+				this.evidence = (t.getEvidence() == null) ? new ArrayList<Integer>()
+						: new ArrayList<Integer>(t.getEvidence());
 			} else if (xmlType instanceof SourceDataType.Plasmid) {
 				this.type = "plasmid";
 				SourceDataType.Plasmid p = (SourceDataType.Plasmid) xmlType;
 				this.value = p.getValue();
-				this.evidence = (p.getEvidence() == null) ? new ArrayList<Integer>() : new ArrayList<Integer>(
-						p.getEvidence());
+				this.evidence = (p.getEvidence() == null) ? new ArrayList<Integer>()
+						: new ArrayList<Integer>(p.getEvidence());
 			} else if (xmlType instanceof SourceDataType.Strain) {
 				this.type = "strain";
 				SourceDataType.Strain s = (SourceDataType.Strain) xmlType;
 				this.value = s.getValue();
-				this.evidence = (s.getEvidence() == null) ? new ArrayList<Integer>() : new ArrayList<Integer>(
-						s.getEvidence());
+				this.evidence = (s.getEvidence() == null) ? new ArrayList<Integer>()
+						: new ArrayList<Integer>(s.getEvidence());
 			} else {
 				throw new IllegalArgumentException("Unhandled source data type: " + xmlType.getClass().getName());
 			}

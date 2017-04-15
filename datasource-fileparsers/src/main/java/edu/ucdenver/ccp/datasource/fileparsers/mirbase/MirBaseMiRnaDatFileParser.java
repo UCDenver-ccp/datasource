@@ -61,7 +61,7 @@ import edu.ucdenver.ccp.datasource.fileparsers.ebi.embl.SequenceFeature;
 import edu.ucdenver.ccp.datasource.identifiers.DataSourceIdentifier;
 import edu.ucdenver.ccp.datasource.identifiers.hgnc.HgncID;
 import edu.ucdenver.ccp.datasource.identifiers.mgi.MgiGeneID;
-import edu.ucdenver.ccp.datasource.identifiers.ncbi.gene.EntrezGeneID;
+import edu.ucdenver.ccp.datasource.identifiers.ncbi.gene.NcbiGeneId;
 import edu.ucdenver.ccp.datasource.identifiers.other.AgricolaId;
 import edu.ucdenver.ccp.datasource.identifiers.other.AsrpId;
 import edu.ucdenver.ccp.datasource.identifiers.other.InsdcProjectId;
@@ -203,7 +203,7 @@ public class MirBaseMiRnaDatFileParser extends
 			return new HgncID(dbId);
 		}
 		if (dbKey.equalsIgnoreCase("ENTREZGENE")) {
-			return new EntrezGeneID(dbId);
+			return new NcbiGeneId(dbId);
 		}
 		if (dbKey.startsWith("TARGETS:PICTAR")) {
 			return new PictarId(dbId);

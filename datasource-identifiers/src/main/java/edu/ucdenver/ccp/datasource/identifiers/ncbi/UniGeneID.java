@@ -46,7 +46,7 @@ public class UniGeneID extends StringDataSourceIdentifier {
 
 	@Override
 	public String toString() {
-		return ID_PREFIX + getDataElement().toString();
+		return ID_PREFIX + getId().toString();
 	}
 
 }

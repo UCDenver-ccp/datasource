@@ -35,13 +35,14 @@ package edu.ucdenver.ccp.datasource.fileparsers.ncbi.gene;
 
 import java.util.Set;
 
+import edu.ucdenver.ccp.datasource.fileparsers.CcpExtensionOntology;
 import edu.ucdenver.ccp.datasource.fileparsers.License;
 import edu.ucdenver.ccp.datasource.fileparsers.Record;
 import edu.ucdenver.ccp.datasource.fileparsers.RecordField;
 import edu.ucdenver.ccp.datasource.fileparsers.SingleLineFileRecord;
 import edu.ucdenver.ccp.datasource.identifiers.DataSource;
 import edu.ucdenver.ccp.datasource.identifiers.DataSourceIdentifier;
-import edu.ucdenver.ccp.datasource.identifiers.ncbi.gene.EntrezGeneID;
+import edu.ucdenver.ccp.datasource.identifiers.ncbi.gene.NcbiGeneId;
 import edu.ucdenver.ccp.datasource.identifiers.ncbi.taxonomy.NcbiTaxonomyID;
 
 /**
@@ -50,65 +51,60 @@ import edu.ucdenver.ccp.datasource.identifiers.ncbi.taxonomy.NcbiTaxonomyID;
  * @author Bill Baumgartner
  * 
  */
-@Record(dataSource = DataSource.EG,
-	comment="",
-	license=License.NCBI,
-	citation="The NCBI handbook [Internet]. Bethesda (MD): National Library of Medicine (US), National Center for Biotechnology Information; 2002 Oct. Chapter 19 Gene: A Directory of Genes. Available from http://www.ncbi.nlm.nih.gov/books/NBK21091",
-	label="gene_info record")
+@Record(dataSource = DataSource.NCBI_GENE, ontClass=CcpExtensionOntology.NCBI_GENE_RECORD, comment = "", license = License.NCBI, citation = "The NCBI handbook [Internet]. Bethesda (MD): National Library of Medicine (US), National Center for Biotechnology Information; 2002 Oct. Chapter 19 Gene: A Directory of Genes. Available from http://www.ncbi.nlm.nih.gov/books/NBK21091", label = "gene_info record")
 public class EntrezGeneInfoFileData extends SingleLineFileRecord {
 	public static final String RECORD_NAME_PREFIX = "ENTREZ_GENEINFO_RECORD_";
 
-	@RecordField(comment="the unique identifier provided by NCBI Taxonomy for the species or strain/isolate")
+	@RecordField(ontClass = CcpExtensionOntology.TAXONOMY_IDENTIFIER_FIELD_VALUE, comment = "the unique identifier provided by NCBI Taxonomy for the species or strain/isolate")
 	private final NcbiTaxonomyID taxonID;
 
-	@RecordField(comment="the unique identifier for a gene ASN1:  geneid")
-	private final EntrezGeneID geneID;
+	@RecordField(ontClass = CcpExtensionOntology.NCBI_DNA_IDENTIFIER_FIELD_VALUE, comment = "the unique identifier for a gene ASN1:  geneid")
+	private final NcbiGeneId geneID;
 
-	@RecordField(comment="the default symbol for the gene ASN1:  gene->locus")
+	@RecordField(ontClass = CcpExtensionOntology.SYMBOL_FIELD_VALUE, comment = "the default symbol for the gene ASN1:  gene->locus")
 	private final String symbol;
 
-	@RecordField(comment="the LocusTag value ASN1:  gene->locus-tag")
+	@RecordField(ontClass = CcpExtensionOntology.LOCUS_TAG_FIELD_VALUE, comment = "the LocusTag value ASN1:  gene->locus-tag")
 	private final String locusTag;
 
-	@RecordField(comment="set of unofficial symbols for the gene")
+	@RecordField(ontClass = CcpExtensionOntology.SYNONYMS_FIELD_VALUE, comment = "set of unofficial symbols for the gene")
 	private final Set<String> synonyms;
 
-	@RecordField(comment="set of identifiers in other databases for this gene.  The unit of the set is database:value.")
+	@RecordField(ontClass = CcpExtensionOntology.DATABASE_CROSS_REFERENCE_FIELD_VALUE, comment = "set of identifiers in other databases for this gene.  The unit of the set is database:value.")
 	private final Set<DataSourceIdentifier<?>> dbXrefs;
 
-	@RecordField(comment="the chromosome on which this gene is placed.  for mitochondrial genomes, the value 'MT' is used.")
+	@RecordField(ontClass = CcpExtensionOntology.CHROMOSOME_FIELD_VALUE, comment = "the chromosome on which this gene is placed.  for mitochondrial genomes, the value 'MT' is used.")
 	private final String chromosome;
 
-	@RecordField(comment="the map location for this gene")
+	@RecordField(ontClass = CcpExtensionOntology.MAP_LOCATION_FIELD_VALUE, comment = "the map location for this gene")
 	private final String mapLocation;
 
-	@RecordField(comment="a descriptive name for this gene")
+	@RecordField(ontClass = CcpExtensionOntology.DESCRIPTION_FIELD_VALUE, comment = "a descriptive name for this gene")
 	private final String description;
 
-	@RecordField(comment="the type assigned to the gene according to the list of options provided in http://www.ncbi.nlm.nih.gov/IEB/ToolBox/CPP_DOC/lxr/source/src/objects/entrezgene/entrezgene.asn ")
+	@RecordField(ontClass = CcpExtensionOntology.GENE_TYPE_FIELD_VALUE, comment = "the type assigned to the gene according to the list of options provided in http://www.ncbi.nlm.nih.gov/IEB/ToolBox/CPP_DOC/lxr/source/src/objects/entrezgene/entrezgene.asn ")
 	private final String typeOfGene;
 
-	@RecordField(comment="when not '-', indicates that this symbol is from a a nomenclature authority", label="official symbol")
+	@RecordField(ontClass = CcpExtensionOntology.SYMBOL_FROM_NOMENCLATURE_AUTHORITY_FIELD_VALUE, comment = "when not '-', indicates that this symbol is from a a nomenclature authority", label = "official symbol")
 	private final String symbolFromNomenclatureAuthority;
 
-	@RecordField(comment="when not '-', indicates that this full name is from a a nomenclature authority", label="official name")
+	@RecordField(ontClass = CcpExtensionOntology.FULL_NAME_FROM_NOMENCLATURE_AUTHORITY_FIELD_VALUE, comment = "when not '-', indicates that this full name is from a a nomenclature authority", label = "official name")
 	private final String fullNameFromNomenclatureAuthority;
 
-	@RecordField(comment="when not '-', indicates the status of the name from the nomenclature authority (O for official, I for interim)")
+	@RecordField(ontClass = CcpExtensionOntology.NOMENCLATURE_AUTHORITY_STATUS, comment = "when not '-', indicates the status of the name from the nomenclature authority (O for official, I for interim)")
 	private final String nomenclatureStatus;
 
-	@RecordField(comment="set of some alternate descriptions that have been assigned to a GeneID '-' indicates none is being reported.")
+	@RecordField(ontClass = CcpExtensionOntology.OTHER_DESIGNATIONS_FIELD_VALUE, comment = "set of some alternate descriptions that have been assigned to a GeneID '-' indicates none is being reported.")
 	private final Set<String> otherDesignations;
 
-	@RecordField(comment="the last date a gene record was updated, in YYYYMMDD format")
+	@RecordField(ontClass = CcpExtensionOntology.DATE_MODIFIED_FIELD_VALUE, comment = "the last date a gene record was updated, in YYYYMMDD format")
 	private final String modificationDate;
 
-	public EntrezGeneInfoFileData(NcbiTaxonomyID taxonID, EntrezGeneID geneID, String symbol,
-			String locusTag, Set<String> synonyms, Set<DataSourceIdentifier<?>> dbXrefs,
-			String chromosome, String mapLocation, String description, String typeOfGene,
-			String symbolFromNomenclatureAuthority, String fullNameFromNomenclatureAuthority,
-			String nomenclatureStatus, Set<String> otherDesignations, String modificationDate,
-			long byteOffset, long lineNumber) {
+	public EntrezGeneInfoFileData(NcbiTaxonomyID taxonID, NcbiGeneId geneID, String symbol, String locusTag,
+			Set<String> synonyms, Set<DataSourceIdentifier<?>> dbXrefs, String chromosome, String mapLocation,
+			String description, String typeOfGene, String symbolFromNomenclatureAuthority,
+			String fullNameFromNomenclatureAuthority, String nomenclatureStatus, Set<String> otherDesignations,
+			String modificationDate, long byteOffset, long lineNumber) {
 		super(byteOffset, lineNumber);
 		this.taxonID = taxonID;
 		this.geneID = geneID;
@@ -131,7 +127,7 @@ public class EntrezGeneInfoFileData extends SingleLineFileRecord {
 		return taxonID;
 	}
 
-	public EntrezGeneID getGeneID() {
+	public NcbiGeneId getGeneID() {
 		return geneID;
 	}
 

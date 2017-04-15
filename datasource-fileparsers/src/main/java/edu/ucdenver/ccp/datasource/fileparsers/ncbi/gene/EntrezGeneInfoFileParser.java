@@ -52,7 +52,7 @@ import edu.ucdenver.ccp.common.ftp.FTPUtil.FileType;
 import edu.ucdenver.ccp.datasource.fileparsers.taxonaware.TaxonAwareSingleLineFileRecordReader;
 import edu.ucdenver.ccp.datasource.identifiers.DataSourceIdResolver;
 import edu.ucdenver.ccp.datasource.identifiers.DataSourceIdentifier;
-import edu.ucdenver.ccp.datasource.identifiers.ncbi.gene.EntrezGeneID;
+import edu.ucdenver.ccp.datasource.identifiers.ncbi.gene.NcbiGeneId;
 import edu.ucdenver.ccp.datasource.identifiers.ncbi.taxonomy.NcbiTaxonomyID;
 
 /**
@@ -144,7 +144,7 @@ public class EntrezGeneInfoFileParser extends TaxonAwareSingleLineFileRecordRead
 		}
 
 		NcbiTaxonomyID taxonID = new NcbiTaxonomyID(toks[0]);
-		EntrezGeneID geneID = new EntrezGeneID(toks[1]);
+		NcbiGeneId geneID = new NcbiGeneId(toks[1]);
 		String symbol = null;
 		if (!toks[2].equals("-")) {
 			symbol = new String(toks[2]);
@@ -244,9 +244,9 @@ public class EntrezGeneInfoFileParser extends TaxonAwareSingleLineFileRecordRead
 	 * @return
 	 * @throws IOException
 	 */
-	public static Map<String, Set<EntrezGeneID>> getGeneSymbol2EntrezGeneIDMap(File entrezGeneInfoFile,
+	public static Map<String, Set<NcbiGeneId>> getGeneSymbol2EntrezGeneIDMap(File entrezGeneInfoFile,
 			CharacterEncoding encoding, NcbiTaxonomyID taxonID, boolean toLowerCase) throws IOException {
-		Map<String, Set<EntrezGeneID>> geneSymbol2EntrezGeneIDMap = new HashMap<String, Set<EntrezGeneID>>();
+		Map<String, Set<NcbiGeneId>> geneSymbol2EntrezGeneIDMap = new HashMap<String, Set<NcbiGeneId>>();
 		EntrezGeneInfoFileParser parser = new EntrezGeneInfoFileParser(entrezGeneInfoFile, encoding);
 
 		while (parser.hasNext()) {
@@ -256,11 +256,11 @@ public class EntrezGeneInfoFileParser extends TaxonAwareSingleLineFileRecordRead
 				if (toLowerCase) {
 					geneSymbol = new String(geneSymbol.toLowerCase());
 				}
-				EntrezGeneID entrezGeneID = dataRecord.getGeneID();
+				NcbiGeneId entrezGeneID = dataRecord.getGeneID();
 				if (geneSymbol2EntrezGeneIDMap.containsKey(geneSymbol)) {
 					geneSymbol2EntrezGeneIDMap.get(geneSymbol).add(entrezGeneID);
 				} else {
-					Set<EntrezGeneID> entrezGeneIDs = new HashSet<EntrezGeneID>();
+					Set<NcbiGeneId> entrezGeneIDs = new HashSet<NcbiGeneId>();
 					entrezGeneIDs.add(entrezGeneID);
 					geneSymbol2EntrezGeneIDMap.put(geneSymbol, entrezGeneIDs);
 				}
@@ -278,16 +278,16 @@ public class EntrezGeneInfoFileParser extends TaxonAwareSingleLineFileRecordRead
 	 * @return
 	 * @throws IOException
 	 */
-	public static Map<String, Set<EntrezGeneID>> getGeneSymbol2EntrezGeneIDMap_withSynonyms(
+	public static Map<String, Set<NcbiGeneId>> getGeneSymbol2EntrezGeneIDMap_withSynonyms(
 			File entrezGeneInfoFile, CharacterEncoding encoding, NcbiTaxonomyID taxonID, boolean toLowerCase)
 			throws IOException {
-		Map<String, Set<EntrezGeneID>> geneSymbol2EntrezGeneIDMap = new HashMap<String, Set<EntrezGeneID>>();
+		Map<String, Set<NcbiGeneId>> geneSymbol2EntrezGeneIDMap = new HashMap<String, Set<NcbiGeneId>>();
 		EntrezGeneInfoFileParser parser = new EntrezGeneInfoFileParser(entrezGeneInfoFile, encoding);
 
 		while (parser.hasNext()) {
 			EntrezGeneInfoFileData dataRecord = parser.next();
 			if (dataRecord.getTaxonID().equals(taxonID)) {
-				EntrezGeneID entrezGeneID = dataRecord.getGeneID();
+				NcbiGeneId entrezGeneID = dataRecord.getGeneID();
 				Set<String> geneSymbols = new HashSet<String>();
 				geneSymbols.add(dataRecord.getSymbol());
 				if (dataRecord.getSymbolFromNomenclatureAuthority() != null) {
@@ -305,7 +305,7 @@ public class EntrezGeneInfoFileParser extends TaxonAwareSingleLineFileRecordRead
 					if (geneSymbol2EntrezGeneIDMap.containsKey(geneSymbol)) {
 						geneSymbol2EntrezGeneIDMap.get(geneSymbol).add(entrezGeneID);
 					} else {
-						Set<EntrezGeneID> entrezGeneIDs = new HashSet<EntrezGeneID>();
+						Set<NcbiGeneId> entrezGeneIDs = new HashSet<NcbiGeneId>();
 						entrezGeneIDs.add(entrezGeneID);
 						geneSymbol2EntrezGeneIDMap.put(geneSymbol, entrezGeneIDs);
 					}
@@ -323,16 +323,16 @@ public class EntrezGeneInfoFileParser extends TaxonAwareSingleLineFileRecordRead
 	 * @return
 	 * @throws IOException
 	 */
-	public static Map<EntrezGeneID, String> getEntrezGeneID2GeneSymbolMap(File entrezGeneInfoFile,
+	public static Map<NcbiGeneId, String> getEntrezGeneID2GeneSymbolMap(File entrezGeneInfoFile,
 			CharacterEncoding encoding, NcbiTaxonomyID taxonID) throws IOException {
-		Map<EntrezGeneID, String> entrezGeneID2GeneSymbolMap = new HashMap<EntrezGeneID, String>();
+		Map<NcbiGeneId, String> entrezGeneID2GeneSymbolMap = new HashMap<NcbiGeneId, String>();
 		EntrezGeneInfoFileParser parser = new EntrezGeneInfoFileParser(entrezGeneInfoFile, encoding);
 
 		while (parser.hasNext()) {
 			EntrezGeneInfoFileData dataRecord = parser.next();
 			if (dataRecord.getTaxonID().equals(taxonID)) {
 				String geneSymbol = dataRecord.getSymbol();
-				EntrezGeneID entrezGeneID = dataRecord.getGeneID();
+				NcbiGeneId entrezGeneID = dataRecord.getGeneID();
 				if (entrezGeneID2GeneSymbolMap.containsKey(entrezGeneID)) {
 					logger.error("Symbol for Entrez Gene ID has already been extracted!!!");
 				} else {
@@ -352,9 +352,9 @@ public class EntrezGeneInfoFileParser extends TaxonAwareSingleLineFileRecordRead
 	 * @return
 	 * @throws IOException
 	 */
-	public static Map<EntrezGeneID, String> getEntrezGeneID2GeneNameMap(File entrezGeneInfoFile,
+	public static Map<NcbiGeneId, String> getEntrezGeneID2GeneNameMap(File entrezGeneInfoFile,
 			CharacterEncoding encoding, NcbiTaxonomyID taxonID) throws IOException {
-		Map<EntrezGeneID, String> entrezGeneID2GeneSymbolMap = new HashMap<EntrezGeneID, String>();
+		Map<NcbiGeneId, String> entrezGeneID2GeneSymbolMap = new HashMap<NcbiGeneId, String>();
 		EntrezGeneInfoFileParser parser = new EntrezGeneInfoFileParser(entrezGeneInfoFile, encoding);
 
 		while (parser.hasNext()) {
@@ -362,7 +362,7 @@ public class EntrezGeneInfoFileParser extends TaxonAwareSingleLineFileRecordRead
 			if (dataRecord.getTaxonID().equals(taxonID)) {
 				String geneName = dataRecord.getFullNameFromNomenclatureAuthority();
 
-				EntrezGeneID entrezGeneID = dataRecord.getGeneID();
+				NcbiGeneId entrezGeneID = dataRecord.getGeneID();
 				if (entrezGeneID2GeneSymbolMap.containsKey(entrezGeneID)) {
 					logger.error("Name for Entrez Gene ID has already been extracted!!!");
 				} else {
@@ -376,7 +376,7 @@ public class EntrezGeneInfoFileParser extends TaxonAwareSingleLineFileRecordRead
 		return entrezGeneID2GeneSymbolMap;
 	}
 
-	public static Set<EntrezGeneID> getEntrezGeneIDsForTaxonomyID(File entrezGeneInfoFile, CharacterEncoding encoding,
+	public static Set<NcbiGeneId> getEntrezGeneIDsForTaxonomyID(File entrezGeneInfoFile, CharacterEncoding encoding,
 			NcbiTaxonomyID taxonID) throws IOException {
 		return getEntrezGeneID2GeneSymbolMap(entrezGeneInfoFile, encoding, taxonID).keySet();
 	}
@@ -389,10 +389,10 @@ public class EntrezGeneInfoFileParser extends TaxonAwareSingleLineFileRecordRead
 	 * @return
 	 * @throws IOException
 	 */
-	public static Map<EntrezGeneID, NcbiTaxonomyID> getEntrezGeneID2TaxonomyIDMap(File entrezGeneInfoFile,
-			CharacterEncoding encoding, final Set<EntrezGeneID> entrezGeneIDs) throws IOException {
-		Map<EntrezGeneID, NcbiTaxonomyID> entrezGeneID2TaxonomyIDMap = new HashMap<EntrezGeneID, NcbiTaxonomyID>();
-		Set<EntrezGeneID> entrezGeneIDsToInclude = new HashSet<EntrezGeneID>(entrezGeneIDs);
+	public static Map<NcbiGeneId, NcbiTaxonomyID> getEntrezGeneID2TaxonomyIDMap(File entrezGeneInfoFile,
+			CharacterEncoding encoding, final Set<NcbiGeneId> entrezGeneIDs) throws IOException {
+		Map<NcbiGeneId, NcbiTaxonomyID> entrezGeneID2TaxonomyIDMap = new HashMap<NcbiGeneId, NcbiTaxonomyID>();
+		Set<NcbiGeneId> entrezGeneIDsToInclude = new HashSet<NcbiGeneId>(entrezGeneIDs);
 		for (EntrezGeneInfoFileParser parser = new EntrezGeneInfoFileParser(entrezGeneInfoFile, encoding); !entrezGeneIDsToInclude
 				.isEmpty() && parser.hasNext();) {
 			EntrezGeneInfoFileData dataRecord = parser.next();

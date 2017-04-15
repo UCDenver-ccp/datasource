@@ -60,7 +60,7 @@ import edu.ucdenver.ccp.datasource.identifiers.irefweb.IrigId;
 import edu.ucdenver.ccp.datasource.identifiers.irefweb.IrogId;
 import edu.ucdenver.ccp.datasource.identifiers.irefweb.RigId;
 import edu.ucdenver.ccp.datasource.identifiers.irefweb.RogId;
-import edu.ucdenver.ccp.datasource.identifiers.ncbi.gene.EntrezGeneID;
+import edu.ucdenver.ccp.datasource.identifiers.ncbi.gene.NcbiGeneId;
 import edu.ucdenver.ccp.datasource.identifiers.ncbi.refseq.RefSeqID;
 import edu.ucdenver.ccp.datasource.identifiers.ncbi.taxonomy.NcbiTaxonomyID;
 import edu.ucdenver.ccp.datasource.identifiers.obo.MolecularInteractionOntologyTermID;
@@ -171,7 +171,7 @@ public class IRefWebPsiMitab2_6FileParserTest extends RecordReaderTester {
 			Set<DataSourceIdentifier<?>> expectedAltIdsB = new HashSet<DataSourceIdentifier<?>>();
 			expectedAltIdsB.add(new UniProtID("P05132"));
 			expectedAltIdsB.add(new RefSeqID("NP_032880"));
-			expectedAltIdsB.add(new EntrezGeneID("18747"));
+			expectedAltIdsB.add(new NcbiGeneId("18747"));
 			expectedAltIdsB.add(new RogId("HdW51RuiujpUxo0Fu8TbWz3Yk8c10090"));
 			expectedAltIdsB.add(new IrogId("2201887"));
 			assertEquals(expectedAltIdsB, record.getInteractorB().getAlternateIds());

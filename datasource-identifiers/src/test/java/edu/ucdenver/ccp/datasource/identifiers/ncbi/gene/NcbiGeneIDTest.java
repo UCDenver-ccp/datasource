@@ -1,4 +1,4 @@
-package edu.ucdenver.ccp.datasource.identifiers;
+package edu.ucdenver.ccp.datasource.identifiers.ncbi.gene;
 
 /*
  * #%L
@@ -33,10 +33,41 @@ package edu.ucdenver.ccp.datasource.identifiers;
  * #L%
  */
 
-/**
- * @author Center for Computational Pharmacology, UC Denver; ccpsupport@ucdenver.edu
- * 
- */
-public interface IDataSource {
-	public String name();
+import org.junit.Test;
+
+import edu.ucdenver.ccp.common.test.DefaultTestCase;
+import edu.ucdenver.ccp.datasource.identifiers.ncbi.gene.NcbiGeneId;
+
+public class NcbiGeneIDTest extends DefaultTestCase {
+
+	@Test(expected = IllegalArgumentException.class)
+	public void testWithInvalidInput_NotAnInteger() {
+		new NcbiGeneId("this is not an integer");
+	}
+
+	@Test(expected = IllegalArgumentException.class)
+	public void testWithInvalidInput_NegativeInteger() {
+		new NcbiGeneId(-1);
+	}
+
+	@Test(expected = IllegalArgumentException.class)
+	public void testWithInvalidInput_NegativeIntegerString() {
+		new NcbiGeneId("-12345");
+	}
+
+	@Test(expected = IllegalArgumentException.class)
+	public void testWithInvalidInput_NullIntegerInput() {
+		new NcbiGeneId((Integer) null);
+	}
+
+	@Test(expected = IllegalArgumentException.class)
+	public void testWithInvalidInput_NullStringInput() {
+		new NcbiGeneId((String) null);
+	}
+
+	@Test(expected = IllegalArgumentException.class)
+	public void testWithInvalidInput_EmptyStringInput() {
+		new NcbiGeneId("");
+	}
+
 }

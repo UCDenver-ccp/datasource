@@ -47,7 +47,7 @@ import edu.ucdenver.ccp.datasource.fileparsers.RecordField;
 import edu.ucdenver.ccp.datasource.fileparsers.SingleLineFileRecord;
 import edu.ucdenver.ccp.datasource.identifiers.DataSource;
 import edu.ucdenver.ccp.datasource.identifiers.ncbi.MedGenId;
-import edu.ucdenver.ccp.datasource.identifiers.ncbi.gene.EntrezGeneID;
+import edu.ucdenver.ccp.datasource.identifiers.ncbi.gene.NcbiGeneId;
 import edu.ucdenver.ccp.datasource.identifiers.ncbi.omim.OmimID;
 
 /**
@@ -56,7 +56,7 @@ import edu.ucdenver.ccp.datasource.identifiers.ncbi.omim.OmimID;
  * @author Bill Baumgartner
  * 
  */
-@Record(dataSource = DataSource.EG, comment = "", license = License.NCBI, citation = "The NCBI handbook [Internet]. Bethesda (MD): National Library of Medicine (US), National Center for Biotechnology Information; 2002 Oct. Chapter 19 Gene: A Directory of Genes. Available from http://www.ncbi.nlm.nih.gov/books/NBK21091", label = "mim2gene record")
+@Record(dataSource = DataSource.NCBI_GENE, comment = "", license = License.NCBI, citation = "The NCBI handbook [Internet]. Bethesda (MD): National Library of Medicine (US), National Center for Biotechnology Information; 2002 Oct. Chapter 19 Gene: A Directory of Genes. Available from http://www.ncbi.nlm.nih.gov/books/NBK21091", label = "mim2gene record")
 @Data
 public class EntrezGeneMim2GeneFileData extends SingleLineFileRecord {
 	private static final Logger logger = Logger.getLogger(EntrezGeneMim2GeneFileData.class);
@@ -68,7 +68,7 @@ public class EntrezGeneMim2GeneFileData extends SingleLineFileRecord {
 	private final OmimID mimNumber;
 
 	@RecordField(comment = "the current unique identifier for a gene")
-	private final EntrezGeneID entrezGeneID;
+	private final NcbiGeneId entrezGeneID;
 
 	@RecordField(comment = "type of relationship between the MIM number and the GeneID.  current values are: 'gene' the MIM number associated with a Gene, or a GeneID that is assigned to a record where the molecular basis of the disease is not known, 'phenotype' the MIM number associated with a disease that is associate with a gene")
 	private final String associationType;
@@ -82,7 +82,7 @@ public class EntrezGeneMim2GeneFileData extends SingleLineFileRecord {
 	@RecordField
 	private final String comment;
 
-	public EntrezGeneMim2GeneFileData(OmimID mimNumber, EntrezGeneID entrezGeneID, String associationType,
+	public EntrezGeneMim2GeneFileData(OmimID mimNumber, NcbiGeneId entrezGeneID, String associationType,
 			Set<String> sources, MedGenId medGenId, String comment, long byteOffset, long lineNumber) {
 		super(byteOffset, lineNumber);
 		this.mimNumber = mimNumber;
@@ -97,7 +97,7 @@ public class EntrezGeneMim2GeneFileData extends SingleLineFileRecord {
 		String[] toks = line.getText().split("\\t", -1);
 		if (toks.length == 6) {
 			OmimID mimNumber = new OmimID(toks[0]);
-			EntrezGeneID entrezGeneID = (toks[1].equals("-")) ? null : new EntrezGeneID(toks[1]);
+			NcbiGeneId entrezGeneID = (toks[1].equals("-")) ? null : new NcbiGeneId(toks[1]);
 			String associationType = toks[2];
 			Set<String> sources = new HashSet<String>();
 			if (!toks[3].equals("-")) {

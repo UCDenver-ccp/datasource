@@ -62,7 +62,7 @@ import edu.ucdenver.ccp.datasource.identifiers.hgnc.HgncGeneSymbolID;
 import edu.ucdenver.ccp.datasource.identifiers.hgnc.HgncID;
 import edu.ucdenver.ccp.datasource.identifiers.mgi.MgiGeneID;
 import edu.ucdenver.ccp.datasource.identifiers.ncbi.CcdsId;
-import edu.ucdenver.ccp.datasource.identifiers.ncbi.gene.EntrezGeneID;
+import edu.ucdenver.ccp.datasource.identifiers.ncbi.gene.NcbiGeneId;
 import edu.ucdenver.ccp.datasource.identifiers.ncbi.omim.OmimID;
 import edu.ucdenver.ccp.datasource.identifiers.ncbi.refseq.RefSeqID;
 import edu.ucdenver.ccp.datasource.identifiers.other.CosmicId;
@@ -113,7 +113,7 @@ public class HgncDownloadFileParserTest extends RecordReaderTester {
 			assertEquals(CollectionsUtil.createSet(NucleotideAccessionResolver.resolveNucleotideAccession("BC040926", null)),
 					dataRecord.getAccessionNumbers());
 			assertEmpty(dataRecord.getEcNumbers());
-			assertEquals(new EntrezGeneID(503538), dataRecord.getEntrezGeneID());
+			assertEquals(new NcbiGeneId(503538), dataRecord.getEntrezGeneID());
 			assertNull(dataRecord.getEnsemblGeneID());
 			assertNull(dataRecord.getMgiIDs());
 			assertEmpty(dataRecord.getSpecialistDatabaseIdLinkPairings());
@@ -128,7 +128,7 @@ public class HgncDownloadFileParserTest extends RecordReaderTester {
 			assertEmpty(dataRecord.getCcdsIDs());
 			assertEmpty(dataRecord.getVegaIDs());
 			assertEmpty(dataRecord.getLocusSpecificDatabaseNameLinkPairings());
-			assertEquals(new EntrezGeneID(503538), dataRecord.getSuppliedEntrezGeneId());
+			assertEquals(new NcbiGeneId(503538), dataRecord.getSuppliedEntrezGeneId());
 			assertEmpty(dataRecord.getSuppliedOmimIds());
 			assertEquals(new RefSeqID("NR_015380"), dataRecord.getSuppliedRefseqId());
 			assertEmpty(dataRecord.getSuppliedUniprotIds());
@@ -163,7 +163,7 @@ public class HgncDownloadFileParserTest extends RecordReaderTester {
 			assertEquals(CollectionsUtil.createSet(NucleotideAccessionResolver.resolveNucleotideAccession("AF271790", null)),
 					dataRecord.getAccessionNumbers());
 			assertEmpty(dataRecord.getEcNumbers());
-			assertEquals(new EntrezGeneID(29974), dataRecord.getEntrezGeneID());
+			assertEquals(new NcbiGeneId(29974), dataRecord.getEntrezGeneID());
 			assertEquals(new EnsemblGeneID("ENSG00000148584"), dataRecord.getEnsemblGeneID());
 			assertEquals(CollectionsUtil.createSet(new MgiGeneID("MGI:1917115")), dataRecord.getMgiIDs());
 			assertEquals(CollectionsUtil.createSet(new SpecialistDbIdLinkPair(new CosmicId("A1CF"),
@@ -185,7 +185,7 @@ public class HgncDownloadFileParserTest extends RecordReaderTester {
 					new LocusSpecificDatabaseNameLinkPair(
 							"ALSOD, the Amyotrophic Lateral Sclerosis Online Genetic Database",
 							"http://alsod.iop.kcl.ac.uk/")), dataRecord.getLocusSpecificDatabaseNameLinkPairings());
-			assertEquals(new EntrezGeneID(29974), dataRecord.getSuppliedEntrezGeneId());
+			assertEquals(new NcbiGeneId(29974), dataRecord.getSuppliedEntrezGeneId());
 			assertEmpty(dataRecord.getSuppliedOmimIds());
 			assertEquals(new RefSeqID("NM_001198818"), dataRecord.getSuppliedRefseqId());
 			assertEquals(CollectionsUtil.createSet(new UniProtID("Q9NQ94")), dataRecord.getSuppliedUniprotIds());

@@ -49,7 +49,7 @@ import edu.ucdenver.ccp.datasource.identifiers.DataSource;
 import edu.ucdenver.ccp.datasource.identifiers.DataSourceIdentifier;
 import edu.ucdenver.ccp.datasource.identifiers.ensembl.EnsemblGeneID;
 import edu.ucdenver.ccp.datasource.identifiers.hgnc.HgncID;
-import edu.ucdenver.ccp.datasource.identifiers.ncbi.gene.EntrezGeneID;
+import edu.ucdenver.ccp.datasource.identifiers.ncbi.gene.NcbiGeneId;
 import edu.ucdenver.ccp.datasource.identifiers.pharmgkb.PharmGkbID;
 
 /**
@@ -68,7 +68,7 @@ public class PharmGkbGeneFileRecord extends SingleLineFileRecord {
 	@RecordField
 	private final PharmGkbID accessionId;
 	@RecordField
-	private final Set<EntrezGeneID> entrezGeneIds;
+	private final Set<NcbiGeneId> entrezGeneIds;
 	@RecordField
 	private Set<HgncID> hgncIds;
 	@RecordField
@@ -111,7 +111,7 @@ public class PharmGkbGeneFileRecord extends SingleLineFileRecord {
 	 * @param hasVariantAnnotation
 	 * @param crossReferences
 	 */
-	public PharmGkbGeneFileRecord(PharmGkbID accessionId, Set<EntrezGeneID> entrezGeneIds, Set<HgncID> hgncIds,
+	public PharmGkbGeneFileRecord(PharmGkbID accessionId, Set<NcbiGeneId> entrezGeneIds, Set<HgncID> hgncIds,
 			EnsemblGeneID ensemblGeneId, String name, String symbol, Collection<String> alternativeNames,
 			Collection<String> alternativeSymbols, boolean isVip, boolean hasVariantAnnotation,
 			Collection<DataSourceIdentifier<?>> crossReferences, boolean hasCpicDosingGuideline, String chromosome,

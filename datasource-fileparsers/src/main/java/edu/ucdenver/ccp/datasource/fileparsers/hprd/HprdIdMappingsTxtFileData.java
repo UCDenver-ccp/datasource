@@ -64,7 +64,7 @@ import edu.ucdenver.ccp.datasource.identifiers.DataSource;
 import edu.ucdenver.ccp.datasource.identifiers.DataSourceIdentifier;
 import edu.ucdenver.ccp.datasource.identifiers.ebi.uniprot.UniProtID;
 import edu.ucdenver.ccp.datasource.identifiers.hprd.HprdID;
-import edu.ucdenver.ccp.datasource.identifiers.ncbi.gene.EntrezGeneID;
+import edu.ucdenver.ccp.datasource.identifiers.ncbi.gene.NcbiGeneId;
 import edu.ucdenver.ccp.datasource.identifiers.ncbi.omim.OmimID;
 
 /**
@@ -87,7 +87,7 @@ public class HprdIdMappingsTxtFileData extends SingleLineFileRecord {
 	@RecordField
 	private final DataSourceIdentifier<?> proteinAccession;
 	@RecordField
-	private final EntrezGeneID entrezGeneID;
+	private final NcbiGeneId entrezGeneID;
 	@RecordField
 	private final OmimID omimID;
 	@RecordField
@@ -96,7 +96,7 @@ public class HprdIdMappingsTxtFileData extends SingleLineFileRecord {
 	private final String mainName;
 
 	public HprdIdMappingsTxtFileData(HprdID hprdID, String geneSymbol, DataSourceIdentifier<?> nucleotideAccession,
-			DataSourceIdentifier<?> proteinAccession, EntrezGeneID entrezGeneID, OmimID omimID,
+			DataSourceIdentifier<?> proteinAccession, NcbiGeneId entrezGeneID, OmimID omimID,
 			List<UniProtID> swissProtID, String mainName, long byteOffset, long lineNumber) {
 		super(byteOffset, lineNumber);
 		this.hprdID = hprdID;

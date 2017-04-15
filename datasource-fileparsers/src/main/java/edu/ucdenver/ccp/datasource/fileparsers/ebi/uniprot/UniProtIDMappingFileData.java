@@ -73,7 +73,7 @@ import edu.ucdenver.ccp.datasource.identifiers.ebi.uniprot.UniProtEntryName;
 import edu.ucdenver.ccp.datasource.identifiers.ebi.uniprot.UniProtID;
 import edu.ucdenver.ccp.datasource.identifiers.ensembl.EnsemblGeneID;
 import edu.ucdenver.ccp.datasource.identifiers.ncbi.UniGeneID;
-import edu.ucdenver.ccp.datasource.identifiers.ncbi.gene.EntrezGeneID;
+import edu.ucdenver.ccp.datasource.identifiers.ncbi.gene.NcbiGeneId;
 import edu.ucdenver.ccp.datasource.identifiers.ncbi.gene.GiNumberID;
 import edu.ucdenver.ccp.datasource.identifiers.ncbi.omim.OmimID;
 import edu.ucdenver.ccp.datasource.identifiers.ncbi.refseq.RefSeqID;
@@ -136,7 +136,7 @@ public class UniProtIDMappingFileData extends SingleLineFileRecord {
 	@RecordField(isKeyField = true)
 	private final UniProtEntryName uniProtEntryName;
 	@RecordField
-	private final Set<EntrezGeneID> entrezGeneIDs;
+	private final Set<NcbiGeneId> entrezGeneIDs;
 	@RecordField
 	private final Set<RefSeqID> refseqIds;
 	@RecordField
@@ -200,7 +200,7 @@ public class UniProtIDMappingFileData extends SingleLineFileRecord {
 	 * @param lineNumber
 	 */
 	public UniProtIDMappingFileData(UniProtID uniProtAccessionID, UniProtEntryName uniProtEntryName,
-			Set<EntrezGeneID> entrezGeneIDs, Set<RefSeqID> refseqIds, Set<GiNumberID> giNumbers, Set<PdbID> pdbIds,
+			Set<NcbiGeneId> entrezGeneIDs, Set<RefSeqID> refseqIds, Set<GiNumberID> giNumbers, Set<PdbID> pdbIds,
 			Set<GeneOntologyID> geneOntologyIds, UniRefId uniref100Id, UniRefId uniref90Id, UniRefId uniref50Id,
 			UniParcID uniparcId, Set<PirID> pirIds, NcbiTaxonomyID taxonomyID, Set<OmimID> omimIds,
 			Set<UniGeneID> unigeneIds, Set<PubMedID> pubmedIds, Set<EmblID> emblIDs, Set<EmblID> emblCdsIDs,
@@ -260,7 +260,7 @@ public class UniProtIDMappingFileData extends SingleLineFileRecord {
 		String additionalPubmedIdStr = toks[index++];
 
 		try {
-			Set<EntrezGeneID> entrezGeneIDs = getIdSet(entrezGeneIDStr, EntrezGeneID.class);
+			Set<NcbiGeneId> entrezGeneIDs = getIdSet(entrezGeneIDStr, NcbiGeneId.class);
 			Set<RefSeqID> refSeqIds = getIdSet(refseqIdStr, RefSeqID.class);
 			Set<GiNumberID> giNumbers = getIdSet(giNumbersStr, GiNumberID.class);
 			Set<PdbID> pdbIds = getIdSet(pdbIdStr, PdbID.class);

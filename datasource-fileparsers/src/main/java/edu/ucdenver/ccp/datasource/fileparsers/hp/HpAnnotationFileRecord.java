@@ -39,7 +39,7 @@ import edu.ucdenver.ccp.datasource.fileparsers.Record;
 import edu.ucdenver.ccp.datasource.fileparsers.RecordField;
 import edu.ucdenver.ccp.datasource.fileparsers.SingleLineFileRecord;
 import edu.ucdenver.ccp.datasource.identifiers.DataSource;
-import edu.ucdenver.ccp.datasource.identifiers.ncbi.gene.EntrezGeneID;
+import edu.ucdenver.ccp.datasource.identifiers.ncbi.gene.NcbiGeneId;
 import edu.ucdenver.ccp.datasource.identifiers.obo.HumanPhenotypeID;
 
 @Data
@@ -48,7 +48,7 @@ import edu.ucdenver.ccp.datasource.identifiers.obo.HumanPhenotypeID;
 public class HpAnnotationFileRecord extends SingleLineFileRecord {
 
 	@RecordField
-	private final EntrezGeneID geneId;
+	private final NcbiGeneId geneId;
 	@RecordField
 	private final String geneSymbol;
 	@RecordField
@@ -60,7 +60,7 @@ public class HpAnnotationFileRecord extends SingleLineFileRecord {
 	 * @param recordID
 	 * @param byteOffset
 	 */
-	public HpAnnotationFileRecord(EntrezGeneID geneId, String geneSymbol, String hpoTermName, HumanPhenotypeID hpoTerm,
+	public HpAnnotationFileRecord(NcbiGeneId geneId, String geneSymbol, String hpoTermName, HumanPhenotypeID hpoTerm,
 			long byteOffset, long lineNumber) {
 		super(byteOffset, lineNumber);
 		this.geneId = geneId;

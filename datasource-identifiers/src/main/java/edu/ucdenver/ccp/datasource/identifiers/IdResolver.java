@@ -44,6 +44,6 @@ public interface IdResolver {
 
 	public DataSourceIdentifier<?> resolveId(String idStr);
 	
-	public DataSourceIdentifier<?> resolveId(String db, String id);
+	public DataSourceIdentifier<?> resolveId(String db, String id, String originalIdString);
 		
 }

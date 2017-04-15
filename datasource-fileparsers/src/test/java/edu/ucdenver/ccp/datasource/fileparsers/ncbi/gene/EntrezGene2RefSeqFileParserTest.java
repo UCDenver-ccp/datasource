@@ -54,7 +54,7 @@ import edu.ucdenver.ccp.common.file.CharacterEncoding;
 import edu.ucdenver.ccp.common.file.FileUtil;
 import edu.ucdenver.ccp.datasource.fileparsers.RecordReader;
 import edu.ucdenver.ccp.datasource.fileparsers.test.RecordReaderTester;
-import edu.ucdenver.ccp.datasource.identifiers.ncbi.gene.EntrezGeneID;
+import edu.ucdenver.ccp.datasource.identifiers.ncbi.gene.NcbiGeneId;
 import edu.ucdenver.ccp.datasource.identifiers.ncbi.gene.GiNumberID;
 import edu.ucdenver.ccp.datasource.identifiers.ncbi.refseq.RefSeqID;
 import edu.ucdenver.ccp.datasource.identifiers.ncbi.taxonomy.NcbiTaxonomyID;
@@ -93,7 +93,7 @@ public class EntrezGene2RefSeqFileParserTest extends RecordReaderTester {
 				 */
 				EntrezGene2RefseqFileData record = parser.next();
 				assertEquals(new NcbiTaxonomyID(10090), record.getTaxonID());
-				assertEquals(new EntrezGeneID(16822), record.getGeneID());
+				assertEquals(new NcbiGeneId(16822), record.getGeneID());
 				assertEquals("PROVISIONAL", record.getStatus());
 				assertEquals(new RefSeqID("NM_010696.3"), record.getRNA_nucleotide_accession_dot_version());
 				assertEquals(new GiNumberID(118130099), record.getRNA_nucleotide_gi());
@@ -115,7 +115,7 @@ public class EntrezGene2RefSeqFileParserTest extends RecordReaderTester {
 				 */
 				EntrezGene2RefseqFileData record = parser.next();
 				assertEquals(new NcbiTaxonomyID(10090), record.getTaxonID());
-				assertEquals(new EntrezGeneID(16825), record.getGeneID());
+				assertEquals(new NcbiGeneId(16825), record.getGeneID());
 				assertNull(record.getStatus());
 				assertNull(record.getRNA_nucleotide_accession_dot_version());
 				assertNull(record.getRNA_nucleotide_gi());
@@ -137,7 +137,7 @@ public class EntrezGene2RefSeqFileParserTest extends RecordReaderTester {
 				 */
 				EntrezGene2RefseqFileData record = parser.next();
 				assertEquals(new NcbiTaxonomyID(10090), record.getTaxonID());
-				assertEquals(new EntrezGeneID(16825), record.getGeneID());
+				assertEquals(new NcbiGeneId(16825), record.getGeneID());
 				assertNull(record.getStatus());
 				assertNull(record.getRNA_nucleotide_accession_dot_version());
 				assertNull(record.getRNA_nucleotide_gi());
@@ -164,15 +164,15 @@ public class EntrezGene2RefSeqFileParserTest extends RecordReaderTester {
 
 	@Test
 	public void testGetProteinGiID2EntrezGeneIDMap() throws Exception {
-		Map<GiNumberID, Set<EntrezGeneID>> proteinAccession2EntrezGeneIDMap = EntrezGene2RefseqFileParser
+		Map<GiNumberID, Set<NcbiGeneId>> proteinAccession2EntrezGeneIDMap = EntrezGene2RefseqFileParser
 				.getProteinGiID2EntrezGeneIDMap(sampleInputFile, CharacterEncoding.US_ASCII, new NcbiTaxonomyID(10090));
 
-		Map<GiNumberID, Set<EntrezGeneID>> expectedProteinAccession2EntrezGeneIDMap = new HashMap<GiNumberID, Set<EntrezGeneID>>();
-		Set<EntrezGeneID> entrezGenes1 = new HashSet<EntrezGeneID>();
-		entrezGenes1.add(new EntrezGeneID(16822));
+		Map<GiNumberID, Set<NcbiGeneId>> expectedProteinAccession2EntrezGeneIDMap = new HashMap<GiNumberID, Set<NcbiGeneId>>();
+		Set<NcbiGeneId> entrezGenes1 = new HashSet<NcbiGeneId>();
+		entrezGenes1.add(new NcbiGeneId(16822));
 		expectedProteinAccession2EntrezGeneIDMap.put(new GiNumberID(31543115), entrezGenes1);
-		Set<EntrezGeneID> entrezGenes2 = new HashSet<EntrezGeneID>();
-		entrezGenes2.add(new EntrezGeneID(16825));
+		Set<NcbiGeneId> entrezGenes2 = new HashSet<NcbiGeneId>();
+		entrezGenes2.add(new NcbiGeneId(16825));
 		expectedProteinAccession2EntrezGeneIDMap.put(new GiNumberID(2827901), entrezGenes2);
 
 		/* Maps should be identical */
@@ -181,13 +181,13 @@ public class EntrezGene2RefSeqFileParserTest extends RecordReaderTester {
 
 	@Test
 	public void testGetProteinAccessionID2EntrezGeneIDMap() throws Exception {
-		Map<RefSeqID, Set<EntrezGeneID>> proteinAccession2EntrezGeneIDMap = EntrezGene2RefseqFileParser
+		Map<RefSeqID, Set<NcbiGeneId>> proteinAccession2EntrezGeneIDMap = EntrezGene2RefseqFileParser
 				.getProteinAccessionID2EntrezGeneIDMap(sampleInputFile, CharacterEncoding.US_ASCII, new NcbiTaxonomyID(
 						10090));
 
-		Map<RefSeqID, Set<EntrezGeneID>> expectedProteinAccession2EntrezGeneIDMap = new HashMap<RefSeqID, Set<EntrezGeneID>>();
-		Set<EntrezGeneID> entrezGenes1 = new HashSet<EntrezGeneID>();
-		entrezGenes1.add(new EntrezGeneID(16822));
+		Map<RefSeqID, Set<NcbiGeneId>> expectedProteinAccession2EntrezGeneIDMap = new HashMap<RefSeqID, Set<NcbiGeneId>>();
+		Set<NcbiGeneId> entrezGenes1 = new HashSet<NcbiGeneId>();
+		entrezGenes1.add(new NcbiGeneId(16822));
 		expectedProteinAccession2EntrezGeneIDMap.put(new RefSeqID("NP_034826"), entrezGenes1);
 
 		/* Maps should be identical */

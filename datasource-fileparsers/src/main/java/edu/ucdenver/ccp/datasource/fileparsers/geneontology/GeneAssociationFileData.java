@@ -275,7 +275,7 @@ public class GeneAssociationFileData extends SingleLineFileRecord {
 		String[] toks = line.getText().split("\\t");
 
 		String databaseDesignation = new String(toks[0]);
-		DataSourceIdentifier<?> geneID = DataSourceIdResolver.resolveId(databaseDesignation, toks[1]);
+		DataSourceIdentifier<?> geneID = DataSourceIdResolver.resolveId(databaseDesignation, toks[1], "Source: " + toks[0] + " ID: " + toks[1]);
 		String markerSymbol = new String(toks[2]);
 
 		String qualifier = null;

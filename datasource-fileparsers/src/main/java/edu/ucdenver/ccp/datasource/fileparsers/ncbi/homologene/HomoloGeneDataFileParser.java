@@ -48,7 +48,7 @@ import edu.ucdenver.ccp.common.file.reader.StreamLineReader;
 import edu.ucdenver.ccp.common.ftp.FTPUtil.FileType;
 import edu.ucdenver.ccp.datasource.fileparsers.download.FtpHost;
 import edu.ucdenver.ccp.datasource.fileparsers.taxonaware.TaxonAwareSingleLineFileRecordReader;
-import edu.ucdenver.ccp.datasource.identifiers.ncbi.gene.EntrezGeneID;
+import edu.ucdenver.ccp.datasource.identifiers.ncbi.gene.NcbiGeneId;
 import edu.ucdenver.ccp.datasource.identifiers.ncbi.homologene.HomologeneGroupID;
 import edu.ucdenver.ccp.datasource.identifiers.ncbi.taxonomy.NcbiTaxonomyID;
 
@@ -109,14 +109,14 @@ public class HomoloGeneDataFileParser extends TaxonAwareSingleLineFileRecordRead
 	 * @return
 	 * @throws IOException
 	 */
-	public static Map<EntrezGeneID, HomologeneGroupID> getEntrezGeneID2HomologeneGroupIDMap(File homologeneDataFile,
+	public static Map<NcbiGeneId, HomologeneGroupID> getEntrezGeneID2HomologeneGroupIDMap(File homologeneDataFile,
 			CharacterEncoding encoding) throws IOException {
-		Map<EntrezGeneID, HomologeneGroupID> entrezGeneID2HomologeneGroupIDMap = new HashMap<EntrezGeneID, HomologeneGroupID>();
+		Map<NcbiGeneId, HomologeneGroupID> entrezGeneID2HomologeneGroupIDMap = new HashMap<NcbiGeneId, HomologeneGroupID>();
 		HomoloGeneDataFileParser parser = new HomoloGeneDataFileParser(homologeneDataFile, encoding);
 
 		while (parser.hasNext()) {
 			HomoloGeneDataFileData dataRecord = parser.next();
-			EntrezGeneID entrezGeneID = dataRecord.getEntrezGeneID();
+			NcbiGeneId entrezGeneID = dataRecord.getEntrezGeneID();
 			HomologeneGroupID homologeneGroupID = dataRecord.getHomologeneGroupID();
 			if (entrezGeneID2HomologeneGroupIDMap.containsKey(entrezGeneID)) {
 				logger.error("Multiple entries for single gene..  " + entrezGeneID);

@@ -51,7 +51,7 @@ import edu.ucdenver.ccp.common.file.CharacterEncoding;
 import edu.ucdenver.ccp.common.file.FileUtil;
 import edu.ucdenver.ccp.datasource.fileparsers.RecordReader;
 import edu.ucdenver.ccp.datasource.fileparsers.test.RecordReaderTester;
-import edu.ucdenver.ccp.datasource.identifiers.ncbi.gene.EntrezGeneID;
+import edu.ucdenver.ccp.datasource.identifiers.ncbi.gene.NcbiGeneId;
 import edu.ucdenver.ccp.datasource.identifiers.ncbi.omim.OmimID;
 
 @Ignore("file format changed. Code has been updated but test would need to be revised")
@@ -92,7 +92,7 @@ public class EntrezGeneMim2GeneFileParserTest extends RecordReaderTester {
 	private void checkMim2GeneRecord(EntrezGeneMim2GeneFileData record, String expectedMimNumber,
 			String expectedEntrezGeneID, String expectedAssociationType) {
 		assertEquals(String.format("OmimID not as expected."), new OmimID(expectedMimNumber), record.getMimNumber());
-		assertEquals(String.format("EntrezGeneID not as expected."), new EntrezGeneID(expectedEntrezGeneID),
+		assertEquals(String.format("EntrezGeneID not as expected."), new NcbiGeneId(expectedEntrezGeneID),
 				record.getEntrezGeneID());
 		assertEquals(String.format("Omim association type not as expected."), expectedAssociationType,
 				record.getAssociationType());

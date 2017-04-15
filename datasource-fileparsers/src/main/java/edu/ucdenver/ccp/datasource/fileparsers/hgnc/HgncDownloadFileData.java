@@ -52,7 +52,7 @@ import edu.ucdenver.ccp.datasource.identifiers.hgnc.HgncGeneSymbolID;
 import edu.ucdenver.ccp.datasource.identifiers.hgnc.HgncID;
 import edu.ucdenver.ccp.datasource.identifiers.mgi.MgiGeneID;
 import edu.ucdenver.ccp.datasource.identifiers.ncbi.CcdsId;
-import edu.ucdenver.ccp.datasource.identifiers.ncbi.gene.EntrezGeneID;
+import edu.ucdenver.ccp.datasource.identifiers.ncbi.gene.NcbiGeneId;
 import edu.ucdenver.ccp.datasource.identifiers.ncbi.omim.OmimID;
 import edu.ucdenver.ccp.datasource.identifiers.ncbi.refseq.RefSeqID;
 import edu.ucdenver.ccp.datasource.identifiers.other.UcscGenomeBrowserId;
@@ -239,7 +239,7 @@ public class HgncDownloadFileData extends SingleLineFileRecord {
 	@RecordField
 	private final Set<EnzymeCommissionID> ecNumbers;
 	@RecordField
-	private final EntrezGeneID entrezGeneID;
+	private final NcbiGeneId entrezGeneID;
 	@RecordField
 	private final EnsemblGeneID ensemblGeneID;
 	@RecordField
@@ -265,7 +265,7 @@ public class HgncDownloadFileData extends SingleLineFileRecord {
 	@RecordField
 	private final Set<LocusSpecificDatabaseNameLinkPair> locusSpecificDatabaseNameLinkPairings;
 	@RecordField
-	private final EntrezGeneID suppliedEntrezGeneId;
+	private final NcbiGeneId suppliedEntrezGeneId;
 	@RecordField
 	private final Set<OmimID> suppliedOmimIds;
 	@RecordField
@@ -331,13 +331,13 @@ public class HgncDownloadFileData extends SingleLineFileRecord {
 			Set<String> synonyms, Set<String> nameSynonyms, String chromosome, String dateApproved,
 			String dateModified, String dateSymbolChanged, String dateNameChanged,
 			Set<DataSourceIdentifier<?>> accessionNumbers, Set<EnzymeCommissionID> ecNumbers,
-			EntrezGeneID entrezGeneID, EnsemblGeneID ensemblGeneID, Set<MgiGeneID> mgiIDs,
+			NcbiGeneId entrezGeneID, EnsemblGeneID ensemblGeneID, Set<MgiGeneID> mgiIDs,
 			Set<SpecialistDbIdLinkPair> specialistDatabaseIdLinkPairings, Set<PubMedID> pubmedIDs,
 			Set<RefSeqID> refseqIDs, Set<GeneFamilyTagDescriptionPair> geneFamilyTagDescriptionPairings,
 			String recordType, Set<DataSourceIdentifier<?>> primaryIds, Set<DataSourceIdentifier<?>> secondaryIds,
 			Set<CcdsId> ccdsIDs, Set<VegaID> vegaIDs,
 			Set<LocusSpecificDatabaseNameLinkPair> locusSpecificDatabaseNameLinkPairings,
-			EntrezGeneID suppliedEntrezGeneId, Set<OmimID> suppliedOmimIds, RefSeqID suppliedRefseqId,
+			NcbiGeneId suppliedEntrezGeneId, Set<OmimID> suppliedOmimIds, RefSeqID suppliedRefseqId,
 			Set<UniProtID> suppliedUniprotIds, EnsemblGeneID suppliedEnsemblId, VegaID suppliedVegaId,
 			UcscGenomeBrowserId suppliedUcscId, Set<MgiGeneID> suppliedMgiIds, Set<RgdID> suppliedRgdIds,
 			long byteOffset, long lineNumber) {

@@ -189,7 +189,7 @@ public class IdListFileFactory {
 			BufferedWriter writer = FileWriterUtil.initBufferedWriter(workInProgressFile);
 			try {
 				switch (ds) {
-				case EG:
+				case NCBI_GENE:
 					createEntrezGeneIdListFile(taxonIds, cleanSourceFiles, sourceFileDirectory, writer);
 					break;
 				case UNIPROT:
@@ -257,9 +257,9 @@ public class IdListFileFactory {
 			if (ncbiTaxonomyIdA != null && ncbiTaxonomyIdB != null && ncbiTaxonomyIdA.equals(ncbiTaxonomyIdB)) {
 				IntActID intactId = getIntActID(record.getInteraction().getInteractionDbIds());
 				if (intactId != null) {
-					if (!alreadyWritten.contains(intactId.getDataElement())) {
-						writer.write(intactId.getDataElement() + "\n");
-						alreadyWritten.add(intactId.getDataElement());
+					if (!alreadyWritten.contains(intactId.getId())) {
+						writer.write(intactId.getId() + "\n");
+						alreadyWritten.add(intactId.getId());
 					}
 				}
 			}
@@ -282,7 +282,7 @@ public class IdListFileFactory {
 			 */
 			accessions.add(record.getPrimaryAccession());
 			for (UniProtID id : accessions) {
-				writer.write(id.getDataElement() + "\n");
+				writer.write(id.getId() + "\n");
 			}
 		}
 
@@ -307,7 +307,7 @@ public class IdListFileFactory {
 			 */
 			accessions.add(record.getPrimaryAccession());
 			for (UniProtID id : accessions) {
-				writer.write(id.getDataElement() + "\n");
+				writer.write(id.getId() + "\n");
 			}
 		}
 	}
@@ -321,7 +321,7 @@ public class IdListFileFactory {
 				logger.info("(EG) Id list generation progress: " + (count - 1));
 			}
 			EntrezGeneInfoFileData record = eg_rr.next();
-			writer.write(record.getGeneID().getDataElement() + "\n");
+			writer.write(record.getGeneID().getId() + "\n");
 		}
 	}
 

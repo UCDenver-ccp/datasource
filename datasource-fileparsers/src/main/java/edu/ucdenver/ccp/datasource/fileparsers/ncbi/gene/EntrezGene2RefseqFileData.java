@@ -43,7 +43,7 @@ import edu.ucdenver.ccp.datasource.fileparsers.Record;
 import edu.ucdenver.ccp.datasource.fileparsers.RecordField;
 import edu.ucdenver.ccp.datasource.fileparsers.SingleLineFileRecord;
 import edu.ucdenver.ccp.datasource.identifiers.DataSource;
-import edu.ucdenver.ccp.datasource.identifiers.ncbi.gene.EntrezGeneID;
+import edu.ucdenver.ccp.datasource.identifiers.ncbi.gene.NcbiGeneId;
 import edu.ucdenver.ccp.datasource.identifiers.ncbi.gene.GiNumberID;
 import edu.ucdenver.ccp.datasource.identifiers.ncbi.refseq.RefSeqID;
 import edu.ucdenver.ccp.datasource.identifiers.ncbi.taxonomy.NcbiTaxonomyID;
@@ -54,7 +54,7 @@ import edu.ucdenver.ccp.datasource.identifiers.ncbi.taxonomy.NcbiTaxonomyID;
  * @author Bill Baumgartner
  * 
  */
-@Record(dataSource = DataSource.EG, comment = "", license = License.NCBI, citation = "The NCBI handbook [Internet]. Bethesda (MD): National Library of Medicine (US), National Center for Biotechnology Information; 2002 Oct. Chapter 19 Gene: A Directory of Genes. Available from http://www.ncbi.nlm.nih.gov/books/NBK21091", label = "gene2refseq record")
+@Record(dataSource = DataSource.NCBI_GENE, comment = "", license = License.NCBI, citation = "The NCBI handbook [Internet]. Bethesda (MD): National Library of Medicine (US), National Center for Biotechnology Information; 2002 Oct. Chapter 19 Gene: A Directory of Genes. Available from http://www.ncbi.nlm.nih.gov/books/NBK21091", label = "gene2refseq record")
 @Data
 public class EntrezGene2RefseqFileData extends SingleLineFileRecord {
 	public static final String RECORD_NAME_PREFIX = "ENTREZ_GENE2ACCESSION_RECORD_";
@@ -70,7 +70,7 @@ public class EntrezGene2RefseqFileData extends SingleLineFileRecord {
 	private final NcbiTaxonomyID taxonID;
 
 	@RecordField(comment = "the unique identifier for a gene")
-	private final EntrezGeneID geneID;
+	private final NcbiGeneId geneID;
 
 	@RecordField(comment = "status of the RefSeq. values are: INFERRED, MODEL, NA, PREDICTED, PROVISIONAL, REVIEWED, SUPPRESSED, VALIDATED")
 	private final String status;
@@ -114,7 +114,7 @@ public class EntrezGene2RefseqFileData extends SingleLineFileRecord {
 	@RecordField
 	private final String symbol;
 
-	public EntrezGene2RefseqFileData(NcbiTaxonomyID taxonID, EntrezGeneID geneID, String status,
+	public EntrezGene2RefseqFileData(NcbiTaxonomyID taxonID, NcbiGeneId geneID, String status,
 			RefSeqID rNANucleotideAccessionDotVersion, GiNumberID rNANucleotideGi, RefSeqID proteinAccessionDotVersion,
 			GiNumberID proteinGi, RefSeqID genomicNucleotideAccessionDotVersion, GiNumberID genomicNucleotideGi,
 			Integer startPositionOnTheGenomicAccession, Integer endPositionOnTheGenomicAccession, char orientation,
@@ -157,7 +157,7 @@ public class EntrezGene2RefseqFileData extends SingleLineFileRecord {
 			}
 
 			NcbiTaxonomyID taxonID = new NcbiTaxonomyID(toks[0]);
-			EntrezGeneID geneID = new EntrezGeneID(toks[1]);
+			NcbiGeneId geneID = new NcbiGeneId(toks[1]);
 
 			String status = toks[2];
 			if (status.equals("-")) {

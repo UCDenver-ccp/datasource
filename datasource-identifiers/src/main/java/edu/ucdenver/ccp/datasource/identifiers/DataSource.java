@@ -70,7 +70,7 @@ public enum DataSource {
 	KABOB("http://kabob.ucdenver.edu/"),
 	CAMJEDB("http://www.sanger.ac.uk/resources/downloads/bacteria/campylobacter-jejuni.html/"),
 	CCDS("http://www.ncbi.nlm.nih.gov/CCDS/"),
-	CCP("http://compbio.ucdenver.edu/"),
+	CCP("http://ccp.ucdenver.edu/obo/ext/"),
 	CGNC("http://www.ncbi.nlm.nih.gov/pubmed/19607656/"),
 	CL("http://purl.obolibrary.org/obo/"),
 	CHEBI("http://purl.obolibrary.org/obo/"),
@@ -101,7 +101,7 @@ public enum DataSource {
 	ECOCYC("http://ecocyc.org/"),
 	ECOGENE("http://www.ecogene.org/"),
 	/** Entrez Gene */
-	EG("http://www.ncbi.nlm.nih.gov/gene/"),
+	NCBI_GENE("http://www.ncbi.nlm.nih.gov/gene/"),
 	ELSEVIER("http://www.elsevier.com/"),
 	EMB("http://www.ebi.ac.uk/ebisearch/search.ebi?db=proteinSequences/"),
 	EMBL("http://www.ebi.ac.uk/embl/"),
@@ -451,7 +451,7 @@ public enum DataSource {
 		return this.name();
 	}
 
-	public static EnumSet<DataSource> GENE_OR_GENE_PRODUCT_SOURCES = EnumSet.of(EG, UNIPROT, MGI, HGNC, HPRD, REFSEQ,
+	public static EnumSet<DataSource> GENE_OR_GENE_PRODUCT_SOURCES = EnumSet.of(NCBI_GENE, UNIPROT, MGI, HGNC, HPRD, REFSEQ,
 			DIP, IREFWEB, EMBL, PR, PHARMGKB);
 
 	public static boolean isDataSource(String input) {

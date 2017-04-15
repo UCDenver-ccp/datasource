@@ -261,7 +261,7 @@ public class GpAssociationGoaUniprotFileParser extends
 		String reactomePrefix = "Reactome:";
 		if (dbReference.startsWith("PMID")) {
 			PubMedID id = new PubMedID(dbReference);
-			if (id.getDataElement().intValue() <= 0) {
+			if (id.getId().intValue() <= 0) {
 				return null;
 			}
 			return id;
@@ -331,7 +331,7 @@ public class GpAssociationGoaUniprotFileParser extends
 					}
 				} else if (databaseObjectID instanceof UniProtIsoformID) {
 					UniProtIsoformID isoformId = (UniProtIsoformID) databaseObjectID;
-					String uniprotIdStr = StringUtil.removeSuffixRegex(isoformId.getDataElement(), "-\\d+");
+					String uniprotIdStr = StringUtil.removeSuffixRegex(isoformId.getId(), "-\\d+");
 					if (taxonSpecificIds != null && !taxonSpecificIds.isEmpty()
 							&& taxonSpecificIds.contains(new UniProtID(uniprotIdStr))) {
 						/*

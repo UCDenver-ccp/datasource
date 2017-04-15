@@ -412,6 +412,10 @@ public class DrugBankDrugRecord extends FileRecord {
 		this.carriers = initCarriers(dr.getCarriers());
 	}
 
+	private static  String getOriginalIdString(String source, String id) {
+		return "Source: " + source + " ID: " + id;
+	}
+	
 	private List<Target> initCarriers(CarrierListType list) {
 		if (list == null || list.getCarrier() == null || list.getCarrier().isEmpty()) {
 			return null;
@@ -592,7 +596,7 @@ public class DrugBankDrugRecord extends FileRecord {
 			geneName = poly.getGeneName();
 			generalFunction = poly.getGeneralFunction();
 			geneSequence = new Sequence(poly.getGeneSequence().getFormat(), poly.getGeneSequence().getValue());
-			id = resolveIdentifier(poly.getSource(), poly.getId());
+			id = resolveIdentifier(poly.getSource(), poly.getId(), getOriginalIdString(poly.getSource(), poly.getId()));
 			locus = poly.getLocus();
 			molecularWeight = poly.getMolecularWeight();
 			name = poly.getName();
@@ -605,7 +609,7 @@ public class DrugBankDrugRecord extends FileRecord {
 
 			PolypeptideExternalIdentifierListType externalIdentifiers = poly.getExternalIdentifiers();
 			for (PolypeptideExternalIdentifierType extId : externalIdentifiers.getExternalIdentifier()) {
-				DataSourceIdentifier<?> id = resolveIdentifier(extId.getResource().value(), extId.getIdentifier());
+				DataSourceIdentifier<?> id = resolveIdentifier(extId.getResource().value(), extId.getIdentifier(), getOriginalIdString(extId.getResource().value(), extId.getIdentifier()));
 				addExternalIdentifier(id);
 			}
 
@@ -1271,7 +1275,7 @@ public class DrugBankDrugRecord extends FileRecord {
 		Set<DataSourceIdentifier<?>> ids = new HashSet<DataSourceIdentifier<?>>();
 		if (externalIdentifiers != null && externalIdentifiers.getExternalIdentifier() != null) {
 			for (ExternalIdentifierType eid : externalIdentifiers.getExternalIdentifier()) {
-				DataSourceIdentifier<?> id = resolveIdentifier(eid.getResource().value(), eid.getIdentifier());
+				DataSourceIdentifier<?> id = resolveIdentifier(eid.getResource().value(), eid.getIdentifier(), getOriginalIdString(eid.getResource().value(), eid.getIdentifier()));
 				if (id != null) {
 					ids.add(id);
 				}
@@ -1285,7 +1289,7 @@ public class DrugBankDrugRecord extends FileRecord {
 	 * @param identifier
 	 * @return
 	 */
-	private static DataSourceIdentifier<?> resolveIdentifier(String resource, String identifier) {
+	private static DataSourceIdentifier<?> resolveIdentifier(String resource, String identifier, String originalIdString) {
 		if (resource.equals("HUGO Gene Nomenclature Committee (HGNC)")) {
 			if (identifier.startsWith("HGNC:")) {
 				return new HgncID(StringUtil.removePrefix(identifier, "HGNC:"));
@@ -1357,7 +1361,7 @@ public class DrugBankDrugRecord extends FileRecord {
 				id = new UniProtID(identifier);
 			} catch (IllegalArgumentException e) {
 				logger.warn("Unhandled identifier type: " + resource + " (identifier=" + identifier + ")");
-				return new UnknownDataSourceIdentifier(identifier, resource);
+				return new UnknownDataSourceIdentifier(originalIdString);
 			}
 			if (id != null) {
 				return id;
@@ -1365,7 +1369,7 @@ public class DrugBankDrugRecord extends FileRecord {
 		}
 
 		System.out.println("Unhandled identifier type: " + resource + " (identifier=" + identifier + ")");
-		return new UnknownDataSourceIdentifier(identifier, resource);
+		return new UnknownDataSourceIdentifier(originalIdString);
 		// throw new IllegalArgumentException("Unhandled identifier type: " +
 		// resource +
 		// " (identifier=" + identifier

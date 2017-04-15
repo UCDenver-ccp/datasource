@@ -1,5 +1,7 @@
 package edu.ucdenver.ccp.datasource.identifiers;
 
+import lombok.Data;
+
 /*
  * #%L
  * Colorado Computational Pharmacology's common module
@@ -33,42 +35,39 @@ package edu.ucdenver.ccp.datasource.identifiers;
  * #L%
  */
 
-
 /**
- * Superclass used for representing data element identifiers (unique ID for some entity), e.g.
- * Entrez Gene ID or MGI Accession
+ * Superclass used for representing data element identifiers (unique ID for some
+ * entity), e.g. Entrez Gene ID or MGI Accession
  * 
  * @author Center for Computational Pharmacology; ccpsupport@ucdenver.edu
  * 
  */
-public abstract class DataSourceIdentifier<T> extends DataSourceElement<T> {
+@Data
+public abstract class DataSourceIdentifier<T> {
 
 	protected final DataSource dataSource;
-	
+	protected final T id;
+	protected final String version;
+
 	/**
 	 * Default constructor.
 	 * 
-	 * @param resourceID
+	 * @param resourceId
 	 */
-	public DataSourceIdentifier(T resourceID, DataSource ds) {
-		super(null);
-		super.setDataElement(validate(resourceID));
+	public DataSourceIdentifier(T resourceId, DataSource ds, String version) {
+		this.id = validate(resourceId);
 		this.dataSource = ds;
+		this.version = version;
+	}
+
+	public DataSourceIdentifier(T resourceId, DataSource ds) {
+		this(resourceId, ds, null);
 	}
 
 	/**
-	 * Returns the relevant {@link DataSource} for this resource identifier type.
-	 * 
-	 * @return
-	 */
-	public DataSource getDataSource() {
-		return dataSource;
-	}
-
-
-	/**
-	 * Provides a means for checking the structure of a resource ID and determining validity. For
-	 * example, checking to make sure Entrez Gene IDs are non-negative integers.
+	 * Provides a means for checking the structure of a resource ID and
+	 * determining validity. For example, checking to make sure Entrez Gene IDs
+	 * are non-negative integers.
 	 * 
 	 * @param resourceID
 	 * @return returns true if the resource ID is valid, false otherwise

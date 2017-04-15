@@ -50,7 +50,7 @@ import edu.ucdenver.ccp.datasource.identifiers.ncbi.refseq.RefSeqID;
  * @author Bill Baumgartner
  * 
  */
-@Record(dataSource = DataSource.EG,
+@Record(dataSource = DataSource.NCBI_GENE,
 	comment="",
 	license=License.NCBI,
 	citation="The NCBI handbook [Internet]. Bethesda (MD): National Library of Medicine (US), National Center for Biotechnology Information; 2002 Oct. Chapter 19 Gene: A Directory of Genes. Available from http://www.ncbi.nlm.nih.gov/books/NBK21091",

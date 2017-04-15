@@ -53,7 +53,7 @@ import edu.ucdenver.ccp.datasource.identifiers.flybase.FlyBaseID;
 import edu.ucdenver.ccp.datasource.identifiers.hgnc.HgncID;
 import edu.ucdenver.ccp.datasource.identifiers.mgi.MgiGeneID;
 import edu.ucdenver.ccp.datasource.identifiers.ncbi.GenBankID;
-import edu.ucdenver.ccp.datasource.identifiers.ncbi.gene.EntrezGeneID;
+import edu.ucdenver.ccp.datasource.identifiers.ncbi.gene.NcbiGeneId;
 import edu.ucdenver.ccp.datasource.identifiers.ncbi.gene.GiNumberID;
 import edu.ucdenver.ccp.datasource.identifiers.ncbi.omim.OmimID;
 import edu.ucdenver.ccp.datasource.identifiers.ncbi.refseq.RefSeqID;
@@ -129,7 +129,7 @@ public class GoaFileIdResolver implements IdResolver {
 			return new OmimID(idStr.substring(5));
 		}
 		if (idStr.matches("NCBI GeneID:\\d+")) {
-			return new EntrezGeneID(idStr.substring(12));
+			return new NcbiGeneId(idStr.substring(12));
 		}
 		if (idStr.matches("NBO:\\d+")) {
 			return new NboId(idStr);
@@ -219,11 +219,11 @@ public class GoaFileIdResolver implements IdResolver {
 			return new UberonID(idStr);
 		}
 		if (idStr.matches("NCBI_Gene:\\d+")) {
-			return new EntrezGeneID(idStr.substring(10));
+			return new NcbiGeneId(idStr.substring(10));
 		}
 		if (idStr.startsWith("UniProtKB:")) {
 			if (idStr.contains(":PRO_")) {
-				return new UnknownDataSourceIdentifier(idStr, null);
+				return new UnknownDataSourceIdentifier(idStr);
 			}
 			if (idStr.contains("-")) {
 				return new UniProtIsoformID(idStr.substring(10));
@@ -232,7 +232,7 @@ public class GoaFileIdResolver implements IdResolver {
 		}
 		
 		logger.warn("Encountered unknown ID: " + idStr);
-		return new UnknownDataSourceIdentifier(idStr, null);
+		return new UnknownDataSourceIdentifier(idStr);
 	}
 
 	/*
@@ -243,7 +243,7 @@ public class GoaFileIdResolver implements IdResolver {
 	 * .String, java.lang.String)
 	 */
 	@Override
-	public DataSourceIdentifier<?> resolveId(String db, String id) {
+	public DataSourceIdentifier<?> resolveId(String db, String id, String originalIdString) {
 		if (db.equals("RGD") && id.matches("\\d+")) {
 			return new RgdID(id);
 		}
@@ -257,7 +257,7 @@ public class GoaFileIdResolver implements IdResolver {
 			return new RnaCentralId(id);
 		}
 		logger.warn("Encountered unknown id/db: " + id + " -- " + db);
-		return new UnknownDataSourceIdentifier(id, db);
+		return new UnknownDataSourceIdentifier(originalIdString);
 	}
 
 }

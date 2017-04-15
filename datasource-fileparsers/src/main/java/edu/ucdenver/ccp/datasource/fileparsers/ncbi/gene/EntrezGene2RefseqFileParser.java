@@ -49,7 +49,7 @@ import edu.ucdenver.ccp.common.file.reader.StreamLineReader;
 import edu.ucdenver.ccp.common.ftp.FTPUtil.FileType;
 import edu.ucdenver.ccp.datasource.fileparsers.download.FtpHost;
 import edu.ucdenver.ccp.datasource.fileparsers.taxonaware.TaxonAwareSingleLineFileRecordReader;
-import edu.ucdenver.ccp.datasource.identifiers.ncbi.gene.EntrezGeneID;
+import edu.ucdenver.ccp.datasource.identifiers.ncbi.gene.NcbiGeneId;
 import edu.ucdenver.ccp.datasource.identifiers.ncbi.gene.GiNumberID;
 import edu.ucdenver.ccp.datasource.identifiers.ncbi.refseq.RefSeqID;
 import edu.ucdenver.ccp.datasource.identifiers.ncbi.taxonomy.NcbiTaxonomyID;
@@ -119,9 +119,9 @@ public class EntrezGene2RefseqFileParser extends TaxonAwareSingleLineFileRecordR
 	 * @return
 	 * @throws IOException
 	 */
-	public static Map<GiNumberID, Set<EntrezGeneID>> getProteinGiID2EntrezGeneIDMap(File entrezGene2AccessionFile,
+	public static Map<GiNumberID, Set<NcbiGeneId>> getProteinGiID2EntrezGeneIDMap(File entrezGene2AccessionFile,
 			CharacterEncoding encoding, NcbiTaxonomyID taxonID) throws IOException {
-		Map<GiNumberID, Set<EntrezGeneID>> proteinAccessionID2EntrezGeneIDMap = new HashMap<GiNumberID, Set<EntrezGeneID>>();
+		Map<GiNumberID, Set<NcbiGeneId>> proteinAccessionID2EntrezGeneIDMap = new HashMap<GiNumberID, Set<NcbiGeneId>>();
 		EntrezGene2RefseqFileParser parser = null;
 		try {
 			parser = new EntrezGene2RefseqFileParser(entrezGene2AccessionFile, encoding);
@@ -129,14 +129,14 @@ public class EntrezGene2RefseqFileParser extends TaxonAwareSingleLineFileRecordR
 			while (parser.hasNext()) {
 				EntrezGene2RefseqFileData dataRecord = parser.next();
 				if (dataRecord.getTaxonID().equals(taxonID)) {
-					EntrezGeneID entrezGeneID = dataRecord.getGeneID();
+					NcbiGeneId entrezGeneID = dataRecord.getGeneID();
 					GiNumberID accessionID = dataRecord.getProtein_gi();
 
 					if (accessionID != null) {
 						if (proteinAccessionID2EntrezGeneIDMap.containsKey(accessionID)) {
 							proteinAccessionID2EntrezGeneIDMap.get(accessionID).add(entrezGeneID);
 						} else {
-							Set<EntrezGeneID> entrezGeneIDs = new HashSet<EntrezGeneID>();
+							Set<NcbiGeneId> entrezGeneIDs = new HashSet<NcbiGeneId>();
 							entrezGeneIDs.add(entrezGeneID);
 							proteinAccessionID2EntrezGeneIDMap.put(accessionID, entrezGeneIDs);
 						}
@@ -156,10 +156,10 @@ public class EntrezGene2RefseqFileParser extends TaxonAwareSingleLineFileRecordR
 	 * @return
 	 * @throws IOException
 	 */
-	public static Map<RefSeqID, Set<EntrezGeneID>> getProteinAccessionID2EntrezGeneIDMap(
+	public static Map<RefSeqID, Set<NcbiGeneId>> getProteinAccessionID2EntrezGeneIDMap(
 			File entrezGene2AccessionOrReseqFile, CharacterEncoding encoding, NcbiTaxonomyID taxonID)
 			throws IOException {
-		Map<RefSeqID, Set<EntrezGeneID>> proteinAccessionID2EntrezGeneIDMap = new HashMap<RefSeqID, Set<EntrezGeneID>>();
+		Map<RefSeqID, Set<NcbiGeneId>> proteinAccessionID2EntrezGeneIDMap = new HashMap<RefSeqID, Set<NcbiGeneId>>();
 		EntrezGene2RefseqFileParser parser = null;
 		try {
 			parser = new EntrezGene2RefseqFileParser(entrezGene2AccessionOrReseqFile, encoding);
@@ -167,12 +167,12 @@ public class EntrezGene2RefseqFileParser extends TaxonAwareSingleLineFileRecordR
 			while (parser.hasNext()) {
 				EntrezGene2RefseqFileData dataRecord = parser.next();
 				if (dataRecord.getTaxonID().equals(taxonID)) {
-					EntrezGeneID entrezGeneID = dataRecord.getGeneID();
+					NcbiGeneId entrezGeneID = dataRecord.getGeneID();
 					RefSeqID accessionID = dataRecord.getProtein_accession_dot_version();
 
 					if (accessionID != null) {
 
-						String refseqIDStr = accessionID.getDataElement();
+						String refseqIDStr = accessionID.getId();
 						RefSeqID refseqIDForOutputMap = accessionID;
 						if (refseqIDStr.contains(".")) {
 							refseqIDForOutputMap = new RefSeqID(refseqIDStr.substring(0, refseqIDStr.lastIndexOf(".")));
@@ -181,7 +181,7 @@ public class EntrezGene2RefseqFileParser extends TaxonAwareSingleLineFileRecordR
 						if (proteinAccessionID2EntrezGeneIDMap.containsKey(refseqIDForOutputMap)) {
 							proteinAccessionID2EntrezGeneIDMap.get(refseqIDForOutputMap).add(entrezGeneID);
 						} else {
-							Set<EntrezGeneID> entrezGeneIDs = new HashSet<EntrezGeneID>();
+							Set<NcbiGeneId> entrezGeneIDs = new HashSet<NcbiGeneId>();
 							entrezGeneIDs.add(entrezGeneID);
 							proteinAccessionID2EntrezGeneIDMap.put(refseqIDForOutputMap, entrezGeneIDs);
 						}

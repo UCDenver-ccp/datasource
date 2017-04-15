@@ -114,7 +114,7 @@ public class InterProNamesDatFileParser extends SingleLineFileRecordReader<Inter
 			InterProNamesDatFileData dataRecord = parser.next();
 			InterProID interProID = dataRecord.getInterProID();
 			String interProName = dataRecord.getInterProName();
-			interProID2NameMap.put(interProID.getDataElement(), interProName);
+			interProID2NameMap.put(interProID.getId(), interProName);
 		}
 
 		parser.close();

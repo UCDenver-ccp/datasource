@@ -55,7 +55,7 @@ import edu.ucdenver.ccp.datasource.fileparsers.test.RecordReaderTester;
 import edu.ucdenver.ccp.datasource.identifiers.DataSourceIdentifier;
 import edu.ucdenver.ccp.datasource.identifiers.ensembl.EnsemblGeneID;
 import edu.ucdenver.ccp.datasource.identifiers.mgi.MgiGeneID;
-import edu.ucdenver.ccp.datasource.identifiers.ncbi.gene.EntrezGeneID;
+import edu.ucdenver.ccp.datasource.identifiers.ncbi.gene.NcbiGeneId;
 import edu.ucdenver.ccp.datasource.identifiers.ncbi.taxonomy.NcbiTaxonomyID;
 
 /**
@@ -177,7 +177,7 @@ public class EntrezGeneInfoFileParserTest extends RecordReaderTester {
 				 */
 				EntrezGeneInfoFileData record = parser.next();
 				assertEquals(new NcbiTaxonomyID(10090), record.getTaxonID());
-				assertEquals(new EntrezGeneID(12780), record.getGeneID());
+				assertEquals(new NcbiGeneId(12780), record.getGeneID());
 				assertEquals(new String("Abcc2"), record.getSymbol());
 				assertEquals(null, record.getLocusTag());
 				Set<String> expectedSynonyms = new HashSet<String>();
@@ -219,7 +219,7 @@ public class EntrezGeneInfoFileParserTest extends RecordReaderTester {
 				 */
 				EntrezGeneInfoFileData record = parser.next();
 				assertEquals(new NcbiTaxonomyID(10090), record.getTaxonID());
-				assertEquals(new EntrezGeneID(11308), record.getGeneID());
+				assertEquals(new NcbiGeneId(11308), record.getGeneID());
 				assertEquals(new String("Abi1"), record.getSymbol());
 				assertEquals(null, record.getLocusTag());
 				Set<String> expectedSynonyms = new HashSet<String>();
@@ -258,7 +258,7 @@ public class EntrezGeneInfoFileParserTest extends RecordReaderTester {
 				 */
 				EntrezGeneInfoFileData record = parser.next();
 				assertEquals(new NcbiTaxonomyID(10090), record.getTaxonID());
-				assertEquals(new EntrezGeneID(11434), record.getGeneID());
+				assertEquals(new NcbiGeneId(11434), record.getGeneID());
 				assertEquals(new String("Acr"), record.getSymbol());
 				assertEquals(null, record.getLocusTag());
 				Set<String> expectedSynonyms = new HashSet<String>();
@@ -310,28 +310,28 @@ public class EntrezGeneInfoFileParserTest extends RecordReaderTester {
 	@Test
 	public void testGetGeneSymbol2EntrezGeneIDMap() throws Exception {
 		boolean toLowerCase = false;
-		Map<String, Set<EntrezGeneID>> geneSymbol2EntrezGeneIDMap = EntrezGeneInfoFileParser
+		Map<String, Set<NcbiGeneId>> geneSymbol2EntrezGeneIDMap = EntrezGeneInfoFileParser
 				.getGeneSymbol2EntrezGeneIDMap(sampleInputFile, CharacterEncoding.US_ASCII, new NcbiTaxonomyID(10090),
 						toLowerCase);
 
-		Set<EntrezGeneID> abcc2Set = new HashSet<EntrezGeneID>();
-		abcc2Set.add(new EntrezGeneID(12780));
-		Set<EntrezGeneID> abi1Set = new HashSet<EntrezGeneID>();
-		abi1Set.add(new EntrezGeneID(11308));
-		Set<EntrezGeneID> acrSet = new HashSet<EntrezGeneID>();
-		acrSet.add(new EntrezGeneID(11434));
-		Set<EntrezGeneID> rdxSet = new HashSet<EntrezGeneID>();
-		rdxSet.add(new EntrezGeneID(19684));
-		Set<EntrezGeneID> ezrSet = new HashSet<EntrezGeneID>();
-		ezrSet.add(new EntrezGeneID(22350));
-		Set<EntrezGeneID> enahSet = new HashSet<EntrezGeneID>();
-		enahSet.add(new EntrezGeneID(13800));
-		Set<EntrezGeneID> zp2Set = new HashSet<EntrezGeneID>();
-		zp2Set.add(new EntrezGeneID(22787));
-		Set<EntrezGeneID> zp3Set = new HashSet<EntrezGeneID>();
-		zp3Set.add(new EntrezGeneID(22788));
+		Set<NcbiGeneId> abcc2Set = new HashSet<NcbiGeneId>();
+		abcc2Set.add(new NcbiGeneId(12780));
+		Set<NcbiGeneId> abi1Set = new HashSet<NcbiGeneId>();
+		abi1Set.add(new NcbiGeneId(11308));
+		Set<NcbiGeneId> acrSet = new HashSet<NcbiGeneId>();
+		acrSet.add(new NcbiGeneId(11434));
+		Set<NcbiGeneId> rdxSet = new HashSet<NcbiGeneId>();
+		rdxSet.add(new NcbiGeneId(19684));
+		Set<NcbiGeneId> ezrSet = new HashSet<NcbiGeneId>();
+		ezrSet.add(new NcbiGeneId(22350));
+		Set<NcbiGeneId> enahSet = new HashSet<NcbiGeneId>();
+		enahSet.add(new NcbiGeneId(13800));
+		Set<NcbiGeneId> zp2Set = new HashSet<NcbiGeneId>();
+		zp2Set.add(new NcbiGeneId(22787));
+		Set<NcbiGeneId> zp3Set = new HashSet<NcbiGeneId>();
+		zp3Set.add(new NcbiGeneId(22788));
 
-		Map<String, Set<EntrezGeneID>> expectedGeneSymbol2EntrezGeneIDMap = new HashMap<String, Set<EntrezGeneID>>();
+		Map<String, Set<NcbiGeneId>> expectedGeneSymbol2EntrezGeneIDMap = new HashMap<String, Set<NcbiGeneId>>();
 		expectedGeneSymbol2EntrezGeneIDMap.put(new String("Abcc2"), abcc2Set);
 		expectedGeneSymbol2EntrezGeneIDMap.put(new String("Abi1"), abi1Set);
 		expectedGeneSymbol2EntrezGeneIDMap.put(new String("Acr"), acrSet);
@@ -348,7 +348,7 @@ public class EntrezGeneInfoFileParserTest extends RecordReaderTester {
 		toLowerCase = true;
 		geneSymbol2EntrezGeneIDMap = EntrezGeneInfoFileParser.getGeneSymbol2EntrezGeneIDMap(sampleInputFile,
 				CharacterEncoding.US_ASCII, new NcbiTaxonomyID(10090), toLowerCase);
-		expectedGeneSymbol2EntrezGeneIDMap = new HashMap<String, Set<EntrezGeneID>>();
+		expectedGeneSymbol2EntrezGeneIDMap = new HashMap<String, Set<NcbiGeneId>>();
 		expectedGeneSymbol2EntrezGeneIDMap.put(new String("abcc2"), abcc2Set);
 		expectedGeneSymbol2EntrezGeneIDMap.put(new String("abi1"), abi1Set);
 		expectedGeneSymbol2EntrezGeneIDMap.put(new String("acr"), acrSet);
@@ -371,84 +371,84 @@ public class EntrezGeneInfoFileParserTest extends RecordReaderTester {
 	@Test
 	public void testGetGeneSymbol2EntrezGeneIDMap_withSynonyms() throws Exception {
 		boolean toLowerCase = false;
-		Map<String, Set<EntrezGeneID>> geneSymbol2EntrezGeneIDMap = EntrezGeneInfoFileParser
+		Map<String, Set<NcbiGeneId>> geneSymbol2EntrezGeneIDMap = EntrezGeneInfoFileParser
 				.getGeneSymbol2EntrezGeneIDMap_withSynonyms(sampleInputFile, CharacterEncoding.US_ASCII,
 						new NcbiTaxonomyID(10090), toLowerCase);
 
-		Set<EntrezGeneID> abcc2Set = new HashSet<EntrezGeneID>();
-		abcc2Set.add(new EntrezGeneID(12780));
-		Set<EntrezGeneID> aI173996Set = new HashSet<EntrezGeneID>();
-		aI173996Set.add(new EntrezGeneID(12780));
-		Set<EntrezGeneID> abc30Set = new HashSet<EntrezGeneID>();
-		abc30Set.add(new EntrezGeneID(12780));
-		Set<EntrezGeneID> cmoatSet = new HashSet<EntrezGeneID>();
-		cmoatSet.add(new EntrezGeneID(12780));
-		Set<EntrezGeneID> mrp2Set = new HashSet<EntrezGeneID>();
-		mrp2Set.add(new EntrezGeneID(12780));
-		Set<EntrezGeneID> cMRPSet = new HashSet<EntrezGeneID>();
-		cMRPSet.add(new EntrezGeneID(12780));
+		Set<NcbiGeneId> abcc2Set = new HashSet<NcbiGeneId>();
+		abcc2Set.add(new NcbiGeneId(12780));
+		Set<NcbiGeneId> aI173996Set = new HashSet<NcbiGeneId>();
+		aI173996Set.add(new NcbiGeneId(12780));
+		Set<NcbiGeneId> abc30Set = new HashSet<NcbiGeneId>();
+		abc30Set.add(new NcbiGeneId(12780));
+		Set<NcbiGeneId> cmoatSet = new HashSet<NcbiGeneId>();
+		cmoatSet.add(new NcbiGeneId(12780));
+		Set<NcbiGeneId> mrp2Set = new HashSet<NcbiGeneId>();
+		mrp2Set.add(new NcbiGeneId(12780));
+		Set<NcbiGeneId> cMRPSet = new HashSet<NcbiGeneId>();
+		cMRPSet.add(new NcbiGeneId(12780));
 
-		Set<EntrezGeneID> abi1Set = new HashSet<EntrezGeneID>();
-		abi1Set.add(new EntrezGeneID(11308));
-		Set<EntrezGeneID> e3B1Set = new HashSet<EntrezGeneID>();
-		e3B1Set.add(new EntrezGeneID(11308));
-		Set<EntrezGeneID> mGC6064Set = new HashSet<EntrezGeneID>();
-		mGC6064Set.add(new EntrezGeneID(11308));
-		Set<EntrezGeneID> nAP1Set = new HashSet<EntrezGeneID>();
-		nAP1Set.add(new EntrezGeneID(11308));
-		Set<EntrezGeneID> ssh3bp1Set = new HashSet<EntrezGeneID>();
-		ssh3bp1Set.add(new EntrezGeneID(11308));
+		Set<NcbiGeneId> abi1Set = new HashSet<NcbiGeneId>();
+		abi1Set.add(new NcbiGeneId(11308));
+		Set<NcbiGeneId> e3B1Set = new HashSet<NcbiGeneId>();
+		e3B1Set.add(new NcbiGeneId(11308));
+		Set<NcbiGeneId> mGC6064Set = new HashSet<NcbiGeneId>();
+		mGC6064Set.add(new NcbiGeneId(11308));
+		Set<NcbiGeneId> nAP1Set = new HashSet<NcbiGeneId>();
+		nAP1Set.add(new NcbiGeneId(11308));
+		Set<NcbiGeneId> ssh3bp1Set = new HashSet<NcbiGeneId>();
+		ssh3bp1Set.add(new NcbiGeneId(11308));
 
-		Set<EntrezGeneID> acrSet = new HashSet<EntrezGeneID>();
-		acrSet.add(new EntrezGeneID(11434));
-		Set<EntrezGeneID> aI323726Set = new HashSet<EntrezGeneID>();
-		aI323726Set.add(new EntrezGeneID(11434));
-		Set<EntrezGeneID> mGC124043Set = new HashSet<EntrezGeneID>();
-		mGC124043Set.add(new EntrezGeneID(11434));
+		Set<NcbiGeneId> acrSet = new HashSet<NcbiGeneId>();
+		acrSet.add(new NcbiGeneId(11434));
+		Set<NcbiGeneId> aI323726Set = new HashSet<NcbiGeneId>();
+		aI323726Set.add(new NcbiGeneId(11434));
+		Set<NcbiGeneId> mGC124043Set = new HashSet<NcbiGeneId>();
+		mGC124043Set.add(new NcbiGeneId(11434));
 
-		Set<EntrezGeneID> rdxSet = new HashSet<EntrezGeneID>();
-		rdxSet.add(new EntrezGeneID(19684));
+		Set<NcbiGeneId> rdxSet = new HashSet<NcbiGeneId>();
+		rdxSet.add(new NcbiGeneId(19684));
 
-		Set<EntrezGeneID> aA516625Set = new HashSet<EntrezGeneID>();
-		aA516625Set.add(new EntrezGeneID(19684));
+		Set<NcbiGeneId> aA516625Set = new HashSet<NcbiGeneId>();
+		aA516625Set.add(new NcbiGeneId(19684));
 
-		Set<EntrezGeneID> ezrSet = new HashSet<EntrezGeneID>();
-		ezrSet.add(new EntrezGeneID(22350));
-		Set<EntrezGeneID> aW146364Set = new HashSet<EntrezGeneID>();
-		aW146364Set.add(new EntrezGeneID(22350));
-		Set<EntrezGeneID> mGC107499Set = new HashSet<EntrezGeneID>();
-		mGC107499Set.add(new EntrezGeneID(22350));
-		Set<EntrezGeneID> r75297Set = new HashSet<EntrezGeneID>();
-		r75297Set.add(new EntrezGeneID(22350));
-		Set<EntrezGeneID> vil2Set = new HashSet<EntrezGeneID>();
-		vil2Set.add(new EntrezGeneID(22350));
-		Set<EntrezGeneID> p81Set = new HashSet<EntrezGeneID>();
-		p81Set.add(new EntrezGeneID(22350));
+		Set<NcbiGeneId> ezrSet = new HashSet<NcbiGeneId>();
+		ezrSet.add(new NcbiGeneId(22350));
+		Set<NcbiGeneId> aW146364Set = new HashSet<NcbiGeneId>();
+		aW146364Set.add(new NcbiGeneId(22350));
+		Set<NcbiGeneId> mGC107499Set = new HashSet<NcbiGeneId>();
+		mGC107499Set.add(new NcbiGeneId(22350));
+		Set<NcbiGeneId> r75297Set = new HashSet<NcbiGeneId>();
+		r75297Set.add(new NcbiGeneId(22350));
+		Set<NcbiGeneId> vil2Set = new HashSet<NcbiGeneId>();
+		vil2Set.add(new NcbiGeneId(22350));
+		Set<NcbiGeneId> p81Set = new HashSet<NcbiGeneId>();
+		p81Set.add(new NcbiGeneId(22350));
 
-		Set<EntrezGeneID> enahSet = new HashSet<EntrezGeneID>();
-		enahSet.add(new EntrezGeneID(13800));
-		Set<EntrezGeneID> aI464316Set = new HashSet<EntrezGeneID>();
-		aI464316Set.add(new EntrezGeneID(13800));
-		Set<EntrezGeneID> aW045240Set = new HashSet<EntrezGeneID>();
-		aW045240Set.add(new EntrezGeneID(13800));
-		Set<EntrezGeneID> menaSet = new HashSet<EntrezGeneID>();
-		menaSet.add(new EntrezGeneID(13800));
-		Set<EntrezGeneID> ndpp1Set = new HashSet<EntrezGeneID>();
-		ndpp1Set.add(new EntrezGeneID(13800));
-		Set<EntrezGeneID> wBP8Set = new HashSet<EntrezGeneID>();
-		wBP8Set.add(new EntrezGeneID(13800));
+		Set<NcbiGeneId> enahSet = new HashSet<NcbiGeneId>();
+		enahSet.add(new NcbiGeneId(13800));
+		Set<NcbiGeneId> aI464316Set = new HashSet<NcbiGeneId>();
+		aI464316Set.add(new NcbiGeneId(13800));
+		Set<NcbiGeneId> aW045240Set = new HashSet<NcbiGeneId>();
+		aW045240Set.add(new NcbiGeneId(13800));
+		Set<NcbiGeneId> menaSet = new HashSet<NcbiGeneId>();
+		menaSet.add(new NcbiGeneId(13800));
+		Set<NcbiGeneId> ndpp1Set = new HashSet<NcbiGeneId>();
+		ndpp1Set.add(new NcbiGeneId(13800));
+		Set<NcbiGeneId> wBP8Set = new HashSet<NcbiGeneId>();
+		wBP8Set.add(new NcbiGeneId(13800));
 
-		Set<EntrezGeneID> zp2Set = new HashSet<EntrezGeneID>();
-		zp2Set.add(new EntrezGeneID(22787));
-		Set<EntrezGeneID> ZpDash2Set = new HashSet<EntrezGeneID>();
-		ZpDash2Set.add(new EntrezGeneID(22787));
+		Set<NcbiGeneId> zp2Set = new HashSet<NcbiGeneId>();
+		zp2Set.add(new NcbiGeneId(22787));
+		Set<NcbiGeneId> ZpDash2Set = new HashSet<NcbiGeneId>();
+		ZpDash2Set.add(new NcbiGeneId(22787));
 
-		Set<EntrezGeneID> zp3Set = new HashSet<EntrezGeneID>();
-		zp3Set.add(new EntrezGeneID(22788));
-		Set<EntrezGeneID> ZpDash3Set = new HashSet<EntrezGeneID>();
-		ZpDash3Set.add(new EntrezGeneID(22788));
+		Set<NcbiGeneId> zp3Set = new HashSet<NcbiGeneId>();
+		zp3Set.add(new NcbiGeneId(22788));
+		Set<NcbiGeneId> ZpDash3Set = new HashSet<NcbiGeneId>();
+		ZpDash3Set.add(new NcbiGeneId(22788));
 
-		Map<String, Set<EntrezGeneID>> expectedGeneSymbol2EntrezGeneIDMap = new HashMap<String, Set<EntrezGeneID>>();
+		Map<String, Set<NcbiGeneId>> expectedGeneSymbol2EntrezGeneIDMap = new HashMap<String, Set<NcbiGeneId>>();
 		expectedGeneSymbol2EntrezGeneIDMap.put(new String("Abcc2"), abcc2Set);
 		expectedGeneSymbol2EntrezGeneIDMap.put(new String("AI173996"), aI173996Set);
 		expectedGeneSymbol2EntrezGeneIDMap.put(new String("Abc30"), abc30Set);
@@ -496,7 +496,7 @@ public class EntrezGeneInfoFileParserTest extends RecordReaderTester {
 		toLowerCase = true;
 		geneSymbol2EntrezGeneIDMap = EntrezGeneInfoFileParser.getGeneSymbol2EntrezGeneIDMap_withSynonyms(
 				sampleInputFile, CharacterEncoding.US_ASCII, new NcbiTaxonomyID(10090), toLowerCase);
-		expectedGeneSymbol2EntrezGeneIDMap = new HashMap<String, Set<EntrezGeneID>>();
+		expectedGeneSymbol2EntrezGeneIDMap = new HashMap<String, Set<NcbiGeneId>>();
 		expectedGeneSymbol2EntrezGeneIDMap.put(new String("abcc2"), abcc2Set);
 		expectedGeneSymbol2EntrezGeneIDMap.put(new String("ai173996"), aI173996Set);
 		expectedGeneSymbol2EntrezGeneIDMap.put(new String("abc30"), abc30Set);
@@ -552,15 +552,15 @@ public class EntrezGeneInfoFileParserTest extends RecordReaderTester {
 
 	@Test
 	public void testGetEntrezGeneIDAsString2GeneSymbolMap() throws Exception {
-		Map<EntrezGeneID, String> expectedGeneID2GeneNameMap = new HashMap<EntrezGeneID, String>();
-		expectedGeneID2GeneNameMap.put(new EntrezGeneID(12780), new String("Abcc2"));
-		expectedGeneID2GeneNameMap.put(new EntrezGeneID(11308), new String("Abi1"));
-		expectedGeneID2GeneNameMap.put(new EntrezGeneID(11434), new String("Acr"));
-		expectedGeneID2GeneNameMap.put(new EntrezGeneID(19684), new String("Rdx"));
-		expectedGeneID2GeneNameMap.put(new EntrezGeneID(22350), new String("Ezr"));
-		expectedGeneID2GeneNameMap.put(new EntrezGeneID(13800), new String("Enah"));
-		expectedGeneID2GeneNameMap.put(new EntrezGeneID(22787), new String("Zp2"));
-		expectedGeneID2GeneNameMap.put(new EntrezGeneID(22788), new String("Zp3"));
+		Map<NcbiGeneId, String> expectedGeneID2GeneNameMap = new HashMap<NcbiGeneId, String>();
+		expectedGeneID2GeneNameMap.put(new NcbiGeneId(12780), new String("Abcc2"));
+		expectedGeneID2GeneNameMap.put(new NcbiGeneId(11308), new String("Abi1"));
+		expectedGeneID2GeneNameMap.put(new NcbiGeneId(11434), new String("Acr"));
+		expectedGeneID2GeneNameMap.put(new NcbiGeneId(19684), new String("Rdx"));
+		expectedGeneID2GeneNameMap.put(new NcbiGeneId(22350), new String("Ezr"));
+		expectedGeneID2GeneNameMap.put(new NcbiGeneId(13800), new String("Enah"));
+		expectedGeneID2GeneNameMap.put(new NcbiGeneId(22787), new String("Zp2"));
+		expectedGeneID2GeneNameMap.put(new NcbiGeneId(22788), new String("Zp3"));
 
 		assertEquals("Maps should match exactly", expectedGeneID2GeneNameMap,
 				EntrezGeneInfoFileParser.getEntrezGeneID2GeneSymbolMap(sampleInputFile, CharacterEncoding.US_ASCII,
@@ -569,18 +569,18 @@ public class EntrezGeneInfoFileParserTest extends RecordReaderTester {
 
 	@Test
 	public void testGetEntrezGeneIDAsString2GeneNameMap() throws Exception {
-		Map<EntrezGeneID, String> expectedGeneID2GeneNameMap = new HashMap<EntrezGeneID, String>();
-		expectedGeneID2GeneNameMap.put(new EntrezGeneID(12780), new String(
+		Map<NcbiGeneId, String> expectedGeneID2GeneNameMap = new HashMap<NcbiGeneId, String>();
+		expectedGeneID2GeneNameMap.put(new NcbiGeneId(12780), new String(
 				"ATP-binding cassette, sub-family C (CFTR/MRP), member 2"));
-		expectedGeneID2GeneNameMap.put(new EntrezGeneID(11308), new String("abl-interactor 1"));
-		expectedGeneID2GeneNameMap.put(new EntrezGeneID(11434), new String("acrosin prepropeptide"));
-		expectedGeneID2GeneNameMap.put(new EntrezGeneID(19684), new String("radixin"));
-		expectedGeneID2GeneNameMap.put(new EntrezGeneID(22350), new String("ezrin"));
-		expectedGeneID2GeneNameMap.put(new EntrezGeneID(13800), new String("enabled homolog (Drosophila)"));
-		expectedGeneID2GeneNameMap.put(new EntrezGeneID(22787), new String("zona pellucida glycoprotein 2"));
-		expectedGeneID2GeneNameMap.put(new EntrezGeneID(22788), new String("zona pellucida glycoprotein 3"));
+		expectedGeneID2GeneNameMap.put(new NcbiGeneId(11308), new String("abl-interactor 1"));
+		expectedGeneID2GeneNameMap.put(new NcbiGeneId(11434), new String("acrosin prepropeptide"));
+		expectedGeneID2GeneNameMap.put(new NcbiGeneId(19684), new String("radixin"));
+		expectedGeneID2GeneNameMap.put(new NcbiGeneId(22350), new String("ezrin"));
+		expectedGeneID2GeneNameMap.put(new NcbiGeneId(13800), new String("enabled homolog (Drosophila)"));
+		expectedGeneID2GeneNameMap.put(new NcbiGeneId(22787), new String("zona pellucida glycoprotein 2"));
+		expectedGeneID2GeneNameMap.put(new NcbiGeneId(22788), new String("zona pellucida glycoprotein 3"));
 
-		Map<EntrezGeneID, String> entrezGeneID2GeneNameMap = EntrezGeneInfoFileParser
+		Map<NcbiGeneId, String> entrezGeneID2GeneNameMap = EntrezGeneInfoFileParser
 				.getEntrezGeneID2GeneNameMap(sampleInputFile, CharacterEncoding.US_ASCII, new NcbiTaxonomyID(10090));
 
 		assertEquals("Maps should match exactly", expectedGeneID2GeneNameMap, entrezGeneID2GeneNameMap);
@@ -588,13 +588,13 @@ public class EntrezGeneInfoFileParserTest extends RecordReaderTester {
 
 	@Test
 	public void testGetEntrezGeneID2TaxonomyIDMap() throws Exception {
-		Set<EntrezGeneID> geneIDs2Include = CollectionsUtil.createSet(new EntrezGeneID(11308), new EntrezGeneID(22350),
-				new EntrezGeneID(22787));
-		Map<EntrezGeneID, NcbiTaxonomyID> expectedEntrezGeneID2TaxonomyIDMap = new HashMap<EntrezGeneID, NcbiTaxonomyID>();
-		expectedEntrezGeneID2TaxonomyIDMap.put(new EntrezGeneID(11308), new NcbiTaxonomyID(10090));
-		expectedEntrezGeneID2TaxonomyIDMap.put(new EntrezGeneID(22350), new NcbiTaxonomyID(10090));
-		expectedEntrezGeneID2TaxonomyIDMap.put(new EntrezGeneID(22787), new NcbiTaxonomyID(10090));
-		Map<EntrezGeneID, NcbiTaxonomyID> entrezGeneID2TaxonomyIDMap = EntrezGeneInfoFileParser
+		Set<NcbiGeneId> geneIDs2Include = CollectionsUtil.createSet(new NcbiGeneId(11308), new NcbiGeneId(22350),
+				new NcbiGeneId(22787));
+		Map<NcbiGeneId, NcbiTaxonomyID> expectedEntrezGeneID2TaxonomyIDMap = new HashMap<NcbiGeneId, NcbiTaxonomyID>();
+		expectedEntrezGeneID2TaxonomyIDMap.put(new NcbiGeneId(11308), new NcbiTaxonomyID(10090));
+		expectedEntrezGeneID2TaxonomyIDMap.put(new NcbiGeneId(22350), new NcbiTaxonomyID(10090));
+		expectedEntrezGeneID2TaxonomyIDMap.put(new NcbiGeneId(22787), new NcbiTaxonomyID(10090));
+		Map<NcbiGeneId, NcbiTaxonomyID> entrezGeneID2TaxonomyIDMap = EntrezGeneInfoFileParser
 				.getEntrezGeneID2TaxonomyIDMap(sampleInputFile, CharacterEncoding.US_ASCII, geneIDs2Include);
 		assertEquals(String.format("Map should have 3 entries."), expectedEntrezGeneID2TaxonomyIDMap,
 				entrezGeneID2TaxonomyIDMap);

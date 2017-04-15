@@ -41,7 +41,7 @@ import edu.ucdenver.ccp.datasource.fileparsers.Record;
 import edu.ucdenver.ccp.datasource.fileparsers.RecordField;
 import edu.ucdenver.ccp.datasource.fileparsers.SingleLineFileRecord;
 import edu.ucdenver.ccp.datasource.identifiers.DataSource;
-import edu.ucdenver.ccp.datasource.identifiers.ncbi.gene.EntrezGeneID;
+import edu.ucdenver.ccp.datasource.identifiers.ncbi.gene.NcbiGeneId;
 import edu.ucdenver.ccp.datasource.identifiers.ncbi.taxonomy.NcbiTaxonomyID;
 import edu.ucdenver.ccp.identifier.publication.PubMedID;
 
@@ -51,7 +51,7 @@ import edu.ucdenver.ccp.identifier.publication.PubMedID;
  * @author Bill Baumgartner
  * 
  */
-@Record(dataSource = DataSource.EG,
+@Record(dataSource = DataSource.NCBI_GENE,
 		comment="This file can be considered as the logical equivalent of what is reported as Gene/PubMed Links visible in Gene's and PubMed's Links menus. Although gene2pubmed is re-calculated daily, some of the source documents (GeneRIFs, for example) are not updated that frequently, so timing depends on the update frequency of the data source.",
 		license=License.NCBI,
 		citation="The NCBI handbook [Internet]. Bethesda (MD): National Library of Medicine (US), National Center for Biotechnology Information; 2002 Oct. Chapter 19 Gene: A Directory of Genes. Available from http://www.ncbi.nlm.nih.gov/books/NBK21091",
@@ -67,9 +67,9 @@ public class EntrezGene2PubmedFileData extends SingleLineFileRecord {
 	private final PubMedID pmid;
 
 	@RecordField(comment="the unique identifier for a gene")
-	private final EntrezGeneID entrezGeneID;
+	private final NcbiGeneId entrezGeneID;
 
-	public EntrezGene2PubmedFileData(NcbiTaxonomyID taxonomyID, EntrezGeneID entrezGeneID, 
+	public EntrezGene2PubmedFileData(NcbiTaxonomyID taxonomyID, NcbiGeneId entrezGeneID, 
 			PubMedID pmid, long byteOffset, long lineNumber) {
 		super(byteOffset, lineNumber);
 		this.taxonomyID = taxonomyID;
@@ -81,7 +81,7 @@ public class EntrezGene2PubmedFileData extends SingleLineFileRecord {
 		return pmid;
 	}
 
-	public EntrezGeneID getEntrezGeneID() {
+	public NcbiGeneId getEntrezGeneID() {
 		return entrezGeneID;
 	}
 
@@ -93,7 +93,7 @@ public class EntrezGene2PubmedFileData extends SingleLineFileRecord {
 		String[] toks = line.getText().split("\\t");
 		if (toks.length == 3) {
 			NcbiTaxonomyID taxonomyID = new NcbiTaxonomyID(toks[0]);
-			EntrezGeneID entrezGeneID = new EntrezGeneID(toks[1]);
+			NcbiGeneId entrezGeneID = new NcbiGeneId(toks[1]);
 			PubMedID pmid = new PubMedID(toks[2]);
 			return new EntrezGene2PubmedFileData(taxonomyID, entrezGeneID, pmid, line.getByteOffset(),
 					line.getLineNumber());

@@ -113,10 +113,11 @@ public class PharmGkbDrugFileParser extends SingleLineFileRecordReader<PharmGkbD
 				StringConstants.QUOTATION_MARK, RemoveFieldEnclosures.TRUE)) {
 			String databaseName = idStr.split(":")[0];
 			String databaseIdentifierStr = idStr.substring(idStr.indexOf(':') + 1);
-			if (databaseName.equalsIgnoreCase("url"))
+			if (databaseName.equalsIgnoreCase("url")) {
 				url = databaseIdentifierStr;
-			else
-				crossReferences.add(DataSourceIdResolver.resolveId(databaseName, databaseIdentifierStr));
+			} else {
+				crossReferences.add(DataSourceIdResolver.resolveId(databaseName, databaseIdentifierStr, idStr));
+			}
 		}
 
 		// /*

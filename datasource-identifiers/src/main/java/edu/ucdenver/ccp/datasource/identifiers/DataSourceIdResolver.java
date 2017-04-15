@@ -66,7 +66,7 @@ import edu.ucdenver.ccp.datasource.identifiers.kegg.KeggPathwayID;
 import edu.ucdenver.ccp.datasource.identifiers.mgi.MgiGeneID;
 import edu.ucdenver.ccp.datasource.identifiers.mint.MintID;
 import edu.ucdenver.ccp.datasource.identifiers.ncbi.GenBankID;
-import edu.ucdenver.ccp.datasource.identifiers.ncbi.gene.EntrezGeneID;
+import edu.ucdenver.ccp.datasource.identifiers.ncbi.gene.NcbiGeneId;
 import edu.ucdenver.ccp.datasource.identifiers.ncbi.gene.GiNumberID;
 import edu.ucdenver.ccp.datasource.identifiers.ncbi.homologene.HomologeneGroupID;
 import edu.ucdenver.ccp.datasource.identifiers.ncbi.omim.OmimID;
@@ -160,8 +160,8 @@ public class DataSourceIdResolver {
 			if (databaseObjectID.matches("DIP-\\d+E"))
 				return new DipInteractionID(databaseObjectID);
 			throw new IllegalArgumentException(String.format("Invalid DIP Interactor ID detected %s", databaseObjectID));
-		case EG:
-			return new EntrezGeneID(databaseObjectID);
+		case NCBI_GENE:
+			return new NcbiGeneId(databaseObjectID);
 		case EMBL:
 			return new EmblID(databaseObjectID);
 		case ISRCTN:
@@ -214,7 +214,7 @@ public class DataSourceIdResolver {
 
 	// TODO: remove this method and replace its use with resolveId(DataSource,
 	// String)
-	public static DataSourceIdentifier<?> resolveId(String databaseName, String databaseObjectID) {
+	public static DataSourceIdentifier<?> resolveId(String databaseName, String databaseObjectID, String originalIdString) {
 		if (databaseName.equalsIgnoreCase("MGI"))
 			return new MgiGeneID(databaseObjectID);
 		else if (databaseName.equalsIgnoreCase("RGD"))
@@ -236,7 +236,7 @@ public class DataSourceIdResolver {
 		else if (databaseName.equalsIgnoreCase("pubchemsubstance"))
 			return new PubChemSubstanceId(databaseObjectID);
 		else if (databaseName.equalsIgnoreCase("EG"))
-			return new EntrezGeneID(databaseObjectID);
+			return new NcbiGeneId(databaseObjectID);
 		else if (databaseName.equalsIgnoreCase("Ensembl"))
 			return new EnsemblGeneID(databaseObjectID);
 		else if (databaseName.equalsIgnoreCase("EMBL"))
@@ -248,7 +248,7 @@ public class DataSourceIdResolver {
 		else if (databaseName.equalsIgnoreCase("NCBI-GI"))
 			return new GiNumberID(databaseObjectID);
 		else if (databaseName.equalsIgnoreCase("NCBI-GeneID"))
-			return new EntrezGeneID(databaseObjectID);
+			return new NcbiGeneId(databaseObjectID);
 		else if (databaseName.equalsIgnoreCase("OMIM"))
 			return new OmimID(databaseObjectID);
 		else if (databaseName.equalsIgnoreCase("HGNC"))
@@ -299,7 +299,7 @@ public class DataSourceIdResolver {
 
 		logger.warn("Unable to resolve data source identifier: datasource=" + databaseName + " id=" + databaseObjectID
 				+ ". Using UnknownDataSourceIdentifier.");
-		return new UnknownDataSourceIdentifier(databaseObjectID, databaseName);
+		return new UnknownDataSourceIdentifier(originalIdString);
 	}
 
 	/**
@@ -316,9 +316,9 @@ public class DataSourceIdResolver {
 				}
 				return new MgiGeneID(geneIDStr);
 			} else if (geneIDStr.startsWith("ncbi-geneid:"))
-				return new EntrezGeneID(StringUtil.removePrefix(geneIDStr, "ncbi-geneid:"));
+				return new NcbiGeneId(StringUtil.removePrefix(geneIDStr, "ncbi-geneid:"));
 			else if (geneIDStr.startsWith(IREFWEB_ENTREZGENE_ID_PREFIX))
-				return new EntrezGeneID(StringUtil.removePrefix(geneIDStr, IREFWEB_ENTREZGENE_ID_PREFIX));
+				return new NcbiGeneId(StringUtil.removePrefix(geneIDStr, IREFWEB_ENTREZGENE_ID_PREFIX));
 			else if (geneIDStr.startsWith("Ensembl:"))
 				return new EnsemblGeneID(StringUtil.removePrefix(geneIDStr, "Ensembl:"));
 			else if (geneIDStr.startsWith("refseq:"))
@@ -447,7 +447,7 @@ public class DataSourceIdResolver {
 			else if (geneIDStr.startsWith("KEGG_PATHWAY"))
 				return new KeggPathwayID(geneIDStr);
 			else if (geneIDStr.startsWith("EG_"))
-				return new EntrezGeneID(StringUtil.removePrefix(geneIDStr, "EG_"));
+				return new NcbiGeneId(StringUtil.removePrefix(geneIDStr, "EG_"));
 			else if (geneIDStr.startsWith("HOMOLOGENE_GROUP_"))
 				return new HomologeneGroupID(StringUtil.removePrefix(geneIDStr, "HOMOLOGENE_GROUP_"));
 			else if (geneIDStr.matches("IPR\\d+"))

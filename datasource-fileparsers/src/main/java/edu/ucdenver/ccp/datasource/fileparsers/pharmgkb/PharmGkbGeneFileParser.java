@@ -61,7 +61,7 @@ import edu.ucdenver.ccp.datasource.identifiers.UnknownDataSourceIdentifier;
 import edu.ucdenver.ccp.datasource.identifiers.ebi.uniprot.UniProtID;
 import edu.ucdenver.ccp.datasource.identifiers.ensembl.EnsemblGeneID;
 import edu.ucdenver.ccp.datasource.identifiers.hgnc.HgncID;
-import edu.ucdenver.ccp.datasource.identifiers.ncbi.gene.EntrezGeneID;
+import edu.ucdenver.ccp.datasource.identifiers.ncbi.gene.NcbiGeneId;
 import edu.ucdenver.ccp.datasource.identifiers.ncbi.omim.OmimID;
 import edu.ucdenver.ccp.datasource.identifiers.ncbi.refseq.RefSeqID;
 import edu.ucdenver.ccp.datasource.identifiers.obo.GeneOntologyID;
@@ -169,7 +169,7 @@ public class PharmGkbGeneFileParser extends SingleLineFileRecordReader<PharmGkbG
 		int index = 0;
 		String[] toks = line.getText().split(RegExPatterns.TAB, -1);
 		PharmGkbID pharmGkbAccessionId = new PharmGkbID(toks[index++]);
-		Set<EntrezGeneID> entrezGeneIds = getEntrezGeneIDs(toks[index++]);
+		Set<NcbiGeneId> entrezGeneIds = getEntrezGeneIDs(toks[index++]);
 		Set<HgncID> hgncIds = getHgncIds(toks[index++]);
 		EnsemblGeneID ensemblGeneId = StringUtils.isNotBlank(toks[index++]) ? new EnsemblGeneID(toks[index - 1]) : null;
 		String name = StringUtils.isNotBlank(toks[index++]) ? new String(toks[index - 1]) : null;
@@ -213,16 +213,16 @@ public class PharmGkbGeneFileParser extends SingleLineFileRecordReader<PharmGkbG
 				line.getLineNumber());
 	}
 
-	private Set<EntrezGeneID> getEntrezGeneIDs(String idStr) {
-		Set<EntrezGeneID> ids = new HashSet<EntrezGeneID>();
+	private Set<NcbiGeneId> getEntrezGeneIDs(String idStr) {
+		Set<NcbiGeneId> ids = new HashSet<NcbiGeneId>();
 		if (StringUtils.isNotBlank(idStr)) {
 			if (idStr.contains(",")) {
 				idStr = idStr.replaceAll("\"", "");
 				for (String tok : idStr.split(",")) {
-					ids.add(new EntrezGeneID(tok));
+					ids.add(new NcbiGeneId(tok));
 				}
 			} else {
-				ids.add(new EntrezGeneID(idStr));
+				ids.add(new NcbiGeneId(idStr));
 			}
 		}
 		return ids;
@@ -262,7 +262,7 @@ public class PharmGkbGeneFileParser extends SingleLineFileRecordReader<PharmGkbG
 			} else if (refStr.startsWith(ENSEMBL_PREFIX)) {
 				return new EnsemblGeneID(StringUtil.removePrefix(refStr, ENSEMBL_PREFIX));
 			} else if (refStr.startsWith(ENTREZGENE_PREFIX)) {
-				return new EntrezGeneID(StringUtil.removePrefix(refStr, ENTREZGENE_PREFIX));
+				return new NcbiGeneId(StringUtil.removePrefix(refStr, ENTREZGENE_PREFIX));
 			} else if (refStr.startsWith(GENEATLAS_PREFIX)) {
 				return new GenAtlasId(StringUtil.removePrefix(refStr, GENEATLAS_PREFIX));
 			} else if (refStr.startsWith(GENECARD_PREFIX)) {

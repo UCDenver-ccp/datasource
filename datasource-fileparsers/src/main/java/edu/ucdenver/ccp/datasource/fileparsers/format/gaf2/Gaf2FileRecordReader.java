@@ -126,7 +126,8 @@ public class Gaf2FileRecordReader<T extends Gaf2FileRecord> extends TaxonAwareSi
 		int index = 0;
 
 		String databaseDesignation = toks[index++];
-		DataSourceIdentifier<?> dbObjectId = idResolver.resolveId(databaseDesignation, toks[index++]);
+		String idToken = toks[index++];
+		DataSourceIdentifier<?> dbObjectId = idResolver.resolveId(databaseDesignation, idToken, "Source: " + databaseDesignation + " ID: " + idToken);
 		String dbObjectSymbol = toks[index++];
 		String qualifier = toks[index++].isEmpty() ? null : toks[index - 1];
 		DataSourceIdentifier<?> ontologyTermId = idResolver.resolveId(toks[index++]);
