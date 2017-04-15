@@ -45,6 +45,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import edu.ucdenver.ccp.common.collections.CollectionsUtil;
@@ -157,6 +158,7 @@ public class GpAssociationGoaUniprotFileParserTest extends RecordReaderTester {
 
 	}
 
+	@Ignore("parser has been deprecated and source file is no longer available")
 	@Test
 	public void testParser_withTaxon() throws Exception {
 		initializeSampleGpAssociationGoaUniprotFile(getMoreSampleGpAssociationGoaUniProtFileLines());
@@ -169,6 +171,7 @@ public class GpAssociationGoaUniprotFileParserTest extends RecordReaderTester {
 
 	}
 
+	@Ignore("parser has been deprecated and source file is no longer available")
 	@Test
 	public void testParser_withTaxon_nomatches() throws Exception {
 		initializeSampleGpAssociationGoaUniprotFile(getMoreSampleGpAssociationGoaUniProtFileLines());
