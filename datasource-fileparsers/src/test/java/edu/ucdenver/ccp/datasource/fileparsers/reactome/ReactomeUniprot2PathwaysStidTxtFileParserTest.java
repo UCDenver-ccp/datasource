@@ -49,6 +49,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.NoSuchElementException;
 
+import org.junit.Ignore;
 import org.junit.Test;
 
 import edu.ucdenver.ccp.common.collections.CollectionsUtil;
@@ -106,6 +107,7 @@ public class ReactomeUniprot2PathwaysStidTxtFileParserTest extends RecordReaderT
 		validateRecord3(parser.next());
 	}
 
+	@Ignore("Results in uniprot swissprot file being downloaded")
 	@Test
 	public void testParser_withTaxon() throws Exception {
 		ReactomeUniprot2PathwayStidTxtFileParser parser = new ReactomeUniprot2PathwayStidTxtFileParser(sampleInputFile,
