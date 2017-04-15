@@ -44,7 +44,10 @@ import org.apache.log4j.Logger;
 import org.apache.tools.ant.util.StringUtils;
 import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.model.OWLAnnotation;
+import org.semanticweb.owlapi.model.OWLAnnotationProperty;
 import org.semanticweb.owlapi.model.OWLClass;
+import org.semanticweb.owlapi.model.OWLObject;
+import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
@@ -120,6 +123,15 @@ public class OntologyUtil {
 		return graph.getAllOWLClasses().iterator();
 	}
 
+	public Iterator<OWLAnnotationProperty> getAnnotationPropertyIterator() {
+		return ont.getAnnotationPropertiesInSignature().iterator();
+	}
+	
+	
+	public Iterator<OWLObjectProperty> getObjectPropertyIterator() {
+		return ont.getObjectPropertiesInSignature().iterator();
+	}
+
 	public void close() throws IOException {
 		graph.close();
 	}
@@ -140,6 +152,35 @@ public class OntologyUtil {
 
 	public String getLabel(OWLClass cls) {
 		Set<OWLAnnotation> annotations = cls.getAnnotations(ont);
+		for (OWLAnnotation annotation : annotations) {
+			if (annotation.getProperty().isLabel()) {
+				String s = annotation.getValue().toString();
+				s = StringUtils.removePrefix(s, "\"");
+				s = StringUtils.removeSuffix(s, "\"^^xsd:string");
+				return s;
+			}
+		}
+
+		return null;
+	}
+	
+	
+	public String getLabel(OWLAnnotationProperty prop) {
+		Set<OWLAnnotation> annotations = prop.getAnnotations(ont);
+		for (OWLAnnotation annotation : annotations) {
+			if (annotation.getProperty().isLabel()) {
+				String s = annotation.getValue().toString();
+				s = StringUtils.removePrefix(s, "\"");
+				s = StringUtils.removeSuffix(s, "\"^^xsd:string");
+				return s;
+			}
+		}
+
+		return null;
+	}
+	
+	public String getLabel(OWLObjectProperty prop) {
+		Set<OWLAnnotation> annotations = prop.getAnnotations(ont);
 		for (OWLAnnotation annotation : annotations) {
 			if (annotation.getProperty().isLabel()) {
 				String s = annotation.getValue().toString();
@@ -218,11 +259,10 @@ public class OntologyUtil {
 				synonyms.add(s);
 			}
 
-			if (property.contains("ynonym")
-					&& !(property.equals(BROAD_SYN_PROP) || property.equals(BROAD_SYN_PROP_ALT)
-							|| property.equals(EXACT_SYN_PROP) || property.equals(EXACT_SYN_PROP_ALT)
-							|| property.equals(NARROW_SYN_PROP) || property.equals(NARROW_SYN_PROP_ALT)
-							|| property.equals(RELATED_SYN_PROP) || property.equals(RELATED_SYN_PROP_ALT))) {
+			if (property.contains("ynonym") && !(property.equals(BROAD_SYN_PROP) || property.equals(BROAD_SYN_PROP_ALT)
+					|| property.equals(EXACT_SYN_PROP) || property.equals(EXACT_SYN_PROP_ALT)
+					|| property.equals(NARROW_SYN_PROP) || property.equals(NARROW_SYN_PROP_ALT)
+					|| property.equals(RELATED_SYN_PROP) || property.equals(RELATED_SYN_PROP_ALT))) {
 				logger.error("Unhandled synonym type: " + annotation.getProperty());
 			}
 
