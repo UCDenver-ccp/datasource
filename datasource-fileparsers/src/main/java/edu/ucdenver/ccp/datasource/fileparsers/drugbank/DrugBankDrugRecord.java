@@ -58,25 +58,23 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
 import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
+import javax.xml.bind.JAXBElement;
 
 import org.apache.log4j.Logger;
 
 import ca.drugbank.AffectedOrganismListType;
 import ca.drugbank.AhfsCodeListType;
+import ca.drugbank.ArticleType;
 import ca.drugbank.AtcCodeLevelType;
 import ca.drugbank.AtcCodeListType;
 import ca.drugbank.AtcCodeType;
-import ca.drugbank.BrandListType;
-import ca.drugbank.BrandType;
 import ca.drugbank.CalculatedPropertyListType;
 import ca.drugbank.CalculatedPropertyType;
 import ca.drugbank.CarrierListType;
@@ -102,6 +100,9 @@ import ca.drugbank.GoClassifierListType;
 import ca.drugbank.GoClassifierType;
 import ca.drugbank.GroupListType;
 import ca.drugbank.GroupType;
+import ca.drugbank.InternationalBrandListType;
+import ca.drugbank.InternationalBrandType;
+import ca.drugbank.LinkType;
 import ca.drugbank.ManufacturerListType;
 import ca.drugbank.ManufacturerType;
 import ca.drugbank.MixtureListType;
@@ -113,6 +114,7 @@ import ca.drugbank.PatentType;
 import ca.drugbank.PathwayDrugType;
 import ca.drugbank.PathwayListType;
 import ca.drugbank.PathwayType;
+import ca.drugbank.PdbEntryListType;
 import ca.drugbank.PfamListType;
 import ca.drugbank.PfamType;
 import ca.drugbank.PolypeptideExternalIdentifierListType;
@@ -122,9 +124,12 @@ import ca.drugbank.PolypeptideType;
 import ca.drugbank.PolypeptideType.Organism;
 import ca.drugbank.PriceListType;
 import ca.drugbank.PriceType;
+import ca.drugbank.ProductListType;
+import ca.drugbank.ProductType;
 import ca.drugbank.ReactionEnzymeType;
 import ca.drugbank.ReactionListType;
 import ca.drugbank.ReactionType;
+import ca.drugbank.ReferenceListType;
 import ca.drugbank.SaltListType;
 import ca.drugbank.SaltType;
 import ca.drugbank.SequenceListType;
@@ -132,10 +137,12 @@ import ca.drugbank.SnpAdverseDrugReactionListType;
 import ca.drugbank.SnpAdverseDrugReactionType;
 import ca.drugbank.SnpEffectListType;
 import ca.drugbank.SnpEffectType;
+import ca.drugbank.StateType;
 import ca.drugbank.SynonymListType;
 import ca.drugbank.SynonymType;
 import ca.drugbank.TargetListType;
 import ca.drugbank.TargetType;
+import ca.drugbank.TextbookType;
 import ca.drugbank.TransporterListType;
 import ca.drugbank.TransporterType;
 import edu.ucdenver.ccp.common.string.StringUtil;
@@ -167,6 +174,7 @@ import edu.ucdenver.ccp.datasource.identifiers.other.AhfsCode;
 import edu.ucdenver.ccp.datasource.identifiers.other.AtcCode;
 import edu.ucdenver.ccp.datasource.identifiers.other.BindingDbId;
 import edu.ucdenver.ccp.datasource.identifiers.other.ChemSpiderId;
+import edu.ucdenver.ccp.datasource.identifiers.other.ChemblId;
 import edu.ucdenver.ccp.datasource.identifiers.other.ChemicalAbstractsServiceId;
 import edu.ucdenver.ccp.datasource.identifiers.other.GenAtlasId;
 import edu.ucdenver.ccp.datasource.identifiers.other.GeneCardId;
@@ -175,10 +183,15 @@ import edu.ucdenver.ccp.datasource.identifiers.other.IupharLigandId;
 import edu.ucdenver.ccp.datasource.identifiers.other.NationalDrugCodeDirectoryId;
 import edu.ucdenver.ccp.datasource.identifiers.other.PubChemCompoundId;
 import edu.ucdenver.ccp.datasource.identifiers.other.PubChemSubstanceId;
+import edu.ucdenver.ccp.datasource.identifiers.other.TherapeuticTargetsDatabaseId;
 import edu.ucdenver.ccp.datasource.identifiers.other.WikipediaId;
 import edu.ucdenver.ccp.datasource.identifiers.pdb.PdbID;
 import edu.ucdenver.ccp.datasource.identifiers.pharmgkb.PharmGkbID;
+import edu.ucdenver.ccp.identifier.publication.ISBN;
 import edu.ucdenver.ccp.identifier.publication.PubMedID;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
 
 /**
  * Represents one drug entry.
@@ -189,8 +202,9 @@ public class DrugBankDrugRecord extends FileRecord {
 
 	private static final Logger logger = Logger.getLogger(DrugBankDrugRecord.class);
 
-	private static final DateFormat TIMESTAMP_DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd kk:mm:ss ZZZZZ",
-			Locale.ENGLISH);
+	// private static final DateFormat TIMESTAMP_DATE_FORMAT = new
+	// SimpleDateFormat("yyyy-MM-dd kk:mm:ss ZZZZZ",
+	// Locale.ENGLISH);
 	private static final DateFormat SIMPLE_DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH);
 
 	@RecordField(isKeyField = true, comment = "Unique DrugBank accession number consisting of a 2 letter prefix (DB) and a 5 number suffix. This ID is used to access the drug entry via the URL. If an entry is deleted, it's DrugBank ID will not be reused.")
@@ -223,8 +237,9 @@ public class DrugBankDrugRecord extends FileRecord {
 	@RecordField(comment = "Can be one or more of: Approved — Drug has been approved in at least one country, Experimental — Drug has been shown experimentally to bind specific proteins in mammals, bacteria, viruses, fungi, or parasites. An experimental drug is not necessarily being formally investigated, Nutraceutical — Drug is a food product which has experimentally confirmed health benefits, Illicit — Drug is a scheduled drug in at least one country, Withdrawn — Drug has been removed from the market by a manufacturer in at least one country. A drug can be approved and withdrawn at the same time if it is still available commercially in one country while pulled in another country. Typically the Description field will contain further details.")
 	private final Set<String> groups;
 
-	@RecordField(comment = "General on-line reference to other details about the drug")
-	private final Set<Reference> generalReferences;
+	// @RecordField(comment = "General on-line reference to other details about
+	// the drug")
+	// private final Set<Reference> generalReferences;
 
 	@RecordField(comment = "Reference or patent number to description of drug's synthesis")
 	private final Reference synthesisReference;
@@ -272,7 +287,7 @@ public class DrugBankDrugRecord extends FileRecord {
 	private final Set<Synonym> synonyms;
 
 	@RecordField(comment = "Brand names from different manufacturers")
-	private final Set<Brand> brands;
+	private final Set<InternationalBrand> internationalBrands;
 
 	// @RecordField(comment = "")
 	// private final DrugTaxonomy drugTaxonomy;
@@ -352,6 +367,39 @@ public class DrugBankDrugRecord extends FileRecord {
 	@RecordField(comment = "")
 	private final List<Target> transporters;
 
+	@RecordField(comment = "")
+	private final String unii;
+
+	@RecordField(comment = "")
+	private final Float averageMass;
+
+	@RecordField(comment = "")
+	private final Float monoisotropicMass;
+
+	@RecordField(comment = "")
+	private StateType state;
+
+	@RecordField(comment = "")
+	private String fdaLabel;
+
+	@RecordField(comment = "")
+	private String msds;
+
+	@RecordField(comment = "")
+	private Set<Product> products;
+
+	@RecordField(comment = "")
+	private Set<Article> articleReferences;
+
+	@RecordField(comment = "")
+	private Set<TextBook> textbookReferences;
+
+	@RecordField(comment = "")
+	private Set<Link> linkReferences;
+
+	@RecordField(comment = "")
+	private Set<PdbID> pdbEntries;
+
 	public DrugBankDrugRecord(DrugType dr) {
 		super(-1); // b/c this data is coming from XML we don't have an easy way
 					// to track the byte
@@ -365,11 +413,16 @@ public class DrugBankDrugRecord extends FileRecord {
 		this.description = returnNullIfEmpty(dr.getDescription());
 		this.casNumber = (dr.getCasNumber().trim().isEmpty()) ? null
 				: new ChemicalAbstractsServiceId(dr.getCasNumber());
+		this.unii = dr.getUnii();
+		this.averageMass = dr.getAverageMass();
+		this.monoisotropicMass = dr.getMonoisotopicMass();
+		this.state = dr.getState();
 		this.groups = initGroups(dr.getGroups());
-		this.generalReferences = (dr.getGeneralReferences().trim().isEmpty()) ? null : parseReferences(dr
-				.getGeneralReferences());
-		this.synthesisReference = (dr.getSynthesisReference().trim().isEmpty()) ? null : Reference.parseRefStr(dr
-				.getSynthesisReference());
+		this.articleReferences = initArticleReferences(dr.getGeneralReferences());
+		this.textbookReferences = initTextbookReferences(dr.getGeneralReferences());
+		this.linkReferences = initLinkReferences(dr.getGeneralReferences());
+		this.synthesisReference = (dr.getSynthesisReference().trim().isEmpty()) ? null
+				: Reference.parseRefStr(dr.getSynthesisReference());
 		this.indication = returnNullIfEmpty(dr.getIndication());
 		this.pharmacodynamics = returnNullIfEmpty(dr.getPharmacodynamics());
 		this.mechanismOfAction = returnNullIfEmpty(dr.getMechanismOfAction());
@@ -384,7 +437,8 @@ public class DrugBankDrugRecord extends FileRecord {
 		this.classification = initClassification(dr.getClassification());
 		this.salts = initSalts(dr.getSalts());
 		this.synonyms = initSynonyms(dr.getSynonyms());
-		this.brands = initBrands(dr.getBrands());
+		this.products = initProducts(dr.getProducts());
+		this.internationalBrands = initInternationalBrands(dr.getInternationalBrands());
 		this.mixtures = initMixtures(dr.getMixtures());
 		this.packagers = initPackagers(dr.getPackagers());
 		this.manufacturers = initManufacturers(dr.getManufacturers());
@@ -394,6 +448,9 @@ public class DrugBankDrugRecord extends FileRecord {
 		this.dosages = initDosages(dr.getDosages());
 		this.atcCodes = initAtcCodes(dr.getAtcCodes());
 		this.ahfsCodes = initAhfsCodes(dr.getAhfsCodes());
+		this.pdbEntries = initPdbEntries(dr.getPdbEntries());
+		this.fdaLabel = returnNullIfEmpty(dr.getFdaLabel());
+		this.msds = returnNullIfEmpty(dr.getMsds());
 		this.patents = initPatents(dr.getPatents());
 		this.foodInteractions = initFoodInteractions(dr.getFoodInteractions());
 		this.drugInteractions = initDrugInteractions(dr.getDrugInteractions());
@@ -412,10 +469,10 @@ public class DrugBankDrugRecord extends FileRecord {
 		this.carriers = initCarriers(dr.getCarriers());
 	}
 
-	private static  String getOriginalIdString(String source, String id) {
+	private static String getOriginalIdString(String source, String id) {
 		return "Source: " + source + " ID: " + id;
 	}
-	
+
 	private List<Target> initCarriers(CarrierListType list) {
 		if (list == null || list.getCarrier() == null || list.getCarrier().isEmpty()) {
 			return null;
@@ -423,8 +480,9 @@ public class DrugBankDrugRecord extends FileRecord {
 		List<Target> toReturn = new ArrayList<Target>();
 		for (CarrierType p : list.getCarrier()) {
 			String knownAction = p.getKnownAction().value();
-			Target t = new Target(new DrugBankID(p.getId()), p.getName(), knownAction, p.getOrganism(),
-					p.getPosition(), p.getReferences());
+			Target t = new Target(new DrugBankID(p.getId()), p.getName(), knownAction, p.getOrganism(), p.getPosition(),
+					initArticleReferences(p.getReferences()), initTextbookReferences(p.getReferences()),
+					initLinkReferences(p.getReferences()));
 			for (String action : p.getActions().getAction()) {
 				t.addAction(action);
 			}
@@ -443,8 +501,9 @@ public class DrugBankDrugRecord extends FileRecord {
 		List<Target> toReturn = new ArrayList<Target>();
 		for (TransporterType p : list.getTransporter()) {
 			String knownAction = p.getKnownAction().value();
-			Target t = new Target(new DrugBankID(p.getId()), p.getName(), knownAction, p.getOrganism(),
-					p.getPosition(), p.getReferences());
+			Target t = new Target(new DrugBankID(p.getId()), p.getName(), knownAction, p.getOrganism(), p.getPosition(),
+					initArticleReferences(p.getReferences()), initTextbookReferences(p.getReferences()),
+					initLinkReferences(p.getReferences()));
 			for (String action : p.getActions().getAction()) {
 				t.addAction(action);
 			}
@@ -464,7 +523,8 @@ public class DrugBankDrugRecord extends FileRecord {
 		for (EnzymeType p : list.getEnzyme()) {
 			String knownAction = p.getKnownAction().value();
 			Enzyme t = new Enzyme(p.getInductionStrength(), p.getInhibitionStrength(), p.getId(), p.getName(),
-					knownAction, p.getOrganism(), p.getPosition(), p.getReferences());
+					knownAction, p.getOrganism(), p.getPosition(), initArticleReferences(p.getReferences()),
+					initTextbookReferences(p.getReferences()), initLinkReferences(p.getReferences()));
 			for (String action : p.getActions().getAction()) {
 				t.addAction(action);
 			}
@@ -486,8 +546,10 @@ public class DrugBankDrugRecord extends FileRecord {
 		private final String inhibitionStrength;
 
 		public Enzyme(String inductionStrength, String inhibitionStrength, String id, String name, String knownAction,
-				String organism, BigInteger position, String references) {
-			super(new DrugBankID(id), name, knownAction, organism, position, references);
+				String organism, BigInteger position, Set<Article> articleReferences, Set<TextBook> textbookReferences,
+				Set<Link> linkReferences) {
+			super(new DrugBankID(id), name, knownAction, organism, position, articleReferences, textbookReferences,
+					linkReferences);
 			this.inductionStrength = inductionStrength;
 			this.inhibitionStrength = inhibitionStrength;
 		}
@@ -500,8 +562,9 @@ public class DrugBankDrugRecord extends FileRecord {
 		List<Target> toReturn = new ArrayList<Target>();
 		for (TargetType p : list.getTarget()) {
 			String knownAction = p.getKnownAction().value();
-			Target t = new Target(new DrugBankID(p.getId()), p.getName(), knownAction, p.getOrganism(),
-					p.getPosition(), p.getReferences());
+			Target t = new Target(new DrugBankID(p.getId()), p.getName(), knownAction, p.getOrganism(), p.getPosition(),
+					initArticleReferences(p.getReferences()), initTextbookReferences(p.getReferences()),
+					initLinkReferences(p.getReferences()));
 			for (String action : p.getActions().getAction()) {
 				t.addAction(action);
 			}
@@ -527,7 +590,11 @@ public class DrugBankDrugRecord extends FileRecord {
 		@RecordField
 		private final BigInteger position;
 		@RecordField
-		private final String references;
+		private final Set<Article> articleReferences;
+		@RecordField
+		private final Set<TextBook> textbookReferences;
+		@RecordField
+		private final Set<Link> linkReferences;
 
 		@RecordField
 		private final Set<String> actions = new HashSet<String>();
@@ -542,6 +609,7 @@ public class DrugBankDrugRecord extends FileRecord {
 		public void addPolypeptide(Polypeptide poly) {
 			this.polypeptides.add(poly);
 		}
+
 	}
 
 	@Data
@@ -589,8 +657,8 @@ public class DrugBankDrugRecord extends FileRecord {
 		private final String transmembraneRegions;
 
 		public Polypeptide(PolypeptideType poly) {
-			aminoAcidSequence = new Sequence(poly.getAminoAcidSequence().getFormat(), poly.getAminoAcidSequence()
-					.getValue());
+			aminoAcidSequence = new Sequence(poly.getAminoAcidSequence().getFormat(),
+					poly.getAminoAcidSequence().getValue());
 			cellularLocation = poly.getCellularLocation();
 			chromosomeLocation = poly.getChromosomeLocation();
 			geneName = poly.getGeneName();
@@ -609,7 +677,8 @@ public class DrugBankDrugRecord extends FileRecord {
 
 			PolypeptideExternalIdentifierListType externalIdentifiers = poly.getExternalIdentifiers();
 			for (PolypeptideExternalIdentifierType extId : externalIdentifiers.getExternalIdentifier()) {
-				DataSourceIdentifier<?> id = resolveIdentifier(extId.getResource().value(), extId.getIdentifier(), getOriginalIdString(extId.getResource().value(), extId.getIdentifier()));
+				DataSourceIdentifier<?> id = resolveIdentifier(extId.getResource().value(), extId.getIdentifier(),
+						getOriginalIdString(extId.getResource().value(), extId.getIdentifier()));
 				addExternalIdentifier(id);
 			}
 
@@ -679,8 +748,8 @@ public class DrugBankDrugRecord extends FileRecord {
 
 		public DrugbankOrganism(Organism organism) {
 			this.name = organism.getValue();
-			this.taxonomyId = (organism.getNcbiTaxonomyId().trim().isEmpty()) ? null : new NcbiTaxonomyID(
-					organism.getNcbiTaxonomyId());
+			this.taxonomyId = (organism.getNcbiTaxonomyId().trim().isEmpty()) ? null
+					: new NcbiTaxonomyID(organism.getNcbiTaxonomyId());
 		}
 	}
 
@@ -689,8 +758,8 @@ public class DrugBankDrugRecord extends FileRecord {
 			return null;
 		}
 		Set<SnpAdverseDrugReaction> toReturn = new HashSet<SnpAdverseDrugReaction>();
-		for (SnpAdverseDrugReactionType p : list.getReaction()) {
-			toReturn.add(new SnpAdverseDrugReaction(p));
+		for (SnpAdverseDrugReactionType type : list.getReaction()) {
+			toReturn.add(new SnpAdverseDrugReaction(type));
 		}
 		return toReturn;
 	}
@@ -716,14 +785,60 @@ public class DrugBankDrugRecord extends FileRecord {
 		private final UniProtID uniprotId;
 
 		public SnpAdverseDrugReaction(SnpAdverseDrugReactionType type) {
-			this.adverseReaction = type.getAdverseReaction();
-			this.allele = type.getAllele();
-			this.description = type.getDescription();
-			this.geneSymbol = type.getGeneSymbol();
-			this.proteinName = type.getProteinName();
-			this.pubmedId = new PubMedID(type.getPubmedId());
-			this.rsId = (type.getRsId().trim().isEmpty()) ? null : new SnpRsId(type.getRsId());
-			this.uniprotId = new UniProtID(type.getUniprotId());
+			UniProtID uniprotIdHolder = null;
+			SnpRsId rsIdHolder = null;
+			PubMedID pmidHolder = null;
+			String proteinNameHolder = null;
+			String geneSymbolHolder = null;
+			String descriptionHolder = null;
+			String adverseReactionHolder = null;
+			String alleleHolder = null;
+			for (Iterator<JAXBElement<String>> elementIter = type.getProteinNameAndGeneSymbolAndUniprotId()
+					.iterator(); elementIter.hasNext();) {
+				JAXBElement<String> element = elementIter.next();
+				String name = element.getName().getLocalPart();
+				switch (name) {
+				case "uniprot-id":
+					uniprotIdHolder = new UniProtID(element.getValue());
+					break;
+				case "description":
+					descriptionHolder = element.getValue();
+					break;
+				case "pubmed-id":
+					pmidHolder = new PubMedID(element.getValue());
+					break;
+				case "rs-id":
+					String value = element.getValue().startsWith("SNP ID:")
+							? StringUtil.removePrefix(element.getValue(), "SNP ID:") : element.getValue();
+					rsIdHolder = value.trim().isEmpty() ? null : new SnpRsId(value.trim());
+					break;
+				case "gene-symbol":
+					geneSymbolHolder = element.getValue();
+					break;
+				case "adverse-reaction":
+					adverseReactionHolder = element.getValue();
+					break;
+				case "protein-name":
+					proteinNameHolder = element.getValue();
+					break;
+				case "allele":
+					alleleHolder = element.getValue();
+					break;
+				default:
+					throw new IllegalArgumentException(
+							"Unexpected element as part of SnpAdverseDrugReaction. Code changes required: " + name);
+				}
+			}
+
+			this.uniprotId = uniprotIdHolder;
+			this.description = descriptionHolder;
+			this.pubmedId = pmidHolder;
+			this.rsId = rsIdHolder;
+			this.geneSymbol = geneSymbolHolder;
+			this.adverseReaction = adverseReactionHolder;
+			this.proteinName = proteinNameHolder;
+			this.allele = alleleHolder;
+
 		}
 
 	}
@@ -760,14 +875,60 @@ public class DrugBankDrugRecord extends FileRecord {
 		private final UniProtID uniprotId;
 
 		public SnpEffect(SnpEffectType type) {
-			this.allele = type.getAllele();
-			this.definingChange = type.getDefiningChange();
-			this.description = type.getDescription();
-			this.geneSymbol = type.getGeneSymbol();
-			this.proteinName = type.getProteinName();
-			this.pubmedId = new PubMedID(type.getPubmedId());
-			this.rsId = (type.getRsId().trim().isEmpty()) ? null : new SnpRsId(type.getRsId());
-			this.uniprotId = new UniProtID(type.getUniprotId());
+			UniProtID uniprotIdHolder = null;
+			SnpRsId rsIdHolder = null;
+			PubMedID pmidHolder = null;
+			String proteinNameHolder = null;
+			String geneSymbolHolder = null;
+			String descriptionHolder = null;
+			String definingChangeHolder = null;
+			String alleleHolder = null;
+			for (Iterator<JAXBElement<String>> elementIter = type.getProteinNameAndGeneSymbolAndUniprotId()
+					.iterator(); elementIter.hasNext();) {
+				JAXBElement<String> element = elementIter.next();
+				String name = element.getName().getLocalPart();
+				switch (name) {
+				case "allele":
+					alleleHolder = element.getValue();
+					break;
+				case "description":
+					descriptionHolder = element.getValue();
+					break;
+				case "gene-symbol":
+					geneSymbolHolder = element.getValue();
+					break;
+				case "pubmed-id":
+					pmidHolder = new PubMedID(element.getValue());
+					break;
+				case "protein-name":
+					proteinNameHolder = element.getValue();
+					break;
+				case "defining-change":
+					definingChangeHolder = element.getValue();
+					break;
+				case "uniprot-id":
+					uniprotIdHolder = new UniProtID(element.getValue());
+					break;
+				case "rs-id":
+					String value = element.getValue().startsWith("SNP ID:")
+							? StringUtil.removePrefix(element.getValue(), "SNP ID:") : element.getValue();
+					rsIdHolder = value.trim().isEmpty() ? null : new SnpRsId(value.trim());
+					break;
+
+				default:
+					throw new IllegalArgumentException(
+							"Unexpected element as part of SnpAdverseDrugReaction. Code changes required: " + name);
+				}
+			}
+
+			this.uniprotId = uniprotIdHolder;
+			this.description = descriptionHolder;
+			this.pubmedId = pmidHolder;
+			this.rsId = rsIdHolder;
+			this.geneSymbol = geneSymbolHolder;
+			this.definingChange = definingChangeHolder;
+			this.proteinName = proteinNameHolder;
+			this.allele = alleleHolder;
 		}
 	}
 
@@ -777,16 +938,16 @@ public class DrugBankDrugRecord extends FileRecord {
 		}
 		Set<Reaction> toReturn = new HashSet<Reaction>();
 		for (ReactionType p : list.getReaction()) {
-			ReactionElement leftElement = new ReactionElement(p.getLeftElement().getName(), new DrugBankID(p
-					.getLeftElement().getDrugbankId()));
-			ReactionElement rightElement = new ReactionElement(p.getRightElement().getName(), new DrugBankID(p
-					.getRightElement().getDrugbankId()));
+			ReactionElement leftElement = new ReactionElement(p.getLeftElement().getName(),
+					new DrugBankID(p.getLeftElement().getDrugbankId()));
+			ReactionElement rightElement = new ReactionElement(p.getRightElement().getName(),
+					new DrugBankID(p.getRightElement().getDrugbankId()));
 			Reaction c = new Reaction(p.getSequence(), leftElement, rightElement);
 			for (ReactionEnzymeType reactionEnzyme : p.getEnzymes().getEnzyme()) {
-				UniProtID uniprotId = (reactionEnzyme.getUniprotId().trim().isEmpty()) ? null : new UniProtID(
-						reactionEnzyme.getUniprotId());
-				c.addReactionEnzyme(new ReactionEnzyme(reactionEnzyme.getName(), new DrugBankID(reactionEnzyme
-						.getDrugbankId()), uniprotId));
+				UniProtID uniprotId = (reactionEnzyme.getUniprotId().trim().isEmpty()) ? null
+						: new UniProtID(reactionEnzyme.getUniprotId());
+				c.addReactionEnzyme(new ReactionEnzyme(reactionEnzyme.getName(),
+						new DrugBankID(reactionEnzyme.getDrugbankId()), uniprotId));
 			}
 			toReturn.add(c);
 		}
@@ -961,25 +1122,25 @@ public class DrugBankDrugRecord extends FileRecord {
 		private final String category;
 	}
 
-	private Set<Brand> initBrands(BrandListType list) {
-		if (list == null || list.getBrand() == null || list.getBrand().isEmpty()) {
+	private Set<InternationalBrand> initInternationalBrands(InternationalBrandListType list) {
+		if (list == null || list.getInternationalBrand() == null || list.getInternationalBrand().isEmpty()) {
 			return null;
 		}
-		Set<Brand> toReturn = new HashSet<Brand>();
-		for (BrandType p : list.getBrand()) {
-			Brand syn = new Brand(p.getCompany(), p.getValue());
-			toReturn.add(syn);
+		Set<InternationalBrand> toReturn = new HashSet<InternationalBrand>();
+		for (InternationalBrandType b : list.getInternationalBrand()) {
+			InternationalBrand brand = new InternationalBrand(b.getCompany(), b.getName());
+			toReturn.add(brand);
 		}
 		return toReturn;
 	}
 
 	@Data
 	@Record(dataSource = DataSource.DRUGBANK)
-	private static class Brand {
+	private static class InternationalBrand {
 		@RecordField
 		private final String company;
 		@RecordField
-		private final String brand;
+		private final String name;
 	}
 
 	private Set<Synonym> initSynonyms(SynonymListType list) {
@@ -1003,6 +1164,127 @@ public class DrugBankDrugRecord extends FileRecord {
 		private final String language;
 		@RecordField
 		private final String synonym;
+	}
+
+	private Set<Article> initArticleReferences(ReferenceListType list) {
+		if (list == null || list.getArticles() == null || list.getArticles().getArticle().isEmpty()) {
+			return null;
+		}
+		Set<Article> toReturn = new HashSet<Article>();
+		for (ArticleType a : list.getArticles().getArticle()) {
+			Article article = new Article(a.getCitation(), new PubMedID(a.getPubmedId()));
+			toReturn.add(article);
+		}
+		return toReturn;
+	}
+
+	@Data
+	@Record(dataSource = DataSource.DRUGBANK)
+	private static class Article {
+		@RecordField
+		private final String citation;
+		@RecordField
+		private final PubMedID pmid;
+	}
+
+	private Set<TextBook> initTextbookReferences(ReferenceListType list) {
+		if (list == null || list.getTextbooks() == null || list.getTextbooks().getTextbook().isEmpty()) {
+			return null;
+		}
+		Set<TextBook> toReturn = new HashSet<TextBook>();
+		for (TextbookType t : list.getTextbooks().getTextbook()) {
+			TextBook textbook = new TextBook(t.getCitation(),
+					(t.getIsbn() == null || t.getIsbn().isEmpty()) ? null : new ISBN(t.getIsbn()));
+			toReturn.add(textbook);
+		}
+		return toReturn;
+	}
+
+	@Data
+	@Record(dataSource = DataSource.DRUGBANK)
+	private static class TextBook {
+		@RecordField
+		private final String citation;
+		@RecordField
+		private final ISBN isbn;
+	}
+
+	private Set<Link> initLinkReferences(ReferenceListType list) {
+		if (list == null || list.getLinks() == null || list.getLinks().getLink().isEmpty()) {
+			return null;
+		}
+		Set<Link> toReturn = new HashSet<Link>();
+		for (LinkType l : list.getLinks().getLink()) {
+			Link link = new Link(l.getTitle(), l.getUrl());
+			toReturn.add(link);
+		}
+		return toReturn;
+	}
+
+	@Data
+	@Record(dataSource = DataSource.DRUGBANK)
+	private static class Link {
+		@RecordField
+		private final String title;
+		@RecordField
+		private final String url;
+	}
+
+	private Set<PdbID> initPdbEntries(PdbEntryListType list) {
+		if (list == null || list.getPdbEntry() == null || list.getPdbEntry().isEmpty()) {
+			return null;
+		}
+		Set<PdbID> toReturn = new HashSet<PdbID>();
+		for (String p : list.getPdbEntry()) {
+			toReturn.add(new PdbID(p));
+		}
+		return toReturn;
+	}
+
+	private Set<Product> initProducts(ProductListType list) {
+		if (list == null || list.getProduct() == null || list.getProduct().isEmpty()) {
+			return null;
+		}
+		Set<Product> toReturn = new HashSet<Product>();
+		for (ProductType p : list.getProduct()) {
+			Product product = new Product(p.getCountry().value(), p.getDosageForm(), p.getDpdId(),
+					p.getEndedMarketingOn(), p.getFdaApplicationNumber(), p.getLabeller(), p.getName(), p.getNdcId(),
+					p.getNdcProductCode(), p.getRoute(), p.getSource().value(), p.getStartedMarketingOn(),
+					p.getStrength());
+			toReturn.add(product);
+		}
+		return toReturn;
+	}
+
+	@Data
+	@Record(dataSource = DataSource.DRUGBANK)
+	private static class Product {
+		@RecordField
+		private final String country;
+		@RecordField
+		private final String dosageForm;
+		@RecordField
+		private final String DpdId;
+		@RecordField
+		private final String endedMarketingOn;
+		@RecordField
+		private final String fdaApplicationNumber;
+		@RecordField
+		private final String labeller;
+		@RecordField
+		private final String name;
+		@RecordField
+		private final String ndcId;
+		@RecordField
+		private final String ndcProductCode;
+		@RecordField
+		private final String route;
+		@RecordField
+		private final String source;
+		@RecordField
+		private final String startedMarketingOn;
+		@RecordField
+		private final String strength;
 	}
 
 	private Set<Salt> initSalts(SaltListType list) {
@@ -1102,8 +1384,8 @@ public class DrugBankDrugRecord extends FileRecord {
 		}
 		Set<DrugInteraction> interactions = new HashSet<DrugInteraction>();
 		for (ca.drugbank.DrugInteractionType di : drugInteractions.getDrugInteraction()) {
-			interactions.add(new DrugInteraction(new DrugBankID(di.getDrugbankId().getValue()), di.getName(), di
-					.getDescription()));
+			interactions.add(new DrugInteraction(new DrugBankID(di.getDrugbankId().getValue()), di.getName(),
+					di.getDescription()));
 		}
 		return interactions;
 	}
@@ -1114,7 +1396,9 @@ public class DrugBankDrugRecord extends FileRecord {
 		}
 		Set<String> grps = new HashSet<String>();
 		for (GroupType group : groups.getGroup()) {
-			grps.add(group.value());
+			if (group != null) {
+				grps.add(group.value());
+			}
 		}
 		return grps;
 	}
@@ -1271,11 +1555,14 @@ public class DrugBankDrugRecord extends FileRecord {
 	 * @param externalIdentifiers2
 	 * @return
 	 */
-	public static Set<DataSourceIdentifier<?>> parseExternalIdentifiers(ExternalIdentifierListType externalIdentifiers) {
+	public static Set<DataSourceIdentifier<?>> parseExternalIdentifiers(
+			ExternalIdentifierListType externalIdentifiers) {
 		Set<DataSourceIdentifier<?>> ids = new HashSet<DataSourceIdentifier<?>>();
 		if (externalIdentifiers != null && externalIdentifiers.getExternalIdentifier() != null) {
 			for (ExternalIdentifierType eid : externalIdentifiers.getExternalIdentifier()) {
-				DataSourceIdentifier<?> id = resolveIdentifier(eid.getResource().value(), eid.getIdentifier(), getOriginalIdString(eid.getResource().value(), eid.getIdentifier()));
+				String eidResourceStr = (eid.getResource() == null) ? null : eid.getResource().value();
+				DataSourceIdentifier<?> id = resolveIdentifier(eidResourceStr, eid.getIdentifier(),
+						getOriginalIdString(eidResourceStr, eid.getIdentifier()));
 				if (id != null) {
 					ids.add(id);
 				}
@@ -1289,91 +1576,98 @@ public class DrugBankDrugRecord extends FileRecord {
 	 * @param identifier
 	 * @return
 	 */
-	private static DataSourceIdentifier<?> resolveIdentifier(String resource, String identifier, String originalIdString) {
-		if (resource.equals("HUGO Gene Nomenclature Committee (HGNC)")) {
-			if (identifier.startsWith("HGNC:")) {
-				return new HgncID(StringUtil.removePrefix(identifier, "HGNC:"));
+	private static DataSourceIdentifier<?> resolveIdentifier(String resource, String identifier,
+			String originalIdString) {
+		if (resource != null) {
+			if (resource.equals("HUGO Gene Nomenclature Committee (HGNC)")) {
+				if (identifier.startsWith("HGNC:")) {
+					return new HgncID(StringUtil.removePrefix(identifier, "HGNC:"));
+				}
+				if (identifier.startsWith("GNC:")) { // there is at least one
+														// instance of this
+					return new HgncID(StringUtil.removePrefix(identifier, "GNC:"));
+				}
+				if (identifier.matches("\\d+")) {
+					return new HgncID(identifier);
+				}
+			} else if (resource.equals("Human Protein Reference Database (HPRD)")) {
+				return new HprdID(identifier);
+			} else if (resource.equals("GenAtlas")) {
+				return new GenAtlasId(identifier);
+			} else if (resource.equals("GeneCards")) {
+				return new GeneCardId(identifier);
+			} else if (resource.equals("GenBank Gene Database")) {
+				return NucleotideAccessionResolver.resolveNucleotideAccession(identifier,
+						"GenBank Gene Database:" + identifier);
+			} else if (resource.equals("GenBank Protein Database")) {
+				return ProteinAccessionResolver.resolveProteinAccession(identifier,
+						"GenBank Protein Database" + identifier);
+			} else if (resource.equals("GenBank")) {
+				DataSourceIdentifier<String> nucAccId = NucleotideAccessionResolver
+						.resolveNucleotideAccession(identifier, "GenBank:" + identifier);
+				if (ProbableErrorDataSourceIdentifier.class.isInstance(nucAccId.getClass())) {
+					return ProteinAccessionResolver.resolveProteinAccession(identifier, "GenBank:" + identifier);
+				} else {
+					return nucAccId;
+				}
+			} else if (resource.equals("UniProtKB")) {
+				return new UniProtID(identifier);
+			} else if (resource.equals("Drugs Product Database (DPD)")) {
+				return new DrugsProductDatabaseID(identifier);
+			} else if (resource.equals("National Drug Code Directory")) {
+				return new NationalDrugCodeDirectoryId(identifier);
+			} else if (resource.equals("PharmGKB")) {
+				return new PharmGkbID(identifier);
+			} else if (resource.equals("CH_EMBL") || resource.equalsIgnoreCase("ChEMBL")) {
+				return new ChemblId(identifier);
+			} else if (resource.equals("KEGG Compound")) {
+				return new KeggCompoundID(identifier);
+			} else if (resource.equals("Therapeutic Targets Database")) {
+				return new TherapeuticTargetsDatabaseId(identifier);
+			} else if (resource.equals("KEGG Drug")) {
+				return new KeggDrugID(identifier);
+			} else if (resource.toUpperCase().equals("CHEBI")) {
+				return new ChebiOntologyID(identifier);
+			} else if (resource.equals("IUPHAR")) {
+				return new IupharLigandId(identifier);
+			} else if (resource.equals("Guide to Pharmacology")) {
+				return new GuideToPharmacologyId(identifier);
+			} else if (resource.equals("BindingDB")) {
+				return new BindingDbId(identifier);
+			} else if (resource.equals("PubChem Compound")) {
+				return new PubChemCompoundId(identifier);
+			} else if (resource.equals("PubChem Substance")) {
+				return new PubChemSubstanceId(identifier);
+			} else if (resource.equals("ChemSpider")) {
+				return new ChemSpiderId(identifier);
+			} else if (resource.equals("PDB")) {
+				return new PdbID(identifier);
+			} else if (resource.equals("Swiss-Prot") || resource.equals("TrEMBL")) {
+				return new UniProtID(identifier);
+			} else if (resource.equals("UniProt Accession")) {
+				return new UniProtEntryName(identifier);
+			} else if (resource.equals("Wikipedia")) {
+				return new WikipediaId(identifier);
+			} else if (resource.trim().isEmpty()) {
+				UniProtID id = null;
+				try {
+					id = new UniProtID(identifier);
+				} catch (IllegalArgumentException e) {
+					logger.warn("Unhandled identifier type: " + resource + " (identifier=" + identifier + ")");
+					return new UnknownDataSourceIdentifier(originalIdString);
+				}
+				if (id != null) {
+					return id;
+				}
 			}
-			if (identifier.startsWith("GNC:")) { // there is at least one
-													// instance of this
-				return new HgncID(StringUtil.removePrefix(identifier, "GNC:"));
-			}
-			if (identifier.matches("\\d+")) {
-				return new HgncID(identifier);
-			}
-		} else if (resource.equals("Human Protein Reference Database (HPRD)")) {
-			return new HprdID(identifier);
-		} else if (resource.equals("GenAtlas")) {
-			return new GenAtlasId(identifier);
-		} else if (resource.equals("GeneCards")) {
-			return new GeneCardId(identifier);
-		} else if (resource.equals("GenBank Gene Database")) {
-			return NucleotideAccessionResolver.resolveNucleotideAccession(identifier, "GenBank Gene Database:"
-					+ identifier);
-		} else if (resource.equals("GenBank Protein Database")) {
-			return ProteinAccessionResolver
-					.resolveProteinAccession(identifier, "GenBank Protein Database" + identifier);
-		} else if (resource.equals("GenBank")) {
-			DataSourceIdentifier<String> nucAccId = NucleotideAccessionResolver.resolveNucleotideAccession(identifier,
-					"GenBank:" + identifier);
-			if (ProbableErrorDataSourceIdentifier.class.isInstance(nucAccId.getClass())) {
-				return ProteinAccessionResolver.resolveProteinAccession(identifier, "GenBank:" + identifier);
-			} else {
-				return nucAccId;
-			}
-		} else if (resource.equals("UniProtKB")) {
-			return new UniProtID(identifier);
-		} else if (resource.equals("Drugs Product Database (DPD)")) {
-			return new DrugsProductDatabaseID(identifier);
-		} else if (resource.equals("National Drug Code Directory")) {
-			return new NationalDrugCodeDirectoryId(identifier);
-		} else if (resource.equals("PharmGKB")) {
-			return new PharmGkbID(identifier);
-		} else if (resource.equals("KEGG Compound")) {
-			return new KeggCompoundID(identifier);
-		} else if (resource.equals("KEGG Drug")) {
-			return new KeggDrugID(identifier);
-		} else if (resource.toUpperCase().equals("CHEBI")) {
-			return new ChebiOntologyID(identifier);
-		} else if (resource.equals("IUPHAR")) {
-			return new IupharLigandId(identifier);
-		} else if (resource.equals("Guide to Pharmacology")) {
-			return new GuideToPharmacologyId(identifier);
-		} else if (resource.equals("BindingDB")) {
-			return new BindingDbId(identifier);
-		} else if (resource.equals("PubChem Compound")) {
-			return new PubChemCompoundId(identifier);
-		} else if (resource.equals("PubChem Substance")) {
-			return new PubChemSubstanceId(identifier);
-		} else if (resource.equals("ChemSpider")) {
-			return new ChemSpiderId(identifier);
-		} else if (resource.equals("PDB")) {
-			return new PdbID(identifier);
-		} else if (resource.equals("Swiss-Prot") || resource.equals("TrEMBL")) {
-			return new UniProtID(identifier);
-		} else if (resource.equals("UniProt Accession")) {
-			return new UniProtEntryName(identifier);
-		} else if (resource.equals("Wikipedia")) {
-			return new WikipediaId(identifier);
-		} else if (resource.trim().isEmpty()) {
-			UniProtID id = null;
-			try {
-				id = new UniProtID(identifier);
-			} catch (IllegalArgumentException e) {
-				logger.warn("Unhandled identifier type: " + resource + " (identifier=" + identifier + ")");
-				return new UnknownDataSourceIdentifier(originalIdString);
-			}
-			if (id != null) {
-				return id;
+		} else {
+			/* resource string is null */
+			if (identifier.startsWith("CHEMBL")) {
+				return new ChemblId(identifier);
 			}
 		}
-
 		System.out.println("Unhandled identifier type: " + resource + " (identifier=" + identifier + ")");
 		return new UnknownDataSourceIdentifier(originalIdString);
-		// throw new IllegalArgumentException("Unhandled identifier type: " +
-		// resource +
-		// " (identifier=" + identifier
-		// + ")");
 	}
 
 	@Data

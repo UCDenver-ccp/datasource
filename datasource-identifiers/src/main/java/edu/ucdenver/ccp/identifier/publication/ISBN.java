@@ -1,4 +1,4 @@
-package edu.ucdenver.ccp.datasource.identifiers.ebi.uniprot;
+package edu.ucdenver.ccp.identifier.publication;
 
 /*
  * #%L
@@ -33,33 +33,14 @@ package edu.ucdenver.ccp.datasource.identifiers.ebi.uniprot;
  * #L%
  */
 
-import edu.ucdenver.ccp.datasource.identifiers.DataSourceIdentifier;
+import edu.ucdenver.ccp.common.string.StringUtil;
 import edu.ucdenver.ccp.datasource.identifiers.DataSource;
+import edu.ucdenver.ccp.datasource.identifiers.StringDataSourceIdentifier;
 
-public class UniProtID extends DataSourceIdentifier<String> {
+public class ISBN extends StringDataSourceIdentifier {
 
-	public UniProtID(String resourceID) {
-		super(resourceID, DataSource.UNIPROT);
-}
-
-	/**
-	 * See http://www.uniprot.org/manual/accession_numbers
-	 */
-	@Override
-	public String validate(String uniprotID) throws IllegalArgumentException {
-		String validUniProtFormatRegex = "[OPQ][0-9][A-Z0-9]{3}[0-9]|[A-NR-Z][0-9]([A-Z][A-Z0-9]{2}[0-9]){1,2}";
-		if (uniprotID != null) {
-			uniprotID = uniprotID.toUpperCase().trim();
-			if (uniprotID.matches(validUniProtFormatRegex)) {
-				return uniprotID;
-			}
-		}
-		throw new IllegalArgumentException(getInvalidGeneIDErrorMessage(uniprotID));
+	public ISBN(String resourceID) {
+		super(resourceID, DataSource.ISBN);
 	}
 
-	private static String getInvalidGeneIDErrorMessage(String uniprotID) {
-		return String.format("Invalid UniProt ID: %s. This ID does not comply with the specifications "
-				+ "for UniProt accession numbers as defined here: http://www.uniprot.org/manual/accession_numbers",
-				uniprotID);
-	}
 }

@@ -151,6 +151,7 @@ public enum DataSource {
 	INTERPRO("http://www.ebi.ac.uk/interpro/"),
 	IPI("http://www.ebi.ac.uk/IPI/"),
 	IREFWEB("http://wodaklab.org/iRefWeb/"),
+	ISBN(null),
 	/**
 	 * International Standard Randomised Controlled Trial Number
 	 */

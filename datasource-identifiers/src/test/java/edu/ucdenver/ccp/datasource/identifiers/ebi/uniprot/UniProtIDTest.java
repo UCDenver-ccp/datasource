@@ -48,6 +48,7 @@ public class UniProtIDTest extends DefaultTestCase {
 			new UniProtID("P12345");
 			new UniProtID("P4A123");
 			new UniProtID("Q1AAA9");
+			new UniProtID("A8K5J1");
 		} catch (IllegalArgumentException e) {
 			fail(String.format("Should not have thrown an exception. %s", e.getMessage()));
 		}
