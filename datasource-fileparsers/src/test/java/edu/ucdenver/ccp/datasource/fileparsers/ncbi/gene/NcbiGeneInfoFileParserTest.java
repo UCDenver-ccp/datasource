@@ -63,7 +63,7 @@ import edu.ucdenver.ccp.datasource.identifiers.ncbi.taxonomy.NcbiTaxonomyID;
  * @author Bill Baumgartner
  * 
  */
-public class EntrezGeneInfoFileParserTest extends RecordReaderTester {
+public class NcbiGeneInfoFileParserTest extends RecordReaderTester {
 
 	private static final String SAMPLE_ENTREZGENEINFO_FILE_NAME = "EntrezGene_gene_info";
 
@@ -73,13 +73,13 @@ public class EntrezGeneInfoFileParserTest extends RecordReaderTester {
 	}
 
 	@Override
-	protected EntrezGeneInfoFileParser initSampleRecordReader() throws IOException {
-		return new EntrezGeneInfoFileParser(sampleInputFile, CharacterEncoding.US_ASCII);
+	protected NcbiGeneInfoFileParser initSampleRecordReader() throws IOException {
+		return new NcbiGeneInfoFileParser(sampleInputFile, CharacterEncoding.US_ASCII);
 	}
 
 	@Test
 	public void testTaxonAwareParser_10090() throws IOException {
-		EntrezGeneInfoFileParser rr = new EntrezGeneInfoFileParser(sampleInputFile, CharacterEncoding.US_ASCII,
+		NcbiGeneInfoFileParser rr = new NcbiGeneInfoFileParser(sampleInputFile, CharacterEncoding.US_ASCII,
 				CollectionsUtil.createSet(new NcbiTaxonomyID(10090)));
 		assertTrue(rr.hasNext());
 		rr.next();
@@ -103,7 +103,7 @@ public class EntrezGeneInfoFileParserTest extends RecordReaderTester {
 
 	@Test
 	public void testTaxonAwareParser_9606() throws IOException {
-		EntrezGeneInfoFileParser rr = new EntrezGeneInfoFileParser(sampleInputFile, CharacterEncoding.US_ASCII,
+		NcbiGeneInfoFileParser rr = new NcbiGeneInfoFileParser(sampleInputFile, CharacterEncoding.US_ASCII,
 				CollectionsUtil.createSet(new NcbiTaxonomyID(9606)));
 		assertTrue(rr.hasNext());
 		rr.next();
@@ -112,7 +112,7 @@ public class EntrezGeneInfoFileParserTest extends RecordReaderTester {
 
 	@Test
 	public void testTaxonAwareParser_null() throws IOException {
-		EntrezGeneInfoFileParser rr = new EntrezGeneInfoFileParser(sampleInputFile, CharacterEncoding.US_ASCII, null);
+		NcbiGeneInfoFileParser rr = new NcbiGeneInfoFileParser(sampleInputFile, CharacterEncoding.US_ASCII, null);
 		assertTrue(rr.hasNext());
 		rr.next();
 		assertTrue(rr.hasNext());
@@ -137,7 +137,7 @@ public class EntrezGeneInfoFileParserTest extends RecordReaderTester {
 
 	@Test
 	public void testTaxonAwareParser_empty() throws IOException {
-		EntrezGeneInfoFileParser rr = new EntrezGeneInfoFileParser(sampleInputFile, CharacterEncoding.US_ASCII,
+		NcbiGeneInfoFileParser rr = new NcbiGeneInfoFileParser(sampleInputFile, CharacterEncoding.US_ASCII,
 				new HashSet<NcbiTaxonomyID>());
 		assertTrue(rr.hasNext());
 		rr.next();
@@ -164,7 +164,7 @@ public class EntrezGeneInfoFileParserTest extends RecordReaderTester {
 	@Test
 	public void testParser() {
 		try {
-			EntrezGeneInfoFileParser parser = new EntrezGeneInfoFileParser(sampleInputFile, CharacterEncoding.US_ASCII);
+			NcbiGeneInfoFileParser parser = new NcbiGeneInfoFileParser(sampleInputFile, CharacterEncoding.US_ASCII);
 
 			if (parser.hasNext()) {
 				/*
@@ -175,7 +175,7 @@ public class EntrezGeneInfoFileParserTest extends RecordReaderTester {
 				 * 2|canalicular multispecific organic anion transporter|multidrug resistance
 				 * protein 2 20080827
 				 */
-				EntrezGeneInfoFileData record = parser.next();
+				NcbiGeneInfoFileData record = parser.next();
 				assertEquals(new NcbiTaxonomyID(10090), record.getTaxonID());
 				assertEquals(new NcbiGeneId(12780), record.getGeneID());
 				assertEquals(new String("Abcc2"), record.getSymbol());
@@ -217,7 +217,7 @@ public class EntrezGeneInfoFileParserTest extends RecordReaderTester {
 				 * protein-coding Abi1 abl-interactor 1 O abelson interactor 1|ablphilin-1|eps8
 				 * binding protein|spectrin SH3 domain binding protein 1 20080817
 				 */
-				EntrezGeneInfoFileData record = parser.next();
+				NcbiGeneInfoFileData record = parser.next();
 				assertEquals(new NcbiTaxonomyID(10090), record.getTaxonID());
 				assertEquals(new NcbiGeneId(11308), record.getGeneID());
 				assertEquals(new String("Abi1"), record.getSymbol());
@@ -256,7 +256,7 @@ public class EntrezGeneInfoFileParserTest extends RecordReaderTester {
 				 * E-F|15 48.6 cM acrosin prepropeptide protein-coding Acr acrosin prepropeptide O
 				 * acrosin|preproacrosin 20080831
 				 */
-				EntrezGeneInfoFileData record = parser.next();
+				NcbiGeneInfoFileData record = parser.next();
 				assertEquals(new NcbiTaxonomyID(10090), record.getTaxonID());
 				assertEquals(new NcbiGeneId(11434), record.getGeneID());
 				assertEquals(new String("Acr"), record.getSymbol());
@@ -310,7 +310,7 @@ public class EntrezGeneInfoFileParserTest extends RecordReaderTester {
 	@Test
 	public void testGetGeneSymbol2EntrezGeneIDMap() throws Exception {
 		boolean toLowerCase = false;
-		Map<String, Set<NcbiGeneId>> geneSymbol2EntrezGeneIDMap = EntrezGeneInfoFileParser
+		Map<String, Set<NcbiGeneId>> geneSymbol2EntrezGeneIDMap = NcbiGeneInfoFileParser
 				.getGeneSymbol2EntrezGeneIDMap(sampleInputFile, CharacterEncoding.US_ASCII, new NcbiTaxonomyID(10090),
 						toLowerCase);
 
@@ -346,7 +346,7 @@ public class EntrezGeneInfoFileParserTest extends RecordReaderTester {
 
 		/* Now test when toLowerCase = true */
 		toLowerCase = true;
-		geneSymbol2EntrezGeneIDMap = EntrezGeneInfoFileParser.getGeneSymbol2EntrezGeneIDMap(sampleInputFile,
+		geneSymbol2EntrezGeneIDMap = NcbiGeneInfoFileParser.getGeneSymbol2EntrezGeneIDMap(sampleInputFile,
 				CharacterEncoding.US_ASCII, new NcbiTaxonomyID(10090), toLowerCase);
 		expectedGeneSymbol2EntrezGeneIDMap = new HashMap<String, Set<NcbiGeneId>>();
 		expectedGeneSymbol2EntrezGeneIDMap.put(new String("abcc2"), abcc2Set);
@@ -362,7 +362,7 @@ public class EntrezGeneInfoFileParserTest extends RecordReaderTester {
 		assertEquals(expectedGeneSymbol2EntrezGeneIDMap, geneSymbol2EntrezGeneIDMap);
 
 		/* Test taxon id filter */
-		geneSymbol2EntrezGeneIDMap = EntrezGeneInfoFileParser.getGeneSymbol2EntrezGeneIDMap(sampleInputFile,
+		geneSymbol2EntrezGeneIDMap = NcbiGeneInfoFileParser.getGeneSymbol2EntrezGeneIDMap(sampleInputFile,
 				CharacterEncoding.US_ASCII, new NcbiTaxonomyID(12345), toLowerCase);
 		assertEquals(0, geneSymbol2EntrezGeneIDMap.size());
 
@@ -371,7 +371,7 @@ public class EntrezGeneInfoFileParserTest extends RecordReaderTester {
 	@Test
 	public void testGetGeneSymbol2EntrezGeneIDMap_withSynonyms() throws Exception {
 		boolean toLowerCase = false;
-		Map<String, Set<NcbiGeneId>> geneSymbol2EntrezGeneIDMap = EntrezGeneInfoFileParser
+		Map<String, Set<NcbiGeneId>> geneSymbol2EntrezGeneIDMap = NcbiGeneInfoFileParser
 				.getGeneSymbol2EntrezGeneIDMap_withSynonyms(sampleInputFile, CharacterEncoding.US_ASCII,
 						new NcbiTaxonomyID(10090), toLowerCase);
 
@@ -494,7 +494,7 @@ public class EntrezGeneInfoFileParserTest extends RecordReaderTester {
 
 		/* Now test with toLowerCase = true */
 		toLowerCase = true;
-		geneSymbol2EntrezGeneIDMap = EntrezGeneInfoFileParser.getGeneSymbol2EntrezGeneIDMap_withSynonyms(
+		geneSymbol2EntrezGeneIDMap = NcbiGeneInfoFileParser.getGeneSymbol2EntrezGeneIDMap_withSynonyms(
 				sampleInputFile, CharacterEncoding.US_ASCII, new NcbiTaxonomyID(10090), toLowerCase);
 		expectedGeneSymbol2EntrezGeneIDMap = new HashMap<String, Set<NcbiGeneId>>();
 		expectedGeneSymbol2EntrezGeneIDMap.put(new String("abcc2"), abcc2Set);
@@ -538,7 +538,7 @@ public class EntrezGeneInfoFileParserTest extends RecordReaderTester {
 	@Override
 	@Test
 	public void testIteratorPattern() throws IOException {
-		EntrezGeneInfoFileParser parser = new EntrezGeneInfoFileParser(sampleInputFile, CharacterEncoding.US_ASCII);
+		NcbiGeneInfoFileParser parser = new NcbiGeneInfoFileParser(sampleInputFile, CharacterEncoding.US_ASCII);
 		assertTrue(parser.hasNext());
 		assertTrue(parser.hasNext());
 		assertTrue(parser.hasNext());
@@ -563,7 +563,7 @@ public class EntrezGeneInfoFileParserTest extends RecordReaderTester {
 		expectedGeneID2GeneNameMap.put(new NcbiGeneId(22788), new String("Zp3"));
 
 		assertEquals("Maps should match exactly", expectedGeneID2GeneNameMap,
-				EntrezGeneInfoFileParser.getEntrezGeneID2GeneSymbolMap(sampleInputFile, CharacterEncoding.US_ASCII,
+				NcbiGeneInfoFileParser.getEntrezGeneID2GeneSymbolMap(sampleInputFile, CharacterEncoding.US_ASCII,
 						new NcbiTaxonomyID(10090)));
 	}
 
@@ -580,7 +580,7 @@ public class EntrezGeneInfoFileParserTest extends RecordReaderTester {
 		expectedGeneID2GeneNameMap.put(new NcbiGeneId(22787), new String("zona pellucida glycoprotein 2"));
 		expectedGeneID2GeneNameMap.put(new NcbiGeneId(22788), new String("zona pellucida glycoprotein 3"));
 
-		Map<NcbiGeneId, String> entrezGeneID2GeneNameMap = EntrezGeneInfoFileParser
+		Map<NcbiGeneId, String> entrezGeneID2GeneNameMap = NcbiGeneInfoFileParser
 				.getEntrezGeneID2GeneNameMap(sampleInputFile, CharacterEncoding.US_ASCII, new NcbiTaxonomyID(10090));
 
 		assertEquals("Maps should match exactly", expectedGeneID2GeneNameMap, entrezGeneID2GeneNameMap);
@@ -594,7 +594,7 @@ public class EntrezGeneInfoFileParserTest extends RecordReaderTester {
 		expectedEntrezGeneID2TaxonomyIDMap.put(new NcbiGeneId(11308), new NcbiTaxonomyID(10090));
 		expectedEntrezGeneID2TaxonomyIDMap.put(new NcbiGeneId(22350), new NcbiTaxonomyID(10090));
 		expectedEntrezGeneID2TaxonomyIDMap.put(new NcbiGeneId(22787), new NcbiTaxonomyID(10090));
-		Map<NcbiGeneId, NcbiTaxonomyID> entrezGeneID2TaxonomyIDMap = EntrezGeneInfoFileParser
+		Map<NcbiGeneId, NcbiTaxonomyID> entrezGeneID2TaxonomyIDMap = NcbiGeneInfoFileParser
 				.getEntrezGeneID2TaxonomyIDMap(sampleInputFile, CharacterEncoding.US_ASCII, geneIDs2Include);
 		assertEquals(String.format("Map should have 3 entries."), expectedEntrezGeneID2TaxonomyIDMap,
 				entrezGeneID2TaxonomyIDMap);

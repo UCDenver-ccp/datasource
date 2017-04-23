@@ -57,8 +57,8 @@ import edu.ucdenver.ccp.datasource.identifiers.ncbi.taxonomy.NcbiTaxonomyID;
  * @author Bill Baumgartner
  * 
  */
-public class EntrezGeneRefSeqUniprotKbCollabFileParser extends
-		TaxonAwareSingleLineFileRecordReader<EntrezGeneRefSeqUniprotKbCollabFileData> {
+public class NcbiGeneRefSeqUniprotKbCollabFileParser extends
+		TaxonAwareSingleLineFileRecordReader<NcbiGeneRefSeqUniprotKbCollabFileData> {
 
 	private static final String HEADER = "#NCBI_protein_accession\tUniProtKB_protein_accession";
 
@@ -70,18 +70,18 @@ public class EntrezGeneRefSeqUniprotKbCollabFileParser extends
 	@FtpDownload(server = FtpHost.ENTREZGENE_HOST, path = FtpHost.ENTREZGENE_PATH, filename = FTP_FILE_NAME, filetype = FileType.BINARY)
 	private File geneRefseqUniprotKbCollabFile;
 
-	public EntrezGeneRefSeqUniprotKbCollabFileParser(File gene2PubmedFile, CharacterEncoding encoding)
+	public NcbiGeneRefSeqUniprotKbCollabFileParser(File gene2PubmedFile, CharacterEncoding encoding)
 			throws IOException {
 		super(gene2PubmedFile, encoding, null);
 		taxonSpecificIds = null;
 	}
 
-	public EntrezGeneRefSeqUniprotKbCollabFileParser(File workDirectory, boolean clean) throws IOException {
+	public NcbiGeneRefSeqUniprotKbCollabFileParser(File workDirectory, boolean clean) throws IOException {
 		super(workDirectory, ENCODING, null, null, null, clean, null);
 		taxonSpecificIds = null;
 	}
 
-	public EntrezGeneRefSeqUniprotKbCollabFileParser(File gene2PubmedFile, CharacterEncoding encoding,
+	public NcbiGeneRefSeqUniprotKbCollabFileParser(File gene2PubmedFile, CharacterEncoding encoding,
 			File idListDirectory, Set<NcbiTaxonomyID> taxonIds, File baseSourceFileDirectory, boolean cleanIdListFiles)
 			throws IOException {
 		super(gene2PubmedFile, encoding, taxonIds);
@@ -89,7 +89,7 @@ public class EntrezGeneRefSeqUniprotKbCollabFileParser extends
 				DataSource.UNIPROT, taxonIds, UniProtID.class, cleanIdListFiles);
 	}
 
-	public EntrezGeneRefSeqUniprotKbCollabFileParser(File workDirectory, boolean clean, File idListDirectory,
+	public NcbiGeneRefSeqUniprotKbCollabFileParser(File workDirectory, boolean clean, File idListDirectory,
 			Set<NcbiTaxonomyID> taxonIds, File baseSourceFileDirectory, boolean cleanIdListFiles) throws IOException {
 		super(workDirectory, ENCODING, null, null, null, clean, taxonIds);
 		taxonSpecificIds = IdListFileFactory.getIdListFromFile(idListDirectory, baseSourceFileDirectory,
@@ -114,13 +114,13 @@ public class EntrezGeneRefSeqUniprotKbCollabFileParser extends
 	}
 
 	@Override
-	protected EntrezGeneRefSeqUniprotKbCollabFileData parseRecordFromLine(Line line) {
-		return EntrezGeneRefSeqUniprotKbCollabFileData.parseGeneRefseqUniprotKbCollabLine(line);
+	protected NcbiGeneRefSeqUniprotKbCollabFileData parseRecordFromLine(Line line) {
+		return NcbiGeneRefSeqUniprotKbCollabFileData.parseGeneRefseqUniprotKbCollabLine(line);
 	}
 
 	@Override
 	protected NcbiTaxonomyID getLineTaxon(Line line) {
-		EntrezGeneRefSeqUniprotKbCollabFileData record = parseRecordFromLine(line);
+		NcbiGeneRefSeqUniprotKbCollabFileData record = parseRecordFromLine(line);
 		if (taxonSpecificIds != null && !taxonSpecificIds.isEmpty() && taxonSpecificIds.contains(record.getUniprotId())) {
 			// here we have matched the record uniprot id as one of the ids of
 			// interest. We don't

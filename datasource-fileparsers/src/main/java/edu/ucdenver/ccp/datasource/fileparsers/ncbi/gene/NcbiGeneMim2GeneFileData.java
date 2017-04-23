@@ -58,8 +58,8 @@ import edu.ucdenver.ccp.datasource.identifiers.ncbi.omim.OmimID;
  */
 @Record(dataSource = DataSource.NCBI_GENE, comment = "", license = License.NCBI, citation = "The NCBI handbook [Internet]. Bethesda (MD): National Library of Medicine (US), National Center for Biotechnology Information; 2002 Oct. Chapter 19 Gene: A Directory of Genes. Available from http://www.ncbi.nlm.nih.gov/books/NBK21091", label = "mim2gene record")
 @Data
-public class EntrezGeneMim2GeneFileData extends SingleLineFileRecord {
-	private static final Logger logger = Logger.getLogger(EntrezGeneMim2GeneFileData.class);
+public class NcbiGeneMim2GeneFileData extends SingleLineFileRecord {
+	private static final Logger logger = Logger.getLogger(NcbiGeneMim2GeneFileData.class);
 
 	public static final String GENE_ASSOCIATION_TYPE = "gene";
 	public static final String PHENOTYPE_ASSOCIATION_TYPE = "phenotype";
@@ -82,7 +82,7 @@ public class EntrezGeneMim2GeneFileData extends SingleLineFileRecord {
 	@RecordField
 	private final String comment;
 
-	public EntrezGeneMim2GeneFileData(OmimID mimNumber, NcbiGeneId entrezGeneID, String associationType,
+	public NcbiGeneMim2GeneFileData(OmimID mimNumber, NcbiGeneId entrezGeneID, String associationType,
 			Set<String> sources, MedGenId medGenId, String comment, long byteOffset, long lineNumber) {
 		super(byteOffset, lineNumber);
 		this.mimNumber = mimNumber;
@@ -93,7 +93,7 @@ public class EntrezGeneMim2GeneFileData extends SingleLineFileRecord {
 		this.comment = comment;
 	}
 
-	public static EntrezGeneMim2GeneFileData parseMim2GeneLine(Line line) {
+	public static NcbiGeneMim2GeneFileData parseMim2GeneLine(Line line) {
 		String[] toks = line.getText().split("\\t", -1);
 		if (toks.length == 6) {
 			OmimID mimNumber = new OmimID(toks[0]);
@@ -108,7 +108,7 @@ public class EntrezGeneMim2GeneFileData extends SingleLineFileRecord {
 			}
 			MedGenId medGenId = (toks[4].equals("-")) ? null : new MedGenId(toks[4].trim());
 			String comment = (toks[5].equals("-")) ? null : toks[5].trim();
-			return new EntrezGeneMim2GeneFileData(mimNumber, entrezGeneID, associationType, sources, medGenId, comment,
+			return new NcbiGeneMim2GeneFileData(mimNumber, entrezGeneID, associationType, sources, medGenId, comment,
 					line.getByteOffset(), line.getLineNumber());
 		}
 

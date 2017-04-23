@@ -52,7 +52,7 @@ import edu.ucdenver.ccp.datasource.fileparsers.download.FtpHost;
  * @author Bill Baumgartner
  * 
  */
-public class EntrezGene2AccessionFileParser extends SingleLineFileRecordReader<EntrezGene2AccessionFileData> {
+public class NcbiGene2AccessionFileParser extends SingleLineFileRecordReader<NcbiGene2AccessionFileData> {
 
 	private static final String HEADER = "#Format: tax_id GeneID status RNA_nucleotide_accession.version RNA_nucleotide_gi protein_accession.version protein_gi genomic_nucleotide_accession.version genomic_nucleotide_gi start_position_on_the_genomic_accession end_position_on_the_genomic_accession orientation assembly mature_peptide_accession.version mature_peptide_gi Symbol (tab is used as a separator, pound sign - start of a comment)";
 
@@ -62,11 +62,11 @@ public class EntrezGene2AccessionFileParser extends SingleLineFileRecordReader<E
 	@FtpDownload(server = FtpHost.ENTREZGENE_HOST, path = FtpHost.ENTREZGENE_PATH, filename = FTP_FILE_NAME, filetype = FileType.BINARY)
 	private File gene2accessionFile;
 
-	public EntrezGene2AccessionFileParser(File file, CharacterEncoding encoding) throws IOException {
+	public NcbiGene2AccessionFileParser(File file, CharacterEncoding encoding) throws IOException {
 		super(file, encoding, null);
 	}
 
-	public EntrezGene2AccessionFileParser(File workDirectory, boolean clean) throws IOException {
+	public NcbiGene2AccessionFileParser(File workDirectory, boolean clean) throws IOException {
 		super(workDirectory, ENCODING, null, null, null, clean);
 	}
 
@@ -88,8 +88,8 @@ public class EntrezGene2AccessionFileParser extends SingleLineFileRecordReader<E
 	}
 
 	@Override
-	protected EntrezGene2AccessionFileData parseRecordFromLine(Line line) {
-		return EntrezGene2AccessionFileData.parseGene2AccessionLine(line);
+	protected NcbiGene2AccessionFileData parseRecordFromLine(Line line) {
+		return NcbiGene2AccessionFileData.parseGene2AccessionLine(line);
 	}
 
 }

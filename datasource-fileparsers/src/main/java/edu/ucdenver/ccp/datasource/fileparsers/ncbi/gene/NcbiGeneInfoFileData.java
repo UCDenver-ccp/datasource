@@ -54,7 +54,7 @@ import lombok.EqualsAndHashCode;
 @Data
 @EqualsAndHashCode(callSuper=false)
 @Record(dataSource = DataSource.NCBI_GENE, ontClass = CcpExtensionOntology.NCBI_GENE_INFO_RECORD, license = License.NCBI, citation = "The NCBI handbook [Internet]. Bethesda (MD): National Library of Medicine (US), National Center for Biotechnology Information; 2002 Oct. Chapter 19 Gene: A Directory of Genes. Available from http://www.ncbi.nlm.nih.gov/books/NBK21091", label = "gene_info record")
-public class EntrezGeneInfoFileData extends SingleLineFileRecord {
+public class NcbiGeneInfoFileData extends SingleLineFileRecord {
 	public static final String RECORD_NAME_PREFIX = "ENTREZ_GENEINFO_RECORD_";
 
 	@RecordField(ontClass = CcpExtensionOntology.NCBI_TAXONOMY_IDENTIFIER_FIELD_VALUE)
@@ -102,7 +102,7 @@ public class EntrezGeneInfoFileData extends SingleLineFileRecord {
 	@RecordField(ontClass = CcpExtensionOntology.NCBI_MODIFICATION_DATE_FIELD_VALUE)
 	private final String modificationDate;
 
-	public EntrezGeneInfoFileData(NcbiTaxonomyID taxonID, NcbiGeneId geneID, String symbol, String locusTag,
+	public NcbiGeneInfoFileData(NcbiTaxonomyID taxonID, NcbiGeneId geneID, String symbol, String locusTag,
 			Set<String> synonyms, Set<DataSourceIdentifier<?>> dbXrefs, String chromosome, String mapLocation,
 			String description, String typeOfGene, String symbolFromNomenclatureAuthority,
 			String fullNameFromNomenclatureAuthority, String nomenclatureStatus, Set<String> otherDesignations,

@@ -50,7 +50,7 @@ import edu.ucdenver.ccp.datasource.fileparsers.download.FtpHost;
  * @author Bill Baumgartner
  * 
  */
-public class EntrezGeneMim2GeneFileParser extends SingleLineFileRecordReader<EntrezGeneMim2GeneFileData> {
+public class NcbiGeneMim2GeneFileParser extends SingleLineFileRecordReader<NcbiGeneMim2GeneFileData> {
 
 	private static final String HEADER = "#MIM number\tGeneID\ttype\tSource\tMedGenCUI\tComment";
 	public static final String FTP_FILE_NAME = "mim2gene_medgen";
@@ -59,11 +59,11 @@ public class EntrezGeneMim2GeneFileParser extends SingleLineFileRecordReader<Ent
 	@FtpDownload(server = FtpHost.ENTREZGENE_HOST, path = FtpHost.ENTREZGENE_PATH, filename = FTP_FILE_NAME, filetype = FileType.ASCII)
 	private File mim2GeneFile;
 
-	public EntrezGeneMim2GeneFileParser(File file, CharacterEncoding encoding) throws IOException {
+	public NcbiGeneMim2GeneFileParser(File file, CharacterEncoding encoding) throws IOException {
 		super(file, encoding, null);
 	}
 
-	public EntrezGeneMim2GeneFileParser(File workDirectory, boolean clean) throws IOException {
+	public NcbiGeneMim2GeneFileParser(File workDirectory, boolean clean) throws IOException {
 		super(workDirectory, ENCODING, null, null, null, clean);
 	}
 
@@ -84,8 +84,8 @@ public class EntrezGeneMim2GeneFileParser extends SingleLineFileRecordReader<Ent
 	}
 
 	@Override
-	protected EntrezGeneMim2GeneFileData parseRecordFromLine(Line line) {
-		return EntrezGeneMim2GeneFileData.parseMim2GeneLine(line);
+	protected NcbiGeneMim2GeneFileData parseRecordFromLine(Line line) {
+		return NcbiGeneMim2GeneFileData.parseMim2GeneLine(line);
 	}
 
 }

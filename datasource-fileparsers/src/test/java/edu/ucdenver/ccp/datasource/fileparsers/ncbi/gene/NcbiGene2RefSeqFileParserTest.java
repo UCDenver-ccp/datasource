@@ -65,7 +65,7 @@ import edu.ucdenver.ccp.datasource.identifiers.ncbi.taxonomy.NcbiTaxonomyID;
  * 
  */
 @Ignore("originally written for the gene2accession file, but this class was revised to parse only the gene2refseq file. Tests seem to pass but that might not be a good thing.")
-public class EntrezGene2RefSeqFileParserTest extends RecordReaderTester {
+public class NcbiGene2RefSeqFileParserTest extends RecordReaderTester {
 
 	@Override
 	protected String getSampleFileName() {
@@ -74,13 +74,13 @@ public class EntrezGene2RefSeqFileParserTest extends RecordReaderTester {
 
 	@Override
 	protected RecordReader<?> initSampleRecordReader() throws IOException {
-		return new EntrezGene2RefseqFileParser(sampleInputFile, CharacterEncoding.US_ASCII);
+		return new NcbiGene2RefseqFileParser(sampleInputFile, CharacterEncoding.US_ASCII);
 	}
 
 	@Test
 	public void testParser() {
 		try {
-			EntrezGene2RefseqFileParser parser = new EntrezGene2RefseqFileParser(sampleInputFile,
+			NcbiGene2RefseqFileParser parser = new NcbiGene2RefseqFileParser(sampleInputFile,
 					CharacterEncoding.US_ASCII);
 
 			// /* Test calling next() before hasNext() */
@@ -91,7 +91,7 @@ public class EntrezGene2RefSeqFileParserTest extends RecordReaderTester {
 				 * 10090 16822 PROVISIONAL NM_010696.3 118130099 NP_034826.2 31543115 AC_000033.1
 				 * 83274085 36458438 36503503 + Alternate assembly (based on Celera)
 				 */
-				EntrezGene2RefseqFileData record = parser.next();
+				NcbiGene2RefseqFileData record = parser.next();
 				assertEquals(new NcbiTaxonomyID(10090), record.getTaxonID());
 				assertEquals(new NcbiGeneId(16822), record.getGeneID());
 				assertEquals("PROVISIONAL", record.getStatus());
@@ -113,7 +113,7 @@ public class EntrezGene2RefSeqFileParserTest extends RecordReaderTester {
 				/*
 				 * 10090 16825 - - - - - AC108484.25 31076542 69411 76442 - -
 				 */
-				EntrezGene2RefseqFileData record = parser.next();
+				NcbiGene2RefseqFileData record = parser.next();
 				assertEquals(new NcbiTaxonomyID(10090), record.getTaxonID());
 				assertEquals(new NcbiGeneId(16825), record.getGeneID());
 				assertNull(record.getStatus());
@@ -135,7 +135,7 @@ public class EntrezGene2RefSeqFileParserTest extends RecordReaderTester {
 				/*
 				 * 10090 16825 - - - AAC40064.1 2827901 AF024524.1 2827900 - - ? -
 				 */
-				EntrezGene2RefseqFileData record = parser.next();
+				NcbiGene2RefseqFileData record = parser.next();
 				assertEquals(new NcbiTaxonomyID(10090), record.getTaxonID());
 				assertEquals(new NcbiGeneId(16825), record.getGeneID());
 				assertNull(record.getStatus());
@@ -164,7 +164,7 @@ public class EntrezGene2RefSeqFileParserTest extends RecordReaderTester {
 
 	@Test
 	public void testGetProteinGiID2EntrezGeneIDMap() throws Exception {
-		Map<GiNumberID, Set<NcbiGeneId>> proteinAccession2EntrezGeneIDMap = EntrezGene2RefseqFileParser
+		Map<GiNumberID, Set<NcbiGeneId>> proteinAccession2EntrezGeneIDMap = NcbiGene2RefseqFileParser
 				.getProteinGiID2EntrezGeneIDMap(sampleInputFile, CharacterEncoding.US_ASCII, new NcbiTaxonomyID(10090));
 
 		Map<GiNumberID, Set<NcbiGeneId>> expectedProteinAccession2EntrezGeneIDMap = new HashMap<GiNumberID, Set<NcbiGeneId>>();
@@ -181,7 +181,7 @@ public class EntrezGene2RefSeqFileParserTest extends RecordReaderTester {
 
 	@Test
 	public void testGetProteinAccessionID2EntrezGeneIDMap() throws Exception {
-		Map<RefSeqID, Set<NcbiGeneId>> proteinAccession2EntrezGeneIDMap = EntrezGene2RefseqFileParser
+		Map<RefSeqID, Set<NcbiGeneId>> proteinAccession2EntrezGeneIDMap = NcbiGene2RefseqFileParser
 				.getProteinAccessionID2EntrezGeneIDMap(sampleInputFile, CharacterEncoding.US_ASCII, new NcbiTaxonomyID(
 						10090));
 
