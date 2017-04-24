@@ -80,13 +80,15 @@ public class PharmGkbDrugFileRecord extends SingleLineFileRecord {
 	@RecordField
 	private final String smiles;
 	@RecordField
+	private final String inChI;
+	@RecordField
 	private final String dosingGuideline;
 	@RecordField
 	private final String externalVocabulary;
 
 	public PharmGkbDrugFileRecord(String pharmGkbAccessionId, String name, Collection<String> genericNames,
 			Collection<String> tradeNames, Collection<String> brandMixtures, String type,
-			Collection<DataSourceIdentifier<?>> crossReferences, String url, String smiles, String dosingGuideline,String externalVocabulary,
+			Collection<DataSourceIdentifier<?>> crossReferences, String url, String smiles, String inChI, String dosingGuideline,String externalVocabulary,
 			long byteOffset, long lineNumber) {
 		super(byteOffset, lineNumber);
 		this.url = isNotBlank(url) ? url : null;
@@ -98,6 +100,7 @@ public class PharmGkbDrugFileRecord extends SingleLineFileRecord {
 		this.type = type;
 		this.crossReferences = crossReferences;
 		this.smiles = isNotBlank(smiles) ? smiles : null;
+		this.inChI = isNotBlank(inChI) ? inChI : null;
 		this.dosingGuideline = isNotBlank(dosingGuideline) ? dosingGuideline : null;
 		this.externalVocabulary = isNotBlank(externalVocabulary) ? externalVocabulary : null;
 	}

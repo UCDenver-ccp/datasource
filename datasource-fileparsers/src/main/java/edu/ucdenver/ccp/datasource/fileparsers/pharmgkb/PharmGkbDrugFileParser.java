@@ -53,7 +53,7 @@ import edu.ucdenver.ccp.datasource.identifiers.DataSourceIdentifier;
 
 public class PharmGkbDrugFileParser extends SingleLineFileRecordReader<PharmGkbDrugFileRecord> {
 
-	private static final String HEADER = "PharmGKB Accession Id\tName\tGeneric Names\tTrade Names\tBrand Mixtures\tType\tCross-references\tSMILES\tDosing Guideline\tExternal Vocabulary";
+	private static final String HEADER = "PharmGKB Accession Id\tName\tGeneric Names\tTrade Names\tBrand Mixtures\tType\tCross-references\tSMILES\tInChI\tDosing Guideline\tExternal Vocabulary";
 
 	private static final CharacterEncoding ENCODING = CharacterEncoding.ISO_8859_1;
 	@HttpDownload(url = "https://www.pharmgkb.org/download.do?objId=drugs.zip&dlCls=common", fileName = "drugs.zip", targetFileName = "drugs.tsv", decompress = true)
@@ -95,6 +95,7 @@ public class PharmGkbDrugFileParser extends SingleLineFileRecordReader<PharmGkbD
 		String type = toks[index++];
 		String crossReferencesTok = toks[index++];
 		String smiles = toks[index++];
+		String inChI = toks[index++];
 		String dosingGuideline = toks[index++];
 		String externalVocabulary = toks[index++];
 
@@ -137,7 +138,7 @@ public class PharmGkbDrugFileParser extends SingleLineFileRecordReader<PharmGkbD
 		// }
 
 		return new PharmGkbDrugFileRecord(pharmGkbAccessionId, name, genericNames, tradeNames, brandMixtures, type,
-				crossReferences, url, smiles, dosingGuideline, externalVocabulary, line.getByteOffset(),
+				crossReferences, url, smiles, inChI, dosingGuideline, externalVocabulary, line.getByteOffset(),
 				line.getLineNumber());
 	}
 
