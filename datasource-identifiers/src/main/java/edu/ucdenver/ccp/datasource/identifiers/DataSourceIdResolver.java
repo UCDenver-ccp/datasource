@@ -66,8 +66,8 @@ import edu.ucdenver.ccp.datasource.identifiers.kegg.KeggPathwayID;
 import edu.ucdenver.ccp.datasource.identifiers.mgi.MgiGeneID;
 import edu.ucdenver.ccp.datasource.identifiers.mint.MintID;
 import edu.ucdenver.ccp.datasource.identifiers.ncbi.GenBankID;
-import edu.ucdenver.ccp.datasource.identifiers.ncbi.gene.NcbiGeneId;
 import edu.ucdenver.ccp.datasource.identifiers.ncbi.gene.GiNumberID;
+import edu.ucdenver.ccp.datasource.identifiers.ncbi.gene.NcbiGeneId;
 import edu.ucdenver.ccp.datasource.identifiers.ncbi.homologene.HomologeneGroupID;
 import edu.ucdenver.ccp.datasource.identifiers.ncbi.omim.OmimID;
 import edu.ucdenver.ccp.datasource.identifiers.ncbi.refseq.RefSeqID;
@@ -88,6 +88,7 @@ import edu.ucdenver.ccp.datasource.identifiers.other.BindingDbId;
 import edu.ucdenver.ccp.datasource.identifiers.other.BioGridID;
 import edu.ucdenver.ccp.datasource.identifiers.other.CgncID;
 import edu.ucdenver.ccp.datasource.identifiers.other.ChemSpiderId;
+import edu.ucdenver.ccp.datasource.identifiers.other.ChemicalAbstractsServiceId;
 import edu.ucdenver.ccp.datasource.identifiers.other.ClinicalTrialsGovId;
 import edu.ucdenver.ccp.datasource.identifiers.other.DailyMedId;
 import edu.ucdenver.ccp.datasource.identifiers.other.DbjID;
@@ -217,6 +218,10 @@ public class DataSourceIdResolver {
 	public static DataSourceIdentifier<?> resolveId(String databaseName, String databaseObjectID, String originalIdString) {
 		if (databaseName.equalsIgnoreCase("MGI"))
 			return new MgiGeneID(databaseObjectID);
+		else if (databaseName.equalsIgnoreCase("Chemical Abstracts Service"))
+			return new  ChemicalAbstractsServiceId(databaseObjectID);
+		else if (databaseName.equalsIgnoreCase("ClinicalTrials.gov"))
+			return new ClinicalTrialsGovId(databaseObjectID);
 		else if (databaseName.equalsIgnoreCase("RGD"))
 			return new RgdID(databaseObjectID);
 		else if (databaseName.equalsIgnoreCase("UniProtKB"))
@@ -225,15 +230,15 @@ public class DataSourceIdResolver {
 			return new ChebiOntologyID("CHEBI:" + databaseObjectID);
 		else if (databaseName.equalsIgnoreCase("DIP"))
 			return new DipInteractorID(databaseObjectID);
-		else if (databaseName.equalsIgnoreCase("drugbank"))
+		else if (databaseName.equalsIgnoreCase("drugbank") || databaseName.equalsIgnoreCase("DrugBank"))
 			return new DrugBankID(databaseObjectID);
-		else if (databaseName.equalsIgnoreCase("keggdrug"))
+		else if (databaseName.equalsIgnoreCase("keggdrug") || databaseName.equalsIgnoreCase("KEGG Drug"))
 			return new KeggDrugID(databaseObjectID);
-		else if (databaseName.equalsIgnoreCase("keggcompound"))
+		else if (databaseName.equalsIgnoreCase("keggcompound") || databaseName.equalsIgnoreCase("KEGG Compound"))
 			return new KeggCompoundID(databaseObjectID);
-		else if (databaseName.equalsIgnoreCase("pubchemcompound"))
+		else if (databaseName.equalsIgnoreCase("pubchemcompound") || databaseName.equalsIgnoreCase("PubChem Compound"))
 			return new PubChemCompoundId(databaseObjectID);
-		else if (databaseName.equalsIgnoreCase("pubchemsubstance"))
+		else if (databaseName.equalsIgnoreCase("pubchemsubstance") || databaseName.equalsIgnoreCase("PubChem Substance"))
 			return new PubChemSubstanceId(databaseObjectID);
 		else if (databaseName.equalsIgnoreCase("EG"))
 			return new NcbiGeneId(databaseObjectID);
@@ -259,7 +264,7 @@ public class DataSourceIdResolver {
 			return new UniProtID(databaseObjectID);
 		else if (databaseName.equalsIgnoreCase("PharmGKB"))
 			return new PharmGkbID(databaseObjectID);
-		else if (databaseName.equalsIgnoreCase("TTD"))
+		else if (databaseName.equalsIgnoreCase("TTD") || databaseName.equalsIgnoreCase("Therapeutic Targets Database"))
 			return new TherapeuticTargetsDatabaseId(databaseObjectID);
 		else if (databaseName.equalsIgnoreCase("bindingDb"))
 			return new BindingDbId(databaseObjectID);
@@ -267,11 +272,11 @@ public class DataSourceIdResolver {
 			return new ChemSpiderId(databaseObjectID);
 		else if (databaseName.equalsIgnoreCase("dpd"))
 			return new DrugsProductDatabaseID(databaseObjectID);
-		else if (databaseName.equalsIgnoreCase("DailyMed"))
+		else if (databaseName.equalsIgnoreCase("DailyMed") || databaseName.equalsIgnoreCase("FDA Drug Label at DailyMed"))
 			return new DailyMedId(databaseObjectID);
 		else if (databaseName.equalsIgnoreCase("HET"))
 			return new PdbLigandId(databaseObjectID);
-		else if (databaseName.equalsIgnoreCase("iupharLigand"))
+		else if (databaseName.equalsIgnoreCase("iupharLigand") || databaseName.equalsIgnoreCase("IUPHAR Ligand"))
 			return new IupharLigandId(databaseObjectID);
 		else if (databaseName.equalsIgnoreCase("ndc"))
 			return new NationalDrugCodeDirectoryId(databaseObjectID);
@@ -287,7 +292,7 @@ public class DataSourceIdResolver {
 			return new DrugsProductDatabaseID(databaseObjectID);
 		else if (databaseName.equalsIgnoreCase("National Drug Code Directory"))
 			return new DrugCodeDirectoryID(databaseObjectID);
-		else if (databaseName.equalsIgnoreCase("url")) {
+		else if (databaseName.equalsIgnoreCase("url") || databaseName.equalsIgnoreCase("Web Resource")) {
 			if (databaseObjectID.startsWith("http://en.wikipedia.org/wiki/")) {
 				return new WikipediaId(StringUtil.removePrefix(databaseObjectID, "http://en.wikipedia.org/wiki/"));
 			}
