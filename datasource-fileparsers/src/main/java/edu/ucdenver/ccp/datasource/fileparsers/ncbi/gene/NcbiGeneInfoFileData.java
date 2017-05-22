@@ -60,7 +60,7 @@ public class NcbiGeneInfoFileData extends SingleLineFileRecord {
 	@RecordField(ontClass = CcpExtensionOntology.NCBI_TAXONOMY_IDENTIFIER_FIELD_VALUE)
 	private final NcbiTaxonomyID taxonID;
 
-	@RecordField(ontClass = CcpExtensionOntology.NCBI_DNA_IDENTIFIER_FIELD_VALUE)
+	@RecordField(ontClass = CcpExtensionOntology.NCBI_GENE_IDENTIFIER_FIELD_VALUE)
 	private final NcbiGeneId geneID;
 
 	@RecordField(ontClass = CcpExtensionOntology.NCBI_SYMBOL_FIELD_VALUE)
