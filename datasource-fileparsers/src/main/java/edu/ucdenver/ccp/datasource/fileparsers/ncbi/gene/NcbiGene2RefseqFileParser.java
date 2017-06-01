@@ -60,7 +60,7 @@ import edu.ucdenver.ccp.datasource.identifiers.ncbi.taxonomy.NcbiTaxonomyID;
  * @author Bill Baumgartner
  * 
  */
-public class EntrezGene2RefseqFileParser extends TaxonAwareSingleLineFileRecordReader<EntrezGene2RefseqFileData> {
+public class NcbiGene2RefseqFileParser extends TaxonAwareSingleLineFileRecordReader<NcbiGene2RefseqFileData> {
 
 	private static final String HEADER = "#tax_id\tGeneID\tstatus\tRNA_nucleotide_accession.version\tRNA_nucleotide_gi\tprotein_accession.version\tprotein_gi\tgenomic_nucleotide_accession.version\tgenomic_nucleotide_gi\tstart_position_on_the_genomic_accession\tend_position_on_the_genomic_accession\torientation\tassembly\tmature_peptide_accession.version\tmature_peptide_gi\tSymbol";
 
@@ -70,18 +70,18 @@ public class EntrezGene2RefseqFileParser extends TaxonAwareSingleLineFileRecordR
 	@FtpDownload(server = FtpHost.ENTREZGENE_HOST, path = FtpHost.ENTREZGENE_PATH, filename = FTP_FILE_NAME, filetype = FileType.BINARY)
 	private File gene2accessionFile;
 
-	public EntrezGene2RefseqFileParser(File file, CharacterEncoding encoding) throws IOException {
+	public NcbiGene2RefseqFileParser(File file, CharacterEncoding encoding) throws IOException {
 		super(file, encoding, null);
 	}
 
-	public EntrezGene2RefseqFileParser(File workDirectory, boolean clean) throws IOException {
+	public NcbiGene2RefseqFileParser(File workDirectory, boolean clean) throws IOException {
 		super(workDirectory, ENCODING, null, null, null, clean, null);
 	}
-	public EntrezGene2RefseqFileParser(File file, CharacterEncoding encoding, Set<NcbiTaxonomyID> taxonIds) throws IOException {
+	public NcbiGene2RefseqFileParser(File file, CharacterEncoding encoding, Set<NcbiTaxonomyID> taxonIds) throws IOException {
 		super(file, encoding, taxonIds);
 	}
 	
-	public EntrezGene2RefseqFileParser(File workDirectory, boolean clean, Set<NcbiTaxonomyID> taxonIds) throws IOException {
+	public NcbiGene2RefseqFileParser(File workDirectory, boolean clean, Set<NcbiTaxonomyID> taxonIds) throws IOException {
 		super(workDirectory, ENCODING, null, null, null, clean, taxonIds);
 	}
 
@@ -102,13 +102,13 @@ public class EntrezGene2RefseqFileParser extends TaxonAwareSingleLineFileRecordR
 	}
 
 	@Override
-	protected EntrezGene2RefseqFileData parseRecordFromLine(Line line) {
-		return EntrezGene2RefseqFileData.parseGene2AccessionLine(line);
+	protected NcbiGene2RefseqFileData parseRecordFromLine(Line line) {
+		return NcbiGene2RefseqFileData.parseGene2AccessionLine(line);
 	}
 
 	@Override
 	protected NcbiTaxonomyID getLineTaxon(Line line) {
-		EntrezGene2RefseqFileData record = parseRecordFromLine(line);
+		NcbiGene2RefseqFileData record = parseRecordFromLine(line);
 		return record.getTaxonID();
 	}
 
@@ -122,12 +122,12 @@ public class EntrezGene2RefseqFileParser extends TaxonAwareSingleLineFileRecordR
 	public static Map<GiNumberID, Set<NcbiGeneId>> getProteinGiID2EntrezGeneIDMap(File entrezGene2AccessionFile,
 			CharacterEncoding encoding, NcbiTaxonomyID taxonID) throws IOException {
 		Map<GiNumberID, Set<NcbiGeneId>> proteinAccessionID2EntrezGeneIDMap = new HashMap<GiNumberID, Set<NcbiGeneId>>();
-		EntrezGene2RefseqFileParser parser = null;
+		NcbiGene2RefseqFileParser parser = null;
 		try {
-			parser = new EntrezGene2RefseqFileParser(entrezGene2AccessionFile, encoding);
+			parser = new NcbiGene2RefseqFileParser(entrezGene2AccessionFile, encoding);
 
 			while (parser.hasNext()) {
-				EntrezGene2RefseqFileData dataRecord = parser.next();
+				NcbiGene2RefseqFileData dataRecord = parser.next();
 				if (dataRecord.getTaxonID().equals(taxonID)) {
 					NcbiGeneId entrezGeneID = dataRecord.getGeneID();
 					GiNumberID accessionID = dataRecord.getProtein_gi();
@@ -160,12 +160,12 @@ public class EntrezGene2RefseqFileParser extends TaxonAwareSingleLineFileRecordR
 			File entrezGene2AccessionOrReseqFile, CharacterEncoding encoding, NcbiTaxonomyID taxonID)
 			throws IOException {
 		Map<RefSeqID, Set<NcbiGeneId>> proteinAccessionID2EntrezGeneIDMap = new HashMap<RefSeqID, Set<NcbiGeneId>>();
-		EntrezGene2RefseqFileParser parser = null;
+		NcbiGene2RefseqFileParser parser = null;
 		try {
-			parser = new EntrezGene2RefseqFileParser(entrezGene2AccessionOrReseqFile, encoding);
+			parser = new NcbiGene2RefseqFileParser(entrezGene2AccessionOrReseqFile, encoding);
 
 			while (parser.hasNext()) {
-				EntrezGene2RefseqFileData dataRecord = parser.next();
+				NcbiGene2RefseqFileData dataRecord = parser.next();
 				if (dataRecord.getTaxonID().equals(taxonID)) {
 					NcbiGeneId entrezGeneID = dataRecord.getGeneID();
 					RefSeqID accessionID = dataRecord.getProtein_accession_dot_version();

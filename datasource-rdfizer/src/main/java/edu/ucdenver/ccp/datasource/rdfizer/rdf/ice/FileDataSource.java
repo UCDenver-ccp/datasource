@@ -85,10 +85,10 @@ import edu.ucdenver.ccp.datasource.fileparsers.mgi.MRKReferenceFileParser;
 import edu.ucdenver.ccp.datasource.fileparsers.mgi.MRKSequenceFileParser;
 import edu.ucdenver.ccp.datasource.fileparsers.mgi.MRKSwissProtFileParser;
 import edu.ucdenver.ccp.datasource.fileparsers.mirbase.MirBaseMiRnaDatFileParser;
-import edu.ucdenver.ccp.datasource.fileparsers.ncbi.gene.EntrezGene2RefseqFileParser;
-import edu.ucdenver.ccp.datasource.fileparsers.ncbi.gene.EntrezGeneInfoFileParser;
-import edu.ucdenver.ccp.datasource.fileparsers.ncbi.gene.EntrezGeneMim2GeneFileParser;
-import edu.ucdenver.ccp.datasource.fileparsers.ncbi.gene.EntrezGeneRefSeqUniprotKbCollabFileParser;
+import edu.ucdenver.ccp.datasource.fileparsers.ncbi.gene.NcbiGene2RefseqFileParser;
+import edu.ucdenver.ccp.datasource.fileparsers.ncbi.gene.NcbiGeneInfoFileParser;
+import edu.ucdenver.ccp.datasource.fileparsers.ncbi.gene.NcbiGeneMim2GeneFileParser;
+import edu.ucdenver.ccp.datasource.fileparsers.ncbi.gene.NcbiGeneRefSeqUniprotKbCollabFileParser;
 import edu.ucdenver.ccp.datasource.fileparsers.ncbi.homologene.HomoloGeneDataFileParser;
 import edu.ucdenver.ccp.datasource.fileparsers.ncbi.omim.OmimTxtFileParser;
 import edu.ucdenver.ccp.datasource.fileparsers.ncbi.refseq.RefSeqReleaseCatalogFileParser;
@@ -607,12 +607,12 @@ public enum FileDataSource {
 		protected FileRecordReader<?> initFileRecordReader(File sourceFileDirectory, File baseSourceFileDirectory,
 				boolean cleanSourceFiles, boolean cleanIdListFiles, File idListDir, Set<NcbiTaxonomyID> taxonIds)
 				throws IOException {
-			return new EntrezGene2RefseqFileParser(sourceFileDirectory, cleanSourceFiles, taxonIds);
+			return new NcbiGene2RefseqFileParser(sourceFileDirectory, cleanSourceFiles, taxonIds);
 		}
 
 		@Override
 		protected Class<? extends RecordReader<?>> getRecordReaderClass() {
-			return EntrezGene2RefseqFileParser.class;
+			return NcbiGene2RefseqFileParser.class;
 		}
 	},
 	NCBIGENE_GENEINFO(DataSource.NCBI_GENE, IsTaxonAware.YES, RequiresManualDownload.NO) {
@@ -620,12 +620,12 @@ public enum FileDataSource {
 		protected FileRecordReader<?> initFileRecordReader(File sourceFileDirectory, File baseSourceFileDirectory,
 				boolean cleanSourceFiles, boolean cleanIdListFiles, File idListDir, Set<NcbiTaxonomyID> taxonIds)
 				throws IOException {
-			return new EntrezGeneInfoFileParser(sourceFileDirectory, cleanSourceFiles, taxonIds);
+			return new NcbiGeneInfoFileParser(sourceFileDirectory, cleanSourceFiles, taxonIds);
 		}
 
 		@Override
 		protected Class<? extends RecordReader<?>> getRecordReaderClass() {
-			return EntrezGeneInfoFileParser.class;
+			return NcbiGeneInfoFileParser.class;
 		}
 	},
 	NCBIGENE_MIM2GENE(DataSource.NCBI_GENE, IsTaxonAware.NO, RequiresManualDownload.NO) {
@@ -633,12 +633,12 @@ public enum FileDataSource {
 		protected FileRecordReader<?> initFileRecordReader(File sourceFileDirectory, File baseSourceFileDirectory,
 				boolean cleanSourceFiles, boolean cleanIdListFiles, File idListDir, Set<NcbiTaxonomyID> taxonIds)
 				throws IOException {
-			return new EntrezGeneMim2GeneFileParser(sourceFileDirectory, cleanSourceFiles);
+			return new NcbiGeneMim2GeneFileParser(sourceFileDirectory, cleanSourceFiles);
 		}
 
 		@Override
 		protected Class<? extends RecordReader<?>> getRecordReaderClass() {
-			return EntrezGeneMim2GeneFileParser.class;
+			return NcbiGeneMim2GeneFileParser.class;
 		}
 	},
 	NCBIGENE_REFSEQUNIPROTCOLLAB(DataSource.NCBI_GENE, IsTaxonAware.YES_BUT_REQUIRES_EXTERNAL_ID_TO_TAXON_MAPPINGS,
@@ -647,13 +647,13 @@ public enum FileDataSource {
 		protected FileRecordReader<?> initFileRecordReader(File sourceFileDirectory, File baseSourceFileDirectory,
 				boolean cleanSourceFiles, boolean cleanIdListFiles, File idListDir, Set<NcbiTaxonomyID> taxonIds)
 				throws IOException {
-			return new EntrezGeneRefSeqUniprotKbCollabFileParser(sourceFileDirectory, cleanSourceFiles, idListDir,
+			return new NcbiGeneRefSeqUniprotKbCollabFileParser(sourceFileDirectory, cleanSourceFiles, idListDir,
 					taxonIds, baseSourceFileDirectory, cleanIdListFiles);
 		}
 
 		@Override
 		protected Class<? extends RecordReader<?>> getRecordReaderClass() {
-			return EntrezGeneRefSeqUniprotKbCollabFileParser.class;
+			return NcbiGeneRefSeqUniprotKbCollabFileParser.class;
 		}
 	},
 

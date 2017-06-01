@@ -41,8 +41,9 @@ import edu.ucdenver.ccp.datasource.fileparsers.Record;
 import edu.ucdenver.ccp.datasource.fileparsers.RecordField;
 import edu.ucdenver.ccp.datasource.fileparsers.SingleLineFileRecord;
 import edu.ucdenver.ccp.datasource.identifiers.DataSource;
-import edu.ucdenver.ccp.datasource.identifiers.ebi.uniprot.UniProtID;
-import edu.ucdenver.ccp.datasource.identifiers.ncbi.refseq.RefSeqID;
+import edu.ucdenver.ccp.datasource.identifiers.ncbi.gene.NcbiGeneId;
+import edu.ucdenver.ccp.datasource.identifiers.ncbi.taxonomy.NcbiTaxonomyID;
+import edu.ucdenver.ccp.identifier.publication.PubMedID;
 
 /**
  * Representation of data from the EntrezGene gene2pubmed file.
@@ -51,46 +52,50 @@ import edu.ucdenver.ccp.datasource.identifiers.ncbi.refseq.RefSeqID;
  * 
  */
 @Record(dataSource = DataSource.NCBI_GENE,
-	comment="",
-	license=License.NCBI,
-	citation="The NCBI handbook [Internet]. Bethesda (MD): National Library of Medicine (US), National Center for Biotechnology Information; 2002 Oct. Chapter 19 Gene: A Directory of Genes. Available from http://www.ncbi.nlm.nih.gov/books/NBK21091",
-	label="refseq/uniprot mapping record")
-public class EntrezGeneRefSeqUniprotKbCollabFileData extends SingleLineFileRecord {
-	public static final String RECORD_NAME_PREFIX = "REFSEQ_UNI_COLLAB_";
-	private static final Logger logger = Logger.getLogger(EntrezGeneRefSeqUniprotKbCollabFileData.class);
+		comment="This file can be considered as the logical equivalent of what is reported as Gene/PubMed Links visible in Gene's and PubMed's Links menus. Although gene2pubmed is re-calculated daily, some of the source documents (GeneRIFs, for example) are not updated that frequently, so timing depends on the update frequency of the data source.",
+		license=License.NCBI,
+		citation="The NCBI handbook [Internet]. Bethesda (MD): National Library of Medicine (US), National Center for Biotechnology Information; 2002 Oct. Chapter 19 Gene: A Directory of Genes. Available from http://www.ncbi.nlm.nih.gov/books/NBK21091",
+		label="gene2pubmed record")
+public class NcbiGene2PubmedFileData extends SingleLineFileRecord {
+	public static final String RECORD_NAME_PREFIX = "PUBMED_TO_ENTREZGENE_RECORD_";
+	private static final Logger logger = Logger.getLogger(NcbiGene2PubmedFileData.class);
 
-	@RecordField(comment="", label="refseq protein id")
-	private final RefSeqID refSeqProteinId;
-	@RecordField(comment="")
-	private final UniProtID uniprotId;
+	@RecordField(comment="the unique identifier provided by NCBI Taxonomy for the species or strain/isolate")
+	private final NcbiTaxonomyID taxonomyID;
 
-	public EntrezGeneRefSeqUniprotKbCollabFileData(RefSeqID refseqProteinId, UniProtID uniprotId, long byteOffset,
-			long lineNumber) {
+	@RecordField(comment="the unique identifier in PubMed for a citation")
+	private final PubMedID pmid;
+
+	@RecordField(comment="the unique identifier for a gene")
+	private final NcbiGeneId entrezGeneID;
+
+	public NcbiGene2PubmedFileData(NcbiTaxonomyID taxonomyID, NcbiGeneId entrezGeneID, 
+			PubMedID pmid, long byteOffset, long lineNumber) {
 		super(byteOffset, lineNumber);
-		this.refSeqProteinId = refseqProteinId;
-		this.uniprotId = uniprotId;
+		this.taxonomyID = taxonomyID;
+		this.pmid = pmid;
+		this.entrezGeneID = entrezGeneID;
 	}
 
-	/**
-	 * @return the refSeqProteinId
-	 */
-	public RefSeqID getRefSeqProteinId() {
-		return refSeqProteinId;
+	public PubMedID getPubmedID() {
+		return pmid;
 	}
 
-	/**
-	 * @return the uniprotId
-	 */
-	public UniProtID getUniprotId() {
-		return uniprotId;
+	public NcbiGeneId getEntrezGeneID() {
+		return entrezGeneID;
 	}
 
-	public static EntrezGeneRefSeqUniprotKbCollabFileData parseGeneRefseqUniprotKbCollabLine(Line line) {
+	public NcbiTaxonomyID getTaxonomyID() {
+		return taxonomyID;
+	}
+
+	public static NcbiGene2PubmedFileData parseGene2PubmedLine(Line line) {
 		String[] toks = line.getText().split("\\t");
-		if (toks.length == 2) {
-			RefSeqID refseqId = new RefSeqID(toks[0]);
-			UniProtID uniprotId = new UniProtID(toks[1]);
-			return new EntrezGeneRefSeqUniprotKbCollabFileData(refseqId, uniprotId, line.getByteOffset(),
+		if (toks.length == 3) {
+			NcbiTaxonomyID taxonomyID = new NcbiTaxonomyID(toks[0]);
+			NcbiGeneId entrezGeneID = new NcbiGeneId(toks[1]);
+			PubMedID pmid = new PubMedID(toks[2]);
+			return new NcbiGene2PubmedFileData(taxonomyID, entrezGeneID, pmid, line.getByteOffset(),
 					line.getLineNumber());
 		}
 

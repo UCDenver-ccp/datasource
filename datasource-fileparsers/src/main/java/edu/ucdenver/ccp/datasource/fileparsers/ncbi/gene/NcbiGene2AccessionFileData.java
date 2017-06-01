@@ -58,7 +58,7 @@ import edu.ucdenver.ccp.datasource.identifiers.ncbi.taxonomy.NcbiTaxonomyID;
  */
 @Getter
 @Record(dataSource = DataSource.NCBI_GENE, comment = "", license = License.NCBI, citation = "The NCBI handbook [Internet]. Bethesda (MD): National Library of Medicine (US), National Center for Biotechnology Information; 2002 Oct. Chapter 19 Gene: A Directory of Genes. Available from http://www.ncbi.nlm.nih.gov/books/NBK21091", label = "gene2accession record")
-public class EntrezGene2AccessionFileData extends SingleLineFileRecord {
+public class NcbiGene2AccessionFileData extends SingleLineFileRecord {
 	/*
 	 * #Format: tax_id GeneID status RNA_nucleotide_accession.version
 	 * RNA_nucleotide_gi protein_accession.version protein_gi
@@ -146,7 +146,7 @@ public class EntrezGene2AccessionFileData extends SingleLineFileRecord {
 	 * @param mature_peptide_gi
 	 * @param symbol
 	 */
-	private EntrezGene2AccessionFileData(NcbiTaxonomyID taxonID, NcbiGeneId geneID, String status,
+	private NcbiGene2AccessionFileData(NcbiTaxonomyID taxonID, NcbiGeneId geneID, String status,
 			DataSourceIdentifier<?> rNA_nucleotide_accession_dot_version, GiNumberID rNA_nucleotide_gi,
 			DataSourceIdentifier<?> protein_accession_dot_version, GiNumberID protein_gi,
 			DataSourceIdentifier<?> genomic_nucleotide_accession_dot_version, GiNumberID genomic_nucleotide_gi,
@@ -178,10 +178,10 @@ public class EntrezGene2AccessionFileData extends SingleLineFileRecord {
 	 * @param line
 	 * @return
 	 */
-	public static EntrezGene2AccessionFileData parseGene2AccessionLine(Line line) {
+	public static NcbiGene2AccessionFileData parseGene2AccessionLine(Line line) {
 		if (!line.getText().startsWith("#")) {
 			String[] toks = line.getText().split("\\t");
-			Logger logger = Logger.getLogger(EntrezGene2AccessionFileData.class);
+			Logger logger = Logger.getLogger(NcbiGene2AccessionFileData.class);
 
 			if (toks.length != 16) {
 				logger.error("Unexpected number of tokens (" + toks.length + ") on line:"
@@ -276,7 +276,7 @@ public class EntrezGene2AccessionFileData extends SingleLineFileRecord {
 				symbol = null;
 			}
 
-			return new EntrezGene2AccessionFileData(taxonID, geneID, status, RNA_nucleotide_accession_dot_version,
+			return new NcbiGene2AccessionFileData(taxonID, geneID, status, RNA_nucleotide_accession_dot_version,
 					RNA_nucleotide_gi, protein_accession_dot_version, protein_gi,
 					genomic_nucleotide_accession_dot_version, genomic_nucleotide_gi,
 					start_position_on_the_genomic_accession, end_position_on_the_genomic_accession, orientation,

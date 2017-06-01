@@ -56,7 +56,7 @@ import edu.ucdenver.ccp.datasource.identifiers.ncbi.taxonomy.NcbiTaxonomyID;
  */
 @Record(dataSource = DataSource.NCBI_GENE, comment = "", license = License.NCBI, citation = "The NCBI handbook [Internet]. Bethesda (MD): National Library of Medicine (US), National Center for Biotechnology Information; 2002 Oct. Chapter 19 Gene: A Directory of Genes. Available from http://www.ncbi.nlm.nih.gov/books/NBK21091", label = "gene2refseq record")
 @Data
-public class EntrezGene2RefseqFileData extends SingleLineFileRecord {
+public class NcbiGene2RefseqFileData extends SingleLineFileRecord {
 	public static final String RECORD_NAME_PREFIX = "ENTREZ_GENE2ACCESSION_RECORD_";
 	/*
 	 * #Format: tax_id GeneID status RNA_nucleotide_accession.version RNA_nucleotide_gi
@@ -114,7 +114,7 @@ public class EntrezGene2RefseqFileData extends SingleLineFileRecord {
 	@RecordField
 	private final String symbol;
 
-	public EntrezGene2RefseqFileData(NcbiTaxonomyID taxonID, NcbiGeneId geneID, String status,
+	public NcbiGene2RefseqFileData(NcbiTaxonomyID taxonID, NcbiGeneId geneID, String status,
 			RefSeqID rNANucleotideAccessionDotVersion, GiNumberID rNANucleotideGi, RefSeqID proteinAccessionDotVersion,
 			GiNumberID proteinGi, RefSeqID genomicNucleotideAccessionDotVersion, GiNumberID genomicNucleotideGi,
 			Integer startPositionOnTheGenomicAccession, Integer endPositionOnTheGenomicAccession, char orientation,
@@ -145,10 +145,10 @@ public class EntrezGene2RefseqFileData extends SingleLineFileRecord {
 	 * @param line
 	 * @return
 	 */
-	public static EntrezGene2RefseqFileData parseGene2AccessionLine(Line line) {
+	public static NcbiGene2RefseqFileData parseGene2AccessionLine(Line line) {
 		if (!line.getText().startsWith("#")) {
 			String[] toks = line.getText().split("\\t", -1);
-			Logger logger = Logger.getLogger(EntrezGene2RefseqFileData.class);
+			Logger logger = Logger.getLogger(NcbiGene2RefseqFileData.class);
 
 			if (toks.length != 16) {
 				logger.error("Unexpected number of tokens (" + toks.length + ") on line:"
@@ -240,7 +240,7 @@ public class EntrezGene2RefseqFileData extends SingleLineFileRecord {
 				symbol = toks[15];
 			}
 
-			return new EntrezGene2RefseqFileData(taxonID, geneID, status, RNA_nucleotide_accession_dot_version,
+			return new NcbiGene2RefseqFileData(taxonID, geneID, status, RNA_nucleotide_accession_dot_version,
 					RNA_nucleotide_gi, protein_accession_dot_version, protein_gi,
 					genomic_nucleotide_accession_dot_version, genomic_nucleotide_gi,
 					start_position_on_the_genomic_accession, end_position_on_the_genomic_accession, orientation,

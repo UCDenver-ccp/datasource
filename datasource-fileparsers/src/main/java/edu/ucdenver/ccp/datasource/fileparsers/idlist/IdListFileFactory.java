@@ -72,8 +72,8 @@ import edu.ucdenver.ccp.datasource.fileparsers.irefweb.IRefWebPsiMitab2_6FileDat
 import edu.ucdenver.ccp.datasource.fileparsers.irefweb.IRefWebPsiMitab2_6FileParser;
 import edu.ucdenver.ccp.datasource.fileparsers.irefweb.IRefWebPsiMitab2_6FileParser_AllSpecies;
 import edu.ucdenver.ccp.datasource.fileparsers.irefweb.IRefWebPsiMitab2_6FileParser_HumanOnly;
-import edu.ucdenver.ccp.datasource.fileparsers.ncbi.gene.EntrezGeneInfoFileData;
-import edu.ucdenver.ccp.datasource.fileparsers.ncbi.gene.EntrezGeneInfoFileParser;
+import edu.ucdenver.ccp.datasource.fileparsers.ncbi.gene.NcbiGeneInfoFileData;
+import edu.ucdenver.ccp.datasource.fileparsers.ncbi.gene.NcbiGeneInfoFileParser;
 import edu.ucdenver.ccp.datasource.identifiers.DataSource;
 import edu.ucdenver.ccp.datasource.identifiers.DataSourceIdentifier;
 import edu.ucdenver.ccp.datasource.identifiers.ebi.intact.IntActID;
@@ -314,13 +314,13 @@ public class IdListFileFactory {
 
 	private static void createEntrezGeneIdListFile(Set<NcbiTaxonomyID> taxonIds, boolean cleanSourceFiles,
 			File sourceFileDirectory, BufferedWriter writer) throws IOException {
-		EntrezGeneInfoFileParser eg_rr = new EntrezGeneInfoFileParser(sourceFileDirectory, cleanSourceFiles, taxonIds);
+		NcbiGeneInfoFileParser eg_rr = new NcbiGeneInfoFileParser(sourceFileDirectory, cleanSourceFiles, taxonIds);
 		int count = 0;
 		while (eg_rr.hasNext()) {
 			if (count++ % 100000 == 0) {
 				logger.info("(EG) Id list generation progress: " + (count - 1));
 			}
-			EntrezGeneInfoFileData record = eg_rr.next();
+			NcbiGeneInfoFileData record = eg_rr.next();
 			writer.write(record.getGeneID().getId() + "\n");
 		}
 	}

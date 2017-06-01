@@ -53,7 +53,7 @@ import edu.ucdenver.ccp.datasource.fileparsers.download.FtpHost;
  * @author Bill Baumgartner
  * 
  */
-public class EntrezGene2PubmedFileParser extends SingleLineFileRecordReader<EntrezGene2PubmedFileData> {
+public class NcbiGene2PubmedFileParser extends SingleLineFileRecordReader<NcbiGene2PubmedFileData> {
 
 	public static final String FTP_FILE_NAME = "gene2pubmed.gz";
 	public static final CharacterEncoding ENCODING = CharacterEncoding.US_ASCII;
@@ -62,11 +62,11 @@ public class EntrezGene2PubmedFileParser extends SingleLineFileRecordReader<Entr
 	@FtpDownload(server = FtpHost.ENTREZGENE_HOST, path = FtpHost.ENTREZGENE_PATH, filename = FTP_FILE_NAME, filetype = FileType.BINARY)
 	private File gene2PubmedFile;
 	
-	public EntrezGene2PubmedFileParser(File gene2PubmedFile, CharacterEncoding encoding) throws IOException {
+	public NcbiGene2PubmedFileParser(File gene2PubmedFile, CharacterEncoding encoding) throws IOException {
 		super(gene2PubmedFile, encoding, COMMENT_INDICATOR);
 	}
 
-	public EntrezGene2PubmedFileParser(File workDirectory, boolean clean) throws IOException {
+	public NcbiGene2PubmedFileParser(File workDirectory, boolean clean) throws IOException {
 		super(workDirectory, ENCODING, COMMENT_INDICATOR, null, null, clean);
 	}
 	
@@ -77,8 +77,8 @@ public class EntrezGene2PubmedFileParser extends SingleLineFileRecordReader<Entr
 	}
 	
 	@Override
-	protected EntrezGene2PubmedFileData parseRecordFromLine(Line line) {
-		return EntrezGene2PubmedFileData.parseGene2PubmedLine(line);
+	protected NcbiGene2PubmedFileData parseRecordFromLine(Line line) {
+		return NcbiGene2PubmedFileData.parseGene2PubmedLine(line);
 	}
 
 }
