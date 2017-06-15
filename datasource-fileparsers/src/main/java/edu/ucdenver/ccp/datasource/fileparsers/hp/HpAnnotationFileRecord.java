@@ -35,6 +35,7 @@ package edu.ucdenver.ccp.datasource.fileparsers.hp;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import edu.ucdenver.ccp.datasource.fileparsers.CcpExtensionOntology;
 import edu.ucdenver.ccp.datasource.fileparsers.Record;
 import edu.ucdenver.ccp.datasource.fileparsers.RecordField;
 import edu.ucdenver.ccp.datasource.fileparsers.SingleLineFileRecord;
@@ -44,16 +45,16 @@ import edu.ucdenver.ccp.datasource.identifiers.obo.HumanPhenotypeID;
 
 @Data
 @EqualsAndHashCode(callSuper = false)
-@Record(dataSource = DataSource.HP, label = "human phenotype annotation record")
+@Record(ontClass = CcpExtensionOntology.HPO_ANNOTATION_RECORD, dataSource = DataSource.HP)
 public class HpAnnotationFileRecord extends SingleLineFileRecord {
 
-	@RecordField
+	@RecordField(ontClass = CcpExtensionOntology.HPO_ANNOTATION_RECORD___GENE_IDENTIFIER_FIELD_VALUE)
 	private final NcbiGeneId geneId;
-	@RecordField
+	@RecordField(ontClass = CcpExtensionOntology.HPO_ANNOTATION_RECORD___GENE_SYMBOL_FIELD_VALUE)
 	private final String geneSymbol;
-	@RecordField
+	@RecordField(ontClass = CcpExtensionOntology.HPO_ANNOTATION_RECORD___HPO_TERM_NAME_FIELD_VALUE)
 	private final String hpoTermName;
-	@RecordField
+	@RecordField(ontClass = CcpExtensionOntology.HPO_ANNOTATION_RECORD___HPO_TERM_FIELD_VALUE)
 	private final HumanPhenotypeID hpoTerm;
 
 	/**
