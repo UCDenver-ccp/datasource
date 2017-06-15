@@ -37,6 +37,7 @@ package edu.ucdenver.ccp.datasource.fileparsers.irefweb;
  */
 
 import lombok.Getter;
+import edu.ucdenver.ccp.datasource.fileparsers.CcpExtensionOntology;
 import edu.ucdenver.ccp.datasource.fileparsers.Record;
 import edu.ucdenver.ccp.datasource.fileparsers.RecordField;
 import edu.ucdenver.ccp.datasource.fileparsers.obo.MiOntologyIdTermPair;
@@ -48,13 +49,13 @@ import edu.ucdenver.ccp.datasource.identifiers.obo.MolecularInteractionOntologyT
  *         ccpsupport@ucdenver.edu
  * 
  */
-@Record(dataSource = DataSource.IREFWEB, label = "experimental role")
+@Record(ontClass = CcpExtensionOntology.IREFWEB_INTERACTOR_EXPERIMENTAL_ROLE_RECORD, dataSource = DataSource.IREFWEB, label = "experimental role")
 @Getter
 public class IRefWebInteractorExperimentalRole extends MiOntologyIdTermPair {
 
-	@RecordField
+	@RecordField(ontClass = CcpExtensionOntology.IREFWEB_INTERACTOR_EXPERIMENTAL_ROLE_RECORD___EXPERIMENTAL_ROLE_IDENTIFIER_FIELD_VALUE)
 	private final MolecularInteractionOntologyTermID experimentalRoleId;
-	@RecordField
+	@RecordField(ontClass = CcpExtensionOntology.IREFWEB_INTERACTOR_EXPERIMENTAL_ROLE_RECORD___EXPERIMENTAL_ROLE_NAME_FIELD_VALUE)
 	private final String experimentalRoleName;
 
 	/**
