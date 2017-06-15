@@ -38,6 +38,7 @@ import lombok.Data;
 import org.apache.log4j.Logger;
 
 import edu.ucdenver.ccp.common.file.reader.Line;
+import edu.ucdenver.ccp.datasource.fileparsers.CcpExtensionOntology;
 import edu.ucdenver.ccp.datasource.fileparsers.License;
 import edu.ucdenver.ccp.datasource.fileparsers.Record;
 import edu.ucdenver.ccp.datasource.fileparsers.RecordField;
@@ -54,7 +55,7 @@ import edu.ucdenver.ccp.datasource.identifiers.ncbi.taxonomy.NcbiTaxonomyID;
  * @author Bill Baumgartner
  * 
  */
-@Record(dataSource = DataSource.NCBI_GENE, comment = "", license = License.NCBI, citation = "The NCBI handbook [Internet]. Bethesda (MD): National Library of Medicine (US), National Center for Biotechnology Information; 2002 Oct. Chapter 19 Gene: A Directory of Genes. Available from http://www.ncbi.nlm.nih.gov/books/NBK21091", label = "gene2refseq record")
+@Record(ontClass = CcpExtensionOntology.NCBI_GENE_2_REFSEQ_RECORD, dataSource = DataSource.NCBI_GENE, comment = "", license = License.NCBI, citation = "The NCBI handbook [Internet]. Bethesda (MD): National Library of Medicine (US), National Center for Biotechnology Information; 2002 Oct. Chapter 19 Gene: A Directory of Genes. Available from http://www.ncbi.nlm.nih.gov/books/NBK21091", label = "gene2refseq record")
 @Data
 public class NcbiGene2RefseqFileData extends SingleLineFileRecord {
 	public static final String RECORD_NAME_PREFIX = "ENTREZ_GENE2ACCESSION_RECORD_";
@@ -66,52 +67,52 @@ public class NcbiGene2RefseqFileData extends SingleLineFileRecord {
 	 * sign - start of a comment)
 	 */
 
-	@RecordField(comment = "the unique identifier provided by NCBI Taxonomy for the species or strain/isolate")
+	@RecordField(ontClass = CcpExtensionOntology.NCBI_GENE_2_REFSEQ_RECORD___TAXON_IDENTIFIER_FIELD_VALUE)
 	private final NcbiTaxonomyID taxonID;
 
-	@RecordField(comment = "the unique identifier for a gene")
+	@RecordField(ontClass = CcpExtensionOntology.NCBI_GENE_2_REFSEQ_RECORD___GENE_IDENTIFIER_FIELD_VALUE)
 	private final NcbiGeneId geneID;
 
-	@RecordField(comment = "status of the RefSeq. values are: INFERRED, MODEL, NA, PREDICTED, PROVISIONAL, REVIEWED, SUPPRESSED, VALIDATED")
+	@RecordField(ontClass = CcpExtensionOntology.NCBI_GENE_2_REFSEQ_RECORD___STATUS_FIELD_VALUE)
 	private final String status;
 
-	@RecordField(comment = "may be null (-) for some genomes")
+	@RecordField(ontClass = CcpExtensionOntology.NCBI_GENE_2_REFSEQ_RECORD___RNA_NUCLEOTIDE_ACCESSION_DOT_VERSION_IDENTIFIER_FIELD_VALUE)
 	private final RefSeqID RNA_nucleotide_accession_dot_version;
 
-	@RecordField(comment = "the gi for an RNA nucleotide accession, '-' if not applicable")
+	@RecordField(ontClass = CcpExtensionOntology.NCBI_GENE_2_REFSEQ_RECORD___RNA_NUCLEOTIDE_GENEINFO_IDENTIFIER_FIELD_VALUE)
 	private final GiNumberID RNA_nucleotide_gi;
 
-	@RecordField(comment = "will be null (-) for RNA-coding genes")
+	@RecordField(ontClass = CcpExtensionOntology.NCBI_GENE_2_REFSEQ_RECORD___PROTEIN_ACCESSION_DOT_VERSION_IDENTIFIER_FIELD_VALUE)
 	private final RefSeqID protein_accession_dot_version;
 
-	@RecordField(comment = "the gi for a protein accession, '-' if not applicable")
+	@RecordField(ontClass = CcpExtensionOntology.NCBI_GENE_2_REFSEQ_RECORD___PROTEIN_GENEINFO_IDENTIFIER_FIELD_VALUE)
 	private final GiNumberID protein_gi;
 
-	@RecordField(comment = "may be null (-) if a RefSeq was provided after the genomic accession was submitted")
+	@RecordField(ontClass = CcpExtensionOntology.NCBI_GENE_2_REFSEQ_RECORD___GENOMIC_NUCLEOTIDE_ACCESSION_DOT_VERSION_IDENTIFIER_FIELD_VALUE)
 	private final RefSeqID genomic_nucleotide_accession_dot_version;
 
-	@RecordField(comment = "the gi for a genomic nucleotide accession, '-' if not applicable")
+	@RecordField(ontClass = CcpExtensionOntology.NCBI_GENE_2_REFSEQ_RECORD___GENOMIC_NUCLEOTIDE_GENEINFO_IDENTIFIER_FIELD_VALUE)
 	private final GiNumberID genomic_nucleotide_gi;
 
-	@RecordField(comment = "position of the gene feature on the genomic accession, '-' if not applicable position 0-based.  NOTE: this file does not report the position of each exon for positions on RefSeq contigs and chromosomes, use the seq_gene.md file in the desired build directory.  For example, for human at the time this was written: /am/ftp-genomes/H_sapiens/maps/mapview/BUILD.35.1 WARNING: positions in these files are one-based, not 0-based NOTE: if genes are merged after an annotation is released, there may be more than one location reported on a genomic sequence per GeneID, each resulting from the annotation before the merge.")
+	@RecordField(ontClass = CcpExtensionOntology.NCBI_GENE_2_REFSEQ_RECORD___START_POSITION_ON_THE_GENOMIC_ACCESSION_FIELD_VALUE)
 	private final Integer start_position_on_the_genomic_accession;
 
-	@RecordField(comment = "position of the gene feature on the genomic accession, '-' if not applicable position 0-based NOTE: this file does not report the position of each exon for positions on RefSeq contigs and chromosomes, use the seq_gene.md file in the desired build directory.  For example, for human at the time this was written: /am/ftp-genomes/H_sapiens/maps/mapview/BUILD.35.1 WARNING: positions in these files are one-based, not 0-based NOTE: if genes are merged after an annotation is released, there may be more than one location reported on a genomic sequence per GeneID, each resulting from the annotation before the merge.")
+	@RecordField(ontClass = CcpExtensionOntology.NCBI_GENE_2_REFSEQ_RECORD___END_POSITION_ON_THE_GENOMIC_ACCESSION_FIELD_VALUE)
 	private final Integer end_position_on_the_genomic_accession;
 
-	@RecordField(comment = "orientation of the gene feature on the genomic accession, '?' if not applicable")
+	@RecordField(ontClass = CcpExtensionOntology.NCBI_GENE_2_REFSEQ_RECORD___ORIENTATION_FIELD_VALUE)
 	private final char orientation;
 
-	@RecordField(comment = "the name of the assembly '-' if not applicable")
+	@RecordField(ontClass = CcpExtensionOntology.NCBI_GENE_2_REFSEQ_RECORD___ASSEMBLY_FIELD_VALUE)
 	private final String assembly;
 
-	@RecordField
+	@RecordField(ontClass = CcpExtensionOntology.NCBI_GENE_2_REFSEQ_RECORD___MATURE_PEPTIDE_ACCESSION_DOT_VERSTION_IDENTIFIER_FIELD_VALUE)
 	private final RefSeqID mature_peptide_accession_dot_version;
 
-	@RecordField
+	@RecordField(ontClass = CcpExtensionOntology.NCBI_GENE_2_REFSEQ_RECORD___MATURE_PEPTIDE_GENEINFO_IDENTIFIER_FIELD_VALUE)
 	private final GiNumberID mature_peptide_gi;
 
-	@RecordField
+	@RecordField(ontClass = CcpExtensionOntology.NCBI_GENE_2_REFSEQ_RECORD___SYMBOL_FIELD_VALUE)
 	private final String symbol;
 
 	public NcbiGene2RefseqFileData(NcbiTaxonomyID taxonID, NcbiGeneId geneID, String status,
