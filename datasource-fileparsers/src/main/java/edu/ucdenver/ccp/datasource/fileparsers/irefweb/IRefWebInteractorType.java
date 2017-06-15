@@ -37,6 +37,7 @@ package edu.ucdenver.ccp.datasource.fileparsers.irefweb;
  */
 
 import lombok.Getter;
+import edu.ucdenver.ccp.datasource.fileparsers.CcpExtensionOntology;
 import edu.ucdenver.ccp.datasource.fileparsers.Record;
 import edu.ucdenver.ccp.datasource.fileparsers.RecordField;
 import edu.ucdenver.ccp.datasource.fileparsers.obo.MiOntologyIdTermPair;
@@ -48,13 +49,13 @@ import edu.ucdenver.ccp.datasource.identifiers.obo.MolecularInteractionOntologyT
  *         ccpsupport@ucdenver.edu
  * 
  */
-@Record(dataSource = DataSource.IREFWEB, label = "interactor type")
+@Record(ontClass = CcpExtensionOntology.IREFWEB_INTERACTOR_TYPE_RECORD, dataSource = DataSource.IREFWEB, label = "interactor type")
 @Getter
 public class IRefWebInteractorType extends MiOntologyIdTermPair {
 
-	@RecordField
+	@RecordField(ontClass = CcpExtensionOntology.IREFWEB_INTERACTOR_INTERACTOR_TYPE_RECORD___INTERACTOR_TYPE_IDENTIFIER_FIELD_VALUE)
 	private final MolecularInteractionOntologyTermID interactorTypeId;
-	@RecordField
+	@RecordField(ontClass = CcpExtensionOntology.IREFWEB_INTERACTOR_INTERACTOR_TYPE_RECORD___INTERACTOR_TYPE_NAME_FIELD_VALUE)
 	private final String interactorTypeName;
 
 	/**
