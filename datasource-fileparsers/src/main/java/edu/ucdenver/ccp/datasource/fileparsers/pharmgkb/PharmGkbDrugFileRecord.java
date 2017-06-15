@@ -39,6 +39,7 @@ import static org.apache.commons.lang.StringUtils.isNotBlank;
 import java.util.Collection;
 
 import lombok.Data;
+import edu.ucdenver.ccp.datasource.fileparsers.CcpExtensionOntology;
 import edu.ucdenver.ccp.datasource.fileparsers.License;
 import edu.ucdenver.ccp.datasource.fileparsers.Record;
 import edu.ucdenver.ccp.datasource.fileparsers.RecordField;
@@ -53,7 +54,7 @@ import edu.ucdenver.ccp.datasource.identifiers.pharmgkb.PharmGkbID;
  * @author Yuriy Malenkiy
  * 
  */
-@Record(dataSource = DataSource.PHARMGKB,
+@Record(ontClass = CcpExtensionOntology.PHARMGKB_DRUG_RECORD, dataSource = DataSource.PHARMGKB,
 		license=License.PHARMGKB,
 		licenseUri="http://www.pharmgkb.org/download.action?filename=PharmGKB_License.pdf",
 		comment="data from PharmGKB's drugs.tsv file",
@@ -61,29 +62,29 @@ import edu.ucdenver.ccp.datasource.identifiers.pharmgkb.PharmGkbID;
 		label="drug record")
 @Data
 public class PharmGkbDrugFileRecord extends SingleLineFileRecord {
-	@RecordField
+	@RecordField(ontClass = CcpExtensionOntology.PHARMGKB_DRUG_RECORD___ACCESSION_IDENTIFIER_FIELD_VALUE)
 	private PharmGkbID accessionId;
-	@RecordField
+	@RecordField(ontClass = CcpExtensionOntology.PHARMGKB_DRUG_RECORD___NAME_FIELD_VALUE)
 	private final String name;
-	@RecordField
+	@RecordField(ontClass = CcpExtensionOntology.PHARMGKB_DRUG_RECORD___GENERIC_NAMES_FIELD_VALUE)
 	private Collection<String> genericNames;
-	@RecordField
+	@RecordField(ontClass = CcpExtensionOntology.PHARMGKB_DRUG_RECORD___TRADE_NAMES_FIELD_VALUE)
 	private Collection<String> tradeNames;
-	@RecordField
+	@RecordField(ontClass = CcpExtensionOntology.PHARMGKB_DRUG_RECORD___BRAND_MIXTURES_FIELD_VALUE)
 	private Collection<String> brandMixtures;
-	@RecordField
+	@RecordField(ontClass = CcpExtensionOntology.PHARMGKB_DRUG_RECORD___TYPE_FIELD_VALUE)
 	private final String type;
-	@RecordField
+	@RecordField(ontClass = CcpExtensionOntology.PHARMGKB_DRUG_RECORD___CROSS_REFERENCE_FIELD_VALUE)
 	private Collection<DataSourceIdentifier<?>> crossReferences;
-	@RecordField
+	@RecordField(ontClass = CcpExtensionOntology.PHARMGKB_DRUG_RECORD___URL_FIELD_VALUE)
 	private final String url;
-	@RecordField
+	@RecordField(ontClass = CcpExtensionOntology.PHARMGKB_DRUG_RECORD___SMILES_FIELD_VALUE)
 	private final String smiles;
-	@RecordField
+	@RecordField(ontClass = CcpExtensionOntology.PHARMGKB_DRUG_RECORD___INCHI_FIELD_VALUE)
 	private final String inChI;
-	@RecordField
+	@RecordField(ontClass = CcpExtensionOntology.PHARMGKB_DRUG_RECORD___DOSING_GUIDELINE_FIELD_VALUE)
 	private final String dosingGuideline;
-	@RecordField
+	@RecordField(ontClass = CcpExtensionOntology.PHARMGKB_DRUG_RECORD___EXTERNAL_VOCABULARY_FIELD_VALUE)
 	private final String externalVocabulary;
 
 	public PharmGkbDrugFileRecord(String pharmGkbAccessionId, String name, Collection<String> genericNames,

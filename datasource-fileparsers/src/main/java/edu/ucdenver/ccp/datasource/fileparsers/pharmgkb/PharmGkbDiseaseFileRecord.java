@@ -44,6 +44,7 @@ import org.apache.log4j.Logger;
 import edu.ucdenver.ccp.common.string.StringConstants;
 import edu.ucdenver.ccp.common.string.StringUtil;
 import edu.ucdenver.ccp.common.string.StringUtil.RemoveFieldEnclosures;
+import edu.ucdenver.ccp.datasource.fileparsers.CcpExtensionOntology;
 import edu.ucdenver.ccp.datasource.fileparsers.License;
 import edu.ucdenver.ccp.datasource.fileparsers.Record;
 import edu.ucdenver.ccp.datasource.fileparsers.RecordField;
@@ -61,7 +62,7 @@ import edu.ucdenver.ccp.datasource.identifiers.pharmgkb.PharmGkbID;
  * @author Yuriy Malenkiy
  * 
  */
-@Record(dataSource = DataSource.PHARMGKB, schemaVersion = "2", license = License.PHARMGKB, licenseUri = "http://www.pharmgkb.org/download.action?filename=PharmGKB_License.pdf", citation = "M. Whirl-Carrillo, E.M. McDonagh, J. M. Hebert, L. Gong, K. Sangkuhl, C.F. Thorn, R.B. Altman and T.E. Klein. \"Pharmacogenomics Knowledge for Personalized Medicine\" Clinical Pharmacology & Therapeutics (2012) 92(4): 414-417", comment = "data from PharmGKB's disease.tsv file", label = "disease record")
+@Record(ontClass = CcpExtensionOntology.PHARMGKB_DISEASE_RECORD, dataSource = DataSource.PHARMGKB, schemaVersion = "2", license = License.PHARMGKB, licenseUri = "http://www.pharmgkb.org/download.action?filename=PharmGKB_License.pdf", citation = "M. Whirl-Carrillo, E.M. McDonagh, J. M. Hebert, L. Gong, K. Sangkuhl, C.F. Thorn, R.B. Altman and T.E. Klein. \"Pharmacogenomics Knowledge for Personalized Medicine\" Clinical Pharmacology & Therapeutics (2012) 92(4): 414-417", comment = "data from PharmGKB's disease.tsv file", label = "disease record")
 public class PharmGkbDiseaseFileRecord extends SingleLineFileRecord {
 
 	public static final Logger logger = Logger.getLogger(PharmGkbDiseaseFileRecord.class);
@@ -70,15 +71,15 @@ public class PharmGkbDiseaseFileRecord extends SingleLineFileRecord {
 	private static final String SNOMEDCT_PREFIX = "SnoMedCT:";
 	private static final String UMLS_PREFIX = "UMLS:";
 
-	@RecordField
+	@RecordField(ontClass = CcpExtensionOntology.PHARMGKB_DISEASE_RECORD___ACCESSION_IDENTIFIER_FIELD_VALUE)
 	private PharmGkbID accessionId;
-	@RecordField
+	@RecordField(ontClass = CcpExtensionOntology.PHARMGKB_DISEASE_RECORD___NAME_FIELD_VALUE)
 	private final String name;
-	@RecordField
+	@RecordField(ontClass = CcpExtensionOntology.PHARMGKB_DISEASE_RECORD___ALTERNATIVE_NAME_FIELD_VALUE)
 	private Collection<String> alternativeNames;
-	@RecordField(comment = "This field appears to be empty for all records.")
+	@RecordField(ontClass = CcpExtensionOntology.PHARMGKB_DISEASE_RECORD___CROSS_REFERENCE_FIELD_VALUE)
 	private Collection<DataSourceIdentifier<?>> crossReferences;
-	@RecordField
+	@RecordField(ontClass = CcpExtensionOntology.PHARMGKB_DISEASE_RECORD___EXTERNAL_VOCABULARY_FIELD_VALUE)
 	private Collection<DataSourceIdentifier<?>> externalVocabulary;
 
 	public PharmGkbDiseaseFileRecord(String pharmGkbAccessionId, String name, String alternativeNames,
