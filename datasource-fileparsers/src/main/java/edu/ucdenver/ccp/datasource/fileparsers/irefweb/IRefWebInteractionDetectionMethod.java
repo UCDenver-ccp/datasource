@@ -37,6 +37,7 @@ package edu.ucdenver.ccp.datasource.fileparsers.irefweb;
  */
 
 import lombok.Getter;
+import edu.ucdenver.ccp.datasource.fileparsers.CcpExtensionOntology;
 import edu.ucdenver.ccp.datasource.fileparsers.Record;
 import edu.ucdenver.ccp.datasource.fileparsers.RecordField;
 import edu.ucdenver.ccp.datasource.fileparsers.obo.MiOntologyIdTermPair;
@@ -47,13 +48,13 @@ import edu.ucdenver.ccp.datasource.identifiers.obo.MolecularInteractionOntologyT
  * @author Colorado Computational Pharmacology, UC Denver; ccpsupport@ucdenver.edu
  *
  */
-@Record(dataSource=DataSource.IREFWEB, label="detection method")
+@Record(ontClass = CcpExtensionOntology.IREFWEB_INTERACTION_DETECTION_METHOD_RECORD, dataSource=DataSource.IREFWEB, label="detection method")
 @Getter
 public class IRefWebInteractionDetectionMethod extends MiOntologyIdTermPair {
 
-		@RecordField
+		@RecordField(ontClass = CcpExtensionOntology.IREFWEB_INTERACTION_DETECTION_METHOD_RECORD___DETECTION_METHOD_IDENTIFIER_FIELD_VALUE)
 		private final MolecularInteractionOntologyTermID detectionMethodId;
-		@RecordField
+		@RecordField(ontClass = CcpExtensionOntology.IREFWEB_INTERACTION_DETECTION_METHOD_RECORD___DETECTION_METHOD_NAME_FIELD_VALUE)
 		private final String detectionMethodName;
 		
 		/**
