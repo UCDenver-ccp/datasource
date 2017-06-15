@@ -46,6 +46,7 @@ import org.uniprot.DbReferenceType;
 import org.uniprot.Entry;
 import org.uniprot.OrganismType;
 
+import edu.ucdenver.ccp.datasource.fileparsers.CcpExtensionOntology;
 import edu.ucdenver.ccp.datasource.fileparsers.FileRecord;
 import edu.ucdenver.ccp.datasource.fileparsers.Record;
 import edu.ucdenver.ccp.datasource.fileparsers.RecordField;
@@ -63,24 +64,24 @@ import edu.ucdenver.ccp.datasource.identifiers.ebi.uniprot.UniProtID;
  * 
  */
 @Getter
-@Record(dataSource = DataSource.UNIPROT, label = "uniprot record")
+@Record(ontClass = CcpExtensionOntology.SPARSE_UNIPROT_RECORD, dataSource = DataSource.UNIPROT, label = "uniprot record")
 public class SparseUniProtFileRecord extends FileRecord {
 
 	private static final Logger logger = Logger.getLogger(SparseUniProtFileRecord.class);
 
-	@RecordField(isKeyField = true)
+	@RecordField(ontClass = CcpExtensionOntology.SPARSE_UNIPROT_RECORD___PRIMARY_ACCESSION_FIELD_VALUE, isKeyField = true)
 	private final UniProtID primaryAccession;
-	@RecordField
+	@RecordField(ontClass = CcpExtensionOntology.SPARSE_UNIPROT_RECORD___ACCESSION_FIELD_VALUE)
 	private final List<UniProtID> accession;
-	@RecordField
+	@RecordField(ontClass = CcpExtensionOntology.SPARSE_UNIPROT_RECORD___NAME_FIELD_VALUE)
 	private final List<String> name;
 	// @RecordField
 	// private final Protein protein;
 	// @RecordField
 	// private final List<Gene> gene;
-	@RecordField
+	@RecordField(ontClass = CcpExtensionOntology.SPARSE_UNIPROT_RECORD___ORGANISM_FIELD_VALUE)
 	private final Organism organism;
-	@RecordField
+	@RecordField(ontClass = CcpExtensionOntology.SPARSE_UNIPROT_RECORD___ORGANISM_HOST_FIELD_VALUE)
 	private final List<Organism> organismHost;
 	// @RecordField
 	// private final List<GeneLocation> geneLocation;
@@ -88,7 +89,7 @@ public class SparseUniProtFileRecord extends FileRecord {
 	// private final List<Reference> reference;
 	// @RecordField
 	// private final List<Comment> comment;
-	@RecordField
+	@RecordField(ontClass = CcpExtensionOntology.SPARSE_UNIPROT_RECORD___DATABASE_REFERENCE_FIELD_VALUE)
 	private final List<DbReference> dbReference;
 
 	// @RecordField
