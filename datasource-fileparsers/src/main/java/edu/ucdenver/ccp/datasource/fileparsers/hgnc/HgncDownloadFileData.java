@@ -40,6 +40,7 @@ import lombok.EqualsAndHashCode;
 
 import org.apache.log4j.Logger;
 
+import edu.ucdenver.ccp.datasource.fileparsers.CcpExtensionOntology;
 import edu.ucdenver.ccp.datasource.fileparsers.Record;
 import edu.ucdenver.ccp.datasource.fileparsers.RecordField;
 import edu.ucdenver.ccp.datasource.fileparsers.SingleLineFileRecord;
@@ -158,7 +159,7 @@ import edu.ucdenver.ccp.identifier.publication.PubMedID;
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
-@Record(dataSource = DataSource.HGNC, schemaVersion = "2", comment = "Previous version of this record represented only a subset of the data in the HGNC download file. This version represents all data and includes the new \"gene family description\" column.", label = "HGNC record")
+@Record(ontClass = CcpExtensionOntology.HGNC_GENE_RECORD, dataSource = DataSource.HGNC, schemaVersion = "2")
 public class HgncDownloadFileData extends SingleLineFileRecord {
 
 	private static final Logger logger = Logger.getLogger(HgncDownloadFileData.class);
@@ -204,83 +205,83 @@ public class HgncDownloadFileData extends SingleLineFileRecord {
 	// 38 Mouse Genome Database ID (mapped data supplied by MGI)
 	// 49 Rat Genome Database ID (mapped data supplied by RGD)
 
-	@RecordField
+	@RecordField(ontClass = CcpExtensionOntology.HGNC_GENE_RECORD___HGNC_IDENTIFIER_FIELD_VALUE)
 	private final HgncID hgncID;
-	@RecordField
+	@RecordField(ontClass = CcpExtensionOntology.HGNC_GENE_RECORD___HGNC_GENE_SYMBOL_FIELD_VALUE)
 	private final HgncGeneSymbolID hgncGeneSymbol;
-	@RecordField
+	@RecordField(ontClass = CcpExtensionOntology.HGNC_GENE_RECORD___HGNC_GENE_NAME_FIELD_VALUE)
 	private final String hgncGeneName;
-	@RecordField
+	@RecordField(ontClass = CcpExtensionOntology.HGNC_GENE_RECORD___STATUS_FIELD_VALUE)
 	private final String status;
-	@RecordField
+	@RecordField(ontClass = CcpExtensionOntology.HGNC_GENE_RECORD___LOCUS_TYPE_FIELD_VALUE)
 	private final String locusType;
-	@RecordField
+	@RecordField(ontClass = CcpExtensionOntology.HGNC_GENE_RECORD___LOCUS_GROUP_FIELD_VALUE)
 	private final String locusGroup;
-	@RecordField
+	@RecordField(ontClass = CcpExtensionOntology.HGNC_GENE_RECORD___PREVIOUS_SYMBOL_FIELD_VALUE)
 	private final Set<String> previousSymbols;
-	@RecordField
+	@RecordField(ontClass = CcpExtensionOntology.HGNC_GENE_RECORD___PREVIOUS_NAME_FIELD_VALUE)
 	private final Set<String> previousNames;
-	@RecordField
+	@RecordField(ontClass = CcpExtensionOntology.HGNC_GENE_RECORD___SYNONYMS_FIELD_VALUE)
 	private final Set<String> synonyms;
-	@RecordField
+	@RecordField(ontClass = CcpExtensionOntology.HGNC_GENE_RECORD___NAME_SYNONYMS_FIELD_VALUE)
 	private final Set<String> nameSynonyms;
-	@RecordField
+	@RecordField(ontClass = CcpExtensionOntology.HGNC_GENE_RECORD___CHROMOSOME_FIELD_VALUE)
 	private final String chromosome;
-	@RecordField
+	@RecordField(ontClass = CcpExtensionOntology.HGNC_GENE_RECORD___DATE_APPROVED_FIELD_VALUE)
 	private final String dateApproved;
-	@RecordField
+	@RecordField(ontClass = CcpExtensionOntology.HGNC_GENE_RECORD___DATE_MODIFIED_FIELD_VALUE)
 	private final String dateModified;
-	@RecordField
+	@RecordField(ontClass = CcpExtensionOntology.HGNC_GENE_RECORD___DATE_SYMBOL_CHANGED_FIELD_VALUE)
 	private final String dateSymbolChanged;
-	@RecordField
+	@RecordField(ontClass = CcpExtensionOntology.HGNC_GENE_RECORD___DATE_NAME_CHANGED_FIELD_VALUE)
 	private final String dateNameChanged;
-	@RecordField
+	@RecordField(ontClass = CcpExtensionOntology.HGNC_GENE_RECORD___ACCESSION_NUMBERS_FIELD_VALUE)
 	private final Set<DataSourceIdentifier<?>> accessionNumbers;
-	@RecordField
+	@RecordField(ontClass = CcpExtensionOntology.HGNC_GENE_RECORD___ENZYME_COMMISSION_NUMBERS_FIELD_VALUE)
 	private final Set<EnzymeCommissionID> ecNumbers;
-	@RecordField
+	@RecordField(ontClass = CcpExtensionOntology.HGNC_GENE_RECORD___ENTREZ_GENE_IDENTIFIER_FIELD_VALUE)
 	private final NcbiGeneId entrezGeneID;
-	@RecordField
+	@RecordField(ontClass = CcpExtensionOntology.HGNC_GENE_RECORD___ENSEMBL_GENE_IDENTIFIER_FIELD_VALUE)
 	private final EnsemblGeneID ensemblGeneID;
-	@RecordField
+	@RecordField(ontClass = CcpExtensionOntology.HGNC_GENE_RECORD___MGI_IDENTIFIER_FIELD_VALUE)
 	private final Set<MgiGeneID> mgiIDs;
-	@RecordField
+	@RecordField(ontClass = CcpExtensionOntology.HGNC_GENE_RECORD___SPECIALIST_DATABASE_IDENTIFIER_LINK_PAIRINGS_FIELD_VALUE)
 	private final Set<SpecialistDbIdLinkPair> specialistDatabaseIdLinkPairings;
-	@RecordField
+	@RecordField(ontClass = CcpExtensionOntology.HGNC_GENE_RECORD___PUBMED_IDENTIFIER_FIELD_VALUE)
 	private final Set<PubMedID> pubmedIDs;
-	@RecordField
+	@RecordField(ontClass = CcpExtensionOntology.HGNC_GENE_RECORD___REFSEQ_IDENTIFIER_FIELD_VALUE)
 	private final Set<RefSeqID> refseqIDs;
-	@RecordField
+	@RecordField(ontClass = CcpExtensionOntology.HGNC_GENE_RECORD___GENE_FAMILY_TAG_DESCRIPTION_PAIRINGS_FIELD_VALUE)
 	private final Set<GeneFamilyTagDescriptionPair> geneFamilyTagDescriptionPairings;
-	@RecordField
+	@RecordField(ontClass = CcpExtensionOntology.HGNC_GENE_RECORD___RECORD_TYPE_FIELD_VALUE)
 	private final String recordType;
-	@RecordField
+	@RecordField(ontClass = CcpExtensionOntology.HGNC_GENE_RECORD___PRIMARY_IDENTIFIER_FIELD_VALUE)
 	private final Set<DataSourceIdentifier<?>> primaryIds;
-	@RecordField
+	@RecordField(ontClass = CcpExtensionOntology.HGNC_GENE_RECORD___SECONDARY_IDENTIFIER_FIELD_VALUE)
 	private final Set<DataSourceIdentifier<?>> secondaryIds;
-	@RecordField
+	@RecordField(ontClass = CcpExtensionOntology.HGNC_GENE_RECORD___CCDS_IDENTIFIER_FIELD_VALUE)
 	private final Set<CcdsId> ccdsIDs;
-	@RecordField
+	@RecordField(ontClass = CcpExtensionOntology.HGNC_GENE_RECORD___VEGA_IDENTIFIER_FIELD_VALUE)
 	private final Set<VegaID> vegaIDs;
-	@RecordField
+	@RecordField(ontClass = CcpExtensionOntology.HGNC_GENE_RECORD___LOCUS_SPECIFIC_DATABASE_NAME_LINK_PAIRINGS_FIELD_VALUE)
 	private final Set<LocusSpecificDatabaseNameLinkPair> locusSpecificDatabaseNameLinkPairings;
-	@RecordField
+	@RecordField(ontClass = CcpExtensionOntology.HGNC_GENE_RECORD___SUPPLIED_ENTREZ_GENE_IDENTIFIER_FIELD_VALUE)
 	private final NcbiGeneId suppliedEntrezGeneId;
-	@RecordField
+	@RecordField(ontClass = CcpExtensionOntology.HGNC_GENE_RECORD___SUPPLIED_OMIM_IDENTIFIER_FIELD_VALUE)
 	private final Set<OmimID> suppliedOmimIds;
-	@RecordField
+	@RecordField(ontClass = CcpExtensionOntology.HGNC_GENE_RECORD___SUPPLIED_REFSEQ_IDENTIFIER_FIELD_VALUE)
 	private final RefSeqID suppliedRefseqId;
-	@RecordField
+	@RecordField(ontClass = CcpExtensionOntology.HGNC_GENE_RECORD___SUPPLIED_UNIPROT_IDENTIFIER_FIELD_VALUE)
 	private final Set<UniProtID> suppliedUniprotIds;
-	@RecordField
+	@RecordField(ontClass = CcpExtensionOntology.HGNC_GENE_RECORD___SUPPLIED_ENSEMBL_IDENTIFIER_FIELD_VALUE)
 	private final EnsemblGeneID suppliedEnsemblId;
-	@RecordField
+	@RecordField(ontClass = CcpExtensionOntology.HGNC_GENE_RECORD___SUPPLIED_VEGA_IDENTIFIER_FIELD_VALUE)
 	private final VegaID suppliedVegaId;
-	@RecordField
+	@RecordField(ontClass = CcpExtensionOntology.HGNC_GENE_RECORD___SUPPLIED_UCSC_GENOME_BROWSER_IDENTIFIER_FIELD_VALUE)
 	private final UcscGenomeBrowserId suppliedUcscId;
-	@RecordField
+	@RecordField(ontClass = CcpExtensionOntology.HGNC_GENE_RECORD___SUPPLIED_MGI_IDENTIFIER_FIELD_VALUE)
 	private final Set<MgiGeneID> suppliedMgiIds;
-	@RecordField
+	@RecordField(ontClass = CcpExtensionOntology.HGNC_GENE_RECORD___SUPPLIED_RGD_IDENTIFIER_FIELD_VALUE)
 	private final Set<RgdID> suppliedRgdIds;
 
 	/**
@@ -384,11 +385,11 @@ public class HgncDownloadFileData extends SingleLineFileRecord {
 	}
 
 	@Data
-	@Record(dataSource = DataSource.HGNC)
+	@Record(ontClass = CcpExtensionOntology.HGNC_SPECIALIST_DATABASE_IDENTIFIER_LINK_PAIR_RECORD, dataSource = DataSource.HGNC)
 	public static class SpecialistDbIdLinkPair {
-		@RecordField
+		@RecordField(ontClass = CcpExtensionOntology.HGNC_SPECIALIST_DATABASE_LINK_PAIR_RECORD___DATA_SOURCE_IDENTIFIER_FIELD_VALUE)
 		private final DataSourceIdentifier<?> specialistDbId;
-		@RecordField
+		@RecordField(ontClass = CcpExtensionOntology.HGNC_SPECIALIST_DATABASE_LINK_PAIR_RECORD___SPECIALIST_DATABASE_URL_FIELD_VALUE)
 		private final String specialistDbUrl;
 
 		/**
@@ -403,11 +404,11 @@ public class HgncDownloadFileData extends SingleLineFileRecord {
 	}
 
 	@Data
-	@Record(dataSource = DataSource.HGNC)
+	@Record(ontClass = CcpExtensionOntology.HGNC_GENE_FAMILY_TAG_DESCRIPTION_PAIR_RECORD, dataSource = DataSource.HGNC)
 	public static class GeneFamilyTagDescriptionPair {
-		@RecordField
+		@RecordField(ontClass = CcpExtensionOntology.HGNC_GENE_FAMILY_TAG_DESCRIPTION_PAIR_RECORD___GENE_FAMILY_TAG_FIELD_VALUE)
 		private final String geneFamilyTag;
-		@RecordField
+		@RecordField(ontClass = CcpExtensionOntology.HGNC_GENE_FAMILY_TAG_DESCRIPTION_PAIR_RECORD___GENE_FAMILY_DESCRIPTION_FIELD_VALUE)
 		private final String geneFamilyDescription;
 
 		/**
@@ -423,11 +424,11 @@ public class HgncDownloadFileData extends SingleLineFileRecord {
 	}
 
 	@Data
-	@Record(dataSource = DataSource.HGNC)
+	@Record(ontClass = CcpExtensionOntology.HGNC_LOCUS_SPECIFIC_DATABASE_NAME_LINK_PAIR_RECORD, dataSource = DataSource.HGNC)
 	public static class LocusSpecificDatabaseNameLinkPair {
-		@RecordField
+		@RecordField(ontClass = CcpExtensionOntology.HGNC_LOCUS_SPECIFIC_DATABASE_NAME_LINK_PAIR_RECORD___DATABASE_NAME_FIELD_VALUE)
 		private final String databaseName;
-		@RecordField
+		@RecordField(ontClass = CcpExtensionOntology.HGNC_LOCUS_SPECIFIC_DATABASE_NAME_LINK_PAIR_RECORD___LINK_FIELD_VALUE)
 		private final String link;
 
 		/**
