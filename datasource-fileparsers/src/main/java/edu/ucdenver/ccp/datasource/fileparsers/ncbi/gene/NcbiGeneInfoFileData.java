@@ -57,49 +57,49 @@ import lombok.EqualsAndHashCode;
 public class NcbiGeneInfoFileData extends SingleLineFileRecord {
 	public static final String RECORD_NAME_PREFIX = "ENTREZ_GENEINFO_RECORD_";
 
-	@RecordField(ontClass = CcpExtensionOntology.NCBI_TAXONOMY_IDENTIFIER_FIELD_VALUE)
+	@RecordField(ontClass = CcpExtensionOntology.NCBI_GENE_INFO_RECORD___TAXON_IDENTIFIER_FIELD_VALUE)
 	private final NcbiTaxonomyID taxonID;
 
-	@RecordField(ontClass = CcpExtensionOntology.NCBI_GENE_IDENTIFIER_FIELD_VALUE)
+	@RecordField(ontClass = CcpExtensionOntology.NCBI_GENE_INFO_RECORD___GENE_IDENTIFIER_FIELD_VALUE)
 	private final NcbiGeneId geneID;
 
-	@RecordField(ontClass = CcpExtensionOntology.NCBI_SYMBOL_FIELD_VALUE)
+	@RecordField(ontClass = CcpExtensionOntology.NCBI_GENE_INFO_RECORD___SYMBOL_FIELD_VALUE)
 	private final String symbol;
 
-	@RecordField(ontClass = CcpExtensionOntology.NCBI_LOCUS_TAG_FIELD_VALUE)
+	@RecordField(ontClass = CcpExtensionOntology.NCBI_GENE_INFO_RECORD___LOCUS_TAG_FIELD_VALUE)
 	private final String locusTag;
 
-	@RecordField(ontClass = CcpExtensionOntology.NCBI_SYNONYMS_FIELD_VALUE)
+	@RecordField(ontClass = CcpExtensionOntology.NCBI_GENE_INFO_RECORD___SYNONYM_FIELD_VALUE)
 	private final Set<String> synonyms;
 
-	@RecordField(ontClass = CcpExtensionOntology.NCBI_DATABASE_CROSS_REFERENCE_FIELD_VALUE)
+	@RecordField(ontClass = CcpExtensionOntology.NCBI_GENE_INFO_RECORD___DATABASE_CROSS_REFERENCE_FIELD_VALUE)
 	private final Set<DataSourceIdentifier<?>> dbXrefs;
 
-	@RecordField(ontClass = CcpExtensionOntology.NCBI_CHROMOSOME_FIELD_VALUE)
+	@RecordField(ontClass = CcpExtensionOntology.NCBI_GENE_INFO_RECORD___CHROMOSOME_FIELD_VALUE)
 	private final String chromosome;
 
-	@RecordField(ontClass = CcpExtensionOntology.NCBI_MAP_LOCATION_FIELD_VALUE)
+	@RecordField(ontClass = CcpExtensionOntology.NCBI_GENE_INFO_RECORD___MAP_LOCATION_FIELD_VALUE)
 	private final String mapLocation;
 
-	@RecordField(ontClass = CcpExtensionOntology.NCBI_DESCRIPTION_FIELD_VALUE)
+	@RecordField(ontClass = CcpExtensionOntology.NCBI_GENE_INFO_RECORD___DESCRIPTION_FIELD_VALUE)
 	private final String description;
 
-	@RecordField(ontClass = CcpExtensionOntology.NCBI_GENE_TYPE_FIELD_VALUE)
+	@RecordField(ontClass = CcpExtensionOntology.NCBI_GENE_INFO_RECORD___TYPE_OF_GENE_FIELD_VALUE)
 	private final String typeOfGene;
 
-	@RecordField(ontClass = CcpExtensionOntology.NCBI_SYMBOL_FROM_NOMENCLATURE_AUTHORITY_FIELD_VALUE)
+	@RecordField(ontClass = CcpExtensionOntology.NCBI_GENE_INFO_RECORD___SYMBOL_FROM_NOMENCLATURE_AUTHORITY_FIELD_VALUE)
 	private final String symbolFromNomenclatureAuthority;
 
-	@RecordField(ontClass = CcpExtensionOntology.NCBI_FULL_NAME_FROM_NOMENCLATURE_AUTHORITY_FIELD_VALUE)
+	@RecordField(ontClass = CcpExtensionOntology.NCBI_GENE_INFO_RECORD___FULL_NAME_FROM_NOMENCLATURE_AUTHORITY_FIELD_VALUE)
 	private final String fullNameFromNomenclatureAuthority;
 
-	@RecordField(ontClass = CcpExtensionOntology.NCBI_NOMENCLATURE_AUTHORITY_STATUS_FIELD_VALUE)
+	@RecordField(ontClass = CcpExtensionOntology.NCBI_GENE_INFO_RECORD___NOMENCLATURE_STATUS_FIELD_VALUE)
 	private final String nomenclatureStatus;
 
-	@RecordField(ontClass = CcpExtensionOntology.NCBI_OTHER_DESIGNATIONS_FIELD_VALUE)
+	@RecordField(ontClass = CcpExtensionOntology.NCBI_GENE_INFO_RECORD___OTHER_DESIGNATIONS_FIELD_VALUE)
 	private final Set<String> otherDesignations;
 
-	@RecordField(ontClass = CcpExtensionOntology.NCBI_MODIFICATION_DATE_FIELD_VALUE)
+	@RecordField(ontClass = CcpExtensionOntology.NCBI_GENE_INFO_RECORD___MODIFICATION_DATE_FIELD_VALUE)
 	private final String modificationDate;
 
 	public NcbiGeneInfoFileData(NcbiTaxonomyID taxonID, NcbiGeneId geneID, String symbol, String locusTag,
