@@ -49,7 +49,7 @@ import edu.ucdenver.ccp.datasource.identifiers.obo.ProteinOntologyId;
  *         ccpsupport@ucdenver.edu
  * 
  */
-@Record(ontClass= CcpExtensionOntology.PRO_IDENTIFIER_FIELD_VALUE, dataSource = DataSource.PR, license = License.PIR, citation = "http://www.ncbi.nlm.nih.gov/pmc/articles/PMC3013777/?tool=pubmed", label = "id mapping record")
+@Record(ontClass= CcpExtensionOntology.PRO_IDENTIFIER_MAPPING_RECORD, dataSource = DataSource.PR, license = License.PIR, citation = "http://www.ncbi.nlm.nih.gov/pmc/articles/PMC3013777/?tool=pubmed", label = "id mapping record")
 @Data
 @EqualsAndHashCode(callSuper = false)
 public class ProMappingRecord extends SingleLineFileRecord {
