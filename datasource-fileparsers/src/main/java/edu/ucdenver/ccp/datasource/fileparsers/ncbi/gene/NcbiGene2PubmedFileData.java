@@ -36,6 +36,7 @@ package edu.ucdenver.ccp.datasource.fileparsers.ncbi.gene;
 import org.apache.log4j.Logger;
 
 import edu.ucdenver.ccp.common.file.reader.Line;
+import edu.ucdenver.ccp.datasource.fileparsers.CcpExtensionOntology;
 import edu.ucdenver.ccp.datasource.fileparsers.License;
 import edu.ucdenver.ccp.datasource.fileparsers.Record;
 import edu.ucdenver.ccp.datasource.fileparsers.RecordField;
@@ -51,7 +52,8 @@ import edu.ucdenver.ccp.identifier.publication.PubMedID;
  * @author Bill Baumgartner
  * 
  */
-@Record(dataSource = DataSource.NCBI_GENE,
+@Record(ontClass = CcpExtensionOntology.NCBI_GENE_2_PUBMED_RECORD,
+		dataSource = DataSource.NCBI_GENE,
 		comment="This file can be considered as the logical equivalent of what is reported as Gene/PubMed Links visible in Gene's and PubMed's Links menus. Although gene2pubmed is re-calculated daily, some of the source documents (GeneRIFs, for example) are not updated that frequently, so timing depends on the update frequency of the data source.",
 		license=License.NCBI,
 		citation="The NCBI handbook [Internet]. Bethesda (MD): National Library of Medicine (US), National Center for Biotechnology Information; 2002 Oct. Chapter 19 Gene: A Directory of Genes. Available from http://www.ncbi.nlm.nih.gov/books/NBK21091",
@@ -60,13 +62,13 @@ public class NcbiGene2PubmedFileData extends SingleLineFileRecord {
 	public static final String RECORD_NAME_PREFIX = "PUBMED_TO_ENTREZGENE_RECORD_";
 	private static final Logger logger = Logger.getLogger(NcbiGene2PubmedFileData.class);
 
-	@RecordField(comment="the unique identifier provided by NCBI Taxonomy for the species or strain/isolate")
+	@RecordField(ontClass = CcpExtensionOntology.NCBI_GENE_2_PUBMED_RECORD___TAXONOMY_IDENTIFIER_FIELD_VALUE)
 	private final NcbiTaxonomyID taxonomyID;
 
-	@RecordField(comment="the unique identifier in PubMed for a citation")
+	@RecordField(ontClass = CcpExtensionOntology.NCBI_GENE_2_PUBMED_RECORD___PUBMED_IDENTIFIER_FIELD_VALUE)
 	private final PubMedID pmid;
 
-	@RecordField(comment="the unique identifier for a gene")
+	@RecordField(ontClass = CcpExtensionOntology.NCBI_GENE_2_PUBMED_RECORD___ENTREZ_GENE_IDENTIFIER_FIELD_VALUE)
 	private final NcbiGeneId entrezGeneID;
 
 	public NcbiGene2PubmedFileData(NcbiTaxonomyID taxonomyID, NcbiGeneId entrezGeneID, 

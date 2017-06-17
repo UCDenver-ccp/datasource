@@ -109,55 +109,55 @@ import edu.ucdenver.ccp.identifier.publication.PubMedID;
  * @author Bill Baumgartner
  * 
  */
-@Record(dataSource = DataSource.UNIPROT, isComplete = false, comment = "This data structure is a representation of the data contained in the idmapping_selected.tab file located at ftp://ftp.uniprot.org/pub/databases/uniprot /current_release/knowledgebase/idmapping . This record is marked incomplete due to some missing ID types in the source file that are not represented in the Java object.", license = License.CREATIVE_COMMONS_3, licenseUri = "http://www.uniprot.org/help/license", citation = "Nucl. Acids Res. (2012) 40 (D1): D71-D75. doi: 10.1093/nar/gkr981", label = "id mapping record")
+@Record(ontClass = CcpExtensionOntology.UNIPROT_IDENTIFIER_MAPPING_RECORD, dataSource = DataSource.UNIPROT, isComplete = false, license = License.CREATIVE_COMMONS_3, licenseUri = "http://www.uniprot.org/help/license", citation = "Nucl. Acids Res. (2012) 40 (D1): D71-D75. doi: 10.1093/nar/gkr981", label = "id mapping record")
 @Getter
 public class UniProtIDMappingFileData extends SingleLineFileRecord {
 
 	private static final Logger logger = Logger.getLogger(UniProtIDMappingFileData.class);
 
-	@RecordField(ontClass = CcpExtensionOntology.UNIPROT_ID_MAPPING_RECORD___UNIPROT_ACCESSION_FIELD_VALUE)
+	@RecordField(ontClass = CcpExtensionOntology.UNIPROT_IDENTIFIER_MAPPING_RECORD___UNIPROT_ACCESSION_IDENTIFIER_FIELD_VALUE)
 	private final UniProtID uniProtAccessionID;
-	@RecordField(ontClass = CcpExtensionOntology.UNIPROT_ID_MAPPING_RECORD___UNIPROT_ENTRY_NAME_FIELD_VALUE)
+	@RecordField(ontClass = CcpExtensionOntology.UNIPROT_IDENTIFIER_MAPPING_RECORD___UNIPROT_ENTRY_NAME_FIELD_VALUE)
 	private final UniProtEntryName uniProtEntryName;
-	@RecordField(ontClass = CcpExtensionOntology.UNIPROT_ID_MAPPING_RECORD____NCBI_GENE_IDENTIFIER_FIELD_VALUE)
+	@RecordField(ontClass = CcpExtensionOntology.UNIPROT_IDENTIFIER_MAPPING_RECORD____ENTREZ_GENE_IDENTIFIER_FIELD_VALUE)
 	private final Set<NcbiGeneId> entrezGeneIDs;
-	@RecordField(ontClass = CcpExtensionOntology.UNIPROT_ID_MAPPING_RECORD___REFSEQ_IDENTIFIER_FIELD_VALUE)
+	@RecordField(ontClass = CcpExtensionOntology.UNIPROT_IDENTIFIER_MAPPING_RECORD___REFSEQ_IDENTIFIER_FIELD_VALUE)
 	private final Set<RefSeqID> refseqIds;
-	@RecordField(ontClass = CcpExtensionOntology.UNIPROT_ID_MAPPING_RECORD___NCBI_GI_NUMBER_IDENTIFIER_FIELD_VALUE)
+	@RecordField(ontClass = CcpExtensionOntology.UNIPROT_IDENTIFIER_MAPPING_RECORD___GENEINFO_NUMBER_IDENTIFIER_FIELD_VALUE)
 	private final Set<GiNumberID> giNumbers;
-	@RecordField(ontClass = CcpExtensionOntology.UNIPROT_ID_MAPPING_RECORD___PROTEIN_DATA_BANK_IDENTIFIER_FIELD_VALUE)
+	@RecordField(ontClass = CcpExtensionOntology.UNIPROT_IDENTIFIER_MAPPING_RECORD___PDB_IDENTIFIER_FIELD_VALUE)
 	private final Set<PdbID> pdbIds;
-	@RecordField(ontClass = CcpExtensionOntology.UNIPROT_ID_MAPPING_RECORD___GENE_ONTOLOGY_IDENTIFIER_FIELD_VALUE)
+	@RecordField(ontClass = CcpExtensionOntology.UNIPROT_IDENTIFIER_MAPPING_RECORD___GO_IDENTIFIER_FIELD_VALUE)
 	private final Set<GeneOntologyID> geneOntologyIds;
-	@RecordField(ontClass = CcpExtensionOntology.UNIPROT_ID_MAPPING_RECORD___UNIREF100_IDENTIFIER_FIELD_VALUE)
+	@RecordField(ontClass = CcpExtensionOntology.UNIPROT_IDENTIFIER_MAPPING_RECORD___UNIREF100_IDENTIFIER_FIELD_VALUE)
 	private final UniRefId uniref100Id;
-	@RecordField(ontClass = CcpExtensionOntology.UNIPROT_ID_MAPPING_RECORD___UNIREF90_IDENTIFIER_FIELD_VALUE)
+	@RecordField(ontClass = CcpExtensionOntology.UNIPROT_IDENTIFIER_MAPPING_RECORD___UNIREF90_IDENTIFIER_FIELD_VALUE)
 	private final UniRefId uniref90Id;
-	@RecordField(ontClass = CcpExtensionOntology.UNIPROT_ID_MAPPING_RECORD___UNIREF50_IDENTIFIER_FIELD_VALUE)
+	@RecordField(ontClass = CcpExtensionOntology.UNIPROT_IDENTIFIER_MAPPING_RECORD___UNIREF50_IDENTIFIER_FIELD_VALUE)
 	private final UniRefId uniref50Id;
-	@RecordField(ontClass = CcpExtensionOntology.UNIPROT_ID_MAPPING_RECORD___UNIPARC_IDENTIFIER_FIELD_VALUE)
+	@RecordField(ontClass = CcpExtensionOntology.UNIPROT_IDENTIFIER_MAPPING_RECORD___UNIPARC_IDENTIFIER_FIELD_VALUE)
 	private final UniParcID uniparcId;
-	@RecordField(ontClass = CcpExtensionOntology.UNIPROT_ID_MAPPING_RECORD___PIR_IDENTIFIER_FIELD_VALUE)
+	@RecordField(ontClass = CcpExtensionOntology.UNIPROT_IDENTIFIER_MAPPING_RECORD___PIR_IDENTIFIER_FIELD_VALUE)
 	private final Set<PirID> pirIds;
-	@RecordField(ontClass = CcpExtensionOntology.UNIPROT_ID_MAPPING_RECORD___NCBI_TAXONOMY_IDENTIFIER_FIELD_VALUE)
+	@RecordField(ontClass = CcpExtensionOntology.UNIPROT_IDENTIFIER_MAPPING_RECORD___TAXONOMY_IDENTIFIER_FIELD_VALUE)
 	private final NcbiTaxonomyID taxonomyID;
-	@RecordField(ontClass = CcpExtensionOntology.UNIPROT_ID_MAPPING_RECORD___OMIM_IDENTIFIER_FIELD_VALUE)
+	@RecordField(ontClass = CcpExtensionOntology.UNIPROT_IDENTIFIER_MAPPING_RECORD___OMIM_IDENTIFIER_FIELD_VALUE)
 	private final Set<OmimID> omimIds;
-	@RecordField(ontClass = CcpExtensionOntology.UNIPROT_ID_MAPPING_RECORD___UNIGENE_IDENTIFIER_FIELD_VALUE)
+	@RecordField(ontClass = CcpExtensionOntology.UNIPROT_IDENTIFIER_MAPPING_RECORD___UNIGENE_IDENTIFIER_FIELD_VALUE)
 	private final Set<UniGeneID> unigeneIds;
-	@RecordField(ontClass = CcpExtensionOntology.UNIPROT_ID_MAPPING_RECORD___PUBMED_IDENTIFIER_FIELD_VALUE)
+	@RecordField(ontClass = CcpExtensionOntology.UNIPROT_IDENTIFIER_MAPPING_RECORD___PUBMED_IDENTIFIER_FIELD_VALUE)
 	private Set<PubMedID> pubmedIds;
-	@RecordField(ontClass = CcpExtensionOntology.UNIPROT_ID_MAPPING_RECORD___EMBL_IDENTIFIER_FIELD_VALUE)
+	@RecordField(ontClass = CcpExtensionOntology.UNIPROT_IDENTIFIER_MAPPING_RECORD___EMBL_IDENTIFIER_FIELD_VALUE)
 	private final Set<EmblID> emblIDs;
-	@RecordField(ontClass = CcpExtensionOntology.UNIPROT_ID_MAPPING_RECORD___EMBL_CDS_IDENTIFIER_FIELD_VALUE)
+	@RecordField(ontClass = CcpExtensionOntology.UNIPROT_IDENTIFIER_MAPPING_RECORD___EMBL_CDS_IDENTIFIER_FIELD_VALUE)
 	private final Set<EmblID> emblCdsIDs;
-	@RecordField(ontClass = CcpExtensionOntology.UNIPROT_ID_MAPPING_RECORD___ENSEMBL_IDENTIFIER_FIELD_VALUE)
+	@RecordField(ontClass = CcpExtensionOntology.UNIPROT_IDENTIFIER_MAPPING_RECORD___ENSEMBL_IDENTIFIER_FIELD_VALUE)
 	private final Set<EnsemblGeneID> ensemblIds;
-	@RecordField(ontClass = CcpExtensionOntology.UNIPROT_ID_MAPPING_RECORD___ENSEMBL_TRS_IDENTIFIER_FIELD_VALUE)
+	@RecordField(ontClass = CcpExtensionOntology.UNIPROT_IDENTIFIER_MAPPING_RECORD___ENSEMBL_TRS_IDENTIFIER_FIELD_VALUE)
 	private final Set<EnsemblGeneID> ensembl_TRSIds;
-	@RecordField(ontClass = CcpExtensionOntology.UNIPROT_ID_MAPPING_RECORD___ENSEMBL_PRO_IDENTIFIER_FIELD_VALUE)
+	@RecordField(ontClass = CcpExtensionOntology.UNIPROT_IDENTIFIER_MAPPING_RECORD___ENSEMBL_PRO_IDENTIFIER_FIELD_VALUE)
 	private final Set<EnsemblGeneID> ensembl_PROIds;
-	@RecordField(ontClass = CcpExtensionOntology.UNIPROT_ID_MAPPING_RECORD___ADDITIONAL_PUBMED_IDENTIFIER_FIELD_VALUE)
+	@RecordField(ontClass = CcpExtensionOntology.UNIPROT_IDENTIFIER_MAPPING_RECORD___ADDITIONAL_PUBMED_IDENTIFIER_FIELD_VALUE)
 	private Set<PubMedID> additionalPubmedIds;
 
 	/**

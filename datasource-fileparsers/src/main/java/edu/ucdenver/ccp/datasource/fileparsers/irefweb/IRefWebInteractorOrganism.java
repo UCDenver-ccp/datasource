@@ -37,6 +37,7 @@ package edu.ucdenver.ccp.datasource.fileparsers.irefweb;
  */
 
 import lombok.Getter;
+import edu.ucdenver.ccp.datasource.fileparsers.CcpExtensionOntology;
 import edu.ucdenver.ccp.datasource.fileparsers.Record;
 import edu.ucdenver.ccp.datasource.fileparsers.RecordField;
 import edu.ucdenver.ccp.datasource.fileparsers.obo.NcbiTaxonomyIdTermPair;
@@ -47,13 +48,13 @@ import edu.ucdenver.ccp.datasource.identifiers.ncbi.taxonomy.NcbiTaxonomyID;
  * @author Colorado Computational Pharmacology, UC Denver; ccpsupport@ucdenver.edu
  * 
  */
-@Record(dataSource = DataSource.IREFWEB, label="organism")
+@Record(ontClass = CcpExtensionOntology.IREFWEB_INTERACTOR_ORGANISM_RECORD, dataSource = DataSource.IREFWEB, label="organism")
 @Getter
 public class IRefWebInteractorOrganism extends NcbiTaxonomyIdTermPair {
 
-	@RecordField
+	@RecordField(ontClass = CcpExtensionOntology.IREFWEB_INTERACTOR_INTERACTOR_ORGANISM_RECORD___TAXONOMY_IDENTIFIER_FIELD_VALUE)
 	private final NcbiTaxonomyID taxonomyId;
-	@RecordField
+	@RecordField(ontClass = CcpExtensionOntology.IREFWEB_INTERACTOR_INTERACTOR_ORGANISM_RECORD___TAXONOMY_NAME_FIELD_VALUE)
 	private final String taxonomyName;
 
 	/**

@@ -38,6 +38,7 @@ import java.util.List;
 
 import lombok.Data;
 import edu.ucdenver.ccp.common.string.StringUtil;
+import edu.ucdenver.ccp.datasource.fileparsers.CcpExtensionOntology;
 import edu.ucdenver.ccp.datasource.fileparsers.Record;
 import edu.ucdenver.ccp.datasource.fileparsers.RecordField;
 import edu.ucdenver.ccp.datasource.fileparsers.ebi.embl.SequenceFeature;
@@ -50,14 +51,14 @@ import edu.ucdenver.ccp.datasource.identifiers.DataSource;
  * 
  */
 @Data
-@Record(dataSource = DataSource.MIRBASE)
+@Record(ontClass = CcpExtensionOntology.MIRBASE_MICRORNA_MODIFIED_BASE_SEQUENCE_FEATURE_RECORD, dataSource = DataSource.MIRBASE)
 public class MirBaseModifiedBaseSequenceFeature implements SequenceFeature {
 
-	@RecordField
+	@RecordField(ontClass = CcpExtensionOntology.MIRBASE_MICRORNA_MODIFIED_BASE_SEQUENCE_FEATURE_RECORD___KEY_FIELD_VALUE)
 	private final String key = "modified_base";
-	@RecordField
+	@RecordField(ontClass = CcpExtensionOntology.MIRBASE_MICRORNA_MODIFIED_BASE_SEQUENCE_FEATURE_RECORD___LOCATION_FIELD_VALUE)
 	private final SequenceFeatureLocation location;
-	@RecordField
+	@RecordField(ontClass = CcpExtensionOntology.MIRBASE_MICRORNA_MODIFIED_BASE_SEQUENCE_FEATURE_RECORD___QUALIFIER_SET_FIELD_VALUE)
 	private final MirBaseModifiedBaseSequenceFeatureQualifierSet qualifierSet;
 
 	/**
@@ -121,10 +122,10 @@ public class MirBaseModifiedBaseSequenceFeature implements SequenceFeature {
 		return input;
 	}
 
-	@Record(dataSource = DataSource.MIRBASE)
+	@Record(ontClass = CcpExtensionOntology.MIRBASE_MODIFIED_BASE_SEQUENCE_FEATURE_QUALIFIER_SET_RECORD, dataSource = DataSource.MIRBASE)
 	@Data
 	public static class MirBaseModifiedBaseSequenceFeatureQualifierSet implements SequenceFeatureQualifierSet {
-		@RecordField
+		@RecordField(ontClass = CcpExtensionOntology.MIRBASE_MODIFIED_BASE_SEQUENCE_FEATURE_QUALIFIER_SET_RECORD___MODIFIED_BASE_FIELD_VALUE)
 		private final String modBase;
 	}
 

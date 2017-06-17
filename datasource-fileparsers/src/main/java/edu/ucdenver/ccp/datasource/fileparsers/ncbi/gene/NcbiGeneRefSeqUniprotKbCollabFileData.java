@@ -36,6 +36,7 @@ package edu.ucdenver.ccp.datasource.fileparsers.ncbi.gene;
 import org.apache.log4j.Logger;
 
 import edu.ucdenver.ccp.common.file.reader.Line;
+import edu.ucdenver.ccp.datasource.fileparsers.CcpExtensionOntology;
 import edu.ucdenver.ccp.datasource.fileparsers.License;
 import edu.ucdenver.ccp.datasource.fileparsers.Record;
 import edu.ucdenver.ccp.datasource.fileparsers.RecordField;
@@ -50,7 +51,7 @@ import edu.ucdenver.ccp.datasource.identifiers.ncbi.refseq.RefSeqID;
  * @author Bill Baumgartner
  * 
  */
-@Record(dataSource = DataSource.NCBI_GENE,
+@Record(ontClass = CcpExtensionOntology.NCBI_GENE_REFSEQ_UNIPROTKB_COLLABORATION_RECORD, dataSource = DataSource.NCBI_GENE,
 	comment="",
 	license=License.NCBI,
 	citation="The NCBI handbook [Internet]. Bethesda (MD): National Library of Medicine (US), National Center for Biotechnology Information; 2002 Oct. Chapter 19 Gene: A Directory of Genes. Available from http://www.ncbi.nlm.nih.gov/books/NBK21091",
@@ -59,9 +60,9 @@ public class NcbiGeneRefSeqUniprotKbCollabFileData extends SingleLineFileRecord 
 	public static final String RECORD_NAME_PREFIX = "REFSEQ_UNI_COLLAB_";
 	private static final Logger logger = Logger.getLogger(NcbiGeneRefSeqUniprotKbCollabFileData.class);
 
-	@RecordField(comment="", label="refseq protein id")
+	@RecordField(ontClass = CcpExtensionOntology.NCBI_GENE_REFSEQ_UNIPROTKB_COLLABORATION_RECORD___REFSEQ_PROTEIN_IDENTIFIER_FIELD_VALUE)
 	private final RefSeqID refSeqProteinId;
-	@RecordField(comment="")
+	@RecordField(ontClass = CcpExtensionOntology.NCBI_GENE_REFSEQ_UNIPROTKB_COLLABORATION_RECORD___UNIPROT_IDENTIFIER_FIELD_VALUE)
 	private final UniProtID uniprotId;
 
 	public NcbiGeneRefSeqUniprotKbCollabFileData(RefSeqID refseqProteinId, UniProtID uniprotId, long byteOffset,

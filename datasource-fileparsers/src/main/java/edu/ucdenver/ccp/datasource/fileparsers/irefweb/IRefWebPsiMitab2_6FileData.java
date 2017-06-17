@@ -38,6 +38,7 @@ import lombok.EqualsAndHashCode;
 
 import org.apache.log4j.Logger;
 
+import edu.ucdenver.ccp.datasource.fileparsers.CcpExtensionOntology;
 import edu.ucdenver.ccp.datasource.fileparsers.Record;
 import edu.ucdenver.ccp.datasource.fileparsers.RecordField;
 import edu.ucdenver.ccp.datasource.fileparsers.SingleLineFileRecord;
@@ -123,7 +124,7 @@ import edu.ucdenver.ccp.datasource.identifiers.DataSource;
  */
 @Data
 @EqualsAndHashCode(callSuper=true)
-@Record(dataSource = DataSource.IREFWEB, label="IRefWeb record")
+@Record(ontClass = CcpExtensionOntology.IREFWEB_PSI_MITAB_2_6_RECORD, dataSource = DataSource.IREFWEB, label="IRefWeb record")
 public class IRefWebPsiMitab2_6FileData extends SingleLineFileRecord {
 
 	/**
@@ -131,17 +132,17 @@ public class IRefWebPsiMitab2_6FileData extends SingleLineFileRecord {
 	 */
 	private static final Logger logger = Logger.getLogger(IRefWebPsiMitab2_6FileData.class);
 
-	@RecordField
+	@RecordField(ontClass = CcpExtensionOntology.IREFWEB_PSI_MITAB_2_6_RECORD___SOURCE_DATABASE_FIELD_VALUE)
 	private final IRefWebInteractionSourceDatabase sourceDb;
-	@RecordField
+	@RecordField(ontClass = CcpExtensionOntology.IREFWEB_PSI_MITAB_2_6_RECORD___CREATION_DATE_FIELD_VALUE)
 	private final String creationDate;
-	@RecordField
+	@RecordField(ontClass = CcpExtensionOntology.IREFWEB_PSI_MITAB_2_6_RECORD___UPDATE_DATE_FIELD_VALUE)
 	private final String updateDate;
-	@RecordField
+	@RecordField(ontClass = CcpExtensionOntology.IREFWEB_PSI_MITAB_2_6_RECORD___INTERACTOR_A_FIELD_VALUE)
 	private final IRefWebInteractor interactorA;
-	@RecordField
+	@RecordField(ontClass = CcpExtensionOntology.IREFWEB_PSI_MITAB_2_6_RECORD___INTERACTOR_B_FIELD_VALUE)
 	private final IRefWebInteractor interactorB;
-	@RecordField
+	@RecordField(ontClass = CcpExtensionOntology.IREFWEB_PSI_MITAB_2_6_RECORD___INTERACTION_FIELD_VALUE)
 	private final IRefWebInteraction interaction;
 
 	/**

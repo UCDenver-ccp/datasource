@@ -41,6 +41,7 @@ import lombok.EqualsAndHashCode;
 
 import org.apache.log4j.Logger;
 
+import edu.ucdenver.ccp.datasource.fileparsers.CcpExtensionOntology;
 import edu.ucdenver.ccp.datasource.fileparsers.License;
 import edu.ucdenver.ccp.datasource.fileparsers.Record;
 import edu.ucdenver.ccp.datasource.fileparsers.RecordField;
@@ -59,41 +60,41 @@ import edu.ucdenver.ccp.datasource.identifiers.pharmgkb.PharmGkbID;
  * @author Yuriy Malenkiy
  * 
  */
-@Record(dataSource = DataSource.PHARMGKB, schemaVersion = "2", license = License.PHARMGKB, licenseUri = "http://www.pharmgkb.org/download.action?filename=PharmGKB_License.pdf", comment = "data from PharmGKB's genes.tsv file", citation = "M. Whirl-Carrillo, E.M. McDonagh, J. M. Hebert, L. Gong, K. Sangkuhl, C.F. Thorn, R.B. Altman and T.E. Klein. \"Pharmacogenomics Knowledge for Personalized Medicine\" Clinical Pharmacology & Therapeutics (2012) 92(4): 414-417", label = "gene record")
+@Record(ontClass = CcpExtensionOntology.PHARMGKB_GENE_RECORD, dataSource = DataSource.PHARMGKB, schemaVersion = "2", license = License.PHARMGKB, licenseUri = "http://www.pharmgkb.org/download.action?filename=PharmGKB_License.pdf", comment = "data from PharmGKB's genes.tsv file", citation = "M. Whirl-Carrillo, E.M. McDonagh, J. M. Hebert, L. Gong, K. Sangkuhl, C.F. Thorn, R.B. Altman and T.E. Klein. \"Pharmacogenomics Knowledge for Personalized Medicine\" Clinical Pharmacology & Therapeutics (2012) 92(4): 414-417", label = "gene record")
 @EqualsAndHashCode(callSuper = false)
 @Data
 public class PharmGkbGeneFileRecord extends SingleLineFileRecord {
 
 	private static final Logger logger = Logger.getLogger(PharmGkbGeneFileRecord.class);
-	@RecordField
+	@RecordField(ontClass = CcpExtensionOntology.PHARMGKB_GENE_RECORD___ACCESSION_IDENTIFIER_FIELD_VALUE)
 	private final PharmGkbID accessionId;
-	@RecordField
+	@RecordField(ontClass = CcpExtensionOntology.PHARMGKB_GENE_RECORD___ENTREZ_GENE_IDENTIFIER_FIELD_VALUE)
 	private final Set<NcbiGeneId> entrezGeneIds;
-	@RecordField
+	@RecordField(ontClass = CcpExtensionOntology.PHARMGKB_GENE_RECORD___HGNC_IDENTIFIER_FIELD_VALUE)
 	private Set<HgncID> hgncIds;
-	@RecordField
+	@RecordField(ontClass = CcpExtensionOntology.PHARMGKB_GENE_RECORD___ENSEMBL_GENE_IDENTIFIER_FIELD_VALUE)
 	private final EnsemblGeneID ensemblGeneId;
-	@RecordField
+	@RecordField(ontClass = CcpExtensionOntology.PHARMGKB_GENE_RECORD___NAME_FIELD_VALUE)
 	private final String name;
-	@RecordField
+	@RecordField(ontClass = CcpExtensionOntology.PHARMGKB_GENE_RECORD___SYMBOL_FIELD_VALUE)
 	private final String symbol;
-	@RecordField
+	@RecordField(ontClass = CcpExtensionOntology.PHARMGKB_GENE_RECORD___ALTERNATIVE_NAME_IDENTIFIER_FIELD_VALUE)
 	private final Collection<String> alternativeNames;
-	@RecordField
+	@RecordField(ontClass = CcpExtensionOntology.PHARMGKB_GENE_RECORD___ALTERNATIVE_SYMBOL_IDENTIFIER_FIELD_VALUE)
 	private final Collection<String> alternativeSymbols;
-	@RecordField
+	@RecordField(ontClass = CcpExtensionOntology.PHARMGKB_GENE_RECORD___IS_VIP_FIELD_VALUE)
 	private final boolean isVip;
-	@RecordField
+	@RecordField(ontClass = CcpExtensionOntology.PHARMGKB_GENE_RECORD___HAS_VARIANT_ANNOTATION_FIELD_VALUE)
 	private final boolean hasVariantAnnotation;
-	@RecordField(comment = "Note that many of the IDs listed as RefSeq_[something] are not RefSeq IDs. There are GenBank and UniProt IDs mixed in there among possibly others.")
+	@RecordField(ontClass = CcpExtensionOntology.PHARMGKB_GENE_RECORD___CROSS_REFERENCE_FIELD_VALUE)
 	private final Collection<DataSourceIdentifier<?>> crossReferences;
-	@RecordField
+	@RecordField(ontClass = CcpExtensionOntology.PHARMGKB_GENE_RECORD___HAS_CPIC_DOSING_GUIDELINE_FIELD_VALUE)
 	private final boolean hasCpicDosingGuideline;
-	@RecordField
+	@RecordField(ontClass = CcpExtensionOntology.PHARMGKB_GENE_RECORD___CHROMOSOME_FIELD_VALUE)
 	private final String chromosome;
-	@RecordField
+	@RecordField(ontClass = CcpExtensionOntology.PHARMGKB_GENE_RECORD___CHROMOSOMAL_START_FIELD_VALUE)
 	private final Integer chromosomalStart;
-	@RecordField
+	@RecordField(ontClass = CcpExtensionOntology.PHARMGKB_GENE_RECORD___CHROMOSOMAL_END_FIELD_VALUE)
 	private final Integer chromosomalEnd;
 
 	/**

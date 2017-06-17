@@ -49,18 +49,18 @@ import edu.ucdenver.ccp.datasource.identifiers.obo.ProteinOntologyId;
  *         ccpsupport@ucdenver.edu
  * 
  */
-@Record(dataSource = DataSource.PR, ontClass= CcpExtensionOntology.PROTEIN_ONTOLOGY_IDENTIFIER_MAPPING_RECORD, comment = "The PRO mapping from PRO IDs to other ontologies", license = License.PIR, citation = "http://www.ncbi.nlm.nih.gov/pmc/articles/PMC3013777/?tool=pubmed", label = "id mapping record")
+@Record(ontClass= CcpExtensionOntology.PRO_IDENTIFIER_FIELD_VALUE, dataSource = DataSource.PR, license = License.PIR, citation = "http://www.ncbi.nlm.nih.gov/pmc/articles/PMC3013777/?tool=pubmed", label = "id mapping record")
 @Data
 @EqualsAndHashCode(callSuper = false)
 public class ProMappingRecord extends SingleLineFileRecord {
 
-	@RecordField(comment = "PR id", ontClass = CcpExtensionOntology.PROTEIN_ONTOLOGY_CONCEPT_IDENTIFIER)
+	@RecordField(ontClass = CcpExtensionOntology.PRO_IDENTIFIER_MAPPING_RECORD___PRO_IDENTIFIER_FIELD_VALUE)
 	private ProteinOntologyId proteinOntologyId;
 
-	@RecordField(comment = "mapping type: is_a or  exact", ontClass = CcpExtensionOntology.ONTOLOGY_CONCEPT_MAPPING_TYPE)
+	@RecordField(ontClass = CcpExtensionOntology.PRO_IDENTIFIER_MAPPING_RECORD___MAPPING_TYPE_FIELD_VALUE)
 	private String mappingType;
 
-	@RecordField(comment = "id in other ontology, one of HGNC, MGI, UniProtKB, UniProtKB_VAR, Reactome,PomBase, EcoCyc, possibly others", ontClass = CcpExtensionOntology.MAPPED_DATA_SOURCE_IDENTIFIER_FIELD_VALUE)
+	@RecordField( ontClass = CcpExtensionOntology.PRO_IDENTIFIER_MAPPING_RECORD___TARGET_RECORD_IDENTIFIER_FIELD_VALUE)
 	private DataSourceIdentifier<?> targetRecordId;
 
 	/**

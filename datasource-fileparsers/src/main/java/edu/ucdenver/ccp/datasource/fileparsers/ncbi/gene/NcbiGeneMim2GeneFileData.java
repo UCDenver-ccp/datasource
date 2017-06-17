@@ -41,6 +41,7 @@ import lombok.Data;
 import org.apache.log4j.Logger;
 
 import edu.ucdenver.ccp.common.file.reader.Line;
+import edu.ucdenver.ccp.datasource.fileparsers.CcpExtensionOntology;
 import edu.ucdenver.ccp.datasource.fileparsers.License;
 import edu.ucdenver.ccp.datasource.fileparsers.Record;
 import edu.ucdenver.ccp.datasource.fileparsers.RecordField;
@@ -56,7 +57,7 @@ import edu.ucdenver.ccp.datasource.identifiers.ncbi.omim.OmimID;
  * @author Bill Baumgartner
  * 
  */
-@Record(dataSource = DataSource.NCBI_GENE, comment = "", license = License.NCBI, citation = "The NCBI handbook [Internet]. Bethesda (MD): National Library of Medicine (US), National Center for Biotechnology Information; 2002 Oct. Chapter 19 Gene: A Directory of Genes. Available from http://www.ncbi.nlm.nih.gov/books/NBK21091", label = "mim2gene record")
+@Record(ontClass = CcpExtensionOntology.NCBI_GENE_MIM_2_GENE_RECORD, dataSource = DataSource.NCBI_GENE, comment = "", license = License.NCBI, citation = "The NCBI handbook [Internet]. Bethesda (MD): National Library of Medicine (US), National Center for Biotechnology Information; 2002 Oct. Chapter 19 Gene: A Directory of Genes. Available from http://www.ncbi.nlm.nih.gov/books/NBK21091", label = "mim2gene record")
 @Data
 public class NcbiGeneMim2GeneFileData extends SingleLineFileRecord {
 	private static final Logger logger = Logger.getLogger(NcbiGeneMim2GeneFileData.class);
@@ -64,22 +65,22 @@ public class NcbiGeneMim2GeneFileData extends SingleLineFileRecord {
 	public static final String GENE_ASSOCIATION_TYPE = "gene";
 	public static final String PHENOTYPE_ASSOCIATION_TYPE = "phenotype";
 
-	@RecordField(comment = "a MIM number associated with a GeneID")
+	@RecordField(ontClass = CcpExtensionOntology.NCBI_GENE_MIM_2_GENE_RECORD___MIM_IDENTIFIER_FIELD_VALUE)
 	private final OmimID mimNumber;
 
-	@RecordField(comment = "the current unique identifier for a gene")
+	@RecordField(ontClass = CcpExtensionOntology.NCBI_GENE_MIM_2_GENE_RECORD___ENTREZ_GENE_IDENTIFIER_FIELD_VALUE)
 	private final NcbiGeneId entrezGeneID;
 
-	@RecordField(comment = "type of relationship between the MIM number and the GeneID.  current values are: 'gene' the MIM number associated with a Gene, or a GeneID that is assigned to a record where the molecular basis of the disease is not known, 'phenotype' the MIM number associated with a disease that is associate with a gene")
+	@RecordField(ontClass = CcpExtensionOntology.NCBI_GENE_MIM_2_GENE_RECORD___ASSOCIATION_TYPE_FIELD_VALUE)
 	private final String associationType;
 
-	@RecordField(comment = "This value is provided only when there is a report of a relationship between a MIM number that is a phenotype, and a GeneID. The current expected values are GeneMap (from OMIM), GeneReviews, and NCBI.")
+	@RecordField(ontClass = CcpExtensionOntology.NCBI_GENE_MIM_2_GENE_RECORD___SOURCES_FIELD_VALUE)
 	private final Set<String> sources;
 
-	@RecordField(comment = "The accession assigned by MedGen to this phenotype.  If the accession starts with a C followed by integers, the identifier is a concept ID (CUI) from UMLS. http://www.nlm.nih.gov/research/umls/ If it starts with a CN, no CUI in UMLS was identified, and NCBI created a placeholder.")
+	@RecordField(ontClass = CcpExtensionOntology.NCBI_GENE_MIM_2_GENE_RECORD___MEDGEN_IDENTIFIER_FIELD_VALUE)
 	private final MedGenId medGenId;
 
-	@RecordField
+	@RecordField(ontClass = CcpExtensionOntology.NCBI_GENE_MIM_2_GENE_RECORD___COMMENT_FIELD_VALUE)
 	private final String comment;
 
 	public NcbiGeneMim2GeneFileData(OmimID mimNumber, NcbiGeneId entrezGeneID, String associationType,

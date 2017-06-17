@@ -75,6 +75,7 @@ import org.uniprot.StatusType;
 import org.uniprot.SubcellularLocationType;
 
 import edu.ucdenver.ccp.common.string.StringUtil;
+import edu.ucdenver.ccp.datasource.fileparsers.CcpExtensionOntology;
 import edu.ucdenver.ccp.datasource.fileparsers.FileRecord;
 import edu.ucdenver.ccp.datasource.fileparsers.Record;
 import edu.ucdenver.ccp.datasource.fileparsers.RecordField;
@@ -138,50 +139,50 @@ import edu.ucdenver.ccp.identifier.publication.PubMedID;
  * 
  */
 @Getter
-@Record(dataSource = DataSource.UNIPROT, label = "uniprot record")
+@Record(ontClass = CcpExtensionOntology.UNIPROT_PROTEIN_RECORD, dataSource = DataSource.UNIPROT, label = "uniprot record")
 public class UniProtFileRecord extends FileRecord {
 
 	private static final Logger logger = Logger.getLogger(UniProtFileRecord.class);
 
-	@RecordField
+	@RecordField(ontClass = CcpExtensionOntology.UNIPROT_PROTEIN_RECORD___PRIMARY_ACCESSION_FIELD_VALUE)
 	private final UniProtID primaryAccession;
-	@RecordField
+	@RecordField(ontClass = CcpExtensionOntology.UNIPROT_PROTEIN_RECORD___ACCESSION_FIELD_VALUE)
 	private final List<UniProtID> accession;
-	@RecordField
+	@RecordField(ontClass = CcpExtensionOntology.UNIPROT_PROTEIN_RECORD___NAME_FIELD_VALUE)
 	private final List<String> name;
-	@RecordField
+	@RecordField(ontClass = CcpExtensionOntology.UNIPROT_PROTEIN_RECORD___PROTEIN_FIELD_VALUE)
 	private final Protein protein;
-	@RecordField
+	@RecordField(ontClass = CcpExtensionOntology.UNIPROT_PROTEIN_RECORD___GENE_FIELD_VALUE)
 	private final List<GeneType> gene;
-	@RecordField
+	@RecordField(ontClass = CcpExtensionOntology.UNIPROT_PROTEIN_RECORD___ORGANISM_FIELD_VALUE)
 	private final Organism organism;
-	@RecordField
+	@RecordField(ontClass = CcpExtensionOntology.UNIPROT_PROTEIN_RECORD___ORGANISM_HOST_FIELD_VALUE)
 	private final List<Organism> organismHost;
-	@RecordField
+	@RecordField(ontClass = CcpExtensionOntology.UNIPROT_PROTEIN_RECORD___GENE_LOCATION_FIELD_VALUE)
 	private final List<GeneLocation> geneLocation;
-	@RecordField
+	@RecordField(ontClass = CcpExtensionOntology.UNIPROT_PROTEIN_RECORD___REFERENCE_FIELD_VALUE)
 	private final List<Reference> reference;
-	@RecordField
+	@RecordField(ontClass = CcpExtensionOntology.UNIPROT_PROTEIN_RECORD___COMMENT_FIELD_VALUE)
 	private final List<Comment> comment;
-	@RecordField
+	@RecordField(ontClass = CcpExtensionOntology.UNIPROT_PROTEIN_RECORD___DATABASE_REFERENCE_FIELD_VALUE)
 	private final List<DbReference> dbReference;
-	@RecordField
+	@RecordField(ontClass = CcpExtensionOntology.UNIPROT_PROTEIN_RECORD___PROTEIN_EXISTENCE_FIELD_VALUE)
 	private final ProteinExistence proteinExistence;
-	@RecordField
+	@RecordField(ontClass = CcpExtensionOntology.UNIPROT_PROTEIN_RECORD___KEYWORD_FIELD_VALUE)
 	private final List<Keyword> keyword;
-	@RecordField
+	@RecordField(ontClass = CcpExtensionOntology.UNIPROT_PROTEIN_RECORD___FEATURE_FIELD_VALUE)
 	private final List<Feature> feature;
-	@RecordField
+	@RecordField(ontClass = CcpExtensionOntology.UNIPROT_PROTEIN_RECORD___EVIDENCE_FIELD_VALUE)
 	private final List<Evidence> evidence;
-	@RecordField
+	@RecordField(ontClass = CcpExtensionOntology.UNIPROT_PROTEIN_RECORD___SEQUENCE_FIELD_VALUE)
 	private final Sequence sequence;
-	@RecordField
+	@RecordField(ontClass = CcpExtensionOntology.UNIPROT_PROTEIN_RECORD___DATASET_FIELD_VALUE)
 	private final String dataset;
-	@RecordField
+	@RecordField(ontClass = CcpExtensionOntology.UNIPROT_PROTEIN_RECORD___CREATED_FIELD_VALUE)
 	private final XMLGregorianCalendar created;
-	@RecordField
+	@RecordField(ontClass = CcpExtensionOntology.UNIPROT_PROTEIN_RECORD___MODIFIED_FIELD_VALUE)
 	private final XMLGregorianCalendar modified;
-	@RecordField
+	@RecordField(ontClass = CcpExtensionOntology.UNIPROT_PROTEIN_RECORD___VERSION_FIELD_VALUE)
 	private final int version;
 
 	/**
@@ -261,42 +262,42 @@ public class UniProtFileRecord extends FileRecord {
 	}
 
 	@Getter
-	@Record(dataSource = DataSource.UNIPROT)
+	@Record(ontClass = CcpExtensionOntology.UNIPROT_CITATION_RECORD, dataSource = DataSource.UNIPROT)
 	public static class Citation {
 
-		@RecordField
+		@RecordField(ontClass = CcpExtensionOntology.UNIPROT_CITATION_RECORD___TITLE_FIELD_VALUE)
 		private final String title;
-		@RecordField
+		@RecordField(ontClass = CcpExtensionOntology.UNIPROT_CITATION_RECORD___EDITOR_LIST_FIELD_VALUE)
 		private final List<Name> editorList;
-		@RecordField
+		@RecordField(ontClass = CcpExtensionOntology.UNIPROT_CITATION_RECORD___AUTHOR_LIST_FIELD_VALUE)
 		private final List<Name> authorList;
-		@RecordField
+		@RecordField(ontClass = CcpExtensionOntology.UNIPROT_CITATION_RECORD___LOCATOR_FIELD_VALUE)
 		private final String locator;
-		@RecordField
+		@RecordField(ontClass = CcpExtensionOntology.UNIPROT_CITATION_RECORD___DATABASE_REFERENCE_FIELD_VALUE)
 		private final List<DbReference> dbReference;
-		@RecordField
+		@RecordField(ontClass = CcpExtensionOntology.UNIPROT_CITATION_RECORD___TYPE_FIELD_VALUE)
 		private final String type;
-		@RecordField
+		@RecordField(ontClass = CcpExtensionOntology.UNIPROT_CITATION_RECORD___DATE_FIELD_VALUE)
 		private final String date;
-		@RecordField
+		@RecordField(ontClass = CcpExtensionOntology.UNIPROT_CITATION_RECORD___NAME_FIELD_VALUE)
 		private final String name;
-		@RecordField
+		@RecordField(ontClass = CcpExtensionOntology.UNIPROT_CITATION_RECORD___VOLUME_FIELD_VALUE)
 		private final String volume;
-		@RecordField
+		@RecordField(ontClass = CcpExtensionOntology.UNIPROT_CITATION_RECORD___FIRST_FIELD_VALUE)
 		private final String first;
-		@RecordField
+		@RecordField(ontClass = CcpExtensionOntology.UNIPROT_CITATION_RECORD___LAST_FIELD_VALUE)
 		private final String last;
-		@RecordField
+		@RecordField(ontClass = CcpExtensionOntology.UNIPROT_CITATION_RECORD___PUBLISHER_FIELD_VALUE)
 		private final String publisher;
-		@RecordField
+		@RecordField(ontClass = CcpExtensionOntology.UNIPROT_CITATION_RECORD___CITY_FIELD_VALUE)
 		private final String city;
-		@RecordField
+		@RecordField(ontClass = CcpExtensionOntology.UNIPROT_CITATION_RECORD___DATABASE_FIELD_VALUE)
 		private final String db;
-		@RecordField
+		@RecordField(ontClass = CcpExtensionOntology.UNIPROT_CITATION_RECORD___NUMBER_FIELD_VALUE)
 		private final String number;
-		@RecordField
+		@RecordField(ontClass = CcpExtensionOntology.UNIPROT_CITATION_RECORD___INSTITUTE_FIELD_VALUE)
 		private final String institute;
-		@RecordField
+		@RecordField(ontClass = CcpExtensionOntology.UNIPROT_CITATION_RECORD___COUNTRY_FIELD_VALUE)
 		private final String country;
 
 		public Citation(CitationType xmlType) {
@@ -336,54 +337,54 @@ public class UniProtFileRecord extends FileRecord {
 	}
 
 	@Getter
-	@Record(dataSource = DataSource.UNIPROT)
+	@Record(ontClass = CcpExtensionOntology.UNIPROT_COMMENT_RECORD, dataSource = DataSource.UNIPROT)
 	public static class Comment {
 
-		@RecordField
+		@RecordField(ontClass = CcpExtensionOntology.UNIPROT_COMMENT_RECORD___ABSORPTION_FIELD_VALUE)
 		private final Comment.Absorption absorption;
-		@RecordField
+		@RecordField(ontClass = CcpExtensionOntology.UNIPROT_COMMENT_RECORD___KINETICS_FIELD_VALUE)
 		private final Comment.Kinetics kinetics;
-		@RecordField
+		@RecordField(ontClass = CcpExtensionOntology.UNIPROT_COMMENT_RECORD___PH_DEPENDENCE_FIELD_VALUE)
 		private final EvidencedString phDependence;
-		@RecordField
+		@RecordField(ontClass = CcpExtensionOntology.UNIPROT_COMMENT_RECORD___REDOX_POTENTIAL_FIELD_VALUE)
 		private final EvidencedString redoxPotential;
-		@RecordField
+		@RecordField(ontClass = CcpExtensionOntology.UNIPROT_COMMENT_RECORD___TEMPERATURE_DEPENDENCE_FIELD_VALUE)
 		private final EvidencedString temperatureDependence;
-		@RecordField
+		@RecordField(ontClass = CcpExtensionOntology.UNIPROT_COMMENT_RECORD___MOLECULE_FIELD_VALUE)
 		private final MoleculeType molecule;
-		@RecordField
+		@RecordField(ontClass = CcpExtensionOntology.UNIPROT_COMMENT_RECORD___SUBCELLULAR_LOCATION_FIELD_VALUE)
 		private final List<SubcellularLocation> subcellularLocation;
-		@RecordField
+		@RecordField(ontClass = CcpExtensionOntology.UNIPROT_COMMENT_RECORD___CONFLICT_FIELD_VALUE)
 		private final Comment.Conflict conflict;
-		@RecordField
+		@RecordField(ontClass = CcpExtensionOntology.UNIPROT_COMMENT_RECORD___LINK_FIELD_VALUE)
 		private final List<Comment.Link> link;
-		@RecordField
+		@RecordField(ontClass = CcpExtensionOntology.UNIPROT_COMMENT_RECORD___EVENT_FIELD_VALUE)
 		private final List<Event> event;
-		@RecordField
+		@RecordField(ontClass = CcpExtensionOntology.UNIPROT_COMMENT_RECORD___ISOFORM_FIELD_VALUE)
 		private final List<Isoform> isoform;
-		@RecordField
+		@RecordField(ontClass = CcpExtensionOntology.UNIPROT_COMMENT_RECORD___INTERACTANT_FIELD_VALUE)
 		private final List<Interactant> interactant;
-		@RecordField
+		@RecordField(ontClass = CcpExtensionOntology.UNIPROT_COMMENT_RECORD___ORGANISMS_DIFFER_FIELD_VALUE)
 		private final Boolean organismsDiffer;
-		@RecordField
+		@RecordField(ontClass = CcpExtensionOntology.UNIPROT_COMMENT_RECORD___EXPERIMENTS_FIELD_VALUE)
 		private final Integer experiments;
-		@RecordField
+		@RecordField(ontClass = CcpExtensionOntology.UNIPROT_COMMENT_RECORD___LOCATION_FIELD_VALUE)
 		private final List<Location> location;
-		@RecordField
+		@RecordField(ontClass = CcpExtensionOntology.UNIPROT_COMMENT_RECORD___TEXT_FIELD_VALUE)
 		private final EvidencedString text;
-		@RecordField
+		@RecordField(ontClass = CcpExtensionOntology.UNIPROT_COMMENT_RECORD___TYPE_FIELD_VALUE)
 		private final String type;
-		@RecordField
+		@RecordField(ontClass = CcpExtensionOntology.UNIPROT_COMMENT_RECORD___LOCATION_TYPE_FIELD_VALUE)
 		private final String locationType;
-		@RecordField
+		@RecordField(ontClass = CcpExtensionOntology.UNIPROT_COMMENT_RECORD___NAME_FIELD_VALUE)
 		private final String name;
-		@RecordField
+		@RecordField(ontClass = CcpExtensionOntology.UNIPROT_COMMENT_RECORD___MASS_FIELD_VALUE)
 		private final Float mass;
-		@RecordField
+		@RecordField(ontClass = CcpExtensionOntology.UNIPROT_COMMENT_RECORD___ERROR_FIELD_VALUE)
 		private final String error;
-		@RecordField
+		@RecordField(ontClass = CcpExtensionOntology.UNIPROT_COMMENT_RECORD___METHOD_FIELD_VALUE)
 		private final String method;
-		@RecordField
+		@RecordField(ontClass = CcpExtensionOntology.UNIPROT_COMMENT_RECORD___EVIDENCE_FIELD_VALUE)
 		private final List<Integer> evidence;
 
 		public Comment(CommentType xmlType) {
@@ -444,12 +445,12 @@ public class UniProtFileRecord extends FileRecord {
 		}
 
 		@Getter
-		@Record(dataSource = DataSource.UNIPROT)
+		@Record(ontClass = CcpExtensionOntology.UNIPROT_ABSORPTION_RECORD, dataSource = DataSource.UNIPROT)
 		public static class Absorption {
 
-			@RecordField
+			@RecordField(ontClass = CcpExtensionOntology.UNIPROT_ABSORPTION_RECORD___MAX_FIELD_VALUE)
 			private final EvidencedString max;
-			@RecordField
+			@RecordField(ontClass = CcpExtensionOntology.UNIPROT_ABSORPTION_RECORD___TEXT_FIELD_VALUE)
 			private final EvidencedString text;
 
 			public Absorption(CommentType.Absorption xmlType) {
@@ -459,13 +460,13 @@ public class UniProtFileRecord extends FileRecord {
 		}
 
 		@Getter
-		@Record(dataSource = DataSource.UNIPROT)
+		@Record(ontClass = CcpExtensionOntology.UNIPROT_CONFLICT_RECORD, dataSource = DataSource.UNIPROT)
 		public static class Conflict {
-			@RecordField
+			@RecordField(ontClass = CcpExtensionOntology.UNIPROT_CONFLICT_RECORD___SEQUENCE_FIELD_VALUE)
 			private final Comment.Conflict.Sequence sequence;
-			@RecordField
+			@RecordField(ontClass = CcpExtensionOntology.UNIPROT_CONFLICT_RECORD___TYPE_FIELD_VALUE)
 			private final String type;
-			@RecordField
+			@RecordField(ontClass = CcpExtensionOntology.UNIPROT_CONFLICT_RECORD___REFERENCE_FIELD_VALUE)
 			private final String ref;
 
 			public Conflict(CommentType.Conflict xmlType) {
@@ -475,14 +476,14 @@ public class UniProtFileRecord extends FileRecord {
 			}
 
 			@Getter
-			@Record(dataSource = DataSource.UNIPROT)
+			@Record(ontClass = CcpExtensionOntology.UNIPROT_CONFLICT_RECORD_SEQUENCE_RECORD, dataSource = DataSource.UNIPROT)
 			public static class Sequence {
 
-				@RecordField
+				@RecordField(ontClass = CcpExtensionOntology.UNIPROT_CONFLICT_RECORD_SEQUENCE_RECORD___RESOURCE_FIELD_VALUE)
 				private final String resource;
-				@RecordField
+				@RecordField(ontClass = CcpExtensionOntology.UNIPROT_CONFLICT_RECORD_SEQUENCE_RECORD___IDENTIFIER_FIELD_VALUE)
 				private final String id;
-				@RecordField
+				@RecordField(ontClass = CcpExtensionOntology.UNIPROT_CONFLICT_RECORD_SEQUENCE_RECORD___VERSION_FIELD_VALUE)
 				private final Integer version;
 
 				public Sequence(CommentType.Conflict.Sequence xmlType) {
@@ -495,14 +496,14 @@ public class UniProtFileRecord extends FileRecord {
 		}
 
 		@Getter
-		@Record(dataSource = DataSource.UNIPROT)
+		@Record(ontClass = CcpExtensionOntology.UNIPROT_KINETICS_RECORD, dataSource = DataSource.UNIPROT)
 		public static class Kinetics {
 
-			@RecordField
+			@RecordField(ontClass = CcpExtensionOntology.UNIPROT_KINETICS_RECORD___KM_FIELD_VALUE)
 			private final List<EvidencedString> km;
-			@RecordField
+			@RecordField(ontClass = CcpExtensionOntology.UNIPROT_KINETICS_RECORD___VMAX_FIELD_VALUE)
 			private final List<EvidencedString> vmax;
-			@RecordField
+			@RecordField(ontClass = CcpExtensionOntology.UNIPROT_KINETICS_RECORD___TEXT_FIELD_VALUE)
 			private final EvidencedString text;
 
 			public Kinetics(CommentType.Kinetics xmlType) {
@@ -523,7 +524,7 @@ public class UniProtFileRecord extends FileRecord {
 		}
 
 		@Getter
-		@Record(dataSource = DataSource.UNIPROT)
+		@Record(ontClass = CcpExtensionOntology.UNIPROT_LINK_RECORD, dataSource = DataSource.UNIPROT)
 		public static class Link {
 			@RecordField
 			private final String uri;
@@ -547,16 +548,16 @@ public class UniProtFileRecord extends FileRecord {
 	// }
 
 	@Getter
-	@Record(dataSource = DataSource.UNIPROT)
+	@Record(ontClass = CcpExtensionOntology.UNIPROT_DATABASE_REFERENCE_RECORD, dataSource = DataSource.UNIPROT)
 	public static class DbReference {
 
-		@RecordField
+		@RecordField(ontClass = CcpExtensionOntology.UNIPROT_DATABASE_REFERENCE_RECORD___PROPERTY_FIELD_VALUE)
 		private final List<Property> property;
-		@RecordField
+		@RecordField(ontClass = CcpExtensionOntology.UNIPROT_DATABASE_REFERENCE_RECORD___TYPE_FIELD_VALUE)
 		private final String type;
-		@RecordField
+		@RecordField(ontClass = CcpExtensionOntology.UNIPROT_DATABASE_REFERENCE_RECORD___IDENTIFIER_FIELD_VALUE)
 		private final DataSourceIdentifier<?> id;
-		@RecordField
+		@RecordField(ontClass = CcpExtensionOntology.UNIPROT_DATABASE_REFERENCE_RECORD___EVIDENCE_FIELD_VALUE)
 		private final List<Integer> evidence;
 
 		public DbReference(DbReferenceType xmlType) {
@@ -910,10 +911,10 @@ public class UniProtFileRecord extends FileRecord {
 	}
 
 	@Getter
-	@Record(dataSource = DataSource.UNIPROT)
+	@Record(ontClass = CcpExtensionOntology.UNIPROT_EVENT_RECORD, dataSource = DataSource.UNIPROT)
 	public static class Event {
 
-		@RecordField
+		@RecordField(ontClass = CcpExtensionOntology.UNIPROT_EVENT_RECORD___TYPE_FIELD_VALUE)
 		private final String type;
 
 		public Event(EventType xmlType) {
@@ -922,14 +923,14 @@ public class UniProtFileRecord extends FileRecord {
 	}
 
 	@Getter
-	@Record(dataSource = DataSource.UNIPROT)
+	@Record(ontClass = CcpExtensionOntology.UNIPROT_EVIDENCE_STRING_RECORD, dataSource = DataSource.UNIPROT)
 	public static class EvidencedString {
 
-		@RecordField
+		@RecordField(ontClass = CcpExtensionOntology.UNIPROT_EVIDENCE_STRING_RECORD___VALUE_FIELD_VALUE)
 		private final String value;
-		@RecordField
+		@RecordField(ontClass = CcpExtensionOntology.UNIPROT_EVIDENCE_STRING_RECORD___EVIDENCE_FIELD_VALUE)
 		private final List<Integer> evidence;
-		@RecordField
+		@RecordField(ontClass = CcpExtensionOntology.UNIPROT_EVIDENCE_STRING_RECORD___STATUS_FIELD_VALUE)
 		private final String status;
 
 		private EvidencedString(EvidencedStringType xmlType) {
@@ -945,16 +946,16 @@ public class UniProtFileRecord extends FileRecord {
 	}
 
 	@Getter
-	@Record(dataSource = DataSource.UNIPROT)
+	@Record(ontClass = CcpExtensionOntology.UNIPROT_EVIDENCE_RECORD, dataSource = DataSource.UNIPROT)
 	public static class Evidence {
 
-		@RecordField
+		@RecordField(ontClass = CcpExtensionOntology.UNIPROT_EVIDENCE_RECORD___SOURCE_FIELD_VALUE)
 		private final Source source;
-		@RecordField
+		@RecordField(ontClass = CcpExtensionOntology.UNIPROT_EVIDENCE_RECORD___IMPORTED_FROM_FIELD_VALUE)
 		private final ImportedFrom importedFrom;
-		@RecordField
+		@RecordField(ontClass = CcpExtensionOntology.UNIPROT_EVIDENCE_RECORD___TYPE_FIELD_VALUE)
 		private final String type;
-		@RecordField
+		@RecordField(ontClass = CcpExtensionOntology.UNIPROT_EVIDENCE_RECORD___KEY_FIELD_VALUE)
 		private final Integer key;
 
 		public Evidence(EvidenceType xmlType) {
@@ -967,26 +968,26 @@ public class UniProtFileRecord extends FileRecord {
 	}
 
 	@Getter
-	@Record(dataSource = DataSource.UNIPROT)
+	@Record(ontClass = CcpExtensionOntology.UNIPROT_FEATURE_RECORD, dataSource = DataSource.UNIPROT)
 	public static class Feature {
 
-		@RecordField
+		@RecordField(ontClass = CcpExtensionOntology.UNIPROT_FEATURE_RECORD___ORIGINAL_FIELD_VALUE)
 		private final String original;
-		@RecordField
+		@RecordField(ontClass = CcpExtensionOntology.UNIPROT_FEATURE_RECORD___VARIATION_FIELD_VALUE)
 		private final List<String> variation;
-		@RecordField
+		@RecordField(ontClass = CcpExtensionOntology.UNIPROT_FEATURE_RECORD___LOCATION_FIELD_VALUE)
 		private final Location location;
-		@RecordField
+		@RecordField(ontClass = CcpExtensionOntology.UNIPROT_FEATURE_RECORD___TYPE_FIELD_VALUE)
 		private final String type;
-		@RecordField
+		@RecordField(ontClass = CcpExtensionOntology.UNIPROT_FEATURE_RECORD___STATUS_FIELD_VALUE)
 		private final String status;
-		@RecordField
+		@RecordField(ontClass = CcpExtensionOntology.UNIPROT_FEATURE_RECORD___IDENTIFIER_FIELD_VALUE)
 		private final String id;
-		@RecordField
+		@RecordField(ontClass = CcpExtensionOntology.UNIPROT_FEATURE_RECORD___DESCRIPTION_FIELD_VALUE)
 		private final String description;
-		@RecordField
+		@RecordField(ontClass = CcpExtensionOntology.UNIPROT_FEATURE_RECORD___EVIDENCE_FIELD_VALUE)
 		private final List<Integer> evidence;
-		@RecordField
+		@RecordField(ontClass = CcpExtensionOntology.UNIPROT_FEATURE_RECORD___REFERENCE_FIELD_VALUE)
 		private final String ref;
 
 		public Feature(FeatureType xmlType) {
@@ -1005,9 +1006,9 @@ public class UniProtFileRecord extends FileRecord {
 	}
 
 	@Getter
-	@Record(dataSource = DataSource.UNIPROT)
+	@Record(ontClass = CcpExtensionOntology.UNIPROT_GENE_TYPE_RECORD, dataSource = DataSource.UNIPROT)
 	public static class GeneType {
-		@RecordField
+		@RecordField(ontClass = CcpExtensionOntology.UNIPROT_GENE_TYPE_RECORD___NAME_FIELD_VALUE)
 		protected List<GeneName> name;
 
 		public GeneType(org.uniprot.GeneType xmlType) {
@@ -1021,11 +1022,11 @@ public class UniProtFileRecord extends FileRecord {
 	}
 
 	@Getter
-	@Record(dataSource = DataSource.UNIPROT)
+	@Record(ontClass = CcpExtensionOntology.UNIPROT_MOLECULE_TYPE_RECORD, dataSource = DataSource.UNIPROT)
 	public static class MoleculeType {
-		@RecordField
+		@RecordField(ontClass = CcpExtensionOntology.UNIPROT_MOLECULE_TYPE_RECORD___IDENTIFIER_FIELD_VALUE)
 		protected String id;
-		@RecordField
+		@RecordField(ontClass = CcpExtensionOntology.UNIPROT_MOLECULE_TYPE_RECORD___VALUE_FIELD_VALUE)
 		protected String value;
 
 		public MoleculeType(org.uniprot.MoleculeType xmlType) {
@@ -1035,14 +1036,14 @@ public class UniProtFileRecord extends FileRecord {
 	}
 
 	@Getter
-	@Record(dataSource = DataSource.UNIPROT)
+	@Record(ontClass = CcpExtensionOntology.UNIPROT_GENE_LOCATION_RECORD, dataSource = DataSource.UNIPROT)
 	public static class GeneLocation {
 
-		@RecordField
+		@RecordField(ontClass = CcpExtensionOntology.UNIPROT_GENE_LOCATION_RECORD___STATUS_FIELD_VALUE)
 		private final List<Status> status;
-		@RecordField
+		@RecordField(ontClass = CcpExtensionOntology.UNIPROT_GENE_LOCATION_RECORD___TYPE_FIELD_VALUE)
 		private final String type;
-		@RecordField
+		@RecordField(ontClass = CcpExtensionOntology.UNIPROT_GENE_LOCATION_RECORD___EVIDENCE_FIELD_VALUE)
 		private final List<Integer> evidence;
 
 		public GeneLocation(GeneLocationType xmlType) {
@@ -1059,14 +1060,14 @@ public class UniProtFileRecord extends FileRecord {
 	}
 
 	@Getter
-	@Record(dataSource = DataSource.UNIPROT)
+	@Record(ontClass = CcpExtensionOntology.UNIPROT_GENE_NAME_RECORD, dataSource = DataSource.UNIPROT)
 	public static class GeneName {
 
-		@RecordField
+		@RecordField(ontClass = CcpExtensionOntology.UNIPROT_GENE_NAME_RECORD___VALUE_FIELD_VALUE)
 		private final String value;
-		@RecordField
+		@RecordField(ontClass = CcpExtensionOntology.UNIPROT_GENE_NAME_RECORD___EVIDENCE_FIELD_VALUE)
 		private final List<Integer> evidence;
-		@RecordField
+		@RecordField(ontClass = CcpExtensionOntology.UNIPROT_GENE_NAME_RECORD___TYPE_FIELD_VALUE)
 		private final String type;
 
 		public GeneName(GeneNameType xmlType) {
@@ -1078,10 +1079,10 @@ public class UniProtFileRecord extends FileRecord {
 	}
 
 	@Getter
-	@Record(dataSource = DataSource.UNIPROT)
+	@Record(ontClass = CcpExtensionOntology.UNIPROT_IMPORTED_FROM_RECORD, dataSource = DataSource.UNIPROT)
 	public static class ImportedFrom {
 
-		@RecordField
+		@RecordField(ontClass = CcpExtensionOntology.UNIPROT_IMPORTED_FROM_RECORD___DATABASE_REFERENCE_FIELD_VALUE)
 		private final DbReference dbReference;
 
 		public ImportedFrom(ImportedFromType xmlType) {
@@ -1090,14 +1091,14 @@ public class UniProtFileRecord extends FileRecord {
 	}
 
 	@Getter
-	@Record(dataSource = DataSource.UNIPROT)
+	@Record(ontClass = CcpExtensionOntology.UNIPROT_INTERACTANT_RECORD, dataSource = DataSource.UNIPROT)
 	public static class Interactant {
 
-		@RecordField
+		@RecordField(ontClass = CcpExtensionOntology.UNIPROT_INTERACTANT_RECORD___IDENTIFIER_FIELD_VALUE)
 		private final DataSourceIdentifier<?> id;
-		@RecordField
+		@RecordField(ontClass = CcpExtensionOntology.UNIPROT_INTERACTANT_RECORD___LABEL_FIELD_VALUE)
 		private final String label;
-		@RecordField
+		@RecordField(ontClass = CcpExtensionOntology.UNIPROT_INTERACTANT_RECORD___INTACT_IDENTIFIER_FIELD_VALUE)
 		private final IntActID intactId;
 
 		public Interactant(InteractantType xmlType) {
@@ -1110,16 +1111,16 @@ public class UniProtFileRecord extends FileRecord {
 	}
 
 	@Getter
-	@Record(dataSource = DataSource.UNIPROT)
+	@Record(ontClass = CcpExtensionOntology.UNIPROT_ISOFORM_RECORD, dataSource = DataSource.UNIPROT)
 	public static class Isoform {
 
-		@RecordField
+		@RecordField(ontClass = CcpExtensionOntology.UNIPROT_ISOFORM_RECORD___IDENTIFIER_FIELD_VALUE)
 		private final List<UniProtIsoformID> id;
-		@RecordField
+		@RecordField(ontClass = CcpExtensionOntology.UNIPROT_ISOFORM_RECORD___NAME_FIELD_VALUE)
 		private final List<Isoform.Name> name;
-		@RecordField
+		@RecordField(ontClass = CcpExtensionOntology.UNIPROT_ISOFORM_RECORD___SEQUENCE_FIELD_VALUE)
 		private final Isoform.Sequence sequence;
-		@RecordField
+		@RecordField(ontClass = CcpExtensionOntology.UNIPROT_ISOFORM_RECORD___NOTE_FIELD_VALUE)
 		private final Isoform.Note note;
 
 		public Isoform(IsoformType xmlType) {
@@ -1140,12 +1141,12 @@ public class UniProtFileRecord extends FileRecord {
 		}
 
 		@Getter
-		@Record(dataSource = DataSource.UNIPROT)
+		@Record(ontClass = CcpExtensionOntology.UNIPROT_ISOFORM_NAME_RECORD, dataSource = DataSource.UNIPROT)
 		public static class Name {
 
-			@RecordField
+			@RecordField(ontClass = CcpExtensionOntology.UNIPROT_ISOFORM_NAME_RECORD___VALUE_FIELD_VALUE)
 			private final String value;
-			@RecordField
+			@RecordField(ontClass = CcpExtensionOntology.UNIPROT_ISOFORM_NAME_RECORD___EVIDENCE_FIELD_VALUE)
 			private final List<Integer> evidence;
 
 			public Name(IsoformType.Name xmlType) {
@@ -1156,12 +1157,12 @@ public class UniProtFileRecord extends FileRecord {
 		}
 
 		@Getter
-		@Record(dataSource = DataSource.UNIPROT)
+		@Record(ontClass = CcpExtensionOntology.UNIPROT_NOTE_RECORD, dataSource = DataSource.UNIPROT)
 		public static class Note {
 
-			@RecordField
+			@RecordField(ontClass = CcpExtensionOntology.UNIPROT_NOTE_RECORD___VALUE_FIELD_VALUE)
 			private final String value;
-			@RecordField
+			@RecordField(ontClass = CcpExtensionOntology.UNIPROT_NOTE_RECORD___EVIDENCE_FIELD_VALUE)
 			private final List<Integer> evidence;
 
 			public Note(IsoformType.Note xmlType) {
@@ -1172,12 +1173,12 @@ public class UniProtFileRecord extends FileRecord {
 		}
 
 		@Getter
-		@Record(dataSource = DataSource.UNIPROT)
+		@Record(ontClass = CcpExtensionOntology.UNIPROT_ISOFORM_SEQUENCE_RECORD, dataSource = DataSource.UNIPROT)
 		public static class Sequence {
 
-			@RecordField
+			@RecordField(ontClass = CcpExtensionOntology.UNIPROT_ISOFORM_SEQUENCE_RECORD___TYPE_FIELD_VALUE)
 			private final String type;
-			@RecordField
+			@RecordField(ontClass = CcpExtensionOntology.UNIPROT_ISOFORM_SEQUENCE_RECORD___REFERENCE_FIELD_VALUE)
 			private final String ref;
 
 			public Sequence(IsoformType.Sequence xmlType) {
@@ -1189,14 +1190,14 @@ public class UniProtFileRecord extends FileRecord {
 	}
 
 	@Getter
-	@Record(dataSource = DataSource.UNIPROT)
+	@Record(ontClass = CcpExtensionOntology.UNIPROT_KEYWORD_RECORD, dataSource = DataSource.UNIPROT)
 	public static class Keyword {
 
-		@RecordField
+		@RecordField(ontClass = CcpExtensionOntology.UNIPROT_KEYWORD_RECORD___VALUE_FIELD_VALUE)
 		private final String value;
-		@RecordField
+		@RecordField(ontClass = CcpExtensionOntology.UNIPROT_KEYWORD_RECORD___EVIDENCE_FIELD_VALUE)
 		private final List<Integer> evidence;
-		@RecordField
+		@RecordField(ontClass = CcpExtensionOntology.UNIPROT_KEYWORD_RECORD___IDENTIFIER_FIELD_VALUE)
 		private final String id;
 
 		public Keyword(KeywordType xmlType) {
@@ -1208,16 +1209,16 @@ public class UniProtFileRecord extends FileRecord {
 	}
 
 	@Getter
-	@Record(dataSource = DataSource.UNIPROT)
+	@Record(ontClass = CcpExtensionOntology.UNIPROT_LOCATION_RECORD, dataSource = DataSource.UNIPROT)
 	public static class Location {
 
-		@RecordField
+		@RecordField(ontClass = CcpExtensionOntology.UNIPROT_LOCATION_RECORD___BEGIN_FIELD_VALUE)
 		private final Position begin;
-		@RecordField
+		@RecordField(ontClass = CcpExtensionOntology.UNIPROT_LOCATION_RECORD___END_FIELD_VALUE)
 		private final Position end;
-		@RecordField
+		@RecordField(ontClass = CcpExtensionOntology.UNIPROT_LOCATION_RECORD___POSITION_FIELD_VALUE)
 		private final Position position;
-		@RecordField
+		@RecordField(ontClass = CcpExtensionOntology.UNIPROT_LOCATION_RECORD___SEQUENCE_FIELD_VALUE)
 		private final String sequence;
 
 		public Location(LocationType xmlType) {
@@ -1229,12 +1230,12 @@ public class UniProtFileRecord extends FileRecord {
 	}
 
 	@Getter
-	@Record(dataSource = DataSource.UNIPROT)
+	@Record(ontClass = CcpExtensionOntology.UNIPROT_NAME_RECORD, dataSource = DataSource.UNIPROT)
 	public static class Name {
 
-		@RecordField
+		@RecordField(ontClass = CcpExtensionOntology.UNIPROT_NAME_RECORD___CONSORTIUM_OR_PERSON_FIELD_VALUE)
 		private final String consortiumOrPerson;
-		@RecordField
+		@RecordField(ontClass = CcpExtensionOntology.UNIPROT_NAME_RECORD___NAME_FIELD_VALUE)
 		private final String name;
 
 		public Name(Object xmlType) {
@@ -1252,12 +1253,12 @@ public class UniProtFileRecord extends FileRecord {
 	}
 
 	@Getter
-	@Record(dataSource = DataSource.UNIPROT)
+	@Record(ontClass = CcpExtensionOntology.UNIPROT_ORGANISM_NAME_RECORD, dataSource = DataSource.UNIPROT)
 	public static class OrganismName {
 
-		@RecordField
+		@RecordField(ontClass = CcpExtensionOntology.UNIPROT_ORGANISM_NAME_RECORD___VALUE_FIELD_VALUE)
 		private final String value;
-		@RecordField
+		@RecordField(ontClass = CcpExtensionOntology.UNIPROT_ORGANISM_NAME_RECORD___TYPE_FIELD_VALUE)
 		private final String type;
 
 		public OrganismName(OrganismNameType xmlType) {
@@ -1267,16 +1268,16 @@ public class UniProtFileRecord extends FileRecord {
 	}
 
 	@Getter
-	@Record(dataSource = DataSource.UNIPROT)
+	@Record(ontClass = CcpExtensionOntology.UNIPROT_ORGANISM_RECORD, dataSource = DataSource.UNIPROT)
 	public static class Organism {
 
-		@RecordField
+		@RecordField(ontClass = CcpExtensionOntology.UNIPROT_ORGANISM_RECORD___NAME_FIELD_VALUE)
 		private final List<OrganismName> name;
-		@RecordField
+		@RecordField(ontClass = CcpExtensionOntology.UNIPROT_ORGANISM_RECORD___DATABASE_REFERENCE_FIELD_VALUE)
 		private final List<DbReference> dbReference;
-		@RecordField
+		@RecordField(ontClass = CcpExtensionOntology.UNIPROT_ORGANISM_RECORD___LINEAGE_FIELD_VALUE)
 		private final Organism.Lineage lineage;
-		@RecordField
+		@RecordField(ontClass = CcpExtensionOntology.UNIPROT_ORGANISM_RECORD___EVIDENCE_FIELD_VALUE)
 		private final List<Integer> evidence;
 
 		public Organism(OrganismType xmlType) {
@@ -1297,9 +1298,9 @@ public class UniProtFileRecord extends FileRecord {
 		}
 
 		@Getter
-		@Record(dataSource = DataSource.UNIPROT)
+		@Record(ontClass = CcpExtensionOntology.UNIPROT_LINEAGE_RECORD, dataSource = DataSource.UNIPROT)
 		public static class Lineage {
-			@RecordField
+			@RecordField(ontClass = CcpExtensionOntology.UNIPROT_LINEAGE_RECORD___TAXON_FIELD_VALUE)
 			private final List<String> taxon;
 
 			public Lineage(OrganismType.Lineage xmlType) {
@@ -1321,14 +1322,14 @@ public class UniProtFileRecord extends FileRecord {
 	// }
 
 	@Getter
-	@Record(dataSource = DataSource.UNIPROT)
+	@Record(ontClass = CcpExtensionOntology.UNIPROT_POSITION_RECORD, dataSource = DataSource.UNIPROT)
 	public static class Position {
 
-		@RecordField
+		@RecordField(ontClass = CcpExtensionOntology.UNIPROT_POSITION_RECORD___POSITION_FIELD_VALUE)
 		private final Integer position;
-		@RecordField
+		@RecordField(ontClass = CcpExtensionOntology.UNIPROT_POSITION_RECORD___STATUS_FIELD_VALUE)
 		private final String status;
-		@RecordField
+		@RecordField(ontClass = CcpExtensionOntology.UNIPROT_POSITION_RECORD___EVIDENCE_FIELD_VALUE)
 		private final List<Integer> evidence;
 
 		public Position(PositionType xmlType) {
@@ -1340,12 +1341,12 @@ public class UniProtFileRecord extends FileRecord {
 	}
 
 	@Getter
-	@Record(dataSource = DataSource.UNIPROT)
+	@Record(ontClass = CcpExtensionOntology.UNIPROT_PROPERTY_RECORD, dataSource = DataSource.UNIPROT)
 	public static class Property {
 
-		@RecordField
+		@RecordField(ontClass = CcpExtensionOntology.UNIPROT_PROPERTY_RECORD___TYPE_FIELD_VALUE)
 		private final String type;
-		@RecordField
+		@RecordField(ontClass = CcpExtensionOntology.UNIPROT_PROPERTY_RECORD___VALUE_FIELD_VALUE)
 		private final String value;
 
 		public Property(PropertyType xmlType) {
@@ -1355,10 +1356,10 @@ public class UniProtFileRecord extends FileRecord {
 	}
 
 	@Getter
-	@Record(dataSource = DataSource.UNIPROT)
+	@Record(ontClass = CcpExtensionOntology.UNIPROT_PROTEIN_EXISTENCE_RECORD, dataSource = DataSource.UNIPROT)
 	public static class ProteinExistence {
 
-		@RecordField
+		@RecordField(ontClass = CcpExtensionOntology.UNIPROT_PROTEIN_EXISTENCE_RECORD___TYPE_FIELD_VALUE)
 		private final String type;
 
 		public ProteinExistence(ProteinExistenceType xmlType) {
@@ -1367,26 +1368,26 @@ public class UniProtFileRecord extends FileRecord {
 	}
 
 	@Getter
-	@Record(dataSource = DataSource.UNIPROT)
+	@Record(ontClass = CcpExtensionOntology.UNIPROT_PROTEIN_RECORD, dataSource = DataSource.UNIPROT)
 	public static class Protein {
 
-		@RecordField
+		@RecordField(ontClass = CcpExtensionOntology.UNIPROT_PROTEIN_RECORD___RECOMMENDED_NAME_FIELD_VALUE)
 		private final Protein.RecommendedName recommendedName;
-		@RecordField
+		@RecordField(ontClass = CcpExtensionOntology.UNIPROT_PROTEIN_RECORD___ALTERNATIVE_NAME_FIELD_VALUE)
 		private final List<Protein.AlternativeName> alternativeName;
-		@RecordField
+		@RecordField(ontClass = CcpExtensionOntology.UNIPROT_PROTEIN_RECORD___SUBMITTED_NAME_FIELD_VALUE)
 		private final List<Protein.SubmittedName> submittedName;
-		@RecordField
+		@RecordField(ontClass = CcpExtensionOntology.UNIPROT_PROTEIN_RECORD___ALLERGEN_NAME_FIELD_VALUE)
 		private final EvidencedString allergenName;
-		@RecordField
+		@RecordField(ontClass = CcpExtensionOntology.UNIPROT_PROTEIN_RECORD___BIOTECH_NAME_FIELD_VALUE)
 		private final EvidencedString biotechName;
-		@RecordField
+		@RecordField(ontClass = CcpExtensionOntology.UNIPROT_PROTEIN_RECORD____CD_ANTIGEN_NAME_FIELD_VALUE)
 		private final List<EvidencedString> cdAntigenName;
-		@RecordField
+		@RecordField(ontClass = CcpExtensionOntology.UNIPROT_PROTEIN_RECORD___INN_NAME_FIELD_VALUE)
 		private final List<EvidencedString> innName;
-		@RecordField
+		@RecordField(ontClass = CcpExtensionOntology.UNIPROT_PROTEIN_RECORD___DOMAIN_FIELD_VALUE)
 		private final List<Protein.Domain> domain;
-		@RecordField
+		@RecordField(ontClass = CcpExtensionOntology.UNIPROT_PROTEIN_RECORD___COMPONENT_FIELD_VALUE)
 		private final List<Protein.Component> component;
 
 		public Protein(ProteinType xmlType) {
@@ -1433,14 +1434,14 @@ public class UniProtFileRecord extends FileRecord {
 		}
 
 		@Getter
-		@Record(dataSource = DataSource.UNIPROT)
+		@Record(ontClass = CcpExtensionOntology.UNIPROT_ALTERNATIVE_NAME_RECORD, dataSource = DataSource.UNIPROT)
 		public static class AlternativeName {
 
-			@RecordField
+			@RecordField(ontClass = CcpExtensionOntology.UNIPROT_ALTERNATIVE_NAME_RECORD___FULL_NAME_FIELD_VALUE)
 			private final EvidencedString fullName;
-			@RecordField
+			@RecordField(ontClass = CcpExtensionOntology.UNIPROT_ALTERNATIVE_NAME_RECORD___SHORT_NAME_FIELD_VALUE)
 			private final List<EvidencedString> shortName;
-			@RecordField
+			@RecordField(ontClass = CcpExtensionOntology.UNIPROT_ALTERNATIVE_NAME_RECORD___EC_NUMBER_FIELD_VALUE)
 			private final List<EvidencedString> ecNumber;
 
 			public AlternativeName(ProteinType.AlternativeName xmlType) {
@@ -1461,22 +1462,22 @@ public class UniProtFileRecord extends FileRecord {
 		}
 
 		@Getter
-		@Record(dataSource = DataSource.UNIPROT)
+		@Record(ontClass = CcpExtensionOntology.UNIPROT_COMPONENT_RECORD, dataSource = DataSource.UNIPROT)
 		public static class Component {
 
-			@RecordField
+			@RecordField(ontClass = CcpExtensionOntology.UNIPROT_COMPONENT_RECORD___RECOMMENDED_NAME_FIELD_VALUE)
 			private final Protein.RecommendedName recommendedName;
-			@RecordField
+			@RecordField(ontClass = CcpExtensionOntology.UNIPROT_COMPONENT_RECORD___ALTERNATIVE_NAME_FIELD_VALUE)
 			private final List<Protein.AlternativeName> alternativeName;
-			@RecordField
+			@RecordField(ontClass = CcpExtensionOntology.UNIPROT_COMPONENT_RECORD__SUBMITTED_NAME_FIELD_VALUE)
 			private final List<Protein.SubmittedName> submittedName;
-			@RecordField
+			@RecordField(ontClass = CcpExtensionOntology.UNIPROT_COMPONENT_RECORD___ALLERGEN_NAME_FIELD_VALUE)
 			private final EvidencedString allergenName;
-			@RecordField
+			@RecordField(ontClass = CcpExtensionOntology.UNIPROT_COMPONENT_RECORD___BIOTECH_NAME_FIELD_VALUE)
 			private final EvidencedString biotechName;
-			@RecordField
+			@RecordField(ontClass = CcpExtensionOntology.UNIPROT_COMPONENT_RECORD___CD_ANTIGEN_NAME_FIELD_VALUE)
 			private final List<EvidencedString> cdAntigenName;
-			@RecordField
+			@RecordField(ontClass = CcpExtensionOntology.UNIPROT_COMPONENT_RECORD___INN_NAME_FIELD_VALUE)
 			private final List<EvidencedString> innName;
 
 			public Component(ProteinType.Component xmlType) {
@@ -1512,22 +1513,22 @@ public class UniProtFileRecord extends FileRecord {
 		}
 
 		@Getter
-		@Record(dataSource = DataSource.UNIPROT)
+		@Record(ontClass = CcpExtensionOntology.UNIPROT_DOMAIN_RECORD, dataSource = DataSource.UNIPROT)
 		public static class Domain {
 
-			@RecordField
+			@RecordField(ontClass = CcpExtensionOntology.UNIPROT_DOMAIN_RECORD___RECOMMENDED_NAME_FIELD_VALUE)
 			private final Protein.RecommendedName recommendedName;
-			@RecordField
+			@RecordField(ontClass = CcpExtensionOntology.UNIPROT_DOMAIN_RECORD___ALTERNATIVE_NAME_FIELD_VALUE)
 			private final List<Protein.AlternativeName> alternativeName;
-			@RecordField
+			@RecordField(ontClass = CcpExtensionOntology.UNIPROT_DOMAIN_RECORD___SUBMITTED_NAME_FIELD_VALUE)
 			private final List<Protein.SubmittedName> submittedName;
-			@RecordField
+			@RecordField(ontClass = CcpExtensionOntology.UNIPROT_DOMAIN_RECORD___ALLERGEN_NAME_FIELD_VALUE)
 			private final EvidencedString allergenName;
-			@RecordField
+			@RecordField(ontClass = CcpExtensionOntology.UNIPROT_DOMAIN_RECORD___BIOTECH_NAME_FIELD_VALUE)
 			private final EvidencedString biotechName;
-			@RecordField
+			@RecordField(ontClass = CcpExtensionOntology.UNIPROT_DOMAIN_RECORD___CD_ANTIGEN_NAME_FIELD_VALUE)
 			private final List<EvidencedString> cdAntigenName;
-			@RecordField
+			@RecordField(ontClass = CcpExtensionOntology.UNIPROT_DOMAIN_RECORD___INN_NAME_FIELD_VALUE)
 			private final List<EvidencedString> innName;
 
 			public Domain(ProteinType.Domain xmlType) {
@@ -1563,14 +1564,14 @@ public class UniProtFileRecord extends FileRecord {
 		}
 
 		@Getter
-		@Record(dataSource = DataSource.UNIPROT)
+		@Record(ontClass = CcpExtensionOntology.UNIPROT_RECOMMENDED_NAME_RECORD, dataSource = DataSource.UNIPROT)
 		public static class RecommendedName {
 
-			@RecordField
+			@RecordField(ontClass = CcpExtensionOntology.UNIPROT_RECOMMENDED_NAME_RECORD___FULL_NAME_FIELD_VALUE)
 			private final EvidencedString fullName;
-			@RecordField
+			@RecordField(ontClass = CcpExtensionOntology.UNIPROT_RECOMMENDED_NAME_RECORD___SHORT_NAME_FIELD_VALUE)
 			private final List<EvidencedString> shortName;
-			@RecordField
+			@RecordField(ontClass = CcpExtensionOntology.UNIPROT_RECOMMENDED_NAME_RECORD___EC_NUMBER_FIELD_VALUE)
 			private final List<EvidencedString> ecNumber;
 
 			public RecommendedName(ProteinType.RecommendedName xmlType) {
@@ -1591,12 +1592,12 @@ public class UniProtFileRecord extends FileRecord {
 		}
 
 		@Getter
-		@Record(dataSource = DataSource.UNIPROT)
+		@Record(ontClass = CcpExtensionOntology.UNIPROT_SUBMITTED_NAME_RECORD, dataSource = DataSource.UNIPROT)
 		public static class SubmittedName {
 
-			@RecordField
+			@RecordField(ontClass = CcpExtensionOntology.UNIPROT_SUBMITTED_NAME_RECORD___FULL_NAME_FIELD_VALUE)
 			private final EvidencedString fullName;
-			@RecordField
+			@RecordField(ontClass = CcpExtensionOntology.UNIPROT_SUBMITTED_NAME_RECORD___EC_NUMBER_FIELD_VALUE)
 			private final List<EvidencedString> ecNumber;
 
 			public SubmittedName(ProteinType.SubmittedName xmlType) {
@@ -1612,18 +1613,18 @@ public class UniProtFileRecord extends FileRecord {
 	}
 
 	@Getter
-	@Record(dataSource = DataSource.UNIPROT)
+	@Record(ontClass = CcpExtensionOntology.UNIPROT_REFERENCE_RECORD, dataSource = DataSource.UNIPROT)
 	public static class Reference {
 
-		@RecordField
+		@RecordField(ontClass = CcpExtensionOntology.UNIPROT_REFERENCE_RECORD___CITATION_FIELD_VALUE)
 		private final Citation citation;
-		@RecordField
+		@RecordField(ontClass = CcpExtensionOntology.UNIPROT_REFERENCE_RECORD___SCOPE_FIELD_VALUE)
 		private final List<String> scope;
-		@RecordField
+		@RecordField(ontClass = CcpExtensionOntology.UNIPROT_REFERENCE_RECORD___SOURCE_FIELD_VALUE)
 		private final List<SourceData> source;
-		@RecordField
+		@RecordField(ontClass = CcpExtensionOntology.UNIPROT_REFERENCE_RECORD___EVIDENCE_FIELD_VALUE)
 		private final List<Integer> evidence;
-		@RecordField
+		@RecordField(ontClass = CcpExtensionOntology.UNIPROT_REFERENCE_RECORD___KEY_FIELD_VALUE)
 		private final String key;
 
 		public Reference(ReferenceType xmlType) {
@@ -1643,24 +1644,24 @@ public class UniProtFileRecord extends FileRecord {
 	}
 
 	@Getter
-	@Record(dataSource = DataSource.UNIPROT)
+	@Record(ontClass = CcpExtensionOntology.UNIPROT_SEQUENCE_RECORD, dataSource = DataSource.UNIPROT)
 	public static class Sequence {
 
-		@RecordField
+		@RecordField(ontClass = CcpExtensionOntology.UNIPROT_SEQUENCE_RECORD___VALUE_FIELD_VALUE)
 		private final String value;
-		@RecordField
+		@RecordField(ontClass = CcpExtensionOntology.UNIPROT_SEQUENCE_RECORD___LENGTH_FIELD_VALUE)
 		private final int length;
-		@RecordField
+		@RecordField(ontClass = CcpExtensionOntology.UNIPROT_SEQUENCE_RECORD___MASS_FIELD_VALUE)
 		private final int mass;
-		@RecordField
+		@RecordField(ontClass = CcpExtensionOntology.UNIPROT_SEQUENCE_RECORD___CHECK_SUM_FIELD_VALUE)
 		private final String checksum;
-		@RecordField
+		@RecordField(ontClass = CcpExtensionOntology.UNIPROT_SEQUENCE_RECORD___MODIFIED_FIELD_VALUE)
 		private final XMLGregorianCalendar modified;
-		@RecordField
+		@RecordField(ontClass = CcpExtensionOntology.UNIPROT_SEQUENCE_RECORD___VERSION_FIELD_VALUE)
 		private final int version;
-		@RecordField
+		@RecordField(ontClass = CcpExtensionOntology.UNIPROT_SEQUENCE_RECORD___PRECURSOR_FIELD_VALUE)
 		private final Boolean precursor;
-		@RecordField
+		@RecordField(ontClass = CcpExtensionOntology.UNIPROT_SEQUENCE_RECORD___FRAGMENT_FIELD_VALUE)
 		private final String fragment;
 
 		public Sequence(SequenceType xmlType) {
@@ -1676,14 +1677,14 @@ public class UniProtFileRecord extends FileRecord {
 	}
 
 	@Getter
-	@Record(dataSource = DataSource.UNIPROT)
+	@Record(ontClass = CcpExtensionOntology.UNIPROT_SOURCE_DATA_RECORD, dataSource = DataSource.UNIPROT)
 	public static class SourceData {
 
-		@RecordField
+		@RecordField(ontClass = CcpExtensionOntology.UNIPROT_SOURCE_DATA_RECORD___TYPE_FIELD_VALUE)
 		private final String type;
-		@RecordField
+		@RecordField(ontClass = CcpExtensionOntology.UNIPROT_SOURCE_DATA_RECORD___VALUE_FIELD_VALUE)
 		private final String value;
-		@RecordField
+		@RecordField(ontClass = CcpExtensionOntology.UNIPROT_SOURCE_DATA_RECORD___EVIDENCE_FIELD_VALUE)
 		private final List<Integer> evidence;
 
 		public SourceData(Object xmlType) {
@@ -1718,12 +1719,12 @@ public class UniProtFileRecord extends FileRecord {
 	}
 
 	@Getter
-	@Record(dataSource = DataSource.UNIPROT)
+	@Record(ontClass = CcpExtensionOntology.UNIPROT_SOURCE_RECORD, dataSource = DataSource.UNIPROT)
 	public static class Source {
 
-		@RecordField
+		@RecordField(ontClass = CcpExtensionOntology.UNIPROT_SOURCE_RECORD___DATABASE_REFERENCE_FIELD_VALUE)
 		private final DbReference dbReference;
-		@RecordField
+		@RecordField(ontClass = CcpExtensionOntology.UNIPROT_SOURCE_RECORD___REFERENCE_FIELD_VALUE)
 		private final Integer ref;
 
 		public Source(SourceType xmlType) {
@@ -1733,12 +1734,12 @@ public class UniProtFileRecord extends FileRecord {
 	}
 
 	@Getter
-	@Record(dataSource = DataSource.UNIPROT)
+	@Record(ontClass = CcpExtensionOntology.UNIPROT_STATUS_RECORD, dataSource = DataSource.UNIPROT)
 	public static class Status {
 
-		@RecordField
+		@RecordField(ontClass = CcpExtensionOntology.UNIPROT_STATUS_RECORD___VALUE_FIELD_VALUE)
 		private final String value;
-		@RecordField
+		@RecordField(ontClass = CcpExtensionOntology.UNIPROT_STATUS_RECORD___STATUS_FIELD_VALUE)
 		private final String status;
 
 		public Status(StatusType xmlType) {
@@ -1748,14 +1749,14 @@ public class UniProtFileRecord extends FileRecord {
 	}
 
 	@Getter
-	@Record(dataSource = DataSource.UNIPROT)
+	@Record(ontClass = CcpExtensionOntology.UNIPROT_SUBCELLULAR_LOCATION_RECORD, dataSource = DataSource.UNIPROT)
 	public static class SubcellularLocation {
 
-		@RecordField
+		@RecordField(ontClass = CcpExtensionOntology.UNIPROT_SUBCELLULAR_LOCATION_RECORD___LOCATION_FIELD_VALUE)
 		private final List<EvidencedString> location;
-		@RecordField
+		@RecordField(ontClass = CcpExtensionOntology.UNIPROT_SUBCELLULAR_LOCATION_RECORD___TOPOLOGY_FIELD_VALUE)
 		private final List<EvidencedString> topology;
-		@RecordField
+		@RecordField(ontClass = CcpExtensionOntology.UNIPROT_SUBCELLULAR_LOCATION_RECORD___ORIENTATION_FIELD_VALUE)
 		private final List<EvidencedString> orientation;
 
 		public SubcellularLocation(SubcellularLocationType xmlType) {

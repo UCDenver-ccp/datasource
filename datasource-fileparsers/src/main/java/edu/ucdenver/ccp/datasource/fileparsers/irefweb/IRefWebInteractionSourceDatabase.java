@@ -49,13 +49,13 @@ import edu.ucdenver.ccp.datasource.identifiers.obo.MolecularInteractionOntologyT
  *         ccpsupport@ucdenver.edu
  * 
  */
-@Record(dataSource = DataSource.IREFWEB, label = "source db", ontClass = CcpExtensionOntology.IREFWEB_INTERACTION_SOURCE_DATABASE_RECORD)
+@Record(ontClass = CcpExtensionOntology.IREFWEB_INTERACTION_SOURCE_DATABASE_RECORD, dataSource = DataSource.IREFWEB, label = "source db")
 @Getter
 public class IRefWebInteractionSourceDatabase extends MiOntologyIdTermPair {
 
-	@RecordField(ontClass = CcpExtensionOntology.SOURCE_DATABASE_IDENTIFIER_FIELD_VALUE)
+	@RecordField(ontClass = CcpExtensionOntology.IREFWEB_INTERACTION_SOURCE_DATABASE_RECORD___SOURCE_DATABASE_IDENTIFIER_FIELD_VALUE)
 	private final MolecularInteractionOntologyTermID sourceDatabaseId;
-	@RecordField(ontClass = CcpExtensionOntology.SOURCE_DATABASE_NAME_FIELD_VALUE)
+	@RecordField(ontClass = CcpExtensionOntology.IREFWEB_INTERACTION_SOURCE_DATABASE_RECORD___SOURCE_DATABASE_NAME_FIELD_VALUE)
 	private final String sourceDatabaseName;
 
 	/**
