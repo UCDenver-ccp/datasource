@@ -3,7 +3,7 @@
 	<parent>
 		<artifactId>datasource</artifactId>
 		<groupId>edu.ucdenver.ccp</groupId>
-		<version>0.6.2-SNAPSHOT</version>
+		<version>0.6.3-SNAPSHOT</version>
 	</parent>
 	<artifactId>datasource-fileparsers</artifactId>
 
@@ -19,13 +19,12 @@
 		</dependency>
 		<dependency>
 			<groupId>edu.ucdenver.ccp</groupId>
-			<artifactId>datasource-identifiers</artifactId>
-			<version>${project.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>edu.ucdenver.ccp</groupId>
 			<artifactId>common</artifactId>
 			<type>test-jar</type>
+		</dependency>
+		<dependency>
+			<groupId>commons-lang</groupId>
+			<artifactId>commons-lang</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>junit</groupId>
