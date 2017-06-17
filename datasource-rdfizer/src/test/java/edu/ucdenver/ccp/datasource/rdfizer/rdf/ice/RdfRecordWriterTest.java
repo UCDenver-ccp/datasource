@@ -232,25 +232,25 @@ public class RdfRecordWriterTest extends DefaultTestCase {
 
 	private List<String> getExpectedLines(String timestamp) {
 
-		String recordHash1 = "q58EAdcSN1Kynqohl_I5bHeKW2g";
+		String recordHash1 = "S1krXam5FFHQ3seTIgb9M4zSTOI";
 		String fieldHash_1_1 = "NS-OtpvOXf5NeNtm9_Cd8Y0G8wg"; // gene id 111
 		String fieldHash_1_2 = "scQJXp5c3X-vDdO0bSHh_TbCQDk"; // abc-1
-		String fieldHash_1_3 = "fO_XkPu3jIVf-TEtegxxL4OUMrQ"; // chromosome 1
+		String fieldHash_1_3 = "9XoeomKbCboR7JsCsH7Qww3sNFo"; // chromosome 1
 		String fieldHash_1_4_a = "xQxjFUZBqv84m0ELm85GVvEJkm0"; // 456
 		String fieldHash_1_4_b = "Jm8VskpdUozjgEZgZkIc_IkoWMk"; // 567
 		String fieldHash_1_4_c = "LCLRscp_Lu0cLcxHuuXuQWWaAcI"; // 678
 
-		String recordHash2 = "SZ-dkxfhMXR9wBs5lQh1zjH7efA";
+		String recordHash2 = "z6ZvpoE6e_75SIBGIBePXK1ewUM";
 		String fieldHash_2_1 = "IRoWImnh1QgF69F77631RMJNddo"; // gene id 222
 		String fieldHash_2_2 = "eRxH4V6FzXuKZzidqIqzMrX1WXo"; // def-2
-		String fieldHash_2_3 = "cYenFl783yaAxQqAUfOdU85hx3c"; // chromosome 2
+		String fieldHash_2_3 = "cTiRS0EFTb6LO0ORR7t6dB4FFps"; // chromosome 2
 		String fieldHash_2_4_a = "TGJIE7iq7ewko_R0AkI39fnhuIE"; // 555
 		String fieldHash_2_4_b = fieldHash_1_4_b; // 567
 
-		String recordHash3 = "nYyblyrI9MkXyrVCNZVPgcUGF0k";
+		String recordHash3 = "Gyo5ml6W_66VEWAKekugkaBGW4E";
 		String fieldHash_3_1 = "Tca_p2Ap2x6DYaS00JfS2SlIHTo"; // gene id 333
 		String fieldHash_3_2 = "7jHxWqndrdNh3_aQN1gLMjZfg7U"; // xyz-9
-		String fieldHash_3_3 = "TsofzFyx8AArNyLw5oxmyYgPZsI"; // chromosome 3
+		String fieldHash_3_3 = "rTl_72ojTkeN1yYGz_lb15QZPms"; // chromosome 3
 
 		/* @formatter:off */
 		return CollectionsUtil.createList(
@@ -272,7 +272,7 @@ public class RdfRecordWriterTest extends DefaultTestCase {
 				"<http://ccp.ucdenver.edu/obo/ext/F_" + fieldHash_1_2 + "> <" + RDF.TYPE + "> <" + CcpExtensionOntology.NAME_FIELD_VALUE.uri() + "> .",
 				
 				"<http://ccp.ucdenver.edu/obo/ext/R_" + recordHash1 + "> <" + RO.HAS_PART.uri() + "> <http://ccp.ucdenver.edu/obo/ext/F_" + fieldHash_1_3 + "> .",
-				"<http://ccp.ucdenver.edu/obo/ext/F_" + fieldHash_1_3 + "> <" + RDF.TYPE + "> <" + CcpExtensionOntology.CHROMOSOME_FIELD_VALUE.uri() + "> .",
+				"<http://ccp.ucdenver.edu/obo/ext/F_" + fieldHash_1_3 + "> <" + RDF.TYPE + "> <" + CcpExtensionOntology.NCBI_CHROMOSOME_FIELD_VALUE.uri() + "> .",
 				"<http://ccp.ucdenver.edu/obo/ext/F_" + fieldHash_1_3 + "> <" + RDFS.LABEL + "> \"1\"^^<http://www.w3.org/2001/XMLSchema#integer> .",
 				
 				"<http://ccp.ucdenver.edu/obo/ext/R_" + recordHash1 + "> <" + RO.HAS_PART.uri() + "> <http://ccp.ucdenver.edu/obo/ext/F_" + fieldHash_1_4_a + "> .",
@@ -304,7 +304,7 @@ public class RdfRecordWriterTest extends DefaultTestCase {
 				"<http://ccp.ucdenver.edu/obo/ext/F_" + fieldHash_2_2 + "> <" + RDF.TYPE + "> <" + CcpExtensionOntology.NAME_FIELD_VALUE.uri() + "> .",
 				
 				"<http://ccp.ucdenver.edu/obo/ext/R_" + recordHash2 + "> <" + RO.HAS_PART.uri() + "> <http://ccp.ucdenver.edu/obo/ext/F_" + fieldHash_2_3 + "> .",
-				"<http://ccp.ucdenver.edu/obo/ext/F_" + fieldHash_2_3 + "> <" + RDF.TYPE + "> <" + CcpExtensionOntology.CHROMOSOME_FIELD_VALUE.uri() + "> .",
+				"<http://ccp.ucdenver.edu/obo/ext/F_" + fieldHash_2_3 + "> <" + RDF.TYPE + "> <" + CcpExtensionOntology.NCBI_CHROMOSOME_FIELD_VALUE.uri() + "> .",
 				"<http://ccp.ucdenver.edu/obo/ext/F_" + fieldHash_2_3 + "> <" + RDFS.LABEL + "> \"2\"^^<http://www.w3.org/2001/XMLSchema#integer> .",
 				
 				"<http://ccp.ucdenver.edu/obo/ext/R_" + recordHash2 + "> <" + RO.HAS_PART.uri() + "> <http://ccp.ucdenver.edu/obo/ext/F_" + fieldHash_2_4_a + "> .",
@@ -328,7 +328,7 @@ public class RdfRecordWriterTest extends DefaultTestCase {
 				"<http://ccp.ucdenver.edu/obo/ext/F_" + fieldHash_3_2 + "> <" + RDF.TYPE + "> <" + CcpExtensionOntology.NAME_FIELD_VALUE.uri() + "> .",
 				
 				"<http://ccp.ucdenver.edu/obo/ext/R_" + recordHash3 + "> <" + RO.HAS_PART.uri() + "> <http://ccp.ucdenver.edu/obo/ext/F_" + fieldHash_3_3 + "> .",
-				"<http://ccp.ucdenver.edu/obo/ext/F_" + fieldHash_3_3 + "> <" + RDF.TYPE + "> <" + CcpExtensionOntology.CHROMOSOME_FIELD_VALUE.uri() + "> .",
+				"<http://ccp.ucdenver.edu/obo/ext/F_" + fieldHash_3_3 + "> <" + RDF.TYPE + "> <" + CcpExtensionOntology.NCBI_CHROMOSOME_FIELD_VALUE.uri() + "> .",
 				"<http://ccp.ucdenver.edu/obo/ext/F_" + fieldHash_3_3 + "> <" + RDFS.LABEL + "> \"3\"^^<http://www.w3.org/2001/XMLSchema#integer> ."
 				);
 		/* @formatter:on */
@@ -359,7 +359,7 @@ public class RdfRecordWriterTest extends DefaultTestCase {
 		private final String geneName;
 		@RecordField(ontClass = CcpExtensionOntology.INTERACTOR_FIELD_VALUE)
 		private final Set<GeneID> interactingGeneIDs;
-		@RecordField(ontClass = CcpExtensionOntology.CHROMOSOME_FIELD_VALUE)
+		@RecordField(ontClass = CcpExtensionOntology.NCBI_CHROMOSOME_FIELD_VALUE)
 		private final Integer chromosome;
 
 		public GeneId2NameDatFileData(GeneID geneID, String geneName, Integer chromosome, Set<GeneID> homologousGeneIDs,
