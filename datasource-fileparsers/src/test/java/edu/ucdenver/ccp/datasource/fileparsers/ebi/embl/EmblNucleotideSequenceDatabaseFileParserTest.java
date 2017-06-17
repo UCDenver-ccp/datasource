@@ -60,7 +60,7 @@ import edu.ucdenver.ccp.datasource.identifiers.mgi.MgiGeneID;
 import edu.ucdenver.ccp.datasource.identifiers.ncbi.GenBankID;
 import edu.ucdenver.ccp.datasource.identifiers.ncbi.NcbiTraceId;
 import edu.ucdenver.ccp.datasource.identifiers.other.InsdcProjectId;
-import edu.ucdenver.ccp.identifier.publication.PubMedID;
+import edu.ucdenver.ccp.datasource.identifiers.publication.PubMedID;
 
 /**
  * @author Colorado Computational Pharmacology, UC Denver; ccpsupport@ucdenver.edu

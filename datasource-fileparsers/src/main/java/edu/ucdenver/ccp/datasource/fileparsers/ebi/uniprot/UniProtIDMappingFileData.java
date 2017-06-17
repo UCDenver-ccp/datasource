@@ -66,7 +66,7 @@ import edu.ucdenver.ccp.datasource.identifiers.obo.GeneOntologyID;
 import edu.ucdenver.ccp.datasource.identifiers.other.UniParcID;
 import edu.ucdenver.ccp.datasource.identifiers.other.UniRefId;
 import edu.ucdenver.ccp.datasource.identifiers.pdb.PdbID;
-import edu.ucdenver.ccp.identifier.publication.PubMedID;
+import edu.ucdenver.ccp.datasource.identifiers.publication.PubMedID;
 
 /**
  * <p>

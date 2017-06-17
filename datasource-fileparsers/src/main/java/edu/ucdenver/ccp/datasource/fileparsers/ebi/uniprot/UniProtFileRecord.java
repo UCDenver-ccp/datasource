@@ -122,12 +122,12 @@ import edu.ucdenver.ccp.datasource.identifiers.obo.GeneOntologyID;
 import edu.ucdenver.ccp.datasource.identifiers.other.*;
 import edu.ucdenver.ccp.datasource.identifiers.pdb.PdbID;
 import edu.ucdenver.ccp.datasource.identifiers.pharmgkb.PharmGkbID;
+import edu.ucdenver.ccp.datasource.identifiers.publication.DOI;
+import edu.ucdenver.ccp.datasource.identifiers.publication.PubMedID;
 import edu.ucdenver.ccp.datasource.identifiers.reactome.ReactomeReactionID;
 import edu.ucdenver.ccp.datasource.identifiers.rgd.RgdID;
 import edu.ucdenver.ccp.datasource.identifiers.sgd.SgdID;
 import edu.ucdenver.ccp.datasource.identifiers.wormbase.WormBaseID;
-import edu.ucdenver.ccp.identifier.publication.DOI;
-import edu.ucdenver.ccp.identifier.publication.PubMedID;
 
 /**
  * 

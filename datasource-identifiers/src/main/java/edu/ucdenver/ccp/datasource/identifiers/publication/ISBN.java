@@ -1,4 +1,4 @@
-package edu.ucdenver.ccp.identifier.publication;
+package edu.ucdenver.ccp.datasource.identifiers.publication;
 
 /*
  * #%L
@@ -33,14 +33,14 @@ package edu.ucdenver.ccp.identifier.publication;
  * #L%
  */
 
+import edu.ucdenver.ccp.common.string.StringUtil;
 import edu.ucdenver.ccp.datasource.identifiers.DataSource;
 import edu.ucdenver.ccp.datasource.identifiers.StringDataSourceIdentifier;
 
-public class PubMedCentralID extends StringDataSourceIdentifier {
+public class ISBN extends StringDataSourceIdentifier {
 
-	public PubMedCentralID(String resourceID) {
-		super(resourceID, DataSource.PMC);
+	public ISBN(String resourceID) {
+		super(resourceID, DataSource.ISBN);
 	}
-
 
 }

@@ -59,9 +59,9 @@ import edu.ucdenver.ccp.datasource.identifiers.ebi.uniprot.UniProtIsoformID;
 import edu.ucdenver.ccp.datasource.identifiers.ncbi.taxonomy.NcbiTaxonomyID;
 import edu.ucdenver.ccp.datasource.identifiers.obo.GeneOntologyID;
 import edu.ucdenver.ccp.datasource.identifiers.other.RnaCentralId;
+import edu.ucdenver.ccp.datasource.identifiers.publication.DOI;
+import edu.ucdenver.ccp.datasource.identifiers.publication.PubMedID;
 import edu.ucdenver.ccp.datasource.identifiers.reactome.ReactomeReactionID;
-import edu.ucdenver.ccp.identifier.publication.DOI;
-import edu.ucdenver.ccp.identifier.publication.PubMedID;
 
 /**
  * NOTE: This class has been deprecated as the file format that it parses has been

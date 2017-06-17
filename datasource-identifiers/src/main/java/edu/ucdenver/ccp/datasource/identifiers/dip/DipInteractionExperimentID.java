@@ -36,7 +36,7 @@ package edu.ucdenver.ccp.datasource.identifiers.dip;
 import edu.ucdenver.ccp.datasource.identifiers.DataSource;
 import edu.ucdenver.ccp.datasource.identifiers.StringDataSourceIdentifier;
 import edu.ucdenver.ccp.datasource.identifiers.obo.MolecularInteractionOntologyTermID;
-import edu.ucdenver.ccp.identifier.publication.PubMedID;
+import edu.ucdenver.ccp.datasource.identifiers.publication.PubMedID;
 
 public class DipInteractionExperimentID extends StringDataSourceIdentifier {
 

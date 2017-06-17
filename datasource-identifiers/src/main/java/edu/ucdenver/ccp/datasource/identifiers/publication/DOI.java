@@ -1,4 +1,4 @@
-package edu.ucdenver.ccp.identifier.publication;
+package edu.ucdenver.ccp.datasource.identifiers.publication;
 
 /*
  * #%L
@@ -33,24 +33,23 @@ package edu.ucdenver.ccp.identifier.publication;
  * #L%
  */
 
-import java.util.Arrays;
-
+import edu.ucdenver.ccp.common.string.StringUtil;
 import edu.ucdenver.ccp.datasource.identifiers.DataSource;
-import edu.ucdenver.ccp.datasource.identifiers.IntegerDataSourceIdentifier;
+import edu.ucdenver.ccp.datasource.identifiers.StringDataSourceIdentifier;
 
-public class PubMedID extends IntegerDataSourceIdentifier {
+public class DOI extends StringDataSourceIdentifier {
 
-	public PubMedID(Integer pubmedID) {
-		super(pubmedID, DataSource.PM);
+	public DOI(String resourceID) {
+		super(resourceID, DataSource.DOI);
 	}
 
-	/**
-	 * Constructor that handles string argument that may start with "PMID:" prefix.
-	 * 
-	 * @param pubmedID
-	 */
-	public PubMedID(String pubmedID) {
-		super(pubmedID, Arrays.asList("PMID:"), DataSource.PM);
+
+	@Override
+	public String validate(String resourceID) throws IllegalArgumentException {
+		resourceID = super.validate(resourceID);
+		if (resourceID.startsWith("DOI:"))
+			resourceID = StringUtil.removePrefix(resourceID, "DOI:");
+		return resourceID;
 	}
 
 }

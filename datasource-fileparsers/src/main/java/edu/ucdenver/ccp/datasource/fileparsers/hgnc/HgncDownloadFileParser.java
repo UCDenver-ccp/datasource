@@ -92,8 +92,8 @@ import edu.ucdenver.ccp.datasource.identifiers.other.SnoRnaBaseId;
 import edu.ucdenver.ccp.datasource.identifiers.other.UcscGenomeBrowserId;
 import edu.ucdenver.ccp.datasource.identifiers.other.VegaID;
 import edu.ucdenver.ccp.datasource.identifiers.other.ZnfGeneCatalogId;
+import edu.ucdenver.ccp.datasource.identifiers.publication.PubMedID;
 import edu.ucdenver.ccp.datasource.identifiers.rgd.RgdID;
-import edu.ucdenver.ccp.identifier.publication.PubMedID;
 
 /**
  * Parses data from this file:

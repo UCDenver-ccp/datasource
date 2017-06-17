@@ -1,4 +1,4 @@
-package edu.ucdenver.ccp.identifier.publication;
+package edu.ucdenver.ccp.datasource.identifiers.publication;
 
 /*
  * #%L
@@ -33,23 +33,38 @@ package edu.ucdenver.ccp.identifier.publication;
  * #L%
  */
 
+import org.apache.log4j.Logger;
+
+import edu.ucdenver.ccp.common.string.RegExPatterns;
 import edu.ucdenver.ccp.common.string.StringUtil;
-import edu.ucdenver.ccp.datasource.identifiers.DataSource;
-import edu.ucdenver.ccp.datasource.identifiers.StringDataSourceIdentifier;
 
-public class DOI extends StringDataSourceIdentifier {
+/**
+ * @author Center for Computational Pharmacology, UC Denver; ccpsupport@ucdenver.edu
+ * 
+ */
+public class PubMedIdFactory {
 
-	public DOI(String resourceID) {
-		super(resourceID, DataSource.DOI);
-	}
+	private static final Logger logger = Logger.getLogger(PubMedIdFactory.class);
 
+	/**
+	 * @param id
+	 * @return an initialized {@link PubMedID} if the input string can be parsed, null otherwise.
+	 */
+	public static PubMedID createPubMedId(String id) {
+		if (id == null)
+			return null;
+		String normId = id.trim().toLowerCase();
+		if (normId.matches("pmid:-1") || normId.matches("pubmed:-1"))
+			return null;
+		if (normId.matches("pmid:\\d+"))
+			return new PubMedID(StringUtil.removePrefix(normId, "pmid:"));
+		if (normId.matches("pubmed:\\d+"))
+			return new PubMedID(StringUtil.removePrefix(normId, "pubmed:"));
+		if (normId.matches(RegExPatterns.HAS_NUMBERS_ONLY))
+			return new PubMedID(normId);
+		logger.warn("Unable to extract PubMed identifier from: " + id + ". Returning null.");
+		return null;
 
-	@Override
-	public String validate(String resourceID) throws IllegalArgumentException {
-		resourceID = super.validate(resourceID);
-		if (resourceID.startsWith("DOI:"))
-			resourceID = StringUtil.removePrefix(resourceID, "DOI:");
-		return resourceID;
 	}
 
 }

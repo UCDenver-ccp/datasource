@@ -125,12 +125,12 @@ import edu.ucdenver.ccp.datasource.identifiers.pdb.PdbID;
 import edu.ucdenver.ccp.datasource.identifiers.pdb.PdbLigandId;
 import edu.ucdenver.ccp.datasource.identifiers.pharmgkb.PharmGkbID;
 import edu.ucdenver.ccp.datasource.identifiers.psi.PsiModId;
+import edu.ucdenver.ccp.datasource.identifiers.publication.PubMedID;
 import edu.ucdenver.ccp.datasource.identifiers.reactome.ReactomeReactionID;
 import edu.ucdenver.ccp.datasource.identifiers.rgd.RgdID;
 import edu.ucdenver.ccp.datasource.identifiers.sgd.SgdID;
 import edu.ucdenver.ccp.datasource.identifiers.transfac.TransfacGeneID;
 import edu.ucdenver.ccp.datasource.identifiers.wormbase.WormBaseID;
-import edu.ucdenver.ccp.identifier.publication.PubMedID;
 
 /**
  * provides various methods to map from an ID in database or ontology files to

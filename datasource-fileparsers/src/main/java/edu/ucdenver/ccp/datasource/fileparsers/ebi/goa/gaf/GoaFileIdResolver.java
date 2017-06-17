@@ -73,6 +73,8 @@ import edu.ucdenver.ccp.datasource.identifiers.other.RnaCentralId;
 import edu.ucdenver.ccp.datasource.identifiers.other.TairID;
 import edu.ucdenver.ccp.datasource.identifiers.other.UniPathwayId;
 import edu.ucdenver.ccp.datasource.identifiers.other.ZfinID;
+import edu.ucdenver.ccp.datasource.identifiers.publication.DOI;
+import edu.ucdenver.ccp.datasource.identifiers.publication.PubMedID;
 import edu.ucdenver.ccp.datasource.identifiers.reactome.ReactomeReactionID;
 import edu.ucdenver.ccp.datasource.identifiers.rgd.NboId;
 import edu.ucdenver.ccp.datasource.identifiers.rgd.PwId;
@@ -80,8 +82,6 @@ import edu.ucdenver.ccp.datasource.identifiers.rgd.RdoId;
 import edu.ucdenver.ccp.datasource.identifiers.rgd.RgdID;
 import edu.ucdenver.ccp.datasource.identifiers.sgd.SgdID;
 import edu.ucdenver.ccp.datasource.identifiers.wormbase.WormBaseID;
-import edu.ucdenver.ccp.identifier.publication.DOI;
-import edu.ucdenver.ccp.identifier.publication.PubMedID;
 
 /**
  * @author Center for Computational Pharmacology, UC Denver;

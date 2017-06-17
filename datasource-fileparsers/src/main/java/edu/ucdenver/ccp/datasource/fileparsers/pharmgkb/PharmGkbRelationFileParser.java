@@ -88,7 +88,7 @@ import edu.ucdenver.ccp.datasource.identifiers.ncbi.RefSnpID;
 import edu.ucdenver.ccp.datasource.identifiers.pharmgkb.PharmGkbHaplotypeId;
 import edu.ucdenver.ccp.datasource.identifiers.pharmgkb.PharmGkbID;
 import edu.ucdenver.ccp.datasource.identifiers.pharmgkb.PharmGkbVariantLocationId;
-import edu.ucdenver.ccp.identifier.publication.PubMedID;
+import edu.ucdenver.ccp.datasource.identifiers.publication.PubMedID;
 
 public class PharmGkbRelationFileParser extends SingleLineFileRecordReader<PharmGkbRelationFileRecord> {
 

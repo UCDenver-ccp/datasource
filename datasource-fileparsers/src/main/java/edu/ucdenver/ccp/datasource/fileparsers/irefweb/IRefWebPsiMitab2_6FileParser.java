@@ -116,8 +116,8 @@ import edu.ucdenver.ccp.datasource.identifiers.other.OphidId;
 import edu.ucdenver.ccp.datasource.identifiers.other.PrfId;
 import edu.ucdenver.ccp.datasource.identifiers.other.UniParcID;
 import edu.ucdenver.ccp.datasource.identifiers.pdb.PdbID;
+import edu.ucdenver.ccp.datasource.identifiers.publication.PubMedID;
 import edu.ucdenver.ccp.datasource.identifiers.sgd.SgdID;
-import edu.ucdenver.ccp.identifier.publication.PubMedID;
 
 /**
  * This class is used to parse DIPYYYMMDD files which can be downloaded from the

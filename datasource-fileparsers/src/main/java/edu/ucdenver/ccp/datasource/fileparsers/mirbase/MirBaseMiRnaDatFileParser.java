@@ -69,9 +69,9 @@ import edu.ucdenver.ccp.datasource.identifiers.other.MiRBaseID;
 import edu.ucdenver.ccp.datasource.identifiers.other.MirteId;
 import edu.ucdenver.ccp.datasource.identifiers.other.PictarId;
 import edu.ucdenver.ccp.datasource.identifiers.other.RfamId;
+import edu.ucdenver.ccp.datasource.identifiers.publication.DOI;
+import edu.ucdenver.ccp.datasource.identifiers.publication.PubMedID;
 import edu.ucdenver.ccp.datasource.identifiers.wormbase.WormBaseID;
-import edu.ucdenver.ccp.identifier.publication.DOI;
-import edu.ucdenver.ccp.identifier.publication.PubMedID;
 
 public class MirBaseMiRnaDatFileParser extends
 		EmblSequenceDatabaseFileParserBase<MirBaseMiRnaDatFileData, MiRBaseID, MirBaseIdLineContents> {

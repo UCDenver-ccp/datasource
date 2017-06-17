@@ -68,8 +68,8 @@ import edu.ucdenver.ccp.datasource.identifiers.ncbi.refseq.RefSeqID;
 import edu.ucdenver.ccp.datasource.identifiers.other.CosmicId;
 import edu.ucdenver.ccp.datasource.identifiers.other.UcscGenomeBrowserId;
 import edu.ucdenver.ccp.datasource.identifiers.other.VegaID;
+import edu.ucdenver.ccp.datasource.identifiers.publication.PubMedID;
 import edu.ucdenver.ccp.datasource.identifiers.rgd.RgdID;
-import edu.ucdenver.ccp.identifier.publication.PubMedID;
 
 public class HgncDownloadFileParserTest extends RecordReaderTester {
 

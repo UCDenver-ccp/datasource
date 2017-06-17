@@ -56,7 +56,7 @@ import edu.ucdenver.ccp.datasource.identifiers.ncbi.UniGeneID;
 import edu.ucdenver.ccp.datasource.identifiers.ncbi.gene.NcbiGeneId;
 import edu.ucdenver.ccp.datasource.identifiers.ncbi.omim.OmimID;
 import edu.ucdenver.ccp.datasource.identifiers.ncbi.refseq.RefSeqID;
-import edu.ucdenver.ccp.identifier.publication.PubMedID;
+import edu.ucdenver.ccp.datasource.identifiers.publication.PubMedID;
 
 /**
  * 

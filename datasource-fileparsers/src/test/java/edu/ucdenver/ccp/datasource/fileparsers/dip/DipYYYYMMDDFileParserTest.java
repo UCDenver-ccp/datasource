@@ -52,7 +52,7 @@ import edu.ucdenver.ccp.datasource.identifiers.dip.DipInteractorID;
 import edu.ucdenver.ccp.datasource.identifiers.ebi.uniprot.UniProtID;
 import edu.ucdenver.ccp.datasource.identifiers.ncbi.taxonomy.NcbiTaxonomyID;
 import edu.ucdenver.ccp.datasource.identifiers.obo.MolecularInteractionOntologyTermID;
-import edu.ucdenver.ccp.identifier.publication.PubMedID;
+import edu.ucdenver.ccp.datasource.identifiers.publication.PubMedID;
 
 /**
  * 

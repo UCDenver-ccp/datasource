@@ -1,4 +1,4 @@
-package edu.ucdenver.ccp.identifier.publication;
+package edu.ucdenver.ccp.datasource.identifiers.publication;
 
 /*
  * #%L
@@ -33,38 +33,24 @@ package edu.ucdenver.ccp.identifier.publication;
  * #L%
  */
 
-import org.apache.log4j.Logger;
+import java.util.Arrays;
 
-import edu.ucdenver.ccp.common.string.RegExPatterns;
-import edu.ucdenver.ccp.common.string.StringUtil;
+import edu.ucdenver.ccp.datasource.identifiers.DataSource;
+import edu.ucdenver.ccp.datasource.identifiers.IntegerDataSourceIdentifier;
 
-/**
- * @author Center for Computational Pharmacology, UC Denver; ccpsupport@ucdenver.edu
- * 
- */
-public class PubMedIdFactory {
+public class PubMedID extends IntegerDataSourceIdentifier {
 
-	private static final Logger logger = Logger.getLogger(PubMedIdFactory.class);
+	public PubMedID(Integer pubmedID) {
+		super(pubmedID, DataSource.PM);
+	}
 
 	/**
-	 * @param id
-	 * @return an initialized {@link PubMedID} if the input string can be parsed, null otherwise.
+	 * Constructor that handles string argument that may start with "PMID:" prefix.
+	 * 
+	 * @param pubmedID
 	 */
-	public static PubMedID createPubMedId(String id) {
-		if (id == null)
-			return null;
-		String normId = id.trim().toLowerCase();
-		if (normId.matches("pmid:-1") || normId.matches("pubmed:-1"))
-			return null;
-		if (normId.matches("pmid:\\d+"))
-			return new PubMedID(StringUtil.removePrefix(normId, "pmid:"));
-		if (normId.matches("pubmed:\\d+"))
-			return new PubMedID(StringUtil.removePrefix(normId, "pubmed:"));
-		if (normId.matches(RegExPatterns.HAS_NUMBERS_ONLY))
-			return new PubMedID(normId);
-		logger.warn("Unable to extract PubMed identifier from: " + id + ". Returning null.");
-		return null;
-
+	public PubMedID(String pubmedID) {
+		super(pubmedID, Arrays.asList("PMID:"), DataSource.PM);
 	}
 
 }

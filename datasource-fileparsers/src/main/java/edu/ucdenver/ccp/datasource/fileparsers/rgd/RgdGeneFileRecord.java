@@ -58,8 +58,8 @@ import edu.ucdenver.ccp.datasource.identifiers.ncbi.UniGeneID;
 import edu.ucdenver.ccp.datasource.identifiers.ncbi.gene.NcbiGeneId;
 import edu.ucdenver.ccp.datasource.identifiers.ncbi.omim.OmimID;
 import edu.ucdenver.ccp.datasource.identifiers.other.MedlineId;
+import edu.ucdenver.ccp.datasource.identifiers.publication.PubMedID;
 import edu.ucdenver.ccp.datasource.identifiers.rgd.RgdID;
-import edu.ucdenver.ccp.identifier.publication.PubMedID;
 
 /**
  * A representation of a data record from the RGD "genes" FTP download file as

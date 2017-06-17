@@ -188,8 +188,8 @@ import edu.ucdenver.ccp.datasource.identifiers.other.TherapeuticTargetsDatabaseI
 import edu.ucdenver.ccp.datasource.identifiers.other.WikipediaId;
 import edu.ucdenver.ccp.datasource.identifiers.pdb.PdbID;
 import edu.ucdenver.ccp.datasource.identifiers.pharmgkb.PharmGkbID;
-import edu.ucdenver.ccp.identifier.publication.ISBN;
-import edu.ucdenver.ccp.identifier.publication.PubMedID;
+import edu.ucdenver.ccp.datasource.identifiers.publication.ISBN;
+import edu.ucdenver.ccp.datasource.identifiers.publication.PubMedID;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;

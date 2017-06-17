@@ -63,7 +63,7 @@ import edu.ucdenver.ccp.datasource.identifiers.ebi.ipi.IpiID;
 import edu.ucdenver.ccp.datasource.identifiers.ebi.uniprot.UniProtID;
 import edu.ucdenver.ccp.datasource.identifiers.ncbi.taxonomy.NcbiTaxonomyID;
 import edu.ucdenver.ccp.datasource.identifiers.obo.GeneOntologyID;
-import edu.ucdenver.ccp.identifier.publication.PubMedID;
+import edu.ucdenver.ccp.datasource.identifiers.publication.PubMedID;
 
 //@Ignore("file header in test file no longer matches file downloaded. Code has been updated but test has not.")
 public class GpAssociationGoaUniprotFileParserTest extends RecordReaderTester {

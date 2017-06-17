@@ -75,7 +75,7 @@ import edu.ucdenver.ccp.datasource.identifiers.dip.DipInteractorID;
 import edu.ucdenver.ccp.datasource.identifiers.ebi.uniprot.UniProtID;
 import edu.ucdenver.ccp.datasource.identifiers.ebi.uniprot.UniProtIsoformID;
 import edu.ucdenver.ccp.datasource.identifiers.ncbi.taxonomy.NcbiTaxonomyID;
-import edu.ucdenver.ccp.identifier.publication.PubMedID;
+import edu.ucdenver.ccp.datasource.identifiers.publication.PubMedID;
 
 /**
  * This class is used to parse DIPYYYMMDD files which can be downloaded from the
