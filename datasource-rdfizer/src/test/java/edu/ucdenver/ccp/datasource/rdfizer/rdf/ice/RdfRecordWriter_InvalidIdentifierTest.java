@@ -153,6 +153,7 @@ public class RdfRecordWriter_InvalidIdentifierTest extends DefaultTestCase {
 						"<http://ccp.ucdenver.edu/obo/ext/R_" + recordHash1 + "> <" + RO.HAS_PART.uri() + "> <http://ccp.ucdenver.edu/obo/ext/F_" + fieldHash_1_2 + "> .",
 						"<http://ccp.ucdenver.edu/obo/ext/F_" + fieldHash_1_2 + "> <" + RDF.TYPE + "> <" + CcpExtensionOntology.PRO_IDENTIFIER_MAPPING_RECORD___TARGET_RECORD_IDENTIFIER_FIELD_VALUE.uri() + "> .",
 						"<http://ccp.ucdenver.edu/obo/ext/F_" + fieldHash_1_2 + "> <" + RDF.TYPE + "> <http://ccp.ucdenver.edu/obo/ext/HGNC_11773> .",
+						"<http://ccp.ucdenver.edu/obo/ext/HGNC_11773> <" + RDFS.SUBCLASSOF + "> <"+CcpExtensionOntology.HGNC_GENE_IDENTIFIER.uri()+"> .",
 						"<http://ccp.ucdenver.edu/obo/ext/F_" + fieldHash_1_2 + "> <" + RDFS.LABEL + "> \"HGNC:11773\"@en .",
 						
 						"<http://ccp.ucdenver.edu/obo/ext/R_" + recordHash1 + "> <" + RO.HAS_PART.uri() + "> <http://ccp.ucdenver.edu/obo/ext/F_" + fieldHash_1_3 + "> .",
@@ -184,6 +185,7 @@ public class RdfRecordWriter_InvalidIdentifierTest extends DefaultTestCase {
 						"<http://ccp.ucdenver.edu/obo/ext/R_" + recordHash3 + "> <" + RO.HAS_PART.uri() + "> <http://ccp.ucdenver.edu/obo/ext/F_" + fieldHash_3_2 + "> .",
 						"<http://ccp.ucdenver.edu/obo/ext/F_" + fieldHash_3_2 + "> <" + RDF.TYPE + "> <" + CcpExtensionOntology.PRO_IDENTIFIER_MAPPING_RECORD___TARGET_RECORD_IDENTIFIER_FIELD_VALUE.uri() + "> .",
 						"<http://ccp.ucdenver.edu/obo/ext/F_" + fieldHash_3_2 + "> <" + RDF.TYPE + "> <" + CcpExtensionOntology.INVALID_IDENTIFIER.uri() + "> .",
+						"<http://ccp.ucdenver.edu/obo/ext/F_" + fieldHash_3_2 + "> <" + RDF.TYPE + "> <" + CcpExtensionOntology.UNIPROT_IDENTIFIER.uri() + "> .",
 						"<http://ccp.ucdenver.edu/obo/ext/F_" + fieldHash_3_2 + "> <" + RDFS.LABEL + "> \"UniProtKB:PABCDE\"@en .",
 						"<http://ccp.ucdenver.edu/obo/ext/F_" + fieldHash_3_2 + "> <" + RDFS.COMMENT + "> " + errorMessage + " .",
 						
