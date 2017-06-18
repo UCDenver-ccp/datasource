@@ -244,12 +244,17 @@ public enum FileDataSource {
 	 * 
 	 *
 	 */
-	DRUGBANK(DataSource.DRUGBANK, IsTaxonAware.NO, RequiresManualDownload.NO) {
+	DRUGBANK(DataSource.DRUGBANK, IsTaxonAware.NO, RequiresManualDownload.YES) {
 		@Override
 		protected FileRecordReader<?> initFileRecordReader(File sourceFileDirectory, File baseSourceFileDirectory,
 				boolean cleanSourceFiles, boolean cleanIdListFiles, File idListDir, Set<NcbiTaxonomyID> taxonIds)
 				throws IOException {
-			return new DrugbankXmlFileRecordReader(sourceFileDirectory, cleanSourceFiles);
+			
+			File drugbankXmlFile = new File(sourceFileDirectory,
+					"full database.xml");
+			FileUtil.validateFile(drugbankXmlFile);
+			
+			return new DrugbankXmlFileRecordReader(drugbankXmlFile);
 		}
 
 		@Override
