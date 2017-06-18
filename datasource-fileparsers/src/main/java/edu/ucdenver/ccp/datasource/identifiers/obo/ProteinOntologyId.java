@@ -1,5 +1,7 @@
 package edu.ucdenver.ccp.datasource.identifiers.obo;
 
+import edu.ucdenver.ccp.datasource.fileparsers.CcpExtensionOntology;
+
 /*
  * #%L
  * Colorado Computational Pharmacology's common module
@@ -34,8 +36,10 @@ package edu.ucdenver.ccp.datasource.identifiers.obo;
  */
 
 import edu.ucdenver.ccp.datasource.identifiers.DataSource;
+import edu.ucdenver.ccp.datasource.identifiers.Identifier;
 import edu.ucdenver.ccp.datasource.identifiers.StringDataSourceIdentifier;
 
+@Identifier(ontClass=CcpExtensionOntology.PROTEIN_ONTOLOGY_CONCEPT_IDENTIFIER)
 public class ProteinOntologyId extends StringDataSourceIdentifier {
 
 	public ProteinOntologyId(String resourceID) {

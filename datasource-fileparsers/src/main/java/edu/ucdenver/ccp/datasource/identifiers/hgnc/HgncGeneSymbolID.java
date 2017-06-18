@@ -1,5 +1,8 @@
 package edu.ucdenver.ccp.datasource.identifiers.hgnc;
 
+import edu.ucdenver.ccp.datasource.fileparsers.CcpExtensionOntology;
+import edu.ucdenver.ccp.datasource.identifiers.DataSource;
+
 /*
  * #%L
  * Colorado Computational Pharmacology's common module
@@ -34,7 +37,7 @@ package edu.ucdenver.ccp.datasource.identifiers.hgnc;
  */
 
 import edu.ucdenver.ccp.datasource.identifiers.DataSourceIdentifier;
-import edu.ucdenver.ccp.datasource.identifiers.DataSource;
+import edu.ucdenver.ccp.datasource.identifiers.Identifier;
 
 /**
  * This symbol is a unique identifier for human genes within HGNC
@@ -42,6 +45,7 @@ import edu.ucdenver.ccp.datasource.identifiers.DataSource;
  * @author Center for Computational Pharmacology; ccpsupport@ucdenver.edu
  * 
  */
+@Identifier(ontClass=CcpExtensionOntology.HGNC_GENE_SYMBOL_IDENTIFIER)
 public class HgncGeneSymbolID extends DataSourceIdentifier<String> {
 
 	public HgncGeneSymbolID(String resourceID) {

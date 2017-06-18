@@ -1,5 +1,7 @@
 package edu.ucdenver.ccp.datasource.identifiers.obo;
 
+import edu.ucdenver.ccp.datasource.fileparsers.CcpExtensionOntology;
+
 /*
  * #%L
  * Colorado Computational Pharmacology's common module
@@ -34,7 +36,9 @@ package edu.ucdenver.ccp.datasource.identifiers.obo;
  */
 
 import edu.ucdenver.ccp.datasource.identifiers.DataSource;
+import edu.ucdenver.ccp.datasource.identifiers.Identifier;
 
+@Identifier(ontClass=CcpExtensionOntology.GENE_ONTOLOGY_CONCEPT_IDENTIFIER)
 public class GeneOntologyID extends OntologyID {
 
 	public static final String GENE_ONTOLOGY_ID_PREFIX = "GO:";

@@ -1,15 +1,10 @@
 package edu.ucdenver.ccp.datasource.identifiers;
 
-import edu.ucdenver.ccp.datasource.fileparsers.CcpExtensionOntology;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-
 /*
  * #%L
- * Colorado Computational Pharmacology's datasource
- * 							project
+ * Colorado Computational Pharmacology's common module
  * %%
- * Copyright (C) 2012 - 2016 Regents of the University of Colorado
+ * Copyright (C) 2012 - 2014 Regents of the University of Colorado
  * %%
  * Redistribution and use in source and binary forms, with or without modification,
  * are permitted provided that the following conditions are met:
@@ -38,28 +33,24 @@ import lombok.EqualsAndHashCode;
  * #L%
  */
 
-@Data
-@EqualsAndHashCode(callSuper=false)
-@Identifier(ontClass=CcpExtensionOntology.INVALID_IDENTIFIER)
-public class ProbableErrorDataSourceIdentifier extends DataSourceIdentifier<String> {
-	private final String dataSourceStr;
-	private final String errorMessage;
-	// TODO: eventually it would be helpful to have the error id typed to what it was supposed to be (if known).
-	// this will require some large switch statements in the IdResolver code in various places so for now
-	// we will type things simply with 'invalid identifier' IAO_EXT_0000110 
-//	private final CcpExtensionOntology identifierType;
+import java.lang.annotation.Documented;
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
 
-	public ProbableErrorDataSourceIdentifier(String resourceID,
-			String dataSourceStr, String errorMessage) {
-		super(resourceID, DataSource.PROBABLE_ERROR);
-//		this.identifierType = identifierType;
-		this.dataSourceStr = dataSourceStr;
-		this.errorMessage = errorMessage;
-	}
+import edu.ucdenver.ccp.datasource.fileparsers.CcpExtensionOntology;
 
-	@Override
-	public String validate(String resourceID) throws IllegalArgumentException {
-		return resourceID;
-	}
+/**
+ * @author Colorado Computational Pharmacology, UC Denver;
+ *         ccpsupport@ucdenver.edu
+ * 
+ */
+@Documented
+@Retention(RetentionPolicy.RUNTIME)
+@Target({ ElementType.TYPE })
+public @interface Identifier {
+
+	CcpExtensionOntology ontClass();
 
 }

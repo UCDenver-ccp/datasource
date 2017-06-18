@@ -312,7 +312,8 @@ public class RecordUtilTest {
 				"(http://record.uri, http://purl.obolibrary.org/obo/BFO_0000051, http://ccp.ucdenver.edu/obo/ext/F_" + fieldHash1 + ")",
 				"(http://ccp.ucdenver.edu/obo/ext/F_" + fieldHash1 + ", " + RDFS.LABEL + ", \"ABBA\"@en)",
 				"(http://ccp.ucdenver.edu/obo/ext/F_" + fieldHash1 + ", http://www.w3.org/1999/02/22-rdf-syntax-ns#type, " + CcpExtensionOntology.HGNC_GENE_RECORD___HGNC_IDENTIFIER_FIELD_VALUE.uri() + ")",
-				"(http://ccp.ucdenver.edu/obo/ext/F_" + fieldHash1 + ", http://www.w3.org/1999/02/22-rdf-syntax-ns#type, http://ccp.ucdenver.edu/obo/ext/HGNC_ABBA)");
+				"(http://ccp.ucdenver.edu/obo/ext/F_" + fieldHash1 + ", http://www.w3.org/1999/02/22-rdf-syntax-ns#type, http://ccp.ucdenver.edu/obo/ext/HGNC_ABBA)",
+				"(http://ccp.ucdenver.edu/obo/ext/HGNC_ABBA, "+ RDFS.SUBCLASSOF.toString() + ", "+ CcpExtensionOntology.HGNC_GENE_SYMBOL_IDENTIFIER.uri() + ")");
 		/* @formatter:on */
 
 		Collection<? extends Statement> statements = RdfRecordUtil.getRecordInstanceStatements(r, createdTimeInMillis,
@@ -345,7 +346,8 @@ public class RecordUtilTest {
 				"(http://record.uri, http://purl.obolibrary.org/obo/BFO_0000051, http://ccp.ucdenver.edu/obo/ext/F_" + fieldHash1 + ")",
 				"(http://ccp.ucdenver.edu/obo/ext/F_" + fieldHash1 + ", " + RDFS.LABEL + ", \"GO:0001234\"@en)",
 				"(http://ccp.ucdenver.edu/obo/ext/F_" + fieldHash1 + ", http://www.w3.org/1999/02/22-rdf-syntax-ns#type, " + CcpExtensionOntology.HGNC_GENE_RECORD___HGNC_IDENTIFIER_FIELD_VALUE.uri() + ")",
-				"(http://ccp.ucdenver.edu/obo/ext/F_" + fieldHash1 + ", http://www.w3.org/1999/02/22-rdf-syntax-ns#type, http://ccp.ucdenver.edu/obo/ext/GO_0001234)");
+				"(http://ccp.ucdenver.edu/obo/ext/F_" + fieldHash1 + ", http://www.w3.org/1999/02/22-rdf-syntax-ns#type, http://ccp.ucdenver.edu/obo/ext/GO_0001234)",
+				"(http://ccp.ucdenver.edu/obo/ext/GO_0001234, "+ RDFS.SUBCLASSOF.toString() + ", "+ CcpExtensionOntology.GENE_ONTOLOGY_CONCEPT_IDENTIFIER.uri() + ")");
 		/* @formatter:on */
 
 		Collection<? extends Statement> statements = RdfRecordUtil.getRecordInstanceStatements(r, createdTimeInMillis,

@@ -812,6 +812,8 @@ public class RdfRecordUtil {
 			ProbableErrorDataSourceIdentifier id = (ProbableErrorDataSourceIdentifier) fieldValue;
 			LiteralImpl literalValue = RdfUtil.createLiteral(id.getId());
 			stmts.add(new StatementImpl(fieldInstanceUri, RDF.TYPE, RdfUtil.getUri(CcpExtensionOntology.INVALID_IDENTIFIER)));
+			CcpExtensionOntology identifierType = RdfIdentifierUtil.getIdentifierType(id.getClass());
+			stmts.add(new StatementImpl(fieldInstanceUri, RDF.TYPE, RdfUtil.getUri(identifierType)));
 			stmts.add(new StatementImpl(fieldInstanceUri, RDFS.LABEL, literalValue));
 			if (id.getErrorMessage()!= null && !id.getErrorMessage().isEmpty()) {
 				stmts.add(new StatementImpl(fieldInstanceUri, RDFS.COMMENT, RdfUtil.createLiteral(id.getErrorMessage())));
@@ -822,6 +824,9 @@ public class RdfRecordUtil {
 			LiteralImpl literalValue = RdfUtil.createLiteral(id.getId());
 			stmts.add(new StatementImpl(fieldInstanceUri, RDF.TYPE, value));
 			stmts.add(new StatementImpl(fieldInstanceUri, RDFS.LABEL, literalValue));
+			URIImpl idUri = RdfUtil.createCcpUri(id);
+			CcpExtensionOntology identifierType = RdfIdentifierUtil.getIdentifierType(id.getClass());
+			stmts.add(new StatementImpl(idUri, RDFS.SUBCLASSOF, RdfUtil.getUri(identifierType)));
 		} else {
 			Value value = RdfUtil.getValue(fieldValue);
 			stmts.add(new StatementImpl(fieldInstanceUri, RDFS.LABEL, value));

@@ -1,15 +1,11 @@
-package edu.ucdenver.ccp.datasource.identifiers;
-
-import edu.ucdenver.ccp.datasource.fileparsers.CcpExtensionOntology;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
+package edu.ucdenver.ccp.datasource.rdfizer.rdf.ice;
 
 /*
  * #%L
  * Colorado Computational Pharmacology's datasource
  * 							project
  * %%
- * Copyright (C) 2012 - 2016 Regents of the University of Colorado
+ * Copyright (C) 2012 - 2017 Regents of the University of Colorado
  * %%
  * Redistribution and use in source and binary forms, with or without modification,
  * are permitted provided that the following conditions are met:
@@ -38,28 +34,23 @@ import lombok.EqualsAndHashCode;
  * #L%
  */
 
-@Data
-@EqualsAndHashCode(callSuper=false)
-@Identifier(ontClass=CcpExtensionOntology.INVALID_IDENTIFIER)
-public class ProbableErrorDataSourceIdentifier extends DataSourceIdentifier<String> {
-	private final String dataSourceStr;
-	private final String errorMessage;
-	// TODO: eventually it would be helpful to have the error id typed to what it was supposed to be (if known).
-	// this will require some large switch statements in the IdResolver code in various places so for now
-	// we will type things simply with 'invalid identifier' IAO_EXT_0000110 
-//	private final CcpExtensionOntology identifierType;
+import edu.ucdenver.ccp.datasource.fileparsers.CcpExtensionOntology;
+import edu.ucdenver.ccp.datasource.identifiers.DataSourceIdentifier;
+import edu.ucdenver.ccp.datasource.identifiers.Identifier;
 
-	public ProbableErrorDataSourceIdentifier(String resourceID,
-			String dataSourceStr, String errorMessage) {
-		super(resourceID, DataSource.PROBABLE_ERROR);
-//		this.identifierType = identifierType;
-		this.dataSourceStr = dataSourceStr;
-		this.errorMessage = errorMessage;
+public class RdfIdentifierUtil {
+
+	public static CcpExtensionOntology getIdentifierType(Class<? extends DataSourceIdentifier> cls) {
+		return getIdentifierAnnotation(cls).ontClass();
 	}
 
-	@Override
-	public String validate(String resourceID) throws IllegalArgumentException {
-		return resourceID;
+	public static Identifier getIdentifierAnnotation(Class<? extends DataSourceIdentifier> identifierClass) {
+		if (identifierClass.isAnnotationPresent(Identifier.class)) {
+			return identifierClass.getAnnotation(Identifier.class);
+		}
+		throw new IllegalArgumentException(
+				"Detected missing Identifier annotation. Please add an Identifier annotation to the "
+						+ identifierClass.getName() + " class.");
 	}
 
 }

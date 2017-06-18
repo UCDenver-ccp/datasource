@@ -75,6 +75,7 @@ import edu.ucdenver.ccp.datasource.fileparsers.SingleLineFileRecord;
 import edu.ucdenver.ccp.datasource.fileparsers.SingleLineFileRecordReader;
 import edu.ucdenver.ccp.datasource.identifiers.DataSource;
 import edu.ucdenver.ccp.datasource.identifiers.DataSourceIdentifier;
+import edu.ucdenver.ccp.datasource.identifiers.Identifier;
 import edu.ucdenver.ccp.datasource.rdfizer.rdf.ice.RdfUtil.RdfFormat;
 import edu.ucdenver.ccp.datasource.rdfizer.rdf.vocabulary.IAO;
 import edu.ucdenver.ccp.datasource.rdfizer.rdf.vocabulary.RO;
@@ -184,7 +185,7 @@ public class RdfRecordWriterTest extends DefaultTestCase {
 		File outputFile = FileUtil.appendPathElementsToDirectory(outputDirectory, expectedOutputFileName);
 		assertTrue("Output file should have been created.", outputFile.exists());
 		List<String> expectedLines = getExpectedLines(RdfUtilTest.getExpectedTimeStamp(createdTimeInMillis20101217))
-				.subList(0, 26);
+				.subList(0, 30);
 		assertTrue("N-Triple Lines should be as expected.", FileComparisonUtil.hasExpectedLines(outputFile,
 				CharacterEncoding.UTF_8, expectedLines, null, LineOrder.ANY_ORDER, ColumnOrder.AS_IN_FILE));
 	}
@@ -265,6 +266,7 @@ public class RdfRecordWriterTest extends DefaultTestCase {
 				"<http://ccp.ucdenver.edu/obo/ext/R_" + recordHash1 + "> <" + RO.HAS_PART.uri() + "> <http://ccp.ucdenver.edu/obo/ext/F_" + fieldHash_1_1 + "> .",
 				"<http://ccp.ucdenver.edu/obo/ext/F_" + fieldHash_1_1 + "> <" + RDF.TYPE + "> <" + CcpExtensionOntology.DNA_IDENTIFIER_FIELD_VALUE.uri() + "> .",
 				"<http://ccp.ucdenver.edu/obo/ext/F_" + fieldHash_1_1 + "> <" + RDF.TYPE + "> <http://ccp.ucdenver.edu/obo/ext/NCBI_GENE_111> .",
+				"<http://ccp.ucdenver.edu/obo/ext/NCBI_GENE_111> <" + RDFS.SUBCLASSOF + "> <" + CcpExtensionOntology.NCBI_GENE_IDENTIFIER.uri() + "> .",
 				"<http://ccp.ucdenver.edu/obo/ext/F_" + fieldHash_1_1 + "> <" + RDFS.LABEL + "> \"111\"^^<http://www.w3.org/2001/XMLSchema#integer> .",
 				
 				"<http://ccp.ucdenver.edu/obo/ext/R_" + recordHash1 + "> <" + RO.HAS_PART.uri() + "> <http://ccp.ucdenver.edu/obo/ext/F_" + fieldHash_1_2 + "> .",
@@ -278,16 +280,19 @@ public class RdfRecordWriterTest extends DefaultTestCase {
 				"<http://ccp.ucdenver.edu/obo/ext/R_" + recordHash1 + "> <" + RO.HAS_PART.uri() + "> <http://ccp.ucdenver.edu/obo/ext/F_" + fieldHash_1_4_a + "> .",
 				"<http://ccp.ucdenver.edu/obo/ext/F_" + fieldHash_1_4_a + "> <" + RDF.TYPE + "> <" + CcpExtensionOntology.INTERACTOR_FIELD_VALUE.uri() + "> .",
 				"<http://ccp.ucdenver.edu/obo/ext/F_" + fieldHash_1_4_a + "> <" + RDF.TYPE + "> <http://ccp.ucdenver.edu/obo/ext/NCBI_GENE_456> .",
+				"<http://ccp.ucdenver.edu/obo/ext/NCBI_GENE_456> <" + RDFS.SUBCLASSOF + "> <" + CcpExtensionOntology.NCBI_GENE_IDENTIFIER.uri() + "> .",
 				"<http://ccp.ucdenver.edu/obo/ext/F_" + fieldHash_1_4_a + "> <" + RDFS.LABEL + "> \"456\"^^<http://www.w3.org/2001/XMLSchema#integer> .",
 				
 				"<http://ccp.ucdenver.edu/obo/ext/R_" + recordHash1 + "> <" + RO.HAS_PART.uri() + "> <http://ccp.ucdenver.edu/obo/ext/F_" + fieldHash_1_4_b + "> .",
 				"<http://ccp.ucdenver.edu/obo/ext/F_" + fieldHash_1_4_b + "> <" + RDF.TYPE + "> <" + CcpExtensionOntology.INTERACTOR_FIELD_VALUE.uri() + "> .",
 				"<http://ccp.ucdenver.edu/obo/ext/F_" + fieldHash_1_4_b + "> <" + RDF.TYPE + "> <http://ccp.ucdenver.edu/obo/ext/NCBI_GENE_567> .",
+				"<http://ccp.ucdenver.edu/obo/ext/NCBI_GENE_567> <" + RDFS.SUBCLASSOF + "> <" + CcpExtensionOntology.NCBI_GENE_IDENTIFIER.uri() + "> .",
 				"<http://ccp.ucdenver.edu/obo/ext/F_" + fieldHash_1_4_b + "> <" + RDFS.LABEL + "> \"567\"^^<http://www.w3.org/2001/XMLSchema#integer> .",
 				
 				"<http://ccp.ucdenver.edu/obo/ext/R_" + recordHash1 + "> <" + RO.HAS_PART.uri() + "> <http://ccp.ucdenver.edu/obo/ext/F_" + fieldHash_1_4_c + "> .",
 				"<http://ccp.ucdenver.edu/obo/ext/F_" + fieldHash_1_4_c + "> <" + RDF.TYPE + "> <" + CcpExtensionOntology.INTERACTOR_FIELD_VALUE.uri() + "> .",
 				"<http://ccp.ucdenver.edu/obo/ext/F_" + fieldHash_1_4_c + "> <" + RDF.TYPE + "> <http://ccp.ucdenver.edu/obo/ext/NCBI_GENE_678> .",
+				"<http://ccp.ucdenver.edu/obo/ext/NCBI_GENE_678> <" + RDFS.SUBCLASSOF + "> <" + CcpExtensionOntology.NCBI_GENE_IDENTIFIER.uri() + "> .",
 				"<http://ccp.ucdenver.edu/obo/ext/F_" + fieldHash_1_4_c + "> <" + RDFS.LABEL + "> \"678\"^^<http://www.w3.org/2001/XMLSchema#integer> .",
 				
 				/* record 2:   222 DEF-2 2 555,567 */
@@ -297,6 +302,7 @@ public class RdfRecordWriterTest extends DefaultTestCase {
 				"<http://ccp.ucdenver.edu/obo/ext/R_" + recordHash2 + "> <" + RO.HAS_PART.uri() + "> <http://ccp.ucdenver.edu/obo/ext/F_" + fieldHash_2_1 + "> .",
 				"<http://ccp.ucdenver.edu/obo/ext/F_" + fieldHash_2_1 + "> <" + RDF.TYPE + "> <" + CcpExtensionOntology.DNA_IDENTIFIER_FIELD_VALUE.uri() + "> .",
 				"<http://ccp.ucdenver.edu/obo/ext/F_" + fieldHash_2_1 + "> <" + RDF.TYPE + "> <http://ccp.ucdenver.edu/obo/ext/NCBI_GENE_222> .",
+				"<http://ccp.ucdenver.edu/obo/ext/NCBI_GENE_222> <" + RDFS.SUBCLASSOF + "> <" + CcpExtensionOntology.NCBI_GENE_IDENTIFIER.uri() + "> .",
 				"<http://ccp.ucdenver.edu/obo/ext/F_" + fieldHash_2_1 + "> <" + RDFS.LABEL + "> \"222\"^^<http://www.w3.org/2001/XMLSchema#integer> .",
 				
 				"<http://ccp.ucdenver.edu/obo/ext/R_" + recordHash2 + "> <" + RO.HAS_PART.uri() + "> <http://ccp.ucdenver.edu/obo/ext/F_" + fieldHash_2_2 + "> .",
@@ -310,6 +316,7 @@ public class RdfRecordWriterTest extends DefaultTestCase {
 				"<http://ccp.ucdenver.edu/obo/ext/R_" + recordHash2 + "> <" + RO.HAS_PART.uri() + "> <http://ccp.ucdenver.edu/obo/ext/F_" + fieldHash_2_4_a + "> .",
 				"<http://ccp.ucdenver.edu/obo/ext/F_" + fieldHash_2_4_a + "> <" + RDF.TYPE + "> <" + CcpExtensionOntology.INTERACTOR_FIELD_VALUE.uri() + "> .",
 				"<http://ccp.ucdenver.edu/obo/ext/F_" + fieldHash_2_4_a + "> <" + RDF.TYPE + "> <http://ccp.ucdenver.edu/obo/ext/NCBI_GENE_555> .",
+				"<http://ccp.ucdenver.edu/obo/ext/NCBI_GENE_555> <" + RDFS.SUBCLASSOF + "> <" + CcpExtensionOntology.NCBI_GENE_IDENTIFIER.uri() + "> .",
 				"<http://ccp.ucdenver.edu/obo/ext/F_" + fieldHash_2_4_a + "> <" + RDFS.LABEL + "> \"555\"^^<http://www.w3.org/2001/XMLSchema#integer> .",
 				
 				"<http://ccp.ucdenver.edu/obo/ext/R_" + recordHash2 + "> <" + RO.HAS_PART.uri() + "> <http://ccp.ucdenver.edu/obo/ext/F_" + fieldHash_2_4_b + "> .",
@@ -321,6 +328,7 @@ public class RdfRecordWriterTest extends DefaultTestCase {
 				"<http://ccp.ucdenver.edu/obo/ext/R_" + recordHash3 + "> <" + RO.HAS_PART.uri() + "> <http://ccp.ucdenver.edu/obo/ext/F_" + fieldHash_3_1 + "> .",
 				"<http://ccp.ucdenver.edu/obo/ext/F_" + fieldHash_3_1 + "> <" + RDF.TYPE + "> <" + CcpExtensionOntology.DNA_IDENTIFIER_FIELD_VALUE.uri() + "> .",
 				"<http://ccp.ucdenver.edu/obo/ext/F_" + fieldHash_3_1 + "> <" + RDF.TYPE + "> <http://ccp.ucdenver.edu/obo/ext/NCBI_GENE_333> .",
+				"<http://ccp.ucdenver.edu/obo/ext/NCBI_GENE_333> <" + RDFS.SUBCLASSOF + "> <" + CcpExtensionOntology.NCBI_GENE_IDENTIFIER.uri() + "> .",
 				"<http://ccp.ucdenver.edu/obo/ext/F_" + fieldHash_3_1 + "> <" + RDFS.LABEL + "> \"333\"^^<http://www.w3.org/2001/XMLSchema#integer> .",
 				
 				"<http://ccp.ucdenver.edu/obo/ext/R_" + recordHash3 + "> <" + RO.HAS_PART.uri() + "> <http://ccp.ucdenver.edu/obo/ext/F_" + fieldHash_3_2 + "> .",
@@ -387,6 +395,7 @@ public class RdfRecordWriterTest extends DefaultTestCase {
 
 	}
 
+	@Identifier(ontClass=CcpExtensionOntology.NCBI_GENE_IDENTIFIER)
 	private static class GeneID extends DataSourceIdentifier<Integer> {
 
 		public GeneID(Integer resourceID) {

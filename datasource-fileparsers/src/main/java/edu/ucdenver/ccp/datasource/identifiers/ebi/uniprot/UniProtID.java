@@ -1,5 +1,8 @@
 package edu.ucdenver.ccp.datasource.identifiers.ebi.uniprot;
 
+import edu.ucdenver.ccp.datasource.fileparsers.CcpExtensionOntology;
+import edu.ucdenver.ccp.datasource.identifiers.DataSource;
+
 /*
  * #%L
  * Colorado Computational Pharmacology's common module
@@ -34,13 +37,14 @@ package edu.ucdenver.ccp.datasource.identifiers.ebi.uniprot;
  */
 
 import edu.ucdenver.ccp.datasource.identifiers.DataSourceIdentifier;
-import edu.ucdenver.ccp.datasource.identifiers.DataSource;
+import edu.ucdenver.ccp.datasource.identifiers.Identifier;
 
+@Identifier(ontClass = CcpExtensionOntology.UNIPROT_IDENTIFIER)
 public class UniProtID extends DataSourceIdentifier<String> {
 
 	public UniProtID(String resourceID) {
 		super(resourceID, DataSource.UNIPROT);
-}
+	}
 
 	/**
 	 * See http://www.uniprot.org/manual/accession_numbers
@@ -58,8 +62,9 @@ public class UniProtID extends DataSourceIdentifier<String> {
 	}
 
 	private static String getInvalidGeneIDErrorMessage(String uniprotID) {
-		return String.format("Invalid UniProt ID: %s. This ID does not comply with the specifications "
-				+ "for UniProt accession numbers as defined here: http://www.uniprot.org/manual/accession_numbers",
+		return String.format(
+				"Invalid UniProt ID: %s. This ID does not comply with the specifications "
+						+ "for UniProt accession numbers as defined here: http://www.uniprot.org/manual/accession_numbers",
 				uniprotID);
 	}
 }

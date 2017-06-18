@@ -1,5 +1,7 @@
 package edu.ucdenver.ccp.datasource.identifiers.obo;
 
+import edu.ucdenver.ccp.datasource.fileparsers.CcpExtensionOntology;
+
 /*
  * #%L
  * Colorado Computational Pharmacology's common module
@@ -34,7 +36,9 @@ package edu.ucdenver.ccp.datasource.identifiers.obo;
  */
 
 import edu.ucdenver.ccp.datasource.identifiers.DataSource;
+import edu.ucdenver.ccp.datasource.identifiers.Identifier;
 
+@Identifier(ontClass=CcpExtensionOntology.MOLECULAR_INTERACTION_ONTOLOGY_CONCEPT_IDENTIFIER)
 public class MolecularInteractionOntologyTermID extends OntologyID {
 
 	public static final String MOLECULAR_INTERACTION_ONTOLOGY_ID_PREFIX = "MI:";

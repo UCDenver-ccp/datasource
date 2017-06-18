@@ -123,8 +123,8 @@ public class SubRecordUtilTest {
 		String fieldValueHash2 = "OmYYDRUb8J1Czc5oVJylN61vAZ8";
 		String fieldValueHash3 = "LaDkkgFRguECzB9LF81DCE_b7es";
 		String fieldValueHash4 = "oE49wz1Ki32ivuid120WR5iHQ9Q";
-		String subRecordHash = "aSYVxzLLPT79Cw7ehQ1Ar2owhok";
-		String fieldValueHash5 = "4LFyqtJfjVG7n-XHVEiJWxwsLdQ";
+		String subRecordHash = "PyNURVmw6qiw-R0qkg86MSacIAM";
+		String fieldValueHash5 = "UGT91mCJZqOPMEhgRQF0K5on24g";
 		String fieldValueHash6 = "WzInWzqftc4j-WXTe1VkisDjgiE";
 
 		/* @formatter:off*/
@@ -187,11 +187,11 @@ public class SubRecordUtilTest {
 		String fieldValueHash2 = "OmYYDRUb8J1Czc5oVJylN61vAZ8";
 		String fieldValueHash3 = "LaDkkgFRguECzB9LF81DCE_b7es";
 		String fieldValueHash4 = "oE49wz1Ki32ivuid120WR5iHQ9Q";
-		String subRecordHash2 = "HuCPQapIEEvg-VTnWsAA8fLmnME";
-		String fieldValueHash5 = "4LFyqtJfjVG7n-XHVEiJWxwsLdQ";
+		String subRecordHash2 = "o5M4rxykXc8IiQ3jPbBEVas4POc";
+		String fieldValueHash5 = "UGT91mCJZqOPMEhgRQF0K5on24g";
 		String fieldValueHash6 = "WzInWzqftc4j-WXTe1VkisDjgiE";
-		String subRecordHash1 = "aSYVxzLLPT79Cw7ehQ1Ar2owhok";
-		String fieldValueHash7 = "XkNJaLo79JkFO_O9HY4h5qdFims";
+		String subRecordHash1 = "PyNURVmw6qiw-R0qkg86MSacIAM";
+		String fieldValueHash7 = "vjOXKAMRa4AA8jYMeNZqAirFXG0";
 		String fieldValueHash8 = "REwB4v5-tgw3nELiwL23fWpR744";
 
 		/* @formatter:off*/
@@ -284,10 +284,10 @@ public class SubRecordUtilTest {
 		String fieldValueHash2 = "OmYYDRUb8J1Czc5oVJylN61vAZ8";
 		String fieldValueHash3 = "LaDkkgFRguECzB9LF81DCE_b7es";
 		String fieldValueHash4 = "oE49wz1Ki32ivuid120WR5iHQ9Q";
-		String subRecordHash2 = "-YoYAdSbystwe3rqCvPUurA2VMA";
+		String subRecordHash2 = "0NXuy7cW1TS8M011RaFv00tMtU4";
 		String subRecordHash1 = "U8jUIztV_hVS3iS5GPGiJoAlvrw";
-		String fieldValueHash5 = "RisilOz1i1u9jo5nGR4GCq4LSJ4";
-		String fieldValueHash6 = "G3oAzJbUYIeR-SnSTy1SDJE9Cjo";
+		String fieldValueHash5 = "e4ZIzcl5h8DRcMO-1XgxuzOTed0";
+		String fieldValueHash6 = "NWDo6g_-RTJBSS22ys_3rlGd-lY";
 
 		/* @formatter:off */
 		Set<String> expectedStatements = CollectionsUtil.createSet(
@@ -320,6 +320,7 @@ public class SubRecordUtilTest {
 				"(http://ccp.ucdenver.edu/obo/ext/F_" + fieldValueHash5 + ", " + RDFS.LABEL.toString() + ", \"MI:0123\"@en)",
 				"(http://ccp.ucdenver.edu/obo/ext/F_" + fieldValueHash5 + ", http://www.w3.org/1999/02/22-rdf-syntax-ns#type, " + CcpExtensionOntology.IREFWEB_INTERACTION_SOURCE_DATABASE_RECORD___SOURCE_DATABASE_IDENTIFIER_FIELD_VALUE.uri() + ")",
 				"(http://ccp.ucdenver.edu/obo/ext/F_" + fieldValueHash5 + ", " + RDF.TYPE.toString() + ", http://ccp.ucdenver.edu/obo/ext/MI_0123)",
+				"(http://ccp.ucdenver.edu/obo/ext/MI_0123, "+ RDFS.SUBCLASSOF.toString() + ", "+ CcpExtensionOntology.MOLECULAR_INTERACTION_ONTOLOGY_CONCEPT_IDENTIFIER.uri() + ")",
 //				
 				"(http://ccp.ucdenver.edu/obo/ext/R_" + subRecordHash2 + ", http://purl.obolibrary.org/obo/BFO_0000051, http://ccp.ucdenver.edu/obo/ext/F_" + fieldValueHash6 + ")",
 				"(http://ccp.ucdenver.edu/obo/ext/F_" + fieldValueHash6 + ", " + RDFS.LABEL.toString() + ", \"miTerm123\"@en)",
