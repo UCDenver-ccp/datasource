@@ -53,6 +53,7 @@ import edu.ucdenver.ccp.datasource.identifiers.impl.bio.NcbiGeneId;
 import edu.ucdenver.ccp.datasource.identifiers.impl.bio.OmimID;
 import edu.ucdenver.ccp.datasource.identifiers.impl.bio.RefSeqID;
 import edu.ucdenver.ccp.datasource.identifiers.impl.bio.RgdID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.RnaCentralId;
 import edu.ucdenver.ccp.datasource.identifiers.impl.bio.UcscGenomeBrowserId;
 import edu.ucdenver.ccp.datasource.identifiers.impl.bio.UniProtID;
 import edu.ucdenver.ccp.datasource.identifiers.impl.bio.VegaID;
@@ -282,6 +283,9 @@ public class HgncDownloadFileData extends SingleLineFileRecord {
 	private final Set<MgiGeneID> suppliedMgiIds;
 	@RecordField(ontClass = CcpExtensionOntology.HGNC_GENE_RECORD___SUPPLIED_RGD_IDENTIFIER_FIELD_VALUE)
 	private final Set<RgdID> suppliedRgdIds;
+	@RecordField(ontClass = CcpExtensionOntology.HGNC_GENE_RECORD___SUPPLIED_RNACENTRAL_IDENTIFIER_FIELD_VALUE)
+	private final Set<RnaCentralId> suppliedRnaCentralIds;
+	
 
 	/**
 	 * @param byteOffset
@@ -339,7 +343,7 @@ public class HgncDownloadFileData extends SingleLineFileRecord {
 			Set<LocusSpecificDatabaseNameLinkPair> locusSpecificDatabaseNameLinkPairings,
 			NcbiGeneId suppliedEntrezGeneId, Set<OmimID> suppliedOmimIds, RefSeqID suppliedRefseqId,
 			Set<UniProtID> suppliedUniprotIds, EnsemblGeneID suppliedEnsemblId, VegaID suppliedVegaId,
-			UcscGenomeBrowserId suppliedUcscId, Set<MgiGeneID> suppliedMgiIds, Set<RgdID> suppliedRgdIds,
+			UcscGenomeBrowserId suppliedUcscId, Set<MgiGeneID> suppliedMgiIds, Set<RgdID> suppliedRgdIds, Set<RnaCentralId> suppliedRnaCentralIds,
 			long byteOffset, long lineNumber) {
 		super(byteOffset, lineNumber);
 		this.hgncID = hgncID;
@@ -381,6 +385,7 @@ public class HgncDownloadFileData extends SingleLineFileRecord {
 		this.suppliedUcscId = suppliedUcscId;
 		this.suppliedMgiIds = suppliedMgiIds;
 		this.suppliedRgdIds = suppliedRgdIds;
+		this.suppliedRnaCentralIds = suppliedRnaCentralIds;
 	}
 
 	@Data
