@@ -39,8 +39,8 @@ import java.io.IOException;
 import edu.ucdenver.ccp.common.file.CharacterEncoding;
 import edu.ucdenver.ccp.common.file.reader.Line;
 import edu.ucdenver.ccp.datasource.fileparsers.SingleLineFileRecordReader;
-import edu.ucdenver.ccp.datasource.identifiers.impl.HumanPhenotypeID;
-import edu.ucdenver.ccp.datasource.identifiers.impl.NcbiGeneId;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.HumanPhenotypeID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.NcbiGeneId;
 
 public class HpAnnotationFileRecordReader extends SingleLineFileRecordReader<HpAnnotationFileRecord> {
 

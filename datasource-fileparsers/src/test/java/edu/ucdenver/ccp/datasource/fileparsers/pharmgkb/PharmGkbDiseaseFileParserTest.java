@@ -53,9 +53,9 @@ import edu.ucdenver.ccp.common.file.FileUtil;
 import edu.ucdenver.ccp.datasource.fileparsers.RecordReader;
 import edu.ucdenver.ccp.datasource.fileparsers.test.RecordReaderTester;
 import edu.ucdenver.ccp.datasource.identifiers.DataSourceIdentifier;
-import edu.ucdenver.ccp.datasource.identifiers.impl.MeshID;
-import edu.ucdenver.ccp.datasource.identifiers.impl.SnoMedCtId;
-import edu.ucdenver.ccp.datasource.identifiers.impl.UmlsId;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.MeshID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.SnoMedCtId;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.UmlsId;
 
 public class PharmGkbDiseaseFileParserTest extends RecordReaderTester {
 

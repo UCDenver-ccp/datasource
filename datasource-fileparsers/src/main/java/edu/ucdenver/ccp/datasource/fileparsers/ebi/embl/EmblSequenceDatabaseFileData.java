@@ -42,8 +42,8 @@ import java.util.Set;
 import edu.ucdenver.ccp.datasource.fileparsers.Record;
 import edu.ucdenver.ccp.datasource.identifiers.DataSource;
 import edu.ucdenver.ccp.datasource.identifiers.DataSourceIdentifier;
-import edu.ucdenver.ccp.datasource.identifiers.impl.EmblID;
-import edu.ucdenver.ccp.datasource.identifiers.impl.InsdcProjectId;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.EmblID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.InsdcProjectId;
 
 /**
  * @author Colorado Computational Pharmacology, UC Denver; ccpsupport@ucdenver.edu

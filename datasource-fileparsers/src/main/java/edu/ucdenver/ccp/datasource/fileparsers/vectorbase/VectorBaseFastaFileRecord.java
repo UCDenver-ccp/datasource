@@ -6,7 +6,7 @@ import edu.ucdenver.ccp.datasource.fileparsers.FileRecord;
 import edu.ucdenver.ccp.datasource.fileparsers.Record;
 import edu.ucdenver.ccp.datasource.fileparsers.RecordField;
 import edu.ucdenver.ccp.datasource.identifiers.DataSource;
-import edu.ucdenver.ccp.datasource.identifiers.impl.VectorBaseID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.VectorBaseID;
 
 /*
  * #%L

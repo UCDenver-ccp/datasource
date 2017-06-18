@@ -75,9 +75,9 @@ import edu.ucdenver.ccp.datasource.fileparsers.ncbi.gene.NcbiGeneInfoFileData;
 import edu.ucdenver.ccp.datasource.fileparsers.ncbi.gene.NcbiGeneInfoFileParser;
 import edu.ucdenver.ccp.datasource.identifiers.DataSource;
 import edu.ucdenver.ccp.datasource.identifiers.DataSourceIdentifier;
-import edu.ucdenver.ccp.datasource.identifiers.impl.IntActID;
-import edu.ucdenver.ccp.datasource.identifiers.impl.NcbiTaxonomyID;
-import edu.ucdenver.ccp.datasource.identifiers.impl.UniProtID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.IntActID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.NcbiTaxonomyID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.UniProtID;
 
 /**
  * This class provides a factory for generating files that contain canonical

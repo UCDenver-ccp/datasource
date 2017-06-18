@@ -55,11 +55,11 @@ import edu.ucdenver.ccp.datasource.fileparsers.RecordReader;
 import edu.ucdenver.ccp.datasource.fileparsers.test.RecordReaderTester;
 import edu.ucdenver.ccp.datasource.identifiers.DataSourceIdentifier;
 import edu.ucdenver.ccp.datasource.identifiers.NucleotideAccessionResolver;
-import edu.ucdenver.ccp.datasource.identifiers.impl.EnsemblGeneID;
-import edu.ucdenver.ccp.datasource.identifiers.impl.MgiGeneID;
-import edu.ucdenver.ccp.datasource.identifiers.impl.RefSeqID;
-import edu.ucdenver.ccp.datasource.identifiers.impl.UniProtID;
-import edu.ucdenver.ccp.datasource.identifiers.impl.VegaID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.EnsemblGeneID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.MgiGeneID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.RefSeqID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.UniProtID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.VegaID;
 
 /**
  * 

@@ -84,11 +84,11 @@ import edu.ucdenver.ccp.common.string.StringUtil.RemoveFieldEnclosures;
 import edu.ucdenver.ccp.datasource.fileparsers.SingleLineFileRecordReader;
 import edu.ucdenver.ccp.datasource.identifiers.DataSourceIdentifier;
 import edu.ucdenver.ccp.datasource.identifiers.UnknownDataSourceIdentifier;
-import edu.ucdenver.ccp.datasource.identifiers.impl.PharmGkbHaplotypeId;
-import edu.ucdenver.ccp.datasource.identifiers.impl.PharmGkbID;
-import edu.ucdenver.ccp.datasource.identifiers.impl.PharmGkbVariantLocationId;
-import edu.ucdenver.ccp.datasource.identifiers.impl.PubMedID;
-import edu.ucdenver.ccp.datasource.identifiers.impl.RefSnpID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.PharmGkbHaplotypeId;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.PharmGkbID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.PharmGkbVariantLocationId;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.RefSnpID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.ice.PubMedID;
 
 public class PharmGkbRelationFileParser extends SingleLineFileRecordReader<PharmGkbRelationFileRecord> {
 

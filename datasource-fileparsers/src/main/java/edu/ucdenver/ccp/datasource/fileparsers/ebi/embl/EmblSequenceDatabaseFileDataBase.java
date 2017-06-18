@@ -60,7 +60,7 @@ import edu.ucdenver.ccp.datasource.fileparsers.Record;
 import edu.ucdenver.ccp.datasource.fileparsers.RecordField;
 import edu.ucdenver.ccp.datasource.identifiers.DataSource;
 import edu.ucdenver.ccp.datasource.identifiers.DataSourceIdentifier;
-import edu.ucdenver.ccp.datasource.identifiers.impl.InsdcProjectId;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.InsdcProjectId;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 

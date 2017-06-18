@@ -55,19 +55,19 @@ import edu.ucdenver.ccp.datasource.fileparsers.hgnc.HgncDownloadFileData.Special
 import edu.ucdenver.ccp.datasource.fileparsers.hgnc.HgncDownloadFileParser.WithdrawnRecordTreatment;
 import edu.ucdenver.ccp.datasource.fileparsers.test.RecordReaderTester;
 import edu.ucdenver.ccp.datasource.identifiers.NucleotideAccessionResolver;
-import edu.ucdenver.ccp.datasource.identifiers.impl.CcdsId;
-import edu.ucdenver.ccp.datasource.identifiers.impl.CosmicId;
-import edu.ucdenver.ccp.datasource.identifiers.impl.EnsemblGeneID;
-import edu.ucdenver.ccp.datasource.identifiers.impl.HgncGeneSymbolID;
-import edu.ucdenver.ccp.datasource.identifiers.impl.HgncID;
-import edu.ucdenver.ccp.datasource.identifiers.impl.MgiGeneID;
-import edu.ucdenver.ccp.datasource.identifiers.impl.NcbiGeneId;
-import edu.ucdenver.ccp.datasource.identifiers.impl.PubMedID;
-import edu.ucdenver.ccp.datasource.identifiers.impl.RefSeqID;
-import edu.ucdenver.ccp.datasource.identifiers.impl.RgdID;
-import edu.ucdenver.ccp.datasource.identifiers.impl.UcscGenomeBrowserId;
-import edu.ucdenver.ccp.datasource.identifiers.impl.UniProtID;
-import edu.ucdenver.ccp.datasource.identifiers.impl.VegaID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.CcdsId;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.CosmicId;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.EnsemblGeneID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.HgncGeneSymbolID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.HgncID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.MgiGeneID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.NcbiGeneId;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.RefSeqID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.RgdID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.UcscGenomeBrowserId;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.UniProtID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.VegaID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.ice.PubMedID;
 
 public class HgncDownloadFileParserTest extends RecordReaderTester {
 

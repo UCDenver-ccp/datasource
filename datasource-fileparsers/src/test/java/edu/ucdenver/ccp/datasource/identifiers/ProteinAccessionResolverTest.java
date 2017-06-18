@@ -40,11 +40,11 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
-import edu.ucdenver.ccp.datasource.identifiers.impl.DdbjId;
-import edu.ucdenver.ccp.datasource.identifiers.impl.EmblID;
-import edu.ucdenver.ccp.datasource.identifiers.impl.GenBankID;
-import edu.ucdenver.ccp.datasource.identifiers.impl.RefSeqID;
-import edu.ucdenver.ccp.datasource.identifiers.impl.UniProtID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.DdbjId;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.EmblID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.GenBankID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.RefSeqID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.UniProtID;
 
 /**
  * @author Colorado Computational Pharmacology, UC Denver; ccpsupport@ucdenver.edu

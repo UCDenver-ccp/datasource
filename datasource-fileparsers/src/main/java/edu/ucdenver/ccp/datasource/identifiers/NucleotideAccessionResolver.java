@@ -46,11 +46,11 @@ import java.util.regex.Pattern;
 import org.apache.log4j.Logger;
 
 import edu.ucdenver.ccp.common.collections.CollectionsUtil;
-import edu.ucdenver.ccp.datasource.identifiers.impl.DdbjId;
-import edu.ucdenver.ccp.datasource.identifiers.impl.EmblID;
-import edu.ucdenver.ccp.datasource.identifiers.impl.GenBankID;
-import edu.ucdenver.ccp.datasource.identifiers.impl.NcbiTraceId;
-import edu.ucdenver.ccp.datasource.identifiers.impl.RefSeqID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.DdbjId;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.EmblID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.GenBankID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.NcbiTraceId;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.RefSeqID;
 
 /**
  * Resolution of accession identifiers based on prefixes available here:

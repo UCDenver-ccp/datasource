@@ -52,16 +52,16 @@ import edu.ucdenver.ccp.datasource.fileparsers.idlist.IdListFileFactory;
 import edu.ucdenver.ccp.datasource.fileparsers.taxonaware.TaxonAwareSingleLineFileRecordReader;
 import edu.ucdenver.ccp.datasource.identifiers.DataSource;
 import edu.ucdenver.ccp.datasource.identifiers.DataSourceIdentifier;
-import edu.ucdenver.ccp.datasource.identifiers.impl.DOI;
-import edu.ucdenver.ccp.datasource.identifiers.impl.GeneOntologyID;
-import edu.ucdenver.ccp.datasource.identifiers.impl.IntActID;
-import edu.ucdenver.ccp.datasource.identifiers.impl.IpiID;
-import edu.ucdenver.ccp.datasource.identifiers.impl.NcbiTaxonomyID;
-import edu.ucdenver.ccp.datasource.identifiers.impl.PubMedID;
-import edu.ucdenver.ccp.datasource.identifiers.impl.ReactomeReactionID;
-import edu.ucdenver.ccp.datasource.identifiers.impl.RnaCentralId;
-import edu.ucdenver.ccp.datasource.identifiers.impl.UniProtID;
-import edu.ucdenver.ccp.datasource.identifiers.impl.UniProtIsoformID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.GeneOntologyID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.IntActID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.IpiID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.NcbiTaxonomyID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.ReactomeReactionID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.RnaCentralId;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.UniProtID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.UniProtIsoformID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.ice.DOI;
+import edu.ucdenver.ccp.datasource.identifiers.impl.ice.PubMedID;
 
 /**
  * NOTE: This class has been deprecated as the file format that it parses has been

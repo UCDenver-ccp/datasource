@@ -4,7 +4,7 @@ import edu.ucdenver.ccp.datasource.fileparsers.Record;
 import edu.ucdenver.ccp.datasource.fileparsers.RecordField;
 import edu.ucdenver.ccp.datasource.fileparsers.SingleLineFileRecord;
 import edu.ucdenver.ccp.datasource.identifiers.DataSource;
-import edu.ucdenver.ccp.datasource.identifiers.impl.ZfinID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.ZfinID;
 
 /*
  * #%L

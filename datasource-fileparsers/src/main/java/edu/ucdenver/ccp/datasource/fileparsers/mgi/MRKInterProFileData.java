@@ -38,8 +38,8 @@ import java.util.Set;
 
 import edu.ucdenver.ccp.common.file.reader.Line;
 import edu.ucdenver.ccp.datasource.fileparsers.SingleLineFileRecord;
-import edu.ucdenver.ccp.datasource.identifiers.impl.InterProID;
-import edu.ucdenver.ccp.datasource.identifiers.impl.MgiGeneID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.InterProID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.MgiGeneID;
 
 /**
  * This class is deprecated. The MRK_InterPro.rpt file is no long available on the MGI FTP site

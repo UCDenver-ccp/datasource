@@ -45,10 +45,10 @@ import edu.ucdenver.ccp.datasource.fileparsers.RecordField;
 import edu.ucdenver.ccp.datasource.fileparsers.SingleLineFileRecord;
 import edu.ucdenver.ccp.datasource.identifiers.DataSource;
 import edu.ucdenver.ccp.datasource.identifiers.DataSourceIdentifier;
-import edu.ucdenver.ccp.datasource.identifiers.impl.EnsemblGeneID;
-import edu.ucdenver.ccp.datasource.identifiers.impl.HgncID;
-import edu.ucdenver.ccp.datasource.identifiers.impl.NcbiGeneId;
-import edu.ucdenver.ccp.datasource.identifiers.impl.PharmGkbID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.EnsemblGeneID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.HgncID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.NcbiGeneId;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.PharmGkbID;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 

@@ -71,10 +71,10 @@ import edu.ucdenver.ccp.common.string.StringUtil;
 import edu.ucdenver.ccp.datasource.fileparsers.MultiLineFileRecordReader;
 import edu.ucdenver.ccp.datasource.identifiers.DataSourceIdentifier;
 import edu.ucdenver.ccp.datasource.identifiers.NucleotideAccessionResolver;
-import edu.ucdenver.ccp.datasource.identifiers.impl.AgricolaId;
-import edu.ucdenver.ccp.datasource.identifiers.impl.DOI;
-import edu.ucdenver.ccp.datasource.identifiers.impl.InsdcProjectId;
-import edu.ucdenver.ccp.datasource.identifiers.impl.PubMedID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.AgricolaId;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.InsdcProjectId;
+import edu.ucdenver.ccp.datasource.identifiers.impl.ice.DOI;
+import edu.ucdenver.ccp.datasource.identifiers.impl.ice.PubMedID;
 import lombok.Data;
 
 public abstract class EmblSequenceDatabaseFileParserBase<T extends EmblSequenceDatabaseFileDataBase, D extends DataSourceIdentifier<?>, E extends IdLineContents<?>>

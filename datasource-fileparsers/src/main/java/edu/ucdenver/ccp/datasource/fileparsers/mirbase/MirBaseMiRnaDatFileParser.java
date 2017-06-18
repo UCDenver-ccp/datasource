@@ -59,19 +59,19 @@ import edu.ucdenver.ccp.datasource.fileparsers.ebi.embl.EmblReferenceCitation;
 import edu.ucdenver.ccp.datasource.fileparsers.ebi.embl.EmblSequenceDatabaseFileParserBase;
 import edu.ucdenver.ccp.datasource.fileparsers.ebi.embl.SequenceFeature;
 import edu.ucdenver.ccp.datasource.identifiers.DataSourceIdentifier;
-import edu.ucdenver.ccp.datasource.identifiers.impl.AgricolaId;
-import edu.ucdenver.ccp.datasource.identifiers.impl.AsrpId;
-import edu.ucdenver.ccp.datasource.identifiers.impl.DOI;
-import edu.ucdenver.ccp.datasource.identifiers.impl.HgncID;
-import edu.ucdenver.ccp.datasource.identifiers.impl.InsdcProjectId;
-import edu.ucdenver.ccp.datasource.identifiers.impl.MgiGeneID;
-import edu.ucdenver.ccp.datasource.identifiers.impl.MiRBaseID;
-import edu.ucdenver.ccp.datasource.identifiers.impl.MirteId;
-import edu.ucdenver.ccp.datasource.identifiers.impl.NcbiGeneId;
-import edu.ucdenver.ccp.datasource.identifiers.impl.PictarId;
-import edu.ucdenver.ccp.datasource.identifiers.impl.PubMedID;
-import edu.ucdenver.ccp.datasource.identifiers.impl.RfamId;
-import edu.ucdenver.ccp.datasource.identifiers.impl.WormBaseID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.AgricolaId;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.AsrpId;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.HgncID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.InsdcProjectId;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.MgiGeneID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.MiRBaseID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.MirteId;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.NcbiGeneId;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.PictarId;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.RfamId;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.WormBaseID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.ice.DOI;
+import edu.ucdenver.ccp.datasource.identifiers.impl.ice.PubMedID;
 
 public class MirBaseMiRnaDatFileParser extends
 		EmblSequenceDatabaseFileParserBase<MirBaseMiRnaDatFileData, MiRBaseID, MirBaseIdLineContents> {

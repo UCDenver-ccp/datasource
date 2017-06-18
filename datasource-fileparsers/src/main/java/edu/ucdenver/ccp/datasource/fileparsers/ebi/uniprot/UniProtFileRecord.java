@@ -81,7 +81,10 @@ import edu.ucdenver.ccp.datasource.identifiers.DataSource;
 import edu.ucdenver.ccp.datasource.identifiers.DataSourceIdentifier;
 import edu.ucdenver.ccp.datasource.identifiers.ProbableErrorDataSourceIdentifier;
 import edu.ucdenver.ccp.datasource.identifiers.UnknownDataSourceIdentifier;
-import edu.ucdenver.ccp.datasource.identifiers.impl.*;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.*;
+import edu.ucdenver.ccp.datasource.identifiers.impl.ice.DOI;
+import edu.ucdenver.ccp.datasource.identifiers.impl.ice.MedlineId;
+import edu.ucdenver.ccp.datasource.identifiers.impl.ice.PubMedID;
 import lombok.Getter;
 
 /**

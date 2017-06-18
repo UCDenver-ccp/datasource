@@ -62,7 +62,7 @@ import org.openrdf.rio.RDFWriter;
 import org.openrdf.rio.Rio;
 
 import edu.ucdenver.ccp.common.test.DefaultTestCase;
-import edu.ucdenver.ccp.datasource.identifiers.impl.NcbiGeneId;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.NcbiGeneId;
 
 public class RdfUtilTest extends DefaultTestCase {
 

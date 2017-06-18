@@ -49,8 +49,8 @@ import edu.ucdenver.ccp.datasource.fileparsers.RecordField;
 import edu.ucdenver.ccp.datasource.identifiers.DataSource;
 import edu.ucdenver.ccp.datasource.identifiers.DataSourceIdResolver;
 import edu.ucdenver.ccp.datasource.identifiers.DataSourceIdentifier;
-import edu.ucdenver.ccp.datasource.identifiers.impl.KeggGeneID;
-import edu.ucdenver.ccp.datasource.identifiers.impl.KeggPathwayID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.KeggGeneID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.KeggPathwayID;
 
 /**
  * Data structure used to represent KEGG genes file downloaded as part of

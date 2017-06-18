@@ -117,7 +117,7 @@ public class CcpOntologyEnumBuilder {
 		}
 	}
 
-	private static String createEnumLabel(String label) {
+	public static String createEnumLabel(String label) {
 		return removeLanguageTag(label).toUpperCase().replaceAll(" ", "_").replaceAll("-", "_").replaceAll("\\.", "")
 				.replaceAll("\\(", "").replaceAll("\\)", "");
 	}

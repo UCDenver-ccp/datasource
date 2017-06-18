@@ -4,8 +4,8 @@ import edu.ucdenver.ccp.datasource.fileparsers.Record;
 import edu.ucdenver.ccp.datasource.fileparsers.RecordField;
 import edu.ucdenver.ccp.datasource.fileparsers.SingleLineFileRecord;
 import edu.ucdenver.ccp.datasource.identifiers.DataSource;
-import edu.ucdenver.ccp.datasource.identifiers.impl.FissionYeastPhenotypeID;
-import edu.ucdenver.ccp.datasource.identifiers.impl.PomBaseId;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.FissionYeastPhenotypeID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.PomBaseId;
 
 /*
  * #%L

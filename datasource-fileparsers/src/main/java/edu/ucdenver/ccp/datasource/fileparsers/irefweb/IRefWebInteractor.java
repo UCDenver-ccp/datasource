@@ -41,10 +41,10 @@ import edu.ucdenver.ccp.datasource.fileparsers.Record;
 import edu.ucdenver.ccp.datasource.fileparsers.RecordField;
 import edu.ucdenver.ccp.datasource.identifiers.DataSource;
 import edu.ucdenver.ccp.datasource.identifiers.DataSourceIdentifier;
-import edu.ucdenver.ccp.datasource.identifiers.impl.IRefWebCrogId;
-import edu.ucdenver.ccp.datasource.identifiers.impl.IRefWebIcrogId;
-import edu.ucdenver.ccp.datasource.identifiers.impl.IRefWebIrogId;
-import edu.ucdenver.ccp.datasource.identifiers.impl.IRefWebRogId;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.IRefWebCrogId;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.IRefWebIcrogId;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.IRefWebIrogId;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.IRefWebRogId;
 import lombok.Data;
 
 /**

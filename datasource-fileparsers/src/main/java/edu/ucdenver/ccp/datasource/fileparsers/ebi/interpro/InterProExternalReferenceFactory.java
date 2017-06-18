@@ -35,18 +35,18 @@ package edu.ucdenver.ccp.datasource.fileparsers.ebi.interpro;
 
 import edu.ucdenver.ccp.datasource.identifiers.DataSourceIdentifier;
 import edu.ucdenver.ccp.datasource.identifiers.UnknownDataSourceIdentifier;
-import edu.ucdenver.ccp.datasource.identifiers.impl.Gene3dID;
-import edu.ucdenver.ccp.datasource.identifiers.impl.HamapAnnotationRuleID;
-import edu.ucdenver.ccp.datasource.identifiers.impl.PantherID;
-import edu.ucdenver.ccp.datasource.identifiers.impl.PfamID;
-import edu.ucdenver.ccp.datasource.identifiers.impl.PirSfID;
-import edu.ucdenver.ccp.datasource.identifiers.impl.PrintsID;
-import edu.ucdenver.ccp.datasource.identifiers.impl.ProDomID;
-import edu.ucdenver.ccp.datasource.identifiers.impl.PrositeID;
-import edu.ucdenver.ccp.datasource.identifiers.impl.SmartID;
-import edu.ucdenver.ccp.datasource.identifiers.impl.SuperFamID;
-import edu.ucdenver.ccp.datasource.identifiers.impl.TigrFamsID;
-import edu.ucdenver.ccp.datasource.identifiers.impl.UncharacterizedPfamID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.Gene3dID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.HamapAnnotationRuleID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.PantherID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.PfamID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.PirSfID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.PrintsID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.ProDomID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.PrositeID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.SmartID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.SuperFamID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.TigrFamsID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.UncharacterizedPfamID;
 
 public class InterProExternalReferenceFactory {
 

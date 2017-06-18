@@ -37,7 +37,7 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
-import edu.ucdenver.ccp.datasource.identifiers.impl.RefSeqID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.RefSeqID;
 
 
 

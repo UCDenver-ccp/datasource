@@ -51,10 +51,10 @@ import edu.ucdenver.ccp.datasource.fileparsers.RecordField;
 import edu.ucdenver.ccp.datasource.fileparsers.SingleLineFileRecord;
 import edu.ucdenver.ccp.datasource.identifiers.DataSource;
 import edu.ucdenver.ccp.datasource.identifiers.DataSourceIdentifier;
-import edu.ucdenver.ccp.datasource.identifiers.impl.MeshID;
-import edu.ucdenver.ccp.datasource.identifiers.impl.PharmGkbID;
-import edu.ucdenver.ccp.datasource.identifiers.impl.SnoMedCtId;
-import edu.ucdenver.ccp.datasource.identifiers.impl.UmlsId;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.MeshID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.PharmGkbID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.SnoMedCtId;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.UmlsId;
 
 /**
  * File record capturing single line record from PharmGKB's diseases.tsv file.
