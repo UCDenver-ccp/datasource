@@ -137,7 +137,7 @@ public class PharmGkbGeneFileParser extends SingleLineFileRecordReader<PharmGkbG
 	private static final String URL_PREFIX = "Web Resource:";
 	
 
-	@HttpDownload(url = "https://www.pharmgkb.org/download.do?objId=genes.zip&dlCls=common", fileName = "genes.zip", targetFileName = "genes.tsv", decompress = true)
+	@HttpDownload(url = "https://api.pharmgkb.org/v1/download/file/data/genes.zip", fileName = "genes.zip", targetFileName = "genes.tsv", decompress = true)
 	private File pharmGkbGenesFile;
 
 	public PharmGkbGeneFileParser(File dataFile, CharacterEncoding encoding) throws IOException {
@@ -302,16 +302,6 @@ public class PharmGkbGeneFileParser extends SingleLineFileRecordReader<PharmGkbG
 		} catch (IllegalArgumentException e) {
 			logger.warn("Illegal data source identifier detected: '" + refStr + "' due to: " + e.getMessage());
 			return new ProbableErrorDataSourceIdentifier(refStr, null, e.getMessage());
-		}
-	}
-
-	public static void main(String[] args) {
-		try {
-			for (PharmGkbGeneFileParser p = new PharmGkbGeneFileParser(new File("/tmp/pharmgkb"), false); p.hasNext();) {
-				p.next();
-			}
-		} catch (IOException e) {
-			e.printStackTrace();
 		}
 	}
 

@@ -51,7 +51,7 @@ public class PharmGkbDiseaseFileParser extends SingleLineFileRecordReader<PharmG
 	public static final String PHARMGKB_DISEASE_RECORD_ID_PREFIX = "PHARMGKB_DISEASE_RECORD_";
 
 	private static final CharacterEncoding ENCODING = CharacterEncoding.ISO_8859_1;
-	@HttpDownload(url = "https://www.pharmgkb.org/download.do?objId=diseases.zip&dlCls=common", fileName = "diseases.zip", targetFileName = "diseases.tsv", decompress=true)
+	@HttpDownload(url = "https://api.pharmgkb.org/v1/download/file/data/phenotypes.zip", fileName = "phenotypes.zip", targetFileName = "phenotypes.tsv", decompress=true)
 	private File pharmGkbDiseasesFile;
 
 	public PharmGkbDiseaseFileParser(File dataFile, CharacterEncoding encoding) throws IOException {
@@ -89,5 +89,5 @@ public class PharmGkbDiseaseFileParser extends SingleLineFileRecordReader<PharmG
 		return new PharmGkbDiseaseFileRecord(pharmGkbAccessionId, name, alternativeNames, crossReferences, externalVocabulary,
 				line.getByteOffset(), line.getLineNumber());
 	}
-
+	
 }
