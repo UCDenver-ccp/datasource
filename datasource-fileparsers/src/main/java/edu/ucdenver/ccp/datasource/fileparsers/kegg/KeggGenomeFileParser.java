@@ -44,7 +44,7 @@ import java.util.zip.GZIPInputStream;
 
 import edu.ucdenver.ccp.common.file.CharacterEncoding;
 import edu.ucdenver.ccp.datasource.fileparsers.MultiLineFileRecordReader;
-import edu.ucdenver.ccp.datasource.identifiers.ncbi.taxonomy.NcbiTaxonomyID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.NcbiTaxonomyID;
 
 /**
  * This class is used to parse the Kegg genome file

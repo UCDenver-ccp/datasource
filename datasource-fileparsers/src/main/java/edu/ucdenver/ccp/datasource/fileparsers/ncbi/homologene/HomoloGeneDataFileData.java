@@ -41,11 +41,11 @@ import edu.ucdenver.ccp.datasource.fileparsers.Record;
 import edu.ucdenver.ccp.datasource.fileparsers.RecordField;
 import edu.ucdenver.ccp.datasource.fileparsers.SingleLineFileRecord;
 import edu.ucdenver.ccp.datasource.identifiers.DataSource;
-import edu.ucdenver.ccp.datasource.identifiers.ncbi.gene.GiNumberID;
-import edu.ucdenver.ccp.datasource.identifiers.ncbi.gene.NcbiGeneId;
-import edu.ucdenver.ccp.datasource.identifiers.ncbi.homologene.HomologeneGroupID;
-import edu.ucdenver.ccp.datasource.identifiers.ncbi.refseq.RefSeqID;
-import edu.ucdenver.ccp.datasource.identifiers.ncbi.taxonomy.NcbiTaxonomyID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.GiNumberID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.HomologeneGroupID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.NcbiGeneId;
+import edu.ucdenver.ccp.datasource.identifiers.impl.NcbiTaxonomyID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.RefSeqID;
 
 /**
  * This class represents data contained in the NCBI HomoloGene homologene.data file which can be

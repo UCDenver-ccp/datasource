@@ -51,7 +51,7 @@ import edu.ucdenver.ccp.common.file.FileUtil;
 import edu.ucdenver.ccp.datasource.fileparsers.RecordReader;
 import edu.ucdenver.ccp.datasource.fileparsers.idlist.IdListFileFactory;
 import edu.ucdenver.ccp.datasource.identifiers.DataSource;
-import edu.ucdenver.ccp.datasource.identifiers.ncbi.taxonomy.NcbiTaxonomyID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.NcbiTaxonomyID;
 import edu.ucdenver.ccp.datasource.rdfizer.rdf.filter.DefaultDuplicateStatementFilter;
 import edu.ucdenver.ccp.datasource.rdfizer.rdf.filter.DuplicateStatementFilter;
 import edu.ucdenver.ccp.datasource.rdfizer.rdf.filter.NoOpDuplicateStatementFilter;

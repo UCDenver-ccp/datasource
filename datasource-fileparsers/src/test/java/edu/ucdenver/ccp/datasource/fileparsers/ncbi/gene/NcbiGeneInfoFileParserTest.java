@@ -53,10 +53,10 @@ import edu.ucdenver.ccp.common.file.CharacterEncoding;
 import edu.ucdenver.ccp.common.file.FileUtil;
 import edu.ucdenver.ccp.datasource.fileparsers.test.RecordReaderTester;
 import edu.ucdenver.ccp.datasource.identifiers.DataSourceIdentifier;
-import edu.ucdenver.ccp.datasource.identifiers.ensembl.EnsemblGeneID;
-import edu.ucdenver.ccp.datasource.identifiers.mgi.MgiGeneID;
-import edu.ucdenver.ccp.datasource.identifiers.ncbi.gene.NcbiGeneId;
-import edu.ucdenver.ccp.datasource.identifiers.ncbi.taxonomy.NcbiTaxonomyID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.EnsemblGeneID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.MgiGeneID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.NcbiGeneId;
+import edu.ucdenver.ccp.datasource.identifiers.impl.NcbiTaxonomyID;
 
 /**
  * 

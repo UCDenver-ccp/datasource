@@ -46,9 +46,9 @@ import edu.ucdenver.ccp.datasource.fileparsers.RecordField;
 import edu.ucdenver.ccp.datasource.fileparsers.SingleLineFileRecord;
 import edu.ucdenver.ccp.datasource.identifiers.DataSource;
 import edu.ucdenver.ccp.datasource.identifiers.DataSourceIdentifier;
-import edu.ucdenver.ccp.datasource.identifiers.ebi.uniprot.UniProtID;
-import edu.ucdenver.ccp.datasource.identifiers.ebi.uniprot.UniProtIsoformID;
-import edu.ucdenver.ccp.datasource.identifiers.reactome.ReactomeReactionID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.ReactomeReactionID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.UniProtID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.UniProtIsoformID;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 

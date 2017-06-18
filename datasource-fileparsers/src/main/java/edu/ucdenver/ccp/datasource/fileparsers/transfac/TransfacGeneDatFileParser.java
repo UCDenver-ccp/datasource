@@ -43,9 +43,9 @@ import org.apache.log4j.Logger;
 
 import edu.ucdenver.ccp.common.file.CharacterEncoding;
 import edu.ucdenver.ccp.datasource.fileparsers.MultiLineFileRecordReader;
-import edu.ucdenver.ccp.datasource.identifiers.ncbi.gene.NcbiGeneId;
-import edu.ucdenver.ccp.datasource.identifiers.transfac.TransfacFactorID;
-import edu.ucdenver.ccp.datasource.identifiers.transfac.TransfacGeneID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.NcbiGeneId;
+import edu.ucdenver.ccp.datasource.identifiers.impl.TransfacFactorID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.TransfacGeneID;
 
 /**
  * This class is used to parse the Transfac gene.dat file, available only via registration (and

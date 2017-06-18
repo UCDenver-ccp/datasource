@@ -51,9 +51,9 @@ import org.uniprot.DbReferenceType;
 import org.uniprot.OrganismType;
 
 import edu.ucdenver.ccp.datasource.fileparsers.ebi.uniprot.UniProtFileRecord.Organism;
-import edu.ucdenver.ccp.datasource.identifiers.ebi.uniprot.UniProtEntryName;
-import edu.ucdenver.ccp.datasource.identifiers.ebi.uniprot.UniProtID;
-import edu.ucdenver.ccp.datasource.identifiers.ebi.uniprot.UniProtIsoformID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.UniProtEntryName;
+import edu.ucdenver.ccp.datasource.identifiers.impl.UniProtID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.UniProtIsoformID;
 
 /**
  * @author Center for Computational Pharmacology, UC Denver; ccpsupport@ucdenver.edu

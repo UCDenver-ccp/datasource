@@ -50,13 +50,13 @@ import edu.ucdenver.ccp.common.file.CharacterEncoding;
 import edu.ucdenver.ccp.common.file.FileUtil;
 import edu.ucdenver.ccp.datasource.fileparsers.RecordReader;
 import edu.ucdenver.ccp.datasource.fileparsers.test.RecordReaderTester;
-import edu.ucdenver.ccp.datasource.identifiers.gad.GadID;
-import edu.ucdenver.ccp.datasource.identifiers.hgnc.HgncGeneSymbolID;
-import edu.ucdenver.ccp.datasource.identifiers.ncbi.UniGeneID;
-import edu.ucdenver.ccp.datasource.identifiers.ncbi.gene.NcbiGeneId;
-import edu.ucdenver.ccp.datasource.identifiers.ncbi.omim.OmimID;
-import edu.ucdenver.ccp.datasource.identifiers.ncbi.refseq.RefSeqID;
-import edu.ucdenver.ccp.datasource.identifiers.publication.PubMedID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.GadID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.HgncGeneSymbolID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.NcbiGeneId;
+import edu.ucdenver.ccp.datasource.identifiers.impl.OmimID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.PubMedID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.RefSeqID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.UniGeneID;
 
 /**
  * 

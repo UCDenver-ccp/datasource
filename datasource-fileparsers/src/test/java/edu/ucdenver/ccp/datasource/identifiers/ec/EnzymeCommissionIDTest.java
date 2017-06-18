@@ -36,6 +36,8 @@ package edu.ucdenver.ccp.datasource.identifiers.ec;
 import org.junit.Ignore;
 import org.junit.Test;
 
+import edu.ucdenver.ccp.datasource.identifiers.impl.EnzymeCommissionID;
+
 public class EnzymeCommissionIDTest {
 
 	@Test()

@@ -44,8 +44,8 @@ import edu.ucdenver.ccp.common.file.CharacterEncoding;
 import edu.ucdenver.ccp.common.file.reader.Line;
 import edu.ucdenver.ccp.common.string.StringConstants;
 import edu.ucdenver.ccp.datasource.fileparsers.SingleLineFileRecordReader;
-import edu.ucdenver.ccp.datasource.identifiers.kegg.KeggPathwayID;
-import edu.ucdenver.ccp.datasource.identifiers.ncbi.gene.NcbiGeneId;
+import edu.ucdenver.ccp.datasource.identifiers.impl.KeggPathwayID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.NcbiGeneId;
 
 /**
  * This class is used to parse the Kegg aaa_gene_map.tab file format.

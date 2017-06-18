@@ -39,6 +39,8 @@ package edu.ucdenver.ccp.datasource.identifiers.ebi.uniprot;
 
 import org.junit.Test;
 
+import edu.ucdenver.ccp.datasource.identifiers.impl.UniProtIsoformID;
+
 /**
  * @author Colorado Computational Pharmacology, UC Denver; ccpsupport@ucdenver.edu
  *

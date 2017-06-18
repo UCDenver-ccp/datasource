@@ -46,11 +46,11 @@ import edu.ucdenver.ccp.datasource.fileparsers.SingleLineFileRecordReader;
 import edu.ucdenver.ccp.datasource.identifiers.DataSourceIdentifier;
 import edu.ucdenver.ccp.datasource.identifiers.ProbableErrorDataSourceIdentifier;
 import edu.ucdenver.ccp.datasource.identifiers.UnknownDataSourceIdentifier;
-import edu.ucdenver.ccp.datasource.identifiers.ebi.uniprot.UniProtID;
-import edu.ucdenver.ccp.datasource.identifiers.hgnc.HgncID;
-import edu.ucdenver.ccp.datasource.identifiers.mgi.MgiGeneID;
-import edu.ucdenver.ccp.datasource.identifiers.obo.ProteinOntologyId;
-import edu.ucdenver.ccp.datasource.identifiers.rgd.RgdID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.HgncID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.MgiGeneID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.ProteinOntologyId;
+import edu.ucdenver.ccp.datasource.identifiers.impl.RgdID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.UniProtID;
 
 /**
  * File parser for Protein Ongology promapping.txt file.

@@ -38,15 +38,15 @@ import org.apache.log4j.Logger;
 import edu.ucdenver.ccp.datasource.identifiers.DataSourceIdentifier;
 import edu.ucdenver.ccp.datasource.identifiers.IdResolver;
 import edu.ucdenver.ccp.datasource.identifiers.UnknownDataSourceIdentifier;
-import edu.ucdenver.ccp.datasource.identifiers.ebi.uniprot.UniProtID;
-import edu.ucdenver.ccp.datasource.identifiers.ncbi.gene.NcbiGeneId;
-import edu.ucdenver.ccp.datasource.identifiers.ncbi.omim.OmimID;
-import edu.ucdenver.ccp.datasource.identifiers.obo.MammalianPhenotypeID;
-import edu.ucdenver.ccp.datasource.identifiers.publication.PubMedID;
-import edu.ucdenver.ccp.datasource.identifiers.rgd.NboId;
-import edu.ucdenver.ccp.datasource.identifiers.rgd.PwId;
-import edu.ucdenver.ccp.datasource.identifiers.rgd.RdoId;
-import edu.ucdenver.ccp.datasource.identifiers.rgd.RgdID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.MammalianPhenotypeID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.NboId;
+import edu.ucdenver.ccp.datasource.identifiers.impl.NcbiGeneId;
+import edu.ucdenver.ccp.datasource.identifiers.impl.OmimID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.PubMedID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.PwId;
+import edu.ucdenver.ccp.datasource.identifiers.impl.RdoId;
+import edu.ucdenver.ccp.datasource.identifiers.impl.RgdID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.UniProtID;
 
 /**
  * @author Center for Computational Pharmacology, UC Denver;

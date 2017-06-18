@@ -47,12 +47,12 @@ import edu.ucdenver.ccp.common.file.CharacterEncoding;
 import edu.ucdenver.ccp.datasource.fileparsers.RecordReader;
 import edu.ucdenver.ccp.datasource.fileparsers.test.RecordReaderTester;
 import edu.ucdenver.ccp.datasource.identifiers.DataSourceIdentifier;
-import edu.ucdenver.ccp.datasource.identifiers.dip.DipInteractionID;
-import edu.ucdenver.ccp.datasource.identifiers.dip.DipInteractorID;
-import edu.ucdenver.ccp.datasource.identifiers.ebi.uniprot.UniProtID;
-import edu.ucdenver.ccp.datasource.identifiers.ncbi.taxonomy.NcbiTaxonomyID;
-import edu.ucdenver.ccp.datasource.identifiers.obo.MolecularInteractionOntologyTermID;
-import edu.ucdenver.ccp.datasource.identifiers.publication.PubMedID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.DipInteractionID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.DipInteractorID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.MolecularInteractionOntologyTermID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.NcbiTaxonomyID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.PubMedID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.UniProtID;
 
 /**
  * 

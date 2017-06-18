@@ -43,7 +43,7 @@ import java.util.zip.GZIPInputStream;
 import edu.ucdenver.ccp.common.file.CharacterEncoding;
 import edu.ucdenver.ccp.common.string.StringUtil;
 import edu.ucdenver.ccp.datasource.fileparsers.MultiLineFileRecordReader;
-import edu.ucdenver.ccp.datasource.identifiers.other.VectorBaseID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.VectorBaseID;
 
 public class VectorBaseFastaFileRecordReader extends MultiLineFileRecordReader<VectorBaseFastaFileRecord> {
 	// write a test for this class, then generate rdf for the transcript file

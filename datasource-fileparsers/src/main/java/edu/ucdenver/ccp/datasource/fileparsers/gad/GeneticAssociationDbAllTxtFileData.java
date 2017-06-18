@@ -60,13 +60,13 @@ import edu.ucdenver.ccp.datasource.fileparsers.SingleLineFileRecord;
 import edu.ucdenver.ccp.datasource.identifiers.DataSource;
 import edu.ucdenver.ccp.datasource.identifiers.DataSourceIdentifier;
 import edu.ucdenver.ccp.datasource.identifiers.NucleotideAccessionResolver;
-import edu.ucdenver.ccp.datasource.identifiers.gad.GadID;
-import edu.ucdenver.ccp.datasource.identifiers.hgnc.HgncGeneSymbolID;
-import edu.ucdenver.ccp.datasource.identifiers.ncbi.UniGeneID;
-import edu.ucdenver.ccp.datasource.identifiers.ncbi.gene.GiNumberID;
-import edu.ucdenver.ccp.datasource.identifiers.ncbi.gene.NcbiGeneId;
-import edu.ucdenver.ccp.datasource.identifiers.ncbi.omim.OmimID;
-import edu.ucdenver.ccp.datasource.identifiers.publication.PubMedID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.GadID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.GiNumberID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.HgncGeneSymbolID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.NcbiGeneId;
+import edu.ucdenver.ccp.datasource.identifiers.impl.OmimID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.PubMedID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.UniGeneID;
 
 /**
  * See http://geneticassociationdb.nih.gov/fieldhelp.html for field definitions

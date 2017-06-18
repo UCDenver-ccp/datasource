@@ -53,12 +53,12 @@ import edu.ucdenver.ccp.common.file.CharacterEncoding;
 import edu.ucdenver.ccp.common.file.FileUtil;
 import edu.ucdenver.ccp.datasource.fileparsers.RecordReader;
 import edu.ucdenver.ccp.datasource.fileparsers.test.RecordReaderTester;
-import edu.ucdenver.ccp.datasource.identifiers.ebi.embl.EmblID;
-import edu.ucdenver.ccp.datasource.identifiers.ebi.ipi.IpiID;
-import edu.ucdenver.ccp.datasource.identifiers.ebi.uniprot.UniProtEntryName;
-import edu.ucdenver.ccp.datasource.identifiers.ebi.uniprot.UniProtID;
-import edu.ucdenver.ccp.datasource.identifiers.ncbi.gene.NcbiGeneId;
-import edu.ucdenver.ccp.datasource.identifiers.ncbi.taxonomy.NcbiTaxonomyID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.EmblID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.IpiID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.NcbiGeneId;
+import edu.ucdenver.ccp.datasource.identifiers.impl.NcbiTaxonomyID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.UniProtEntryName;
+import edu.ucdenver.ccp.datasource.identifiers.impl.UniProtID;
 
 @Ignore("sample file needs to be updated to match current format: remove IPI Ids is one of the necessary changes")
 public class UniProtIDMappingFileParserTest extends RecordReaderTester {

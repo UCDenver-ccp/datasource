@@ -47,15 +47,15 @@ import edu.ucdenver.ccp.common.collections.CollectionsUtil;
 import edu.ucdenver.ccp.common.file.CharacterEncoding;
 import edu.ucdenver.ccp.datasource.fileparsers.test.RecordReaderTester;
 import edu.ucdenver.ccp.datasource.identifiers.DataSourceIdentifier;
-import edu.ucdenver.ccp.datasource.identifiers.ebi.uniprot.UniProtID;
-import edu.ucdenver.ccp.datasource.identifiers.ensembl.EnsemblGeneID;
-import edu.ucdenver.ccp.datasource.identifiers.hgnc.HgncID;
-import edu.ucdenver.ccp.datasource.identifiers.hprd.HprdID;
-import edu.ucdenver.ccp.datasource.identifiers.kegg.KeggGeneID;
-import edu.ucdenver.ccp.datasource.identifiers.kegg.KeggPathwayID;
-import edu.ucdenver.ccp.datasource.identifiers.ncbi.gene.GiNumberID;
-import edu.ucdenver.ccp.datasource.identifiers.ncbi.gene.NcbiGeneId;
-import edu.ucdenver.ccp.datasource.identifiers.ncbi.omim.OmimID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.EnsemblGeneID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.GiNumberID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.HgncID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.HprdID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.KeggGeneID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.KeggPathwayID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.NcbiGeneId;
+import edu.ucdenver.ccp.datasource.identifiers.impl.OmimID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.UniProtID;
 
 /**
  * 

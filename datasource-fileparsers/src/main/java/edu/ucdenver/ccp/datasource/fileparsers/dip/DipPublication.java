@@ -39,7 +39,7 @@ package edu.ucdenver.ccp.datasource.fileparsers.dip;
 import edu.ucdenver.ccp.datasource.fileparsers.Record;
 import edu.ucdenver.ccp.datasource.fileparsers.RecordField;
 import edu.ucdenver.ccp.datasource.identifiers.DataSource;
-import edu.ucdenver.ccp.datasource.identifiers.publication.PubMedID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.PubMedID;
 
 /**
  * @author Center for Computational Pharmacology, UC Denver; ccpsupport@ucdenver.edu

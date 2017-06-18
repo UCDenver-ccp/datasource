@@ -39,7 +39,7 @@ import java.util.regex.Pattern;
 import org.apache.log4j.Logger;
 
 import edu.ucdenver.ccp.common.reflection.ConstructorUtil;
-import edu.ucdenver.ccp.datasource.identifiers.ncbi.taxonomy.NcbiTaxonomyID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.NcbiTaxonomyID;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
 

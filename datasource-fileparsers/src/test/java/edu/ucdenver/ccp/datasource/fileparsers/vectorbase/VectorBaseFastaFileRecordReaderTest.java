@@ -44,7 +44,7 @@ import org.junit.Test;
 
 import edu.ucdenver.ccp.common.file.CharacterEncoding;
 import edu.ucdenver.ccp.datasource.fileparsers.test.RecordReaderTester;
-import edu.ucdenver.ccp.datasource.identifiers.other.VectorBaseID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.VectorBaseID;
 
 public class VectorBaseFastaFileRecordReaderTest extends RecordReaderTester {
 

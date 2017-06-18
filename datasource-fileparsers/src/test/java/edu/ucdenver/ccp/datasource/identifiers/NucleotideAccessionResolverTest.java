@@ -40,8 +40,8 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
-import edu.ucdenver.ccp.datasource.identifiers.ncbi.GenBankID;
-import edu.ucdenver.ccp.datasource.identifiers.ncbi.refseq.RefSeqID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.GenBankID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.RefSeqID;
 
 /**
  * @author Colorado Computational Pharmacology, UC Denver; ccpsupport@ucdenver.edu

@@ -71,51 +71,51 @@ import edu.ucdenver.ccp.datasource.identifiers.NucleotideAccessionResolver;
 import edu.ucdenver.ccp.datasource.identifiers.ProbableErrorDataSourceIdentifier;
 import edu.ucdenver.ccp.datasource.identifiers.ProteinAccessionResolver;
 import edu.ucdenver.ccp.datasource.identifiers.UnknownDataSourceIdentifier;
-import edu.ucdenver.ccp.datasource.identifiers.bind.BindInteractionID;
-import edu.ucdenver.ccp.datasource.identifiers.dip.DipInteractionID;
-import edu.ucdenver.ccp.datasource.identifiers.dip.DipInteractorID;
-import edu.ucdenver.ccp.datasource.identifiers.ebi.intact.IntActID;
-import edu.ucdenver.ccp.datasource.identifiers.ebi.interpro.PirID;
-import edu.ucdenver.ccp.datasource.identifiers.ebi.interpro.TigrFamsID;
-import edu.ucdenver.ccp.datasource.identifiers.ebi.ipi.IpiID;
-import edu.ucdenver.ccp.datasource.identifiers.ebi.uniprot.UniProtEntryName;
-import edu.ucdenver.ccp.datasource.identifiers.ebi.uniprot.UniProtID;
-import edu.ucdenver.ccp.datasource.identifiers.ebi.uniprot.UniProtIsoformID;
-import edu.ucdenver.ccp.datasource.identifiers.ensembl.EnsemblGeneID;
-import edu.ucdenver.ccp.datasource.identifiers.flybase.FlyBaseID;
-import edu.ucdenver.ccp.datasource.identifiers.hgnc.HgncGeneSymbolID;
-import edu.ucdenver.ccp.datasource.identifiers.hprd.HprdID;
-import edu.ucdenver.ccp.datasource.identifiers.irefweb.CrigId;
-import edu.ucdenver.ccp.datasource.identifiers.irefweb.CrogId;
-import edu.ucdenver.ccp.datasource.identifiers.irefweb.IcrigId;
-import edu.ucdenver.ccp.datasource.identifiers.irefweb.IcrogId;
-import edu.ucdenver.ccp.datasource.identifiers.irefweb.IrigId;
-import edu.ucdenver.ccp.datasource.identifiers.irefweb.IrogId;
-import edu.ucdenver.ccp.datasource.identifiers.irefweb.RigId;
-import edu.ucdenver.ccp.datasource.identifiers.irefweb.RogId;
-import edu.ucdenver.ccp.datasource.identifiers.kegg.KeggGeneID;
-import edu.ucdenver.ccp.datasource.identifiers.mint.MintID;
-import edu.ucdenver.ccp.datasource.identifiers.ncbi.gene.GiNumberID;
-import edu.ucdenver.ccp.datasource.identifiers.ncbi.gene.NcbiGeneId;
-import edu.ucdenver.ccp.datasource.identifiers.ncbi.refseq.RefSeqID;
-import edu.ucdenver.ccp.datasource.identifiers.ncbi.taxonomy.NcbiTaxonomyID;
-import edu.ucdenver.ccp.datasource.identifiers.other.AfcsId;
-import edu.ucdenver.ccp.datasource.identifiers.other.BindTranslationId;
-import edu.ucdenver.ccp.datasource.identifiers.other.BioGridID;
-import edu.ucdenver.ccp.datasource.identifiers.other.CamjeDbId;
-import edu.ucdenver.ccp.datasource.identifiers.other.CorumId;
-import edu.ucdenver.ccp.datasource.identifiers.other.CygdId;
-import edu.ucdenver.ccp.datasource.identifiers.other.ImexId;
-import edu.ucdenver.ccp.datasource.identifiers.other.InnateDbId;
-import edu.ucdenver.ccp.datasource.identifiers.other.MatrixDbId;
-import edu.ucdenver.ccp.datasource.identifiers.other.MpactId;
-import edu.ucdenver.ccp.datasource.identifiers.other.MpiDbId;
-import edu.ucdenver.ccp.datasource.identifiers.other.OphidId;
-import edu.ucdenver.ccp.datasource.identifiers.other.PrfId;
-import edu.ucdenver.ccp.datasource.identifiers.other.UniParcID;
-import edu.ucdenver.ccp.datasource.identifiers.pdb.PdbID;
-import edu.ucdenver.ccp.datasource.identifiers.publication.PubMedID;
-import edu.ucdenver.ccp.datasource.identifiers.sgd.SgdID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.AfcsId;
+import edu.ucdenver.ccp.datasource.identifiers.impl.BindInteractionID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.BindTranslationId;
+import edu.ucdenver.ccp.datasource.identifiers.impl.BioGridID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.CamjeDbId;
+import edu.ucdenver.ccp.datasource.identifiers.impl.CorumId;
+import edu.ucdenver.ccp.datasource.identifiers.impl.CygdId;
+import edu.ucdenver.ccp.datasource.identifiers.impl.DipInteractionID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.DipInteractorID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.EnsemblGeneID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.FlyBaseID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.GiNumberID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.HgncGeneSymbolID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.HprdID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.IRefWebCrigId;
+import edu.ucdenver.ccp.datasource.identifiers.impl.IRefWebCrogId;
+import edu.ucdenver.ccp.datasource.identifiers.impl.IRefWebIcrigId;
+import edu.ucdenver.ccp.datasource.identifiers.impl.IRefWebIcrogId;
+import edu.ucdenver.ccp.datasource.identifiers.impl.IRefWebIrigId;
+import edu.ucdenver.ccp.datasource.identifiers.impl.IRefWebIrogId;
+import edu.ucdenver.ccp.datasource.identifiers.impl.IRefWebRigId;
+import edu.ucdenver.ccp.datasource.identifiers.impl.IRefWebRogId;
+import edu.ucdenver.ccp.datasource.identifiers.impl.ImexId;
+import edu.ucdenver.ccp.datasource.identifiers.impl.InnateDbId;
+import edu.ucdenver.ccp.datasource.identifiers.impl.IntActID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.IpiID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.KeggGeneID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.MatrixDbId;
+import edu.ucdenver.ccp.datasource.identifiers.impl.MintID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.MpactId;
+import edu.ucdenver.ccp.datasource.identifiers.impl.MpiDbId;
+import edu.ucdenver.ccp.datasource.identifiers.impl.NcbiGeneId;
+import edu.ucdenver.ccp.datasource.identifiers.impl.NcbiTaxonomyID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.OphidId;
+import edu.ucdenver.ccp.datasource.identifiers.impl.PdbID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.PirID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.PrfId;
+import edu.ucdenver.ccp.datasource.identifiers.impl.PubMedID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.RefSeqID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.SgdID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.TigrFamsID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.UniParcID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.UniProtEntryName;
+import edu.ucdenver.ccp.datasource.identifiers.impl.UniProtID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.UniProtIsoformID;
 
 /**
  * This class is used to parse DIPYYYMMDD files which can be downloaded from the
@@ -252,11 +252,11 @@ public class IRefWebPsiMitab2_6FileParser extends TaxonAwareSingleLineFileRecord
 			hostOrgTaxonomyId = NcbiTaxonomyIdTermPair.parseString(IRefWebHostOrganism.class, hostOrgTaxonomyIdStr);
 		}
 		String parametersInteraction = null;
-		RigId checksumInteraction = new RigId(StringUtil.removePrefix(interactionChecksumStr, "rigid:"));
+		IRefWebRigId checksumInteraction = new IRefWebRigId(StringUtil.removePrefix(interactionChecksumStr, "rigid:"));
 		boolean negative = Boolean.parseBoolean(negativeStr);
-		IrigId irigid = new IrigId(irigidStr);
-		CrigId crigid = new CrigId(crigidStr);
-		IcrigId icrigid = new IcrigId(icrigidStr);
+		IRefWebIrigId irigid = new IRefWebIrigId(irigidStr);
+		IRefWebCrigId crigid = new IRefWebCrigId(crigidStr);
+		IRefWebIcrigId icrigid = new IRefWebIcrigId(icrigidStr);
 		ImexId imexId = (imexIdStr.trim().equals(StringConstants.HYPHEN_MINUS)) ? null : new ImexId(imexIdStr);
 		String edgeType = edgeTypeStr;
 		int numParticipants = Integer.parseInt(numParticipantsStr);
@@ -279,9 +279,9 @@ public class IRefWebPsiMitab2_6FileParser extends TaxonAwareSingleLineFileRecord
 				} else if (id.startsWith("BIND_Translation:")) {
 					ids.add(new BindTranslationId(StringUtil.removePrefix(id, "BIND_Translation:")));
 				} else if (id.startsWith("irigid:")) {
-					ids.add(new IrigId(StringUtil.removePrefix(id, "irigid:")));
+					ids.add(new IRefWebIrigId(StringUtil.removePrefix(id, "irigid:")));
 				} else if (id.startsWith("rigid:")) {
-					ids.add(new RigId(StringUtil.removePrefix(id, "rigid:")));
+					ids.add(new IRefWebRigId(StringUtil.removePrefix(id, "rigid:")));
 				} else if (id.startsWith("grid:")) {
 					ids.add(new BioGridID(StringUtil.removePrefix(id, "grid:")));
 				} else if (id.startsWith("bind:")) {
@@ -383,21 +383,21 @@ public class IRefWebPsiMitab2_6FileParser extends TaxonAwareSingleLineFileRecord
 			} else if (idStr.startsWith("CORUM:")) {
 				return new CorumId(StringUtil.removePrefix(idStr, "CORUM:"));
 			} else if (idStr.startsWith("crogid:")) {
-				return new CrogId(StringUtil.removePrefix(idStr, "crogid:"));
+				return new IRefWebCrogId(StringUtil.removePrefix(idStr, "crogid:"));
 			} else if (idStr.startsWith("icrogid:")) {
-				return new IcrogId(StringUtil.removePrefix(idStr, "icrogid:"));
+				return new IRefWebIcrogId(StringUtil.removePrefix(idStr, "icrogid:"));
 			} else if (idStr.startsWith("refseq:")) {
 				return getRefseqAccession(StringUtil.removePrefix(idStr, "refseq:").toUpperCase(), idStr);
 			} else if (idStr.startsWith("RefSeq:")) {
 				return getRefseqAccession(StringUtil.removePrefix(idStr, "RefSeq:").toUpperCase(), idStr);
 			} else if (idStr.startsWith("rogid:")) {
-				return new RogId(StringUtil.removePrefix(idStr, "rogid:"));
+				return new IRefWebRogId(StringUtil.removePrefix(idStr, "rogid:"));
 			} else if (idStr.startsWith("irogid:")) {
-				return new IrogId(StringUtil.removePrefix(idStr, "irogid:"));
+				return new IRefWebIrogId(StringUtil.removePrefix(idStr, "irogid:"));
 			} else if (idStr.startsWith("PDB:")) {
 				return new PdbID(StringUtil.removePrefix(idStr, "PDB:"));
 			} else if (idStr.startsWith("complex:")) {
-				return new RogId(StringUtil.removePrefix(idStr, "complex:"));
+				return new IRefWebRogId(StringUtil.removePrefix(idStr, "complex:"));
 			} else if (idStr.startsWith("cygd:")) {
 				return new CygdId(StringUtil.removePrefix(idStr, "cygd:"));
 			} else if (idStr.startsWith("prf:")) {
@@ -593,13 +593,13 @@ public class IRefWebPsiMitab2_6FileParser extends TaxonAwareSingleLineFileRecord
 			interactorType = MiOntologyIdTermPair.parseString(IRefWebInteractorType.class, interactorTypeStr);
 		}
 		String annotations = null;
-		RogId checksum = new RogId(StringUtil.removePrefix(checksumStr, "rogid:"));
+		IRefWebRogId checksum = new IRefWebRogId(StringUtil.removePrefix(checksumStr, "rogid:"));
 		DataSourceIdentifier<?> originalReference = resolveInteractorId(originalReferenceStr);
 		DataSourceIdentifier<?> finalReference = resolveInteractorId(finalReferenceStr);
 		String mappingScore = mappingScoreStr;
-		IrogId irogid = new IrogId(irogidStr);
-		CrogId crogid = new CrogId(crogidStr);
-		IcrogId icrogid = new IcrogId(icrogidStr);
+		IRefWebIrogId irogid = new IRefWebIrogId(irogidStr);
+		IRefWebCrogId crogid = new IRefWebCrogId(crogidStr);
+		IRefWebIcrogId icrogid = new IRefWebIcrogId(icrogidStr);
 
 		return new IRefWebInteractor(uniqueId, alternateIds, aliasSymbols, aliasIds, ncbiTaxonomyId, dbXReferenceIds,
 				biologicalRole, experimentalRole, interactorType, annotations, checksum, originalReference,
@@ -662,11 +662,11 @@ public class IRefWebPsiMitab2_6FileParser extends TaxonAwareSingleLineFileRecord
 			// resolveAliasSymbols()
 			return null;
 		} else if (aliasStr.startsWith("crogid:")) {
-			return new CrogId(StringUtil.removePrefix(aliasStr, "crogid:"));
+			return new IRefWebCrogId(StringUtil.removePrefix(aliasStr, "crogid:"));
 		} else if (aliasStr.startsWith("icrogid:")) {
-			return new IcrogId(StringUtil.removePrefix(aliasStr, "icrogid:"));
+			return new IRefWebIcrogId(StringUtil.removePrefix(aliasStr, "icrogid:"));
 		} else if (aliasStr.startsWith("rogid:")) {
-			return new RogId(StringUtil.removePrefix(aliasStr, "rogid:"));
+			return new IRefWebRogId(StringUtil.removePrefix(aliasStr, "rogid:"));
 		} else if (aliasStr.startsWith("refseq:")) {
 			return getRefseqAccession(StringUtil.removePrefix(aliasStr, "refseq:"), aliasStr);
 		} else if (aliasStr.startsWith("hgnc:")) {

@@ -6,8 +6,8 @@ import edu.ucdenver.ccp.datasource.fileparsers.RecordField;
 import edu.ucdenver.ccp.datasource.fileparsers.SingleLineFileRecord;
 import edu.ucdenver.ccp.datasource.identifiers.DataSource;
 import edu.ucdenver.ccp.datasource.identifiers.DataSourceIdentifier;
-import edu.ucdenver.ccp.datasource.identifiers.ncbi.taxonomy.NcbiTaxonomyID;
-import edu.ucdenver.ccp.datasource.identifiers.obo.GeneOntologyID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.GeneOntologyID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.NcbiTaxonomyID;
 
 /*
  * #%L

@@ -50,10 +50,10 @@ import edu.ucdenver.ccp.common.file.CharacterEncoding;
 import edu.ucdenver.ccp.common.file.FileUtil;
 import edu.ucdenver.ccp.datasource.fileparsers.RecordReader;
 import edu.ucdenver.ccp.datasource.fileparsers.test.RecordReaderTester;
-import edu.ucdenver.ccp.datasource.identifiers.ebi.interpro.InterProID;
-import edu.ucdenver.ccp.datasource.identifiers.ebi.interpro.PfamID;
-import edu.ucdenver.ccp.datasource.identifiers.ebi.interpro.TigrFamsID;
-import edu.ucdenver.ccp.datasource.identifiers.ebi.uniprot.UniProtID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.InterProID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.PfamID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.TigrFamsID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.UniProtID;
 
 /**
  * 

@@ -41,7 +41,7 @@ import java.util.Set;
 import edu.ucdenver.ccp.common.download.HttpDownload;
 import edu.ucdenver.ccp.common.file.CharacterEncoding;
 import edu.ucdenver.ccp.common.file.reader.StreamLineReader;
-import edu.ucdenver.ccp.datasource.identifiers.ncbi.taxonomy.NcbiTaxonomyID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.NcbiTaxonomyID;
 
 public class IRefWebPsiMitab2_6FileParser_AllSpecies extends IRefWebPsiMitab2_6FileParser {
 

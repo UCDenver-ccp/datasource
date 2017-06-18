@@ -109,7 +109,7 @@ import edu.ucdenver.ccp.datasource.fileparsers.transfac.TransfacGeneDatFileParse
 import edu.ucdenver.ccp.datasource.fileparsers.transfac.TransfacMatrixDatFileParser;
 import edu.ucdenver.ccp.datasource.fileparsers.vectorbase.VectorBaseFastaFileRecordReader_aael_transcripts;
 import edu.ucdenver.ccp.datasource.identifiers.DataSource;
-import edu.ucdenver.ccp.datasource.identifiers.ncbi.taxonomy.NcbiTaxonomyID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.NcbiTaxonomyID;
 import edu.ucdenver.ccp.datasource.rdfizer.rdf.ice.FileDataSourceParams.IsTaxonAware;
 import edu.ucdenver.ccp.datasource.rdfizer.rdf.ice.FileDataSourceParams.RequiresManualDownload;
 

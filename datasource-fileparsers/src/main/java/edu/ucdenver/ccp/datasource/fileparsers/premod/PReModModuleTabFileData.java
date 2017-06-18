@@ -44,9 +44,9 @@ import edu.ucdenver.ccp.datasource.fileparsers.Record;
 import edu.ucdenver.ccp.datasource.fileparsers.RecordField;
 import edu.ucdenver.ccp.datasource.fileparsers.SingleLineFileRecord;
 import edu.ucdenver.ccp.datasource.identifiers.DataSource;
-import edu.ucdenver.ccp.datasource.identifiers.ncbi.gene.NcbiGeneId;
-import edu.ucdenver.ccp.datasource.identifiers.premod.PreModID;
-import edu.ucdenver.ccp.datasource.identifiers.transfac.TransfacMatrixID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.NcbiGeneId;
+import edu.ucdenver.ccp.datasource.identifiers.impl.PreModID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.TransfacMatrixID;
 
 /**
  * A representation of a line of data from the PReMod mouse_module_tab.txt file available here:

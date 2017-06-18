@@ -36,6 +36,7 @@ package edu.ucdenver.ccp.datasource.identifiers.ncbi.gene;
 import org.junit.Test;
 
 import edu.ucdenver.ccp.common.test.DefaultTestCase;
+import edu.ucdenver.ccp.datasource.identifiers.impl.NcbiGeneId;
 
 public class NcbiGeneIDTest extends DefaultTestCase {
 

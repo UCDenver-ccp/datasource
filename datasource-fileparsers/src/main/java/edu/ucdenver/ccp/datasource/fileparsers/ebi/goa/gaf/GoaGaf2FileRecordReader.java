@@ -42,7 +42,7 @@ import edu.ucdenver.ccp.common.file.CharacterEncoding;
 import edu.ucdenver.ccp.common.file.reader.Line;
 import edu.ucdenver.ccp.datasource.fileparsers.format.gaf2.Gaf2FileRecordReader;
 import edu.ucdenver.ccp.datasource.identifiers.IdResolver;
-import edu.ucdenver.ccp.datasource.identifiers.ncbi.taxonomy.NcbiTaxonomyID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.NcbiTaxonomyID;
 
 public class GoaGaf2FileRecordReader extends
 		Gaf2FileRecordReader<GoaGaf2FileRecord> {

@@ -41,11 +41,11 @@ import edu.ucdenver.ccp.datasource.fileparsers.Record;
 import edu.ucdenver.ccp.datasource.fileparsers.RecordField;
 import edu.ucdenver.ccp.datasource.identifiers.DataSource;
 import edu.ucdenver.ccp.datasource.identifiers.DataSourceIdentifier;
-import edu.ucdenver.ccp.datasource.identifiers.irefweb.CrigId;
-import edu.ucdenver.ccp.datasource.identifiers.irefweb.IcrigId;
-import edu.ucdenver.ccp.datasource.identifiers.irefweb.IrigId;
-import edu.ucdenver.ccp.datasource.identifiers.irefweb.RigId;
-import edu.ucdenver.ccp.datasource.identifiers.other.ImexId;
+import edu.ucdenver.ccp.datasource.identifiers.impl.IRefWebCrigId;
+import edu.ucdenver.ccp.datasource.identifiers.impl.IRefWebIcrigId;
+import edu.ucdenver.ccp.datasource.identifiers.impl.IRefWebIrigId;
+import edu.ucdenver.ccp.datasource.identifiers.impl.IRefWebRigId;
+import edu.ucdenver.ccp.datasource.identifiers.impl.ImexId;
 import lombok.Data;
 
 @Data
@@ -75,15 +75,15 @@ public class IRefWebInteraction implements DataRecord {
 	@RecordField(ontClass = CcpExtensionOntology.IREFWEB_INTERACTION_RECORD___PARAMETERS_INTERACTION_FIELD_VALUE, comment = "Not used")
 	private final String parametersInteraction;
 	@RecordField(ontClass = CcpExtensionOntology.IREFWEB_INTERACTION_RECORD___CHECK_SUM_INTERACTION_FIELD_VALUE, comment = "Hash key for this interaction. Example: rigid:3ERiFkUFsm7ZUHIRJTx8ZlHILRA\nNotes: This column may be used to identify other rows (interaction records) in this file that describe interactions between the same set of proteins from the same taxon id. This universal key listed here is the RIGID (redundant interaction group identifier) described in the original iRefIndex paper, PMID 18823568. The RIGID consists of the ROG identifiers for each of the protein participants (see notes above) ordered by ASCII-based lexicographic sorting in ascending order, concatenated and then digested with the SHA-1 algorithm. See the iRefIndex paper for details. This identifier points to a set of redundant protein-protein interactions that involve the same set of proteins with the exact same primary sequences.")
-	private final RigId checksumInteraction;
+	private final IRefWebRigId checksumInteraction;
 	@RecordField(ontClass = CcpExtensionOntology.IREFWEB_INTERACTION_RECORD___NEGATIVE_FIELD_VALUE, comment = "Does the interaction record provide evidence that some interaction does NOT occur.\nNotes: This value will be false for all lines in this file since iRefIndex does not include \"negative\" interactions from any of the source databases.")
 	private final boolean negative;
 	@RecordField(ontClass = CcpExtensionOntology.IREFWEB_INTERACTION_RECORD___INTEGER_RIG_IDENTIFIER_FIELD_VALUE, comment = "Description:	Integer RIGID for this interaction. Example: 1234\nNotes: This is an internal, integer-equivalent of the alphanumeric identifier in column 35 for this interaction. All interactions involving the same interactors (same sequence and same taxon) will have the same irigid. The identifier listed here is stable from one release of iRefIndex to another starting from release 6.0.")
-	private final IrigId irigid;
+	private final IRefWebIrigId irigid;
 	@RecordField(ontClass = CcpExtensionOntology.IREFWEB_INTERACTION_RECORD___ALPHANUMERIC_RIG_IDENTIFIER_FIELD_VALUE, comment = "Alphanumeric RIGID for the canonical group to which this interaction belongs. Example: 3ERiFkUFsm7ZUHIRJTx8ZlHILRA\nNotes: This is the RIGID for this interaction calculated using the canonical ROGIDs (preceding two columns). This column may be used to identify other interactions in this file that all belong to the same canonical group.")
-	private final CrigId crigid;
+	private final IRefWebCrigId crigid;
 	@RecordField(ontClass = CcpExtensionOntology.IREFWEB_INTERACTION_RECORD___ICRIG_IDENTIFIER_FIELD_VALUE, comment = "Description: Integer RIGID for the canonical group to which this interaction belongs.\nNotes: This is an internal, integer-equivalent of the canonical RIGID. See column 48. This identifier serves to group together evidence for interactions that involve the same set (or a related set) of proteins.\nStarting with release 6.0, this canonical RIGID is stable from one release of iRefIndex to another.")
-	private final IcrigId icrigid;
+	private final IRefWebIcrigId icrigid;
 	@RecordField(ontClass = CcpExtensionOntology.IREFWEB_INTERACTION_RECORD___IMEX_IDENTIFIER_FIELD_VALUE)
 	private final ImexId imexId;
 	@RecordField(ontClass = CcpExtensionOntology.IREFWEB_INTERACTION_RECORD___EDGE_TYPE_FIELD_VALUE, comment = "Description: Does the edge represent a binary interaction (X), member of complex (C) data, or a multimer (Y)?\nNotes: Edges can be labelled as either X, C or Y:\nX - a binary interaction with two protein participants\nC - denotes that this edge is a binary expansion of interaction record that had 3 or more interactors (so-called \"complex\" or \"n-ary\" data). The expansion type is described in column 16 (expansion). In the case of iRefIndex, the expansion is always \"bipartite\" meaning that Interactor A of this row represents the complex itself and Interactor B represents a protein that is a member of this group.\nY - for dimers and polymers. In case of dimers and polymers when the number of subunits is not described in the original interaction record, the edge is labelled with a Y. Interactor A will be identical to the Interactor B. The graphical representation of this will appear as a single node connected to itself (loop). The actual number of self-interacting subunits may be 2 (dimer) or more (say 5 for a pentamer). Refer to the original interaction record for more details and see column 54.")

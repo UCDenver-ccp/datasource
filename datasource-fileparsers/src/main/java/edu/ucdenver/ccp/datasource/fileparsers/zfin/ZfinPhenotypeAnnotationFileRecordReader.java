@@ -39,7 +39,7 @@ import java.io.IOException;
 import edu.ucdenver.ccp.common.file.CharacterEncoding;
 import edu.ucdenver.ccp.common.file.reader.Line;
 import edu.ucdenver.ccp.datasource.fileparsers.SingleLineFileRecordReader;
-import edu.ucdenver.ccp.datasource.identifiers.other.ZfinID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.ZfinID;
 
 public class ZfinPhenotypeAnnotationFileRecordReader extends
 		SingleLineFileRecordReader<ZfinPhenotypeAnnotationFileRecord> {

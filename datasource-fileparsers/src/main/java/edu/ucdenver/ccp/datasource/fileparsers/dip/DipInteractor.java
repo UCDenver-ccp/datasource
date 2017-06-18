@@ -40,7 +40,7 @@ import edu.ucdenver.ccp.datasource.fileparsers.Record;
 import edu.ucdenver.ccp.datasource.fileparsers.RecordField;
 import edu.ucdenver.ccp.datasource.identifiers.DataSource;
 import edu.ucdenver.ccp.datasource.identifiers.DataSourceIdentifier;
-import edu.ucdenver.ccp.datasource.identifiers.dip.DipInteractorID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.DipInteractorID;
 import lombok.Data;
 
 @Data

@@ -43,9 +43,9 @@ import edu.ucdenver.ccp.datasource.fileparsers.Record;
 import edu.ucdenver.ccp.datasource.fileparsers.RecordField;
 import edu.ucdenver.ccp.datasource.fileparsers.SingleLineFileRecord;
 import edu.ucdenver.ccp.datasource.identifiers.DataSource;
-import edu.ucdenver.ccp.datasource.identifiers.mgi.MgiGeneID;
-import edu.ucdenver.ccp.datasource.identifiers.obo.MammalianPhenotypeID;
-import edu.ucdenver.ccp.datasource.identifiers.publication.PubMedID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.MammalianPhenotypeID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.MgiGeneID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.PubMedID;
 
 /**
  * Data representation of contents of MGI_PhenoGenoMP.rpt file

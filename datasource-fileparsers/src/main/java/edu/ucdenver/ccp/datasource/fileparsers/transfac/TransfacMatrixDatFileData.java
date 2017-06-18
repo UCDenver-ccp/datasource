@@ -49,8 +49,8 @@ import edu.ucdenver.ccp.datasource.fileparsers.MultiLineFileRecordReader.MultiLi
 import edu.ucdenver.ccp.datasource.fileparsers.Record;
 import edu.ucdenver.ccp.datasource.fileparsers.RecordField;
 import edu.ucdenver.ccp.datasource.identifiers.DataSource;
-import edu.ucdenver.ccp.datasource.identifiers.transfac.TransfacFactorID;
-import edu.ucdenver.ccp.datasource.identifiers.transfac.TransfacMatrixID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.TransfacFactorID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.TransfacMatrixID;
 
 /**
  * This is an incomplete representation of the data contained in the Transfac gene.dat file record.
