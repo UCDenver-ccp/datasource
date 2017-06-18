@@ -34,8 +34,8 @@ package edu.ucdenver.ccp.datasource.identifiers.mgi;
  */
 
 import edu.ucdenver.ccp.common.string.RegExPatterns;
-import edu.ucdenver.ccp.datasource.identifiers.DataSourceIdentifier;
 import edu.ucdenver.ccp.datasource.identifiers.DataSource;
+import edu.ucdenver.ccp.datasource.identifiers.DataSourceIdentifier;
 
 public class MgiGeneID extends DataSourceIdentifier<String>{
 

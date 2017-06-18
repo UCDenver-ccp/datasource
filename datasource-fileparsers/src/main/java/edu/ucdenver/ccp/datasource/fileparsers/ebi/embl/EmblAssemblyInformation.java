@@ -3,6 +3,11 @@
  */
 package edu.ucdenver.ccp.datasource.fileparsers.ebi.embl;
 
+import edu.ucdenver.ccp.datasource.fileparsers.Record;
+import edu.ucdenver.ccp.datasource.fileparsers.RecordField;
+import edu.ucdenver.ccp.datasource.identifiers.DataSource;
+import edu.ucdenver.ccp.datasource.identifiers.DataSourceIdentifier;
+
 /*
  * #%L
  * Colorado Computational Pharmacology's common module
@@ -37,10 +42,6 @@ package edu.ucdenver.ccp.datasource.fileparsers.ebi.embl;
  */
 
 import lombok.Data;
-import edu.ucdenver.ccp.datasource.fileparsers.Record;
-import edu.ucdenver.ccp.datasource.fileparsers.RecordField;
-import edu.ucdenver.ccp.datasource.identifiers.DataSource;
-import edu.ucdenver.ccp.datasource.identifiers.DataSourceIdentifier;
 
 /**
  * @author Colorado Computational Pharmacology, UC Denver; ccpsupport@ucdenver.edu

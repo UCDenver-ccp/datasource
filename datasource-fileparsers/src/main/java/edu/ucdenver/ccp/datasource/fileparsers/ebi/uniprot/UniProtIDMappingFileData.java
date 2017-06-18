@@ -39,8 +39,6 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.HashSet;
 import java.util.Set;
 
-import lombok.Getter;
-
 import org.apache.log4j.Logger;
 
 import edu.ucdenver.ccp.common.file.reader.Line;
@@ -57,8 +55,8 @@ import edu.ucdenver.ccp.datasource.identifiers.ebi.uniprot.UniProtEntryName;
 import edu.ucdenver.ccp.datasource.identifiers.ebi.uniprot.UniProtID;
 import edu.ucdenver.ccp.datasource.identifiers.ensembl.EnsemblGeneID;
 import edu.ucdenver.ccp.datasource.identifiers.ncbi.UniGeneID;
-import edu.ucdenver.ccp.datasource.identifiers.ncbi.gene.NcbiGeneId;
 import edu.ucdenver.ccp.datasource.identifiers.ncbi.gene.GiNumberID;
+import edu.ucdenver.ccp.datasource.identifiers.ncbi.gene.NcbiGeneId;
 import edu.ucdenver.ccp.datasource.identifiers.ncbi.omim.OmimID;
 import edu.ucdenver.ccp.datasource.identifiers.ncbi.refseq.RefSeqID;
 import edu.ucdenver.ccp.datasource.identifiers.ncbi.taxonomy.NcbiTaxonomyID;
@@ -67,6 +65,7 @@ import edu.ucdenver.ccp.datasource.identifiers.other.UniParcID;
 import edu.ucdenver.ccp.datasource.identifiers.other.UniRefId;
 import edu.ucdenver.ccp.datasource.identifiers.pdb.PdbID;
 import edu.ucdenver.ccp.datasource.identifiers.publication.PubMedID;
+import lombok.Getter;
 
 /**
  * <p>

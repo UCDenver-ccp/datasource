@@ -53,8 +53,6 @@ package edu.ucdenver.ccp.datasource.fileparsers.hprd;
 
 import java.util.List;
 
-import lombok.Getter;
-
 import org.apache.log4j.Logger;
 
 import edu.ucdenver.ccp.datasource.fileparsers.Record;
@@ -66,6 +64,7 @@ import edu.ucdenver.ccp.datasource.identifiers.ebi.uniprot.UniProtID;
 import edu.ucdenver.ccp.datasource.identifiers.hprd.HprdID;
 import edu.ucdenver.ccp.datasource.identifiers.ncbi.gene.NcbiGeneId;
 import edu.ucdenver.ccp.datasource.identifiers.ncbi.omim.OmimID;
+import lombok.Getter;
 
 /**
  * Representation of data from HPRD HPRD_ID_MAPPINGS.txt file.

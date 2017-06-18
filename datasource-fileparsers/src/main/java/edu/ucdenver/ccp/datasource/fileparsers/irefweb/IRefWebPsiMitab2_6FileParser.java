@@ -58,10 +58,8 @@ import java.util.Set;
 
 import org.apache.log4j.Logger;
 
-import edu.ucdenver.ccp.common.download.HttpDownload;
 import edu.ucdenver.ccp.common.file.CharacterEncoding;
 import edu.ucdenver.ccp.common.file.reader.Line;
-import edu.ucdenver.ccp.common.file.reader.StreamLineReader;
 import edu.ucdenver.ccp.common.string.RegExPatterns;
 import edu.ucdenver.ccp.common.string.StringConstants;
 import edu.ucdenver.ccp.common.string.StringUtil;
@@ -97,8 +95,8 @@ import edu.ucdenver.ccp.datasource.identifiers.irefweb.RigId;
 import edu.ucdenver.ccp.datasource.identifiers.irefweb.RogId;
 import edu.ucdenver.ccp.datasource.identifiers.kegg.KeggGeneID;
 import edu.ucdenver.ccp.datasource.identifiers.mint.MintID;
-import edu.ucdenver.ccp.datasource.identifiers.ncbi.gene.NcbiGeneId;
 import edu.ucdenver.ccp.datasource.identifiers.ncbi.gene.GiNumberID;
+import edu.ucdenver.ccp.datasource.identifiers.ncbi.gene.NcbiGeneId;
 import edu.ucdenver.ccp.datasource.identifiers.ncbi.refseq.RefSeqID;
 import edu.ucdenver.ccp.datasource.identifiers.ncbi.taxonomy.NcbiTaxonomyID;
 import edu.ucdenver.ccp.datasource.identifiers.other.AfcsId;

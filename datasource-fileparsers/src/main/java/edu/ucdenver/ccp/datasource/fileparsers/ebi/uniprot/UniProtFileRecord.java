@@ -41,8 +41,6 @@ import java.util.List;
 
 import javax.xml.datatype.XMLGregorianCalendar;
 
-import lombok.Getter;
-
 import org.apache.log4j.Logger;
 import org.uniprot.CitationType;
 import org.uniprot.CommentType;
@@ -128,6 +126,7 @@ import edu.ucdenver.ccp.datasource.identifiers.reactome.ReactomeReactionID;
 import edu.ucdenver.ccp.datasource.identifiers.rgd.RgdID;
 import edu.ucdenver.ccp.datasource.identifiers.sgd.SgdID;
 import edu.ucdenver.ccp.datasource.identifiers.wormbase.WormBaseID;
+import lombok.Getter;
 
 /**
  * 

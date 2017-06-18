@@ -36,8 +36,6 @@ package edu.ucdenver.ccp.datasource.fileparsers.ncbi.gene;
 import java.util.HashSet;
 import java.util.Set;
 
-import lombok.Data;
-
 import org.apache.log4j.Logger;
 
 import edu.ucdenver.ccp.common.file.reader.Line;
@@ -50,6 +48,7 @@ import edu.ucdenver.ccp.datasource.identifiers.DataSource;
 import edu.ucdenver.ccp.datasource.identifiers.ncbi.MedGenId;
 import edu.ucdenver.ccp.datasource.identifiers.ncbi.gene.NcbiGeneId;
 import edu.ucdenver.ccp.datasource.identifiers.ncbi.omim.OmimID;
+import lombok.Data;
 
 /**
  * Representation of data from the EntrezGene mim2gene file.

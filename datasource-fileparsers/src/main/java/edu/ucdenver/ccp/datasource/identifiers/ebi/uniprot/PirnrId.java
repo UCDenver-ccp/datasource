@@ -34,7 +34,6 @@ package edu.ucdenver.ccp.datasource.identifiers.ebi.uniprot;
  */
 
 import edu.ucdenver.ccp.datasource.identifiers.DataSource;
-import edu.ucdenver.ccp.datasource.identifiers.DataSourceIdentifier;
 import edu.ucdenver.ccp.datasource.identifiers.StringDataSourceIdentifier;
 
 /**

@@ -36,8 +36,8 @@ package edu.ucdenver.ccp.datasource.identifiers.pharmgkb;
 
 import org.apache.commons.lang.math.NumberUtils;
 
-import edu.ucdenver.ccp.datasource.identifiers.DataSourceIdentifier;
 import edu.ucdenver.ccp.datasource.identifiers.DataSource;
+import edu.ucdenver.ccp.datasource.identifiers.DataSourceIdentifier;
 
 public class PharmGkbID extends DataSourceIdentifier<String> {
 

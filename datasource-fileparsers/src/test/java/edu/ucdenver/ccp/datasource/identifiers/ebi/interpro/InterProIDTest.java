@@ -35,8 +35,6 @@ package edu.ucdenver.ccp.datasource.identifiers.ebi.interpro;
 
 import org.junit.Test;
 
-import edu.ucdenver.ccp.datasource.identifiers.ebi.interpro.InterProID;
-
 
 public class InterProIDTest {
 	

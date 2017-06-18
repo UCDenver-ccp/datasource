@@ -38,11 +38,11 @@ package edu.ucdenver.ccp.datasource.fileparsers.ebi.embl;
 
 import java.util.Set;
 
-import lombok.Data;
 import edu.ucdenver.ccp.datasource.fileparsers.Record;
 import edu.ucdenver.ccp.datasource.fileparsers.RecordField;
 import edu.ucdenver.ccp.datasource.identifiers.DataSource;
 import edu.ucdenver.ccp.datasource.identifiers.DataSourceIdentifier;
+import lombok.Data;
 
 /**
  * @author Colorado Computational Pharmacology, UC Denver; ccpsupport@ucdenver.edu

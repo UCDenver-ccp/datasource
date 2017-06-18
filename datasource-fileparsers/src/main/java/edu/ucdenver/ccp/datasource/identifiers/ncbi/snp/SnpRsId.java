@@ -1,5 +1,7 @@
 package edu.ucdenver.ccp.datasource.identifiers.ncbi.snp;
 
+import edu.ucdenver.ccp.datasource.identifiers.DataSource;
+
 /*
  * #%L
  * Colorado Computational Pharmacology's common module
@@ -34,7 +36,6 @@ package edu.ucdenver.ccp.datasource.identifiers.ncbi.snp;
  */
 
 import edu.ucdenver.ccp.datasource.identifiers.DataSourceIdentifier;
-import edu.ucdenver.ccp.datasource.identifiers.DataSource;
 
 /**
  * Reference SNP ID

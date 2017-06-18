@@ -40,8 +40,8 @@ import java.util.Set;
 import java.util.zip.GZIPInputStream;
 
 import edu.ucdenver.ccp.common.download.DownloadUtil;
-import edu.ucdenver.ccp.common.download.FtpDownload;
 import edu.ucdenver.ccp.common.download.DownloadUtil.FtpInfo;
+import edu.ucdenver.ccp.common.download.FtpDownload;
 import edu.ucdenver.ccp.common.file.CharacterEncoding;
 import edu.ucdenver.ccp.common.file.FileReaderUtil;
 import edu.ucdenver.ccp.common.file.reader.Line;

@@ -2,9 +2,10 @@ package edu.ucdenver.ccp.datasource.identifiers.ec;
 
 /*
  * #%L
- * Colorado Computational Pharmacology's common module
+ * Colorado Computational Pharmacology's datasource
+ * 							project
  * %%
- * Copyright (C) 2012 - 2014 Regents of the University of Colorado
+ * Copyright (C) 2012 - 2017 Regents of the University of Colorado
  * %%
  * Redistribution and use in source and binary forms, with or without modification,
  * are permitted provided that the following conditions are met:
@@ -33,7 +34,6 @@ package edu.ucdenver.ccp.datasource.identifiers.ec;
  * #L%
  */
 
-import edu.ucdenver.ccp.common.string.RegExPatterns;
 import edu.ucdenver.ccp.common.string.StringUtil;
 import edu.ucdenver.ccp.datasource.identifiers.DataSource;
 import edu.ucdenver.ccp.datasource.identifiers.StringDataSourceIdentifier;

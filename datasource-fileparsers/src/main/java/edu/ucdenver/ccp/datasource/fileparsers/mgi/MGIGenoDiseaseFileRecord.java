@@ -35,8 +35,6 @@ package edu.ucdenver.ccp.datasource.fileparsers.mgi;
 
 import java.util.Set;
 
-import lombok.Data;
-
 import org.apache.log4j.Logger;
 
 import edu.ucdenver.ccp.datasource.fileparsers.Record;
@@ -47,6 +45,7 @@ import edu.ucdenver.ccp.datasource.identifiers.mgi.MgiGeneID;
 import edu.ucdenver.ccp.datasource.identifiers.ncbi.omim.OmimID;
 import edu.ucdenver.ccp.datasource.identifiers.obo.MammalianPhenotypeID;
 import edu.ucdenver.ccp.datasource.identifiers.publication.PubMedID;
+import lombok.Data;
 
 /**
  * Data representation of contents of MGI_Geno_Disease.rpt file

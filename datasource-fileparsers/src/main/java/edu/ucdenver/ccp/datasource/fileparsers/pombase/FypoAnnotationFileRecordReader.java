@@ -39,9 +39,7 @@ import java.io.IOException;
 import edu.ucdenver.ccp.common.file.CharacterEncoding;
 import edu.ucdenver.ccp.common.file.reader.Line;
 import edu.ucdenver.ccp.datasource.fileparsers.SingleLineFileRecordReader;
-import edu.ucdenver.ccp.datasource.identifiers.ncbi.gene.NcbiGeneId;
 import edu.ucdenver.ccp.datasource.identifiers.obo.FissionYeastPhenotypeID;
-import edu.ucdenver.ccp.datasource.identifiers.obo.HumanPhenotypeID;
 import edu.ucdenver.ccp.datasource.identifiers.other.PomBaseId;
 
 public class FypoAnnotationFileRecordReader extends SingleLineFileRecordReader<FypoAnnotationFileRecord> {

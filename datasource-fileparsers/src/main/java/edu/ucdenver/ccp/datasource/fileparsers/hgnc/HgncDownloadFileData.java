@@ -35,9 +35,6 @@ package edu.ucdenver.ccp.datasource.fileparsers.hgnc;
 
 import java.util.Set;
 
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-
 import org.apache.log4j.Logger;
 
 import edu.ucdenver.ccp.datasource.fileparsers.CcpExtensionOntology;
@@ -60,6 +57,8 @@ import edu.ucdenver.ccp.datasource.identifiers.other.UcscGenomeBrowserId;
 import edu.ucdenver.ccp.datasource.identifiers.other.VegaID;
 import edu.ucdenver.ccp.datasource.identifiers.publication.PubMedID;
 import edu.ucdenver.ccp.datasource.identifiers.rgd.RgdID;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 /**
  * <pre>

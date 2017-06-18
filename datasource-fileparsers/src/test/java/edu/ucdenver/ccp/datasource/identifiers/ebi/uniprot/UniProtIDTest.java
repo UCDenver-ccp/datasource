@@ -38,7 +38,6 @@ import static org.junit.Assert.fail;
 import org.junit.Test;
 
 import edu.ucdenver.ccp.common.test.DefaultTestCase;
-import edu.ucdenver.ccp.datasource.identifiers.ebi.uniprot.UniProtID;
 
 public class UniProtIDTest extends DefaultTestCase {
 

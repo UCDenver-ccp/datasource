@@ -54,9 +54,6 @@ package edu.ucdenver.ccp.datasource.fileparsers.format.gaf2;
 import java.util.Calendar;
 import java.util.Set;
 
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-
 import org.apache.log4j.Logger;
 
 import edu.ucdenver.ccp.datasource.fileparsers.Record;
@@ -65,6 +62,8 @@ import edu.ucdenver.ccp.datasource.fileparsers.SingleLineFileRecord;
 import edu.ucdenver.ccp.datasource.identifiers.DataSource;
 import edu.ucdenver.ccp.datasource.identifiers.DataSourceIdentifier;
 import edu.ucdenver.ccp.datasource.identifiers.ncbi.taxonomy.NcbiTaxonomyID;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 /**
  * A representation of data records in the GAF 2.0 file format as described here:

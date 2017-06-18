@@ -35,8 +35,8 @@ package edu.ucdenver.ccp.datasource.identifiers.ncbi;
 
 import org.apache.commons.lang.math.NumberUtils;
 
-import edu.ucdenver.ccp.datasource.identifiers.DataSourceIdentifier;
 import edu.ucdenver.ccp.datasource.identifiers.DataSource;
+import edu.ucdenver.ccp.datasource.identifiers.DataSourceIdentifier;
 
 /**
  * Reference SNP cluster ID definition for NCBI Single Nucleotide Polymorphysm database.<p> 

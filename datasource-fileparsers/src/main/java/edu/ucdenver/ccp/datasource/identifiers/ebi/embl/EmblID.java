@@ -34,8 +34,8 @@ package edu.ucdenver.ccp.datasource.identifiers.ebi.embl;
  */
 
 import edu.ucdenver.ccp.common.string.StringUtil;
-import edu.ucdenver.ccp.datasource.identifiers.DataSourceIdentifier;
 import edu.ucdenver.ccp.datasource.identifiers.DataSource;
+import edu.ucdenver.ccp.datasource.identifiers.DataSourceIdentifier;
 
 public class EmblID extends DataSourceIdentifier<String> {
 

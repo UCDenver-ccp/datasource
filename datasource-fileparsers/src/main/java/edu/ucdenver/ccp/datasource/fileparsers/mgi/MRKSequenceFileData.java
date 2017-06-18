@@ -35,7 +35,6 @@ package edu.ucdenver.ccp.datasource.fileparsers.mgi;
 
 import java.util.Set;
 
-import lombok.Data;
 import edu.ucdenver.ccp.datasource.fileparsers.Record;
 import edu.ucdenver.ccp.datasource.fileparsers.RecordField;
 import edu.ucdenver.ccp.datasource.fileparsers.SingleLineFileRecord;
@@ -47,6 +46,7 @@ import edu.ucdenver.ccp.datasource.identifiers.mgi.MgiGeneID;
 import edu.ucdenver.ccp.datasource.identifiers.ncbi.UniGeneID;
 import edu.ucdenver.ccp.datasource.identifiers.ncbi.refseq.RefSeqID;
 import edu.ucdenver.ccp.datasource.identifiers.other.VegaID;
+import lombok.Data;
 
 /**
  * Data representation of contents of MRK_SwissProt.rpt file

@@ -37,8 +37,6 @@ import java.util.EnumSet;
 import java.util.HashMap;
 import java.util.Map;
 
-import edu.ucdenver.ccp.datasource.identifiers.DataSource;
-
 public enum DataSource {
 	AGRICOLA("http://www.nal.usda.gov/"),
 	AHFS("http://www.ahfsdruginformation.com/"),

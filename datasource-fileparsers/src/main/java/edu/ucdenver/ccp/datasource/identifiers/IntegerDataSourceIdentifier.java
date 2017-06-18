@@ -36,8 +36,6 @@ package edu.ucdenver.ccp.datasource.identifiers;
 import java.util.Collection;
 import java.util.Collections;
 
-import org.apache.tools.ant.util.StringUtils;
-
 import edu.ucdenver.ccp.common.string.StringUtil;
 
 public abstract class IntegerDataSourceIdentifier extends DataSourceIdentifier<Integer> {

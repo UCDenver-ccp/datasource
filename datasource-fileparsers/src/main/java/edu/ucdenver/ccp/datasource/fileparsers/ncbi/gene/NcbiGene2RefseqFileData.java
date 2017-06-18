@@ -1,5 +1,19 @@
 package edu.ucdenver.ccp.datasource.fileparsers.ncbi.gene;
 
+import org.apache.log4j.Logger;
+
+import edu.ucdenver.ccp.common.file.reader.Line;
+import edu.ucdenver.ccp.datasource.fileparsers.CcpExtensionOntology;
+import edu.ucdenver.ccp.datasource.fileparsers.License;
+import edu.ucdenver.ccp.datasource.fileparsers.Record;
+import edu.ucdenver.ccp.datasource.fileparsers.RecordField;
+import edu.ucdenver.ccp.datasource.fileparsers.SingleLineFileRecord;
+import edu.ucdenver.ccp.datasource.identifiers.DataSource;
+import edu.ucdenver.ccp.datasource.identifiers.ncbi.gene.GiNumberID;
+import edu.ucdenver.ccp.datasource.identifiers.ncbi.gene.NcbiGeneId;
+import edu.ucdenver.ccp.datasource.identifiers.ncbi.refseq.RefSeqID;
+import edu.ucdenver.ccp.datasource.identifiers.ncbi.taxonomy.NcbiTaxonomyID;
+
 /*
  * #%L
  * Colorado Computational Pharmacology's common module
@@ -34,20 +48,6 @@ package edu.ucdenver.ccp.datasource.fileparsers.ncbi.gene;
  */
 
 import lombok.Data;
-
-import org.apache.log4j.Logger;
-
-import edu.ucdenver.ccp.common.file.reader.Line;
-import edu.ucdenver.ccp.datasource.fileparsers.CcpExtensionOntology;
-import edu.ucdenver.ccp.datasource.fileparsers.License;
-import edu.ucdenver.ccp.datasource.fileparsers.Record;
-import edu.ucdenver.ccp.datasource.fileparsers.RecordField;
-import edu.ucdenver.ccp.datasource.fileparsers.SingleLineFileRecord;
-import edu.ucdenver.ccp.datasource.identifiers.DataSource;
-import edu.ucdenver.ccp.datasource.identifiers.ncbi.gene.NcbiGeneId;
-import edu.ucdenver.ccp.datasource.identifiers.ncbi.gene.GiNumberID;
-import edu.ucdenver.ccp.datasource.identifiers.ncbi.refseq.RefSeqID;
-import edu.ucdenver.ccp.datasource.identifiers.ncbi.taxonomy.NcbiTaxonomyID;
 
 /**
  * This class represents data contained in the EntrezGene gene2accession file.

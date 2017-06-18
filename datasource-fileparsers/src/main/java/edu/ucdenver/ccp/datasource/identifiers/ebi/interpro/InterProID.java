@@ -35,8 +35,8 @@ package edu.ucdenver.ccp.datasource.identifiers.ebi.interpro;
 
 import org.apache.commons.lang.math.NumberUtils;
 
-import edu.ucdenver.ccp.datasource.identifiers.DataSourceIdentifier;
 import edu.ucdenver.ccp.datasource.identifiers.DataSource;
+import edu.ucdenver.ccp.datasource.identifiers.DataSourceIdentifier;
 
 public class InterProID extends DataSourceIdentifier<String> {
 

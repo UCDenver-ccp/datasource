@@ -1,5 +1,14 @@
 package edu.ucdenver.ccp.datasource.fileparsers.pro;
 
+import edu.ucdenver.ccp.datasource.fileparsers.CcpExtensionOntology;
+import edu.ucdenver.ccp.datasource.fileparsers.License;
+import edu.ucdenver.ccp.datasource.fileparsers.Record;
+import edu.ucdenver.ccp.datasource.fileparsers.RecordField;
+import edu.ucdenver.ccp.datasource.fileparsers.SingleLineFileRecord;
+import edu.ucdenver.ccp.datasource.identifiers.DataSource;
+import edu.ucdenver.ccp.datasource.identifiers.DataSourceIdentifier;
+import edu.ucdenver.ccp.datasource.identifiers.obo.ProteinOntologyId;
+
 /*
  * #%L
  * Colorado Computational Pharmacology's common module
@@ -35,14 +44,6 @@ package edu.ucdenver.ccp.datasource.fileparsers.pro;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import edu.ucdenver.ccp.datasource.fileparsers.CcpExtensionOntology;
-import edu.ucdenver.ccp.datasource.fileparsers.License;
-import edu.ucdenver.ccp.datasource.fileparsers.Record;
-import edu.ucdenver.ccp.datasource.fileparsers.RecordField;
-import edu.ucdenver.ccp.datasource.fileparsers.SingleLineFileRecord;
-import edu.ucdenver.ccp.datasource.identifiers.DataSource;
-import edu.ucdenver.ccp.datasource.identifiers.DataSourceIdentifier;
-import edu.ucdenver.ccp.datasource.identifiers.obo.ProteinOntologyId;
 
 /**
  * @author Center for Computational Pharmacology, UC Denver;

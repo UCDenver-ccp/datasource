@@ -37,9 +37,6 @@ import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-
 import org.apache.log4j.Logger;
 
 import edu.ucdenver.ccp.common.file.reader.Line;
@@ -60,6 +57,8 @@ import edu.ucdenver.ccp.datasource.identifiers.ncbi.omim.OmimID;
 import edu.ucdenver.ccp.datasource.identifiers.other.MedlineId;
 import edu.ucdenver.ccp.datasource.identifiers.publication.PubMedID;
 import edu.ucdenver.ccp.datasource.identifiers.rgd.RgdID;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 /**
  * A representation of a data record from the RGD "genes" FTP download file as

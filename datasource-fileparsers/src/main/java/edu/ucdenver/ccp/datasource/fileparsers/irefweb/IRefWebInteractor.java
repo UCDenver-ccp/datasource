@@ -35,7 +35,6 @@ package edu.ucdenver.ccp.datasource.fileparsers.irefweb;
 
 import java.util.Set;
 
-import lombok.Data;
 import edu.ucdenver.ccp.datasource.fileparsers.CcpExtensionOntology;
 import edu.ucdenver.ccp.datasource.fileparsers.DataRecord;
 import edu.ucdenver.ccp.datasource.fileparsers.Record;
@@ -46,6 +45,7 @@ import edu.ucdenver.ccp.datasource.identifiers.irefweb.CrogId;
 import edu.ucdenver.ccp.datasource.identifiers.irefweb.IcrogId;
 import edu.ucdenver.ccp.datasource.identifiers.irefweb.IrogId;
 import edu.ucdenver.ccp.datasource.identifiers.irefweb.RogId;
+import lombok.Data;
 
 /**
  * comments from: http://irefindex.uio.no/wiki/README_MITAB2.6_for_iRefIndex

@@ -53,8 +53,6 @@ package edu.ucdenver.ccp.datasource.fileparsers.dip;
 
 import java.util.Set;
 
-import lombok.Getter;
-
 import org.apache.log4j.Logger;
 
 import edu.ucdenver.ccp.datasource.fileparsers.License;
@@ -63,6 +61,7 @@ import edu.ucdenver.ccp.datasource.fileparsers.RecordField;
 import edu.ucdenver.ccp.datasource.fileparsers.SingleLineFileRecord;
 import edu.ucdenver.ccp.datasource.identifiers.DataSource;
 import edu.ucdenver.ccp.datasource.identifiers.dip.DipInteractionID;
+import lombok.Getter;
 
 /**
  * Data structure for storing data extracted from the DipYYYMMDD file. 

@@ -35,7 +35,6 @@ package edu.ucdenver.ccp.datasource.fileparsers.irefweb;
 
 import java.util.Set;
 
-import lombok.Data;
 import edu.ucdenver.ccp.datasource.fileparsers.CcpExtensionOntology;
 import edu.ucdenver.ccp.datasource.fileparsers.DataRecord;
 import edu.ucdenver.ccp.datasource.fileparsers.Record;
@@ -47,6 +46,7 @@ import edu.ucdenver.ccp.datasource.identifiers.irefweb.IcrigId;
 import edu.ucdenver.ccp.datasource.identifiers.irefweb.IrigId;
 import edu.ucdenver.ccp.datasource.identifiers.irefweb.RigId;
 import edu.ucdenver.ccp.datasource.identifiers.other.ImexId;
+import lombok.Data;
 
 @Data
 @Record(ontClass = CcpExtensionOntology.IREFWEB_INTERACTION_RECORD, dataSource = DataSource.IREFWEB)

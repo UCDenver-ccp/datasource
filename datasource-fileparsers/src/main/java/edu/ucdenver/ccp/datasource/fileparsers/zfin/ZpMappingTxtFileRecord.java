@@ -1,5 +1,11 @@
 package edu.ucdenver.ccp.datasource.fileparsers.zfin;
 
+import edu.ucdenver.ccp.datasource.fileparsers.Record;
+import edu.ucdenver.ccp.datasource.fileparsers.RecordField;
+import edu.ucdenver.ccp.datasource.fileparsers.SingleLineFileRecord;
+import edu.ucdenver.ccp.datasource.identifiers.DataSource;
+import edu.ucdenver.ccp.datasource.identifiers.other.ZfinID;
+
 /*
  * #%L
  * Colorado Computational Pharmacology's common module
@@ -35,14 +41,6 @@ package edu.ucdenver.ccp.datasource.fileparsers.zfin;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import edu.ucdenver.ccp.datasource.fileparsers.Record;
-import edu.ucdenver.ccp.datasource.fileparsers.RecordField;
-import edu.ucdenver.ccp.datasource.fileparsers.SingleLineFileRecord;
-import edu.ucdenver.ccp.datasource.identifiers.DataSource;
-import edu.ucdenver.ccp.datasource.identifiers.DataSourceIdentifier;
-import edu.ucdenver.ccp.datasource.identifiers.ncbi.gene.NcbiGeneId;
-import edu.ucdenver.ccp.datasource.identifiers.obo.HumanPhenotypeID;
-import edu.ucdenver.ccp.datasource.identifiers.other.ZfinID;
 
 /**
  * Stores the contents of records from this file: http://phenotype-ontologies.googlecode.com/svn/trunk/src/ontology/zp/zp-mapping.txt

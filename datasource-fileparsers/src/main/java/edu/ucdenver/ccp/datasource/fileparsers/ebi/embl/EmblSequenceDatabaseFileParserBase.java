@@ -64,8 +64,6 @@ import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import lombok.Data;
-
 import org.apache.log4j.Logger;
 
 import edu.ucdenver.ccp.common.file.CharacterEncoding;
@@ -77,6 +75,7 @@ import edu.ucdenver.ccp.datasource.identifiers.other.AgricolaId;
 import edu.ucdenver.ccp.datasource.identifiers.other.InsdcProjectId;
 import edu.ucdenver.ccp.datasource.identifiers.publication.DOI;
 import edu.ucdenver.ccp.datasource.identifiers.publication.PubMedID;
+import lombok.Data;
 
 public abstract class EmblSequenceDatabaseFileParserBase<T extends EmblSequenceDatabaseFileDataBase, D extends DataSourceIdentifier<?>, E extends IdLineContents<?>>
 		extends MultiLineFileRecordReader<T> {

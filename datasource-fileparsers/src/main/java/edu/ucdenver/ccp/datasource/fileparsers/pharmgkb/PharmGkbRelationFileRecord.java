@@ -37,7 +37,6 @@ package edu.ucdenver.ccp.datasource.fileparsers.pharmgkb;
 import java.util.Collection;
 import java.util.Set;
 
-import lombok.Data;
 import edu.ucdenver.ccp.datasource.fileparsers.CcpExtensionOntology;
 import edu.ucdenver.ccp.datasource.fileparsers.License;
 import edu.ucdenver.ccp.datasource.fileparsers.Record;
@@ -46,6 +45,7 @@ import edu.ucdenver.ccp.datasource.fileparsers.SingleLineFileRecord;
 import edu.ucdenver.ccp.datasource.identifiers.DataSource;
 import edu.ucdenver.ccp.datasource.identifiers.DataSourceIdentifier;
 import edu.ucdenver.ccp.datasource.identifiers.publication.PubMedID;
+import lombok.Data;
 
 /**
  * File record capturing single line record from PharmGKB's diseases.tsv file.

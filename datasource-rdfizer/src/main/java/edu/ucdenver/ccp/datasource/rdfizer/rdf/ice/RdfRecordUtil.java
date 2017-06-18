@@ -66,7 +66,6 @@ import edu.ucdenver.ccp.datasource.identifiers.DataSourceIdentifier;
 import edu.ucdenver.ccp.datasource.identifiers.ProbableErrorDataSourceIdentifier;
 import edu.ucdenver.ccp.datasource.identifiers.UnknownDataSourceIdentifier;
 import edu.ucdenver.ccp.datasource.rdfizer.rdf.filter.DuplicateStatementFilter;
-import edu.ucdenver.ccp.datasource.rdfizer.rdf.vocabulary.IAO;
 import edu.ucdenver.ccp.datasource.rdfizer.rdf.vocabulary.RO;
 
 /**
