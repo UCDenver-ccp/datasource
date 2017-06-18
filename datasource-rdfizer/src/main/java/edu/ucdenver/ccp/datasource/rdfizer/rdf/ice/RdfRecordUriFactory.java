@@ -150,7 +150,6 @@ public class RdfRecordUriFactory {
 		List<Field> sortedFields = new ArrayList<Field>(fields);
 		Collections.sort(sortedFields, new FieldNameComparator());
 		for (Field field : sortedFields) {
-			System.out.println("Field: " + field.getName());
 			Collection<Object> fieldValues = getFieldValues(record, field);
 			if (fieldValues != null) {
 				URIImpl recordFieldTypeUri = getRecordFieldTypeUri(record.getClass(), field.getName());
@@ -211,7 +210,6 @@ public class RdfRecordUriFactory {
 
 	static String sha1DigestForSortedFieldsAndValues(Object record) {
 		String sortedStr = getSortedFieldsAndValuesStr(record);
-		System.out.println("SORTED STR: " + sortedStr);
 		if (sortedStr == null) {
 			return null;
 		}

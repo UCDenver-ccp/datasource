@@ -103,13 +103,7 @@ public class RdfRecordWriter_InvalidIdentifierTest extends DefaultTestCase {
 		recordWriter.processRecordReader(parser, createdTimeInMillis20101217, Collections.emptySet());
 
 		File outputFile = FileUtil.appendPathElementsToDirectory(outputDirectory, expectedOutputFileName);
-		System.err.println("dir contents: " + Arrays.toString(outputDirectory.list()));
 		assertTrue("Output file should have been created.", outputFile.exists());
-
-		List<String> linesFromFile = FileReaderUtil.loadLinesFromFile(outputFile, CharacterEncoding.UTF_8);
-		for (String l : linesFromFile) {
-			System.err.println(l);
-		}
 
 		List<String> expectedLines = getExpectedLines(RdfUtilTest.getExpectedTimeStamp(createdTimeInMillis20101217));
 		assertTrue("N-Triple Lines should be as expected.", FileComparisonUtil.hasExpectedLines(outputFile,

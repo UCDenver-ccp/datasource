@@ -137,10 +137,8 @@ public class RdfRecordWriterTest extends DefaultTestCase {
 		recordWriter.processRecordReader(parser, createdTimeInMillis20101217, Collections.emptySet());
 
 		File outputFile = FileUtil.appendPathElementsToDirectory(outputDirectory, expectedOutputFileName);
-		System.out.println("dir contents: " + Arrays.toString(outputDirectory.list()));
 		assertTrue("Output file should have been created.", outputFile.exists());
 
-		System.err.println("TIMESTAMP: " + RdfUtilTest.getExpectedTimeStamp(createdTimeInMillis20101217));
 		List<String> expectedLines = getExpectedLines(RdfUtilTest.getExpectedTimeStamp(createdTimeInMillis20101217));
 		assertTrue("N-Triple Lines should be as expected.", FileComparisonUtil.hasExpectedLines(outputFile,
 				CharacterEncoding.UTF_8, expectedLines, null, LineOrder.ANY_ORDER, ColumnOrder.AS_IN_FILE));
@@ -209,7 +207,6 @@ public class RdfRecordWriterTest extends DefaultTestCase {
 		recordWriter.processRecordReader(parser, createdTimeInMillis20101217, CollectionsUtil.createSet(dmd));
 
 		File outputFile = FileUtil.appendPathElementsToDirectory(outputDirectory, expectedOutputFileName);
-		System.out.println("dir contents: " + Arrays.toString(outputDirectory.list()));
 		assertTrue("Output file should have been created.", outputFile.exists());
 
 		List<String> expectedLines = getExpectedLines(RdfUtilTest.getExpectedTimeStamp(createdTimeInMillis20101217));
