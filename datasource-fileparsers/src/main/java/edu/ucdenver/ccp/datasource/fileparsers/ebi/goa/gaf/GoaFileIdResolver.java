@@ -36,7 +36,6 @@ package edu.ucdenver.ccp.datasource.fileparsers.ebi.goa.gaf;
 import org.apache.log4j.Logger;
 
 import edu.ucdenver.ccp.common.string.StringUtil;
-import edu.ucdenver.ccp.datasource.fileparsers.ebi.goa.GoRefID;
 import edu.ucdenver.ccp.datasource.identifiers.DataSourceIdentifier;
 import edu.ucdenver.ccp.datasource.identifiers.IdResolver;
 import edu.ucdenver.ccp.datasource.identifiers.ProteinAccessionResolver;
@@ -81,6 +80,7 @@ import edu.ucdenver.ccp.datasource.identifiers.impl.bio.UniProtIsoformID;
 import edu.ucdenver.ccp.datasource.identifiers.impl.bio.WormBaseID;
 import edu.ucdenver.ccp.datasource.identifiers.impl.bio.ZfinID;
 import edu.ucdenver.ccp.datasource.identifiers.impl.ice.DOI;
+import edu.ucdenver.ccp.datasource.identifiers.impl.ice.GoRefID;
 import edu.ucdenver.ccp.datasource.identifiers.impl.ice.PubMedID;
 
 /**

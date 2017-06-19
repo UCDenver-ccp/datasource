@@ -1,4 +1,6 @@
-package edu.ucdenver.ccp.datasource.fileparsers.ebi.goa;
+package edu.ucdenver.ccp.datasource.identifiers.impl.ice;
+
+import edu.ucdenver.ccp.datasource.fileparsers.CcpExtensionOntology;
 
 /*
  * #%L
@@ -34,8 +36,10 @@ package edu.ucdenver.ccp.datasource.fileparsers.ebi.goa;
  */
 
 import edu.ucdenver.ccp.datasource.identifiers.DataSource;
+import edu.ucdenver.ccp.datasource.identifiers.Identifier;
 import edu.ucdenver.ccp.datasource.identifiers.StringDataSourceIdentifier;
 
+@Identifier(ontClass=CcpExtensionOntology.GO_REFERENCE_IDENTIFIER)
 public class GoRefID extends StringDataSourceIdentifier {
 
 	public GoRefID(String resourceID) {

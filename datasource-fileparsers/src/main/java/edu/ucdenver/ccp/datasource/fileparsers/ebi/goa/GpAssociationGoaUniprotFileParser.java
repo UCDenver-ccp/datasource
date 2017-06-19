@@ -61,6 +61,8 @@ import edu.ucdenver.ccp.datasource.identifiers.impl.bio.RnaCentralId;
 import edu.ucdenver.ccp.datasource.identifiers.impl.bio.UniProtID;
 import edu.ucdenver.ccp.datasource.identifiers.impl.bio.UniProtIsoformID;
 import edu.ucdenver.ccp.datasource.identifiers.impl.ice.DOI;
+import edu.ucdenver.ccp.datasource.identifiers.impl.ice.GoRefID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.ice.GoaRefID;
 import edu.ucdenver.ccp.datasource.identifiers.impl.ice.PubMedID;
 
 /**
