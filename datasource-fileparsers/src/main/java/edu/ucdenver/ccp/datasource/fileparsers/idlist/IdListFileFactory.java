@@ -152,8 +152,8 @@ public class IdListFileFactory {
 		 * of the outputFile
 		 */
 		if (workInProgressFile.exists()) {
-			logger.info("Id list file is in progress. This process will wait until it is finished before proceeding: " + 
-					workInProgressFile.getAbsolutePath());
+			logger.info("Id list file is in progress. This process will wait until it is finished before proceeding: "
+					+ workInProgressFile.getAbsolutePath());
 			WatchService watcher = FileSystems.getDefault().newWatchService();
 			Path p = outputFile.getParentFile().toPath();
 			p.register(watcher, StandardWatchEventKinds.ENTRY_CREATE);
@@ -205,8 +205,8 @@ public class IdListFileFactory {
 					createIntActIdListFile(taxonIds, cleanSourceFiles, sourceFileDirectory, writer);
 					break;
 				default:
-					throw new IllegalArgumentException("The IdListFileFactory does not yet handle the identifiers for "
-							+ ds.name());
+					throw new IllegalArgumentException(
+							"The IdListFileFactory does not yet handle the identifiers for " + ds.name());
 				}
 			} finally {
 				writer.close();
@@ -263,6 +263,7 @@ public class IdListFileFactory {
 				}
 			}
 		}
+		irefweb_rr.close();
 	}
 
 	private static void createUniProtIdListFile(Set<NcbiTaxonomyID> taxonIds, boolean cleanSourceFiles,
@@ -284,15 +285,16 @@ public class IdListFileFactory {
 				writer.write(id.getId() + "\n");
 			}
 		}
+		sp_rr.close();
 
 		SparseUniProtDatFileRecordReader trembl_rr = null;
-		
+
 		if (taxonIds.size() == 1 && CollectionsUtil.getSingleElement(taxonIds).equals(NcbiTaxonomyID.HOMO_SAPIENS)) {
-			trembl_rr = new SparseTremblDatFileRecordReader_HumanOnly(
-					sourceFileDirectory, CharacterEncoding.UTF_8, cleanSourceFiles, taxonIds);
+			trembl_rr = new SparseTremblDatFileRecordReader_HumanOnly(sourceFileDirectory, CharacterEncoding.UTF_8,
+					cleanSourceFiles, taxonIds);
 		} else {
-			trembl_rr = new SparseTremblDatFileRecordReader(
-				sourceFileDirectory, CharacterEncoding.UTF_8, cleanSourceFiles, taxonIds);
+			trembl_rr = new SparseTremblDatFileRecordReader(sourceFileDirectory, CharacterEncoding.UTF_8,
+					cleanSourceFiles, taxonIds);
 		}
 		count = 0;
 		while (trembl_rr.hasNext()) {
@@ -309,6 +311,7 @@ public class IdListFileFactory {
 				writer.write(id.getId() + "\n");
 			}
 		}
+		trembl_rr.close();
 	}
 
 	private static void createEntrezGeneIdListFile(Set<NcbiTaxonomyID> taxonIds, boolean cleanSourceFiles,
@@ -322,6 +325,7 @@ public class IdListFileFactory {
 			NcbiGeneInfoFileData record = eg_rr.next();
 			writer.write(record.getGeneID().getId() + "\n");
 		}
+		eg_rr.close();
 	}
 
 	private static IntActID getIntActID(Set<DataSourceIdentifier<?>> interactionDbIds) {
@@ -347,8 +351,8 @@ public class IdListFileFactory {
 	 * @throws InterruptedException
 	 */
 	public static File generateIdListFiles(File baseSourceFileDirectory, File baseRdfOutputDirectory,
-			boolean cleanSourceFiles, Set<NcbiTaxonomyID> taxonIds, DataSource... dataSources) throws IOException,
-			InterruptedException {
+			boolean cleanSourceFiles, Set<NcbiTaxonomyID> taxonIds, DataSource... dataSources)
+			throws IOException, InterruptedException {
 		File outputDir = getIdListFileDirectory(baseRdfOutputDirectory);
 		if (cleanSourceFiles) {
 			FileUtil.cleanDirectory(outputDir);
@@ -385,8 +389,8 @@ public class IdListFileFactory {
 
 		Set<NcbiTaxonomyID> taxonIds = new HashSet<NcbiTaxonomyID>();
 		if (!args[3].equals("EMPTY")) {
-			taxonIds = new HashSet<NcbiTaxonomyID>(CollectionsUtil.fromDelimitedString(args[3], ",",
-					NcbiTaxonomyID.class));
+			taxonIds = new HashSet<NcbiTaxonomyID>(
+					CollectionsUtil.fromDelimitedString(args[3], ",", NcbiTaxonomyID.class));
 		} else {
 			logger.warn("You are attempting to generate taxon-specific lists of gene and protein identifiers, "
 					+ "however you have not specified any taxonomy IDs. There is no reason to generate these files "
