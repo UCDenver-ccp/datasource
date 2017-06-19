@@ -47,12 +47,14 @@ import java.util.Set;
 
 import org.apache.log4j.Logger;
 
+import edu.ucdenver.ccp.common.collections.CollectionsUtil;
 import edu.ucdenver.ccp.common.download.DownloadMetadata;
 import edu.ucdenver.ccp.common.download.DownloadUtil;
 import edu.ucdenver.ccp.common.download.FtpDownload;
 import edu.ucdenver.ccp.common.download.HttpDownload;
 import edu.ucdenver.ccp.common.file.CharacterEncoding;
 import edu.ucdenver.ccp.common.file.FileArchiveUtil;
+import edu.ucdenver.ccp.common.file.FileReaderUtil;
 import edu.ucdenver.ccp.common.file.FileUtil;
 import edu.ucdenver.ccp.common.http.HttpUtil;
 import edu.ucdenver.ccp.datasource.fileparsers.FileRecordReader;
@@ -1257,6 +1259,9 @@ public enum FileDataSource {
 				File downloadedFile = getDownloadedFilename(sourceFileDirectory, annotation);
 				File readySemaphoreFile = DownloadUtil.getReadySemaphoreFile(downloadedFile);
 				if (readySemaphoreFile.exists()) {
+					logger.info("Reading download metadata from property file: " + readySemaphoreFile);
+					logger.info("Metadata contents: " + CollectionsUtil.createDelimitedString(
+							FileReaderUtil.loadLinesFromFile(readySemaphoreFile, CharacterEncoding.UTF_8), "\n"));
 					metadata.add(DownloadMetadata.loadFromPropertiesFile(readySemaphoreFile));
 				}
 			} else if (field.isAnnotationPresent(HttpDownload.class)) {
