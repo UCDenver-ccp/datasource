@@ -865,7 +865,7 @@ public enum FileDataSource {
 
 		@Override
 		protected Class<? extends RecordReader<?>> getRecordReaderClass() {
-			return SparseTremblXmlFileRecordReader.class;
+			return SparseTremblDatFileRecordReader_HumanOnly.class;
 		}
 	},
 
