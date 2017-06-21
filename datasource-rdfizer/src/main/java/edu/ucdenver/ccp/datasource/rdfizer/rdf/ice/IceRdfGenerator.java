@@ -117,16 +117,26 @@ public class IceRdfGenerator {
 				RecordReader<?> rr = rdfSource.initFileRecordReader(sourceFileDirectory, baseSourceFileDirectory,
 						cleanSourceFiles, cleanIdListFiles, idListFileDirectory, taxonIds);
 
-				Set<DownloadMetadata> metadata = rdfSource.getDownloadMetadata(rdfSource.getRecordReaderClass(),
-						sourceFileDirectory, taxonIds);
-				for (int stageIndex = 1; stageIndex <= rdfSource.getNumberOfStages(); stageIndex++) {
-					if (globalStageIndex >= stageStartNumber
-							&& globalStageIndex < (stageStartNumber + stagesToProcessCount)) {
-						DuplicateStatementFilter filter = new NoOpDuplicateStatementFilter();
-						generateRdfStage(rdfOutputDirectory, currentTime, compress, outputRecordLimit, stageIndex, rr,
-								filter, rdfSource.blockRecordCount(), rdfSource.getNumberOfStages(), metadata);
+				/*
+				 * for some optional data sources, e.g. those that require a
+				 * license and/or manual download, it's possible that rr will be
+				 * null at this point if the source file in unavailable. If
+				 * null, then the record reader is skipped b/c there is nothing
+				 * to process. This code assumes that there is a warning
+				 * elsewhere regarding this record reader being skipped.
+				 */
+				if (rr != null) {
+					Set<DownloadMetadata> metadata = rdfSource.getDownloadMetadata(rdfSource.getRecordReaderClass(),
+							sourceFileDirectory, taxonIds);
+					for (int stageIndex = 1; stageIndex <= rdfSource.getNumberOfStages(); stageIndex++) {
+						if (globalStageIndex >= stageStartNumber
+								&& globalStageIndex < (stageStartNumber + stagesToProcessCount)) {
+							DuplicateStatementFilter filter = new NoOpDuplicateStatementFilter();
+							generateRdfStage(rdfOutputDirectory, currentTime, compress, outputRecordLimit, stageIndex,
+									rr, filter, rdfSource.blockRecordCount(), rdfSource.getNumberOfStages(), metadata);
+						}
+						globalStageIndex++;
 					}
-					globalStageIndex++;
 				}
 			}
 		} else {
@@ -165,7 +175,7 @@ public class IceRdfGenerator {
 	 * @param compress
 	 * @param outputRecordLimit
 	 * @throws IOException
-	 * @throws ParseException 
+	 * @throws ParseException
 	 */
 	public static void generateIceRdf(FileDataSource fileDataSource, long currentTime, File baseSourceFileDirectory,
 			File baseRdfOutputDirectory, boolean cleanSourceFiles, boolean cleanIdListFiles, boolean compress,
@@ -175,11 +185,21 @@ public class IceRdfGenerator {
 		File idListFileDirectory = IdListFileFactory.getIdListFileDirectory(baseRdfOutputDirectory);
 		RecordReader<?> rr = fileDataSource.initFileRecordReader(sourceFileDirectory, baseSourceFileDirectory,
 				cleanSourceFiles, cleanIdListFiles, idListFileDirectory, taxonIds);
-		File cacheFilePrefix = FileUtil.appendPathElementsToDirectory(rdfOutputDirectory, "filter-cache", "filter");
-		DuplicateStatementFilter filter = new DefaultDuplicateStatementFilter(cacheFilePrefix);
-		Set<DownloadMetadata> metadata = fileDataSource.getDownloadMetadata(fileDataSource.getRecordReaderClass(),
-				sourceFileDirectory, taxonIds);
-		generateRdf(currentTime, rr, rdfOutputDirectory, compress, outputRecordLimit, filter, metadata);
+		/*
+		 * for some optional data sources, e.g. those that require a license
+		 * and/or manual download, it's possible that rr will be null at this
+		 * point if the source file in unavailable. If null, then the record
+		 * reader is skipped b/c there is nothing to process. This code assumes
+		 * that there is a warning elsewhere regarding this record reader being
+		 * skipped.
+		 */
+		if (rr != null) {
+			File cacheFilePrefix = FileUtil.appendPathElementsToDirectory(rdfOutputDirectory, "filter-cache", "filter");
+			DuplicateStatementFilter filter = new DefaultDuplicateStatementFilter(cacheFilePrefix);
+			Set<DownloadMetadata> metadata = fileDataSource.getDownloadMetadata(fileDataSource.getRecordReaderClass(),
+					sourceFileDirectory, taxonIds);
+			generateRdf(currentTime, rr, rdfOutputDirectory, compress, outputRecordLimit, filter, metadata);
+		}
 	}
 
 	/**
@@ -256,7 +276,8 @@ public class IceRdfGenerator {
 			boolean compress, long outputRecordLimit, DuplicateStatementFilter filter, Set<DownloadMetadata> metadata) {
 		long skip = 0;
 		int batchNum = 0;
-		generateRdf(createdTime, recordReader, outputDirectory, compress, skip, outputRecordLimit, batchNum, filter, metadata);
+		generateRdf(createdTime, recordReader, outputDirectory, compress, skip, outputRecordLimit, batchNum, filter,
+				metadata);
 	}
 
 	/**
@@ -287,18 +308,18 @@ public class IceRdfGenerator {
 			DuplicateStatementFilter filter, Set<DownloadMetadata> metadata) {
 		RdfRecordWriter<?> recordWriter = null;
 		logger.info("Creating RDF for Record Reader: " + recordReader.getClass().getName() + " SKIP=" + skip
-				+ " COMPRESS=" + compress + " OUTPUT_RECORD_LIMIT=" + outputRecordLimit + " BATCH_NUMBER="
-				+ batchNumber + " OUTPUT_DIRECTORY=" + outputDirectory.getAbsolutePath());
+				+ " COMPRESS=" + compress + " OUTPUT_RECORD_LIMIT=" + outputRecordLimit + " BATCH_NUMBER=" + batchNumber
+				+ " OUTPUT_DIRECTORY=" + outputDirectory.getAbsolutePath());
 		long startTime = System.currentTimeMillis();
 		try {
-			recordWriter = new RdfRecordWriter(outputDirectory, RdfFormat.NTRIPLES, compress, -1, batchNumber,
-					filter);
+			recordWriter = new RdfRecordWriter(outputDirectory, RdfFormat.NTRIPLES, compress, -1, batchNumber, filter);
 			Collection<File> generatedRdfFiles = recordWriter.processRecordReader(recordReader, createdTime, skip,
 					outputRecordLimit, metadata);
 			createMd5CheckSumsForGeneratedRdfFiles(generatedRdfFiles);
 		} catch (IOException ioe) {
-			throw new RuntimeException(String.format("IO Error while processing RecordWriter: %s", recordWriter
-					.getClass().getName()), ioe);
+			throw new RuntimeException(
+					String.format("IO Error while processing RecordWriter: %s", recordWriter.getClass().getName()),
+					ioe);
 		} catch (RuntimeException re) {
 			throw new RuntimeException(String.format("Runtime Exception while processing RecordWriter: %s",
 					recordWriter.getClass().getName()), re);
@@ -334,7 +355,7 @@ public class IceRdfGenerator {
 	 *            if INDEX, then the index provided will be used to specify
 	 *            which FileDataSource is processed. This is useful when running
 	 *            in batches such as when invoking via Grid Engine. <br>
-	 * <br>
+	 *            <br>
 	 *            args[1]: base directory where the data source files are
 	 *            already downloaded <br>
 	 *            args[2]: base directory where the RDF output files will be
@@ -356,7 +377,7 @@ public class IceRdfGenerator {
 	 *            process <br>
 	 *            args[8]: [OPTIONAL] date to use in the form yyyy-mm-dd. If not
 	 *            included or if "null" then the current date will be used<br>
-	 * <br>
+	 *            <br>
 	 *            if INDEX: <br>
 	 *            args[7]: start stage args<br>
 	 *            args[8]: the number of stages to process<br>
