@@ -39,6 +39,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -67,7 +68,7 @@ public class CcpOntologyMergeUtil {
 		this.replacementPattern = Pattern.compile(idPrefixToIncorporate + "\\d+");
 	}
 
-	public void updateOntology(File inputOwlFile, File outputOwlFile) throws IOException {
+	public void updateOntology(File inputOwlFile, File outputOwlFile, File outputMappingFile) throws IOException {
 		try (BufferedWriter writer = FileWriterUtil.initBufferedWriter(outputOwlFile)) {
 
 			for (StreamLineIterator lineIter = new StreamLineIterator(inputOwlFile, CharacterEncoding.UTF_8); lineIter
@@ -101,6 +102,13 @@ public class CcpOntologyMergeUtil {
 				}
 			}
 		}
+		
+		try (BufferedWriter writer = FileWriterUtil.initBufferedWriter(outputMappingFile)) {
+			for (Entry<String, String> entry : originalToReplacedIdMap.entrySet()) {
+				writer.write(entry.getKey() + "\t" + entry.getValue() + "\n");
+			}
+		}
+		
 	}
 
 	private String getZeroPaddedId(int i) {
@@ -112,9 +120,10 @@ public class CcpOntologyMergeUtil {
 		String idPrefixToIncorporate = args[1];
 		File inputOwlFile = new File(args[2]);
 		File outputOwlFile = new File(args[3]);
+		File outputMappingFile = new File(args[4]);
 
 		try {
-			new CcpOntologyMergeUtil(nextOntologyId, idPrefixToIncorporate).updateOntology(inputOwlFile, outputOwlFile);
+			new CcpOntologyMergeUtil(nextOntologyId, idPrefixToIncorporate).updateOntology(inputOwlFile, outputOwlFile, outputMappingFile);
 		} catch (IOException e) {
 			e.printStackTrace();
 			System.exit(-1);
