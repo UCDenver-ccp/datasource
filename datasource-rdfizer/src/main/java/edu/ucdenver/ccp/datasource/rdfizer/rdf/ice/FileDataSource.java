@@ -254,9 +254,20 @@ public enum FileDataSource {
 				throws IOException {
 
 			File drugbankXmlFile = new File(sourceFileDirectory, "full database.xml");
-			FileUtil.validateFile(drugbankXmlFile);
 
-			return new DrugbankXmlFileRecordReader(drugbankXmlFile);
+			if (drugbankXmlFile.exists()) {
+				FileUtil.validateFile(drugbankXmlFile);
+				return new DrugbankXmlFileRecordReader(drugbankXmlFile);
+			}
+
+			logger.warn("\n\n!!!!!!!!!!!!!!!!!!!!!!   SKIPPING DRUGBANK   !!!!!!!!!!!!!!!!!!!!!!"
+					+ "The DrugBank 'full database.xml' file could not be located in the expected folder: "
+					+ sourceFileDirectory.getAbsolutePath()
+					+ "\nIf you would like DrugBank to be processed, please place a copy of the DrugBank 'full database.xml' "
+					+ "file in that folder and restart this process."
+					+ "\n\n!!!!!!!!!!!!!!!!!!!!!!   SKIPPING DRUGBANK   !!!!!!!!!!!!!!!!!!!!!!");
+			return null;
+
 		}
 
 		@Override
@@ -1078,7 +1089,18 @@ public enum FileDataSource {
 				boolean cleanSourceFiles, boolean cleanIdListFiles, File idListDir, Set<NcbiTaxonomyID> taxonIds)
 				throws IOException {
 			File pharmgkbRelationshipsDataFile = new File(sourceFileDirectory, "relationships.tsv");
-			return new PharmGkbRelationFileParser(pharmgkbRelationshipsDataFile, CharacterEncoding.UTF_8);
+
+			if (pharmgkbRelationshipsDataFile.exists()) {
+				return new PharmGkbRelationFileParser(pharmgkbRelationshipsDataFile, CharacterEncoding.UTF_8);
+			}
+
+			logger.warn("\n\n!!!!!!!!!!!!!!!!!!!!!!   SKIPPING PHARMGKB RELATIONS   !!!!!!!!!!!!!!!!!!!!!!"
+					+ "The PharmGKB 'relationships.tsv' file could not be located in the expected folder: "
+					+ sourceFileDirectory.getAbsolutePath()
+					+ "\nIf you would like PharmGKB relationships to be processed, please place a copy of the 'relationships.tsv' "
+					+ "file in that folder and restart this process."
+					+ "\n\n!!!!!!!!!!!!!!!!!!!!!!   SKIPPING PHARMGKB RELATIONS   !!!!!!!!!!!!!!!!!!!!!!");
+			return null;
 		}
 
 		@Override
