@@ -89,9 +89,9 @@ public class SubRecordUtilTest {
 	/**
 	 * This is a DataRecord class that has a field that is a sub-record
 	 */
-	@Record(dataSource = DataSource.KEGG, ontClass = CcpExtensionOntology.GAF_RECORD)
+	@Record(dataSource = DataSource.KEGG, ontClass = CcpExtensionOntology.GOA_GAF_RECORD)
 	private static class TestDataRecordWithSubRecord extends TestDataRecord {
-		@RecordField(ontClass = CcpExtensionOntology.GAF_DATABASE_REFERENCE_FIELD_VALUE)
+		@RecordField(ontClass = CcpExtensionOntology.GOA_GAF_V20_ANNOTATION_RECORD___DATABASE_OBJECT_NAME_FIELD_VALUE)
 		private SubRecord subRecordField = new SubRecord("AABBCC", "XXYYZZ");
 	}
 
@@ -130,7 +130,7 @@ public class SubRecordUtilTest {
 		/* @formatter:off*/
 		Set<String> expectedStatements = CollectionsUtil.createSet(
 				"(http://ccp.ucdenver.edu/obo/ext/RS_KEGG_20101221, http://purl.obolibrary.org/obo/BFO_0000051, http://record.uri)",
-				"(http://record.uri, http://www.w3.org/1999/02/22-rdf-syntax-ns#type, "	+ CcpExtensionOntology.GAF_RECORD.uri() + ")",
+				"(http://record.uri, http://www.w3.org/1999/02/22-rdf-syntax-ns#type, "	+ CcpExtensionOntology.GOA_GAF_RECORD.uri() + ")",
 				"(http://record.uri, http://purl.obolibrary.org/obo/BFO_0000051, http://ccp.ucdenver.edu/obo/ext/F_" + fieldValueHash1 + ")",
 				"(http://ccp.ucdenver.edu/obo/ext/F_" + fieldValueHash1 + ", " + RDFS.LABEL.toString() + ", \"1\"@en)",
 				"(http://ccp.ucdenver.edu/obo/ext/F_" + fieldValueHash1 + ", http://www.w3.org/1999/02/22-rdf-syntax-ns#type, " + CcpExtensionOntology.SYMBOL_FIELD_VALUE.uri() + ")",
@@ -148,7 +148,7 @@ public class SubRecordUtilTest {
 				"(http://ccp.ucdenver.edu/obo/ext/F_" + fieldValueHash4 + ", http://www.w3.org/1999/02/22-rdf-syntax-ns#type, " + CcpExtensionOntology.SYNONYMS_FIELD_VALUE.uri() + ")",
 				
 				"(http://record.uri, http://purl.obolibrary.org/obo/BFO_0000051, http://ccp.ucdenver.edu/obo/ext/R_" + subRecordHash + ")",
-				"(http://ccp.ucdenver.edu/obo/ext/R_" + subRecordHash + ", http://www.w3.org/1999/02/22-rdf-syntax-ns#type, "	+ CcpExtensionOntology.GAF_DATABASE_REFERENCE_FIELD_VALUE.uri() + ")",
+				"(http://ccp.ucdenver.edu/obo/ext/R_" + subRecordHash + ", http://www.w3.org/1999/02/22-rdf-syntax-ns#type, "	+ CcpExtensionOntology.GOA_GAF_V20_ANNOTATION_RECORD___DATABASE_OBJECT_NAME_FIELD_VALUE.uri() + ")",
 				"(http://ccp.ucdenver.edu/obo/ext/R_" + subRecordHash + ", http://www.w3.org/1999/02/22-rdf-syntax-ns#type, "	+ CcpExtensionOntology.HPO_ANNOTATION_RECORD.uri() + ")",
 				"(http://ccp.ucdenver.edu/obo/ext/R_" + subRecordHash + ", http://purl.obolibrary.org/obo/BFO_0000051, http://ccp.ucdenver.edu/obo/ext/F_" + fieldValueHash5 + ")",
 				"(http://ccp.ucdenver.edu/obo/ext/F_" + fieldValueHash5 + ", " + RDFS.LABEL.toString() + ", \"AABBCC\"@en)",
@@ -251,7 +251,7 @@ public class SubRecordUtilTest {
 	 * classes
 	 * 
 	 */
-	@Record(dataSource = DataSource.KEGG, comment = "This is a sub-record class that has a subrecord itself", ontClass = CcpExtensionOntology.GAF_RECORD)
+	@Record(dataSource = DataSource.KEGG, comment = "This is a sub-record class that has a subrecord itself", ontClass = CcpExtensionOntology.GOA_GAF_RECORD)
 	private static class NestedSubRecord implements DataRecord {
 		@RecordField(ontClass = CcpExtensionOntology.SOURCE_DATABASE_NAME_FIELD_VALUE)
 		private final IRefWebInteractionSourceDatabase miIdTerm;
@@ -311,7 +311,7 @@ public class SubRecordUtilTest {
 			
 				"(http://record.uri, http://purl.obolibrary.org/obo/BFO_0000051, http://ccp.ucdenver.edu/obo/ext/R_"+subRecordHash1+")",
 				"(http://ccp.ucdenver.edu/obo/ext/R_" + subRecordHash1 + ", http://www.w3.org/1999/02/22-rdf-syntax-ns#type, "	+ CcpExtensionOntology.SUBRECORD.uri() + ")",
-				"(http://ccp.ucdenver.edu/obo/ext/R_" + subRecordHash1 + ", http://www.w3.org/1999/02/22-rdf-syntax-ns#type, "	+ CcpExtensionOntology.GAF_RECORD.uri() + ")",
+				"(http://ccp.ucdenver.edu/obo/ext/R_" + subRecordHash1 + ", http://www.w3.org/1999/02/22-rdf-syntax-ns#type, "	+ CcpExtensionOntology.GOA_GAF_RECORD.uri() + ")",
 				"(http://ccp.ucdenver.edu/obo/ext/R_" + subRecordHash1 + ", http://purl.obolibrary.org/obo/BFO_0000051, http://ccp.ucdenver.edu/obo/ext/R_" + subRecordHash2 + ")",
 
 				"(http://ccp.ucdenver.edu/obo/ext/R_" + subRecordHash2 + ", http://www.w3.org/1999/02/22-rdf-syntax-ns#type, "	+ CcpExtensionOntology.SOURCE_DATABASE_NAME_FIELD_VALUE.uri() + ")",

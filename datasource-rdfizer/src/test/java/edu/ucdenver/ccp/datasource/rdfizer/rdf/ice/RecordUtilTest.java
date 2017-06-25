@@ -193,8 +193,8 @@ public class RecordUtilTest {
 		String fieldHash3 = "LaDkkgFRguECzB9LF81DCE_b7es";
 		String fieldHash4 = "oE49wz1Ki32ivuid120WR5iHQ9Q";
 
-		String subRecordHash = "yFy9yBSUQ6VV19TXW3AF7r4KwE8";
-		String fieldHash_sub = "yFy9yBSUQ6VV19TXW3AF7r4KwE8";
+		String subRecordHash = "15-ZNT-5KBJB5mCiGo6-wqnHfBU";
+		String fieldHash_sub = "15-ZNT-5KBJB5mCiGo6-wqnHfBU";
 
 		/* @formatter:off */
 		Set<String> expectedStatements = CollectionsUtil.createSet(
@@ -214,9 +214,9 @@ public class RecordUtilTest {
 				"(http://ccp.ucdenver.edu/obo/ext/F_" + fieldHash4 + ", " + RDFS.LABEL + ", \"4\"@en)",
 				"(http://record.uri, http://purl.obolibrary.org/obo/BFO_0000051, http://ccp.ucdenver.edu/obo/ext/R_" + subRecordHash + ")",
 				"(http://ccp.ucdenver.edu/obo/ext/R_" + subRecordHash + ", http://www.w3.org/1999/02/22-rdf-syntax-ns#type, " + CcpExtensionOntology.DATABASE_CROSS_REFERENCE_IDENTIFIER_FIELD_VALUE.uri() + ")",
-				"(http://ccp.ucdenver.edu/obo/ext/R_" + subRecordHash + ", http://www.w3.org/1999/02/22-rdf-syntax-ns#type, " + CcpExtensionOntology.GAF_RECORD.uri() + ")",
+				"(http://ccp.ucdenver.edu/obo/ext/R_" + subRecordHash + ", http://www.w3.org/1999/02/22-rdf-syntax-ns#type, " + CcpExtensionOntology.GOA_GAF_RECORD.uri() + ")",
 				"(http://ccp.ucdenver.edu/obo/ext/R_" + subRecordHash + ", http://purl.obolibrary.org/obo/BFO_0000051, http://ccp.ucdenver.edu/obo/ext/F_" + fieldHash_sub + ")",
-				"(http://ccp.ucdenver.edu/obo/ext/F_" + fieldHash_sub + ", http://www.w3.org/1999/02/22-rdf-syntax-ns#type, " + CcpExtensionOntology.GAF_DATABASE_NAME_FIELD_VALUE.uri() + ")",
+				"(http://ccp.ucdenver.edu/obo/ext/F_" + fieldHash_sub + ", http://www.w3.org/1999/02/22-rdf-syntax-ns#type, " + CcpExtensionOntology.GOA_GAF_V20_ANNOTATION_RECORD___DATABASE_OBJECT_NAME_FIELD_VALUE.uri() + ")",
 				"(http://ccp.ucdenver.edu/obo/ext/F_" + fieldHash_sub + ", " + RDFS.LABEL + ", \"sub\"@en)");
 		/* @formatter:on */
 
@@ -280,9 +280,9 @@ public class RecordUtilTest {
 		private int excludeField = 5;
 	}
 
-	@Record(dataSource = DataSource.KEGG, ontClass = CcpExtensionOntology.GAF_RECORD)
+	@Record(dataSource = DataSource.KEGG, ontClass = CcpExtensionOntology.GOA_GAF_RECORD)
 	private static class TestDataSubRecord implements DataRecord {
-		@RecordField(ontClass = CcpExtensionOntology.GAF_DATABASE_NAME_FIELD_VALUE)
+		@RecordField(ontClass = CcpExtensionOntology.GOA_GAF_V20_ANNOTATION_RECORD___DATABASE_OBJECT_NAME_FIELD_VALUE)
 		private String subrecordStringField = "sub";
 	}
 
