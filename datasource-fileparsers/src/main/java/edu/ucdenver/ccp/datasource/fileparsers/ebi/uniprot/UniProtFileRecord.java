@@ -484,7 +484,7 @@ public class UniProtFileRecord extends FileRecord {
 		@Getter
 		@Record(ontClass = CcpExtensionOntology.UNIPROT_LINK_RECORD, dataSource = DataSource.UNIPROT)
 		public static class Link {
-			@RecordField
+			@RecordField(ontClass = CcpExtensionOntology.UNIPROT_LINK_RECORD___URI_FIELD_VALUE)
 			private final String uri;
 
 			public Link(CommentType.Link xmlType) {
