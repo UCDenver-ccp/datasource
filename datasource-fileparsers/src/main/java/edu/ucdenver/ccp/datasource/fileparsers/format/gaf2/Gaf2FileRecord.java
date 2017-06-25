@@ -223,11 +223,11 @@ public class Gaf2FileRecord extends SingleLineFileRecord {
 	}
 
 	@Data
-	@Record(dataSource=DataSource.GOA)
+	@Record(dataSource=DataSource.GOA, ontClass = CcpExtensionOntology.GOA_GAF_V20_ANNOTATION_EXTENSION_RECORD)
 	public static class AnnotationExtension {
-		@RecordField
+		@RecordField(ontClass = CcpExtensionOntology.GOA_ANNOTATION_EXTENSION_RECORD___RELATION_FIELD_VALUE)
 		private final String relation;
-		@RecordField
+		@RecordField(ontClass = CcpExtensionOntology.GOA_ANNOTATION_EXTENSION_RECORD___ONTOLOGY_TERM_FIELD_VALUE)
 		private final DataSourceIdentifier<?> ontologyTerm;
 	}
 	
