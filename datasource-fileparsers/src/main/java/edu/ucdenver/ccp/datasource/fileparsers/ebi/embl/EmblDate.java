@@ -41,6 +41,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import edu.ucdenver.ccp.datasource.fileparsers.CcpExtensionOntology;
 import edu.ucdenver.ccp.datasource.fileparsers.Record;
 import edu.ucdenver.ccp.datasource.fileparsers.RecordField;
 import edu.ucdenver.ccp.datasource.identifiers.DataSource;
@@ -50,16 +51,16 @@ import lombok.Data;
  * @author Colorado Computational Pharmacology, UC Denver; ccpsupport@ucdenver.edu
  * 
  */
-@Record(dataSource = DataSource.EMBL)
+@Record(dataSource = DataSource.EMBL, ontClass = CcpExtensionOntology.EMBL_DATE_RECORD)
 @Data
 public class EmblDate {
-	@RecordField
+	@RecordField(ontClass = CcpExtensionOntology.EMBL_DATE_RECORD___DATE_FIELD_VALUE)
 	private final Date date;
-	@RecordField
+	@RecordField(ontClass = CcpExtensionOntology.EMBL_DATE_RECORD___CREATED_OR_LAST_UPDATED_FIELD_VALUE)
 	private final String createdOrLastUpdated;
-	@RecordField
+	@RecordField(ontClass = CcpExtensionOntology.EMBL_DATE_RECORD___RELEASE_FIELD_VALUE)
 	private final Integer release;
-	@RecordField
+	@RecordField(ontClass = CcpExtensionOntology.EMBL_DATE_RECORD___VERSION_FIELD_VALUE)
 	private final Integer version;
 
 	/**
