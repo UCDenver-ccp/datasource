@@ -36,39 +36,32 @@ package edu.ucdenver.ccp.datasource.fileparsers.pharmgkb;
 import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.assertFalse;
 
-import java.io.File;
 import java.io.IOException;
-import java.util.HashMap;
 import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
 import java.util.Set;
 
-import org.junit.Ignore;
 import org.junit.Test;
 
-import edu.ucdenver.ccp.common.collections.CollectionsUtil;
 import edu.ucdenver.ccp.common.file.CharacterEncoding;
-import edu.ucdenver.ccp.common.file.FileUtil;
 import edu.ucdenver.ccp.datasource.fileparsers.RecordReader;
 import edu.ucdenver.ccp.datasource.fileparsers.test.RecordReaderTester;
 import edu.ucdenver.ccp.datasource.identifiers.DataSourceIdentifier;
-import edu.ucdenver.ccp.datasource.identifiers.ebi.uniprot.UniProtID;
-import edu.ucdenver.ccp.datasource.identifiers.ensembl.EnsemblGeneID;
-import edu.ucdenver.ccp.datasource.identifiers.hgnc.HgncID;
-import edu.ucdenver.ccp.datasource.identifiers.ncbi.gene.NcbiGeneId;
-import edu.ucdenver.ccp.datasource.identifiers.ncbi.omim.OmimID;
-import edu.ucdenver.ccp.datasource.identifiers.ncbi.refseq.RefSeqID;
-import edu.ucdenver.ccp.datasource.identifiers.obo.GeneOntologyID;
-import edu.ucdenver.ccp.datasource.identifiers.other.AlfredId;
-import edu.ucdenver.ccp.datasource.identifiers.other.CtdId;
-import edu.ucdenver.ccp.datasource.identifiers.other.GenAtlasId;
-import edu.ucdenver.ccp.datasource.identifiers.other.GeneCardId;
-import edu.ucdenver.ccp.datasource.identifiers.other.HugeId;
-import edu.ucdenver.ccp.datasource.identifiers.other.HumanCycGeneId;
-import edu.ucdenver.ccp.datasource.identifiers.other.ModBaseId;
-import edu.ucdenver.ccp.datasource.identifiers.other.MutDbId;
-import edu.ucdenver.ccp.datasource.identifiers.other.UcscGenomeBrowserId;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.AlfredId;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.CtdId;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.EnsemblGeneID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.GenAtlasId;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.GeneCardId;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.GeneOntologyID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.HgncID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.HugeId;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.HumanCycGeneId;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.ModBaseId;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.MutDbId;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.NcbiGeneId;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.OmimID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.RefSeqID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.UcscGenomeBrowserId;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.UniProtID;
 
 //@Ignore("file header in test file no longer matches file downloaded from PharmGkb. Code has been updated but test has not.")
 public class PharmGkbGeneFileParserTest extends RecordReaderTester {

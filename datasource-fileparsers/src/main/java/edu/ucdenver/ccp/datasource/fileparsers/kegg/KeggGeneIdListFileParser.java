@@ -46,7 +46,7 @@ import edu.ucdenver.ccp.common.file.reader.Line;
 import edu.ucdenver.ccp.common.string.StringConstants;
 import edu.ucdenver.ccp.datasource.fileparsers.SingleLineFileRecordReader;
 import edu.ucdenver.ccp.datasource.identifiers.DataSourceIdentifier;
-import edu.ucdenver.ccp.datasource.identifiers.kegg.KeggGeneID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.KeggGeneID;
 
 /**
  * This class is used to parse the Kegg AAA_geneIDType.list files where AAA is a three-letter code

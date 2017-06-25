@@ -34,7 +34,7 @@ package edu.ucdenver.ccp.datasource.fileparsers.mirbase;
  */
 
 import edu.ucdenver.ccp.datasource.fileparsers.ebi.embl.EmblIdLineContentsBase;
-import edu.ucdenver.ccp.datasource.identifiers.other.MiRBaseID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.MiRBaseID;
 
 /**
  * Very similar to the EmblIdLineContents, however the sequence version and sequence topology fields

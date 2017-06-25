@@ -35,13 +35,13 @@ package edu.ucdenver.ccp.datasource.fileparsers.dip;
 
 import java.util.Set;
 
-import lombok.Data;
 import edu.ucdenver.ccp.datasource.fileparsers.DataRecord;
 import edu.ucdenver.ccp.datasource.fileparsers.Record;
 import edu.ucdenver.ccp.datasource.fileparsers.RecordField;
 import edu.ucdenver.ccp.datasource.identifiers.DataSource;
 import edu.ucdenver.ccp.datasource.identifiers.DataSourceIdentifier;
-import edu.ucdenver.ccp.datasource.identifiers.dip.DipInteractorID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.DipInteractorID;
+import lombok.Data;
 
 @Data
 @Record(dataSource = DataSource.DIP, label = "DIP interactor")

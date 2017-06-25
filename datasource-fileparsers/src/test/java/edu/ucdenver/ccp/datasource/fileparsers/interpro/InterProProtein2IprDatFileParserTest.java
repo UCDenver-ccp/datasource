@@ -33,6 +33,15 @@
 
 package edu.ucdenver.ccp.datasource.fileparsers.interpro;
 
+import static org.hamcrest.core.IsInstanceOf.instanceOf;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertThat;
+
+import java.io.File;
+import java.io.IOException;
+
+import org.junit.Test;
+
 /*
  * #%L
  * Colorado Computational Pharmacology's datasource
@@ -72,15 +81,6 @@ import edu.ucdenver.ccp.common.file.reader.Line;
 import edu.ucdenver.ccp.datasource.fileparsers.ebi.interpro.InterProProtein2IprDatFileData;
 import edu.ucdenver.ccp.datasource.fileparsers.ebi.interpro.InterProProtein2IprDatFileParser;
 import edu.ucdenver.ccp.datasource.identifiers.UnknownDataSourceIdentifier;
-
-import org.junit.Test;
-
-import java.io.File;
-import java.io.IOException;
-
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertThat;
-import static org.hamcrest.core.IsInstanceOf.instanceOf;
 
 public class InterProProtein2IprDatFileParserTest {
 

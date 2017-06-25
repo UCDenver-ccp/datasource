@@ -37,13 +37,12 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 
-import lombok.Getter;
-
 import org.apache.log4j.Logger;
 
 import edu.ucdenver.ccp.common.download.DownloadUtil;
 import edu.ucdenver.ccp.common.file.CharacterEncoding;
 import edu.ucdenver.ccp.common.file.FileUtil;
+import lombok.Getter;
 
 /**
  * Abstract class for reading data records from a file.

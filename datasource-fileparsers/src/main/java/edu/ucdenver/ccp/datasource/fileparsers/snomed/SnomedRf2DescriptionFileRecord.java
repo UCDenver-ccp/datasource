@@ -1,5 +1,7 @@
 package edu.ucdenver.ccp.datasource.fileparsers.snomed;
 
+import edu.ucdenver.ccp.datasource.fileparsers.SingleLineFileRecord;
+
 /*
  * #%L
  * Colorado Computational Pharmacology's common module
@@ -34,7 +36,6 @@ package edu.ucdenver.ccp.datasource.fileparsers.snomed;
  */
 
 import lombok.Getter;
-import edu.ucdenver.ccp.datasource.fileparsers.SingleLineFileRecord;
 
 /**
  * @author Center for Computational Pharmacology, UC Denver; ccpsupport@ucdenver.edu

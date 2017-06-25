@@ -58,25 +58,25 @@ import edu.ucdenver.ccp.datasource.identifiers.NucleotideAccessionResolver;
 import edu.ucdenver.ccp.datasource.identifiers.ProbableErrorDataSourceIdentifier;
 import edu.ucdenver.ccp.datasource.identifiers.ProteinAccessionResolver;
 import edu.ucdenver.ccp.datasource.identifiers.UnknownDataSourceIdentifier;
-import edu.ucdenver.ccp.datasource.identifiers.ebi.uniprot.UniProtID;
-import edu.ucdenver.ccp.datasource.identifiers.ensembl.EnsemblGeneID;
-import edu.ucdenver.ccp.datasource.identifiers.hgnc.HgncID;
-import edu.ucdenver.ccp.datasource.identifiers.ncbi.gene.NcbiGeneId;
-import edu.ucdenver.ccp.datasource.identifiers.ncbi.omim.OmimID;
-import edu.ucdenver.ccp.datasource.identifiers.ncbi.refseq.RefSeqID;
-import edu.ucdenver.ccp.datasource.identifiers.obo.GeneOntologyID;
-import edu.ucdenver.ccp.datasource.identifiers.other.AlfredId;
-import edu.ucdenver.ccp.datasource.identifiers.other.CrossReferenceUrl;
-import edu.ucdenver.ccp.datasource.identifiers.other.CtdId;
-import edu.ucdenver.ccp.datasource.identifiers.other.GenAtlasId;
-import edu.ucdenver.ccp.datasource.identifiers.other.GeneCardId;
-import edu.ucdenver.ccp.datasource.identifiers.other.HugeId;
-import edu.ucdenver.ccp.datasource.identifiers.other.HumanCycGeneId;
-import edu.ucdenver.ccp.datasource.identifiers.other.IupharReceptorId;
-import edu.ucdenver.ccp.datasource.identifiers.other.ModBaseId;
-import edu.ucdenver.ccp.datasource.identifiers.other.MutDbId;
-import edu.ucdenver.ccp.datasource.identifiers.other.UcscGenomeBrowserId;
-import edu.ucdenver.ccp.datasource.identifiers.pharmgkb.PharmGkbID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.AlfredId;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.CtdId;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.EnsemblGeneID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.GenAtlasId;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.GeneCardId;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.GeneOntologyID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.HgncID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.HugeId;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.HumanCycGeneId;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.IupharReceptorId;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.ModBaseId;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.MutDbId;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.NcbiGeneId;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.OmimID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.PharmGkbID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.RefSeqID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.UcscGenomeBrowserId;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.UniProtID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.ice.CrossReferenceUrl;
 
 /**
  * The file format for the genes.tsv file has changed. This parser should be
@@ -137,7 +137,7 @@ public class PharmGkbGeneFileParser extends SingleLineFileRecordReader<PharmGkbG
 	private static final String URL_PREFIX = "Web Resource:";
 	
 
-	@HttpDownload(url = "https://www.pharmgkb.org/download.do?objId=genes.zip&dlCls=common", fileName = "genes.zip", targetFileName = "genes.tsv", decompress = true)
+	@HttpDownload(url = "https://api.pharmgkb.org/v1/download/file/data/genes.zip", fileName = "genes.zip", targetFileName = "genes.tsv", decompress = true)
 	private File pharmGkbGenesFile;
 
 	public PharmGkbGeneFileParser(File dataFile, CharacterEncoding encoding) throws IOException {
@@ -302,16 +302,6 @@ public class PharmGkbGeneFileParser extends SingleLineFileRecordReader<PharmGkbG
 		} catch (IllegalArgumentException e) {
 			logger.warn("Illegal data source identifier detected: '" + refStr + "' due to: " + e.getMessage());
 			return new ProbableErrorDataSourceIdentifier(refStr, null, e.getMessage());
-		}
-	}
-
-	public static void main(String[] args) {
-		try {
-			for (PharmGkbGeneFileParser p = new PharmGkbGeneFileParser(new File("/tmp/pharmgkb"), false); p.hasNext();) {
-				p.next();
-			}
-		} catch (IOException e) {
-			e.printStackTrace();
 		}
 	}
 

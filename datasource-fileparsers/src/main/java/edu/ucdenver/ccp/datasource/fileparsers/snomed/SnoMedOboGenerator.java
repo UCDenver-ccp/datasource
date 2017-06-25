@@ -41,8 +41,6 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
-import lombok.Data;
-
 import org.apache.log4j.BasicConfigurator;
 import org.apache.log4j.Logger;
 
@@ -53,6 +51,7 @@ import edu.ucdenver.ccp.common.file.FileWriterUtil.FileSuffixEnforcement;
 import edu.ucdenver.ccp.common.file.FileWriterUtil.WriteMode;
 import edu.ucdenver.ccp.common.string.StringUtil;
 import edu.ucdenver.ccp.datasource.fileparsers.snomed.SnomedRf2DescriptionFileRecord.DescriptionType;
+import lombok.Data;
 
 /**
  * Parses the snomed distribution files and creates an obo ontology of is_a relations

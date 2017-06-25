@@ -14,6 +14,7 @@ function print_usage {
     echo "  [-m]: Include only human and the 7 model organisms in the generated RDF. If neither -t nor -m is specified, all records will be included."
     echo "  [-c]: Clean the data source files. If set, this flag will cause the data source files to be re-downloaded prior to processing."
     echo "  [-l]: Clean the taxon-specific ID list files used by some taxon-aware file parsers. If set, this flag will cause the taxon-specific ID list files to be re-created (if they are needed)."
+    echo "  [-x]: path to [MAVEN_HOME]/bin/mvn"
 }
 
 TAXON_IDS="EMPTY"
@@ -30,7 +31,7 @@ function set_taxon_ids {
 CLEAN_SOURCES="false"
 CLEAN_ID_LISTS="false"
 
-while getopts "d:r:i:t:mhcl" OPTION; do
+while getopts "d:r:i:t:x:mhcl" OPTION; do
     case $OPTION in
         # The directory into which we should download the datasource files.
         d) DOWNLOAD_DIR=$OPTARG
@@ -45,6 +46,9 @@ while getopts "d:r:i:t:mhcl" OPTION; do
            ;;
         # Include only data for a user-specified taxonomy ID in the RDF output.
         t) set_taxon_ids $OPTARG
+           ;;
+        # The path to $MAVEN_HOME/bin/mvn
+        x) MAVEN=$OPTARG
            ;;
         # Include only data for humans and the 7 model organisms in the RDF
         # output.
@@ -62,7 +66,7 @@ while getopts "d:r:i:t:mhcl" OPTION; do
     esac
 done
 
-if [[ -z $DOWNLOAD_DIR || -z $RDF_OUTPUT_DIR ]]; then
+if [[ -z $DOWNLOAD_DIR || -z $RDF_OUTPUT_DIR || -z $MAVEN ]]; then
     print_usage
     exit 1
 fi
@@ -81,7 +85,7 @@ fi
 
 echo $DS_NAMES
 
-    mvn -e -f datasource-rdfizer/scripts/pom-rdf-gen.xml exec:exec \
+ $MAVEN -e -f datasource-rdfizer/scripts/pom-rdf-gen.xml exec:exec \
         -DdatasourceNames=$DS_NAMES \
         -DtaxonIDs=$TAXON_IDS \
         -DredownloadDataSourceFiles=$CLEAN_SOURCES \

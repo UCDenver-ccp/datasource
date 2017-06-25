@@ -47,12 +47,14 @@ import java.util.Set;
 
 import org.apache.log4j.Logger;
 
+import edu.ucdenver.ccp.common.collections.CollectionsUtil;
 import edu.ucdenver.ccp.common.download.DownloadMetadata;
 import edu.ucdenver.ccp.common.download.DownloadUtil;
 import edu.ucdenver.ccp.common.download.FtpDownload;
 import edu.ucdenver.ccp.common.download.HttpDownload;
 import edu.ucdenver.ccp.common.file.CharacterEncoding;
 import edu.ucdenver.ccp.common.file.FileArchiveUtil;
+import edu.ucdenver.ccp.common.file.FileReaderUtil;
 import edu.ucdenver.ccp.common.file.FileUtil;
 import edu.ucdenver.ccp.common.http.HttpUtil;
 import edu.ucdenver.ccp.datasource.fileparsers.FileRecordReader;
@@ -65,6 +67,7 @@ import edu.ucdenver.ccp.datasource.fileparsers.ebi.goa.gaf.GoaGafFileRecordReade
 import edu.ucdenver.ccp.datasource.fileparsers.ebi.interpro.InterPro2GoFileParser;
 import edu.ucdenver.ccp.datasource.fileparsers.ebi.interpro.InterProNamesDatFileParser;
 import edu.ucdenver.ccp.datasource.fileparsers.ebi.interpro.InterProProtein2IprDatFileParser;
+import edu.ucdenver.ccp.datasource.fileparsers.ebi.uniprot.SparseTremblDatFileRecordReader_HumanOnly;
 import edu.ucdenver.ccp.datasource.fileparsers.ebi.uniprot.SparseTremblXmlFileRecordReader;
 import edu.ucdenver.ccp.datasource.fileparsers.ebi.uniprot.SwissProtXmlFileRecordReader;
 import edu.ucdenver.ccp.datasource.fileparsers.ebi.uniprot.UniProtIDMappingFileRecordReader;
@@ -109,7 +112,7 @@ import edu.ucdenver.ccp.datasource.fileparsers.transfac.TransfacGeneDatFileParse
 import edu.ucdenver.ccp.datasource.fileparsers.transfac.TransfacMatrixDatFileParser;
 import edu.ucdenver.ccp.datasource.fileparsers.vectorbase.VectorBaseFastaFileRecordReader_aael_transcripts;
 import edu.ucdenver.ccp.datasource.identifiers.DataSource;
-import edu.ucdenver.ccp.datasource.identifiers.ncbi.taxonomy.NcbiTaxonomyID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.NcbiTaxonomyID;
 import edu.ucdenver.ccp.datasource.rdfizer.rdf.ice.FileDataSourceParams.IsTaxonAware;
 import edu.ucdenver.ccp.datasource.rdfizer.rdf.ice.FileDataSourceParams.RequiresManualDownload;
 
@@ -244,12 +247,27 @@ public enum FileDataSource {
 	 * 
 	 *
 	 */
-	DRUGBANK(DataSource.DRUGBANK, IsTaxonAware.NO, RequiresManualDownload.NO) {
+	DRUGBANK(DataSource.DRUGBANK, IsTaxonAware.NO, RequiresManualDownload.YES) {
 		@Override
 		protected FileRecordReader<?> initFileRecordReader(File sourceFileDirectory, File baseSourceFileDirectory,
 				boolean cleanSourceFiles, boolean cleanIdListFiles, File idListDir, Set<NcbiTaxonomyID> taxonIds)
 				throws IOException {
-			return new DrugbankXmlFileRecordReader(sourceFileDirectory, cleanSourceFiles);
+
+			File drugbankXmlFile = new File(sourceFileDirectory, "full database.xml");
+
+			if (drugbankXmlFile.exists()) {
+				FileUtil.validateFile(drugbankXmlFile);
+				return new DrugbankXmlFileRecordReader(drugbankXmlFile);
+			}
+
+			logger.warn("\n\n!!!!!!!!!!!!!!!!!!!!!!   SKIPPING DRUGBANK   !!!!!!!!!!!!!!!!!!!!!!"
+					+ "The DrugBank 'full database.xml' file could not be located in the expected folder: "
+					+ sourceFileDirectory.getAbsolutePath()
+					+ "\nIf you would like DrugBank to be processed, please place a copy of the DrugBank 'full database.xml' "
+					+ "file in that folder and restart this process."
+					+ "\n\n!!!!!!!!!!!!!!!!!!!!!!   SKIPPING DRUGBANK   !!!!!!!!!!!!!!!!!!!!!!");
+			return null;
+
 		}
 
 		@Override
@@ -568,8 +586,7 @@ public enum FileDataSource {
 	/**
 	 *
 	 */
-	REACTOME_UNIPROT2PATHWAYSTID(DataSource.REACTOME, IsTaxonAware.YES_BUT_REQUIRES_EXTERNAL_ID_TO_TAXON_MAPPINGS,
-			RequiresManualDownload.NO) {
+	REACTOME_UNIPROT2PATHWAYSTID(DataSource.REACTOME, IsTaxonAware.YES_BUT_REQUIRES_EXTERNAL_ID_TO_TAXON_MAPPINGS, RequiresManualDownload.NO) {
 		@Override
 		protected FileRecordReader<?> initFileRecordReader(File sourceFileDirectory, File baseSourceFileDirectory,
 				boolean cleanSourceFiles, boolean cleanIdListFiles, File idListDir, Set<NcbiTaxonomyID> taxonIds)
@@ -848,6 +865,20 @@ public enum FileDataSource {
 			return SparseTremblXmlFileRecordReader.class;
 		}
 	},
+	UNIPROT_TREMBL_SPARSE_HUMAN_ONLY(DataSource.UNIPROT, 33, 1000000, IsTaxonAware.YES, RequiresManualDownload.NO) {
+		@Override
+		protected FileRecordReader<?> initFileRecordReader(File sourceFileDirectory, File baseSourceFileDirectory,
+				boolean cleanSourceFiles, boolean cleanIdListFiles, File idListDir, Set<NcbiTaxonomyID> taxonIds)
+				throws IOException {
+			return new SparseTremblDatFileRecordReader_HumanOnly(sourceFileDirectory, CharacterEncoding.UTF_8,
+					cleanSourceFiles, taxonIds);
+		}
+
+		@Override
+		protected Class<? extends RecordReader<?>> getRecordReaderClass() {
+			return SparseTremblDatFileRecordReader_HumanOnly.class;
+		}
+	},
 
 	VECTORBASE_AAEL_TRANSCRIPTS(DataSource.VECTORBASE, IsTaxonAware.NO, RequiresManualDownload.NO) {
 		@Override
@@ -979,7 +1010,8 @@ public enum FileDataSource {
 		protected FileRecordReader<?> initFileRecordReader(File sourceFileDirectory, File baseSourceFileDirectory,
 				boolean cleanSourceFiles, boolean cleanIdListFiles, File idListDir, Set<NcbiTaxonomyID> taxonIds)
 				throws IOException {
-			File transfacMatrixDatFile = new File(sourceFileDirectory, TransfacMatrixDatFileParser.MATRIX_DAT_FILE_NAME);
+			File transfacMatrixDatFile = new File(sourceFileDirectory,
+					TransfacMatrixDatFileParser.MATRIX_DAT_FILE_NAME);
 			FileUtil.validateFile(transfacMatrixDatFile);
 			return new TransfacMatrixDatFileParser(transfacMatrixDatFile, CharacterEncoding.ISO_8859_1);
 		}
@@ -992,7 +1024,8 @@ public enum FileDataSource {
 		@Override
 		public Set<DownloadMetadata> getDownloadMetadata(Class<? extends RecordReader<?>> rrClass,
 				File sourceFileDirectory, Set<NcbiTaxonomyID> taxonIds) throws IOException, ParseException {
-			File transfacMatrixDatFile = new File(sourceFileDirectory, TransfacMatrixDatFileParser.MATRIX_DAT_FILE_NAME);
+			File transfacMatrixDatFile = new File(sourceFileDirectory,
+					TransfacMatrixDatFileParser.MATRIX_DAT_FILE_NAME);
 			File readySemaphoreFile = DownloadUtil.getReadySemaphoreFile(transfacMatrixDatFile);
 			Set<DownloadMetadata> metadata = new HashSet<DownloadMetadata>();
 			if (readySemaphoreFile.exists()) {
@@ -1056,7 +1089,18 @@ public enum FileDataSource {
 				boolean cleanSourceFiles, boolean cleanIdListFiles, File idListDir, Set<NcbiTaxonomyID> taxonIds)
 				throws IOException {
 			File pharmgkbRelationshipsDataFile = new File(sourceFileDirectory, "relationships.tsv");
-			return new PharmGkbRelationFileParser(pharmgkbRelationshipsDataFile, CharacterEncoding.UTF_8);
+
+			if (pharmgkbRelationshipsDataFile.exists()) {
+				return new PharmGkbRelationFileParser(pharmgkbRelationshipsDataFile, CharacterEncoding.UTF_8);
+			}
+
+			logger.warn("\n\n!!!!!!!!!!!!!!!!!!!!!!   SKIPPING PHARMGKB RELATIONS   !!!!!!!!!!!!!!!!!!!!!!"
+					+ "The PharmGKB 'relationships.tsv' file could not be located in the expected folder: "
+					+ sourceFileDirectory.getAbsolutePath()
+					+ "\nIf you would like PharmGKB relationships to be processed, please place a copy of the 'relationships.tsv' "
+					+ "file in that folder and restart this process."
+					+ "\n\n!!!!!!!!!!!!!!!!!!!!!!   SKIPPING PHARMGKB RELATIONS   !!!!!!!!!!!!!!!!!!!!!!");
+			return null;
 		}
 
 		@Override
@@ -1228,8 +1272,8 @@ public enum FileDataSource {
 
 	protected abstract Class<? extends RecordReader<?>> getRecordReaderClass();
 
-	public Set<DownloadMetadata> getDownloadMetadata(Class<? extends RecordReader<?>> rrClass,
-			File sourceFileDirectory, Set<NcbiTaxonomyID> taxonIds) throws IOException, ParseException {
+	public Set<DownloadMetadata> getDownloadMetadata(Class<? extends RecordReader<?>> rrClass, File sourceFileDirectory,
+			Set<NcbiTaxonomyID> taxonIds) throws IOException, ParseException {
 		Set<DownloadMetadata> metadata = new HashSet<DownloadMetadata>();
 		for (Field field : rrClass.getDeclaredFields()) {
 			if (field.isAnnotationPresent(FtpDownload.class)) {
@@ -1237,6 +1281,9 @@ public enum FileDataSource {
 				File downloadedFile = getDownloadedFilename(sourceFileDirectory, annotation);
 				File readySemaphoreFile = DownloadUtil.getReadySemaphoreFile(downloadedFile);
 				if (readySemaphoreFile.exists()) {
+					logger.info("Reading download metadata from property file: " + readySemaphoreFile);
+					logger.info("Metadata contents: " + CollectionsUtil.createDelimitedString(
+							FileReaderUtil.loadLinesFromFile(readySemaphoreFile, CharacterEncoding.UTF_8), "\n"));
 					metadata.add(DownloadMetadata.loadFromPropertiesFile(readySemaphoreFile));
 				}
 			} else if (field.isAnnotationPresent(HttpDownload.class)) {

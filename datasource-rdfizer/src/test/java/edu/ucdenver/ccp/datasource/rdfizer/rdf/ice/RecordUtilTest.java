@@ -64,8 +64,8 @@ import edu.ucdenver.ccp.datasource.fileparsers.RecordField;
 import edu.ucdenver.ccp.datasource.fileparsers.SingleLineFileRecord;
 import edu.ucdenver.ccp.datasource.identifiers.DataSource;
 import edu.ucdenver.ccp.datasource.identifiers.IntegerDataSourceIdentifier;
-import edu.ucdenver.ccp.datasource.identifiers.hgnc.HgncGeneSymbolID;
-import edu.ucdenver.ccp.datasource.identifiers.obo.GeneOntologyID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.GeneOntologyID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.HgncGeneSymbolID;
 import edu.ucdenver.ccp.datasource.rdfizer.rdf.filter.NoOpDuplicateStatementFilter;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -104,7 +104,7 @@ public class RecordUtilTest {
 	@Data
 	@EqualsAndHashCode(callSuper = false)
 	private static class GeneId2NameDatFileData extends SingleLineFileRecord {
-		@RecordField(ontClass = CcpExtensionOntology.HGNC_GENE_IDENTIFIER_FIELD_VALUE)
+		@RecordField(ontClass = CcpExtensionOntology.HGNC_GENE_RECORD___HGNC_IDENTIFIER_FIELD_VALUE)
 		private final GeneID geneID;
 		@RecordField(ontClass = CcpExtensionOntology.NAME_FIELD_VALUE)
 		private final String geneName;
@@ -159,7 +159,7 @@ public class RecordUtilTest {
 		/* @formatter:off */
 		Set<String> expectedStatements = CollectionsUtil.createSet(
 				"(http://ccp.ucdenver.edu/obo/ext/RS_KEGG_20101221, http://purl.obolibrary.org/obo/BFO_0000051, http://record.uri)",
-				"(http://record.uri, http://www.w3.org/1999/02/22-rdf-syntax-ns#type, "	+ CcpExtensionOntology.HPO_GENE_ANNOTATION_RECORD.uri() + ")",
+				"(http://record.uri, http://www.w3.org/1999/02/22-rdf-syntax-ns#type, "	+ CcpExtensionOntology.HPO_ANNOTATION_RECORD.uri() + ")",
 				"(http://record.uri, http://purl.obolibrary.org/obo/BFO_0000051, http://ccp.ucdenver.edu/obo/ext/F_" + fieldHash1 + ")",
 				"(http://ccp.ucdenver.edu/obo/ext/F_" + fieldHash1 + ", " + RDFS.LABEL + ", \"1\"@en)",
 				"(http://ccp.ucdenver.edu/obo/ext/F_" + fieldHash1 + ", http://www.w3.org/1999/02/22-rdf-syntax-ns#type, " + CcpExtensionOntology.SYMBOL_FIELD_VALUE.uri() + ")",
@@ -213,7 +213,7 @@ public class RecordUtilTest {
 				"(http://ccp.ucdenver.edu/obo/ext/F_" + fieldHash4 + ", http://www.w3.org/1999/02/22-rdf-syntax-ns#type, " + CcpExtensionOntology.SYNONYMS_FIELD_VALUE.uri() + ")",
 				"(http://ccp.ucdenver.edu/obo/ext/F_" + fieldHash4 + ", " + RDFS.LABEL + ", \"4\"@en)",
 				"(http://record.uri, http://purl.obolibrary.org/obo/BFO_0000051, http://ccp.ucdenver.edu/obo/ext/R_" + subRecordHash + ")",
-				"(http://ccp.ucdenver.edu/obo/ext/R_" + subRecordHash + ", http://www.w3.org/1999/02/22-rdf-syntax-ns#type, " + CcpExtensionOntology.DATABASE_CROSS_REFERENCE_FIELD_VALUE.uri() + ")",
+				"(http://ccp.ucdenver.edu/obo/ext/R_" + subRecordHash + ", http://www.w3.org/1999/02/22-rdf-syntax-ns#type, " + CcpExtensionOntology.DATABASE_CROSS_REFERENCE_IDENTIFIER_FIELD_VALUE.uri() + ")",
 				"(http://ccp.ucdenver.edu/obo/ext/R_" + subRecordHash + ", http://www.w3.org/1999/02/22-rdf-syntax-ns#type, " + CcpExtensionOntology.GAF_RECORD.uri() + ")",
 				"(http://ccp.ucdenver.edu/obo/ext/R_" + subRecordHash + ", http://purl.obolibrary.org/obo/BFO_0000051, http://ccp.ucdenver.edu/obo/ext/F_" + fieldHash_sub + ")",
 				"(http://ccp.ucdenver.edu/obo/ext/F_" + fieldHash_sub + ", http://www.w3.org/1999/02/22-rdf-syntax-ns#type, " + CcpExtensionOntology.GAF_DATABASE_NAME_FIELD_VALUE.uri() + ")",
@@ -241,7 +241,7 @@ public class RecordUtilTest {
 		/* @formatter:off */
 		Set<String> expectedStatements = CollectionsUtil.createSet(
 				"(http://ccp.ucdenver.edu/obo/ext/RS_KEGG_KEY_20101221, http://purl.obolibrary.org/obo/BFO_0000051, http://record.uri)",
-				"(http://record.uri, http://www.w3.org/1999/02/22-rdf-syntax-ns#type, "	+ CcpExtensionOntology.HPO_GENE_ANNOTATION_RECORD.uri() + ")",
+				"(http://record.uri, http://www.w3.org/1999/02/22-rdf-syntax-ns#type, "	+ CcpExtensionOntology.HPO_ANNOTATION_RECORD.uri() + ")",
 				"(http://record.uri, http://purl.obolibrary.org/obo/BFO_0000051, http://ccp.ucdenver.edu/obo/ext/F_" + fieldHash1 + ")",
 				"(http://ccp.ucdenver.edu/obo/ext/F_" + fieldHash1 + ", " + RDFS.LABEL + ", \"1\"@en)",
 				"(http://ccp.ucdenver.edu/obo/ext/F_" + fieldHash1 + ", http://www.w3.org/1999/02/22-rdf-syntax-ns#type, " + CcpExtensionOntology.SYMBOL_FIELD_VALUE.uri() + ")",
@@ -274,7 +274,7 @@ public class RecordUtilTest {
 		private Collection<String> collectionField = Arrays.asList("3", "4");
 	}
 
-	@Record(dataSource = DataSource.KEGG, ontClass = CcpExtensionOntology.HPO_GENE_ANNOTATION_RECORD)
+	@Record(dataSource = DataSource.KEGG, ontClass = CcpExtensionOntology.HPO_ANNOTATION_RECORD)
 	private static class TestExcludeFieldDataRecord extends TestDataRecord {
 		@SuppressWarnings("unused")
 		private int excludeField = 5;
@@ -288,13 +288,13 @@ public class RecordUtilTest {
 
 	@Record(dataSource = DataSource.KEGG, ontClass = CcpExtensionOntology.HGNC_GENE_RECORD)
 	private static class TestDataRecordWithSubrecord extends TestDataRecord {
-		@RecordField(ontClass = CcpExtensionOntology.DATABASE_CROSS_REFERENCE_FIELD_VALUE)
+		@RecordField(ontClass = CcpExtensionOntology.DATABASE_CROSS_REFERENCE_IDENTIFIER_FIELD_VALUE)
 		private TestDataSubRecord subRecord = new TestDataSubRecord();
 	}
 
 	@Record(dataSource = DataSource.HGNC, ontClass = CcpExtensionOntology.HGNC_GENE_RECORD)
 	public static class TestDataRecordWithIdentifier implements DataRecord {
-		@RecordField(ontClass = CcpExtensionOntology.HGNC_GENE_IDENTIFIER_FIELD_VALUE)
+		@RecordField(ontClass = CcpExtensionOntology.HGNC_GENE_RECORD___HGNC_IDENTIFIER_FIELD_VALUE)
 		private HgncGeneSymbolID hgncId = new HgncGeneSymbolID("ABBA");
 	}
 
@@ -311,8 +311,9 @@ public class RecordUtilTest {
 				"(http://record.uri, http://www.w3.org/1999/02/22-rdf-syntax-ns#type, "	+ CcpExtensionOntology.HGNC_GENE_RECORD.uri() + ")",
 				"(http://record.uri, http://purl.obolibrary.org/obo/BFO_0000051, http://ccp.ucdenver.edu/obo/ext/F_" + fieldHash1 + ")",
 				"(http://ccp.ucdenver.edu/obo/ext/F_" + fieldHash1 + ", " + RDFS.LABEL + ", \"ABBA\"@en)",
-				"(http://ccp.ucdenver.edu/obo/ext/F_" + fieldHash1 + ", http://www.w3.org/1999/02/22-rdf-syntax-ns#type, " + CcpExtensionOntology.HGNC_GENE_IDENTIFIER_FIELD_VALUE.uri() + ")",
-				"(http://ccp.ucdenver.edu/obo/ext/F_" + fieldHash1 + ", http://www.w3.org/1999/02/22-rdf-syntax-ns#type, http://ccp.ucdenver.edu/obo/ext/HGNC_ABBA)");
+				"(http://ccp.ucdenver.edu/obo/ext/F_" + fieldHash1 + ", http://www.w3.org/1999/02/22-rdf-syntax-ns#type, " + CcpExtensionOntology.HGNC_GENE_RECORD___HGNC_IDENTIFIER_FIELD_VALUE.uri() + ")",
+				"(http://ccp.ucdenver.edu/obo/ext/F_" + fieldHash1 + ", http://www.w3.org/1999/02/22-rdf-syntax-ns#type, http://ccp.ucdenver.edu/obo/ext/HGNC_ABBA)",
+				"(http://ccp.ucdenver.edu/obo/ext/HGNC_ABBA, "+ RDFS.SUBCLASSOF.toString() + ", "+ CcpExtensionOntology.HGNC_GENE_SYMBOL_IDENTIFIER.uri() + ")");
 		/* @formatter:on */
 
 		Collection<? extends Statement> statements = RdfRecordUtil.getRecordInstanceStatements(r, createdTimeInMillis,
@@ -327,7 +328,7 @@ public class RecordUtilTest {
 	
 	@Record(dataSource = DataSource.HGNC, ontClass = CcpExtensionOntology.HGNC_GENE_RECORD)
 	public static class TestDataRecordWithOntologyIdentifier implements DataRecord {
-		@RecordField(ontClass = CcpExtensionOntology.HGNC_GENE_IDENTIFIER_FIELD_VALUE)
+		@RecordField(ontClass = CcpExtensionOntology.HGNC_GENE_RECORD___HGNC_IDENTIFIER_FIELD_VALUE)
 		private GeneOntologyID goId = new GeneOntologyID("GO:0001234");
 	}
 
@@ -344,8 +345,9 @@ public class RecordUtilTest {
 				"(http://record.uri, http://www.w3.org/1999/02/22-rdf-syntax-ns#type, "	+ CcpExtensionOntology.HGNC_GENE_RECORD.uri() + ")",
 				"(http://record.uri, http://purl.obolibrary.org/obo/BFO_0000051, http://ccp.ucdenver.edu/obo/ext/F_" + fieldHash1 + ")",
 				"(http://ccp.ucdenver.edu/obo/ext/F_" + fieldHash1 + ", " + RDFS.LABEL + ", \"GO:0001234\"@en)",
-				"(http://ccp.ucdenver.edu/obo/ext/F_" + fieldHash1 + ", http://www.w3.org/1999/02/22-rdf-syntax-ns#type, " + CcpExtensionOntology.HGNC_GENE_IDENTIFIER_FIELD_VALUE.uri() + ")",
-				"(http://ccp.ucdenver.edu/obo/ext/F_" + fieldHash1 + ", http://www.w3.org/1999/02/22-rdf-syntax-ns#type, http://ccp.ucdenver.edu/obo/ext/GO_0001234)");
+				"(http://ccp.ucdenver.edu/obo/ext/F_" + fieldHash1 + ", http://www.w3.org/1999/02/22-rdf-syntax-ns#type, " + CcpExtensionOntology.HGNC_GENE_RECORD___HGNC_IDENTIFIER_FIELD_VALUE.uri() + ")",
+				"(http://ccp.ucdenver.edu/obo/ext/F_" + fieldHash1 + ", http://www.w3.org/1999/02/22-rdf-syntax-ns#type, http://ccp.ucdenver.edu/obo/ext/GO_0001234)",
+				"(http://ccp.ucdenver.edu/obo/ext/GO_0001234, "+ RDFS.SUBCLASSOF.toString() + ", "+ CcpExtensionOntology.GENE_ONTOLOGY_CONCEPT_IDENTIFIER.uri() + ")");
 		/* @formatter:on */
 
 		Collection<? extends Statement> statements = RdfRecordUtil.getRecordInstanceStatements(r, createdTimeInMillis,

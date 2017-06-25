@@ -41,7 +41,6 @@ import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import org.apache.log4j.BasicConfigurator;
 import org.apache.log4j.Logger;
 
 import edu.ucdenver.ccp.common.download.FtpDownload;
@@ -62,38 +61,39 @@ import edu.ucdenver.ccp.datasource.identifiers.NucleotideAccessionResolver;
 import edu.ucdenver.ccp.datasource.identifiers.ProbableErrorDataSourceIdentifier;
 import edu.ucdenver.ccp.datasource.identifiers.ProteinAccessionResolver;
 import edu.ucdenver.ccp.datasource.identifiers.UnknownDataSourceIdentifier;
-import edu.ucdenver.ccp.datasource.identifiers.ebi.uniprot.UniProtID;
-import edu.ucdenver.ccp.datasource.identifiers.ec.EnzymeCommissionID;
-import edu.ucdenver.ccp.datasource.identifiers.ensembl.EnsemblGeneID;
-import edu.ucdenver.ccp.datasource.identifiers.hgnc.HgncGeneSymbolID;
-import edu.ucdenver.ccp.datasource.identifiers.hgnc.HgncID;
-import edu.ucdenver.ccp.datasource.identifiers.mgi.MgiGeneID;
-import edu.ucdenver.ccp.datasource.identifiers.ncbi.CcdsId;
-import edu.ucdenver.ccp.datasource.identifiers.ncbi.gene.NcbiGeneId;
-import edu.ucdenver.ccp.datasource.identifiers.ncbi.omim.OmimID;
-import edu.ucdenver.ccp.datasource.identifiers.ncbi.refseq.RefSeqID;
-import edu.ucdenver.ccp.datasource.identifiers.other.CosmicId;
-import edu.ucdenver.ccp.datasource.identifiers.other.HcdmId;
-import edu.ucdenver.ccp.datasource.identifiers.other.HomeoDbId;
-import edu.ucdenver.ccp.datasource.identifiers.other.HordeId;
-import edu.ucdenver.ccp.datasource.identifiers.other.ImgtID;
-import edu.ucdenver.ccp.datasource.identifiers.other.IncRnaDb;
-import edu.ucdenver.ccp.datasource.identifiers.other.InterFilDbId;
-import edu.ucdenver.ccp.datasource.identifiers.other.IupharReceptorId;
-import edu.ucdenver.ccp.datasource.identifiers.other.MamitTrnaDbId;
-import edu.ucdenver.ccp.datasource.identifiers.other.MeropsId;
-import edu.ucdenver.ccp.datasource.identifiers.other.MiRBaseID;
-import edu.ucdenver.ccp.datasource.identifiers.other.OrphanetId;
-import edu.ucdenver.ccp.datasource.identifiers.other.PiRnaBankId;
-import edu.ucdenver.ccp.datasource.identifiers.other.PseudogeneOrgId;
-import edu.ucdenver.ccp.datasource.identifiers.other.RfamId;
-import edu.ucdenver.ccp.datasource.identifiers.other.SlcId;
-import edu.ucdenver.ccp.datasource.identifiers.other.SnoRnaBaseId;
-import edu.ucdenver.ccp.datasource.identifiers.other.UcscGenomeBrowserId;
-import edu.ucdenver.ccp.datasource.identifiers.other.VegaID;
-import edu.ucdenver.ccp.datasource.identifiers.other.ZnfGeneCatalogId;
-import edu.ucdenver.ccp.datasource.identifiers.rgd.RgdID;
-import edu.ucdenver.ccp.identifier.publication.PubMedID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.CcdsId;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.CosmicId;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.EnsemblGeneID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.EnzymeCommissionID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.HcdmId;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.HgncGeneSymbolID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.HgncID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.HomeoDbId;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.HordeId;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.ImgtID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.IncRnaDb;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.InterFilDbId;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.IupharReceptorId;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.MamitTrnaDbId;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.MeropsId;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.MgiGeneID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.MiRBaseID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.NcbiGeneId;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.OmimID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.OrphanetId;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.PiRnaBankId;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.PseudogeneOrgId;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.RefSeqID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.RfamId;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.RgdID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.RnaCentralId;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.SlcId;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.SnoRnaBaseId;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.UcscGenomeBrowserId;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.UniProtID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.VegaID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.ZnfGeneCatalogId;
+import edu.ucdenver.ccp.datasource.identifiers.impl.ice.PubMedID;
 
 /**
  * Parses data from this file:
@@ -108,7 +108,7 @@ import edu.ucdenver.ccp.identifier.publication.PubMedID;
 public class HgncDownloadFileParser extends SingleLineFileRecordReader<HgncDownloadFileData> {
 
 	private static final Logger logger = Logger.getLogger(HgncDownloadFileParser.class);
-	private static final String HEADER = "HGNC ID\tApproved Symbol\tApproved Name\tStatus\tLocus Type\tLocus Group\tPrevious Symbols\tPrevious Names\tSynonyms\tName Synonyms\tChromosome\tDate Approved\tDate Modified\tDate Symbol Changed\tDate Name Changed\tAccession Numbers\tEnzyme IDs\tEntrez Gene ID\tEnsembl Gene ID\tMouse Genome Database ID\tSpecialist Database Links\tSpecialist Database IDs\tPubmed IDs\tRefSeq IDs\tGene Family Tag\tGene family description\tRecord Type\tPrimary IDs\tSecondary IDs\tCCDS IDs\tVEGA IDs\tLocus Specific Databases\tEntrez Gene ID (supplied by NCBI)\tOMIM ID (supplied by NCBI)\tRefSeq (supplied by NCBI)\tUniProt ID (supplied by UniProt)\tEnsembl ID (supplied by Ensembl)\tVega ID (supplied by Vega)\tUCSC ID (supplied by UCSC)\tMouse Genome Database ID (supplied by MGI)\tRat Genome Database ID (supplied by RGD)";
+	private static final String HEADER = "HGNC ID\tApproved Symbol\tApproved Name\tStatus\tLocus Type\tLocus Group\tPrevious Symbols\tPrevious Names\tSynonyms\tName Synonyms\tChromosome\tDate Approved\tDate Modified\tDate Symbol Changed\tDate Name Changed\tAccession Numbers\tEnzyme IDs\tEntrez Gene ID\tEnsembl Gene ID\tMouse Genome Database ID\tSpecialist Database Links\tSpecialist Database IDs\tPubmed IDs\tRefSeq IDs\tGene Family Tag\tGene family description\tRecord Type\tPrimary IDs\tSecondary IDs\tCCDS IDs\tVEGA IDs\tLocus Specific Databases\tEntrez Gene ID (supplied by NCBI)\tOMIM ID (supplied by NCBI)\tRefSeq (supplied by NCBI)\tUniProt ID (supplied by UniProt)\tEnsembl ID (supplied by Ensembl)\tVega ID (supplied by Vega)\tUCSC ID (supplied by UCSC)\tMouse Genome Database ID (supplied by MGI)\tRat Genome Database ID (supplied by RGD)\tRNAcentral IDs (supplied by RNAcentral)";
 
 	public enum WithdrawnRecordTreatment {
 		IGNORE, INCLUDE
@@ -153,7 +153,7 @@ public class HgncDownloadFileParser extends SingleLineFileRecordReader<HgncDownl
 	@Override
 	protected HgncDownloadFileData parseRecordFromLine(Line line) {
 		String[] toks = line.getText().split("\\t", -1);
-		if (toks.length == 41) {
+		if (toks.length == 42) {
 			int column = 0;
 			HgncID hgncID = new HgncID(toks[column++]);
 			HgncGeneSymbolID hgncGeneSymbol = new HgncGeneSymbolID(toks[column++]);
@@ -312,7 +312,8 @@ public class HgncDownloadFileParser extends SingleLineFileRecordReader<HgncDownl
 				}
 			}
 
-			Set<LocusSpecificDatabaseNameLinkPair> locusSpecificDatabaseNameLinkPairs = getLocusSpecificDatabaseNameLinkPairs(toks[column++]);
+			Set<LocusSpecificDatabaseNameLinkPair> locusSpecificDatabaseNameLinkPairs = getLocusSpecificDatabaseNameLinkPairs(
+					toks[column++]);
 
 			// GdbId suppliedGdbId = null;
 			// if (!toks[32].isEmpty()) {
@@ -344,7 +345,7 @@ public class HgncDownloadFileParser extends SingleLineFileRecordReader<HgncDownl
 			columnValue = toks[column++];
 			if (!columnValue.isEmpty() && !columnValue.equals("-")) {
 				for (String val : columnValue.split(",")) {
- 				   suppliedUniProtIds.add(new UniProtID(val.trim()));
+					suppliedUniProtIds.add(new UniProtID(val.trim()));
 				}
 			}
 
@@ -382,14 +383,22 @@ public class HgncDownloadFileParser extends SingleLineFileRecordReader<HgncDownl
 				}
 			}
 
+			Set<RnaCentralId> suppliedRnaCentralIds = new HashSet<RnaCentralId>();
+			columnValue = toks[column++];
+			if (!columnValue.isEmpty()) {
+				for (String rnaCentralTok : columnValue.split(",")) {
+					suppliedRnaCentralIds.add(new RnaCentralId(rnaCentralTok));
+				}
+			}
+
 			return new HgncDownloadFileData(hgncID, hgncGeneSymbol, geneName, status, locusType, locusGroup,
 					previousSymbols, previousNames, synonyms, nameSynonyms, chromosome, dateApproved, dateModified,
 					dateSymbolChanged, dateNameChanged, accessionNumbers, ecNumbers, entrezGeneId, ensemblGeneID,
 					mgiIDs, specialistDatabaseLinks, pubmedIDs, refseqIDs, geneFamilyTagDescriptionPairs, recordType,
 					primaryIds, secondaryIds, ccdsIds, vegaIds, locusSpecificDatabaseNameLinkPairs,
 					suppliedEntrezGeneId, suppliedOmimIds, suppliedRefseqId, suppliedUniProtIds, suppliedEnsemblId,
-					suppliedVegaId, suppliedUcscId, suppliedMgiIds, suppliedRgdIds, line.getByteOffset(),
-					line.getLineNumber());
+					suppliedVegaId, suppliedUcscId, suppliedMgiIds, suppliedRgdIds, suppliedRnaCentralIds,
+					line.getByteOffset(), line.getLineNumber());
 		}
 
 		logger.error("Unexpected number of tokens (" + toks.length + "; expected 41) on line: "
@@ -427,7 +436,8 @@ public class HgncDownloadFileParser extends SingleLineFileRecordReader<HgncDownl
 	 * @param string2
 	 * @return
 	 */
-	private Set<GeneFamilyTagDescriptionPair> getGeneFamilyTagDescriptionPairings(String tagStr, String descriptionStr) {
+	private Set<GeneFamilyTagDescriptionPair> getGeneFamilyTagDescriptionPairings(String tagStr,
+			String descriptionStr) {
 		Set<GeneFamilyTagDescriptionPair> tagDescriptionPairings = new HashSet<HgncDownloadFileData.GeneFamilyTagDescriptionPair>();
 		if (!tagStr.isEmpty()) {
 			String[] tags = tagStr.split(",");
@@ -446,7 +456,11 @@ public class HgncDownloadFileParser extends SingleLineFileRecordReader<HgncDownl
 	 * link string looks like:
 	 * 
 	 * <pre>
-	 * <!--,--> <!--,--> <!--,--> <!--,--> <!--,--> <!--,--> <!--,--> <!--,--> <!--,--> <a href="http://merops.sanger.ac.uk/cgi-bin/merops.cgi?id=I43.950">MEROPS</a><!--,--> <a href="http://www.sanger.ac.uk/perl/genetics/CGP/cosmic?action=gene&amp;ln=A1BG">COSMIC</a><!--,--> <!--,--> <!--,--> <!--,--> <!--,--> <!--,-->
+	 * <!--,--> <!--,--> <!--,--> <!--,--> <!--,--> <!--,--> <!--,--> <!--,--> <!--,--> <a href
+	=
+	"http://merops.sanger.ac.uk/cgi-bin/merops.cgi?id=I43.950">MEROPS</a><!--,--> <a href
+	=
+	"http://www.sanger.ac.uk/perl/genetics/CGP/cosmic?action=gene&amp;ln=A1BG">COSMIC</a><!--,--> <!--,--> <!--,--> <!--,--> <!--,--> <!--,-->
 	 * </pre>
 	 * 
 	 * @param hgncId
@@ -461,7 +475,7 @@ public class HgncDownloadFileParser extends SingleLineFileRecordReader<HgncDownl
 		String[] ids = idStr.split(",", -1);
 
 		// System.out.println("LINKS: " + Arrays.toString(links));
-		// System.out.println("IDS  : " + Arrays.toString(ids));
+		// System.out.println("IDS : " + Arrays.toString(ids));
 
 		for (int i = 0; i < ids.length; i++) {
 			if (!ids[i].trim().isEmpty()) {
@@ -571,8 +585,8 @@ public class HgncDownloadFileParser extends SingleLineFileRecordReader<HgncDownl
 		Set<DataSourceIdentifier<?>> accNumbers = new HashSet<DataSourceIdentifier<?>>();
 		if (!accListStr.isEmpty()) {
 			for (String acc : accListStr.split(",")) {
-				DataSourceIdentifier<String> nucAccId = NucleotideAccessionResolver
-						.resolveNucleotideAccession(acc, acc);
+				DataSourceIdentifier<String> nucAccId = NucleotideAccessionResolver.resolveNucleotideAccession(acc,
+						acc);
 				if (ProbableErrorDataSourceIdentifier.class.isInstance(nucAccId)) {
 					DataSourceIdentifier<String> proAccId = ProteinAccessionResolver.resolveProteinAccession(acc, acc);
 					accNumbers.add(proAccId);

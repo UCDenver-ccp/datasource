@@ -62,10 +62,9 @@ import edu.ucdenver.ccp.datasource.fileparsers.RecordField;
 import edu.ucdenver.ccp.datasource.fileparsers.RecordUtil;
 import edu.ucdenver.ccp.datasource.fileparsers.irefweb.IRefWebInteractionSourceDatabase;
 import edu.ucdenver.ccp.datasource.identifiers.DataSource;
-import edu.ucdenver.ccp.datasource.identifiers.obo.MolecularInteractionOntologyTermID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.MolecularInteractionOntologyTermID;
 import edu.ucdenver.ccp.datasource.rdfizer.rdf.filter.NoOpDuplicateStatementFilter;
 import lombok.Data;
-import lombok.experimental.Value;
 
 /**
  * A test for the {@link RecordUtil} class. Tests in this class are specific to
@@ -101,10 +100,10 @@ public class SubRecordUtilTest {
 	 * classes
 	 * 
 	 */
-	@Record(dataSource = DataSource.KEGG, comment = "This is a sub-record class", ontClass = CcpExtensionOntology.HPO_GENE_ANNOTATION_RECORD)
+	@Record(dataSource = DataSource.KEGG, comment = "This is a sub-record class", ontClass = CcpExtensionOntology.HPO_ANNOTATION_RECORD)
 	@Data
 	private static class SubRecord implements DataRecord {
-		@RecordField(ontClass = CcpExtensionOntology.CONCEPT_NAME_FIELD_VALUE)
+		@RecordField(ontClass = CcpExtensionOntology.HPO_ANNOTATION_RECORD___HPO_TERM_NAME_FIELD_VALUE)
 		private final String subStringField1;
 		@RecordField(ontClass = CcpExtensionOntology.NAME_SYNONYMS_FIELD_VALUE)
 		private final String subStringField2;
@@ -124,8 +123,8 @@ public class SubRecordUtilTest {
 		String fieldValueHash2 = "OmYYDRUb8J1Czc5oVJylN61vAZ8";
 		String fieldValueHash3 = "LaDkkgFRguECzB9LF81DCE_b7es";
 		String fieldValueHash4 = "oE49wz1Ki32ivuid120WR5iHQ9Q";
-		String subRecordHash = "rA9zzeUjT6lgQrP7fkO7wKOECCI";
-		String fieldValueHash5 = "9DBLuacd_VdJrpPnmFMX1fnc-Pc";
+		String subRecordHash = "PyNURVmw6qiw-R0qkg86MSacIAM";
+		String fieldValueHash5 = "UGT91mCJZqOPMEhgRQF0K5on24g";
 		String fieldValueHash6 = "WzInWzqftc4j-WXTe1VkisDjgiE";
 
 		/* @formatter:off*/
@@ -150,10 +149,10 @@ public class SubRecordUtilTest {
 				
 				"(http://record.uri, http://purl.obolibrary.org/obo/BFO_0000051, http://ccp.ucdenver.edu/obo/ext/R_" + subRecordHash + ")",
 				"(http://ccp.ucdenver.edu/obo/ext/R_" + subRecordHash + ", http://www.w3.org/1999/02/22-rdf-syntax-ns#type, "	+ CcpExtensionOntology.GAF_DATABASE_REFERENCE_FIELD_VALUE.uri() + ")",
-				"(http://ccp.ucdenver.edu/obo/ext/R_" + subRecordHash + ", http://www.w3.org/1999/02/22-rdf-syntax-ns#type, "	+ CcpExtensionOntology.HPO_GENE_ANNOTATION_RECORD.uri() + ")",
+				"(http://ccp.ucdenver.edu/obo/ext/R_" + subRecordHash + ", http://www.w3.org/1999/02/22-rdf-syntax-ns#type, "	+ CcpExtensionOntology.HPO_ANNOTATION_RECORD.uri() + ")",
 				"(http://ccp.ucdenver.edu/obo/ext/R_" + subRecordHash + ", http://purl.obolibrary.org/obo/BFO_0000051, http://ccp.ucdenver.edu/obo/ext/F_" + fieldValueHash5 + ")",
 				"(http://ccp.ucdenver.edu/obo/ext/F_" + fieldValueHash5 + ", " + RDFS.LABEL.toString() + ", \"AABBCC\"@en)",
-				"(http://ccp.ucdenver.edu/obo/ext/F_" + fieldValueHash5 + ", http://www.w3.org/1999/02/22-rdf-syntax-ns#type, " + CcpExtensionOntology.CONCEPT_NAME_FIELD_VALUE.uri() + ")",
+				"(http://ccp.ucdenver.edu/obo/ext/F_" + fieldValueHash5 + ", http://www.w3.org/1999/02/22-rdf-syntax-ns#type, " + CcpExtensionOntology.HPO_ANNOTATION_RECORD___HPO_TERM_NAME_FIELD_VALUE.uri() + ")",
 			
 				"(http://ccp.ucdenver.edu/obo/ext/R_" + subRecordHash + ", http://purl.obolibrary.org/obo/BFO_0000051, http://ccp.ucdenver.edu/obo/ext/F_" + fieldValueHash6 + ")",
 				"(http://ccp.ucdenver.edu/obo/ext/F_" + fieldValueHash6 + ", " + RDFS.LABEL.toString() + ", \"XXYYZZ\"@en)",
@@ -188,11 +187,11 @@ public class SubRecordUtilTest {
 		String fieldValueHash2 = "OmYYDRUb8J1Czc5oVJylN61vAZ8";
 		String fieldValueHash3 = "LaDkkgFRguECzB9LF81DCE_b7es";
 		String fieldValueHash4 = "oE49wz1Ki32ivuid120WR5iHQ9Q";
-		String subRecordHash1 = "rA9zzeUjT6lgQrP7fkO7wKOECCI";
-		String fieldValueHash5 = "9DBLuacd_VdJrpPnmFMX1fnc-Pc";
+		String subRecordHash2 = "o5M4rxykXc8IiQ3jPbBEVas4POc";
+		String fieldValueHash5 = "UGT91mCJZqOPMEhgRQF0K5on24g";
 		String fieldValueHash6 = "WzInWzqftc4j-WXTe1VkisDjgiE";
-		String subRecordHash2 = "2wE5h59Sm8-pB-hEMAcee1P6z0o";
-		String fieldValueHash7 = "jjhLB75yTKNo-jmd7kzzr4zmMYs";
+		String subRecordHash1 = "PyNURVmw6qiw-R0qkg86MSacIAM";
+		String fieldValueHash7 = "vjOXKAMRa4AA8jYMeNZqAirFXG0";
 		String fieldValueHash8 = "REwB4v5-tgw3nELiwL23fWpR744";
 
 		/* @formatter:off*/
@@ -217,10 +216,10 @@ public class SubRecordUtilTest {
 			
 				"(http://record.uri, http://purl.obolibrary.org/obo/BFO_0000051, http://ccp.ucdenver.edu/obo/ext/R_" + subRecordHash1 + ")",
 				"(http://ccp.ucdenver.edu/obo/ext/R_" + subRecordHash1 + ", http://www.w3.org/1999/02/22-rdf-syntax-ns#type, "	+ CcpExtensionOntology.SUBRECORD.uri() + ")",
-				"(http://ccp.ucdenver.edu/obo/ext/R_" + subRecordHash1 + ", http://www.w3.org/1999/02/22-rdf-syntax-ns#type, "	+ CcpExtensionOntology.HPO_GENE_ANNOTATION_RECORD.uri() + ")",
+				"(http://ccp.ucdenver.edu/obo/ext/R_" + subRecordHash1 + ", http://www.w3.org/1999/02/22-rdf-syntax-ns#type, "	+ CcpExtensionOntology.HPO_ANNOTATION_RECORD.uri() + ")",
 				"(http://ccp.ucdenver.edu/obo/ext/R_" + subRecordHash1 + ", http://purl.obolibrary.org/obo/BFO_0000051, http://ccp.ucdenver.edu/obo/ext/F_" + fieldValueHash5 + ")",
 				"(http://ccp.ucdenver.edu/obo/ext/F_" + fieldValueHash5 + ", " + RDFS.LABEL.toString() + ", \"AABBCC\"@en)",
-				"(http://ccp.ucdenver.edu/obo/ext/F_" + fieldValueHash5 + ", http://www.w3.org/1999/02/22-rdf-syntax-ns#type, " + CcpExtensionOntology.CONCEPT_NAME_FIELD_VALUE.uri() + ")",
+				"(http://ccp.ucdenver.edu/obo/ext/F_" + fieldValueHash5 + ", http://www.w3.org/1999/02/22-rdf-syntax-ns#type, " + CcpExtensionOntology.HPO_ANNOTATION_RECORD___HPO_TERM_NAME_FIELD_VALUE.uri() + ")",
 			
 				"(http://ccp.ucdenver.edu/obo/ext/R_" + subRecordHash1 + ", http://purl.obolibrary.org/obo/BFO_0000051, http://ccp.ucdenver.edu/obo/ext/F_" + fieldValueHash6 + ")",
 				"(http://ccp.ucdenver.edu/obo/ext/F_" + fieldValueHash6 + ", " + RDFS.LABEL.toString() + ", \"XXYYZZ\"@en)",
@@ -228,10 +227,10 @@ public class SubRecordUtilTest {
 			
 				"(http://record.uri, http://purl.obolibrary.org/obo/BFO_0000051, http://ccp.ucdenver.edu/obo/ext/R_" + subRecordHash2 + ")",
 				"(http://ccp.ucdenver.edu/obo/ext/R_" + subRecordHash2 + ", http://www.w3.org/1999/02/22-rdf-syntax-ns#type, "	+ CcpExtensionOntology.SUBRECORD.uri() + ")",
-				"(http://ccp.ucdenver.edu/obo/ext/R_" + subRecordHash2 + ", http://www.w3.org/1999/02/22-rdf-syntax-ns#type, "	+ CcpExtensionOntology.HPO_GENE_ANNOTATION_RECORD.uri() + ")",
+				"(http://ccp.ucdenver.edu/obo/ext/R_" + subRecordHash2 + ", http://www.w3.org/1999/02/22-rdf-syntax-ns#type, "	+ CcpExtensionOntology.HPO_ANNOTATION_RECORD.uri() + ")",
 				"(http://ccp.ucdenver.edu/obo/ext/R_" + subRecordHash2 + ", http://purl.obolibrary.org/obo/BFO_0000051, http://ccp.ucdenver.edu/obo/ext/F_" + fieldValueHash7 + ")",
 				"(http://ccp.ucdenver.edu/obo/ext/F_" + fieldValueHash7 + ", " + RDFS.LABEL.toString() + ", \"ABABABABA\"@en)",
-				"(http://ccp.ucdenver.edu/obo/ext/F_" + fieldValueHash7 + ", http://www.w3.org/1999/02/22-rdf-syntax-ns#type, " + CcpExtensionOntology.CONCEPT_NAME_FIELD_VALUE.uri() + ")",
+				"(http://ccp.ucdenver.edu/obo/ext/F_" + fieldValueHash7 + ", http://www.w3.org/1999/02/22-rdf-syntax-ns#type, " + CcpExtensionOntology.HPO_ANNOTATION_RECORD___HPO_TERM_NAME_FIELD_VALUE.uri() + ")",
 			
 				"(http://ccp.ucdenver.edu/obo/ext/R_" + subRecordHash2 + ", http://purl.obolibrary.org/obo/BFO_0000051, http://ccp.ucdenver.edu/obo/ext/F_" + fieldValueHash8 + ")",
 				"(http://ccp.ucdenver.edu/obo/ext/F_" + fieldValueHash8 + ", " + RDFS.LABEL.toString() + ", \"778899\"@en)",
@@ -285,10 +284,10 @@ public class SubRecordUtilTest {
 		String fieldValueHash2 = "OmYYDRUb8J1Czc5oVJylN61vAZ8";
 		String fieldValueHash3 = "LaDkkgFRguECzB9LF81DCE_b7es";
 		String fieldValueHash4 = "oE49wz1Ki32ivuid120WR5iHQ9Q";
+		String subRecordHash2 = "0NXuy7cW1TS8M011RaFv00tMtU4";
 		String subRecordHash1 = "U8jUIztV_hVS3iS5GPGiJoAlvrw";
-		String subRecordHash2 = "Zv0hy9e2MhCJp644g9AkuHOhaNs";
-		String fieldValueHash5 = "9QcXDwELWHrBS3VEKWZ1BjfZcWo";
-		String fieldValueHash6 = "Ku1x9tIUzBKTC9jw7zQEYMZkH7Q";
+		String fieldValueHash5 = "e4ZIzcl5h8DRcMO-1XgxuzOTed0";
+		String fieldValueHash6 = "NWDo6g_-RTJBSS22ys_3rlGd-lY";
 
 		/* @formatter:off */
 		Set<String> expectedStatements = CollectionsUtil.createSet(
@@ -319,12 +318,13 @@ public class SubRecordUtilTest {
 				"(http://ccp.ucdenver.edu/obo/ext/R_" + subRecordHash2 + ", http://www.w3.org/1999/02/22-rdf-syntax-ns#type, "	+ CcpExtensionOntology.IREFWEB_INTERACTION_SOURCE_DATABASE_RECORD.uri() + ")",
 				"(http://ccp.ucdenver.edu/obo/ext/R_" + subRecordHash2 + ", http://purl.obolibrary.org/obo/BFO_0000051, http://ccp.ucdenver.edu/obo/ext/F_" + fieldValueHash5 + ")",
 				"(http://ccp.ucdenver.edu/obo/ext/F_" + fieldValueHash5 + ", " + RDFS.LABEL.toString() + ", \"MI:0123\"@en)",
-				"(http://ccp.ucdenver.edu/obo/ext/F_" + fieldValueHash5 + ", http://www.w3.org/1999/02/22-rdf-syntax-ns#type, " + CcpExtensionOntology.SOURCE_DATABASE_IDENTIFIER_FIELD_VALUE.uri() + ")",
+				"(http://ccp.ucdenver.edu/obo/ext/F_" + fieldValueHash5 + ", http://www.w3.org/1999/02/22-rdf-syntax-ns#type, " + CcpExtensionOntology.IREFWEB_INTERACTION_SOURCE_DATABASE_RECORD___SOURCE_DATABASE_IDENTIFIER_FIELD_VALUE.uri() + ")",
 				"(http://ccp.ucdenver.edu/obo/ext/F_" + fieldValueHash5 + ", " + RDF.TYPE.toString() + ", http://ccp.ucdenver.edu/obo/ext/MI_0123)",
+				"(http://ccp.ucdenver.edu/obo/ext/MI_0123, "+ RDFS.SUBCLASSOF.toString() + ", "+ CcpExtensionOntology.MOLECULAR_INTERACTION_ONTOLOGY_CONCEPT_IDENTIFIER.uri() + ")",
 //				
 				"(http://ccp.ucdenver.edu/obo/ext/R_" + subRecordHash2 + ", http://purl.obolibrary.org/obo/BFO_0000051, http://ccp.ucdenver.edu/obo/ext/F_" + fieldValueHash6 + ")",
 				"(http://ccp.ucdenver.edu/obo/ext/F_" + fieldValueHash6 + ", " + RDFS.LABEL.toString() + ", \"miTerm123\"@en)",
-				"(http://ccp.ucdenver.edu/obo/ext/F_" + fieldValueHash6 + ", http://www.w3.org/1999/02/22-rdf-syntax-ns#type, " + CcpExtensionOntology.SOURCE_DATABASE_NAME_FIELD_VALUE.uri() + ")");
+				"(http://ccp.ucdenver.edu/obo/ext/F_" + fieldValueHash6 + ", http://www.w3.org/1999/02/22-rdf-syntax-ns#type, " + CcpExtensionOntology.IREFWEB_INTERACTION_SOURCE_DATABASE_RECORD___SOURCE_DATABASE_NAME_FIELD_VALUE.uri() + ")");
 				/* @formatter:on */
 
 		

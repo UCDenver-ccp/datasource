@@ -57,9 +57,9 @@ import edu.ucdenver.ccp.common.file.CharacterEncoding;
 import edu.ucdenver.ccp.common.file.FileUtil;
 import edu.ucdenver.ccp.datasource.fileparsers.RecordReader;
 import edu.ucdenver.ccp.datasource.fileparsers.test.RecordReaderTester;
-import edu.ucdenver.ccp.datasource.identifiers.ebi.uniprot.UniProtID;
-import edu.ucdenver.ccp.datasource.identifiers.ncbi.taxonomy.NcbiTaxonomyID;
-import edu.ucdenver.ccp.datasource.identifiers.reactome.ReactomeReactionID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.NcbiTaxonomyID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.ReactomeReactionID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.UniProtID;
 
 public class ReactomeUniprot2PathwaysStidTxtFileParserTest extends RecordReaderTester {
 	private final static String SAMPLE_DATA_FILE_NAME = "uniprot2reactome.txt";

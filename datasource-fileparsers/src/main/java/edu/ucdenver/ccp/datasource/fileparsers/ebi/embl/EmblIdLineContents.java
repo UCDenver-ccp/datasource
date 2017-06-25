@@ -5,9 +5,10 @@ package edu.ucdenver.ccp.datasource.fileparsers.ebi.embl;
 
 /*
  * #%L
- * Colorado Computational Pharmacology's common module
+ * Colorado Computational Pharmacology's datasource
+ * 							project
  * %%
- * Copyright (C) 2012 - 2015 Regents of the University of Colorado
+ * Copyright (C) 2012 - 2017 Regents of the University of Colorado
  * %%
  * Redistribution and use in source and binary forms, with or without modification,
  * are permitted provided that the following conditions are met:
@@ -36,7 +37,7 @@ package edu.ucdenver.ccp.datasource.fileparsers.ebi.embl;
  * #L%
  */
 
-import edu.ucdenver.ccp.datasource.identifiers.ebi.embl.EmblID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.EmblID;
 
 /**
  * @author Colorado Computational Pharmacology, UC Denver; ccpsupport@ucdenver.edu

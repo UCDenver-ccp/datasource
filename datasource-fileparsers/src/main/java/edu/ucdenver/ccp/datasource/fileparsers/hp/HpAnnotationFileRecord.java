@@ -1,5 +1,13 @@
 package edu.ucdenver.ccp.datasource.fileparsers.hp;
 
+import edu.ucdenver.ccp.datasource.fileparsers.CcpExtensionOntology;
+import edu.ucdenver.ccp.datasource.fileparsers.Record;
+import edu.ucdenver.ccp.datasource.fileparsers.RecordField;
+import edu.ucdenver.ccp.datasource.fileparsers.SingleLineFileRecord;
+import edu.ucdenver.ccp.datasource.identifiers.DataSource;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.HumanPhenotypeID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.NcbiGeneId;
+
 /*
  * #%L
  * Colorado Computational Pharmacology's common module
@@ -35,13 +43,6 @@ package edu.ucdenver.ccp.datasource.fileparsers.hp;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import edu.ucdenver.ccp.datasource.fileparsers.CcpExtensionOntology;
-import edu.ucdenver.ccp.datasource.fileparsers.Record;
-import edu.ucdenver.ccp.datasource.fileparsers.RecordField;
-import edu.ucdenver.ccp.datasource.fileparsers.SingleLineFileRecord;
-import edu.ucdenver.ccp.datasource.identifiers.DataSource;
-import edu.ucdenver.ccp.datasource.identifiers.ncbi.gene.NcbiGeneId;
-import edu.ucdenver.ccp.datasource.identifiers.obo.HumanPhenotypeID;
 
 @Data
 @EqualsAndHashCode(callSuper = false)

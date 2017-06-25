@@ -35,9 +35,6 @@ package edu.ucdenver.ccp.datasource.fileparsers.hgnc;
 
 import java.util.Set;
 
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-
 import org.apache.log4j.Logger;
 
 import edu.ucdenver.ccp.datasource.fileparsers.CcpExtensionOntology;
@@ -46,20 +43,23 @@ import edu.ucdenver.ccp.datasource.fileparsers.RecordField;
 import edu.ucdenver.ccp.datasource.fileparsers.SingleLineFileRecord;
 import edu.ucdenver.ccp.datasource.identifiers.DataSource;
 import edu.ucdenver.ccp.datasource.identifiers.DataSourceIdentifier;
-import edu.ucdenver.ccp.datasource.identifiers.ebi.uniprot.UniProtID;
-import edu.ucdenver.ccp.datasource.identifiers.ec.EnzymeCommissionID;
-import edu.ucdenver.ccp.datasource.identifiers.ensembl.EnsemblGeneID;
-import edu.ucdenver.ccp.datasource.identifiers.hgnc.HgncGeneSymbolID;
-import edu.ucdenver.ccp.datasource.identifiers.hgnc.HgncID;
-import edu.ucdenver.ccp.datasource.identifiers.mgi.MgiGeneID;
-import edu.ucdenver.ccp.datasource.identifiers.ncbi.CcdsId;
-import edu.ucdenver.ccp.datasource.identifiers.ncbi.gene.NcbiGeneId;
-import edu.ucdenver.ccp.datasource.identifiers.ncbi.omim.OmimID;
-import edu.ucdenver.ccp.datasource.identifiers.ncbi.refseq.RefSeqID;
-import edu.ucdenver.ccp.datasource.identifiers.other.UcscGenomeBrowserId;
-import edu.ucdenver.ccp.datasource.identifiers.other.VegaID;
-import edu.ucdenver.ccp.datasource.identifiers.rgd.RgdID;
-import edu.ucdenver.ccp.identifier.publication.PubMedID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.CcdsId;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.EnsemblGeneID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.EnzymeCommissionID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.HgncGeneSymbolID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.HgncID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.MgiGeneID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.NcbiGeneId;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.OmimID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.RefSeqID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.RgdID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.RnaCentralId;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.UcscGenomeBrowserId;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.UniProtID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.VegaID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.ice.PubMedID;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 /**
  * <pre>
@@ -283,6 +283,9 @@ public class HgncDownloadFileData extends SingleLineFileRecord {
 	private final Set<MgiGeneID> suppliedMgiIds;
 	@RecordField(ontClass = CcpExtensionOntology.HGNC_GENE_RECORD___SUPPLIED_RGD_IDENTIFIER_FIELD_VALUE)
 	private final Set<RgdID> suppliedRgdIds;
+	@RecordField(ontClass = CcpExtensionOntology.HGNC_GENE_RECORD___SUPPLIED_RNACENTRAL_IDENTIFIER_FIELD_VALUE)
+	private final Set<RnaCentralId> suppliedRnaCentralIds;
+	
 
 	/**
 	 * @param byteOffset
@@ -340,7 +343,7 @@ public class HgncDownloadFileData extends SingleLineFileRecord {
 			Set<LocusSpecificDatabaseNameLinkPair> locusSpecificDatabaseNameLinkPairings,
 			NcbiGeneId suppliedEntrezGeneId, Set<OmimID> suppliedOmimIds, RefSeqID suppliedRefseqId,
 			Set<UniProtID> suppliedUniprotIds, EnsemblGeneID suppliedEnsemblId, VegaID suppliedVegaId,
-			UcscGenomeBrowserId suppliedUcscId, Set<MgiGeneID> suppliedMgiIds, Set<RgdID> suppliedRgdIds,
+			UcscGenomeBrowserId suppliedUcscId, Set<MgiGeneID> suppliedMgiIds, Set<RgdID> suppliedRgdIds, Set<RnaCentralId> suppliedRnaCentralIds,
 			long byteOffset, long lineNumber) {
 		super(byteOffset, lineNumber);
 		this.hgncID = hgncID;
@@ -382,6 +385,7 @@ public class HgncDownloadFileData extends SingleLineFileRecord {
 		this.suppliedUcscId = suppliedUcscId;
 		this.suppliedMgiIds = suppliedMgiIds;
 		this.suppliedRgdIds = suppliedRgdIds;
+		this.suppliedRnaCentralIds = suppliedRnaCentralIds;
 	}
 
 	@Data

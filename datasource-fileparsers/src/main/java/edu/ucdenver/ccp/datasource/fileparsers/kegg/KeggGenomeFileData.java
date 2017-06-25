@@ -37,14 +37,13 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.StringReader;
 
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-
 import org.apache.log4j.Logger;
 
 import edu.ucdenver.ccp.datasource.fileparsers.FileRecord;
 import edu.ucdenver.ccp.datasource.fileparsers.MultiLineFileRecordReader.MultiLineBuffer;
-import edu.ucdenver.ccp.datasource.identifiers.ncbi.taxonomy.NcbiTaxonomyID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.NcbiTaxonomyID;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 /**
  * Incomplete representation of data from KEGG genome file. Only the

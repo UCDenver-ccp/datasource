@@ -1,5 +1,13 @@
 package edu.ucdenver.ccp.datasource.fileparsers.irefweb;
 
+import org.apache.log4j.Logger;
+
+import edu.ucdenver.ccp.datasource.fileparsers.CcpExtensionOntology;
+import edu.ucdenver.ccp.datasource.fileparsers.Record;
+import edu.ucdenver.ccp.datasource.fileparsers.RecordField;
+import edu.ucdenver.ccp.datasource.fileparsers.SingleLineFileRecord;
+import edu.ucdenver.ccp.datasource.identifiers.DataSource;
+
 /*
  * #%L
  * Colorado Computational Pharmacology's common module
@@ -35,14 +43,6 @@ package edu.ucdenver.ccp.datasource.fileparsers.irefweb;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-
-import org.apache.log4j.Logger;
-
-import edu.ucdenver.ccp.datasource.fileparsers.CcpExtensionOntology;
-import edu.ucdenver.ccp.datasource.fileparsers.Record;
-import edu.ucdenver.ccp.datasource.fileparsers.RecordField;
-import edu.ucdenver.ccp.datasource.fileparsers.SingleLineFileRecord;
-import edu.ucdenver.ccp.datasource.identifiers.DataSource;
 
 /**
  * Data structure representing protein-protein interactions extracted from the PSI-MITAB 2.6 file

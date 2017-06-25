@@ -39,8 +39,6 @@ package edu.ucdenver.ccp.datasource.fileparsers.ebi.uniprot;
 import java.util.ArrayList;
 import java.util.List;
 
-import lombok.Getter;
-
 import org.apache.log4j.Logger;
 import org.uniprot.DbReferenceType;
 import org.uniprot.Entry;
@@ -53,7 +51,8 @@ import edu.ucdenver.ccp.datasource.fileparsers.RecordField;
 import edu.ucdenver.ccp.datasource.fileparsers.ebi.uniprot.UniProtFileRecord.DbReference;
 import edu.ucdenver.ccp.datasource.fileparsers.ebi.uniprot.UniProtFileRecord.Organism;
 import edu.ucdenver.ccp.datasource.identifiers.DataSource;
-import edu.ucdenver.ccp.datasource.identifiers.ebi.uniprot.UniProtID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.UniProtID;
+import lombok.Getter;
 
 /**
  * Useful for parsing trembl and ignoring most of it

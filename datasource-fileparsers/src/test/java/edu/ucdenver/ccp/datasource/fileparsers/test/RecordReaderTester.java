@@ -1,5 +1,13 @@
 package edu.ucdenver.ccp.datasource.fileparsers.test;
 
+import static org.junit.Assert.assertTrue;
+
+import java.io.File;
+import java.io.IOException;
+
+import org.junit.Before;
+import org.junit.Test;
+
 /*
  * #%L
  * Colorado Computational Pharmacology's common module
@@ -37,13 +45,6 @@ import edu.ucdenver.ccp.common.file.FileUtil;
 import edu.ucdenver.ccp.common.io.ClassPathUtil;
 import edu.ucdenver.ccp.common.test.DefaultTestCase;
 import edu.ucdenver.ccp.datasource.fileparsers.RecordReader;
-import org.junit.Before;
-import org.junit.Test;
-
-import java.io.File;
-import java.io.IOException;
-
-import static org.junit.Assert.assertTrue;
 
 public abstract class RecordReaderTester extends DefaultTestCase {
 

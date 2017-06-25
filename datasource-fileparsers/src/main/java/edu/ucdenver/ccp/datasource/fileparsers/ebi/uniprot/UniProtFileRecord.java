@@ -41,8 +41,6 @@ import java.util.List;
 
 import javax.xml.datatype.XMLGregorianCalendar;
 
-import lombok.Getter;
-
 import org.apache.log4j.Logger;
 import org.uniprot.CitationType;
 import org.uniprot.CommentType;
@@ -83,51 +81,11 @@ import edu.ucdenver.ccp.datasource.identifiers.DataSource;
 import edu.ucdenver.ccp.datasource.identifiers.DataSourceIdentifier;
 import edu.ucdenver.ccp.datasource.identifiers.ProbableErrorDataSourceIdentifier;
 import edu.ucdenver.ccp.datasource.identifiers.UnknownDataSourceIdentifier;
-import edu.ucdenver.ccp.datasource.identifiers.dip.DipInteractorID;
-import edu.ucdenver.ccp.datasource.identifiers.drugbank.DrugBankID;
-import edu.ucdenver.ccp.datasource.identifiers.ebi.embl.EmblID;
-import edu.ucdenver.ccp.datasource.identifiers.ebi.intact.IntActID;
-import edu.ucdenver.ccp.datasource.identifiers.ebi.interpro.Gene3dID;
-import edu.ucdenver.ccp.datasource.identifiers.ebi.interpro.InterProID;
-import edu.ucdenver.ccp.datasource.identifiers.ebi.interpro.PantherID;
-import edu.ucdenver.ccp.datasource.identifiers.ebi.interpro.PfamID;
-import edu.ucdenver.ccp.datasource.identifiers.ebi.interpro.PirID;
-import edu.ucdenver.ccp.datasource.identifiers.ebi.interpro.PirSfID;
-import edu.ucdenver.ccp.datasource.identifiers.ebi.interpro.PrintsID;
-import edu.ucdenver.ccp.datasource.identifiers.ebi.interpro.ProDomID;
-import edu.ucdenver.ccp.datasource.identifiers.ebi.interpro.PrositeID;
-import edu.ucdenver.ccp.datasource.identifiers.ebi.interpro.SmartID;
-import edu.ucdenver.ccp.datasource.identifiers.ebi.interpro.TigrFamsID;
-import edu.ucdenver.ccp.datasource.identifiers.ebi.ipi.IpiID;
-import edu.ucdenver.ccp.datasource.identifiers.ebi.uniprot.PirnrId;
-import edu.ucdenver.ccp.datasource.identifiers.ebi.uniprot.PirsrId;
-import edu.ucdenver.ccp.datasource.identifiers.ebi.uniprot.RuleBaseId;
-import edu.ucdenver.ccp.datasource.identifiers.ebi.uniprot.SaasId;
-import edu.ucdenver.ccp.datasource.identifiers.ebi.uniprot.UniProtID;
-import edu.ucdenver.ccp.datasource.identifiers.ebi.uniprot.UniProtIsoformID;
-import edu.ucdenver.ccp.datasource.identifiers.ec.EnzymeCommissionID;
-import edu.ucdenver.ccp.datasource.identifiers.ensembl.EnsemblGeneID;
-import edu.ucdenver.ccp.datasource.identifiers.flybase.FlyBaseID;
-import edu.ucdenver.ccp.datasource.identifiers.hgnc.HgncID;
-import edu.ucdenver.ccp.datasource.identifiers.kegg.KeggGeneID;
-import edu.ucdenver.ccp.datasource.identifiers.mgi.MgiGeneID;
-import edu.ucdenver.ccp.datasource.identifiers.mint.MintID;
-import edu.ucdenver.ccp.datasource.identifiers.ncbi.GenBankID;
-import edu.ucdenver.ccp.datasource.identifiers.ncbi.UniGeneID;
-import edu.ucdenver.ccp.datasource.identifiers.ncbi.gene.NcbiGeneId;
-import edu.ucdenver.ccp.datasource.identifiers.ncbi.omim.OmimID;
-import edu.ucdenver.ccp.datasource.identifiers.ncbi.refseq.RefSeqID;
-import edu.ucdenver.ccp.datasource.identifiers.ncbi.taxonomy.NcbiTaxonomyID;
-import edu.ucdenver.ccp.datasource.identifiers.obo.GeneOntologyID;
-import edu.ucdenver.ccp.datasource.identifiers.other.*;
-import edu.ucdenver.ccp.datasource.identifiers.pdb.PdbID;
-import edu.ucdenver.ccp.datasource.identifiers.pharmgkb.PharmGkbID;
-import edu.ucdenver.ccp.datasource.identifiers.reactome.ReactomeReactionID;
-import edu.ucdenver.ccp.datasource.identifiers.rgd.RgdID;
-import edu.ucdenver.ccp.datasource.identifiers.sgd.SgdID;
-import edu.ucdenver.ccp.datasource.identifiers.wormbase.WormBaseID;
-import edu.ucdenver.ccp.identifier.publication.DOI;
-import edu.ucdenver.ccp.identifier.publication.PubMedID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.*;
+import edu.ucdenver.ccp.datasource.identifiers.impl.ice.DOI;
+import edu.ucdenver.ccp.datasource.identifiers.impl.ice.MedlineId;
+import edu.ucdenver.ccp.datasource.identifiers.impl.ice.PubMedID;
+import lombok.Getter;
 
 /**
  * 

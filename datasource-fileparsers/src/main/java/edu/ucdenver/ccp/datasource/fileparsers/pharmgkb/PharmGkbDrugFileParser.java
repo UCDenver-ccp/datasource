@@ -56,7 +56,7 @@ public class PharmGkbDrugFileParser extends SingleLineFileRecordReader<PharmGkbD
 	private static final String HEADER = "PharmGKB Accession Id\tName\tGeneric Names\tTrade Names\tBrand Mixtures\tType\tCross-references\tSMILES\tInChI\tDosing Guideline\tExternal Vocabulary";
 
 	private static final CharacterEncoding ENCODING = CharacterEncoding.ISO_8859_1;
-	@HttpDownload(url = "https://www.pharmgkb.org/download.do?objId=drugs.zip&dlCls=common", fileName = "drugs.zip", targetFileName = "drugs.tsv", decompress = true)
+	@HttpDownload(url = "https://api.pharmgkb.org/v1/download/file/data/drugs.zip", fileName = "drugs.zip", targetFileName = "drugs.tsv", decompress = true)
 	private File pharmGkbDrugsFile;
 
 	public PharmGkbDrugFileParser(File dataFile, CharacterEncoding encoding) throws IOException {
@@ -141,5 +141,5 @@ public class PharmGkbDrugFileParser extends SingleLineFileRecordReader<PharmGkbD
 				crossReferences, url, smiles, inChI, dosingGuideline, externalVocabulary, line.getByteOffset(),
 				line.getLineNumber());
 	}
-
+	
 }

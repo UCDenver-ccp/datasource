@@ -3,7 +3,7 @@
 	<parent>
 		<groupId>edu.ucdenver.ccp</groupId>
 		<artifactId>datasource</artifactId>
-		<version>0.6.2-SNAPSHOT</version>
+		<version>0.6.3-SNAPSHOT</version>
 	</parent>
 	<artifactId>datasource-rdfizer</artifactId>
 
@@ -142,8 +142,8 @@
 
 
 
-	<repositories>
-		<!-- this is where OpenRDF / Sesame lives -->
+	<!-- <repositories>
+		this is where OpenRDF / Sesame lives
 		<repository>
 			<releases>
 				<enabled>true</enabled>
@@ -155,7 +155,7 @@
 			<name>Aduna Open Source - Maven releases</name>
 			<url>http://repo.aduna-software.org/maven2/releases</url>
 		</repository>
-	</repositories>
+	</repositories> -->
 
 
 	<build>

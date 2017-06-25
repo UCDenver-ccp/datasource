@@ -36,7 +36,6 @@ package edu.ucdenver.ccp.datasource.fileparsers.mirbase;
 import java.util.ArrayList;
 import java.util.List;
 
-import lombok.Data;
 import edu.ucdenver.ccp.common.string.StringUtil;
 import edu.ucdenver.ccp.datasource.fileparsers.CcpExtensionOntology;
 import edu.ucdenver.ccp.datasource.fileparsers.Record;
@@ -45,6 +44,7 @@ import edu.ucdenver.ccp.datasource.fileparsers.ebi.embl.SequenceFeature;
 import edu.ucdenver.ccp.datasource.fileparsers.ebi.embl.SequenceFeatureLocation;
 import edu.ucdenver.ccp.datasource.fileparsers.ebi.embl.SequenceFeatureQualifierSet;
 import edu.ucdenver.ccp.datasource.identifiers.DataSource;
+import lombok.Data;
 
 /**
  * @author Colorado Computational Pharmacology, UC Denver; ccpsupport@ucdenver.edu

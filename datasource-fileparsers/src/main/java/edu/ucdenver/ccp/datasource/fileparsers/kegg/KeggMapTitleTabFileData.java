@@ -40,7 +40,7 @@ import edu.ucdenver.ccp.datasource.fileparsers.Record;
 import edu.ucdenver.ccp.datasource.fileparsers.RecordField;
 import edu.ucdenver.ccp.datasource.fileparsers.SingleLineFileRecord;
 import edu.ucdenver.ccp.datasource.identifiers.DataSource;
-import edu.ucdenver.ccp.datasource.identifiers.kegg.KeggPathwayID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.KeggPathwayID;
 
 /**
  * Representation of data from KEGG map_title.tab file

@@ -1,5 +1,13 @@
 package edu.ucdenver.ccp.datasource.fileparsers.vectorbase;
 
+import org.apache.log4j.Logger;
+
+import edu.ucdenver.ccp.datasource.fileparsers.FileRecord;
+import edu.ucdenver.ccp.datasource.fileparsers.Record;
+import edu.ucdenver.ccp.datasource.fileparsers.RecordField;
+import edu.ucdenver.ccp.datasource.identifiers.DataSource;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.VectorBaseID;
+
 /*
  * #%L
  * Colorado Computational Pharmacology's common module
@@ -34,14 +42,6 @@ package edu.ucdenver.ccp.datasource.fileparsers.vectorbase;
  */
 
 import lombok.Getter;
-
-import org.apache.log4j.Logger;
-
-import edu.ucdenver.ccp.datasource.fileparsers.FileRecord;
-import edu.ucdenver.ccp.datasource.fileparsers.Record;
-import edu.ucdenver.ccp.datasource.fileparsers.RecordField;
-import edu.ucdenver.ccp.datasource.identifiers.DataSource;
-import edu.ucdenver.ccp.datasource.identifiers.other.VectorBaseID;
 
 @Getter
 @Record(dataSource = DataSource.VECTORBASE, label = "vectorbase fasta record")

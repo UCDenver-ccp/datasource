@@ -345,7 +345,7 @@ public class RdfRecordWriter<T extends RecordReader<?>> {
 	 */
 	static URIImpl computeDownloadMetadataUri(DownloadMetadata dmd) {
 		String s = dmd.getDownloadDate().getTimeInMillis() + dmd.getDownloadedFile().getName()
-				+ dmd.getDownloadUrl().toString() + dmd.getFileSizeInBytes();
+				+ ((dmd.getDownloadUrl() == null) ? "" : dmd.getDownloadUrl().toString()) + dmd.getFileSizeInBytes();
 
 		String digest = DigestUtils.sha256Hex(s);
 		return new URIImpl("http://ccp.ucdenver.edu/obo/ext/S_" + digest);
@@ -358,14 +358,13 @@ public class RdfRecordWriter<T extends RecordReader<?>> {
 
 		statements.add(new StatementImpl(dataSetInstanceUri, DC.SOURCE, metadataUri));
 		statements.add(new StatementImpl(metadataUri, RDF.TYPE, IAO.DOCUMENT.uri()));
+		statements.add(new StatementImpl(metadataUri, new URIImpl(CcpExtensionOntology.DOWNLOAD_DATE.uri().toString()),
+				RdfUtil.getDateLiteral(dmd.getDownloadDate().getTimeInMillis())));
 		statements.add(
-				new StatementImpl(metadataUri, new URIImpl(CcpExtensionOntology.DOWNLOAD_DATE.uri().toString()),
-						RdfUtil.getDateLiteral(dmd.getDownloadDate().getTimeInMillis())));
-		statements.add(new StatementImpl(metadataUri,
-				new URIImpl(CcpExtensionOntology.LAST_MODIFIED_DATE.uri().toString()),
-				RdfUtil.getDateLiteral(dmd.getFileLastModifiedDate().getTimeInMillis())));
-		statements.add(
-				new StatementImpl(metadataUri, new URIImpl(CcpExtensionOntology.FILE_SIZE_BYTES.uri().toString()),
+				new StatementImpl(metadataUri, new URIImpl(CcpExtensionOntology.LAST_MODIFIED_DATE.uri().toString()),
+						RdfUtil.getDateLiteral(dmd.getFileLastModifiedDate().getTimeInMillis())));
+		statements
+				.add(new StatementImpl(metadataUri, new URIImpl(CcpExtensionOntology.FILE_SIZE_BYTES.uri().toString()),
 						RdfUtil.createLiteral(dmd.getFileSizeInBytes())));
 		if (dmd.getDownloadUrl() != null) {
 			try {

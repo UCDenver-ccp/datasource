@@ -34,11 +34,9 @@ package edu.ucdenver.ccp.datasource.rdfizer.rdf;
  */
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
 
 import org.junit.Test;
 
-import edu.ucdenver.ccp.datasource.identifiers.DataSource;
 import edu.ucdenver.ccp.datasource.identifiers.DataSource;
 
 public class RdfNamespaceTest {
