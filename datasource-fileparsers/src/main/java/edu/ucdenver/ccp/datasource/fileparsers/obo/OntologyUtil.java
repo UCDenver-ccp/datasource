@@ -36,8 +36,11 @@ package edu.ucdenver.ccp.datasource.fileparsers.obo;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Set;
 
 import org.apache.log4j.Logger;
@@ -45,6 +48,7 @@ import org.apache.tools.ant.util.StringUtils;
 import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLAnnotationProperty;
+import org.semanticweb.owlapi.model.OWLAnnotationValue;
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLOntology;
@@ -125,8 +129,22 @@ public class OntologyUtil {
 	public Iterator<OWLAnnotationProperty> getAnnotationPropertyIterator() {
 		return ont.getAnnotationPropertiesInSignature().iterator();
 	}
-	
-	
+
+	public Collection<OWLAnnotationValue> getAnnotationPropertyValues(OWLClass cls, String propertyIri) {
+		List<OWLAnnotationValue> values = new ArrayList<OWLAnnotationValue>();
+		for (Iterator<OWLAnnotationProperty> propIter = getAnnotationPropertyIterator(); propIter.hasNext();) {
+			OWLAnnotationProperty property = propIter.next();
+			if (property.getIRI().toString().equals(propertyIri)) {
+				Set<OWLAnnotation> annotations = cls.getAnnotations(ont, property);
+				for (OWLAnnotation annot : annotations) {
+					OWLAnnotationValue value = annot.getValue();
+					values.add(value);
+				}
+			}
+		}
+		return values;
+	}
+
 	public Iterator<OWLObjectProperty> getObjectPropertyIterator() {
 		return ont.getObjectPropertiesInSignature().iterator();
 	}
@@ -162,8 +180,7 @@ public class OntologyUtil {
 
 		return null;
 	}
-	
-	
+
 	public String getLabel(OWLAnnotationProperty prop) {
 		Set<OWLAnnotation> annotations = prop.getAnnotations(ont);
 		for (OWLAnnotation annotation : annotations) {
@@ -177,7 +194,7 @@ public class OntologyUtil {
 
 		return null;
 	}
-	
+
 	public String getLabel(OWLObjectProperty prop) {
 		Set<OWLAnnotation> annotations = prop.getAnnotations(ont);
 		for (OWLAnnotation annotation : annotations) {

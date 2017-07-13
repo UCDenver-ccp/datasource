@@ -39,7 +39,7 @@ import edu.ucdenver.ccp.datasource.identifiers.DataSource;
 import edu.ucdenver.ccp.datasource.identifiers.Identifier;
 import edu.ucdenver.ccp.datasource.identifiers.StringDataSourceIdentifier;
 
-@Identifier(ontClass=CcpExtensionOntology.PDB_IDENTIFIER_FIELD_VALUE)
+@Identifier(ontClass=CcpExtensionOntology.PROTEIN_DATA_BANK_IDENTIFIER)
 public class PdbID extends StringDataSourceIdentifier {
 
 	public PdbID(String resourceID) {

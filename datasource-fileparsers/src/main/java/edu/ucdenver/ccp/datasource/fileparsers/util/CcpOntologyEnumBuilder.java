@@ -38,6 +38,7 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -47,6 +48,7 @@ import java.util.Map.Entry;
 
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAnnotationProperty;
+import org.semanticweb.owlapi.model.OWLAnnotationValue;
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
@@ -58,10 +60,11 @@ import edu.ucdenver.ccp.common.file.FileWriterUtil;
 import edu.ucdenver.ccp.common.string.StringUtil;
 import edu.ucdenver.ccp.datasource.fileparsers.CcpExtensionOntology;
 import edu.ucdenver.ccp.datasource.fileparsers.obo.OntologyUtil;
+import lombok.Data;
 
 /**
- * This class builds the {@link CcpExtensionOntology} enum by processing
- * the CCP ontology file
+ * This class builds the {@link CcpExtensionOntology} enum by processing the CCP
+ * ontology file
  */
 public class CcpOntologyEnumBuilder {
 
@@ -73,22 +76,43 @@ public class CcpOntologyEnumBuilder {
 			+ "/**\n" + "* This class is automatically generated from the CCP ontology.\n" + "*\n" + "*/\n"
 			+ "public enum CcpExtensionOntology {\n";
 
-	private static final String FILE_SUFFIX = "\tprivate final String id;\n" + "\n"
-			+ "\tprivate CcpExtensionOntology(String id) {\n" + "\t\tthis.id = id;\n" + "\t}\n" + "\n"
-			+ "\tpublic String id() {\n" + "\t\treturn this.id;\n" + "\t}\n" + "\n" + "\tpublic URI uri()  {\n"
-			+ "\t\ttry {\n" + "\t\t\treturn new URI(DataSource.CCP + id);\n" + "\t\t} catch (URISyntaxException e) {\n"
+	private static final String FILE_SUFFIX = "\tprivate final String id;\n" + "\tprivate final String prefix;\n" + "\n"
+			+ "\tprivate CcpExtensionOntology(String id) {\n" + "\t\tthis.id = id;\n" + "\t\tthis.prefix = null;\n"
+			+ "\t}\n" + "\n" + "\tprivate CcpExtensionOntology(String id, String prefix) {\n" + "\t\tthis.id = id;\n"
+			+ "\t\tthis.prefix = prefix;\n" + "\t}\n" + "\n" + "\tpublic String prefix() {\n"
+			+ "\t\treturn this.prefix;\n" + "\t}\n" + "\n" + "\tpublic String id() {\n" + "\t\treturn this.id;\n"
+			+ "\t}\n" + "\n" + "\tpublic URI uri()  {\n" + "\t\ttry {\n"
+			+ "\t\t\treturn new URI(DataSource.CCP + id);\n" + "\t\t} catch (URISyntaxException e) {\n"
 			+ "\t\t\tthrow new IllegalStateException(e);\n" + "\t\t}\n" + "\t}\n" + "\n" + "}";
 
 	private static final String CCP_NAMESPACE = "http://ccp.ucdenver.edu/obo/ext/";
 
 	public static void buildEnum(File ontologyFile, File sourceFile) throws OWLOntologyCreationException, IOException {
 
+		Map<String, IdWithPrefix> identifierClassLabel2idMap = new HashMap<String, IdWithPrefix>();
 		Map<String, String> classLabel2idMap = new HashMap<String, String>();
 
 		OntologyUtil ontUtil = new OntologyUtil(ontologyFile);
+		OWLClass identifierSuperCls = ontUtil.getOWLClassFromId("http://purl.obolibrary.org/obo/IAO_0000578");
 		for (Iterator<OWLClass> classIter = ontUtil.getClassIterator(); classIter.hasNext();) {
 			OWLClass cls = classIter.next();
-			cacheId2LabelMapping(classLabel2idMap, ontUtil.getLabel(cls), cls.getIRI());
+			if (ontUtil.isDescendent(cls, identifierSuperCls)) {
+				Collection<OWLAnnotationValue> values = ontUtil.getAnnotationPropertyValues(cls,
+						"http://purl.obolibrary.org/obo/IAO_0000599");
+				// should be a single value here, just the prefix, or
+				// potentially no value for the identifier upper-level classes
+				if (values.size() > 1) {
+					throw new IllegalStateException(
+							"multiple ID prefixes found for concept: " + cls.getIRI().toString());
+				}
+				String prefix = null;
+				if (values.size() == 1) {
+					prefix = values.iterator().next().toString();
+				}
+				cacheId2LabelMapping(identifierClassLabel2idMap, ontUtil.getLabel(cls), cls.getIRI(), prefix);
+			} else {
+				cacheId2LabelMapping(classLabel2idMap, ontUtil.getLabel(cls), cls.getIRI());
+			}
 		}
 
 		Map<String, String> annotPropertyLabel2idMap = new HashMap<String, String>();
@@ -104,8 +128,9 @@ public class CcpOntologyEnumBuilder {
 			OWLObjectProperty prop = objectPropIter.next();
 			cacheId2LabelMapping(objectPropertyLabel2idMap, ontUtil.getLabel(prop), prop.getIRI());
 		}
-		
-		writeFile(classLabel2idMap, annotPropertyLabel2idMap, objectPropertyLabel2idMap, sourceFile);
+
+		writeFile(classLabel2idMap, identifierClassLabel2idMap, annotPropertyLabel2idMap, objectPropertyLabel2idMap,
+				sourceFile);
 
 	}
 
@@ -113,8 +138,36 @@ public class CcpOntologyEnumBuilder {
 		String namespace = iri.getNamespace();
 		if (namespace != null && namespace.equals(CCP_NAMESPACE)) {
 			String id = iri.getShortForm();
-			label2idMap.put(createEnumLabel(label), id);
+			String enumLabel = createEnumLabel(label);
+			if (label2idMap.containsKey(enumLabel)) {
+				System.err
+						.println("WARNING -- duplicate prefix detected. Likely duplicate ontology concept exists for: "
+								+ enumLabel);
+			}
+			label2idMap.put(enumLabel, id);
 		}
+	}
+
+	private static void cacheId2LabelMapping(Map<String, IdWithPrefix> label2idMap, String label, IRI iri,
+			String prefix) {
+		String namespace = iri.getNamespace();
+		if (namespace != null && namespace.equals(CCP_NAMESPACE)) {
+			String id = iri.getShortForm();
+			IdWithPrefix idWithPrefix = new IdWithPrefix(id, prefix);
+			String enumLabel = createEnumLabel(label);
+			if (label2idMap.containsKey(enumLabel)) {
+				System.err
+						.println("WARNING -- duplicate prefix detected. Likely duplicate ontology concept exists for: "
+								+ enumLabel);
+			}
+			label2idMap.put(enumLabel, idWithPrefix);
+		}
+	}
+
+	@Data
+	private static class IdWithPrefix {
+		private final String id;
+		private final String prefix;
 	}
 
 	public static String createEnumLabel(String label) {
@@ -158,18 +211,22 @@ public class CcpOntologyEnumBuilder {
 
 	}
 
-	private static void writeFile(Map<String, String> classLabel2IdMap, Map<String, String> annotationPropertyLabel2IdMap,
+	private static void writeFile(Map<String, String> classLabel2IdMap,
+			Map<String, IdWithPrefix> identifierClassLabel2idMap, Map<String, String> annotationPropertyLabel2IdMap,
 			Map<String, String> objectPropertyLabel2idMap, File sourceFile) throws IOException {
 		StringBuilder builder = new StringBuilder(FILE_PREFIX);
 
 		builder.append("\t/* Annotation Properties */\n");
 		addSortedEnumClasses(annotationPropertyLabel2IdMap, builder);
-		
+
 		builder.append("\t/* Object Properties */\n");
 		addSortedEnumClasses(objectPropertyLabel2idMap, builder);
 
-		builder.append("\t/* Classes */\n");
+		builder.append("\t/* Record and Field Value Classes */\n");
 		addSortedEnumClasses(classLabel2IdMap, builder);
+
+		builder.append("\t/* Identifier Classes */\n");
+		addSortedEnumClassesWithPrefix(identifierClassLabel2idMap, builder);
 
 		/* delete the final comma and replace with a semi-colon */
 		builder.deleteCharAt(builder.length() - 1);
@@ -180,6 +237,36 @@ public class CcpOntologyEnumBuilder {
 			writer.write(builder.toString());
 		}
 
+	}
+
+	private static void addSortedEnumClassesWithPrefix(Map<String, IdWithPrefix> identifierClassLabel2idMap,
+			StringBuilder builder) {
+		Map<String, Map<String, IdWithPrefix>> prefix2label2idMap = new HashMap<String, Map<String, IdWithPrefix>>();
+		for (Entry<String, IdWithPrefix> entry : identifierClassLabel2idMap.entrySet()) {
+			String idPrefix = entry.getValue().getId().substring(0, entry.getValue().getId().lastIndexOf("_"));
+			if (!prefix2label2idMap.containsKey(idPrefix)) {
+				prefix2label2idMap.put(idPrefix, new HashMap<String, IdWithPrefix>());
+			}
+			prefix2label2idMap.get(idPrefix).put(entry.getKey(), entry.getValue());
+		}
+
+		List<String> prefixList = new ArrayList<String>(prefix2label2idMap.keySet());
+		Collections.sort(prefixList);
+
+		for (String prefix : prefixList) {
+			Map<String, IdWithPrefix> sortedMap = CollectionsUtil.sortMapByKeys(prefix2label2idMap.get(prefix),
+					SortOrder.ASCENDING);
+			// sortMapByValuesIgnoreCase(prefix2label2idMap.get(prefix),
+			// SortOrder.ASCENDING);
+
+			for (Entry<String, IdWithPrefix> entry : sortedMap.entrySet()) {
+				// builder.append("\t" + entry.getKey() + "(\"" +
+				// removeLanguageTag(entry.getValue()) + "\"),\n");
+				builder.append("\t" + entry.getKey() + "(\"" + entry.getValue().getId() + "\", "
+						+ entry.getValue().getPrefix() + "),\n");
+			}
+			builder.append("\n");
+		}
 	}
 
 	private static String removeLanguageTag(String s) {

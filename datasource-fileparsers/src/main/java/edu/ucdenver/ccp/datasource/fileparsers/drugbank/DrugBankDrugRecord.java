@@ -338,7 +338,7 @@ public class DrugBankDrugRecord extends FileRecord {
 	@RecordField(ontClass = CcpExtensionOntology.DRUGBANK_DRUG_RECORD___EXPERIMENTAL_PROPERTIES_FIELD_VALUE)
 	private final Set<Property> experimentalProperties;
 
-	@RecordField(ontClass = CcpExtensionOntology.DRUGBANK_DRUG_RECORD___DATA_SOURCE_IDENTIFIER_FIELD_VALUE)
+	@RecordField(ontClass = CcpExtensionOntology.DRUGBANK_DRUG_RECORD___EXTERNAL_IDENTIFIER_FIELD_VALUE)
 	private final Set<DataSourceIdentifier<?>> externalIdentifiers;
 
 	@RecordField(ontClass = CcpExtensionOntology.DRUGBANK_DRUG_RECORD___EXTERNAL_LINK_FIELD_VALUE)

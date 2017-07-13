@@ -41,7 +41,6 @@ import java.util.List;
 
 import javax.xml.datatype.XMLGregorianCalendar;
 
-import org.apache.log4j.Logger;
 import org.uniprot.CitationType;
 import org.uniprot.CommentType;
 import org.uniprot.ConsortiumType;
@@ -97,50 +96,48 @@ import lombok.Getter;
  * 
  */
 @Getter
-@Record(ontClass = CcpExtensionOntology.UNIPROT_PROTEIN_RECORD, dataSource = DataSource.UNIPROT, label = "uniprot record")
+@Record(ontClass = CcpExtensionOntology.UNIPROT_KNOWLEDGE_BASE_RECORD, dataSource = DataSource.UNIPROT, label = "uniprot record")
 public class UniProtFileRecord extends FileRecord {
 
-	private static final Logger logger = Logger.getLogger(UniProtFileRecord.class);
-
-	@RecordField(ontClass = CcpExtensionOntology.UNIPROT_PROTEIN_RECORD___PRIMARY_ACCESSION_FIELD_VALUE)
+	@RecordField(ontClass = CcpExtensionOntology.UNIPROT_KNOWLEDGE_BASE_RECORD___PRIMARY_ACCESSION_FIELD_VALUE)
 	private final UniProtID primaryAccession;
-	@RecordField(ontClass = CcpExtensionOntology.UNIPROT_PROTEIN_RECORD___ACCESSION_FIELD_VALUE)
+	@RecordField(ontClass = CcpExtensionOntology.UNIPROT_KNOWLEDGE_BASE_RECORD___ACCESSION_FIELD_VALUE)
 	private final List<UniProtID> accession;
-	@RecordField(ontClass = CcpExtensionOntology.UNIPROT_PROTEIN_RECORD___NAME_FIELD_VALUE)
+	@RecordField(ontClass = CcpExtensionOntology.UNIPROT_KNOWLEDGE_BASE_RECORD___NAME_FIELD_VALUE)
 	private final List<String> name;
-	@RecordField(ontClass = CcpExtensionOntology.UNIPROT_PROTEIN_RECORD___PROTEIN_FIELD_VALUE)
+	@RecordField(ontClass = CcpExtensionOntology.UNIPROT_KNOWLEDGE_BASE_RECORD___PROTEIN_FIELD_VALUE)
 	private final Protein protein;
-	@RecordField(ontClass = CcpExtensionOntology.UNIPROT_PROTEIN_RECORD___GENE_FIELD_VALUE)
+	@RecordField(ontClass = CcpExtensionOntology.UNIPROT_KNOWLEDGE_BASE_RECORD___GENE_FIELD_VALUE)
 	private final List<GeneType> gene;
-	@RecordField(ontClass = CcpExtensionOntology.UNIPROT_PROTEIN_RECORD___ORGANISM_FIELD_VALUE)
+	@RecordField(ontClass = CcpExtensionOntology.UNIPROT_KNOWLEDGE_BASE_RECORD___ORGANISM_FIELD_VALUE)
 	private final Organism organism;
-	@RecordField(ontClass = CcpExtensionOntology.UNIPROT_PROTEIN_RECORD___ORGANISM_HOST_FIELD_VALUE)
+	@RecordField(ontClass = CcpExtensionOntology.UNIPROT_KNOWLEDGE_BASE_RECORD___ORGANISM_HOST_FIELD_VALUE)
 	private final List<Organism> organismHost;
-	@RecordField(ontClass = CcpExtensionOntology.UNIPROT_PROTEIN_RECORD___GENE_LOCATION_FIELD_VALUE)
+	@RecordField(ontClass = CcpExtensionOntology.UNIPROT_KNOWLEDGE_BASE_RECORD___GENE_LOCATION_FIELD_VALUE)
 	private final List<GeneLocation> geneLocation;
-	@RecordField(ontClass = CcpExtensionOntology.UNIPROT_PROTEIN_RECORD___REFERENCE_FIELD_VALUE)
+	@RecordField(ontClass = CcpExtensionOntology.UNIPROT_KNOWLEDGE_BASE_RECORD___REFERENCE_FIELD_VALUE)
 	private final List<Reference> reference;
-	@RecordField(ontClass = CcpExtensionOntology.UNIPROT_PROTEIN_RECORD___COMMENT_FIELD_VALUE)
+	@RecordField(ontClass = CcpExtensionOntology.UNIPROT_KNOWLEDGE_BASE_RECORD___COMMENT_FIELD_VALUE)
 	private final List<Comment> comment;
-	@RecordField(ontClass = CcpExtensionOntology.UNIPROT_PROTEIN_RECORD___DATABASE_REFERENCE_FIELD_VALUE)
+	@RecordField(ontClass = CcpExtensionOntology.UNIPROT_KNOWLEDGE_BASE_RECORD___DATABASE_REFERENCE_FIELD_VALUE)
 	private final List<DbReference> dbReference;
-	@RecordField(ontClass = CcpExtensionOntology.UNIPROT_PROTEIN_RECORD___PROTEIN_EXISTENCE_FIELD_VALUE)
+	@RecordField(ontClass = CcpExtensionOntology.UNIPROT_KNOWLEDGE_BASE_RECORD___PROTEIN_EXISTENCE_FIELD_VALUE)
 	private final ProteinExistence proteinExistence;
-	@RecordField(ontClass = CcpExtensionOntology.UNIPROT_PROTEIN_RECORD___KEYWORD_FIELD_VALUE)
+	@RecordField(ontClass = CcpExtensionOntology.UNIPROT_KNOWLEDGE_BASE_RECORD___KEYWORD_FIELD_VALUE)
 	private final List<Keyword> keyword;
-	@RecordField(ontClass = CcpExtensionOntology.UNIPROT_PROTEIN_RECORD___FEATURE_FIELD_VALUE)
+	@RecordField(ontClass = CcpExtensionOntology.UNIPROT_KNOWLEDGE_BASE_RECORD___FEATURE_FIELD_VALUE)
 	private final List<Feature> feature;
-	@RecordField(ontClass = CcpExtensionOntology.UNIPROT_PROTEIN_RECORD___EVIDENCE_FIELD_VALUE)
+	@RecordField(ontClass = CcpExtensionOntology.UNIPROT_KNOWLEDGE_BASE_RECORD___EVIDENCE_FIELD_VALUE)
 	private final List<Evidence> evidence;
-	@RecordField(ontClass = CcpExtensionOntology.UNIPROT_PROTEIN_RECORD___SEQUENCE_FIELD_VALUE)
+	@RecordField(ontClass = CcpExtensionOntology.UNIPROT_KNOWLEDGE_BASE_RECORD___SEQUENCE_FIELD_VALUE)
 	private final Sequence sequence;
-	@RecordField(ontClass = CcpExtensionOntology.UNIPROT_PROTEIN_RECORD___DATASET_FIELD_VALUE)
+	@RecordField(ontClass = CcpExtensionOntology.UNIPROT_KNOWLEDGE_BASE_RECORD___DATASET_FIELD_VALUE)
 	private final String dataset;
-	@RecordField(ontClass = CcpExtensionOntology.UNIPROT_PROTEIN_RECORD___CREATED_FIELD_VALUE)
+	@RecordField(ontClass = CcpExtensionOntology.UNIPROT_KNOWLEDGE_BASE_RECORD___CREATED_FIELD_VALUE)
 	private final XMLGregorianCalendar created;
-	@RecordField(ontClass = CcpExtensionOntology.UNIPROT_PROTEIN_RECORD___MODIFIED_FIELD_VALUE)
+	@RecordField(ontClass = CcpExtensionOntology.UNIPROT_KNOWLEDGE_BASE_RECORD___MODIFIED_FIELD_VALUE)
 	private final XMLGregorianCalendar modified;
-	@RecordField(ontClass = CcpExtensionOntology.UNIPROT_PROTEIN_RECORD___VERSION_FIELD_VALUE)
+	@RecordField(ontClass = CcpExtensionOntology.UNIPROT_KNOWLEDGE_BASE_RECORD___VERSION_FIELD_VALUE)
 	private final int version;
 
 	/**
@@ -1339,7 +1336,7 @@ public class UniProtFileRecord extends FileRecord {
 		private final EvidencedString allergenName;
 		@RecordField(ontClass = CcpExtensionOntology.UNIPROT_PROTEIN_RECORD___BIOTECH_NAME_FIELD_VALUE)
 		private final EvidencedString biotechName;
-		@RecordField(ontClass = CcpExtensionOntology.UNIPROT_PROTEIN_RECORD____CD_ANTIGEN_NAME_FIELD_VALUE)
+		@RecordField(ontClass = CcpExtensionOntology.UNIPROT_PROTEIN_RECORD___CD_ANTIGEN_NAME_FIELD_VALUE)
 		private final List<EvidencedString> cdAntigenName;
 		@RecordField(ontClass = CcpExtensionOntology.UNIPROT_PROTEIN_RECORD___INN_NAME_FIELD_VALUE)
 		private final List<EvidencedString> innName;
