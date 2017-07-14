@@ -47,7 +47,7 @@ import edu.ucdenver.ccp.datasource.identifiers.IntegerDataSourceIdentifier;
  * @author Center for Computational Pharmacology; ccpsupport@ucdenver.edu
  * 
  */
-@Identifier(ontClass=CcpExtensionOntology.DRUGSPRODUCTDATABASE_IDENTIFIER)
+@Identifier(ontClass=CcpExtensionOntology.DRUGPRODUCTSDB_IDENTIFIER)
 public class DrugsProductDatabaseID extends IntegerDataSourceIdentifier {
 
 	public DrugsProductDatabaseID(Integer resourceID) {

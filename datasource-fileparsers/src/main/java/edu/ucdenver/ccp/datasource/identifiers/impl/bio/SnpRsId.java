@@ -45,7 +45,7 @@ import edu.ucdenver.ccp.datasource.identifiers.Identifier;
  * @author Center for Computational Pharmacology, UC Denver; ccpsupport@ucdenver.edu
  * 
  */
-@Identifier(ontClass=CcpExtensionOntology.SNPRS_IDENTIFIER)
+@Identifier(ontClass=CcpExtensionOntology.REFSNP_IDENTIFIER)
 public class SnpRsId extends DataSourceIdentifier<String> {
 
 	public SnpRsId(String resourceID) {
