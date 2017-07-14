@@ -101,12 +101,15 @@ public class NcbiGeneInfoFileData extends SingleLineFileRecord {
 
 	@RecordField(ontClass = CcpExtensionOntology.NCBI_GENE_INFO_RECORD___MODIFICATION_DATE_FIELD_VALUE)
 	private final String modificationDate;
+	
+	@RecordField(ontClass = CcpExtensionOntology.NCBI_GENE_INFO_RECORD___FEATURE_TYPE_FIELD_VALUE)
+	private final Set<String> featureTypes;
 
 	public NcbiGeneInfoFileData(NcbiTaxonomyID taxonID, NcbiGeneId geneID, String symbol, String locusTag,
 			Set<String> synonyms, Set<DataSourceIdentifier<?>> dbXrefs, String chromosome, String mapLocation,
 			String description, String typeOfGene, String symbolFromNomenclatureAuthority,
 			String fullNameFromNomenclatureAuthority, String nomenclatureStatus, Set<String> otherDesignations,
-			String modificationDate, long byteOffset, long lineNumber) {
+			String modificationDate, Set<String> featureTypes, long byteOffset, long lineNumber) {
 		super(byteOffset, lineNumber);
 		this.taxonID = taxonID;
 		this.geneID = geneID;
@@ -123,6 +126,7 @@ public class NcbiGeneInfoFileData extends SingleLineFileRecord {
 		this.nomenclatureStatus = nomenclatureStatus;
 		this.otherDesignations = otherDesignations;
 		this.modificationDate = modificationDate;
+		this.featureTypes = featureTypes;
 	}
 
 }

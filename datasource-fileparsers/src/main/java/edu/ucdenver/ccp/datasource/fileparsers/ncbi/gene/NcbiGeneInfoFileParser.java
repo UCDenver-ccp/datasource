@@ -63,7 +63,7 @@ import edu.ucdenver.ccp.datasource.identifiers.impl.bio.NcbiTaxonomyID;
  */
 public class NcbiGeneInfoFileParser extends TaxonAwareSingleLineFileRecordReader<NcbiGeneInfoFileData> {
 
-	private static final String HEADER = "#tax_id\tGeneID\tSymbol\tLocusTag\tSynonyms\tdbXrefs\tchromosome\tmap_location\tdescription\ttype_of_gene\tSymbol_from_nomenclature_authority\tFull_name_from_nomenclature_authority\tNomenclature_status\tOther_designations\tModification_date";
+	private static final String HEADER = "#tax_id\tGeneID\tSymbol\tLocusTag\tSynonyms\tdbXrefs\tchromosome\tmap_location\tdescription\ttype_of_gene\tSymbol_from_nomenclature_authority\tFull_name_from_nomenclature_authority\tNomenclature_status\tOther_designations\tModification_date\tFeature_type";
 
 	private final static Logger logger = Logger.getLogger(NcbiGeneInfoFileParser.class);
 	private static final String COMMENT_INDICATOR = null;// StringConstants.POUND_SIGN;
@@ -73,7 +73,7 @@ public class NcbiGeneInfoFileParser extends TaxonAwareSingleLineFileRecordReader
 
 	public static final String FTP_HOST = "ftp.ncbi.nih.gov";
 	public static final String FTP_PATH = "gene/DATA";
-	
+
 	@FtpDownload(server = FTP_HOST, path = FTP_PATH, filename = FTP_FILE_NAME, filetype = FileType.BINARY)
 	private File gene2infoFile;
 
@@ -123,9 +123,10 @@ public class NcbiGeneInfoFileParser extends TaxonAwareSingleLineFileRecordReader
 	}
 
 	/*
-	 * #Format: tax_id GeneID Symbol LocusTag Synonyms dbXrefs chromosome map_location description
-	 * type_of_gene Symbol_from_nomenclature_authority Full_name_from_nomenclature_authority
-	 * Nomenclature_status Other_designations Modification_date (tab is used as a separator, pound
+	 * #Format: tax_id GeneID Symbol LocusTag Synonyms dbXrefs chromosome
+	 * map_location description type_of_gene Symbol_from_nomenclature_authority
+	 * Full_name_from_nomenclature_authority Nomenclature_status
+	 * Other_designations Modification_date (tab is used as a separator, pound
 	 * sign - start of a comment)
 	 */
 	/**
@@ -138,7 +139,7 @@ public class NcbiGeneInfoFileParser extends TaxonAwareSingleLineFileRecordReader
 		String lineText = line.getText();
 		// if (!lineText.startsWith(COMMENT_INDICATOR)) {
 		String[] toks = lineText.split("\\t");
-		if (toks.length != 15) {
+		if (toks.length != 16) {
 			logger.error("Unexpected number of tokens (" + toks.length + ") on line:"
 					+ lineText.replaceAll("\\t", " [TAB] "));
 		}
@@ -200,17 +201,26 @@ public class NcbiGeneInfoFileParser extends TaxonAwareSingleLineFileRecordReader
 			otherDesignations = new HashSet<String>();
 		} else {
 			otherDesignations = new HashSet<String>();
-			for (String other : toks[13].split("\\|"))
+			for (String other : toks[13].split("\\|")) {
 				otherDesignations.add(new String(other));
+			}
 		}
 		String modificationDate = toks[14];
 		if (modificationDate.equals("-")) {
 			modificationDate = null;
 		}
-		return new NcbiGeneInfoFileData(taxonID, geneID, symbol, locusTag, synonyms, dbXrefs, chromosome,
-				mapLocation, description, typeOfGene, symbolFromNomenclatureAuthority,
-				fullNameFromNomenclatureAuthority, nomenclatureStatus, otherDesignations, modificationDate,
-				line.getByteOffset(), line.getLineNumber());
+
+		String featureTypeStr = toks[15];
+		Set<String> featureTypes = new HashSet<String>();
+		if (!featureTypeStr.equals("-")) {
+			for (String ft : featureTypeStr.split("\\|")) {
+				featureTypes.add(ft);
+			}
+		}
+		return new NcbiGeneInfoFileData(taxonID, geneID, symbol, locusTag, synonyms, dbXrefs, chromosome, mapLocation,
+				description, typeOfGene, symbolFromNomenclatureAuthority, fullNameFromNomenclatureAuthority,
+				nomenclatureStatus, otherDesignations, modificationDate, featureTypes, line.getByteOffset(),
+				line.getLineNumber());
 
 		// }
 		//
@@ -219,13 +229,15 @@ public class NcbiGeneInfoFileParser extends TaxonAwareSingleLineFileRecordReader
 	}
 
 	// /**
-	// * Returns a map from the gene symbol (3rd column in gene_info file) to the entrez gene id.
+	// * Returns a map from the gene symbol (3rd column in gene_info file) to
+	// the entrez gene id.
 	// *
 	// * @param entrezGeneInfoFile
 	// * @return
 	// * @throws IOException
 	// */
-	// public static Map<String, Set<Integer>> getGeneSymbol2EntrezGeneIDMap(File
+	// public static Map<String, Set<Integer>>
+	// getGeneSymbol2EntrezGeneIDMap(File
 	// entrezGeneInfoFile, int taxonID,
 	// boolean toLowerCase) throws IOException {
 	// FileInputStream fis = null;
@@ -238,7 +250,8 @@ public class NcbiGeneInfoFileParser extends TaxonAwareSingleLineFileRecordReader
 	// }
 
 	/**
-	 * Returns a map from the gene symbol (3rd column in gene_info file) to the entrez gene id.
+	 * Returns a map from the gene symbol (3rd column in gene_info file) to the
+	 * entrez gene id.
 	 * 
 	 * @param entrezGeneInfoFile
 	 * @return
@@ -271,16 +284,15 @@ public class NcbiGeneInfoFileParser extends TaxonAwareSingleLineFileRecordReader
 	}
 
 	/**
-	 * Returns a map from the gene symbol including synonyms and nomenclature symbol to the entrez
-	 * gene id.
+	 * Returns a map from the gene symbol including synonyms and nomenclature
+	 * symbol to the entrez gene id.
 	 * 
 	 * @param entrezGeneInfoFileStream
 	 * @return
 	 * @throws IOException
 	 */
-	public static Map<String, Set<NcbiGeneId>> getGeneSymbol2EntrezGeneIDMap_withSynonyms(
-			File entrezGeneInfoFile, CharacterEncoding encoding, NcbiTaxonomyID taxonID, boolean toLowerCase)
-			throws IOException {
+	public static Map<String, Set<NcbiGeneId>> getGeneSymbol2EntrezGeneIDMap_withSynonyms(File entrezGeneInfoFile,
+			CharacterEncoding encoding, NcbiTaxonomyID taxonID, boolean toLowerCase) throws IOException {
 		Map<String, Set<NcbiGeneId>> geneSymbol2EntrezGeneIDMap = new HashMap<String, Set<NcbiGeneId>>();
 		NcbiGeneInfoFileParser parser = new NcbiGeneInfoFileParser(entrezGeneInfoFile, encoding);
 
@@ -345,8 +357,8 @@ public class NcbiGeneInfoFileParser extends TaxonAwareSingleLineFileRecordReader
 	}
 
 	/**
-	 * Returns a map from the EntrezGene ID to the gene symbol where the Entrez Gene ID is
-	 * represented as a String
+	 * Returns a map from the EntrezGene ID to the gene symbol where the Entrez
+	 * Gene ID is represented as a String
 	 * 
 	 * @param entrezGeneInfoFile
 	 * @return
@@ -382,7 +394,8 @@ public class NcbiGeneInfoFileParser extends TaxonAwareSingleLineFileRecordReader
 	}
 
 	/**
-	 * Returns a mapping from EntrezGene ID to Taxonomy ID for the set of input EntrezGene IDs
+	 * Returns a mapping from EntrezGene ID to Taxonomy ID for the set of input
+	 * EntrezGene IDs
 	 * 
 	 * @param entrezGeneInfoFileStream
 	 * @param entrezGeneIDs
@@ -393,8 +406,8 @@ public class NcbiGeneInfoFileParser extends TaxonAwareSingleLineFileRecordReader
 			CharacterEncoding encoding, final Set<NcbiGeneId> entrezGeneIDs) throws IOException {
 		Map<NcbiGeneId, NcbiTaxonomyID> entrezGeneID2TaxonomyIDMap = new HashMap<NcbiGeneId, NcbiTaxonomyID>();
 		Set<NcbiGeneId> entrezGeneIDsToInclude = new HashSet<NcbiGeneId>(entrezGeneIDs);
-		for (NcbiGeneInfoFileParser parser = new NcbiGeneInfoFileParser(entrezGeneInfoFile, encoding); !entrezGeneIDsToInclude
-				.isEmpty() && parser.hasNext();) {
+		for (NcbiGeneInfoFileParser parser = new NcbiGeneInfoFileParser(entrezGeneInfoFile,
+				encoding); !entrezGeneIDsToInclude.isEmpty() && parser.hasNext();) {
 			NcbiGeneInfoFileData dataRecord = parser.next();
 			if (entrezGeneIDsToInclude.contains(dataRecord.getGeneID())) {
 				entrezGeneID2TaxonomyIDMap.put(dataRecord.getGeneID(), dataRecord.getTaxonID());
@@ -403,9 +416,9 @@ public class NcbiGeneInfoFileParser extends TaxonAwareSingleLineFileRecordReader
 		}
 
 		if (!entrezGeneIDsToInclude.isEmpty()) {
-			throw new RuntimeException(String.format(
-					"Unable to map all gene IDs to a taxonomy ID. Missing mappings for gene IDs: %s",
-					entrezGeneIDsToInclude.toString()));
+			throw new RuntimeException(
+					String.format("Unable to map all gene IDs to a taxonomy ID. Missing mappings for gene IDs: %s",
+							entrezGeneIDsToInclude.toString()));
 		}
 		return entrezGeneID2TaxonomyIDMap;
 	}
