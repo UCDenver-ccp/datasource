@@ -173,7 +173,7 @@ public class NcbiGeneInfoFileParserTest extends RecordReaderTester {
 				 * sub-family C (CFTR/MRP), member 2 protein-coding Abcc2 ATP-binding cassette,
 				 * sub-family C (CFTR/MRP), member 2 O ATP-binding cassette, sub-family C, member
 				 * 2|canalicular multispecific organic anion transporter|multidrug resistance
-				 * protein 2 20080827
+				 * protein 2 20080827 regulatory:enhancer|regulatory:silencer
 				 */
 				NcbiGeneInfoFileData record = parser.next();
 				assertEquals(new NcbiTaxonomyID(10090), record.getTaxonID());
@@ -206,6 +206,7 @@ public class NcbiGeneInfoFileParserTest extends RecordReaderTester {
 				expectedOtherDesignations.add(new String("multidrug resistance protein 2"));
 				assertEquals(expectedOtherDesignations, record.getOtherDesignations());
 				assertEquals("20080827", record.getModificationDate());
+				assertEquals(CollectionsUtil.createSet("regulatory:enhancer","regulatory:silencer"), record.getFeatureTypes());
 			} else {
 				fail("Parser should have returned a record here.");
 			}
@@ -246,6 +247,7 @@ public class NcbiGeneInfoFileParserTest extends RecordReaderTester {
 				expectedOtherDesignations.add(new String("spectrin SH3 domain binding protein 1"));
 				assertEquals(expectedOtherDesignations, record.getOtherDesignations());
 				assertEquals("20080817", record.getModificationDate());
+				assertEmpty(record.getFeatureTypes());
 			} else {
 				fail("Parser should have returned a record here.");
 			}
