@@ -63,6 +63,7 @@ import edu.ucdenver.ccp.datasource.fileparsers.Record;
 import edu.ucdenver.ccp.datasource.fileparsers.RecordField;
 import edu.ucdenver.ccp.datasource.fileparsers.SingleLineFileRecord;
 import edu.ucdenver.ccp.datasource.identifiers.DataSource;
+import edu.ucdenver.ccp.datasource.identifiers.Identifier;
 import edu.ucdenver.ccp.datasource.identifiers.IntegerDataSourceIdentifier;
 import edu.ucdenver.ccp.datasource.identifiers.impl.bio.GeneOntologyID;
 import edu.ucdenver.ccp.datasource.identifiers.impl.bio.HgncGeneSymbolID;
@@ -121,6 +122,7 @@ public class RecordUtilTest {
 
 	}
 
+	@Identifier(ontClass=CcpExtensionOntology.NCBI_GENE_IDENTIFIER)
 	private static class GeneID extends IntegerDataSourceIdentifier {
 		public GeneID(Integer resourceID) {
 			super(resourceID, DataSource.NCBI_GENE);

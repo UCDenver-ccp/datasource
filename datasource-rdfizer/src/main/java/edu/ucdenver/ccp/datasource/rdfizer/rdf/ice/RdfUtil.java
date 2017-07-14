@@ -247,7 +247,7 @@ public class RdfUtil {
 		return createUriImpl(ds.longName(), localName, null);
 	}
 
-	public static URIImpl createUriImpl(String baseNamespace, String localName, DataSource ns) {
+	public static URIImpl createUriImpl(String baseNamespace, String localName, String uriPrefix) {
 		String encodedName = localName.replaceAll(":", "_");
 		try {
 			encodedName = URLEncoder.encode(encodedName, "UTF-8");
@@ -255,8 +255,8 @@ public class RdfUtil {
 			throw new RuntimeException(e);
 		}
 
-		String uriStr = baseNamespace
-				+ ((ns != null && !encodedName.startsWith(ns.name() + "_")) ? ns.name() + "_" : "") + encodedName;
+		String uriStr = baseNamespace + ((uriPrefix != null && !encodedName.startsWith(uriPrefix)) ? uriPrefix : "")
+				+ encodedName;
 		return new URIImpl(uriStr);
 	}
 
@@ -476,6 +476,8 @@ public class RdfUtil {
 	 * 'OMIM_100050_ICE' - localName
 	 * </pre>
 	 * 
+	 * @param uriPrefix
+	 * 
 	 * @param baseNamespace
 	 * @param targetNamespace
 	 * @param localName
@@ -489,7 +491,8 @@ public class RdfUtil {
 	// }
 
 	public static URIImpl createCcpUri(DataSourceIdentifier<?> id) {
-		return createUriImpl(DataSource.CCP.longName, id.getId().toString(), id.getDataSource());
+		CcpExtensionOntology identifierType = RdfIdentifierUtil.getIdentifierType(id.getClass());
+		return createUriImpl(DataSource.CCP.longName, id.getId().toString(), identifierType.prefix());
 	}
 
 	public static URIImpl getUri(CcpExtensionOntology cls) {

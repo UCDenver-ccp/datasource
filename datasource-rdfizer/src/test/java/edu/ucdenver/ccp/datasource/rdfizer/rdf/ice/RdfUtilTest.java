@@ -63,6 +63,7 @@ import org.openrdf.rio.Rio;
 
 import edu.ucdenver.ccp.common.test.DefaultTestCase;
 import edu.ucdenver.ccp.datasource.identifiers.impl.bio.NcbiGeneId;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.NcbiTaxonomyID;
 
 public class RdfUtilTest extends DefaultTestCase {
 
@@ -134,10 +135,16 @@ public class RdfUtilTest extends DefaultTestCase {
 
 	@Test
 	public final void testCreateCcpUri_forDatasourceId() {
-		assertEquals("http://ccp.ucdenver.edu/obo/ext/NCBI_GENE_123456",
-				RdfUtil.createCcpUri(new NcbiGeneId(123456)).toString());
+		assertEquals("http://ccp.ucdenver.edu/obo/ext/NCBI_GENE_123456", RdfUtil
+				.createCcpUri(new NcbiGeneId(123456)).toString());
 	}
 
+	@Test
+	public final void testCreateCcpUri_forDatasourceId_ncbitaxon() {
+		assertEquals("http://ccp.ucdenver.edu/obo/ext/NCBITaxon_9606", RdfUtil
+				.createCcpUri(NcbiTaxonomyID.HUMAN).toString());
+	}
+	
 	@Test
 	public final void testWriteStatements() {
 		RDFWriter writer = Rio.createWriter(RDFFormat.NTRIPLES, new StringWriter());
