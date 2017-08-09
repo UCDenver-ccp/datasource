@@ -506,6 +506,7 @@ public class UniProtFileRecord extends FileRecord {
 	@Record(ontClass = CcpExtensionOntology.UNIPROT_DATABASE_REFERENCE_RECORD, dataSource = DataSource.UNIPROT)
 	public static class DbReference {
 
+		private final MoleculeType molecule;
 		@RecordField(ontClass = CcpExtensionOntology.UNIPROT_DATABASE_REFERENCE_RECORD___PROPERTY_FIELD_VALUE)
 		private final List<Property> property;
 		@RecordField(ontClass = CcpExtensionOntology.UNIPROT_DATABASE_REFERENCE_RECORD___TYPE_FIELD_VALUE)
@@ -526,6 +527,7 @@ public class UniProtFileRecord extends FileRecord {
 			this.evidence = (xmlType.getEvidence() == null) ? null : new ArrayList<Integer>(xmlType.getEvidence());
 			this.id = resolveDatabaseIdentifer(xmlType.getType(), xmlType.getId(),
 					"Source: " + xmlType.getType() + " ID: " + xmlType.getId());
+				this.molecule = (xmlType.getMolecule() != null) ? new MoleculeType(xmlType.getMolecule()) : null ;
 		}
 
 		/**
