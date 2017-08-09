@@ -506,6 +506,7 @@ public class UniProtFileRecord extends FileRecord {
 	@Record(ontClass = CcpExtensionOntology.UNIPROT_DATABASE_REFERENCE_RECORD, dataSource = DataSource.UNIPROT)
 	public static class DbReference {
 
+		@RecordField(ontClass = CcpExtensionOntology.UNIPROT_DATABASE_REFERENCE_RECORD___MOLECULE_FIELD_VALUE)
 		private final MoleculeType molecule;
 		@RecordField(ontClass = CcpExtensionOntology.UNIPROT_DATABASE_REFERENCE_RECORD___PROPERTY_FIELD_VALUE)
 		private final List<Property> property;
