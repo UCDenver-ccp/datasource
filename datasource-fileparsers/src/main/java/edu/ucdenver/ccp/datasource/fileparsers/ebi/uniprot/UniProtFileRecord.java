@@ -103,8 +103,8 @@ public class UniProtFileRecord extends FileRecord {
 	private final UniProtID primaryAccession;
 	@RecordField(ontClass = CcpExtensionOntology.UNIPROT_KNOWLEDGE_BASE_RECORD___ACCESSION_FIELD_VALUE)
 	private final List<UniProtID> accession;
-	@RecordField(ontClass = CcpExtensionOntology.UNIPROT_KNOWLEDGE_BASE_RECORD___NAME_FIELD_VALUE)
-	private final List<String> name;
+	@RecordField(ontClass = CcpExtensionOntology.UNIPROT_KNOWLEDGE_BASE_RECORD___ENTRY_NAME_FIELD_VALUE)
+	private final List<UniProtEntryName> entryName;
 	@RecordField(ontClass = CcpExtensionOntology.UNIPROT_KNOWLEDGE_BASE_RECORD___PROTEIN_FIELD_VALUE)
 	private final Protein protein;
 	@RecordField(ontClass = CcpExtensionOntology.UNIPROT_KNOWLEDGE_BASE_RECORD___GENE_FIELD_VALUE)
@@ -151,7 +151,17 @@ public class UniProtFileRecord extends FileRecord {
 			this.accession.add(new UniProtID(idStr));
 		}
 		this.primaryAccession = this.accession.get(0);
-		this.name = new ArrayList<String>(xmlType.getName());
+
+		/*
+		 * although xmlType.getName() returns a list, there should only be a
+		 * single 'entry name' for a given UniProt record so a warning is issued
+		 * if multiple entry names are observed
+		 */
+		List<UniProtEntryName> entryNames = new ArrayList<UniProtEntryName>();
+		for (String name : xmlType.getName()) {
+			entryNames.add(new UniProtEntryName(name));
+		}
+		this.entryName = entryNames;
 		this.protein = (xmlType.getProtein() == null) ? null : new Protein(xmlType.getProtein());
 		this.gene = new ArrayList<GeneType>();
 		if (xmlType.getGene() != null) {
