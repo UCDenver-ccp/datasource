@@ -990,10 +990,12 @@ public class UniProtFileRecord extends FileRecord {
 		public MoleculeType(org.uniprot.MoleculeType xmlType) {
 
 			DataSourceIdentifier<?> identifier = null;
-			try {
-				identifier = new UniProtIsoformID(xmlType.getId());
-			} catch (IllegalArgumentException e) {
-				identifier = new UniProtID(xmlType.getId());
+			if (xmlType.getId() != null) {
+				try {
+					identifier = new UniProtIsoformID(xmlType.getId());
+				} catch (IllegalArgumentException e) {
+					identifier = new UniProtID(xmlType.getId());
+				}
 			}
 
 			this.id = identifier;
