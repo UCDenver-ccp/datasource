@@ -528,7 +528,7 @@ public class UniProtFileRecord extends FileRecord {
 			this.evidence = (xmlType.getEvidence() == null) ? null : new ArrayList<Integer>(xmlType.getEvidence());
 			this.id = resolveDatabaseIdentifer(xmlType.getType(), xmlType.getId(),
 					"Source: " + xmlType.getType() + " ID: " + xmlType.getId());
-				this.molecule = (xmlType.getMolecule() != null) ? new MoleculeType(xmlType.getMolecule()) : null ;
+			this.molecule = (xmlType.getMolecule() != null) ? new MoleculeType(xmlType.getMolecule()) : null;
 		}
 
 		/**
@@ -983,13 +983,23 @@ public class UniProtFileRecord extends FileRecord {
 	@Record(ontClass = CcpExtensionOntology.UNIPROT_MOLECULE_TYPE_RECORD, dataSource = DataSource.UNIPROT)
 	public static class MoleculeType {
 		@RecordField(ontClass = CcpExtensionOntology.UNIPROT_MOLECULE_TYPE_RECORD___IDENTIFIER_FIELD_VALUE)
-		protected String id;
+		protected DataSourceIdentifier<?> id;
 		@RecordField(ontClass = CcpExtensionOntology.UNIPROT_MOLECULE_TYPE_RECORD___VALUE_FIELD_VALUE)
 		protected String value;
 
 		public MoleculeType(org.uniprot.MoleculeType xmlType) {
-			this.id = xmlType.getId();
-			this.value = xmlType.getValue();
+
+			DataSourceIdentifier<?> identifier = null;
+			try {
+				identifier = new UniProtIsoformID(xmlType.getId());
+			} catch (IllegalArgumentException e) {
+				identifier = new UniProtID(xmlType.getId());
+			}
+
+			this.id = identifier;
+			if (xmlType.getValue() != null && !xmlType.getValue().trim().isEmpty()) {
+				this.value = xmlType.getValue();
+			}
 		}
 	}
 
