@@ -429,68 +429,69 @@ public class RdfRecordWriterTest extends DefaultTestCase {
 
 	}
 
-	@Test
-	public void testWriteUniProtRdf() throws IOException {
-		Class<? extends IdResolver> ID_RESOLVER_CLASS = GoaFileIdResolver.class;
-		GoaGaf2FileRecordReader rr = new GoaGaf2FileRecordReader(
-				new File(
-						"/Users/bill/Dropbox/work/eclipse/eclipse-projects/kabob.bill.git.0/test/rules_tests/build_test/test_triples/raw/sample.goa.gaf"),
-				CharacterEncoding.UTF_8, null, ID_RESOLVER_CLASS);
-		// UniProtXmlFileRecordReader rr = new UniProtXmlFileRecordReader(new
-		// File("/Users/bill/Downloads/P37173.xml"), null);
-		// UniProtXmlFileRecordReader rr = new UniProtXmlFileRecordReader(new
-		// File("/Users/bill/Desktop/tgfr2.uniprot.xml"), null);
-		// UniProtXmlFileRecordReader rr = new UniProtXmlFileRecordReader(new
-		// File("/Users/bill/Desktop/14-3-3.uniprot.xml"), null);
-		RdfRecordWriter<GeneId2NameDatFileParser> recordWriter = new RdfRecordWriter<GeneId2NameDatFileParser>(
-				new File("/tmp"), RdfFormat.NTRIPLES);
-		long createdTimeInMillis20101217 = new GregorianCalendar(2010, 11, 17).getTimeInMillis();
-		recordWriter.processRecordReader(rr, createdTimeInMillis20101217, Collections.emptySet());
-
-		
-		File f = new File("/tmp/goa-GoaGaf2FileRecordReader.0-0.nt");
-		cljFile(f);
-		
-		// File outputFile =
-		// FileUtil.appendPathElementsToDirectory(outputDirectory,
-		// expectedOutputFileName);
-		// assertTrue("Output file should have been created.",
-		// outputFile.exists());
-		//
-		// List<String> expectedLines =
-		// getExpectedLines(RdfUtilTest.getExpectedTimeStamp(createdTimeInMillis20101217));
-		// assertTrue("N-Triple Lines should be as expected.",
-		// FileComparisonUtil.hasExpectedLines(outputFile,
-		// CharacterEncoding.UTF_8, expectedLines, null, LineOrder.ANY_ORDER,
-		// ColumnOrder.AS_IN_FILE));
-	}
 	
-	
-	private static void cljFile(File inputFile) throws IOException {
-		// order matters so use linkedhashmap
-		Map<String, String> regex2replaceMap = new LinkedHashMap<String, String>();
-		regex2replaceMap.put("<http://ccp.ucdenver.edu/obo/ext/", "ccp/");
-		regex2replaceMap.put("<http://www.w3.org/1999/02/22-rdf-syntax-ns#", "rdf/");
-		regex2replaceMap.put("<http://purl.obolibrary.org/obo/", "obo/");
-		regex2replaceMap.put("<http://www.w3.org/2000/01/rdf-schema#", "rdfs/");
-		regex2replaceMap.put("\"([^\"]+)\"\\^\\^<http://www.w3.org/2001/XMLSchema#boolean> \\.", "$1)");
-		regex2replaceMap.put("\"(\\d+)\"\\^\\^<http://www.w3.org/2001/XMLSchema#integer> \\.", "$1)");
-		regex2replaceMap.put("\"([^\"]+)\"@en \\.", "[\"$1\" \"en\"])");
-		regex2replaceMap.put("\"([^\"]+)\" \\.", "[\"$1\"])");
-		regex2replaceMap.put("> \\.", ")");
-		regex2replaceMap.put(">", "");
-		regex2replaceMap.put("^ccp", "(ccp");
-		for (StreamLineIterator lineIter = new StreamLineIterator(inputFile, CharacterEncoding.UTF_8); lineIter.hasNext();) {
-			String line = lineIter.next().getText();
-			for (Entry<String, String> entry : regex2replaceMap.entrySet()) {
-				Pattern p = Pattern.compile(entry.getKey());
-				Matcher m = p.matcher(line);
-				line = m.replaceAll(entry.getValue());
-			}
-			System.out.println(line);
-			
-		}
-	}
+//	@Test
+//	public void testWriteUniProtRdf() throws IOException {
+//		Class<? extends IdResolver> ID_RESOLVER_CLASS = GoaFileIdResolver.class;
+//		GoaGaf2FileRecordReader rr = new GoaGaf2FileRecordReader(
+//				new File(
+//						"/Users/bill/Dropbox/work/eclipse/eclipse-projects/kabob.bill.git.0/test/rules_tests/build_test/test_triples/raw/sample.goa.gaf"),
+//				CharacterEncoding.UTF_8, null, ID_RESOLVER_CLASS);
+//		// UniProtXmlFileRecordReader rr = new UniProtXmlFileRecordReader(new
+//		// File("/Users/bill/Downloads/P37173.xml"), null);
+//		// UniProtXmlFileRecordReader rr = new UniProtXmlFileRecordReader(new
+//		// File("/Users/bill/Desktop/tgfr2.uniprot.xml"), null);
+//		// UniProtXmlFileRecordReader rr = new UniProtXmlFileRecordReader(new
+//		// File("/Users/bill/Desktop/14-3-3.uniprot.xml"), null);
+//		RdfRecordWriter<GeneId2NameDatFileParser> recordWriter = new RdfRecordWriter<GeneId2NameDatFileParser>(
+//				new File("/tmp"), RdfFormat.NTRIPLES);
+//		long createdTimeInMillis20101217 = new GregorianCalendar(2010, 11, 17).getTimeInMillis();
+//		recordWriter.processRecordReader(rr, createdTimeInMillis20101217, Collections.emptySet());
+//
+//		
+//		File f = new File("/tmp/goa-GoaGaf2FileRecordReader.0-0.nt");
+//		cljFile(f);
+//		
+//		// File outputFile =
+//		// FileUtil.appendPathElementsToDirectory(outputDirectory,
+//		// expectedOutputFileName);
+//		// assertTrue("Output file should have been created.",
+//		// outputFile.exists());
+//		//
+//		// List<String> expectedLines =
+//		// getExpectedLines(RdfUtilTest.getExpectedTimeStamp(createdTimeInMillis20101217));
+//		// assertTrue("N-Triple Lines should be as expected.",
+//		// FileComparisonUtil.hasExpectedLines(outputFile,
+//		// CharacterEncoding.UTF_8, expectedLines, null, LineOrder.ANY_ORDER,
+//		// ColumnOrder.AS_IN_FILE));
+//	}
+//	
+//	
+//	private static void cljFile(File inputFile) throws IOException {
+//		// order matters so use linkedhashmap
+//		Map<String, String> regex2replaceMap = new LinkedHashMap<String, String>();
+//		regex2replaceMap.put("<http://ccp.ucdenver.edu/obo/ext/", "ccp/");
+//		regex2replaceMap.put("<http://www.w3.org/1999/02/22-rdf-syntax-ns#", "rdf/");
+//		regex2replaceMap.put("<http://purl.obolibrary.org/obo/", "obo/");
+//		regex2replaceMap.put("<http://www.w3.org/2000/01/rdf-schema#", "rdfs/");
+//		regex2replaceMap.put("\"([^\"]+)\"\\^\\^<http://www.w3.org/2001/XMLSchema#boolean> \\.", "$1)");
+//		regex2replaceMap.put("\"(\\d+)\"\\^\\^<http://www.w3.org/2001/XMLSchema#integer> \\.", "$1)");
+//		regex2replaceMap.put("\"([^\"]+)\"@en \\.", "[\"$1\" \"en\"])");
+//		regex2replaceMap.put("\"([^\"]+)\" \\.", "[\"$1\"])");
+//		regex2replaceMap.put("> \\.", ")");
+//		regex2replaceMap.put(">", "");
+//		regex2replaceMap.put("^ccp", "(ccp");
+//		for (StreamLineIterator lineIter = new StreamLineIterator(inputFile, CharacterEncoding.UTF_8); lineIter.hasNext();) {
+//			String line = lineIter.next().getText();
+//			for (Entry<String, String> entry : regex2replaceMap.entrySet()) {
+//				Pattern p = Pattern.compile(entry.getKey());
+//				Matcher m = p.matcher(line);
+//				line = m.replaceAll(entry.getValue());
+//			}
+//			System.out.println(line);
+//			
+//		}
+//	}
 	
 
 }
