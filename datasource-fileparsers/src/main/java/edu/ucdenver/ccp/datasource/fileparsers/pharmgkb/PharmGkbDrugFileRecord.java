@@ -45,7 +45,7 @@ import edu.ucdenver.ccp.datasource.fileparsers.RecordField;
 import edu.ucdenver.ccp.datasource.fileparsers.SingleLineFileRecord;
 import edu.ucdenver.ccp.datasource.identifiers.DataSource;
 import edu.ucdenver.ccp.datasource.identifiers.DataSourceIdentifier;
-import edu.ucdenver.ccp.datasource.identifiers.impl.bio.PharmGkbID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.PharmGkbDrugId;
 import lombok.Data;
 
 /**
@@ -63,7 +63,7 @@ import lombok.Data;
 @Data
 public class PharmGkbDrugFileRecord extends SingleLineFileRecord {
 	@RecordField(ontClass = CcpExtensionOntology.PHARMGKB_DRUG_RECORD___ACCESSION_IDENTIFIER_FIELD_VALUE)
-	private PharmGkbID accessionId;
+	private PharmGkbDrugId accessionId;
 	@RecordField(ontClass = CcpExtensionOntology.PHARMGKB_DRUG_RECORD___NAME_FIELD_VALUE)
 	private final String name;
 	@RecordField(ontClass = CcpExtensionOntology.PHARMGKB_DRUG_RECORD___GENERIC_NAMES_FIELD_VALUE)
@@ -93,7 +93,7 @@ public class PharmGkbDrugFileRecord extends SingleLineFileRecord {
 			long byteOffset, long lineNumber) {
 		super(byteOffset, lineNumber);
 		this.url = isNotBlank(url) ? url : null;
-		this.accessionId = new PharmGkbID(pharmGkbAccessionId);
+		this.accessionId = new PharmGkbDrugId(pharmGkbAccessionId);
 		this.name = isNotBlank(name) ? name : null;
 		this.genericNames = genericNames;
 		this.tradeNames = tradeNames;

@@ -52,7 +52,7 @@ import edu.ucdenver.ccp.datasource.fileparsers.SingleLineFileRecord;
 import edu.ucdenver.ccp.datasource.identifiers.DataSource;
 import edu.ucdenver.ccp.datasource.identifiers.DataSourceIdentifier;
 import edu.ucdenver.ccp.datasource.identifiers.impl.bio.MeshID;
-import edu.ucdenver.ccp.datasource.identifiers.impl.bio.PharmGkbID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.PharmGkbDiseaseId;
 import edu.ucdenver.ccp.datasource.identifiers.impl.bio.SnoMedCtId;
 import edu.ucdenver.ccp.datasource.identifiers.impl.bio.UmlsId;
 
@@ -72,7 +72,7 @@ public class PharmGkbDiseaseFileRecord extends SingleLineFileRecord {
 	private static final String UMLS_PREFIX = "UMLS:";
 
 	@RecordField(ontClass = CcpExtensionOntology.PHARMGKB_DISEASE_RECORD___ACCESSION_IDENTIFIER_FIELD_VALUE)
-	private PharmGkbID accessionId;
+	private PharmGkbDiseaseId accessionId;
 	@RecordField(ontClass = CcpExtensionOntology.PHARMGKB_DISEASE_RECORD___NAME_FIELD_VALUE)
 	private final String name;
 	@RecordField(ontClass = CcpExtensionOntology.PHARMGKB_DISEASE_RECORD___ALTERNATIVE_NAME_FIELD_VALUE)
@@ -94,14 +94,14 @@ public class PharmGkbDiseaseFileRecord extends SingleLineFileRecord {
 		}
 		this.crossReferences = new ArrayList<DataSourceIdentifier<?>>();
 		setExternalVocabulary(externalVocabulary);
-		this.accessionId = new PharmGkbID(pharmGkbAccessionId);
+		this.accessionId = new PharmGkbDiseaseId(pharmGkbAccessionId);
 	}
 
 	private void setAlternativeNames(Collection<String> names) {
 		alternativeNames = new ArrayList<String>(names);
 	}
 
-	public PharmGkbID getAccessionId() {
+	public PharmGkbDiseaseId getAccessionId() {
 		return accessionId;
 	}
 

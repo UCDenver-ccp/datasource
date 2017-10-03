@@ -72,7 +72,7 @@ import edu.ucdenver.ccp.datasource.identifiers.impl.bio.ModBaseId;
 import edu.ucdenver.ccp.datasource.identifiers.impl.bio.MutDbId;
 import edu.ucdenver.ccp.datasource.identifiers.impl.bio.NcbiGeneId;
 import edu.ucdenver.ccp.datasource.identifiers.impl.bio.OmimID;
-import edu.ucdenver.ccp.datasource.identifiers.impl.bio.PharmGkbID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.PharmGkbGeneId;
 import edu.ucdenver.ccp.datasource.identifiers.impl.bio.RefSeqID;
 import edu.ucdenver.ccp.datasource.identifiers.impl.bio.UcscGenomeBrowserId;
 import edu.ucdenver.ccp.datasource.identifiers.impl.bio.UniProtID;
@@ -168,7 +168,7 @@ public class PharmGkbGeneFileParser extends SingleLineFileRecordReader<PharmGkbG
 	protected PharmGkbGeneFileRecord parseRecordFromLine(Line line) {
 		int index = 0;
 		String[] toks = line.getText().split(RegExPatterns.TAB, -1);
-		PharmGkbID pharmGkbAccessionId = new PharmGkbID(toks[index++]);
+		PharmGkbGeneId pharmGkbAccessionId = new PharmGkbGeneId(toks[index++]);
 		Set<NcbiGeneId> entrezGeneIds = getEntrezGeneIDs(toks[index++]);
 		Set<HgncID> hgncIds = getHgncIds(toks[index++]);
 		EnsemblGeneID ensemblGeneId = StringUtils.isNotBlank(toks[index++]) ? new EnsemblGeneID(toks[index - 1]) : null;

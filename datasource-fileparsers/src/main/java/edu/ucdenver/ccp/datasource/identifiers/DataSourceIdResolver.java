@@ -101,7 +101,7 @@ import edu.ucdenver.ccp.datasource.identifiers.impl.bio.PathemaID;
 import edu.ucdenver.ccp.datasource.identifiers.impl.bio.PbrID;
 import edu.ucdenver.ccp.datasource.identifiers.impl.bio.PdbID;
 import edu.ucdenver.ccp.datasource.identifiers.impl.bio.PdbLigandId;
-import edu.ucdenver.ccp.datasource.identifiers.impl.bio.PharmGkbID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.PharmGkbGenericId;
 import edu.ucdenver.ccp.datasource.identifiers.impl.bio.PirID;
 import edu.ucdenver.ccp.datasource.identifiers.impl.bio.ProteinOntologyId;
 import edu.ucdenver.ccp.datasource.identifiers.impl.bio.PseudoCapID;
@@ -176,7 +176,7 @@ public class DataSourceIdResolver {
 		case MGI:
 			return new MgiGeneID(databaseObjectID);
 		case PHARMGKB:
-			return new PharmGkbID(databaseObjectID);
+			return new PharmGkbGenericId(databaseObjectID);
 		case PR:
 			return new ProteinOntologyId(databaseObjectID);
 		case PUBCHEM_SUBSTANCE:
@@ -263,7 +263,7 @@ public class DataSourceIdResolver {
 		else if (databaseName.equalsIgnoreCase("UniProt"))
 			return new UniProtID(databaseObjectID);
 		else if (databaseName.equalsIgnoreCase("PharmGKB"))
-			return new PharmGkbID(databaseObjectID);
+			return new PharmGkbGenericId(databaseObjectID);
 		else if (databaseName.equalsIgnoreCase("TTD") || databaseName.equalsIgnoreCase("Therapeutic Targets Database"))
 			return new TherapeuticTargetsDatabaseId(databaseObjectID);
 		else if (databaseName.equalsIgnoreCase("bindingDb"))

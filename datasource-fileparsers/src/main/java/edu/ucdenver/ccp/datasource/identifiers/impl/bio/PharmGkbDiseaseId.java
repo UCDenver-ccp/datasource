@@ -41,10 +41,10 @@ import edu.ucdenver.ccp.datasource.identifiers.DataSource;
 import edu.ucdenver.ccp.datasource.identifiers.DataSourceIdentifier;
 import edu.ucdenver.ccp.datasource.identifiers.Identifier;
 
-@Identifier(ontClass=CcpExtensionOntology.PHARMGKB_IDENTIFIER)
-public class PharmGkbID extends DataSourceIdentifier<String> {
+@Identifier(ontClass=CcpExtensionOntology.PHARMGKB_DISEASE_IDENTIFIER)
+public class PharmGkbDiseaseId extends DataSourceIdentifier<String> {
 
-	public PharmGkbID(String resourceID) {
+	public PharmGkbDiseaseId(String resourceID) {
 		super(resourceID,DataSource.PHARMGKB);
 	}
 

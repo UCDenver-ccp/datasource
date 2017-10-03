@@ -240,6 +240,11 @@ public class OntologyUtil {
 		Set<OWLAnnotation> annotations = cls.getAnnotations(ont);
 		for (OWLAnnotation annotation : annotations) {
 			String property = getAnnotationPropertyUri(annotation);
+			
+			if (cls.getIRI().toString().contains("female_or_bearer_of_femaleness")) {
+			System.out.println("+++++++++++++++ property: " + property);
+			}
+			
 			if ((synType == SynonymType.EXACT || synType == SynonymType.ALL)
 					&& (property.equals(EXACT_SYN_PROP) || property.equals(EXACT_SYN_PROP_ALT)
 							|| property.equals(IAO_EDITOR_PREFERRED_LABEL) || property.equals(IAO_ALTERNATIVE_TERM))) {

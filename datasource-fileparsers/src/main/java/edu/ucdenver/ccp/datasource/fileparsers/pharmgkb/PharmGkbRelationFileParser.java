@@ -85,8 +85,10 @@ import edu.ucdenver.ccp.datasource.fileparsers.SingleLineFileRecordReader;
 import edu.ucdenver.ccp.datasource.identifiers.DataSourceIdentifier;
 import edu.ucdenver.ccp.datasource.identifiers.ProbableErrorDataSourceIdentifier;
 import edu.ucdenver.ccp.datasource.identifiers.UnknownDataSourceIdentifier;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.PharmGkbDiseaseId;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.PharmGkbDrugId;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.PharmGkbGeneId;
 import edu.ucdenver.ccp.datasource.identifiers.impl.bio.PharmGkbHaplotypeId;
-import edu.ucdenver.ccp.datasource.identifiers.impl.bio.PharmGkbID;
 import edu.ucdenver.ccp.datasource.identifiers.impl.bio.PharmGkbVariantLocationId;
 import edu.ucdenver.ccp.datasource.identifiers.impl.bio.RefSnpID;
 import edu.ucdenver.ccp.datasource.identifiers.impl.ice.PubMedID;
@@ -104,6 +106,12 @@ public class PharmGkbRelationFileParser extends SingleLineFileRecordReader<Pharm
 	private static final Object ENTITY_TYPE_HAPLOTYPE = "Haplotype";
 
 	private static final Object ENTITY_TYPE_VARIANT_LOCATION = "VariantLocation";
+
+	private static final Object ENTITY_TYPE_DRUG = "Drug";
+
+	private static final Object ENTITY_TYPE_DISEASE = "Disease";
+
+	private static final Object ENTITY_TYPE_GENE = "Gene";
 
 	public PharmGkbRelationFileParser(File dataFile, CharacterEncoding encoding) throws IOException {
 		super(dataFile, encoding, null);
@@ -151,8 +159,12 @@ public class PharmGkbRelationFileParser extends SingleLineFileRecordReader<Pharm
 		String[] toks = idStr.split(",");
 		for (String id : toks) {
 			try {
-				if (idStr.startsWith(PHARMGKB_ID_PREFIX)) {
-					ids.add(new PharmGkbID(id));
+				if (idStr.startsWith(PHARMGKB_ID_PREFIX) && entityType.equals(ENTITY_TYPE_DRUG)) {
+					ids.add(new PharmGkbDrugId(id));
+				} else if (idStr.startsWith(PHARMGKB_ID_PREFIX) && entityType.equals(ENTITY_TYPE_DISEASE)) {
+					ids.add(new PharmGkbDiseaseId(id));
+				} else if (idStr.startsWith(PHARMGKB_ID_PREFIX) && entityType.equals(ENTITY_TYPE_GENE)) {
+					ids.add(new PharmGkbGeneId(id));
 				} else if (idStr.matches(REFSNP_ID_PATTERN)) {
 					ids.add(new RefSnpID(id));
 				} else if (entityType.equals(ENTITY_TYPE_HAPLOTYPE)) {

@@ -48,7 +48,7 @@ import edu.ucdenver.ccp.datasource.identifiers.DataSourceIdentifier;
 import edu.ucdenver.ccp.datasource.identifiers.impl.bio.EnsemblGeneID;
 import edu.ucdenver.ccp.datasource.identifiers.impl.bio.HgncID;
 import edu.ucdenver.ccp.datasource.identifiers.impl.bio.NcbiGeneId;
-import edu.ucdenver.ccp.datasource.identifiers.impl.bio.PharmGkbID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.PharmGkbGeneId;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -66,7 +66,7 @@ public class PharmGkbGeneFileRecord extends SingleLineFileRecord {
 
 	private static final Logger logger = Logger.getLogger(PharmGkbGeneFileRecord.class);
 	@RecordField(ontClass = CcpExtensionOntology.PHARMGKB_GENE_RECORD___ACCESSION_IDENTIFIER_FIELD_VALUE)
-	private final PharmGkbID accessionId;
+	private final PharmGkbGeneId accessionId;
 	@RecordField(ontClass = CcpExtensionOntology.PHARMGKB_GENE_RECORD___ENTREZ_GENE_IDENTIFIER_FIELD_VALUE)
 	private final Set<NcbiGeneId> entrezGeneIds;
 	@RecordField(ontClass = CcpExtensionOntology.PHARMGKB_GENE_RECORD___HGNC_IDENTIFIER_FIELD_VALUE)
@@ -111,7 +111,7 @@ public class PharmGkbGeneFileRecord extends SingleLineFileRecord {
 	 * @param hasVariantAnnotation
 	 * @param crossReferences
 	 */
-	public PharmGkbGeneFileRecord(PharmGkbID accessionId, Set<NcbiGeneId> entrezGeneIds, Set<HgncID> hgncIds,
+	public PharmGkbGeneFileRecord(PharmGkbGeneId accessionId, Set<NcbiGeneId> entrezGeneIds, Set<HgncID> hgncIds,
 			EnsemblGeneID ensemblGeneId, String name, String symbol, Collection<String> alternativeNames,
 			Collection<String> alternativeSymbols, boolean isVip, boolean hasVariantAnnotation,
 			Collection<DataSourceIdentifier<?>> crossReferences, boolean hasCpicDosingGuideline, String chromosome,

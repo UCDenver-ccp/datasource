@@ -753,7 +753,7 @@ public class UniProtFileRecord extends FileRecord {
 				} else if (type.equalsIgnoreCase("Pfam")) {
 					return new PfamID(idStr);
 				} else if (type.equalsIgnoreCase("PharmGKB")) {
-					return new PharmGkbID(idStr);
+					return new PharmGkbGenericId(idStr);
 				} else if (type.equalsIgnoreCase("PhosphoSite")) {
 					return new PhosphoSiteId(idStr);
 				} else if (type.equalsIgnoreCase("PhosSite")) {

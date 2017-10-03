@@ -180,7 +180,7 @@ import edu.ucdenver.ccp.datasource.identifiers.impl.bio.NationalDrugCodeDirector
 import edu.ucdenver.ccp.datasource.identifiers.impl.bio.NcbiTaxonomyID;
 import edu.ucdenver.ccp.datasource.identifiers.impl.bio.PdbID;
 import edu.ucdenver.ccp.datasource.identifiers.impl.bio.PfamID;
-import edu.ucdenver.ccp.datasource.identifiers.impl.bio.PharmGkbID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.PharmGkbGenericId;
 import edu.ucdenver.ccp.datasource.identifiers.impl.bio.PubChemCompoundId;
 import edu.ucdenver.ccp.datasource.identifiers.impl.bio.PubChemSubstanceId;
 import edu.ucdenver.ccp.datasource.identifiers.impl.bio.SnpRsId;
@@ -1619,7 +1619,7 @@ public class DrugBankDrugRecord extends FileRecord {
 			} else if (resource.equals("National Drug Code Directory")) {
 				return new NationalDrugCodeDirectoryId(identifier);
 			} else if (resource.equals("PharmGKB")) {
-				return new PharmGkbID(identifier);
+				return new PharmGkbGenericId(identifier);
 			} else if (resource.equals("CH_EMBL") || resource.equalsIgnoreCase("ChEMBL")) {
 				return new ChemblId(identifier);
 			} else if (resource.equals("KEGG Compound")) {
