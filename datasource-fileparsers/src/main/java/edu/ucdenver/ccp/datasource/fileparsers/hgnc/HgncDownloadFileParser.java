@@ -113,11 +113,11 @@ public class HgncDownloadFileParser extends SingleLineFileRecordReader<HgncDownl
 	public enum WithdrawnRecordTreatment {
 		IGNORE, INCLUDE
 	}
-
-	public static final String DOWNLOADED_FILE_NAME = "hgnc_complete_set.txt.gz";
+	
+	public static final String DOWNLOADED_FILE_NAME = "hgnc_complete_set.txt";
 	public static final CharacterEncoding ENCODING = CharacterEncoding.ISO_8859_1;
 
-	@FtpDownload(server = "ftp.ebi.ac.uk", path = "pub/databases/genenames/", filename = DOWNLOADED_FILE_NAME, filetype = FileType.BINARY, decompress = false)
+	@FtpDownload(server = "ftp.ebi.ac.uk", path = "pub/databases/genenames/new/tsv", filename = DOWNLOADED_FILE_NAME, filetype = FileType.BINARY, decompress = false)
 	private File hgncFile;
 
 	private final WithdrawnRecordTreatment withdrawnRecordTreatment;
