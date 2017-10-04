@@ -867,7 +867,7 @@ public class DrugBankDrugRecord extends FileRecord {
 		@RecordField(ontClass=CcpExtensionOntology.DRUGBANK_SNP_ADVERSE_DRUG_REACTION_RECORD___PROTEIN_NAME_FIELD_VALUE)
 		private final String proteinName;
 		@RecordField(ontClass=CcpExtensionOntology.DRUGBANK_SNP_ADVERSE_DRUG_REACTION_RECORD___PUBMED_IDENTIFIER_FIELD_VALUE)
-		private final PubMedID pubmedId;
+		private final DataSourceIdentifier<?> pubmedId;
 		@RecordField(ontClass=CcpExtensionOntology.DRUGBANK_SNP_ADVERSE_DRUG_REACTION_RECORD___REFERENCE_SNP_IDENTIFIER_FIELD_VALUE)
 		private final SnpRsId rsId;
 		@RecordField(ontClass=CcpExtensionOntology.DRUGBANK_SNP_ADVERSE_DRUG_REACTION_RECORD___UNIPROT_IDENTIFIER_FIELD_VALUE)
@@ -876,7 +876,7 @@ public class DrugBankDrugRecord extends FileRecord {
 		public SnpEffect(SnpEffectType type) {
 			UniProtID uniprotIdHolder = null;
 			SnpRsId rsIdHolder = null;
-			PubMedID pmidHolder = null;
+			DataSourceIdentifier<?> pmidHolder = null;
 			String proteinNameHolder = null;
 			String geneSymbolHolder = null;
 			String descriptionHolder = null;
@@ -897,7 +897,11 @@ public class DrugBankDrugRecord extends FileRecord {
 					geneSymbolHolder = element.getValue();
 					break;
 				case "pubmed-id":
+					try {
 					pmidHolder = new PubMedID(element.getValue());
+					} catch (IllegalArgumentException e) {
+						pmidHolder = new ProbableErrorDataSourceIdentifier(element.getValue(), "pubmed-id:", e.getMessage());
+					}
 					break;
 				case "protein-name":
 					proteinNameHolder = element.getValue();
