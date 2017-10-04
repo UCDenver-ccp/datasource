@@ -63,14 +63,30 @@ public class DrugbankXmlFileRecordReader extends XmlFileRecordReader<DrugBankDru
 		if (ca.drugbank.DrugType.class.isInstance(entry)) {
 			return new DrugBankDrugRecord((ca.drugbank.DrugType) entry);
 		}
-		logger.warn("Expected ca.drugbank.DrugType, but observed " + entry.getClass().getName()
-				+ ". Skipping record...");
+		logger.warn(
+				"Expected ca.drugbank.DrugType, but observed " + entry.getClass().getName() + ". Skipping record...");
 		return null;
 	}
 
 	@Override
 	protected boolean hasTaxonOfInterest(DrugBankDrugRecord record) {
 		return true;
+	}
+
+	public static void main(String[] args) {
+		try {
+			int count = 0;
+			for (DrugbankXmlFileRecordReader rr = new DrugbankXmlFileRecordReader(
+					new File("/Users/bill/Downloads/tmp/full_database.xml")); rr.hasNext();) {
+				if (count++ % 100 == 0) {
+					System.out.println("progress: " + (count - 1));
+				}
+				DrugBankDrugRecord record = rr.next();
+
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 }

@@ -539,11 +539,11 @@ public class DrugBankDrugRecord extends FileRecord {
 
 	@Data
 	@EqualsAndHashCode(callSuper = true)
-	@Record(ontClass=CcpExtensionOntology.DRUGBANK_ENZYME_RECORD, dataSource = DataSource.DRUGBANK)
+	@Record(ontClass = CcpExtensionOntology.DRUGBANK_ENZYME_RECORD, dataSource = DataSource.DRUGBANK)
 	private static class Enzyme extends Target {
-		@RecordField(ontClass=CcpExtensionOntology.DRUGBANK_ENZYME_RECORD___INDUCTION_STRENGTH_FIELD_VALUE)
+		@RecordField(ontClass = CcpExtensionOntology.DRUGBANK_ENZYME_RECORD___INDUCTION_STRENGTH_FIELD_VALUE)
 		private final String inductionStrength;
-		@RecordField(ontClass=CcpExtensionOntology.DRUGBANK_ENZYME_RECORD___INHIBITION_STRENGTH_FIELD_VALUE)
+		@RecordField(ontClass = CcpExtensionOntology.DRUGBANK_ENZYME_RECORD___INHIBITION_STRENGTH_FIELD_VALUE)
 		private final String inhibitionStrength;
 
 		public Enzyme(String inductionStrength, String inhibitionStrength, String id, String name, String knownAction,
@@ -578,27 +578,27 @@ public class DrugBankDrugRecord extends FileRecord {
 	}
 
 	@Data
-	@Record(ontClass=CcpExtensionOntology.DRUGBANK_TARGET_RECORD, dataSource = DataSource.DRUGBANK)
+	@Record(ontClass = CcpExtensionOntology.DRUGBANK_TARGET_RECORD, dataSource = DataSource.DRUGBANK)
 	private static class Target {
-		@RecordField(ontClass=CcpExtensionOntology.DRUGBANK_DRUG_RECORD___DRUGBANK_IDENTIFIER_FIELD_VALUE)
+		@RecordField(ontClass = CcpExtensionOntology.DRUGBANK_DRUG_RECORD___DRUGBANK_IDENTIFIER_FIELD_VALUE)
 		private final DrugBankID id;
-		@RecordField(ontClass=CcpExtensionOntology.DRUGBANK_TARGET_RECORD___NAME_FIELD_VALUE)
+		@RecordField(ontClass = CcpExtensionOntology.DRUGBANK_TARGET_RECORD___NAME_FIELD_VALUE)
 		private final String name;
-		@RecordField(ontClass=CcpExtensionOntology.DRUGBANK_TARGET_RECORD___KNOWN_ACTION_FIELD_VALUE)
+		@RecordField(ontClass = CcpExtensionOntology.DRUGBANK_TARGET_RECORD___KNOWN_ACTION_FIELD_VALUE)
 		private final String knownAction;
-		@RecordField(ontClass=CcpExtensionOntology.DRUGBANK_TARGET_RECORD___ORGANISM_FIELD_VALUE)
+		@RecordField(ontClass = CcpExtensionOntology.DRUGBANK_TARGET_RECORD___ORGANISM_FIELD_VALUE)
 		private final String organism;
-		@RecordField(ontClass=CcpExtensionOntology.DRUGBANK_TARGET_RECORD___POSITION_FIELD_VALUE)
+		@RecordField(ontClass = CcpExtensionOntology.DRUGBANK_TARGET_RECORD___POSITION_FIELD_VALUE)
 		private final BigInteger position;
-		@RecordField(ontClass=CcpExtensionOntology.DRUGBANK_TARGET_RECORD___ARTICLE_REFERENCES_FIELD_VALUE)
+		@RecordField(ontClass = CcpExtensionOntology.DRUGBANK_TARGET_RECORD___ARTICLE_REFERENCES_FIELD_VALUE)
 		private final Set<Article> articleReferences;
-		@RecordField(ontClass=CcpExtensionOntology.DRUGBANK_TARGET_RECORD___TEXTBOOK_REFERENCES_FIELD_VALUE)
+		@RecordField(ontClass = CcpExtensionOntology.DRUGBANK_TARGET_RECORD___TEXTBOOK_REFERENCES_FIELD_VALUE)
 		private final Set<TextBook> textbookReferences;
-		@RecordField(ontClass=CcpExtensionOntology.DRUGBANK_TARGET_RECORD___LINK_REFERENCES_FIELD_VALUE)
+		@RecordField(ontClass = CcpExtensionOntology.DRUGBANK_TARGET_RECORD___LINK_REFERENCES_FIELD_VALUE)
 		private final Set<Link> linkReferences;
-		@RecordField(ontClass=CcpExtensionOntology.DRUGBANK_TARGET_RECORD___ACTIONS_FIELD_VALUE)
+		@RecordField(ontClass = CcpExtensionOntology.DRUGBANK_TARGET_RECORD___ACTIONS_FIELD_VALUE)
 		private final Set<String> actions = new HashSet<String>();
-		@RecordField(ontClass=CcpExtensionOntology.DRUGBANK_TARGET_RECORD___POLYPEPTIDES_FIELD_VALUE)
+		@RecordField(ontClass = CcpExtensionOntology.DRUGBANK_TARGET_RECORD___POLYPEPTIDES_FIELD_VALUE)
 		private final Set<Polypeptide> polypeptides = new HashSet<Polypeptide>();
 
 		public void addAction(String action) {
@@ -612,47 +612,47 @@ public class DrugBankDrugRecord extends FileRecord {
 	}
 
 	@Data
-	@Record(ontClass=CcpExtensionOntology.DRUGBANK_POLYPEPTIDE_RECORD, dataSource = DataSource.DRUGBANK)
+	@Record(ontClass = CcpExtensionOntology.DRUGBANK_POLYPEPTIDE_RECORD, dataSource = DataSource.DRUGBANK)
 	private static class Polypeptide {
-		@RecordField(ontClass=CcpExtensionOntology.DRUGBANK_POLYPEPTIDE_RECORD___AMINO_ACID_SEQUENCE_FIELD_VALUE)
+		@RecordField(ontClass = CcpExtensionOntology.DRUGBANK_POLYPEPTIDE_RECORD___AMINO_ACID_SEQUENCE_FIELD_VALUE)
 		private final Sequence aminoAcidSequence;
-		@RecordField(ontClass=CcpExtensionOntology.DRUGBANK_POLYPEPTIDE_RECORD___CELLULAR_LOCATION_FIELD_VALUE)
+		@RecordField(ontClass = CcpExtensionOntology.DRUGBANK_POLYPEPTIDE_RECORD___CELLULAR_LOCATION_FIELD_VALUE)
 		private final String cellularLocation;
-		@RecordField(ontClass=CcpExtensionOntology.DRUGBANK_POLYPEPTIDE_RECORD___CHROMOSOME_LOCATION_FIELD_VALUE)
+		@RecordField(ontClass = CcpExtensionOntology.DRUGBANK_POLYPEPTIDE_RECORD___CHROMOSOME_LOCATION_FIELD_VALUE)
 		private final String chromosomeLocation;
-		@RecordField(ontClass=CcpExtensionOntology.DRUGBANK_POLYPEPTIDE_RECORD___EXTERNAL_IDENTIFIER_FIELD_VALUE)
+		@RecordField(ontClass = CcpExtensionOntology.DRUGBANK_POLYPEPTIDE_RECORD___EXTERNAL_IDENTIFIER_FIELD_VALUE)
 		private Set<DataSourceIdentifier<?>> externalIdentifiers = new HashSet<>();
-		@RecordField(ontClass=CcpExtensionOntology.DRUGBANK_POLYPEPTIDE_RECORD___GENE_NAME_FIELD_VALUE)
+		@RecordField(ontClass = CcpExtensionOntology.DRUGBANK_POLYPEPTIDE_RECORD___GENE_NAME_FIELD_VALUE)
 		private final String geneName;
-		@RecordField(ontClass=CcpExtensionOntology.DRUGBANK_POLYPEPTIDE_RECORD___GENERAL_FUNCTION_FIELD_VALUE)
+		@RecordField(ontClass = CcpExtensionOntology.DRUGBANK_POLYPEPTIDE_RECORD___GENERAL_FUNCTION_FIELD_VALUE)
 		private final String generalFunction;
-		@RecordField(ontClass=CcpExtensionOntology.DRUGBANK_POLYPEPTIDE_RECORD___GENE_SEQUENCE_FIELD_VALUE)
+		@RecordField(ontClass = CcpExtensionOntology.DRUGBANK_POLYPEPTIDE_RECORD___GENE_SEQUENCE_FIELD_VALUE)
 		private final Sequence geneSequence;
-		@RecordField(ontClass=CcpExtensionOntology.DRUGBANK_POLYPEPTIDE_RECORD___GO_CLASSIFIERS_FIELD_VALUE)
+		@RecordField(ontClass = CcpExtensionOntology.DRUGBANK_POLYPEPTIDE_RECORD___GO_CLASSIFIERS_FIELD_VALUE)
 		private Set<GoTerm> goClassifiers = new HashSet<>();
-		@RecordField(ontClass=CcpExtensionOntology.DRUGBANK_POLYPEPTIDE_RECORD___IDENTIFIER_FIELD_VALUE)
+		@RecordField(ontClass = CcpExtensionOntology.DRUGBANK_POLYPEPTIDE_RECORD___IDENTIFIER_FIELD_VALUE)
 		private final DataSourceIdentifier<?> id;
-		@RecordField(ontClass=CcpExtensionOntology.DRUGBANK_POLYPEPTIDE_RECORD___LOCUS_FIELD_VALUE)
+		@RecordField(ontClass = CcpExtensionOntology.DRUGBANK_POLYPEPTIDE_RECORD___LOCUS_FIELD_VALUE)
 		private final String locus;
-		@RecordField(ontClass=CcpExtensionOntology.DRUGBANK_POLYPEPTIDE_RECORD___MOLECULAR_WEIGHT_FIELD_VALUE)
+		@RecordField(ontClass = CcpExtensionOntology.DRUGBANK_POLYPEPTIDE_RECORD___MOLECULAR_WEIGHT_FIELD_VALUE)
 		private final String molecularWeight;
-		@RecordField(ontClass=CcpExtensionOntology.DRUGBANK_POLYPEPTIDE_RECORD___NAME_FIELD_VALUE)
+		@RecordField(ontClass = CcpExtensionOntology.DRUGBANK_POLYPEPTIDE_RECORD___NAME_FIELD_VALUE)
 		private final String name;
-		@RecordField(ontClass=CcpExtensionOntology.DRUGBANK_POLYPEPTIDE_RECORD___ORGANISM_FIELD_VALUE)
+		@RecordField(ontClass = CcpExtensionOntology.DRUGBANK_POLYPEPTIDE_RECORD___ORGANISM_FIELD_VALUE)
 		private final DrugbankOrganism organism;
-		@RecordField(ontClass=CcpExtensionOntology.DRUGBANK_POLYPEPTIDE_RECORD___PFAM_FIELD_VALUE)
+		@RecordField(ontClass = CcpExtensionOntology.DRUGBANK_POLYPEPTIDE_RECORD___PFAM_FIELD_VALUE)
 		private Set<PfamTerm> pfams = new HashSet<>();
-		@RecordField(ontClass=CcpExtensionOntology.DRUGBANK_POLYPEPTIDE_RECORD___SIGNAL_REGIONS_FIELD_VALUE)
+		@RecordField(ontClass = CcpExtensionOntology.DRUGBANK_POLYPEPTIDE_RECORD___SIGNAL_REGIONS_FIELD_VALUE)
 		private final String signalRegions;
-		@RecordField(ontClass=CcpExtensionOntology.DRUGBANK_POLYPEPTIDE_RECORD___SOURCE_FIELD_VALUE)
+		@RecordField(ontClass = CcpExtensionOntology.DRUGBANK_POLYPEPTIDE_RECORD___SOURCE_FIELD_VALUE)
 		private final String source;
-		@RecordField(ontClass=CcpExtensionOntology.DRUGBANK_POLYPEPTIDE_RECORD___SPECIFIC_FUNCTION_FIELD_VALUE)
+		@RecordField(ontClass = CcpExtensionOntology.DRUGBANK_POLYPEPTIDE_RECORD___SPECIFIC_FUNCTION_FIELD_VALUE)
 		private final String specificFunction;
-		@RecordField(ontClass=CcpExtensionOntology.DRUGBANK_POLYPEPTIDE_RECORD___SYNONYMS_FIELD_VALUE)
+		@RecordField(ontClass = CcpExtensionOntology.DRUGBANK_POLYPEPTIDE_RECORD___SYNONYMS_FIELD_VALUE)
 		private final Set<String> synonyms;
-		@RecordField(ontClass=CcpExtensionOntology.DRUGBANK_POLYPEPTIDE_RECORD___THEORETICAL_PI_FIELD_VALUE)
+		@RecordField(ontClass = CcpExtensionOntology.DRUGBANK_POLYPEPTIDE_RECORD___THEORETICAL_PI_FIELD_VALUE)
 		private final String theoreticalPi;
-		@RecordField(ontClass=CcpExtensionOntology.DRUGBANK_POLYPEPTIDE_RECORD___TRANSMEMBRANE_REGIONS_FIELD_VALUE)
+		@RecordField(ontClass = CcpExtensionOntology.DRUGBANK_POLYPEPTIDE_RECORD___TRANSMEMBRANE_REGIONS_FIELD_VALUE)
 		private final String transmembraneRegions;
 
 		public Polypeptide(PolypeptideType poly) {
@@ -710,11 +710,11 @@ public class DrugBankDrugRecord extends FileRecord {
 	}
 
 	@Data
-	@Record(ontClass=CcpExtensionOntology.DRUGBANK_PFAM_TERM_RECORD, dataSource = DataSource.DRUGBANK)
+	@Record(ontClass = CcpExtensionOntology.DRUGBANK_PFAM_TERM_RECORD, dataSource = DataSource.DRUGBANK)
 	private static class PfamTerm {
-		@RecordField(ontClass=CcpExtensionOntology.DRUGBANK_PFAM_RECORD___NAME_FIELD_VALUE)
+		@RecordField(ontClass = CcpExtensionOntology.DRUGBANK_PFAM_RECORD___NAME_FIELD_VALUE)
 		private final String name;
-		@RecordField(ontClass=CcpExtensionOntology.DRUGBANK_PFAM_RECORD___IDENTIFIER_FIELD_VALUE)
+		@RecordField(ontClass = CcpExtensionOntology.DRUGBANK_PFAM_RECORD___IDENTIFIER_FIELD_VALUE)
 		private final PfamID id;
 
 		public PfamTerm(PfamType pfamType) {
@@ -724,11 +724,11 @@ public class DrugBankDrugRecord extends FileRecord {
 	}
 
 	@Data
-	@Record(ontClass=CcpExtensionOntology.DRUGBANK_GO_TERM_RECORD, dataSource = DataSource.DRUGBANK)
+	@Record(ontClass = CcpExtensionOntology.DRUGBANK_GO_TERM_RECORD, dataSource = DataSource.DRUGBANK)
 	private static class GoTerm {
-		@RecordField(ontClass=CcpExtensionOntology.DRUGBANK_GO_TERM_RECORD___NAME_FIELD_VALUE)
+		@RecordField(ontClass = CcpExtensionOntology.DRUGBANK_GO_TERM_RECORD___NAME_FIELD_VALUE)
 		private final String name;
-		@RecordField(ontClass=CcpExtensionOntology.DRUGBANK_GO_TERM_RECORD___NAMESPACE_FIELD_VALUE)
+		@RecordField(ontClass = CcpExtensionOntology.DRUGBANK_GO_TERM_RECORD___NAMESPACE_FIELD_VALUE)
 		private final String namespace;
 
 		public GoTerm(GoClassifierType goType) {
@@ -738,11 +738,11 @@ public class DrugBankDrugRecord extends FileRecord {
 	}
 
 	@Data
-	@Record(ontClass=CcpExtensionOntology.DRUGBANK_DRUGBANK_ORGANISM_RECORD, dataSource = DataSource.DRUGBANK)
+	@Record(ontClass = CcpExtensionOntology.DRUGBANK_DRUGBANK_ORGANISM_RECORD, dataSource = DataSource.DRUGBANK)
 	private static class DrugbankOrganism {
-		@RecordField(ontClass=CcpExtensionOntology.DRUGBANK_DRUGBANK_ORGANISM_RECORD___NAME_FIELD_VALUE)
+		@RecordField(ontClass = CcpExtensionOntology.DRUGBANK_DRUGBANK_ORGANISM_RECORD___NAME_FIELD_VALUE)
 		private final String name;
-		@RecordField(ontClass=CcpExtensionOntology.DRUGBANK_DRUGBANK_ORGANISM_RECORD___TAXONOMY_IDENTIFIER_FIELD_VALUE)
+		@RecordField(ontClass = CcpExtensionOntology.DRUGBANK_DRUGBANK_ORGANISM_RECORD___TAXONOMY_IDENTIFIER_FIELD_VALUE)
 		private final NcbiTaxonomyID taxonomyId;
 
 		public DrugbankOrganism(Organism organism) {
@@ -764,23 +764,23 @@ public class DrugBankDrugRecord extends FileRecord {
 	}
 
 	@Data
-	@Record(ontClass=CcpExtensionOntology.DRUGBANK_SNP_ADVERSE_DRUG_REACTION_RECORD, dataSource = DataSource.DRUGBANK)
+	@Record(ontClass = CcpExtensionOntology.DRUGBANK_SNP_ADVERSE_DRUG_REACTION_RECORD, dataSource = DataSource.DRUGBANK)
 	private static class SnpAdverseDrugReaction {
-		@RecordField(ontClass=CcpExtensionOntology.DRUGBANK_SNP_ADVERSE_DRUG_REACTION_RECORD___ALLELE_FIELD_VALUE)
+		@RecordField(ontClass = CcpExtensionOntology.DRUGBANK_SNP_ADVERSE_DRUG_REACTION_RECORD___ALLELE_FIELD_VALUE)
 		private final String allele;
-		@RecordField(ontClass=CcpExtensionOntology.DRUGBANK_SNP_ADVERSE_DRUG_REACTION_RECORD___ADVERSE_REACTION_FIELD_VALUE)
+		@RecordField(ontClass = CcpExtensionOntology.DRUGBANK_SNP_ADVERSE_DRUG_REACTION_RECORD___ADVERSE_REACTION_FIELD_VALUE)
 		private final String adverseReaction;
-		@RecordField(ontClass=CcpExtensionOntology.DRUGBANK_SNP_ADVERSE_DRUG_REACTION_RECORD___DESCRIPTION_FIELD_VALUE)
+		@RecordField(ontClass = CcpExtensionOntology.DRUGBANK_SNP_ADVERSE_DRUG_REACTION_RECORD___DESCRIPTION_FIELD_VALUE)
 		private final String description;
-		@RecordField(ontClass=CcpExtensionOntology.DRUGBANK_SNP_ADVERSE_DRUG_REACTION_RECORD___GENE_SYMBOL_FIELD_VALUE)
+		@RecordField(ontClass = CcpExtensionOntology.DRUGBANK_SNP_ADVERSE_DRUG_REACTION_RECORD___GENE_SYMBOL_FIELD_VALUE)
 		private final String geneSymbol;
-		@RecordField(ontClass=CcpExtensionOntology.DRUGBANK_SNP_ADVERSE_DRUG_REACTION_RECORD___PROTEIN_NAME_FIELD_VALUE)
+		@RecordField(ontClass = CcpExtensionOntology.DRUGBANK_SNP_ADVERSE_DRUG_REACTION_RECORD___PROTEIN_NAME_FIELD_VALUE)
 		private final String proteinName;
-		@RecordField(ontClass=CcpExtensionOntology.DRUGBANK_SNP_ADVERSE_DRUG_REACTION_RECORD___PUBMED_IDENTIFIER_FIELD_VALUE)
+		@RecordField(ontClass = CcpExtensionOntology.DRUGBANK_SNP_ADVERSE_DRUG_REACTION_RECORD___PUBMED_IDENTIFIER_FIELD_VALUE)
 		private final PubMedID pubmedId;
-		@RecordField(ontClass=CcpExtensionOntology.DRUGBANK_SNP_ADVERSE_DRUG_REACTION_RECORD___REFERENCE_SNP_IDENTIFIER_FIELD_VALUE)
+		@RecordField(ontClass = CcpExtensionOntology.DRUGBANK_SNP_ADVERSE_DRUG_REACTION_RECORD___REFERENCE_SNP_IDENTIFIER_FIELD_VALUE)
 		private final SnpRsId rsId;
-		@RecordField(ontClass=CcpExtensionOntology.DRUGBANK_SNP_ADVERSE_DRUG_REACTION_RECORD___UNIPROT_IDENTIFIER_FIELD_VALUE)
+		@RecordField(ontClass = CcpExtensionOntology.DRUGBANK_SNP_ADVERSE_DRUG_REACTION_RECORD___UNIPROT_IDENTIFIER_FIELD_VALUE)
 		private final UniProtID uniprotId;
 
 		public SnpAdverseDrugReaction(SnpAdverseDrugReactionType type) {
@@ -804,7 +804,9 @@ public class DrugBankDrugRecord extends FileRecord {
 					descriptionHolder = element.getValue();
 					break;
 				case "pubmed-id":
-					pmidHolder = new PubMedID(element.getValue());
+					if (!element.getValue().trim().isEmpty()) {
+						pmidHolder = new PubMedID(element.getValue());
+					}
 					break;
 				case "rs-id":
 					String value = element.getValue().startsWith("SNP ID:")
@@ -854,23 +856,23 @@ public class DrugBankDrugRecord extends FileRecord {
 	}
 
 	@Data
-	@Record(ontClass=CcpExtensionOntology.DRUGBANK_SNP_EFFECT_RECORD, dataSource = DataSource.DRUGBANK)
+	@Record(ontClass = CcpExtensionOntology.DRUGBANK_SNP_EFFECT_RECORD, dataSource = DataSource.DRUGBANK)
 	private static class SnpEffect {
-		@RecordField(ontClass=CcpExtensionOntology.DRUGBANK_SNP_EFFECT_RECORD___ALLELE_FIELD_VALUE)
+		@RecordField(ontClass = CcpExtensionOntology.DRUGBANK_SNP_EFFECT_RECORD___ALLELE_FIELD_VALUE)
 		private final String allele;
-		@RecordField(ontClass=CcpExtensionOntology.DRUGBANK_SNP_EFFECT_RECORD___DEFINING_CHANGE_FIELD_VALUE)
+		@RecordField(ontClass = CcpExtensionOntology.DRUGBANK_SNP_EFFECT_RECORD___DEFINING_CHANGE_FIELD_VALUE)
 		private final String definingChange;
-		@RecordField(ontClass=CcpExtensionOntology.DRUGBANK_SNP_ADVERSE_DRUG_REACTION_RECORD___DESCRIPTION_FIELD_VALUE)
+		@RecordField(ontClass = CcpExtensionOntology.DRUGBANK_SNP_ADVERSE_DRUG_REACTION_RECORD___DESCRIPTION_FIELD_VALUE)
 		private final String description;
-		@RecordField(ontClass=CcpExtensionOntology.DRUGBANK_SNP_ADVERSE_DRUG_REACTION_RECORD___GENE_SYMBOL_FIELD_VALUE)
+		@RecordField(ontClass = CcpExtensionOntology.DRUGBANK_SNP_ADVERSE_DRUG_REACTION_RECORD___GENE_SYMBOL_FIELD_VALUE)
 		private final String geneSymbol;
-		@RecordField(ontClass=CcpExtensionOntology.DRUGBANK_SNP_ADVERSE_DRUG_REACTION_RECORD___PROTEIN_NAME_FIELD_VALUE)
+		@RecordField(ontClass = CcpExtensionOntology.DRUGBANK_SNP_ADVERSE_DRUG_REACTION_RECORD___PROTEIN_NAME_FIELD_VALUE)
 		private final String proteinName;
-		@RecordField(ontClass=CcpExtensionOntology.DRUGBANK_SNP_ADVERSE_DRUG_REACTION_RECORD___PUBMED_IDENTIFIER_FIELD_VALUE)
+		@RecordField(ontClass = CcpExtensionOntology.DRUGBANK_SNP_ADVERSE_DRUG_REACTION_RECORD___PUBMED_IDENTIFIER_FIELD_VALUE)
 		private final DataSourceIdentifier<?> pubmedId;
-		@RecordField(ontClass=CcpExtensionOntology.DRUGBANK_SNP_ADVERSE_DRUG_REACTION_RECORD___REFERENCE_SNP_IDENTIFIER_FIELD_VALUE)
+		@RecordField(ontClass = CcpExtensionOntology.DRUGBANK_SNP_ADVERSE_DRUG_REACTION_RECORD___REFERENCE_SNP_IDENTIFIER_FIELD_VALUE)
 		private final SnpRsId rsId;
-		@RecordField(ontClass=CcpExtensionOntology.DRUGBANK_SNP_ADVERSE_DRUG_REACTION_RECORD___UNIPROT_IDENTIFIER_FIELD_VALUE)
+		@RecordField(ontClass = CcpExtensionOntology.DRUGBANK_SNP_ADVERSE_DRUG_REACTION_RECORD___UNIPROT_IDENTIFIER_FIELD_VALUE)
 		private final UniProtID uniprotId;
 
 		public SnpEffect(SnpEffectType type) {
@@ -898,9 +900,10 @@ public class DrugBankDrugRecord extends FileRecord {
 					break;
 				case "pubmed-id":
 					try {
-					pmidHolder = new PubMedID(element.getValue());
+						pmidHolder = new PubMedID(element.getValue());
 					} catch (IllegalArgumentException e) {
-						pmidHolder = new ProbableErrorDataSourceIdentifier(element.getValue(), "pubmed-id:", e.getMessage());
+						pmidHolder = new ProbableErrorDataSourceIdentifier(element.getValue(), "pubmed-id:",
+								e.getMessage());
 					}
 					break;
 				case "protein-name":
@@ -958,35 +961,35 @@ public class DrugBankDrugRecord extends FileRecord {
 	}
 
 	@Data
-	@Record(ontClass=CcpExtensionOntology.DRUGBANK_REACTION_ENZYME_RECORD, dataSource = DataSource.DRUGBANK)
+	@Record(ontClass = CcpExtensionOntology.DRUGBANK_REACTION_ENZYME_RECORD, dataSource = DataSource.DRUGBANK)
 	private static class ReactionEnzyme {
-		@RecordField(ontClass=CcpExtensionOntology.DRUGBANK_REACTION_ENZYME_RECORD___NAME_FIELD_VALUE)
+		@RecordField(ontClass = CcpExtensionOntology.DRUGBANK_REACTION_ENZYME_RECORD___NAME_FIELD_VALUE)
 		private final String name;
-		@RecordField(ontClass=CcpExtensionOntology.DRUGBANK_REACTION_ENZYME_RECORD___DRUGBANK_IDENTIFIER_FIELD_VALUE)
+		@RecordField(ontClass = CcpExtensionOntology.DRUGBANK_REACTION_ENZYME_RECORD___DRUGBANK_IDENTIFIER_FIELD_VALUE)
 		private final DrugBankID drugbankId;
-		@RecordField(ontClass=CcpExtensionOntology.DRUGBANK_REACTION_ENZYME_RECORD___UNIPROT_IDENTIFIER_FIELD_VALUE)
+		@RecordField(ontClass = CcpExtensionOntology.DRUGBANK_REACTION_ENZYME_RECORD___UNIPROT_IDENTIFIER_FIELD_VALUE)
 		private final UniProtID uniprotId;
 	}
 
 	@Data
-	@Record(ontClass=CcpExtensionOntology.DRUGBANK_REACTION_ELEMENT_RECORD, dataSource = DataSource.DRUGBANK)
+	@Record(ontClass = CcpExtensionOntology.DRUGBANK_REACTION_ELEMENT_RECORD, dataSource = DataSource.DRUGBANK)
 	private static class ReactionElement {
-		@RecordField(ontClass=CcpExtensionOntology.DRUGBANK_REACTION_ELEMENT_RECORD___NAME_FIELD_VALUE)
+		@RecordField(ontClass = CcpExtensionOntology.DRUGBANK_REACTION_ELEMENT_RECORD___NAME_FIELD_VALUE)
 		private final String name;
-		@RecordField(ontClass=CcpExtensionOntology.DRUGBANK_REACTION_ELEMENT_RECORD___DRUGBANK_IDENTIFIER_FIELD_VALUE)
+		@RecordField(ontClass = CcpExtensionOntology.DRUGBANK_REACTION_ELEMENT_RECORD___DRUGBANK_IDENTIFIER_FIELD_VALUE)
 		private final DrugBankID drugbankId;
 	}
 
 	@Data
-	@Record(ontClass=CcpExtensionOntology.DRUGBANK_REACTION_RECORD, dataSource = DataSource.DRUGBANK)
+	@Record(ontClass = CcpExtensionOntology.DRUGBANK_REACTION_RECORD, dataSource = DataSource.DRUGBANK)
 	private static class Reaction {
-		@RecordField(ontClass=CcpExtensionOntology.DRUGBANK_REACTION_RECORD___SEQUENCE_FIELD_VALUE)
+		@RecordField(ontClass = CcpExtensionOntology.DRUGBANK_REACTION_RECORD___SEQUENCE_FIELD_VALUE)
 		private final String sequence;
-		@RecordField(ontClass=CcpExtensionOntology.DRUGBANK_REACTION_RECORD___LEFT_ELEMENT_FIELD_VALUE)
+		@RecordField(ontClass = CcpExtensionOntology.DRUGBANK_REACTION_RECORD___LEFT_ELEMENT_FIELD_VALUE)
 		private final ReactionElement leftElement;
-		@RecordField(ontClass=CcpExtensionOntology.DRUGBANK_REACTION_RECORD___RIGHT_ELEMENT_FIELD_VALUE)
+		@RecordField(ontClass = CcpExtensionOntology.DRUGBANK_REACTION_RECORD___RIGHT_ELEMENT_FIELD_VALUE)
 		private final ReactionElement rightElement;
-		@RecordField(ontClass=CcpExtensionOntology.DRUGBANK_REACTION_RECORD___REACTION_ENZYMES_FIELD_VALUE)
+		@RecordField(ontClass = CcpExtensionOntology.DRUGBANK_REACTION_RECORD___REACTION_ENZYMES_FIELD_VALUE)
 		private Set<ReactionEnzyme> reactionEnzymes = new HashSet<ReactionEnzyme>();
 
 		public void addReactionEnzyme(ReactionEnzyme enzyme) {
@@ -1021,15 +1024,15 @@ public class DrugBankDrugRecord extends FileRecord {
 	}
 
 	@Data
-	@Record(ontClass=CcpExtensionOntology.DRUGBANK_PATHWAY_RECORD, dataSource = DataSource.DRUGBANK)
+	@Record(ontClass = CcpExtensionOntology.DRUGBANK_PATHWAY_RECORD, dataSource = DataSource.DRUGBANK)
 	private static class Pathway {
-		@RecordField(ontClass=CcpExtensionOntology.DRUGBANK_PATHWAY_RECORD___NAME_FIELD_VALUE)
+		@RecordField(ontClass = CcpExtensionOntology.DRUGBANK_PATHWAY_RECORD___NAME_FIELD_VALUE)
 		private final String name;
-		@RecordField(ontClass=CcpExtensionOntology.DRUGBANK_PATHWAY_RECORD___SMPDB_IDENTIFIER_FIELD_VALUE)
+		@RecordField(ontClass = CcpExtensionOntology.DRUGBANK_PATHWAY_RECORD___SMPDB_IDENTIFIER_FIELD_VALUE)
 		private final String smpdbId;
-		@RecordField(ontClass=CcpExtensionOntology.DRUGBANK_PATHWAY_RECORD___PATHWAY_DRUGS_FIELD_VALUE)
+		@RecordField(ontClass = CcpExtensionOntology.DRUGBANK_PATHWAY_RECORD___PATHWAY_DRUGS_FIELD_VALUE)
 		private Set<PathwayDrug> pathwayDrugs = new HashSet<PathwayDrug>();
-		@RecordField(ontClass=CcpExtensionOntology.DRUGBANK_PATHWAY_RECORD___PATHWAY_ENZYMES_FIELD_VALUE)
+		@RecordField(ontClass = CcpExtensionOntology.DRUGBANK_PATHWAY_RECORD___PATHWAY_ENZYMES_FIELD_VALUE)
 		private Set<UniProtID> pathwayEnzymes = new HashSet<UniProtID>();
 
 		public void addDrug(PathwayDrug drug) {
@@ -1042,11 +1045,11 @@ public class DrugBankDrugRecord extends FileRecord {
 	}
 
 	@Data
-	@Record(ontClass=CcpExtensionOntology.DRUGBANK_PATHWAY_DRUG_RECORD, dataSource = DataSource.DRUGBANK)
+	@Record(ontClass = CcpExtensionOntology.DRUGBANK_PATHWAY_DRUG_RECORD, dataSource = DataSource.DRUGBANK)
 	private static class PathwayDrug {
-		@RecordField(ontClass=CcpExtensionOntology.DRUGBANK_PATHWAY_DRUG_RECORD___DRUGBANK_IDENTIFIER_FIELD_VALUE)
+		@RecordField(ontClass = CcpExtensionOntology.DRUGBANK_PATHWAY_DRUG_RECORD___DRUGBANK_IDENTIFIER_FIELD_VALUE)
 		private final DrugBankID drugbankId;
-		@RecordField(ontClass=CcpExtensionOntology.DRUGBANK_PATHWAY_DRUG_RECORD___NAME_FIELD_VALUE)
+		@RecordField(ontClass = CcpExtensionOntology.DRUGBANK_PATHWAY_DRUG_RECORD___NAME_FIELD_VALUE)
 		private final String name;
 	}
 
@@ -1117,11 +1120,11 @@ public class DrugBankDrugRecord extends FileRecord {
 	}
 
 	@Data
-	@Record(ontClass=CcpExtensionOntology.DRUGBANK_CATEGORY_RECORD, dataSource = DataSource.DRUGBANK)
+	@Record(ontClass = CcpExtensionOntology.DRUGBANK_CATEGORY_RECORD, dataSource = DataSource.DRUGBANK)
 	private static class Category {
-		@RecordField(ontClass=CcpExtensionOntology.DRUGBANK_CATEGORY_RECORD___MESH_IDENTIFIER_FIELD_VALUE)
+		@RecordField(ontClass = CcpExtensionOntology.DRUGBANK_CATEGORY_RECORD___MESH_IDENTIFIER_FIELD_VALUE)
 		private final Set<MeshID> meshIds;
-		@RecordField(ontClass=CcpExtensionOntology.DRUGBANK_CATEGORY_RECORD___CATEGORY_FIELD_VALUE)
+		@RecordField(ontClass = CcpExtensionOntology.DRUGBANK_CATEGORY_RECORD___CATEGORY_FIELD_VALUE)
 		private final String category;
 	}
 
@@ -1138,11 +1141,11 @@ public class DrugBankDrugRecord extends FileRecord {
 	}
 
 	@Data
-	@Record(ontClass=CcpExtensionOntology.DRUGBANK_INTERNATIONAL_BRAND_RECORD, dataSource = DataSource.DRUGBANK)
+	@Record(ontClass = CcpExtensionOntology.DRUGBANK_INTERNATIONAL_BRAND_RECORD, dataSource = DataSource.DRUGBANK)
 	private static class InternationalBrand {
-		@RecordField(ontClass=CcpExtensionOntology.DRUGBANK_INTERNATIONAL_BRAND_RECORD___COMPANY_FIELD_VALUE)
+		@RecordField(ontClass = CcpExtensionOntology.DRUGBANK_INTERNATIONAL_BRAND_RECORD___COMPANY_FIELD_VALUE)
 		private final String company;
-		@RecordField(ontClass=CcpExtensionOntology.DRUGBANK_INTERNATIONAL_BRAND_RECORD___NAME_FIELD_VALUE)
+		@RecordField(ontClass = CcpExtensionOntology.DRUGBANK_INTERNATIONAL_BRAND_RECORD___NAME_FIELD_VALUE)
 		private final String name;
 	}
 
@@ -1159,13 +1162,13 @@ public class DrugBankDrugRecord extends FileRecord {
 	}
 
 	@Data
-	@Record(ontClass=CcpExtensionOntology.DRUGBANK_SYNONYM_RECORD, dataSource = DataSource.DRUGBANK)
+	@Record(ontClass = CcpExtensionOntology.DRUGBANK_SYNONYM_RECORD, dataSource = DataSource.DRUGBANK)
 	private static class Synonym {
-		@RecordField(ontClass=CcpExtensionOntology.DRUGBANK_SYNONYM_RECORD___CODER_FIELD_VALUE)
+		@RecordField(ontClass = CcpExtensionOntology.DRUGBANK_SYNONYM_RECORD___CODER_FIELD_VALUE)
 		private final String coder;
-		@RecordField(ontClass=CcpExtensionOntology.DRUGBANK_SYNONYM_RECORD___LANGUAGE_FIELD_VALUE)
+		@RecordField(ontClass = CcpExtensionOntology.DRUGBANK_SYNONYM_RECORD___LANGUAGE_FIELD_VALUE)
 		private final String language;
-		@RecordField(ontClass=CcpExtensionOntology.DRUGBANK_SYNONYM_RECORD___SYNONYM_FIELD_VALUE)
+		@RecordField(ontClass = CcpExtensionOntology.DRUGBANK_SYNONYM_RECORD___SYNONYM_FIELD_VALUE)
 		private final String synonym;
 	}
 
@@ -1175,18 +1178,22 @@ public class DrugBankDrugRecord extends FileRecord {
 		}
 		Set<Article> toReturn = new HashSet<Article>();
 		for (ArticleType a : list.getArticles().getArticle()) {
-			Article article = new Article(a.getCitation(), new PubMedID(a.getPubmedId()));
+			PubMedID pmid = null;
+			if (!a.getPubmedId().trim().isEmpty()) {
+				pmid = new PubMedID(a.getPubmedId());
+			}
+			Article article = new Article(a.getCitation(), pmid);
 			toReturn.add(article);
 		}
 		return toReturn;
 	}
 
 	@Data
-	@Record(ontClass=CcpExtensionOntology.DRUGBANK_ARTICLE_RECORD, dataSource = DataSource.DRUGBANK)
+	@Record(ontClass = CcpExtensionOntology.DRUGBANK_ARTICLE_RECORD, dataSource = DataSource.DRUGBANK)
 	private static class Article {
-		@RecordField(ontClass=CcpExtensionOntology.DRUGBANK_ARTICLE__RECORD___CITATION_FIELD_VALUE)
+		@RecordField(ontClass = CcpExtensionOntology.DRUGBANK_ARTICLE__RECORD___CITATION_FIELD_VALUE)
 		private final String citation;
-		@RecordField(ontClass=CcpExtensionOntology.DRUGBANK_ARTICLE_RECORD___PUBMED_IDENTIFIER_FIELD_VALUE)
+		@RecordField(ontClass = CcpExtensionOntology.DRUGBANK_ARTICLE_RECORD___PUBMED_IDENTIFIER_FIELD_VALUE)
 		private final PubMedID pmid;
 	}
 
@@ -1204,11 +1211,11 @@ public class DrugBankDrugRecord extends FileRecord {
 	}
 
 	@Data
-	@Record(ontClass=CcpExtensionOntology.DRUGBANK_TEXTBOOK_RECORD, dataSource = DataSource.DRUGBANK)
+	@Record(ontClass = CcpExtensionOntology.DRUGBANK_TEXTBOOK_RECORD, dataSource = DataSource.DRUGBANK)
 	private static class TextBook {
-		@RecordField(ontClass=CcpExtensionOntology.DRUGBANK_TEXTBOOK_RECORD___CITATION_FIELD_VALUE)
+		@RecordField(ontClass = CcpExtensionOntology.DRUGBANK_TEXTBOOK_RECORD___CITATION_FIELD_VALUE)
 		private final String citation;
-		@RecordField(ontClass=CcpExtensionOntology.DRUGBANK_TEXTBOOK_RECORD___ISBN_FIELD_VALUE)
+		@RecordField(ontClass = CcpExtensionOntology.DRUGBANK_TEXTBOOK_RECORD___ISBN_FIELD_VALUE)
 		private final ISBN isbn;
 	}
 
@@ -1225,11 +1232,11 @@ public class DrugBankDrugRecord extends FileRecord {
 	}
 
 	@Data
-	@Record(ontClass=CcpExtensionOntology.DRUGBANK_LINK_RECORD, dataSource = DataSource.DRUGBANK)
+	@Record(ontClass = CcpExtensionOntology.DRUGBANK_LINK_RECORD, dataSource = DataSource.DRUGBANK)
 	private static class Link {
-		@RecordField(ontClass=CcpExtensionOntology.DRUGBANK_LINK_RECORD___TITLE_FIELD_VALUE)
+		@RecordField(ontClass = CcpExtensionOntology.DRUGBANK_LINK_RECORD___TITLE_FIELD_VALUE)
 		private final String title;
-		@RecordField(ontClass=CcpExtensionOntology.DRUGBANK_LINK_RECORD___URL_FIELD_VALUE)
+		@RecordField(ontClass = CcpExtensionOntology.DRUGBANK_LINK_RECORD___URL_FIELD_VALUE)
 		private final String url;
 	}
 
@@ -1260,33 +1267,33 @@ public class DrugBankDrugRecord extends FileRecord {
 	}
 
 	@Data
-	@Record(ontClass=CcpExtensionOntology.DRUGBANK_PRODUCT_RECORD, dataSource = DataSource.DRUGBANK)
+	@Record(ontClass = CcpExtensionOntology.DRUGBANK_PRODUCT_RECORD, dataSource = DataSource.DRUGBANK)
 	private static class Product {
-		@RecordField(ontClass=CcpExtensionOntology.DRUGBANK_PRODUCT_RECORD___COUNTRY_FIELD_VALUE)
+		@RecordField(ontClass = CcpExtensionOntology.DRUGBANK_PRODUCT_RECORD___COUNTRY_FIELD_VALUE)
 		private final String country;
-		@RecordField(ontClass=CcpExtensionOntology.DRUGBANK_PRODUCT_RECORD___DOSAGE_FORM_FIELD_VALUE)
+		@RecordField(ontClass = CcpExtensionOntology.DRUGBANK_PRODUCT_RECORD___DOSAGE_FORM_FIELD_VALUE)
 		private final String dosageForm;
-		@RecordField(ontClass=CcpExtensionOntology.DRUGBANK_PRODUCT_RECORD___DPD_ID_FIELD_VALUE)
+		@RecordField(ontClass = CcpExtensionOntology.DRUGBANK_PRODUCT_RECORD___DPD_ID_FIELD_VALUE)
 		private final String DpdId;
-		@RecordField(ontClass=CcpExtensionOntology.DRUGBANK_PRODUCT_RECORD___ENDED_MARKETING_ON_FIELD_VALUE)
+		@RecordField(ontClass = CcpExtensionOntology.DRUGBANK_PRODUCT_RECORD___ENDED_MARKETING_ON_FIELD_VALUE)
 		private final String endedMarketingOn;
-		@RecordField(ontClass=CcpExtensionOntology.DRUGBANK_PRODUCT_RECORD___FDA_APPLICATION_NUMBER_FIELD_VALUE)
+		@RecordField(ontClass = CcpExtensionOntology.DRUGBANK_PRODUCT_RECORD___FDA_APPLICATION_NUMBER_FIELD_VALUE)
 		private final String fdaApplicationNumber;
-		@RecordField(ontClass=CcpExtensionOntology.DRUGBANK_PRODUCT_RECORD___LABELLER_FIELD_VALUE)
+		@RecordField(ontClass = CcpExtensionOntology.DRUGBANK_PRODUCT_RECORD___LABELLER_FIELD_VALUE)
 		private final String labeller;
-		@RecordField(ontClass=CcpExtensionOntology.DRUGBANK_PRODUCT_RECORD___NAME_FIELD_VALUE)
+		@RecordField(ontClass = CcpExtensionOntology.DRUGBANK_PRODUCT_RECORD___NAME_FIELD_VALUE)
 		private final String name;
-		@RecordField(ontClass=CcpExtensionOntology.DRUGBANK_PRODUCT_RECORD___NDC_IDENTIFIER_FIELD_VALUE)
+		@RecordField(ontClass = CcpExtensionOntology.DRUGBANK_PRODUCT_RECORD___NDC_IDENTIFIER_FIELD_VALUE)
 		private final String ndcId;
-		@RecordField(ontClass=CcpExtensionOntology.DRUGBANK_PRODUCT_RECORD___NDC_PRODUCT_CODE_FIELD_VALUE)
+		@RecordField(ontClass = CcpExtensionOntology.DRUGBANK_PRODUCT_RECORD___NDC_PRODUCT_CODE_FIELD_VALUE)
 		private final String ndcProductCode;
-		@RecordField(ontClass=CcpExtensionOntology.DRUGBANK_PRODUCT_RECORD___ROUTE_FIELD_VALUE)
+		@RecordField(ontClass = CcpExtensionOntology.DRUGBANK_PRODUCT_RECORD___ROUTE_FIELD_VALUE)
 		private final String route;
-		@RecordField(ontClass=CcpExtensionOntology.DRUGBANK_PRODUCT_RECORD___SOURCE_FIELD_VALUE)
+		@RecordField(ontClass = CcpExtensionOntology.DRUGBANK_PRODUCT_RECORD___SOURCE_FIELD_VALUE)
 		private final String source;
-		@RecordField(ontClass=CcpExtensionOntology.DRUGBANK_PRODUCT_RECORD___STARTED_MARKETING_ON_FIELD_VALUE)
+		@RecordField(ontClass = CcpExtensionOntology.DRUGBANK_PRODUCT_RECORD___STARTED_MARKETING_ON_FIELD_VALUE)
 		private final String startedMarketingOn;
-		@RecordField(ontClass=CcpExtensionOntology.DRUGBANK_PRODUCT_RECORD___STRENGTH_FIELD_VALUE)
+		@RecordField(ontClass = CcpExtensionOntology.DRUGBANK_PRODUCT_RECORD___STRENGTH_FIELD_VALUE)
 		private final String strength;
 	}
 
@@ -1310,17 +1317,17 @@ public class DrugBankDrugRecord extends FileRecord {
 	}
 
 	@Data
-	@Record(ontClass=CcpExtensionOntology.DRUGBANK_SALT_RECORD, dataSource = DataSource.DRUGBANK)
+	@Record(ontClass = CcpExtensionOntology.DRUGBANK_SALT_RECORD, dataSource = DataSource.DRUGBANK)
 	private static class Salt {
-		@RecordField(ontClass=CcpExtensionOntology.DRUGBANK_SALT_RECORD___CAS_NUMBER_FIELD_VALUE)
+		@RecordField(ontClass = CcpExtensionOntology.DRUGBANK_SALT_RECORD___CAS_NUMBER_FIELD_VALUE)
 		private final String casNumber;
-		@RecordField(ontClass=CcpExtensionOntology.DRUGBANK_SALT_RECORD___NAME_FIELD_VALUE)
+		@RecordField(ontClass = CcpExtensionOntology.DRUGBANK_SALT_RECORD___NAME_FIELD_VALUE)
 		private final String name;
-		@RecordField(ontClass=CcpExtensionOntology.DRUGBANK_SALT_RECORD___INCHI_KEY_FIELD_VALUE)
+		@RecordField(ontClass = CcpExtensionOntology.DRUGBANK_SALT_RECORD___INCHI_KEY_FIELD_VALUE)
 		private final String inchiKey;
-		@RecordField(ontClass=CcpExtensionOntology.DRUGBANK_SALT_RECORD___PRIMARY_IDENTIFIER_FIELD_VALUE)
+		@RecordField(ontClass = CcpExtensionOntology.DRUGBANK_SALT_RECORD___PRIMARY_IDENTIFIER_FIELD_VALUE)
 		private DrugBankID primaryId;
-		@RecordField(ontClass=CcpExtensionOntology.DRUGBANK_SALT_RECORD___SECONDARY_IDENTIFIER_FIELD_VALUE)
+		@RecordField(ontClass = CcpExtensionOntology.DRUGBANK_SALT_RECORD___SECONDARY_IDENTIFIER_FIELD_VALUE)
 		private Set<DrugBankID> secondaryIds = new HashSet<DrugBankID>();
 
 		public void setPrimaryId(DrugBankID id) {
@@ -1460,23 +1467,24 @@ public class DrugBankDrugRecord extends FileRecord {
 	}
 
 	@Data
-	@Record(ontClass=CcpExtensionOntology.DRUGBANK_ATC_CODE_WITH_LEVEL_RECORD, dataSource = DataSource.DRUGBANK)
+	@Record(ontClass = CcpExtensionOntology.DRUGBANK_ATC_CODE_WITH_LEVEL_RECORD, dataSource = DataSource.DRUGBANK)
 	private static class AtcCodeWithLevel {
-		@RecordField(ontClass=CcpExtensionOntology.DRUGBANK_ATC_CODE_WITH_LEVEL_RECORD___ATC_CODE_FIELD_VALUE)
+		@RecordField(ontClass = CcpExtensionOntology.DRUGBANK_ATC_CODE_WITH_LEVEL_RECORD___ATC_CODE_FIELD_VALUE)
 		private final AtcCode atcCode;
-		@RecordField(ontClass=CcpExtensionOntology.DRUGBANK_ATC_CODE_WITH_LEVEL_RECORD___LEVELS_FIELD_VALUE)
+		@RecordField(ontClass = CcpExtensionOntology.DRUGBANK_ATC_CODE_WITH_LEVEL_RECORD___LEVELS_FIELD_VALUE)
 		private List<AtcCodeLevel> levels = new ArrayList<AtcCodeLevel>();
+
 		public void addLevel(String levelCode, String levelName) {
 			levels.add(new AtcCodeLevel(levelCode, levelName));
 		}
 	}
 
 	@Data
-	@Record(ontClass=CcpExtensionOntology.DRUGBANK_ATC_CODE_LEVEL_RECORD, dataSource = DataSource.DRUGBANK)
+	@Record(ontClass = CcpExtensionOntology.DRUGBANK_ATC_CODE_LEVEL_RECORD, dataSource = DataSource.DRUGBANK)
 	private static class AtcCodeLevel {
-		@RecordField(ontClass=CcpExtensionOntology.DRUGBANK_ATC_CODE_LEVEL_RECORD___CODE_FIELD_VALUE)
+		@RecordField(ontClass = CcpExtensionOntology.DRUGBANK_ATC_CODE_LEVEL_RECORD___CODE_FIELD_VALUE)
 		private final String code;
-		@RecordField(ontClass=CcpExtensionOntology.DRUGBANK_ATC_CODE_LEVEL_RECORD___NAME_FIELD_VALUE)
+		@RecordField(ontClass = CcpExtensionOntology.DRUGBANK_ATC_CODE_LEVEL_RECORD___NAME_FIELD_VALUE)
 		private final String name;
 	}
 
@@ -1677,55 +1685,55 @@ public class DrugBankDrugRecord extends FileRecord {
 	}
 
 	@Data
-	@Record(ontClass=CcpExtensionOntology.DRUGBANK_DOSAGE_RECORD, dataSource = DataSource.DRUGBANK)
+	@Record(ontClass = CcpExtensionOntology.DRUGBANK_DOSAGE_RECORD, dataSource = DataSource.DRUGBANK)
 	public static class Dosage {
-		@RecordField(ontClass=CcpExtensionOntology.DRUGBANK_DOSAGE_RECORD___FORM_FIELD_VALUE)
+		@RecordField(ontClass = CcpExtensionOntology.DRUGBANK_DOSAGE_RECORD___FORM_FIELD_VALUE)
 		private final String form;
-		@RecordField(ontClass=CcpExtensionOntology.DRUGBANK_DOSAGE_RECORD___ROUTE_FIELD_VALUE)
+		@RecordField(ontClass = CcpExtensionOntology.DRUGBANK_DOSAGE_RECORD___ROUTE_FIELD_VALUE)
 		private final String route;
-		@RecordField(ontClass=CcpExtensionOntology.DRUGBANK_DOSAGE_RECORD___STRENGTH_FIELD_VALUE)
+		@RecordField(ontClass = CcpExtensionOntology.DRUGBANK_DOSAGE_RECORD___STRENGTH_FIELD_VALUE)
 		private final String strength;
 	}
 
 	@Data
-	@Record(ontClass=CcpExtensionOntology.DRUGBANK_PATENT_RECORD, dataSource = DataSource.DRUGBANK)
+	@Record(ontClass = CcpExtensionOntology.DRUGBANK_PATENT_RECORD, dataSource = DataSource.DRUGBANK)
 	public static class Patent {
-		@RecordField(ontClass=CcpExtensionOntology.DRUGBANK_PATENT_RECORD___NUMBER_FIELD_VALUE)
+		@RecordField(ontClass = CcpExtensionOntology.DRUGBANK_PATENT_RECORD___NUMBER_FIELD_VALUE)
 		private final String number;
-		@RecordField(ontClass=CcpExtensionOntology.DRUGBANK_PATENT_RECORD___COUNTRY_FIELD_VALUE)
+		@RecordField(ontClass = CcpExtensionOntology.DRUGBANK_PATENT_RECORD___COUNTRY_FIELD_VALUE)
 		private final String country;
-		@RecordField(ontClass=CcpExtensionOntology.DRUGBANK_PATENT_RECORD___DATE_APPROVED_FIELD_VALUE)
+		@RecordField(ontClass = CcpExtensionOntology.DRUGBANK_PATENT_RECORD___DATE_APPROVED_FIELD_VALUE)
 		private final Date dateApproved;
-		@RecordField(ontClass=CcpExtensionOntology.DRUGBANK_PATENT_RECORD___DATE_EXPIRES_FIELD_VALUE)
+		@RecordField(ontClass = CcpExtensionOntology.DRUGBANK_PATENT_RECORD___DATE_EXPIRES_FIELD_VALUE)
 		private final Date dateExpires;
 	}
 
 	@Data
-	@Record(ontClass=CcpExtensionOntology.DRUGBANK_SEQUENCE_RECORD, dataSource = DataSource.DRUGBANK)
+	@Record(ontClass = CcpExtensionOntology.DRUGBANK_SEQUENCE_RECORD, dataSource = DataSource.DRUGBANK)
 	public static class Sequence {
-		@RecordField(ontClass=CcpExtensionOntology.DRUGBANK_SEQUENCE_RECORD___FORMAT_FIELD_VALUE)
+		@RecordField(ontClass = CcpExtensionOntology.DRUGBANK_SEQUENCE_RECORD___FORMAT_FIELD_VALUE)
 		private final String format;
-		@RecordField(ontClass=CcpExtensionOntology.DRUGBANK_SEQUENCE_RECORD___SEQUENCE_FIELD_VALUE)
+		@RecordField(ontClass = CcpExtensionOntology.DRUGBANK_SEQUENCE_RECORD___SEQUENCE_FIELD_VALUE)
 		private final String sequence;
 	}
 
 	@Data
-	@Record(ontClass=CcpExtensionOntology.DRUGBANK_PROPERTY_RECORD, dataSource = DataSource.DRUGBANK)
+	@Record(ontClass = CcpExtensionOntology.DRUGBANK_PROPERTY_RECORD, dataSource = DataSource.DRUGBANK)
 	public static class Property {
-		@RecordField(ontClass=CcpExtensionOntology.DRUGBANK_PROPERTY_RECORD___KIND_FIELD_VALUE)
+		@RecordField(ontClass = CcpExtensionOntology.DRUGBANK_PROPERTY_RECORD___KIND_FIELD_VALUE)
 		private final String kind;
-		@RecordField(ontClass=CcpExtensionOntology.DRUGBANK_PROPERTY_RECORD___VALUE_FIELD_VALUE)
+		@RecordField(ontClass = CcpExtensionOntology.DRUGBANK_PROPERTY_RECORD___VALUE_FIELD_VALUE)
 		private final String value;
-		@RecordField(ontClass=CcpExtensionOntology.DRUGBANK_PROPERTY_RECORD___SOURCE_FIELD_VALUE)
+		@RecordField(ontClass = CcpExtensionOntology.DRUGBANK_PROPERTY_RECORD___SOURCE_FIELD_VALUE)
 		private final String source;
 	}
 
 	@Data
-	@Record(ontClass=CcpExtensionOntology.DRUGBANK_EXTERNAL_LINK_RECORD, dataSource = DataSource.DRUGBANK)
+	@Record(ontClass = CcpExtensionOntology.DRUGBANK_EXTERNAL_LINK_RECORD, dataSource = DataSource.DRUGBANK)
 	public static class ExternalLink {
-		@RecordField(ontClass=CcpExtensionOntology.DRUGBANK_EXTERNAL_LINK_RECORD___RESOURCE_FIELD_VALUE)
+		@RecordField(ontClass = CcpExtensionOntology.DRUGBANK_EXTERNAL_LINK_RECORD___RESOURCE_FIELD_VALUE)
 		private final String resource;
-		@RecordField(ontClass=CcpExtensionOntology.DRUGBANK_EXTERNAL_LINK_RECORD___URL_FIELD_VALUE)
+		@RecordField(ontClass = CcpExtensionOntology.DRUGBANK_EXTERNAL_LINK_RECORD___URL_FIELD_VALUE)
 		private final String url;
 	}
 
@@ -1744,57 +1752,57 @@ public class DrugBankDrugRecord extends FileRecord {
 	// }
 
 	@Data
-	@Record(ontClass=CcpExtensionOntology.DRUGBANK_PACKAGER_RECORD, dataSource = DataSource.DRUGBANK)
+	@Record(ontClass = CcpExtensionOntology.DRUGBANK_PACKAGER_RECORD, dataSource = DataSource.DRUGBANK)
 	public static class Packager {
-		@RecordField(ontClass=CcpExtensionOntology.DRUGBANK_PACKAGER_RECORD___NAME_FIELD_VALUE)
+		@RecordField(ontClass = CcpExtensionOntology.DRUGBANK_PACKAGER_RECORD___NAME_FIELD_VALUE)
 		private final String name;
-		@RecordField(ontClass=CcpExtensionOntology.DRUGBANK_PACKAGER_RECORD___URL_FIELD_VALUE)
+		@RecordField(ontClass = CcpExtensionOntology.DRUGBANK_PACKAGER_RECORD___URL_FIELD_VALUE)
 		private final String url;
 	}
 
 	@Data
-	@Record(ontClass=CcpExtensionOntology.DRUGBANK_CLASSIFICATION_RECORD, dataSource = DataSource.DRUGBANK)
+	@Record(ontClass = CcpExtensionOntology.DRUGBANK_CLASSIFICATION_RECORD, dataSource = DataSource.DRUGBANK)
 	public static class Classification {
-		@RecordField(ontClass=CcpExtensionOntology.DRUGBANK_CLASSIFICATION_RECORD___DESCRIPTION_FIELD_VALUE)
+		@RecordField(ontClass = CcpExtensionOntology.DRUGBANK_CLASSIFICATION_RECORD___DESCRIPTION_FIELD_VALUE)
 		private final String description;
-		@RecordField(ontClass=CcpExtensionOntology.DRUGBANK_CLASSIFICATION_RECORD___DIRECT_PARENT_FIELD_VALUE)
+		@RecordField(ontClass = CcpExtensionOntology.DRUGBANK_CLASSIFICATION_RECORD___DIRECT_PARENT_FIELD_VALUE)
 		private final String directParent;
-		@RecordField(ontClass=CcpExtensionOntology.DRUGBANK_CLASSIFICATION_RECORD___KINGDOM_FIELD_VALUE)
+		@RecordField(ontClass = CcpExtensionOntology.DRUGBANK_CLASSIFICATION_RECORD___KINGDOM_FIELD_VALUE)
 		private final String kingdom;
-		@RecordField(ontClass=CcpExtensionOntology.DRUGBANK_CLASSIFICATION_RECORD___SUPER_CLASS_FIELD_VALUE)
+		@RecordField(ontClass = CcpExtensionOntology.DRUGBANK_CLASSIFICATION_RECORD___SUPER_CLASS_FIELD_VALUE)
 		private final String superClass;
-		@RecordField(ontClass=CcpExtensionOntology.DRUGBANK_CLASSIFICATION_RECORD___CLS_FIELD_VALUE)
+		@RecordField(ontClass = CcpExtensionOntology.DRUGBANK_CLASSIFICATION_RECORD___CLS_FIELD_VALUE)
 		private final String cls;
-		@RecordField(ontClass=CcpExtensionOntology.DRUGBANK_CLASSIFICATION_RECORD___SUBCLASS_FIELD_VALUE)
+		@RecordField(ontClass = CcpExtensionOntology.DRUGBANK_CLASSIFICATION_RECORD___SUBCLASS_FIELD_VALUE)
 		private final String subClass;
 	}
 
 	@Data
-	@Record(ontClass=CcpExtensionOntology.DRUGBANK_MANUFACTURER_RECORD, dataSource = DataSource.DRUGBANK)
+	@Record(ontClass = CcpExtensionOntology.DRUGBANK_MANUFACTURER_RECORD, dataSource = DataSource.DRUGBANK)
 	public static class Manufacturer {
-		@RecordField(ontClass=CcpExtensionOntology.DRUGBANK_MANUFACTURER_RECORD___IS_GENERIC_FIELD_VALUE)
+		@RecordField(ontClass = CcpExtensionOntology.DRUGBANK_MANUFACTURER_RECORD___IS_GENERIC_FIELD_VALUE)
 		private final boolean isGeneric;
-		@RecordField(ontClass=CcpExtensionOntology.DRUGBANK_MANUFACTURER_RECORD___NAME_FIELD_VALUE)
+		@RecordField(ontClass = CcpExtensionOntology.DRUGBANK_MANUFACTURER_RECORD___NAME_FIELD_VALUE)
 		private final String name;
 	}
 
 	@Data
-	@Record(ontClass=CcpExtensionOntology.DRUGBANK_PRICE_RECORD, dataSource = DataSource.DRUGBANK)
+	@Record(ontClass = CcpExtensionOntology.DRUGBANK_PRICE_RECORD, dataSource = DataSource.DRUGBANK)
 	public static class Price {
-		@RecordField(ontClass=CcpExtensionOntology.DRUGBANK_PRICE_RECORD___DESCRIPTION__FIELD_VALUE)
+		@RecordField(ontClass = CcpExtensionOntology.DRUGBANK_PRICE_RECORD___DESCRIPTION__FIELD_VALUE)
 		private final String description;
-		@RecordField(ontClass=CcpExtensionOntology.DRUGBANK_PRICE_RECORD___COST_FIELD_VALUE)
+		@RecordField(ontClass = CcpExtensionOntology.DRUGBANK_PRICE_RECORD___COST_FIELD_VALUE)
 		private final Cost cost;
-		@RecordField(ontClass=CcpExtensionOntology.DRUGBANK_PRICE_RECORD___UNIT_FIELD_VALUE)
+		@RecordField(ontClass = CcpExtensionOntology.DRUGBANK_PRICE_RECORD___UNIT_FIELD_VALUE)
 		private final String unit;
 	}
 
 	@Data
-	@Record(ontClass=CcpExtensionOntology.DRUGBANK_COST_RECORD, dataSource = DataSource.DRUGBANK)
+	@Record(ontClass = CcpExtensionOntology.DRUGBANK_COST_RECORD, dataSource = DataSource.DRUGBANK)
 	public static class Cost {
-		@RecordField(ontClass=CcpExtensionOntology.DRUGBANK_COST_RECORD___CURRENCY_FIELD_VALUE)
+		@RecordField(ontClass = CcpExtensionOntology.DRUGBANK_COST_RECORD___CURRENCY_FIELD_VALUE)
 		private final String currency;
-		@RecordField(ontClass=CcpExtensionOntology.DRUGBANK_COST_RECORD___COST_FIELD_VALUE)
+		@RecordField(ontClass = CcpExtensionOntology.DRUGBANK_COST_RECORD___COST_FIELD_VALUE)
 		private final String cost;
 	}
 
@@ -1814,11 +1822,11 @@ public class DrugBankDrugRecord extends FileRecord {
 	}
 
 	@Data
-	@Record(ontClass=CcpExtensionOntology.DRUGBANK_MIXTURE_RECORD, dataSource = DataSource.DRUGBANK)
+	@Record(ontClass = CcpExtensionOntology.DRUGBANK_MIXTURE_RECORD, dataSource = DataSource.DRUGBANK)
 	public static class Mixture {
-		@RecordField(ontClass=CcpExtensionOntology.DRUGBANK_MIXTURE_RECORD___NAME_FIELD_VALUE)
+		@RecordField(ontClass = CcpExtensionOntology.DRUGBANK_MIXTURE_RECORD___NAME_FIELD_VALUE)
 		private final String name;
-		@RecordField(ontClass=CcpExtensionOntology.DRUGBANK_MIXTURE_RECORD___INGREDIENTS_FIELD_VALUE)
+		@RecordField(ontClass = CcpExtensionOntology.DRUGBANK_MIXTURE_RECORD___INGREDIENTS_FIELD_VALUE)
 		private final String ingredients;
 	}
 
@@ -1839,20 +1847,20 @@ public class DrugBankDrugRecord extends FileRecord {
 	// }
 
 	@Data
-	@Record(ontClass=CcpExtensionOntology.DRUGBANK_DRUG_TAXONOMY_RECORD, dataSource = DataSource.DRUGBANK)
+	@Record(ontClass = CcpExtensionOntology.DRUGBANK_DRUG_TAXONOMY_RECORD, dataSource = DataSource.DRUGBANK)
 	public static class DrugTaxonomy {
-		@RecordField(ontClass=CcpExtensionOntology.DRUGBANK_DRUG_TAXONOMY_RECORD___KINGDOM_FIELD_VALUE)
+		@RecordField(ontClass = CcpExtensionOntology.DRUGBANK_DRUG_TAXONOMY_RECORD___KINGDOM_FIELD_VALUE)
 		private final String kingdom;
-		@RecordField(ontClass=CcpExtensionOntology.DRUGBANK_DRUG_TAXONOMY_RECORD___SUBSTRUCTURE_FIELD_VALUE)
+		@RecordField(ontClass = CcpExtensionOntology.DRUGBANK_DRUG_TAXONOMY_RECORD___SUBSTRUCTURE_FIELD_VALUE)
 		private final Set<DrugTaxonomySubstructure> substructures;
 	}
 
 	@Data
-	@Record(ontClass=CcpExtensionOntology.DRUGBANK_DRUG_TAXONOMY_SUBSTRUCTURE_RECORD, dataSource = DataSource.DRUGBANK, label = "substructure")
+	@Record(ontClass = CcpExtensionOntology.DRUGBANK_DRUG_TAXONOMY_SUBSTRUCTURE_RECORD, dataSource = DataSource.DRUGBANK, label = "substructure")
 	public static class DrugTaxonomySubstructure {
-		@RecordField(ontClass=CcpExtensionOntology.DRUGBANK_DRUG_TAXONOMY_SUBSTRUCTURE_RECORD___IS_CLASS_FIELD_VALUE)
+		@RecordField(ontClass = CcpExtensionOntology.DRUGBANK_DRUG_TAXONOMY_SUBSTRUCTURE_RECORD___IS_CLASS_FIELD_VALUE)
 		private final boolean isClass;
-		@RecordField(ontClass=CcpExtensionOntology.DRUGBANK_DRUG_TAXONOMY_SUBSTRUCTURE_RECORD___SUBSTRUCTURE_FIELD_VALUE)
+		@RecordField(ontClass = CcpExtensionOntology.DRUGBANK_DRUG_TAXONOMY_SUBSTRUCTURE_RECORD___SUBSTRUCTURE_FIELD_VALUE)
 		private final String substructure;
 	}
 
@@ -1904,11 +1912,11 @@ public class DrugBankDrugRecord extends FileRecord {
 	}
 
 	@Data
-	@Record(ontClass=CcpExtensionOntology.DRUGBANK_REFERENCE_RECORD, dataSource = DataSource.DRUGBANK)
+	@Record(ontClass = CcpExtensionOntology.DRUGBANK_REFERENCE_RECORD, dataSource = DataSource.DRUGBANK)
 	public static class Reference implements DataRecord {
-		@RecordField(ontClass=CcpExtensionOntology.DRUGBANK_REFERENCE_RECORD___REFERENCE_STR_FIELD_VALUE)
+		@RecordField(ontClass = CcpExtensionOntology.DRUGBANK_REFERENCE_RECORD___REFERENCE_STR_FIELD_VALUE)
 		private final String referenceStr;
-		@RecordField(ontClass=CcpExtensionOntology.DRUGBANK_REFERENCE_RECORD___PUBMED_IDENTIFIER_FIELD_VALUE)
+		@RecordField(ontClass = CcpExtensionOntology.DRUGBANK_REFERENCE_RECORD___PUBMED_IDENTIFIER_FIELD_VALUE)
 		private final PubMedID pmid;
 
 		public static Reference parseRefStr(String refStr) {
@@ -1942,13 +1950,13 @@ public class DrugBankDrugRecord extends FileRecord {
 	}
 
 	@Data
-	@Record(ontClass=CcpExtensionOntology.DRUGBANK_DRUG_INTERACTION_RECORD, dataSource = DataSource.DRUGBANK)
+	@Record(ontClass = CcpExtensionOntology.DRUGBANK_DRUG_INTERACTION_RECORD, dataSource = DataSource.DRUGBANK)
 	public static class DrugInteraction {
-		@RecordField(ontClass=CcpExtensionOntology.DRUGBANK_DRUG_INTERACTION_RECORD___DRUGBANK_IDENTIFIER_FIELD_VALUE)
+		@RecordField(ontClass = CcpExtensionOntology.DRUGBANK_DRUG_INTERACTION_RECORD___DRUGBANK_IDENTIFIER_FIELD_VALUE)
 		private final DrugBankID drugbankId;
-		@RecordField(ontClass=CcpExtensionOntology.DRUGBANK_DRUG_INTERACTION_RECORD___NAME_FIELD_VALUE)
+		@RecordField(ontClass = CcpExtensionOntology.DRUGBANK_DRUG_INTERACTION_RECORD___NAME_FIELD_VALUE)
 		private final String name;
-		@RecordField(ontClass=CcpExtensionOntology.DRUGBANK_DRUG_INTERACTION_RECORD___DESCRIPTION_FIELD_VALUE)
+		@RecordField(ontClass = CcpExtensionOntology.DRUGBANK_DRUG_INTERACTION_RECORD___DESCRIPTION_FIELD_VALUE)
 		private final String description;
 	}
 
