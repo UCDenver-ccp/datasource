@@ -39,11 +39,17 @@ import edu.ucdenver.ccp.datasource.identifiers.DataSource;
 import edu.ucdenver.ccp.datasource.identifiers.Identifier;
 import edu.ucdenver.ccp.datasource.identifiers.StringDataSourceIdentifier;
 
-@Identifier(ontClass=CcpExtensionOntology.INCRNADB_IDENTIFIER)
-public class IncRnaDb extends StringDataSourceIdentifier {
+/**
+ * http://www.nal.usda.gov/
+ * 
+ * @author Colorado Computational Pharmacology, UC Denver; ccpsupport@ucdenver.edu
+ * 
+ */
+@Identifier(ontClass=CcpExtensionOntology.HUMAN_KZNF_GENE_CATALOG_IDENTIFIER)
+public class HumanKZNFGeneCatalogDbId extends StringDataSourceIdentifier {
 
-	public IncRnaDb(String resourceID) {
-		super(resourceID, DataSource.INCRNADB);
+	public HumanKZNFGeneCatalogDbId(String resourceID) {
+		super(resourceID, DataSource.HUMAN_KZNF_GENE_CATALOG);
 }
 
 }

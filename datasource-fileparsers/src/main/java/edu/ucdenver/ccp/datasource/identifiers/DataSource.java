@@ -141,7 +141,7 @@ public enum DataSource {
 	IAO("http://purl.obolibrary.org/obo/"),
 	IMGT("http://www.imgt.org/"),
 	IMEX("http://www.imexconsortium.org/"),
-	INCRNADB("http://lncrnadb.com/"),
+	LNCRNADB("http://lncrnadb.com/"),
 	INNATEDB("http://www.innatedb.ca/"),
 	INSDC("http://www.insdc.org/"),
 	INTACT("http://www.ebi.ac.uk/intact/"),
@@ -384,7 +384,11 @@ public enum DataSource {
 	 * a UniProt ID that doesn't match the expected regular expression or an NCBI Gene 
 	 * ID that is not an integer.
 	 */
-	PROBABLE_ERROR(null);
+	PROBABLE_ERROR(null), 
+	INTERMEDIATE_FILAMENT_DB("http://www.interfil.org/"), 
+	HUMAN_CELL_DIFFERENTIATION_MOLECULE_DB("http://www.hcdm.org/"), 
+	LSMDB("http://www.hgvs.org/locus-specific-mutation-databases/"), 
+	HUMAN_KZNF_GENE_CATALOG("http://znf.igb.uiuc.edu/human/");
 		
 	public final String longName;
 
