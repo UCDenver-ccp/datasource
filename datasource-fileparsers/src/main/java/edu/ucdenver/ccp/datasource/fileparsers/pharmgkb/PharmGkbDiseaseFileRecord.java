@@ -33,7 +33,6 @@ package edu.ucdenver.ccp.datasource.fileparsers.pharmgkb;
  * #L%
  */
 
-
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.regex.Matcher;
@@ -51,6 +50,7 @@ import edu.ucdenver.ccp.datasource.fileparsers.RecordField;
 import edu.ucdenver.ccp.datasource.fileparsers.SingleLineFileRecord;
 import edu.ucdenver.ccp.datasource.identifiers.DataSource;
 import edu.ucdenver.ccp.datasource.identifiers.DataSourceIdentifier;
+import edu.ucdenver.ccp.datasource.identifiers.ProbableErrorDataSourceIdentifier;
 import edu.ucdenver.ccp.datasource.identifiers.impl.bio.MeshID;
 import edu.ucdenver.ccp.datasource.identifiers.impl.bio.PharmGkbDiseaseId;
 import edu.ucdenver.ccp.datasource.identifiers.impl.bio.SnoMedCtId;
@@ -89,8 +89,9 @@ public class PharmGkbDiseaseFileRecord extends SingleLineFileRecord {
 		setAlternativeNames(StringUtil.delimitAndTrim(alternativeNames, StringConstants.COMMA,
 				StringConstants.QUOTATION_MARK, RemoveFieldEnclosures.TRUE));
 		if (!crossReferences.isEmpty()) {
-			logger.warn("The cross references field has been empty until now. Use this data to properly parse the cross references field: "
-					+ crossReferences);
+			logger.warn(
+					"The cross references field has been empty until now. Use this data to properly parse the cross references field: "
+							+ crossReferences);
 		}
 		this.crossReferences = new ArrayList<DataSourceIdentifier<?>>();
 		setExternalVocabulary(externalVocabulary);
@@ -145,17 +146,24 @@ public class PharmGkbDiseaseFileRecord extends SingleLineFileRecord {
 			Pattern p = Pattern.compile("([^,]+:.*?\\(.*?\\)),?");
 			Matcher m = p.matcher(externalVocabulary);
 			while (m.find()) {
-				String idOnly = StringUtil.removeSuffixRegex(m.group(1), "\\(.*?\\)");
-				if (idOnly.startsWith(MESH_PREFIX)) {
-					this.externalVocabulary.add(new MeshID(StringUtil.removePrefix(idOnly, MESH_PREFIX)));
-				} else if (idOnly.startsWith(SNOMEDCT_PREFIX)) {
-					this.externalVocabulary.add(new SnoMedCtId(StringUtil.removePrefix(idOnly, SNOMEDCT_PREFIX)));
-				} else if (idOnly.startsWith(UMLS_PREFIX)) {
-					this.externalVocabulary.add(new UmlsId(StringUtil.removePrefix(idOnly, UMLS_PREFIX)));
-				} else {
-					logger.warn("Unhandled external reference: " + idOnly);
-					// throw new IllegalArgumentException("Unknown external reference prefix: " +
-					// idOnly);
+				try {
+					String idOnly = StringUtil.removeSuffixRegex(m.group(1), "\\(.*?\\)");
+					if (idOnly.startsWith(MESH_PREFIX)) {
+						this.externalVocabulary.add(new MeshID(StringUtil.removePrefix(idOnly, MESH_PREFIX)));
+					} else if (idOnly.startsWith(SNOMEDCT_PREFIX)) {
+						this.externalVocabulary.add(new SnoMedCtId(StringUtil.removePrefix(idOnly, SNOMEDCT_PREFIX)));
+					} else if (idOnly.startsWith(UMLS_PREFIX)) {
+						this.externalVocabulary.add(new UmlsId(StringUtil.removePrefix(idOnly, UMLS_PREFIX)));
+					} else {
+						logger.warn("Unhandled external reference: " + idOnly);
+						// throw new IllegalArgumentException("Unknown external
+						// reference prefix: " +
+						// idOnly);
+					}
+				} catch (IllegalArgumentException e) {
+					ProbableErrorDataSourceIdentifier id = new ProbableErrorDataSourceIdentifier(externalVocabulary,
+							null, e.getMessage());
+					this.externalVocabulary.add(id);
 				}
 			}
 		}
