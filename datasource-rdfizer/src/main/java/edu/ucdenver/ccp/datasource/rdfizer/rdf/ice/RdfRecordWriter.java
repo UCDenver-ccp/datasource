@@ -331,10 +331,12 @@ public class RdfRecordWriter<T extends RecordReader<?>> {
 
 	private void writeDownloadMetadataStatements(Set<DownloadMetadata> metadata, URIImpl dataSetInstanceUri,
 			DataSource ns) throws IOException {
-		for (DownloadMetadata md : metadata) {
-			Collection<Statement> stmts = getDownloadMetadataStatements(md, dataSetInstanceUri);
-			for (Statement s : stmts) {
-				write(s, ns);
+		if (metadata != null) {
+			for (DownloadMetadata md : metadata) {
+				Collection<Statement> stmts = getDownloadMetadataStatements(md, dataSetInstanceUri);
+				for (Statement s : stmts) {
+					write(s, ns);
+				}
 			}
 		}
 	}

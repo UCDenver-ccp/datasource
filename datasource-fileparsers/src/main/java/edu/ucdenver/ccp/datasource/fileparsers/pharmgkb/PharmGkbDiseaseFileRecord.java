@@ -51,7 +51,9 @@ import edu.ucdenver.ccp.datasource.fileparsers.SingleLineFileRecord;
 import edu.ucdenver.ccp.datasource.identifiers.DataSource;
 import edu.ucdenver.ccp.datasource.identifiers.DataSourceIdentifier;
 import edu.ucdenver.ccp.datasource.identifiers.ProbableErrorDataSourceIdentifier;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.MeddraId;
 import edu.ucdenver.ccp.datasource.identifiers.impl.bio.MeshID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.NdfrtId;
 import edu.ucdenver.ccp.datasource.identifiers.impl.bio.PharmGkbDiseaseId;
 import edu.ucdenver.ccp.datasource.identifiers.impl.bio.SnoMedCtId;
 import edu.ucdenver.ccp.datasource.identifiers.impl.bio.UmlsId;
@@ -70,6 +72,9 @@ public class PharmGkbDiseaseFileRecord extends SingleLineFileRecord {
 	private static final String MESH_PREFIX = "MeSH:";
 	private static final String SNOMEDCT_PREFIX = "SnoMedCT:";
 	private static final String UMLS_PREFIX = "UMLS:";
+	private static final String MEDDRA_PREFIX = "MedDRA:";
+	private static final String NDFRT_PREFIX = "NDFRT:";
+	
 
 	@RecordField(ontClass = CcpExtensionOntology.PHARMGKB_DISEASE_RECORD___ACCESSION_IDENTIFIER_FIELD_VALUE)
 	private PharmGkbDiseaseId accessionId;
@@ -148,12 +153,19 @@ public class PharmGkbDiseaseFileRecord extends SingleLineFileRecord {
 			while (m.find()) {
 				try {
 					String idOnly = StringUtil.removeSuffixRegex(m.group(1), "\\(.*?\\)");
+					if (idOnly.startsWith("\"")) {
+						idOnly = idOnly.substring(1);
+					}
 					if (idOnly.startsWith(MESH_PREFIX)) {
 						this.externalVocabulary.add(new MeshID(StringUtil.removePrefix(idOnly, MESH_PREFIX)));
 					} else if (idOnly.startsWith(SNOMEDCT_PREFIX)) {
 						this.externalVocabulary.add(new SnoMedCtId(StringUtil.removePrefix(idOnly, SNOMEDCT_PREFIX)));
 					} else if (idOnly.startsWith(UMLS_PREFIX)) {
 						this.externalVocabulary.add(new UmlsId(StringUtil.removePrefix(idOnly, UMLS_PREFIX)));
+					} else if (idOnly.startsWith(MEDDRA_PREFIX)) {
+						this.externalVocabulary.add(new MeddraId(StringUtil.removePrefix(idOnly, MEDDRA_PREFIX)));
+					}else if (idOnly.startsWith(NDFRT_PREFIX)) {
+						this.externalVocabulary.add(new NdfrtId(StringUtil.removePrefix(idOnly, NDFRT_PREFIX)));
 					} else {
 						logger.warn("Unhandled external reference: " + idOnly);
 						// throw new IllegalArgumentException("Unknown external

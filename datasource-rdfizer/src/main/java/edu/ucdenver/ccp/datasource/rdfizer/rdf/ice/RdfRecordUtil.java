@@ -530,7 +530,7 @@ public class RdfRecordUtil {
 		String yyyyMMdd = formatter.format(new Date(createdTime));
 		DataSource ns = DataSource.getNamespace(RecordUtil.getRecordDataSource(record.getClass()));
 		return RdfUtil.createUriImpl(DataSource.CCP,
-				"RS_" + ns.name() + "_" + ((readerKey != null && !readerKey.isEmpty())
+				"DS_" + ns.name() + "_" + ((readerKey != null && !readerKey.isEmpty())
 						? readerKey.replaceAll(" ", "_").toUpperCase() + "_" : "") + yyyyMMdd);
 	}
 

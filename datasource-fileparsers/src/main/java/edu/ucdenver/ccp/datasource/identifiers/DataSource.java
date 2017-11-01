@@ -171,6 +171,7 @@ public enum DataSource {
 	MIRBASE("http://www.mirbase.org/"),
 	MIRTE("http://www.russelllab.org/"),
 	MEROPS("http://merops.sanger.ac.uk/"),
+	MEDDRA("https://www.meddra.org/"),
 	MOD("http://purl.obolibrary.org/obo/"),
 	MODBASE("http://modbase.compbio.ucsf.edu/"),
 	MPIDB("http://jcvi.org/mpidb/"),
@@ -188,6 +189,7 @@ public enum DataSource {
 	 * NCI Thesaurus
 	 */
 	NCIT("http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#"),
+	NDFRT("https://www.nlm.nih.gov/research/umls/sourcereleasedocs/current/NDFRT/"),
 	NLM("http://www.nlm.nih.gov/"),
 	OBO("http://purl.obolibrary.org/obo/"),
 	/**
