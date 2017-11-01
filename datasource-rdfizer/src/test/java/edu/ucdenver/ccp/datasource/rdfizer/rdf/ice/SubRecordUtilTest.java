@@ -129,7 +129,7 @@ public class SubRecordUtilTest {
 
 		/* @formatter:off*/
 		Set<String> expectedStatements = CollectionsUtil.createSet(
-				"(http://ccp.ucdenver.edu/obo/ext/RS_KEGG_20101221, http://purl.obolibrary.org/obo/BFO_0000051, http://record.uri)",
+				"(http://ccp.ucdenver.edu/obo/ext/DS_KEGG_20101221, http://purl.obolibrary.org/obo/BFO_0000051, http://record.uri)",
 				"(http://record.uri, http://www.w3.org/1999/02/22-rdf-syntax-ns#type, "	+ CcpExtensionOntology.GOA_GAF_RECORD.uri() + ")",
 				"(http://record.uri, http://purl.obolibrary.org/obo/BFO_0000051, http://ccp.ucdenver.edu/obo/ext/F_" + fieldValueHash1 + ")",
 				"(http://ccp.ucdenver.edu/obo/ext/F_" + fieldValueHash1 + ", " + RDFS.LABEL.toString() + ", \"1\"@en)",
@@ -196,7 +196,7 @@ public class SubRecordUtilTest {
 
 		/* @formatter:off*/
 		Set<String> expectedStatements = CollectionsUtil.createSet(
-				"(http://ccp.ucdenver.edu/obo/ext/RS_KEGG_20101221, http://purl.obolibrary.org/obo/BFO_0000051, http://record.uri)",
+				"(http://ccp.ucdenver.edu/obo/ext/DS_KEGG_20101221, http://purl.obolibrary.org/obo/BFO_0000051, http://record.uri)",
 				"(http://record.uri, http://www.w3.org/1999/02/22-rdf-syntax-ns#type, "	+ CcpExtensionOntology.HGNC_GENE_RECORD.uri() + ")",
 				"(http://record.uri, http://purl.obolibrary.org/obo/BFO_0000051, http://ccp.ucdenver.edu/obo/ext/F_" + fieldValueHash1 + ")",
 				"(http://ccp.ucdenver.edu/obo/ext/F_" + fieldValueHash1 + ", " + RDFS.LABEL.toString() + ", \"1\"@en)",
@@ -291,7 +291,7 @@ public class SubRecordUtilTest {
 
 		/* @formatter:off */
 		Set<String> expectedStatements = CollectionsUtil.createSet(
-				"(http://ccp.ucdenver.edu/obo/ext/RS_KEGG_20101221, http://purl.obolibrary.org/obo/BFO_0000051, http://record.uri)",
+				"(http://ccp.ucdenver.edu/obo/ext/DS_KEGG_20101221, http://purl.obolibrary.org/obo/BFO_0000051, http://record.uri)",
 				"(http://record.uri, http://www.w3.org/1999/02/22-rdf-syntax-ns#type, "	+ CcpExtensionOntology.HGNC_GENE_RECORD.uri() + ")",
 				"(http://record.uri, http://purl.obolibrary.org/obo/BFO_0000051, http://ccp.ucdenver.edu/obo/ext/F_" + fieldValueHash1 + ")",
 				"(http://ccp.ucdenver.edu/obo/ext/F_" + fieldValueHash1 + ", " + RDFS.LABEL.toString() + ", \"1\"@en)",

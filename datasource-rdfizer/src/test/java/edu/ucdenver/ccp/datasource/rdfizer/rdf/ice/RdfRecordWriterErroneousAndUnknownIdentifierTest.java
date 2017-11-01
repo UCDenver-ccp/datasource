@@ -130,11 +130,11 @@ public class RdfRecordWriterErroneousAndUnknownIdentifierTest extends DefaultTes
 		return CollectionsUtil.createList(
 				/* @formatter:off */
 						
-						"<http://ccp.ucdenver.edu/obo/ext/RS_PR_20101217> <" + RDF.TYPE + "> <" + CcpExtensionOntology.RECORD_SET.uri() + "> .",
-						"<http://ccp.ucdenver.edu/obo/ext/RS_PR_20101217> <" + DCTERMS.DATE + "> " + timestamp + " .",
+						"<http://ccp.ucdenver.edu/obo/ext/DS_PR_20101217> <" + RDF.TYPE + "> <" + CcpExtensionOntology.RECORD_SET.uri() + "> .",
+						"<http://ccp.ucdenver.edu/obo/ext/DS_PR_20101217> <" + DCTERMS.DATE + "> " + timestamp + " .",
 						
 						/* record 1:   PR:000000005\tHGNC:11773\tis_a" */
-						"<http://ccp.ucdenver.edu/obo/ext/RS_PR_20101217> <" + RO.HAS_PART.uri() + "> <http://ccp.ucdenver.edu/obo/ext/R_" + recordHash1 + "> .",
+						"<http://ccp.ucdenver.edu/obo/ext/DS_PR_20101217> <" + RO.HAS_PART.uri() + "> <http://ccp.ucdenver.edu/obo/ext/R_" + recordHash1 + "> .",
 						"<http://ccp.ucdenver.edu/obo/ext/R_" + recordHash1 + "> <" + RDF.TYPE + "> <" + CcpExtensionOntology.PRO_IDENTIFIER_MAPPING_RECORD.uri() + "> .",
 
 						"<http://ccp.ucdenver.edu/obo/ext/R_" + recordHash1 + "> <" + RO.HAS_PART.uri() + "> <http://ccp.ucdenver.edu/obo/ext/F_" + fieldHash_1_1 + "> .",
@@ -154,7 +154,7 @@ public class RdfRecordWriterErroneousAndUnknownIdentifierTest extends DefaultTes
 						"<http://ccp.ucdenver.edu/obo/ext/F_" + fieldHash_1_3 + "> <" + RDFS.LABEL + "> \"is_a\"@en .",
 
 						/* record 2: "PR:000000005\tUniProtKB_VAR:VAR_022359\tis_a", */
-						"<http://ccp.ucdenver.edu/obo/ext/RS_PR_20101217> <" + RO.HAS_PART.uri() + "> <http://ccp.ucdenver.edu/obo/ext/R_" + recordHash2 + "> .",
+						"<http://ccp.ucdenver.edu/obo/ext/DS_PR_20101217> <" + RO.HAS_PART.uri() + "> <http://ccp.ucdenver.edu/obo/ext/R_" + recordHash2 + "> .",
 						"<http://ccp.ucdenver.edu/obo/ext/R_" + recordHash2 + "> <" + RDF.TYPE + "> <" + CcpExtensionOntology.PRO_IDENTIFIER_MAPPING_RECORD.uri() + "> .",
 
 						"<http://ccp.ucdenver.edu/obo/ext/R_" + recordHash2 + "> <" + RO.HAS_PART.uri() + "> <http://ccp.ucdenver.edu/obo/ext/F_" + fieldHash_2_1 + "> .",
@@ -167,7 +167,7 @@ public class RdfRecordWriterErroneousAndUnknownIdentifierTest extends DefaultTes
 						"<http://ccp.ucdenver.edu/obo/ext/R_" + recordHash2 + "> <" + RO.HAS_PART.uri() + "> <http://ccp.ucdenver.edu/obo/ext/F_" + fieldHash_2_3 + "> .",
 						
 						/* record 3: "PR:000000006\tUniProtKB:PABCDE\texact */
-						"<http://ccp.ucdenver.edu/obo/ext/RS_PR_20101217> <" + RO.HAS_PART.uri() + "> <http://ccp.ucdenver.edu/obo/ext/R_" + recordHash3 + "> .",
+						"<http://ccp.ucdenver.edu/obo/ext/DS_PR_20101217> <" + RO.HAS_PART.uri() + "> <http://ccp.ucdenver.edu/obo/ext/R_" + recordHash3 + "> .",
 						"<http://ccp.ucdenver.edu/obo/ext/R_" + recordHash3 + "> <" + RDF.TYPE + "> <" + CcpExtensionOntology.PRO_IDENTIFIER_MAPPING_RECORD.uri() + "> .",
 
 						"<http://ccp.ucdenver.edu/obo/ext/R_" + recordHash3 + "> <" + RO.HAS_PART.uri() + "> <http://ccp.ucdenver.edu/obo/ext/F_" + fieldHash_3_1 + "> .",

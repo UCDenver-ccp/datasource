@@ -140,10 +140,10 @@ public class RecordUtilTest {
 		Iterator<? extends Statement> it = statements.iterator();
 		assertTrue(it.hasNext());
 		assertEquals(
-				"(http://ccp.ucdenver.edu/obo/ext/RS_KEGG_HUMAN_20101221, http://www.w3.org/1999/02/22-rdf-syntax-ns#type, "
+				"(http://ccp.ucdenver.edu/obo/ext/DS_KEGG_HUMAN_20101221, http://www.w3.org/1999/02/22-rdf-syntax-ns#type, "
 						+ CcpExtensionOntology.RECORD_SET.uri() + ")",
 				it.next().toString());
-		assertEquals("(http://ccp.ucdenver.edu/obo/ext/RS_KEGG_HUMAN_20101221, " + DCTERMS.DATE + ", "
+		assertEquals("(http://ccp.ucdenver.edu/obo/ext/DS_KEGG_HUMAN_20101221, " + DCTERMS.DATE + ", "
 				+ RdfUtilTest.getExpectedTimeStamp(createdTimeInMillis) + ")", it.next().toString());
 		assertFalse(it.hasNext());
 	}
@@ -160,7 +160,7 @@ public class RecordUtilTest {
 
 		/* @formatter:off */
 		Set<String> expectedStatements = CollectionsUtil.createSet(
-				"(http://ccp.ucdenver.edu/obo/ext/RS_KEGG_20101221, http://purl.obolibrary.org/obo/BFO_0000051, http://record.uri)",
+				"(http://ccp.ucdenver.edu/obo/ext/DS_KEGG_20101221, http://purl.obolibrary.org/obo/BFO_0000051, http://record.uri)",
 				"(http://record.uri, http://www.w3.org/1999/02/22-rdf-syntax-ns#type, "	+ CcpExtensionOntology.HPO_ANNOTATION_RECORD.uri() + ")",
 				"(http://record.uri, http://purl.obolibrary.org/obo/BFO_0000051, http://ccp.ucdenver.edu/obo/ext/F_" + fieldHash1 + ")",
 				"(http://ccp.ucdenver.edu/obo/ext/F_" + fieldHash1 + ", " + RDFS.LABEL + ", \"1\"@en)",
@@ -200,7 +200,7 @@ public class RecordUtilTest {
 
 		/* @formatter:off */
 		Set<String> expectedStatements = CollectionsUtil.createSet(
-				"(http://ccp.ucdenver.edu/obo/ext/RS_KEGG_20101221, http://purl.obolibrary.org/obo/BFO_0000051, http://record.uri)",
+				"(http://ccp.ucdenver.edu/obo/ext/DS_KEGG_20101221, http://purl.obolibrary.org/obo/BFO_0000051, http://record.uri)",
 				"(http://record.uri, http://www.w3.org/1999/02/22-rdf-syntax-ns#type, "	+ CcpExtensionOntology.HGNC_GENE_RECORD.uri() + ")",
 				"(http://record.uri, http://purl.obolibrary.org/obo/BFO_0000051, http://ccp.ucdenver.edu/obo/ext/F_" + fieldHash1 + ")",
 				"(http://ccp.ucdenver.edu/obo/ext/F_" + fieldHash1 + ", " + RDFS.LABEL + ", \"1\"@en)",
@@ -242,7 +242,7 @@ public class RecordUtilTest {
 
 		/* @formatter:off */
 		Set<String> expectedStatements = CollectionsUtil.createSet(
-				"(http://ccp.ucdenver.edu/obo/ext/RS_KEGG_KEY_20101221, http://purl.obolibrary.org/obo/BFO_0000051, http://record.uri)",
+				"(http://ccp.ucdenver.edu/obo/ext/DS_KEGG_KEY_20101221, http://purl.obolibrary.org/obo/BFO_0000051, http://record.uri)",
 				"(http://record.uri, http://www.w3.org/1999/02/22-rdf-syntax-ns#type, "	+ CcpExtensionOntology.HPO_ANNOTATION_RECORD.uri() + ")",
 				"(http://record.uri, http://purl.obolibrary.org/obo/BFO_0000051, http://ccp.ucdenver.edu/obo/ext/F_" + fieldHash1 + ")",
 				"(http://ccp.ucdenver.edu/obo/ext/F_" + fieldHash1 + ", " + RDFS.LABEL + ", \"1\"@en)",
@@ -309,7 +309,7 @@ public class RecordUtilTest {
 
 		/* @formatter:off */
 		Set<String> expectedStatements = CollectionsUtil.createSet(
-				"(http://ccp.ucdenver.edu/obo/ext/RS_HGNC_KEY_20101221, http://purl.obolibrary.org/obo/BFO_0000051, http://record.uri)",
+				"(http://ccp.ucdenver.edu/obo/ext/DS_HGNC_KEY_20101221, http://purl.obolibrary.org/obo/BFO_0000051, http://record.uri)",
 				"(http://record.uri, http://www.w3.org/1999/02/22-rdf-syntax-ns#type, "	+ CcpExtensionOntology.HGNC_GENE_RECORD.uri() + ")",
 				"(http://record.uri, http://purl.obolibrary.org/obo/BFO_0000051, http://ccp.ucdenver.edu/obo/ext/F_" + fieldHash1 + ")",
 				"(http://ccp.ucdenver.edu/obo/ext/F_" + fieldHash1 + ", " + RDFS.LABEL + ", \"ABBA\"@en)",
@@ -343,7 +343,7 @@ public class RecordUtilTest {
 
 		/* @formatter:off */
 		Set<String> expectedStatements = CollectionsUtil.createSet(
-				"(http://ccp.ucdenver.edu/obo/ext/RS_HGNC_KEY_20101221, http://purl.obolibrary.org/obo/BFO_0000051, http://record.uri)",
+				"(http://ccp.ucdenver.edu/obo/ext/DS_HGNC_KEY_20101221, http://purl.obolibrary.org/obo/BFO_0000051, http://record.uri)",
 				"(http://record.uri, http://www.w3.org/1999/02/22-rdf-syntax-ns#type, "	+ CcpExtensionOntology.HGNC_GENE_RECORD.uri() + ")",
 				"(http://record.uri, http://purl.obolibrary.org/obo/BFO_0000051, http://ccp.ucdenver.edu/obo/ext/F_" + fieldHash1 + ")",
 				"(http://ccp.ucdenver.edu/obo/ext/F_" + fieldHash1 + ", " + RDFS.LABEL + ", \"GO:0001234\"@en)",
