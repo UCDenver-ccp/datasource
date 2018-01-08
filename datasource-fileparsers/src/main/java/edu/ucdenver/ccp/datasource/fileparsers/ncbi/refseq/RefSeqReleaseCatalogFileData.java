@@ -45,7 +45,6 @@ import edu.ucdenver.ccp.datasource.fileparsers.Record;
 import edu.ucdenver.ccp.datasource.fileparsers.RecordField;
 import edu.ucdenver.ccp.datasource.fileparsers.SingleLineFileRecord;
 import edu.ucdenver.ccp.datasource.identifiers.DataSource;
-import edu.ucdenver.ccp.datasource.identifiers.impl.bio.GiNumberID;
 import edu.ucdenver.ccp.datasource.identifiers.impl.bio.NcbiTaxonomyID;
 import edu.ucdenver.ccp.datasource.identifiers.impl.bio.RefSeqID;
 
@@ -68,9 +67,6 @@ public class RefSeqReleaseCatalogFileData extends SingleLineFileRecord {
 	private final String speciesName;
 	@RecordField(ontClass = CcpExtensionOntology.REFSEQ_CATALOG_RECORD___REFSEQ_IDENTIFIER_FIELD_VALUE, isKeyField=true)
 	private final RefSeqID refseqId;
-
-	@RecordField(ontClass = CcpExtensionOntology.REFSEQ_CATALOG_RECORD___GENEINFO_IDENTIFIER_FIELD_VALUE)
-	private final GiNumberID gi;
 	@RecordField(ontClass = CcpExtensionOntology.REFSEQ_CATALOG_RECORD___RELEASE_DIRECTORY_INCLUSION_FIELD_VALUE)
 	private final String releaseDirectoryInclusion;
 	@RecordField(ontClass = CcpExtensionOntology.REFSEQ_CATALOG_RECORD___REFSEQ_STATUS_FIELD_VALUE)
@@ -82,13 +78,12 @@ public class RefSeqReleaseCatalogFileData extends SingleLineFileRecord {
 	@RecordField(ontClass = CcpExtensionOntology.REFSEQ_CATALOG_RECORD___IS_PREDICTED_FIELD_VALUE)
 	private final boolean isPredicted;
 
-	public RefSeqReleaseCatalogFileData(NcbiTaxonomyID taxId, String speciesName, RefSeqID refseqId, GiNumberID gi,
+	public RefSeqReleaseCatalogFileData(NcbiTaxonomyID taxId, String speciesName, RefSeqID refseqId, 
 			String releaseDirectoryInclusion, String refseqStatus, int length, long byteOffset, long lineNumber) {
 		super(byteOffset, lineNumber);
 		this.taxId = taxId;
 		this.speciesName = speciesName;
 		this.refseqId = refseqId;
-		this.gi = gi;
 		this.releaseDirectoryInclusion = releaseDirectoryInclusion;
 		this.refseqStatus = refseqStatus;
 		this.length = length;
@@ -139,10 +134,6 @@ public class RefSeqReleaseCatalogFileData extends SingleLineFileRecord {
 		return refseqId;
 	}
 
-	public GiNumberID getGi() {
-		return gi;
-	}
-
 	public String getReleaseDirectoryInclusion() {
 		return releaseDirectoryInclusion;
 	}
@@ -157,16 +148,15 @@ public class RefSeqReleaseCatalogFileData extends SingleLineFileRecord {
 
 	public static RefSeqReleaseCatalogFileData parseRefSeqReleaseCatalogLine(Line line) {
 		String[] toks = line.getText().split("\\t");
-		if (toks.length == 7) {
+		if (toks.length == 6) {
 			try {
 				NcbiTaxonomyID taxId = new NcbiTaxonomyID(toks[0]);
 				String speciesName = toks[1];
 				RefSeqID refseqId = new RefSeqID(toks[2]);
-				GiNumberID gi = new GiNumberID(toks[3]);
-				String releaseDirectories = toks[4];
-				String refseqStatus = toks[5];
-				int length = Integer.parseInt(toks[6]);
-				return new RefSeqReleaseCatalogFileData(taxId, speciesName, refseqId, gi, releaseDirectories,
+				String releaseDirectories = toks[3];
+				String refseqStatus = toks[4];
+				int length = Integer.parseInt(toks[5]);
+				return new RefSeqReleaseCatalogFileData(taxId, speciesName, refseqId, releaseDirectories,
 						refseqStatus, length, line.getByteOffset(), line.getLineNumber());
 			} catch (IllegalArgumentException e) {
 				logger.warn("Error while parsing line: " + line.getText(), e);
