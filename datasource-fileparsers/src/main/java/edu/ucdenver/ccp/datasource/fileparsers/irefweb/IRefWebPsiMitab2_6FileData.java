@@ -138,9 +138,9 @@ public class IRefWebPsiMitab2_6FileData extends SingleLineFileRecord {
 	private final String creationDate;
 	@RecordField(ontClass = CcpExtensionOntology.IREFWEB_PSI_MITAB_2_6_RECORD___UPDATE_DATE_FIELD_VALUE)
 	private final String updateDate;
-	@RecordField(ontClass = CcpExtensionOntology.IREFWEB_PSI_MITAB_2_6_RECORD___INTERACTOR_A_FIELD_VALUE)
+	@RecordField(ontClass = CcpExtensionOntology.IREFWEB_PSI_MITAB_2_6_RECORD___INTERACTOR_FIELD_VALUE)
 	private final IRefWebInteractor interactorA;
-	@RecordField(ontClass = CcpExtensionOntology.IREFWEB_PSI_MITAB_2_6_RECORD___INTERACTOR_B_FIELD_VALUE)
+	@RecordField(ontClass = CcpExtensionOntology.IREFWEB_PSI_MITAB_2_6_RECORD___INTERACTOR_FIELD_VALUE)
 	private final IRefWebInteractor interactorB;
 	@RecordField(ontClass = CcpExtensionOntology.IREFWEB_PSI_MITAB_2_6_RECORD___INTERACTION_FIELD_VALUE)
 	private final IRefWebInteraction interaction;
