@@ -44,6 +44,7 @@ import java.util.zip.GZIPInputStream;
 
 import org.apache.log4j.Logger;
 
+import edu.ucdenver.ccp.common.collections.CollectionsUtil;
 import edu.ucdenver.ccp.common.download.FtpDownload;
 import edu.ucdenver.ccp.common.file.CharacterEncoding;
 import edu.ucdenver.ccp.common.file.reader.Line;
@@ -117,9 +118,9 @@ public class NcbiGeneInfoFileParser extends TaxonAwareSingleLineFileRecordReader
 	}
 
 	@Override
-	protected NcbiTaxonomyID getLineTaxon(Line line) {
+	protected Set<NcbiTaxonomyID> getLineTaxon(Line line) {
 		NcbiGeneInfoFileData record = parseGeneInfoLine(line);
-		return record.getTaxonID();
+		return CollectionsUtil.createSet(record.getTaxonID());
 	}
 
 	/*

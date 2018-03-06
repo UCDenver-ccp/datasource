@@ -1,4 +1,4 @@
-package edu.ucdenver.ccp.datasource.identifiers.impl.bio;
+package edu.ucdenver.ccp.datasource.identifiers.impl.ice;
 
 import edu.ucdenver.ccp.datasource.fileparsers.CcpExtensionOntology;
 
@@ -39,10 +39,10 @@ import edu.ucdenver.ccp.datasource.identifiers.DataSource;
 import edu.ucdenver.ccp.datasource.identifiers.Identifier;
 import edu.ucdenver.ccp.datasource.identifiers.IntegerDataSourceIdentifier;
 
-@Identifier(ontClass = CcpExtensionOntology.BIOGRID_IDENTIFIER)
-public class BioGridID extends IntegerDataSourceIdentifier {
+@Identifier(ontClass = CcpExtensionOntology.BIOGRID_PUBLICATION_IDENTIFIER)
+public class BioGridPublicationId extends IntegerDataSourceIdentifier {
 
-	public BioGridID(String resourceID) {
+	public BioGridPublicationId(String resourceID) {
 		super(resourceID, DataSource.BIOGRID);
 	}
 

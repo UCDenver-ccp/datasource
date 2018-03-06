@@ -134,8 +134,8 @@ public class IRefWebPsiMitab2_6FileParser extends TaxonAwareSingleLineFileRecord
 
 	public static final CharacterEncoding ENCODING = CharacterEncoding.US_ASCII;
 
-	public IRefWebPsiMitab2_6FileParser(File file, CharacterEncoding encoding) throws IOException,
-			IllegalArgumentException {
+	public IRefWebPsiMitab2_6FileParser(File file, CharacterEncoding encoding)
+			throws IOException, IllegalArgumentException {
 		super(file, encoding, null);
 	}
 
@@ -154,18 +154,18 @@ public class IRefWebPsiMitab2_6FileParser extends TaxonAwareSingleLineFileRecord
 	}
 
 	@Override
-	protected NcbiTaxonomyID getLineTaxon(Line line) {
+	protected Set<NcbiTaxonomyID> getLineTaxon(Line line) {
+		Set<NcbiTaxonomyID> taxonIds = new HashSet<NcbiTaxonomyID>();
 		IRefWebPsiMitab2_6FileData record = parseRecordFromLine(line);
-		// should probably return both here
 		IRefWebInteractor interactorA = record.getInteractorA();
 		if (interactorA.getNcbiTaxonomyId() != null) {
-			return interactorA.getNcbiTaxonomyId().getTaxonomyId();
+			taxonIds.add(interactorA.getNcbiTaxonomyId().getTaxonomyId());
 		}
 		IRefWebInteractor interactorB = record.getInteractorB();
 		if (interactorB.getNcbiTaxonomyId() != null) {
-			return interactorB.getNcbiTaxonomyId().getTaxonomyId();
+			taxonIds.add(interactorB.getNcbiTaxonomyId().getTaxonomyId());
 		}
-		return null;
+		return taxonIds;
 	}
 
 	@Override
@@ -197,8 +197,8 @@ public class IRefWebPsiMitab2_6FileParser extends TaxonAwareSingleLineFileRecord
 			IRefWebInteraction interaction = getInteraction(toks[6], toks[7], toks[8], toks[11], toks[13], toks[14],
 					toks[15], toks[24], toks[27], toks[28], toks[29], toks[34], toks[35], toks[44], toks[47], toks[50],
 					toks[51], toks[52], toks[53]);
-			IRefWebInteractionSourceDatabase sourceDb = MiOntologyIdTermPair.parseString(
-					IRefWebInteractionSourceDatabase.class, toks[12]);
+			IRefWebInteractionSourceDatabase sourceDb = MiOntologyIdTermPair
+					.parseString(IRefWebInteractionSourceDatabase.class, toks[12]);
 			String creationDate = toks[30];
 			String updateDate = toks[31];
 

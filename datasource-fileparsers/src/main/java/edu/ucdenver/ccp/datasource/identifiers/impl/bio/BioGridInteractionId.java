@@ -39,10 +39,10 @@ import edu.ucdenver.ccp.datasource.identifiers.DataSource;
 import edu.ucdenver.ccp.datasource.identifiers.Identifier;
 import edu.ucdenver.ccp.datasource.identifiers.IntegerDataSourceIdentifier;
 
-@Identifier(ontClass = CcpExtensionOntology.BIOGRID_IDENTIFIER)
-public class BioGridID extends IntegerDataSourceIdentifier {
+@Identifier(ontClass = CcpExtensionOntology.BIOGRID_INTERACTION_IDENTIFIER)
+public class BioGridInteractionId extends IntegerDataSourceIdentifier {
 
-	public BioGridID(String resourceID) {
+	public BioGridInteractionId(String resourceID) {
 		super(resourceID, DataSource.BIOGRID);
 	}
 

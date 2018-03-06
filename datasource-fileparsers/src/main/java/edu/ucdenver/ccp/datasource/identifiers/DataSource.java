@@ -64,6 +64,7 @@ public enum DataSource {
 	BIOCYC("http://www.biocyc.org/"),
 	BIOGRID("http://thebiogrid.org/"),
 	BIOPARADIGMS("http://www.bioparadigms.org/"),
+	BIOPLEX("http://bioplex.hms.harvard.edu/"),
 	BRENDA("http://www.brenda-enzymes.org"),
 	KABOB("http://kabob.ucdenver.edu/"),
 	CAMJEDB("http://www.sanger.ac.uk/resources/downloads/bacteria/campylobacter-jejuni.html/"),
@@ -245,6 +246,7 @@ public enum DataSource {
 	 */
 	UBERON("http://purl.obolibrary.org/obo/"),
 	UNIPROT_PREDICTION("http://services.uniprot.org/supplement/"),
+	SANTOS2016("http://www.nature.com/nrd/journal/vaop/ncurrent/full/nrd.2016.230.html#"),
 	SGD("http://www.yeastgenome.org/"),
 	SKOS("http://www.w3.org/2004/02/skos/core#"),
 	SMART("http://smart.embl.de/smart/"),

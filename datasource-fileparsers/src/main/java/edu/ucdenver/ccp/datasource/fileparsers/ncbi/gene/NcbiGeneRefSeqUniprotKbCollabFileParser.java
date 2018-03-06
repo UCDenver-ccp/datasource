@@ -39,6 +39,7 @@ import java.io.IOException;
 import java.util.Set;
 import java.util.zip.GZIPInputStream;
 
+import edu.ucdenver.ccp.common.collections.CollectionsUtil;
 import edu.ucdenver.ccp.common.download.FtpDownload;
 import edu.ucdenver.ccp.common.file.CharacterEncoding;
 import edu.ucdenver.ccp.common.file.reader.Line;
@@ -57,8 +58,8 @@ import edu.ucdenver.ccp.datasource.identifiers.impl.bio.UniProtID;
  * @author Bill Baumgartner
  * 
  */
-public class NcbiGeneRefSeqUniprotKbCollabFileParser extends
-		TaxonAwareSingleLineFileRecordReader<NcbiGeneRefSeqUniprotKbCollabFileData> {
+public class NcbiGeneRefSeqUniprotKbCollabFileParser
+		extends TaxonAwareSingleLineFileRecordReader<NcbiGeneRefSeqUniprotKbCollabFileData> {
 
 	private static final String HEADER = "#NCBI_protein_accession\tUniProtKB_protein_accession";
 
@@ -119,17 +120,18 @@ public class NcbiGeneRefSeqUniprotKbCollabFileParser extends
 	}
 
 	@Override
-	protected NcbiTaxonomyID getLineTaxon(Line line) {
+	protected Set<NcbiTaxonomyID> getLineTaxon(Line line) {
 		NcbiGeneRefSeqUniprotKbCollabFileData record = parseRecordFromLine(line);
-		if (taxonSpecificIds != null && !taxonSpecificIds.isEmpty() && taxonSpecificIds.contains(record.getUniprotId())) {
+		if (taxonSpecificIds != null && !taxonSpecificIds.isEmpty()
+				&& taxonSpecificIds.contains(record.getUniprotId())) {
 			// here we have matched the record uniprot id as one of the ids of
 			// interest. We don't
 			// know exactly what taxon it is however so we just return one
 			// (arbitrarily) of the
 			// taxon ids of interest. this will ensure this record is returned.
-			return taxonsOfInterest.iterator().next();
+			return CollectionsUtil.createSet(taxonsOfInterest.iterator().next());
 		}
-		return new NcbiTaxonomyID(0);
+		return CollectionsUtil.createSet(new NcbiTaxonomyID(0));
 	}
 
 }

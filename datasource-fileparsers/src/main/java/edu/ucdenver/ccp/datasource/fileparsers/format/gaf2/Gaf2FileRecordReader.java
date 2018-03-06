@@ -114,11 +114,11 @@ public class Gaf2FileRecordReader<T extends Gaf2FileRecord> extends TaxonAwareSi
 	}
 
 	@Override
-	protected NcbiTaxonomyID getLineTaxon(Line line) {
+	protected Set<NcbiTaxonomyID> getLineTaxon(Line line) {
 		String[] toks = line.getText().split("\\t", -1);
 		String taxonColumn = toks[12];
 		/* cardinality is either 1 or 2, in either case the first taxon id presented is that of the gene product in column 2 */
-		return new NcbiTaxonomyID(taxonColumn.split("\\|")[0]);
+		return CollectionsUtil.createSet(new NcbiTaxonomyID(taxonColumn.split("\\|")[0]));
 	}
 	
 	public static Gaf2FileRecord parseGaf2FileLine(Line line) {

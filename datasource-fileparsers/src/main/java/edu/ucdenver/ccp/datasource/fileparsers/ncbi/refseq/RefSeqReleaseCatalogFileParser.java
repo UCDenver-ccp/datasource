@@ -39,6 +39,7 @@ import java.io.IOException;
 import java.util.Set;
 import java.util.zip.GZIPInputStream;
 
+import edu.ucdenver.ccp.common.collections.CollectionsUtil;
 import edu.ucdenver.ccp.common.download.DownloadUtil;
 import edu.ucdenver.ccp.common.download.DownloadUtil.FtpInfo;
 import edu.ucdenver.ccp.common.download.FtpDownload;
@@ -103,26 +104,9 @@ public class RefSeqReleaseCatalogFileParser extends TaxonAwareSingleLineFileReco
 	}
 
 	@Override
-	protected NcbiTaxonomyID getLineTaxon(Line line) {
+	protected Set<NcbiTaxonomyID> getLineTaxon(Line line) {
 		RefSeqReleaseCatalogFileData record = parseRecordFromLine(line);
-		return record.getTaxId();
+		return CollectionsUtil.createSet(record.getTaxId());
 	}
 
-	
-	public static void main(String[] args) {
-		try {
-			int count = 0;
-			for (RefSeqReleaseCatalogFileParser p = new RefSeqReleaseCatalogFileParser(new File("/tmp"), false); p.hasNext();) {
-				if (count++ % 10000 == 0) {
-					System.out.println("Progress: " + count);
-				}
-				RefSeqReleaseCatalogFileData next = p.next();
-			}
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
-	
-	
 }

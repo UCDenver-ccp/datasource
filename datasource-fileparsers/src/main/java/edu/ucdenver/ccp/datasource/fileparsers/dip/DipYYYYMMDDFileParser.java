@@ -60,6 +60,7 @@ import java.util.regex.Pattern;
 
 import org.apache.log4j.Logger;
 
+import edu.ucdenver.ccp.common.collections.CollectionsUtil;
 import edu.ucdenver.ccp.common.file.CharacterEncoding;
 import edu.ucdenver.ccp.common.file.reader.Line;
 import edu.ucdenver.ccp.common.string.RegExPatterns;
@@ -110,10 +111,11 @@ public class DipYYYYMMDDFileParser extends TaxonAwareSingleLineFileRecordReader<
 	}
 
 	@Override
-	protected NcbiTaxonomyID getLineTaxon(Line line) {
+	protected Set<NcbiTaxonomyID> getLineTaxon(Line line) {
 		DipYYYYMMDDFileData record = parseRecordFromLine(line);
 		// should probably return both tax id's here
-		return record.getInteractor_A().getNcbiTaxonomyId().getTaxonomyId();
+		return CollectionsUtil.createSet(record.getInteractor_A().getNcbiTaxonomyId().getTaxonomyId(),
+				record.getInteractor_B().getNcbiTaxonomyId().getTaxonomyId());
 	}
 
 	@Override

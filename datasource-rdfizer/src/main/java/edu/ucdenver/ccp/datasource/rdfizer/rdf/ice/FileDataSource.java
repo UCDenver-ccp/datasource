@@ -59,6 +59,9 @@ import edu.ucdenver.ccp.common.file.FileUtil;
 import edu.ucdenver.ccp.common.http.HttpUtil;
 import edu.ucdenver.ccp.datasource.fileparsers.FileRecordReader;
 import edu.ucdenver.ccp.datasource.fileparsers.RecordReader;
+import edu.ucdenver.ccp.datasource.fileparsers.biogrid.BioGridProteinChemicalInteractionRecordReader;
+import edu.ucdenver.ccp.datasource.fileparsers.biogrid.BioGridProteinInteractionRecordReader;
+import edu.ucdenver.ccp.datasource.fileparsers.bioplex.BioPlexInteractionListRecordReader;
 import edu.ucdenver.ccp.datasource.fileparsers.drugbank.DrugbankXmlFileRecordReader;
 import edu.ucdenver.ccp.datasource.fileparsers.ebi.goa.gaf.GoaGaf2FileRecordReader;
 import edu.ucdenver.ccp.datasource.fileparsers.ebi.goa.gaf.GoaGafFileRecordReaderFactory;
@@ -164,6 +167,70 @@ public enum FileDataSource {
 	// return true;
 	// }
 	// },
+
+	BIOPLEX(DataSource.BIOPLEX, IsTaxonAware.YES, RequiresManualDownload.NO) {
+		@Override
+		protected RecordReader<?> initFileRecordReader(File sourceFileDirectory, File baseSourceFileDirectory,
+				boolean cleanSourceFiles, boolean cleanIdListFiles, File idListDir, Set<NcbiTaxonomyID> taxonIds)
+				throws IOException {
+			return new BioPlexInteractionListRecordReader(sourceFileDirectory, CharacterEncoding.UTF_8,
+					cleanSourceFiles, taxonIds, idListDir, sourceFileDirectory, cleanIdListFiles);
+		}
+
+		@Override
+		protected Class<? extends RecordReader<?>> getRecordReaderClass() {
+			return BioPlexInteractionListRecordReader.class;
+		}
+	},
+
+	BIOGRID_PROTEIN_INTERACTIONS(DataSource.BIOGRID, IsTaxonAware.YES, RequiresManualDownload.YES) {
+		@Override
+		protected RecordReader<?> initFileRecordReader(File sourceFileDirectory, File baseSourceFileDirectory,
+				boolean cleanSourceFiles, boolean cleanIdListFiles, File idListDir, Set<NcbiTaxonomyID> taxonIds)
+				throws IOException {
+			File tsvFile = new File(sourceFileDirectory, "BIOGRID-ALL-LATEST.tab2.txt");
+			FileUtil.validateFile(tsvFile);
+			return new BioGridProteinInteractionRecordReader(tsvFile, CharacterEncoding.UTF_8, taxonIds, false);
+		}
+
+		@Override
+		protected Class<? extends RecordReader<?>> getRecordReaderClass() {
+			return BioGridProteinInteractionRecordReader.class;
+		}
+	},
+
+	BIOGRID_MULTIVALIDATED_PHYSICAL_PROTEIN_INTERACTIONS(DataSource.BIOGRID, IsTaxonAware.YES,
+			RequiresManualDownload.YES) {
+		@Override
+		protected RecordReader<?> initFileRecordReader(File sourceFileDirectory, File baseSourceFileDirectory,
+				boolean cleanSourceFiles, boolean cleanIdListFiles, File idListDir, Set<NcbiTaxonomyID> taxonIds)
+				throws IOException {
+			File tsvFile = new File(sourceFileDirectory, "BIOGRID-MV-Physical-LATEST.tab2.txt");
+			FileUtil.validateFile(tsvFile);
+			return new BioGridProteinInteractionRecordReader(tsvFile, CharacterEncoding.UTF_8, taxonIds, true);
+		}
+
+		@Override
+		protected Class<? extends RecordReader<?>> getRecordReaderClass() {
+			return BioGridProteinInteractionRecordReader.class;
+		}
+	},
+
+	BIOGRID_PROTEIN_CHEMICAL_INTERACTIONS(DataSource.BIOGRID, IsTaxonAware.NO, RequiresManualDownload.YES) {
+		@Override
+		protected RecordReader<?> initFileRecordReader(File sourceFileDirectory, File baseSourceFileDirectory,
+				boolean cleanSourceFiles, boolean cleanIdListFiles, File idListDir, Set<NcbiTaxonomyID> taxonIds)
+				throws IOException {
+			File tsvFile = new File(sourceFileDirectory, "BIOGRID-CHEMICALS-LATEST.chemtab.txt");
+			FileUtil.validateFile(tsvFile);
+			return new BioGridProteinChemicalInteractionRecordReader(tsvFile, CharacterEncoding.UTF_8, taxonIds);
+		}
+
+		@Override
+		protected Class<? extends RecordReader<?>> getRecordReaderClass() {
+			return BioGridProteinChemicalInteractionRecordReader.class;
+		}
+	},
 
 	/**
 	 * this data source represents genes as defined by the KEGG resource

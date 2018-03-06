@@ -41,6 +41,7 @@ import java.util.Set;
 
 import org.apache.log4j.Logger;
 
+import edu.ucdenver.ccp.common.collections.CollectionsUtil;
 import edu.ucdenver.ccp.common.file.CharacterEncoding;
 import edu.ucdenver.ccp.common.file.FileReaderUtil;
 import edu.ucdenver.ccp.common.file.reader.Line;
@@ -314,7 +315,7 @@ public class GpAssociationGoaUniprotFileParser extends
 	}
 
 	@Override
-	protected NcbiTaxonomyID getLineTaxon(Line line) {
+	protected Set<NcbiTaxonomyID> getLineTaxon(Line line) {
 		if (line != null) {
 			GpAssociationGoaUniprotFileData record = parseRecordFromLine(line);
 			if (record != null) {
@@ -329,7 +330,7 @@ public class GpAssociationGoaUniprotFileParser extends
 						 * the taxon ids of interest. this will ensure this
 						 * record is returned.
 						 */
-						return taxonsOfInterest.iterator().next();
+						return CollectionsUtil.createSet(taxonsOfInterest.iterator().next());
 					}
 				} else if (databaseObjectID instanceof UniProtIsoformID) {
 					UniProtIsoformID isoformId = (UniProtIsoformID) databaseObjectID;
@@ -343,7 +344,7 @@ public class GpAssociationGoaUniprotFileParser extends
 						 * the taxon ids of interest. this will ensure this
 						 * record is returned.
 						 */
-						return taxonsOfInterest.iterator().next();
+						return CollectionsUtil.createSet(taxonsOfInterest.iterator().next());
 					}
 				} else if (databaseObjectID instanceof IntActID) {
 					IntActID intactId = (IntActID) databaseObjectID;
@@ -355,7 +356,7 @@ public class GpAssociationGoaUniprotFileParser extends
 						 * the taxon ids of interest. this will ensure this
 						 * record is returned.
 						 */
-						return taxonsOfInterest.iterator().next();
+						return CollectionsUtil.createSet(taxonsOfInterest.iterator().next());
 					}
 				} else {
 					logger.warn("Unhandled non-UniProt id in GO data while trying to create a species specific subset: "
@@ -363,6 +364,6 @@ public class GpAssociationGoaUniprotFileParser extends
 				}
 			}
 		}
-		return new NcbiTaxonomyID(0);
+		return CollectionsUtil.createSet(new NcbiTaxonomyID(0));
 	}
 }

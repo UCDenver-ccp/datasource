@@ -41,6 +41,7 @@ import java.util.Set;
 
 import org.apache.log4j.Logger;
 
+import edu.ucdenver.ccp.common.collections.CollectionsUtil;
 import edu.ucdenver.ccp.common.download.FtpDownload;
 import edu.ucdenver.ccp.common.file.CharacterEncoding;
 import edu.ucdenver.ccp.common.file.reader.Line;
@@ -92,9 +93,9 @@ public class HomoloGeneDataFileParser extends TaxonAwareSingleLineFileRecordRead
 	}
 
 	@Override
-	protected NcbiTaxonomyID getLineTaxon(Line line) {
+	protected Set<NcbiTaxonomyID> getLineTaxon(Line line) {
 		HomoloGeneDataFileData record = parseRecordFromLine(line);
-		return record.getTaxonomyID();
+		return CollectionsUtil.createSet(record.getTaxonomyID());
 	}
 
 	@Override

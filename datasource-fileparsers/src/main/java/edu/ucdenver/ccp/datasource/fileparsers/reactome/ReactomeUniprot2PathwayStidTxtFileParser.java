@@ -41,6 +41,7 @@ import java.util.Set;
 
 import org.apache.log4j.Logger;
 
+import edu.ucdenver.ccp.common.collections.CollectionsUtil;
 import edu.ucdenver.ccp.common.download.HttpDownload;
 import edu.ucdenver.ccp.common.file.CharacterEncoding;
 import edu.ucdenver.ccp.common.file.reader.Line;
@@ -105,7 +106,7 @@ public class ReactomeUniprot2PathwayStidTxtFileParser extends
 	}
 
 	@Override
-	protected NcbiTaxonomyID getLineTaxon(Line line) {
+	protected Set<NcbiTaxonomyID> getLineTaxon(Line line) {
 		ReactomeUniprot2PathwayStidTxtFileData record = parseRecordFromLine(line);
 		if (record == null) {
 			return null;
@@ -116,9 +117,9 @@ public class ReactomeUniprot2PathwayStidTxtFileParser extends
 			// know exactly what taxon it is however so we just return one
 			// (arbitrarily) of the
 			// taxon ids of interest. this will ensure this record is returned.
-			return taxonsOfInterest.iterator().next();
+			return CollectionsUtil.createSet(taxonsOfInterest.iterator().next());
 		}
-		return new NcbiTaxonomyID(0);
+		return CollectionsUtil.createSet(new NcbiTaxonomyID(0));
 	}
 
 	@Override
