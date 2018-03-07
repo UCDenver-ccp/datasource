@@ -42,6 +42,8 @@ import java.lang.reflect.Field;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.net.URLEncoder;
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.util.Calendar;
 import java.util.Collection;
 import java.util.Date;
@@ -596,15 +598,14 @@ public class RdfUtil {
 	 *            non-null value
 	 * @return literal value.
 	 */
-	private static LiteralImpl createNumericLiteral(Number value) {
+	static LiteralImpl createNumericLiteral(Number value) {
 		LiteralImpl literal = null;
-
 		if (value instanceof Double) {
-			literal = new LiteralImpl(value.toString(), new URIImpl("http://www.w3.org/2001/XMLSchema#decimal"));
+			literal = new LiteralImpl((new BigDecimal(Double.toString((Double)value))).toPlainString(), new URIImpl("http://www.w3.org/2001/XMLSchema#decimal"));
 		} else if (value instanceof Byte) {
 			literal = new LiteralImpl(value.toString(), new URIImpl("http://www.w3.org/2001/XMLSchema#integer"));
 		} else if (value instanceof Float) {
-			literal = new LiteralImpl(value.toString(), new URIImpl("http://www.w3.org/2001/XMLSchema#decimal"));
+			literal = new LiteralImpl((new BigDecimal(Float.toString((Float)value))).toPlainString(), new URIImpl("http://www.w3.org/2001/XMLSchema#decimal"));
 		} else if (value instanceof Integer) {
 			literal = new LiteralImpl(value.toString(), new URIImpl("http://www.w3.org/2001/XMLSchema#integer"));
 		} else if (value instanceof Long) {
@@ -612,7 +613,7 @@ public class RdfUtil {
 		} else if (value instanceof Short) {
 			literal = new LiteralImpl(value.toString(), new URIImpl("http://www.w3.org/2001/XMLSchema#integer"));
 		} else if (value instanceof BigDecimal) {
-			literal = new LiteralImpl(value.toString(), new URIImpl("http://www.w3.org/2001/XMLSchema#decimal"));
+			literal = new LiteralImpl((new BigDecimal(value.toString()).toPlainString()), new URIImpl("http://www.w3.org/2001/XMLSchema#decimal"));
 		} else if (value instanceof BigInteger) {
 			literal = new LiteralImpl(value.toString(), new URIImpl("http://www.w3.org/2001/XMLSchema#integer"));
 		} else {

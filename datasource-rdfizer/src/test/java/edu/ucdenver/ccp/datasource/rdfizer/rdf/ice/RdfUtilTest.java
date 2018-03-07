@@ -36,6 +36,7 @@ package edu.ucdenver.ccp.datasource.rdfizer.rdf.ice;
 
 import static edu.ucdenver.ccp.datasource.rdfizer.rdf.ice.RdfUtil.getCreationTimeStampStatement;
 import static edu.ucdenver.ccp.datasource.rdfizer.rdf.ice.RdfUtil.getDateLiteral;
+import static edu.ucdenver.ccp.datasource.rdfizer.rdf.ice.RdfUtil.createNumericLiteral;
 import static edu.ucdenver.ccp.datasource.rdfizer.rdf.ice.RdfUtil.writeStatements;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThat;
@@ -67,6 +68,19 @@ import edu.ucdenver.ccp.datasource.identifiers.impl.bio.NcbiTaxonomyID;
 
 public class RdfUtilTest extends DefaultTestCase {
 
+	@Test
+	public final void testGetNumericLiteral_ScientificNotation() {
+		Float f = 1.234e-5f;
+		Value value = createNumericLiteral(f);
+		assertEquals("\"0.00001234\"^^<http://www.w3.org/2001/XMLSchema#decimal>", value.toString());
+		
+		double d = 1.234e-5;
+		value = createNumericLiteral(d);
+		assertEquals("\"0.00001234\"^^<http://www.w3.org/2001/XMLSchema#decimal>", value.toString());
+	}
+
+	
+	
 	@Test
 	public final void testCreateUriStatement() {
 		Statement s = new StatementImpl(new URIImpl("http://subject"), new URIImpl("http://predicate"),
