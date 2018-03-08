@@ -140,10 +140,10 @@ public class RecordUtilTest {
 		Iterator<? extends Statement> it = statements.iterator();
 		assertTrue(it.hasNext());
 		assertEquals(
-				"(http://ccp.ucdenver.edu/obo/ext/DS_KEGG_HUMAN_20101221, http://www.w3.org/1999/02/22-rdf-syntax-ns#type, "
+				"(http://ccp.ucdenver.edu/kabob/ice/DS_KEGG_HUMAN_20101221, http://www.w3.org/1999/02/22-rdf-syntax-ns#type, "
 						+ CcpExtensionOntology.RECORD_SET.uri() + ")",
 				it.next().toString());
-		assertEquals("(http://ccp.ucdenver.edu/obo/ext/DS_KEGG_HUMAN_20101221, " + DCTERMS.DATE + ", "
+		assertEquals("(http://ccp.ucdenver.edu/kabob/ice/DS_KEGG_HUMAN_20101221, " + DCTERMS.DATE + ", "
 				+ RdfUtilTest.getExpectedTimeStamp(createdTimeInMillis) + ")", it.next().toString());
 		assertFalse(it.hasNext());
 	}
@@ -160,20 +160,20 @@ public class RecordUtilTest {
 
 		/* @formatter:off */
 		Set<String> expectedStatements = CollectionsUtil.createSet(
-				"(http://ccp.ucdenver.edu/obo/ext/DS_KEGG_20101221, http://purl.obolibrary.org/obo/BFO_0000051, http://record.uri)",
+				"(http://ccp.ucdenver.edu/kabob/ice/DS_KEGG_20101221, http://purl.obolibrary.org/obo/BFO_0000051, http://record.uri)",
 				"(http://record.uri, http://www.w3.org/1999/02/22-rdf-syntax-ns#type, "	+ CcpExtensionOntology.HPO_ANNOTATION_RECORD.uri() + ")",
-				"(http://record.uri, http://purl.obolibrary.org/obo/BFO_0000051, http://ccp.ucdenver.edu/obo/ext/F_" + fieldHash1 + ")",
-				"(http://ccp.ucdenver.edu/obo/ext/F_" + fieldHash1 + ", " + RDFS.LABEL + ", \"1\"@en)",
-				"(http://ccp.ucdenver.edu/obo/ext/F_" + fieldHash1 + ", http://www.w3.org/1999/02/22-rdf-syntax-ns#type, " + CcpExtensionOntology.SYMBOL_FIELD_VALUE.uri() + ")",
-				"(http://record.uri, http://purl.obolibrary.org/obo/BFO_0000051, http://ccp.ucdenver.edu/obo/ext/F_" + fieldHash3 + ")",
-				"(http://ccp.ucdenver.edu/obo/ext/F_" + fieldHash3 + ", " + RDFS.LABEL + ", \"3\"@en)",
-				"(http://ccp.ucdenver.edu/obo/ext/F_" + fieldHash3 + ", http://www.w3.org/1999/02/22-rdf-syntax-ns#type, " + CcpExtensionOntology.SYNONYMS_FIELD_VALUE.uri() + ")",
-				"(http://record.uri, http://purl.obolibrary.org/obo/BFO_0000051, http://ccp.ucdenver.edu/obo/ext/F_" + fieldHash2 + ")",
-				"(http://ccp.ucdenver.edu/obo/ext/F_" + fieldHash2 + ", http://www.w3.org/1999/02/22-rdf-syntax-ns#type, " + CcpExtensionOntology.NAME_FIELD_VALUE.uri() + ")",
-				"(http://ccp.ucdenver.edu/obo/ext/F_" + fieldHash2 + ", " + RDFS.LABEL + ", \"2\"^^<http://www.w3.org/2001/XMLSchema#integer>)",
-				"(http://record.uri, http://purl.obolibrary.org/obo/BFO_0000051, http://ccp.ucdenver.edu/obo/ext/F_" + fieldHash4 + ")",
-				"(http://ccp.ucdenver.edu/obo/ext/F_" + fieldHash4 + ", http://www.w3.org/1999/02/22-rdf-syntax-ns#type, " + CcpExtensionOntology.SYNONYMS_FIELD_VALUE.uri() + ")",
-				"(http://ccp.ucdenver.edu/obo/ext/F_" + fieldHash4 + ", " + RDFS.LABEL + ", \"4\"@en)");
+				"(http://record.uri, http://purl.obolibrary.org/obo/BFO_0000051, http://ccp.ucdenver.edu/kabob/ice/F_" + fieldHash1 + ")",
+				"(http://ccp.ucdenver.edu/kabob/ice/F_" + fieldHash1 + ", " + RDFS.LABEL + ", \"1\"@en)",
+				"(http://ccp.ucdenver.edu/kabob/ice/F_" + fieldHash1 + ", http://www.w3.org/1999/02/22-rdf-syntax-ns#type, " + CcpExtensionOntology.SYMBOL_FIELD_VALUE.uri() + ")",
+				"(http://record.uri, http://purl.obolibrary.org/obo/BFO_0000051, http://ccp.ucdenver.edu/kabob/ice/F_" + fieldHash3 + ")",
+				"(http://ccp.ucdenver.edu/kabob/ice/F_" + fieldHash3 + ", " + RDFS.LABEL + ", \"3\"@en)",
+				"(http://ccp.ucdenver.edu/kabob/ice/F_" + fieldHash3 + ", http://www.w3.org/1999/02/22-rdf-syntax-ns#type, " + CcpExtensionOntology.SYNONYMS_FIELD_VALUE.uri() + ")",
+				"(http://record.uri, http://purl.obolibrary.org/obo/BFO_0000051, http://ccp.ucdenver.edu/kabob/ice/F_" + fieldHash2 + ")",
+				"(http://ccp.ucdenver.edu/kabob/ice/F_" + fieldHash2 + ", http://www.w3.org/1999/02/22-rdf-syntax-ns#type, " + CcpExtensionOntology.NAME_FIELD_VALUE.uri() + ")",
+				"(http://ccp.ucdenver.edu/kabob/ice/F_" + fieldHash2 + ", " + RDFS.LABEL + ", \"2\"^^<http://www.w3.org/2001/XMLSchema#integer>)",
+				"(http://record.uri, http://purl.obolibrary.org/obo/BFO_0000051, http://ccp.ucdenver.edu/kabob/ice/F_" + fieldHash4 + ")",
+				"(http://ccp.ucdenver.edu/kabob/ice/F_" + fieldHash4 + ", http://www.w3.org/1999/02/22-rdf-syntax-ns#type, " + CcpExtensionOntology.SYNONYMS_FIELD_VALUE.uri() + ")",
+				"(http://ccp.ucdenver.edu/kabob/ice/F_" + fieldHash4 + ", " + RDFS.LABEL + ", \"4\"@en)");
 		/* @formatter:on */
 
 		Collection<? extends Statement> statements = RdfRecordUtil.getRecordInstanceStatements(r, createdTimeInMillis,
@@ -200,26 +200,26 @@ public class RecordUtilTest {
 
 		/* @formatter:off */
 		Set<String> expectedStatements = CollectionsUtil.createSet(
-				"(http://ccp.ucdenver.edu/obo/ext/DS_KEGG_20101221, http://purl.obolibrary.org/obo/BFO_0000051, http://record.uri)",
+				"(http://ccp.ucdenver.edu/kabob/ice/DS_KEGG_20101221, http://purl.obolibrary.org/obo/BFO_0000051, http://record.uri)",
 				"(http://record.uri, http://www.w3.org/1999/02/22-rdf-syntax-ns#type, "	+ CcpExtensionOntology.HGNC_GENE_RECORD.uri() + ")",
-				"(http://record.uri, http://purl.obolibrary.org/obo/BFO_0000051, http://ccp.ucdenver.edu/obo/ext/F_" + fieldHash1 + ")",
-				"(http://ccp.ucdenver.edu/obo/ext/F_" + fieldHash1 + ", " + RDFS.LABEL + ", \"1\"@en)",
-				"(http://ccp.ucdenver.edu/obo/ext/F_" + fieldHash1 + ", http://www.w3.org/1999/02/22-rdf-syntax-ns#type, " + CcpExtensionOntology.SYMBOL_FIELD_VALUE.uri() + ")",
-				"(http://record.uri, http://purl.obolibrary.org/obo/BFO_0000051, http://ccp.ucdenver.edu/obo/ext/F_" + fieldHash3 + ")",
-				"(http://ccp.ucdenver.edu/obo/ext/F_" + fieldHash3 + ", " + RDFS.LABEL + ", \"3\"@en)",
-				"(http://ccp.ucdenver.edu/obo/ext/F_" + fieldHash3 + ", http://www.w3.org/1999/02/22-rdf-syntax-ns#type, " + CcpExtensionOntology.SYNONYMS_FIELD_VALUE.uri() + ")",
-				"(http://record.uri, http://purl.obolibrary.org/obo/BFO_0000051, http://ccp.ucdenver.edu/obo/ext/F_" + fieldHash2 + ")",
-				"(http://ccp.ucdenver.edu/obo/ext/F_" + fieldHash2 + ", http://www.w3.org/1999/02/22-rdf-syntax-ns#type, " + CcpExtensionOntology.NAME_FIELD_VALUE.uri() + ")",
-				"(http://ccp.ucdenver.edu/obo/ext/F_" + fieldHash2 + ", " + RDFS.LABEL + ", \"2\"^^<http://www.w3.org/2001/XMLSchema#integer>)",
-				"(http://record.uri, http://purl.obolibrary.org/obo/BFO_0000051, http://ccp.ucdenver.edu/obo/ext/F_" + fieldHash4 + ")",
-				"(http://ccp.ucdenver.edu/obo/ext/F_" + fieldHash4 + ", http://www.w3.org/1999/02/22-rdf-syntax-ns#type, " + CcpExtensionOntology.SYNONYMS_FIELD_VALUE.uri() + ")",
-				"(http://ccp.ucdenver.edu/obo/ext/F_" + fieldHash4 + ", " + RDFS.LABEL + ", \"4\"@en)",
-				"(http://record.uri, http://purl.obolibrary.org/obo/BFO_0000051, http://ccp.ucdenver.edu/obo/ext/R_" + subRecordHash + ")",
-				"(http://ccp.ucdenver.edu/obo/ext/R_" + subRecordHash + ", http://www.w3.org/1999/02/22-rdf-syntax-ns#type, " + CcpExtensionOntology.DATABASE_CROSS_REFERENCE_IDENTIFIER_FIELD_VALUE.uri() + ")",
-				"(http://ccp.ucdenver.edu/obo/ext/R_" + subRecordHash + ", http://www.w3.org/1999/02/22-rdf-syntax-ns#type, " + CcpExtensionOntology.GOA_GAF_RECORD.uri() + ")",
-				"(http://ccp.ucdenver.edu/obo/ext/R_" + subRecordHash + ", http://purl.obolibrary.org/obo/BFO_0000051, http://ccp.ucdenver.edu/obo/ext/F_" + fieldHash_sub + ")",
-				"(http://ccp.ucdenver.edu/obo/ext/F_" + fieldHash_sub + ", http://www.w3.org/1999/02/22-rdf-syntax-ns#type, " + CcpExtensionOntology.GOA_GAF_V20_ANNOTATION_RECORD___DATABASE_OBJECT_NAME_FIELD_VALUE.uri() + ")",
-				"(http://ccp.ucdenver.edu/obo/ext/F_" + fieldHash_sub + ", " + RDFS.LABEL + ", \"sub\"@en)");
+				"(http://record.uri, http://purl.obolibrary.org/obo/BFO_0000051, http://ccp.ucdenver.edu/kabob/ice/F_" + fieldHash1 + ")",
+				"(http://ccp.ucdenver.edu/kabob/ice/F_" + fieldHash1 + ", " + RDFS.LABEL + ", \"1\"@en)",
+				"(http://ccp.ucdenver.edu/kabob/ice/F_" + fieldHash1 + ", http://www.w3.org/1999/02/22-rdf-syntax-ns#type, " + CcpExtensionOntology.SYMBOL_FIELD_VALUE.uri() + ")",
+				"(http://record.uri, http://purl.obolibrary.org/obo/BFO_0000051, http://ccp.ucdenver.edu/kabob/ice/F_" + fieldHash3 + ")",
+				"(http://ccp.ucdenver.edu/kabob/ice/F_" + fieldHash3 + ", " + RDFS.LABEL + ", \"3\"@en)",
+				"(http://ccp.ucdenver.edu/kabob/ice/F_" + fieldHash3 + ", http://www.w3.org/1999/02/22-rdf-syntax-ns#type, " + CcpExtensionOntology.SYNONYMS_FIELD_VALUE.uri() + ")",
+				"(http://record.uri, http://purl.obolibrary.org/obo/BFO_0000051, http://ccp.ucdenver.edu/kabob/ice/F_" + fieldHash2 + ")",
+				"(http://ccp.ucdenver.edu/kabob/ice/F_" + fieldHash2 + ", http://www.w3.org/1999/02/22-rdf-syntax-ns#type, " + CcpExtensionOntology.NAME_FIELD_VALUE.uri() + ")",
+				"(http://ccp.ucdenver.edu/kabob/ice/F_" + fieldHash2 + ", " + RDFS.LABEL + ", \"2\"^^<http://www.w3.org/2001/XMLSchema#integer>)",
+				"(http://record.uri, http://purl.obolibrary.org/obo/BFO_0000051, http://ccp.ucdenver.edu/kabob/ice/F_" + fieldHash4 + ")",
+				"(http://ccp.ucdenver.edu/kabob/ice/F_" + fieldHash4 + ", http://www.w3.org/1999/02/22-rdf-syntax-ns#type, " + CcpExtensionOntology.SYNONYMS_FIELD_VALUE.uri() + ")",
+				"(http://ccp.ucdenver.edu/kabob/ice/F_" + fieldHash4 + ", " + RDFS.LABEL + ", \"4\"@en)",
+				"(http://record.uri, http://purl.obolibrary.org/obo/BFO_0000051, http://ccp.ucdenver.edu/kabob/ice/R_" + subRecordHash + ")",
+				"(http://ccp.ucdenver.edu/kabob/ice/R_" + subRecordHash + ", http://www.w3.org/1999/02/22-rdf-syntax-ns#type, " + CcpExtensionOntology.DATABASE_CROSS_REFERENCE_IDENTIFIER_FIELD_VALUE.uri() + ")",
+				"(http://ccp.ucdenver.edu/kabob/ice/R_" + subRecordHash + ", http://www.w3.org/1999/02/22-rdf-syntax-ns#type, " + CcpExtensionOntology.GOA_GAF_RECORD.uri() + ")",
+				"(http://ccp.ucdenver.edu/kabob/ice/R_" + subRecordHash + ", http://purl.obolibrary.org/obo/BFO_0000051, http://ccp.ucdenver.edu/kabob/ice/F_" + fieldHash_sub + ")",
+				"(http://ccp.ucdenver.edu/kabob/ice/F_" + fieldHash_sub + ", http://www.w3.org/1999/02/22-rdf-syntax-ns#type, " + CcpExtensionOntology.GOA_GAF_V20_ANNOTATION_RECORD___DATABASE_OBJECT_NAME_FIELD_VALUE.uri() + ")",
+				"(http://ccp.ucdenver.edu/kabob/ice/F_" + fieldHash_sub + ", " + RDFS.LABEL + ", \"sub\"@en)");
 		/* @formatter:on */
 
 		Collection<? extends Statement> statements = RdfRecordUtil.getRecordInstanceStatements(r, createdTimeInMillis,
@@ -242,20 +242,20 @@ public class RecordUtilTest {
 
 		/* @formatter:off */
 		Set<String> expectedStatements = CollectionsUtil.createSet(
-				"(http://ccp.ucdenver.edu/obo/ext/DS_KEGG_KEY_20101221, http://purl.obolibrary.org/obo/BFO_0000051, http://record.uri)",
+				"(http://ccp.ucdenver.edu/kabob/ice/DS_KEGG_KEY_20101221, http://purl.obolibrary.org/obo/BFO_0000051, http://record.uri)",
 				"(http://record.uri, http://www.w3.org/1999/02/22-rdf-syntax-ns#type, "	+ CcpExtensionOntology.HPO_ANNOTATION_RECORD.uri() + ")",
-				"(http://record.uri, http://purl.obolibrary.org/obo/BFO_0000051, http://ccp.ucdenver.edu/obo/ext/F_" + fieldHash1 + ")",
-				"(http://ccp.ucdenver.edu/obo/ext/F_" + fieldHash1 + ", " + RDFS.LABEL + ", \"1\"@en)",
-				"(http://ccp.ucdenver.edu/obo/ext/F_" + fieldHash1 + ", http://www.w3.org/1999/02/22-rdf-syntax-ns#type, " + CcpExtensionOntology.SYMBOL_FIELD_VALUE.uri() + ")",
-				"(http://record.uri, http://purl.obolibrary.org/obo/BFO_0000051, http://ccp.ucdenver.edu/obo/ext/F_" + fieldHash3 + ")",
-				"(http://ccp.ucdenver.edu/obo/ext/F_" + fieldHash3 + ", " + RDFS.LABEL + ", \"3\"@en)",
-				"(http://ccp.ucdenver.edu/obo/ext/F_" + fieldHash3 + ", http://www.w3.org/1999/02/22-rdf-syntax-ns#type, " + CcpExtensionOntology.SYNONYMS_FIELD_VALUE.uri() + ")",
-				"(http://record.uri, http://purl.obolibrary.org/obo/BFO_0000051, http://ccp.ucdenver.edu/obo/ext/F_" + fieldHash2 + ")",
-				"(http://ccp.ucdenver.edu/obo/ext/F_" + fieldHash2 + ", http://www.w3.org/1999/02/22-rdf-syntax-ns#type, " + CcpExtensionOntology.NAME_FIELD_VALUE.uri() + ")",
-				"(http://ccp.ucdenver.edu/obo/ext/F_" + fieldHash2 + ", " + RDFS.LABEL + ", \"2\"^^<http://www.w3.org/2001/XMLSchema#integer>)",
-				"(http://record.uri, http://purl.obolibrary.org/obo/BFO_0000051, http://ccp.ucdenver.edu/obo/ext/F_" + fieldHash4 + ")",
-				"(http://ccp.ucdenver.edu/obo/ext/F_" + fieldHash4 + ", http://www.w3.org/1999/02/22-rdf-syntax-ns#type, " + CcpExtensionOntology.SYNONYMS_FIELD_VALUE.uri() + ")",
-				"(http://ccp.ucdenver.edu/obo/ext/F_" + fieldHash4 + ", " + RDFS.LABEL + ", \"4\"@en)");
+				"(http://record.uri, http://purl.obolibrary.org/obo/BFO_0000051, http://ccp.ucdenver.edu/kabob/ice/F_" + fieldHash1 + ")",
+				"(http://ccp.ucdenver.edu/kabob/ice/F_" + fieldHash1 + ", " + RDFS.LABEL + ", \"1\"@en)",
+				"(http://ccp.ucdenver.edu/kabob/ice/F_" + fieldHash1 + ", http://www.w3.org/1999/02/22-rdf-syntax-ns#type, " + CcpExtensionOntology.SYMBOL_FIELD_VALUE.uri() + ")",
+				"(http://record.uri, http://purl.obolibrary.org/obo/BFO_0000051, http://ccp.ucdenver.edu/kabob/ice/F_" + fieldHash3 + ")",
+				"(http://ccp.ucdenver.edu/kabob/ice/F_" + fieldHash3 + ", " + RDFS.LABEL + ", \"3\"@en)",
+				"(http://ccp.ucdenver.edu/kabob/ice/F_" + fieldHash3 + ", http://www.w3.org/1999/02/22-rdf-syntax-ns#type, " + CcpExtensionOntology.SYNONYMS_FIELD_VALUE.uri() + ")",
+				"(http://record.uri, http://purl.obolibrary.org/obo/BFO_0000051, http://ccp.ucdenver.edu/kabob/ice/F_" + fieldHash2 + ")",
+				"(http://ccp.ucdenver.edu/kabob/ice/F_" + fieldHash2 + ", http://www.w3.org/1999/02/22-rdf-syntax-ns#type, " + CcpExtensionOntology.NAME_FIELD_VALUE.uri() + ")",
+				"(http://ccp.ucdenver.edu/kabob/ice/F_" + fieldHash2 + ", " + RDFS.LABEL + ", \"2\"^^<http://www.w3.org/2001/XMLSchema#integer>)",
+				"(http://record.uri, http://purl.obolibrary.org/obo/BFO_0000051, http://ccp.ucdenver.edu/kabob/ice/F_" + fieldHash4 + ")",
+				"(http://ccp.ucdenver.edu/kabob/ice/F_" + fieldHash4 + ", http://www.w3.org/1999/02/22-rdf-syntax-ns#type, " + CcpExtensionOntology.SYNONYMS_FIELD_VALUE.uri() + ")",
+				"(http://ccp.ucdenver.edu/kabob/ice/F_" + fieldHash4 + ", " + RDFS.LABEL + ", \"4\"@en)");
 		/* @formatter:on */
 
 		Collection<? extends Statement> statements = RdfRecordUtil.getRecordInstanceStatements(r, createdTimeInMillis,
@@ -305,17 +305,17 @@ public class RecordUtilTest {
 		long createdTimeInMillis = new GregorianCalendar(2010, 11, 21).getTimeInMillis();
 		DataRecord r = new TestDataRecordWithIdentifier();
 
-		String fieldHash1 = "rF6Eg4r4PGGWKfvpA-vucv_2HPc";
+		String fieldHash1 = "vpdCIBw0Qk5ZmMUUM8_DRsznmAs";
 
 		/* @formatter:off */
 		Set<String> expectedStatements = CollectionsUtil.createSet(
-				"(http://ccp.ucdenver.edu/obo/ext/DS_HGNC_KEY_20101221, http://purl.obolibrary.org/obo/BFO_0000051, http://record.uri)",
+				"(http://ccp.ucdenver.edu/kabob/ice/DS_HGNC_KEY_20101221, http://purl.obolibrary.org/obo/BFO_0000051, http://record.uri)",
 				"(http://record.uri, http://www.w3.org/1999/02/22-rdf-syntax-ns#type, "	+ CcpExtensionOntology.HGNC_GENE_RECORD.uri() + ")",
-				"(http://record.uri, http://purl.obolibrary.org/obo/BFO_0000051, http://ccp.ucdenver.edu/obo/ext/F_" + fieldHash1 + ")",
-				"(http://ccp.ucdenver.edu/obo/ext/F_" + fieldHash1 + ", " + RDFS.LABEL + ", \"ABBA\"@en)",
-				"(http://ccp.ucdenver.edu/obo/ext/F_" + fieldHash1 + ", http://www.w3.org/1999/02/22-rdf-syntax-ns#type, " + CcpExtensionOntology.HGNC_GENE_RECORD___HGNC_IDENTIFIER_FIELD_VALUE.uri() + ")",
-				"(http://ccp.ucdenver.edu/obo/ext/F_" + fieldHash1 + ", http://www.w3.org/1999/02/22-rdf-syntax-ns#type, http://ccp.ucdenver.edu/obo/ext/HGNC_ABBA)",
-				"(http://ccp.ucdenver.edu/obo/ext/HGNC_ABBA, "+ RDFS.SUBCLASSOF.toString() + ", "+ CcpExtensionOntology.HGNC_GENE_SYMBOL_IDENTIFIER.uri() + ")");
+				"(http://record.uri, http://purl.obolibrary.org/obo/BFO_0000051, http://ccp.ucdenver.edu/kabob/ice/F_" + fieldHash1 + ")",
+				"(http://ccp.ucdenver.edu/kabob/ice/F_" + fieldHash1 + ", " + RDFS.LABEL + ", \"ABBA\"@en)",
+				"(http://ccp.ucdenver.edu/kabob/ice/F_" + fieldHash1 + ", http://www.w3.org/1999/02/22-rdf-syntax-ns#type, " + CcpExtensionOntology.HGNC_GENE_RECORD___HGNC_IDENTIFIER_FIELD_VALUE.uri() + ")",
+				"(http://ccp.ucdenver.edu/kabob/ice/F_" + fieldHash1 + ", http://www.w3.org/1999/02/22-rdf-syntax-ns#type, http://ccp.ucdenver.edu/kabob/ice/HGNC_ABBA)",
+				"(http://ccp.ucdenver.edu/kabob/ice/HGNC_ABBA, "+ RDFS.SUBCLASSOF.toString() + ", "+ CcpExtensionOntology.HGNC_GENE_SYMBOL_IDENTIFIER.uri() + ")");
 		/* @formatter:on */
 
 		Collection<? extends Statement> statements = RdfRecordUtil.getRecordInstanceStatements(r, createdTimeInMillis,
@@ -339,17 +339,17 @@ public class RecordUtilTest {
 		long createdTimeInMillis = new GregorianCalendar(2010, 11, 21).getTimeInMillis();
 		DataRecord r = new TestDataRecordWithOntologyIdentifier();
 
-		String fieldHash1 = "vg3uIdG5p0H_LaRo6eqp5IFQZHw";
+		String fieldHash1 = "zVQ1GSKocewBRrUhti2nA6inEyk";
 
 		/* @formatter:off */
 		Set<String> expectedStatements = CollectionsUtil.createSet(
-				"(http://ccp.ucdenver.edu/obo/ext/DS_HGNC_KEY_20101221, http://purl.obolibrary.org/obo/BFO_0000051, http://record.uri)",
+				"(http://ccp.ucdenver.edu/kabob/ice/DS_HGNC_KEY_20101221, http://purl.obolibrary.org/obo/BFO_0000051, http://record.uri)",
 				"(http://record.uri, http://www.w3.org/1999/02/22-rdf-syntax-ns#type, "	+ CcpExtensionOntology.HGNC_GENE_RECORD.uri() + ")",
-				"(http://record.uri, http://purl.obolibrary.org/obo/BFO_0000051, http://ccp.ucdenver.edu/obo/ext/F_" + fieldHash1 + ")",
-				"(http://ccp.ucdenver.edu/obo/ext/F_" + fieldHash1 + ", " + RDFS.LABEL + ", \"GO:0001234\"@en)",
-				"(http://ccp.ucdenver.edu/obo/ext/F_" + fieldHash1 + ", http://www.w3.org/1999/02/22-rdf-syntax-ns#type, " + CcpExtensionOntology.HGNC_GENE_RECORD___HGNC_IDENTIFIER_FIELD_VALUE.uri() + ")",
-				"(http://ccp.ucdenver.edu/obo/ext/F_" + fieldHash1 + ", http://www.w3.org/1999/02/22-rdf-syntax-ns#type, http://ccp.ucdenver.edu/obo/ext/GO_0001234)",
-				"(http://ccp.ucdenver.edu/obo/ext/GO_0001234, "+ RDFS.SUBCLASSOF.toString() + ", "+ CcpExtensionOntology.GENE_ONTOLOGY_CONCEPT_IDENTIFIER.uri() + ")");
+				"(http://record.uri, http://purl.obolibrary.org/obo/BFO_0000051, http://ccp.ucdenver.edu/kabob/ice/F_" + fieldHash1 + ")",
+				"(http://ccp.ucdenver.edu/kabob/ice/F_" + fieldHash1 + ", " + RDFS.LABEL + ", \"GO:0001234\"@en)",
+				"(http://ccp.ucdenver.edu/kabob/ice/F_" + fieldHash1 + ", http://www.w3.org/1999/02/22-rdf-syntax-ns#type, " + CcpExtensionOntology.HGNC_GENE_RECORD___HGNC_IDENTIFIER_FIELD_VALUE.uri() + ")",
+				"(http://ccp.ucdenver.edu/kabob/ice/F_" + fieldHash1 + ", http://www.w3.org/1999/02/22-rdf-syntax-ns#type, http://ccp.ucdenver.edu/kabob/ice/GO_0001234)",
+				"(http://ccp.ucdenver.edu/kabob/ice/GO_0001234, "+ RDFS.SUBCLASSOF.toString() + ", "+ CcpExtensionOntology.GENE_ONTOLOGY_CONCEPT_IDENTIFIER.uri() + ")");
 		/* @formatter:on */
 
 		Collection<? extends Statement> statements = RdfRecordUtil.getRecordInstanceStatements(r, createdTimeInMillis,

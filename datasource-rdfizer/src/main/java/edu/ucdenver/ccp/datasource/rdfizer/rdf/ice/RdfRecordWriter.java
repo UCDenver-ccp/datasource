@@ -350,7 +350,7 @@ public class RdfRecordWriter<T extends RecordReader<?>> {
 				+ ((dmd.getDownloadUrl() == null) ? "" : dmd.getDownloadUrl().toString()) + dmd.getFileSizeInBytes();
 
 		String digest = DigestUtils.sha256Hex(s);
-		return new URIImpl("http://ccp.ucdenver.edu/obo/ext/S_" + digest);
+		return new URIImpl(DataSource.KABOB_ICE.longName() + "S_" + digest);
 	}
 
 	private Collection<Statement> getDownloadMetadataStatements(DownloadMetadata dmd, URIImpl dataSetInstanceUri)

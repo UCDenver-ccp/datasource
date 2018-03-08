@@ -149,13 +149,13 @@ public class RdfUtilTest extends DefaultTestCase {
 
 	@Test
 	public final void testCreateCcpUri_forDatasourceId() {
-		assertEquals("http://ccp.ucdenver.edu/obo/ext/NCBI_GENE_123456", RdfUtil
+		assertEquals("http://ccp.ucdenver.edu/kabob/ice/NCBI_GENE_123456", RdfUtil
 				.createCcpUri(new NcbiGeneId(123456)).toString());
 	}
 
 	@Test
 	public final void testCreateCcpUri_forDatasourceId_ncbitaxon() {
-		assertEquals("http://ccp.ucdenver.edu/obo/ext/NCBITaxon_9606", RdfUtil
+		assertEquals("http://ccp.ucdenver.edu/kabob/ice/NCBITaxon_9606", RdfUtil
 				.createCcpUri(NcbiTaxonomyID.HUMAN).toString());
 	}
 	

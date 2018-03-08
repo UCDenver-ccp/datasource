@@ -110,18 +110,18 @@ public class RdfRecordWriter_InvalidIdentifierTest extends DefaultTestCase {
 
 	private List<String> getExpectedLines(String timestamp) {
 
-		String recordHash1 = "XNtdzDn7n4FX2h_2IvZbmIgMADk";
-		String fieldHash_1_1 = "fL2YEdeVCVPT-TpnzPUjxPQ0Op8"; // PR:000000005
-		String fieldHash_1_2 = "Yx1D_QkJseyfomgZpcEUoW5t_3c"; // HGNC:11773
+		String recordHash1 = "LNvj1AqIkbwWYFTyf8m7mDXKudM";
+		String fieldHash_1_1 = "E8GIcOAXAn5xhUTgluF6Nw_oD_0"; // PR:000000005
+		String fieldHash_1_2 = "8KFJXeHu_bJTJKOAh_v_iaHVDgg"; // HGNC:11773
 		String fieldHash_1_3 = "DMHorv2gNNZbf9mxOuF5KtY9kDw"; // is_a
 
-		String recordHash2 = "LvRLq5aOGkx7-WkQJxcIk5V8daU";
+		String recordHash2 = "oFXUNZRInFRPK6k0eQG_MWPTcfQ";
 		String fieldHash_2_1 = fieldHash_1_1; // PR:000000005
 		String fieldHash_2_2 = "3c8k63TsxT7FPzTfo9m8foFL4dI"; // UniProtKB_VAR:VAR_022359
 		String fieldHash_2_3 = fieldHash_1_3; // is_a
 
-		String recordHash3 = "u1x8JAp3svavYRurYCqcH12cyYc";
-		String fieldHash_3_1 = "P0JJEE-FidLu4jXZMtR9_C4Ik78"; // PR:000000006
+		String recordHash3 = "_GiMvYVHrTLoHrWYHWJy5E-ZNMk";
+		String fieldHash_3_1 = "6D4b33BxO4J_ZqUZ7mULsUntkUU"; // PR:000000006
 		String fieldHash_3_2 = "u4hQlNNMmKwnmi0jfXIXKxJJp-o"; // UniProtKB:PABCDE
 		String fieldHash_3_3 = "C2ciNC0aev2gZkUKJOlmf8l8yoA"; // exact
 
@@ -130,63 +130,63 @@ public class RdfRecordWriter_InvalidIdentifierTest extends DefaultTestCase {
 		return CollectionsUtil.createList(
 				/* @formatter:off */
 						
-						"<http://ccp.ucdenver.edu/obo/ext/DS_PR_20101217> <" + RDF.TYPE + "> <" + CcpExtensionOntology.RECORD_SET.uri() + "> .",
-						"<http://ccp.ucdenver.edu/obo/ext/DS_PR_20101217> <" + DCTERMS.DATE + "> " + timestamp + " .",
+						"<http://ccp.ucdenver.edu/kabob/ice/DS_PR_20101217> <" + RDF.TYPE + "> <" + CcpExtensionOntology.RECORD_SET.uri() + "> .",
+						"<http://ccp.ucdenver.edu/kabob/ice/DS_PR_20101217> <" + DCTERMS.DATE + "> " + timestamp + " .",
 						
 						/* record 1:   PR:000000005\tHGNC:11773\tis_a" */
-						"<http://ccp.ucdenver.edu/obo/ext/DS_PR_20101217> <" + RO.HAS_PART.uri() + "> <http://ccp.ucdenver.edu/obo/ext/R_" + recordHash1 + "> .",
-						"<http://ccp.ucdenver.edu/obo/ext/R_" + recordHash1 + "> <" + RDF.TYPE + "> <" + CcpExtensionOntology.PRO_IDENTIFIER_MAPPING_RECORD.uri() + "> .",
+						"<http://ccp.ucdenver.edu/kabob/ice/DS_PR_20101217> <" + RO.HAS_PART.uri() + "> <http://ccp.ucdenver.edu/kabob/ice/R_" + recordHash1 + "> .",
+						"<http://ccp.ucdenver.edu/kabob/ice/R_" + recordHash1 + "> <" + RDF.TYPE + "> <" + CcpExtensionOntology.PRO_IDENTIFIER_MAPPING_RECORD.uri() + "> .",
 
-						"<http://ccp.ucdenver.edu/obo/ext/R_" + recordHash1 + "> <" + RO.HAS_PART.uri() + "> <http://ccp.ucdenver.edu/obo/ext/F_" + fieldHash_1_1 + "> .",
-						"<http://ccp.ucdenver.edu/obo/ext/F_" + fieldHash_1_1 + "> <" + RDF.TYPE + "> <" + CcpExtensionOntology.PRO_IDENTIFIER_MAPPING_RECORD___PRO_IDENTIFIER_FIELD_VALUE.uri() + "> .",
-						"<http://ccp.ucdenver.edu/obo/ext/F_" + fieldHash_1_1 + "> <" + RDF.TYPE + "> <http://ccp.ucdenver.edu/obo/ext/PR_000000005> .",						
-						"<http://ccp.ucdenver.edu/obo/ext/PR_000000005> <" + RDFS.SUBCLASSOF + "> <"+CcpExtensionOntology.PROTEIN_ONTOLOGY_CONCEPT_IDENTIFIER.uri()+"> .",
-						"<http://ccp.ucdenver.edu/obo/ext/F_" + fieldHash_1_1 + "> <" + RDFS.LABEL + "> \"PR:000000005\"@en .",
+						"<http://ccp.ucdenver.edu/kabob/ice/R_" + recordHash1 + "> <" + RO.HAS_PART.uri() + "> <http://ccp.ucdenver.edu/kabob/ice/F_" + fieldHash_1_1 + "> .",
+						"<http://ccp.ucdenver.edu/kabob/ice/F_" + fieldHash_1_1 + "> <" + RDF.TYPE + "> <" + CcpExtensionOntology.PRO_IDENTIFIER_MAPPING_RECORD___PRO_IDENTIFIER_FIELD_VALUE.uri() + "> .",
+						"<http://ccp.ucdenver.edu/kabob/ice/F_" + fieldHash_1_1 + "> <" + RDF.TYPE + "> <http://ccp.ucdenver.edu/kabob/ice/PR_000000005> .",						
+						"<http://ccp.ucdenver.edu/kabob/ice/PR_000000005> <" + RDFS.SUBCLASSOF + "> <"+CcpExtensionOntology.PROTEIN_ONTOLOGY_CONCEPT_IDENTIFIER.uri()+"> .",
+						"<http://ccp.ucdenver.edu/kabob/ice/F_" + fieldHash_1_1 + "> <" + RDFS.LABEL + "> \"PR:000000005\"@en .",
 						
-						"<http://ccp.ucdenver.edu/obo/ext/R_" + recordHash1 + "> <" + RO.HAS_PART.uri() + "> <http://ccp.ucdenver.edu/obo/ext/F_" + fieldHash_1_2 + "> .",
-						"<http://ccp.ucdenver.edu/obo/ext/F_" + fieldHash_1_2 + "> <" + RDF.TYPE + "> <" + CcpExtensionOntology.PRO_IDENTIFIER_MAPPING_RECORD___TARGET_RECORD_IDENTIFIER_FIELD_VALUE.uri() + "> .",
-						"<http://ccp.ucdenver.edu/obo/ext/F_" + fieldHash_1_2 + "> <" + RDF.TYPE + "> <http://ccp.ucdenver.edu/obo/ext/HGNC_11773> .",
-						"<http://ccp.ucdenver.edu/obo/ext/HGNC_11773> <" + RDFS.SUBCLASSOF + "> <"+CcpExtensionOntology.HGNC_GENE_IDENTIFIER.uri()+"> .",
-						"<http://ccp.ucdenver.edu/obo/ext/F_" + fieldHash_1_2 + "> <" + RDFS.LABEL + "> \"HGNC:11773\"@en .",
+						"<http://ccp.ucdenver.edu/kabob/ice/R_" + recordHash1 + "> <" + RO.HAS_PART.uri() + "> <http://ccp.ucdenver.edu/kabob/ice/F_" + fieldHash_1_2 + "> .",
+						"<http://ccp.ucdenver.edu/kabob/ice/F_" + fieldHash_1_2 + "> <" + RDF.TYPE + "> <" + CcpExtensionOntology.PRO_IDENTIFIER_MAPPING_RECORD___TARGET_RECORD_IDENTIFIER_FIELD_VALUE.uri() + "> .",
+						"<http://ccp.ucdenver.edu/kabob/ice/F_" + fieldHash_1_2 + "> <" + RDF.TYPE + "> <http://ccp.ucdenver.edu/kabob/ice/HGNC_11773> .",
+						"<http://ccp.ucdenver.edu/kabob/ice/HGNC_11773> <" + RDFS.SUBCLASSOF + "> <"+CcpExtensionOntology.HGNC_GENE_IDENTIFIER.uri()+"> .",
+						"<http://ccp.ucdenver.edu/kabob/ice/F_" + fieldHash_1_2 + "> <" + RDFS.LABEL + "> \"HGNC:11773\"@en .",
 						
-						"<http://ccp.ucdenver.edu/obo/ext/R_" + recordHash1 + "> <" + RO.HAS_PART.uri() + "> <http://ccp.ucdenver.edu/obo/ext/F_" + fieldHash_1_3 + "> .",
-						"<http://ccp.ucdenver.edu/obo/ext/F_" + fieldHash_1_3 + "> <" + RDF.TYPE + "> <" + CcpExtensionOntology.PRO_IDENTIFIER_MAPPING_RECORD___MAPPING_TYPE_FIELD_VALUE.uri() + "> .",
-						"<http://ccp.ucdenver.edu/obo/ext/F_" + fieldHash_1_3 + "> <" + RDFS.LABEL + "> \"is_a\"@en .",
+						"<http://ccp.ucdenver.edu/kabob/ice/R_" + recordHash1 + "> <" + RO.HAS_PART.uri() + "> <http://ccp.ucdenver.edu/kabob/ice/F_" + fieldHash_1_3 + "> .",
+						"<http://ccp.ucdenver.edu/kabob/ice/F_" + fieldHash_1_3 + "> <" + RDF.TYPE + "> <" + CcpExtensionOntology.PRO_IDENTIFIER_MAPPING_RECORD___MAPPING_TYPE_FIELD_VALUE.uri() + "> .",
+						"<http://ccp.ucdenver.edu/kabob/ice/F_" + fieldHash_1_3 + "> <" + RDFS.LABEL + "> \"is_a\"@en .",
 
 						/* record 2: "PR:000000005\tUniProtKB_VAR:VAR_022359\tis_a", */
-						"<http://ccp.ucdenver.edu/obo/ext/DS_PR_20101217> <" + RO.HAS_PART.uri() + "> <http://ccp.ucdenver.edu/obo/ext/R_" + recordHash2 + "> .",
-						"<http://ccp.ucdenver.edu/obo/ext/R_" + recordHash2 + "> <" + RDF.TYPE + "> <" + CcpExtensionOntology.PRO_IDENTIFIER_MAPPING_RECORD.uri() + "> .",
+						"<http://ccp.ucdenver.edu/kabob/ice/DS_PR_20101217> <" + RO.HAS_PART.uri() + "> <http://ccp.ucdenver.edu/kabob/ice/R_" + recordHash2 + "> .",
+						"<http://ccp.ucdenver.edu/kabob/ice/R_" + recordHash2 + "> <" + RDF.TYPE + "> <" + CcpExtensionOntology.PRO_IDENTIFIER_MAPPING_RECORD.uri() + "> .",
 
-						"<http://ccp.ucdenver.edu/obo/ext/R_" + recordHash2 + "> <" + RO.HAS_PART.uri() + "> <http://ccp.ucdenver.edu/obo/ext/F_" + fieldHash_2_1 + "> .",
+						"<http://ccp.ucdenver.edu/kabob/ice/R_" + recordHash2 + "> <" + RO.HAS_PART.uri() + "> <http://ccp.ucdenver.edu/kabob/ice/F_" + fieldHash_2_1 + "> .",
 						
-						"<http://ccp.ucdenver.edu/obo/ext/R_" + recordHash2 + "> <" + RO.HAS_PART.uri() + "> <http://ccp.ucdenver.edu/obo/ext/F_" + fieldHash_2_2 + "> .",
-						"<http://ccp.ucdenver.edu/obo/ext/F_" + fieldHash_2_2 + "> <" + RDF.TYPE + "> <" + CcpExtensionOntology.PRO_IDENTIFIER_MAPPING_RECORD___TARGET_RECORD_IDENTIFIER_FIELD_VALUE.uri() + "> .",
-						"<http://ccp.ucdenver.edu/obo/ext/F_" + fieldHash_2_2 + "> <" + RDF.TYPE + "> <" + CcpExtensionOntology.IDENTIFIER_OF_UNKNOWN_ORIGIN.uri() + "> .",
-						"<http://ccp.ucdenver.edu/obo/ext/F_" + fieldHash_2_2 + "> <" + RDFS.LABEL + "> \"UniProtKB_VAR:VAR_022359\"@en .",
+						"<http://ccp.ucdenver.edu/kabob/ice/R_" + recordHash2 + "> <" + RO.HAS_PART.uri() + "> <http://ccp.ucdenver.edu/kabob/ice/F_" + fieldHash_2_2 + "> .",
+						"<http://ccp.ucdenver.edu/kabob/ice/F_" + fieldHash_2_2 + "> <" + RDF.TYPE + "> <" + CcpExtensionOntology.PRO_IDENTIFIER_MAPPING_RECORD___TARGET_RECORD_IDENTIFIER_FIELD_VALUE.uri() + "> .",
+						"<http://ccp.ucdenver.edu/kabob/ice/F_" + fieldHash_2_2 + "> <" + RDF.TYPE + "> <" + CcpExtensionOntology.IDENTIFIER_OF_UNKNOWN_ORIGIN.uri() + "> .",
+						"<http://ccp.ucdenver.edu/kabob/ice/F_" + fieldHash_2_2 + "> <" + RDFS.LABEL + "> \"UniProtKB_VAR:VAR_022359\"@en .",
 						
-						"<http://ccp.ucdenver.edu/obo/ext/R_" + recordHash2 + "> <" + RO.HAS_PART.uri() + "> <http://ccp.ucdenver.edu/obo/ext/F_" + fieldHash_2_3 + "> .",
+						"<http://ccp.ucdenver.edu/kabob/ice/R_" + recordHash2 + "> <" + RO.HAS_PART.uri() + "> <http://ccp.ucdenver.edu/kabob/ice/F_" + fieldHash_2_3 + "> .",
 						
 						/* record 3: "PR:000000006\tUniProtKB:PABCDE\texact */
-						"<http://ccp.ucdenver.edu/obo/ext/DS_PR_20101217> <" + RO.HAS_PART.uri() + "> <http://ccp.ucdenver.edu/obo/ext/R_" + recordHash3 + "> .",
-						"<http://ccp.ucdenver.edu/obo/ext/R_" + recordHash3 + "> <" + RDF.TYPE + "> <" + CcpExtensionOntology.PRO_IDENTIFIER_MAPPING_RECORD.uri() + "> .",
+						"<http://ccp.ucdenver.edu/kabob/ice/DS_PR_20101217> <" + RO.HAS_PART.uri() + "> <http://ccp.ucdenver.edu/kabob/ice/R_" + recordHash3 + "> .",
+						"<http://ccp.ucdenver.edu/kabob/ice/R_" + recordHash3 + "> <" + RDF.TYPE + "> <" + CcpExtensionOntology.PRO_IDENTIFIER_MAPPING_RECORD.uri() + "> .",
 
-						"<http://ccp.ucdenver.edu/obo/ext/R_" + recordHash3 + "> <" + RO.HAS_PART.uri() + "> <http://ccp.ucdenver.edu/obo/ext/F_" + fieldHash_3_1 + "> .",
-						"<http://ccp.ucdenver.edu/obo/ext/F_" + fieldHash_3_1 + "> <" + RDF.TYPE + "> <" + CcpExtensionOntology.PRO_IDENTIFIER_MAPPING_RECORD___PRO_IDENTIFIER_FIELD_VALUE.uri() + "> .",
-						"<http://ccp.ucdenver.edu/obo/ext/F_" + fieldHash_3_1 + "> <" + RDF.TYPE + "> <http://ccp.ucdenver.edu/obo/ext/PR_000000006> .",
-						"<http://ccp.ucdenver.edu/obo/ext/PR_000000006> <" + RDFS.SUBCLASSOF + "> <"+CcpExtensionOntology.PROTEIN_ONTOLOGY_CONCEPT_IDENTIFIER.uri()+"> .",
-						"<http://ccp.ucdenver.edu/obo/ext/F_" + fieldHash_3_1 + "> <" + RDFS.LABEL + "> \"PR:000000006\"@en .",
+						"<http://ccp.ucdenver.edu/kabob/ice/R_" + recordHash3 + "> <" + RO.HAS_PART.uri() + "> <http://ccp.ucdenver.edu/kabob/ice/F_" + fieldHash_3_1 + "> .",
+						"<http://ccp.ucdenver.edu/kabob/ice/F_" + fieldHash_3_1 + "> <" + RDF.TYPE + "> <" + CcpExtensionOntology.PRO_IDENTIFIER_MAPPING_RECORD___PRO_IDENTIFIER_FIELD_VALUE.uri() + "> .",
+						"<http://ccp.ucdenver.edu/kabob/ice/F_" + fieldHash_3_1 + "> <" + RDF.TYPE + "> <http://ccp.ucdenver.edu/kabob/ice/PR_000000006> .",
+						"<http://ccp.ucdenver.edu/kabob/ice/PR_000000006> <" + RDFS.SUBCLASSOF + "> <"+CcpExtensionOntology.PROTEIN_ONTOLOGY_CONCEPT_IDENTIFIER.uri()+"> .",
+						"<http://ccp.ucdenver.edu/kabob/ice/F_" + fieldHash_3_1 + "> <" + RDFS.LABEL + "> \"PR:000000006\"@en .",
 						
-						"<http://ccp.ucdenver.edu/obo/ext/R_" + recordHash3 + "> <" + RO.HAS_PART.uri() + "> <http://ccp.ucdenver.edu/obo/ext/F_" + fieldHash_3_2 + "> .",
-						"<http://ccp.ucdenver.edu/obo/ext/F_" + fieldHash_3_2 + "> <" + RDF.TYPE + "> <" + CcpExtensionOntology.PRO_IDENTIFIER_MAPPING_RECORD___TARGET_RECORD_IDENTIFIER_FIELD_VALUE.uri() + "> .",
-						"<http://ccp.ucdenver.edu/obo/ext/F_" + fieldHash_3_2 + "> <" + RDF.TYPE + "> <" + CcpExtensionOntology.INVALID_IDENTIFIER.uri() + "> .",
+						"<http://ccp.ucdenver.edu/kabob/ice/R_" + recordHash3 + "> <" + RO.HAS_PART.uri() + "> <http://ccp.ucdenver.edu/kabob/ice/F_" + fieldHash_3_2 + "> .",
+						"<http://ccp.ucdenver.edu/kabob/ice/F_" + fieldHash_3_2 + "> <" + RDF.TYPE + "> <" + CcpExtensionOntology.PRO_IDENTIFIER_MAPPING_RECORD___TARGET_RECORD_IDENTIFIER_FIELD_VALUE.uri() + "> .",
+						"<http://ccp.ucdenver.edu/kabob/ice/F_" + fieldHash_3_2 + "> <" + RDF.TYPE + "> <" + CcpExtensionOntology.INVALID_IDENTIFIER.uri() + "> .",
 						// eventually, the invalid identifier type should be added here. See comments in {@link ProbableErrorDataSourceIdentifier}
-//						"<http://ccp.ucdenver.edu/obo/ext/F_" + fieldHash_3_2 + "> <" + RDF.TYPE + "> <" + CcpExtensionOntology.UNIPROT_IDENTIFIER.uri() + "> .",
-						"<http://ccp.ucdenver.edu/obo/ext/F_" + fieldHash_3_2 + "> <" + RDFS.LABEL + "> \"UniProtKB:PABCDE\"@en .",
-						"<http://ccp.ucdenver.edu/obo/ext/F_" + fieldHash_3_2 + "> <" + RDFS.COMMENT + "> " + errorMessage + " .",
+//						"<http://ccp.ucdenver.edu/kabob/ice/F_" + fieldHash_3_2 + "> <" + RDF.TYPE + "> <" + CcpExtensionOntology.UNIPROT_IDENTIFIER.uri() + "> .",
+						"<http://ccp.ucdenver.edu/kabob/ice/F_" + fieldHash_3_2 + "> <" + RDFS.LABEL + "> \"UniProtKB:PABCDE\"@en .",
+						"<http://ccp.ucdenver.edu/kabob/ice/F_" + fieldHash_3_2 + "> <" + RDFS.COMMENT + "> " + errorMessage + " .",
 						
-						"<http://ccp.ucdenver.edu/obo/ext/R_" + recordHash3 + "> <" + RO.HAS_PART.uri() + "> <http://ccp.ucdenver.edu/obo/ext/F_" + fieldHash_3_3 + "> .",
-						"<http://ccp.ucdenver.edu/obo/ext/F_" + fieldHash_3_3 + "> <" + RDF.TYPE + "> <" + CcpExtensionOntology.PRO_IDENTIFIER_MAPPING_RECORD___MAPPING_TYPE_FIELD_VALUE.uri() + "> .",
-						"<http://ccp.ucdenver.edu/obo/ext/F_" + fieldHash_3_3 + "> <" + RDFS.LABEL + "> \"exact\"@en ."
+						"<http://ccp.ucdenver.edu/kabob/ice/R_" + recordHash3 + "> <" + RO.HAS_PART.uri() + "> <http://ccp.ucdenver.edu/kabob/ice/F_" + fieldHash_3_3 + "> .",
+						"<http://ccp.ucdenver.edu/kabob/ice/F_" + fieldHash_3_3 + "> <" + RDF.TYPE + "> <" + CcpExtensionOntology.PRO_IDENTIFIER_MAPPING_RECORD___MAPPING_TYPE_FIELD_VALUE.uri() + "> .",
+						"<http://ccp.ucdenver.edu/kabob/ice/F_" + fieldHash_3_3 + "> <" + RDFS.LABEL + "> \"exact\"@en ."
 
 						/* @formatter:on */
 		);

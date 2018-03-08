@@ -529,7 +529,7 @@ public class RdfRecordUtil {
 		DateFormat formatter = new SimpleDateFormat("yyyyMMdd");
 		String yyyyMMdd = formatter.format(new Date(createdTime));
 		DataSource ns = DataSource.getNamespace(RecordUtil.getRecordDataSource(record.getClass()));
-		return RdfUtil.createUriImpl(DataSource.CCP,
+		return RdfUtil.createUriImpl(DataSource.KABOB_ICE,
 				"DS_" + ns.name() + "_" + ((readerKey != null && !readerKey.isEmpty())
 						? readerKey.replaceAll(" ", "_").toUpperCase() + "_" : "") + yyyyMMdd);
 	}

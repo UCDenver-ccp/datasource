@@ -70,6 +70,7 @@ public enum DataSource {
 	CAMJEDB("http://www.sanger.ac.uk/resources/downloads/bacteria/campylobacter-jejuni.html/"),
 	CCDS("http://www.ncbi.nlm.nih.gov/CCDS/"),
 	CCP("http://ccp.ucdenver.edu/obo/ext/"),
+	KABOB_ICE("http://ccp.ucdenver.edu/kabob/ice/"),
 	CGNC("http://www.ncbi.nlm.nih.gov/pubmed/19607656/"),
 	CL("http://purl.obolibrary.org/obo/"),
 	CHEBI("http://purl.obolibrary.org/obo/"),

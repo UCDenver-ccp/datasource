@@ -488,13 +488,13 @@ public class RdfUtil {
 
 	// public static URIImpl createCcpUri(DataSource targetNamespace, String
 	// localName) {
-	// return createUriImpl(DataSource.CCP.longName, localName,
+	// return createUriImpl(DataSource.KABOB_ICE.longName, localName,
 	// targetNamespace);
 	// }
 
 	public static URIImpl createCcpUri(DataSourceIdentifier<?> id) {
 		CcpExtensionOntology identifierType = RdfIdentifierUtil.getIdentifierType(id.getClass());
-		return createUriImpl(DataSource.CCP.longName, id.getId().toString(), identifierType.prefix());
+		return createUriImpl(DataSource.KABOB_ICE.longName, id.getId().toString(), identifierType.prefix());
 	}
 
 	public static URIImpl getUri(CcpExtensionOntology cls) {

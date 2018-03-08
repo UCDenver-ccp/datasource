@@ -75,7 +75,7 @@ public class RdfRecordUriFactory {
 	 */
 	public static URIImpl createRecordUri(Object record) {
 		String sha1Str = RdfRecordUriFactory.sha1DigestForSortedFieldsAndValues(record);
-		return RdfUtil.createUriImpl(DataSource.CCP, UriPrefix.RECORD.prefix() + sha1Str);
+		return RdfUtil.createUriImpl(DataSource.KABOB_ICE, UriPrefix.RECORD.prefix() + sha1Str);
 	}
 
 	// public static URIImpl createRecordSchemaUri(Class<?> recordClass,
@@ -116,7 +116,7 @@ public class RdfRecordUriFactory {
 		if (sha1Str == null) {
 			return null;
 		}
-		return RdfUtil.createUriImpl(DataSource.CCP, UriPrefix.RECORD_FIELD.prefix() + sha1Str);
+		return RdfUtil.createUriImpl(DataSource.KABOB_ICE, UriPrefix.RECORD_FIELD.prefix() + sha1Str);
 	}
 
 	/**
