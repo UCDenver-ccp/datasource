@@ -1,39 +1,5 @@
 package edu.ucdenver.ccp.datasource.fileparsers;
 
-/*
- * #%L
- * Colorado Computational Pharmacology's datasource
- * 							project
- * %%
- * Copyright (C) 2012 - 2018 Regents of the University of Colorado
- * %%
- * Redistribution and use in source and binary forms, with or without modification,
- * are permitted provided that the following conditions are met:
- * 
- * 1. Redistributions of source code must retain the above copyright notice, this
- *    list of conditions and the following disclaimer.
- * 
- * 2. Redistributions in binary form must reproduce the above copyright notice,
- *    this list of conditions and the following disclaimer in the documentation
- *    and/or other materials provided with the distribution.
- * 
- * 3. Neither the name of the Regents of the University of Colorado nor the names of its contributors
- *    may be used to endorse or promote products derived from this software without
- *    specific prior written permission.
- * 
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
- * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
- * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.
- * IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT,
- * INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING,
- * BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
- * DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
- * LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE
- * OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED
- * OF THE POSSIBILITY OF SUCH DAMAGE.
- * #L%
- */
-
 import java.net.URI;
 import java.net.URISyntaxException;
 
@@ -1411,11 +1377,11 @@ public enum CcpExtensionOntology {
 	BINDINTERACTION_IDENTIFIER("IAO_EXT_0001279", "BINDINTERACTION_"),
 	BINDTRANSLATION_IDENTIFIER("IAO_EXT_0001280", "BINDTRANSLATION_"),
 	BIOCYC_IDENTIFIER("IAO_EXT_0001281", "BIOCYC_"),
-	BIOGRID_CHEMICAL_IDENTIFIER("IAO_EXT_0001775", null),
+	BIOGRID_CHEMICAL_IDENTIFIER("IAO_EXT_0001775", "BIOGRID_"),
 	BIOGRID_IDENTIFIER("IAO_EXT_0001282", "BIOGRID_"),
-	BIOGRID_INTERACTION_IDENTIFIER("IAO_EXT_0001773", null),
-	BIOGRID_INTERACTOR_IDENTIFIER("IAO_EXT_0001772", null),
-	BIOGRID_PUBLICATION_IDENTIFIER("IAO_EXT_0001774", null),
+	BIOGRID_INTERACTION_IDENTIFIER("IAO_EXT_0001773", "BIOGRID_"),
+	BIOGRID_INTERACTOR_IDENTIFIER("IAO_EXT_0001772", "BIOGRID_"),
+	BIOGRID_PUBLICATION_IDENTIFIER("IAO_EXT_0001774", "BIOGRID_"),
 	BIOPARADIGMS_SLC_TABLE_IDENTIFIER("IAO_EXT_0001756", null),
 	BRENDA_ONTOLOGY_CONCEPT_IDENTIFIER("IAO_EXT_0000207", "BTO_"),
 	CAMJEDB_IDENTIFIER("IAO_EXT_0001283", "CAMJEDB_"),
