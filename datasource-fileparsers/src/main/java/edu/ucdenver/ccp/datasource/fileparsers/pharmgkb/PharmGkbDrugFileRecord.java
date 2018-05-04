@@ -33,10 +33,10 @@ package edu.ucdenver.ccp.datasource.fileparsers.pharmgkb;
  * #L%
  */
 
-
 import static org.apache.commons.lang.StringUtils.isNotBlank;
 
 import java.util.Collection;
+import java.util.Set;
 
 import edu.ucdenver.ccp.datasource.fileparsers.CcpExtensionOntology;
 import edu.ucdenver.ccp.datasource.fileparsers.License;
@@ -47,6 +47,7 @@ import edu.ucdenver.ccp.datasource.identifiers.DataSource;
 import edu.ucdenver.ccp.datasource.identifiers.DataSourceIdentifier;
 import edu.ucdenver.ccp.datasource.identifiers.impl.bio.PharmGkbDrugId;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 /**
  * File record capturing single line record from PharmGKB's drugs.tsv file.
@@ -54,12 +55,8 @@ import lombok.Data;
  * @author Yuriy Malenkiy
  * 
  */
-@Record(ontClass = CcpExtensionOntology.PHARMGKB_DRUG_RECORD, dataSource = DataSource.PHARMGKB,
-		license=License.PHARMGKB,
-		licenseUri="http://www.pharmgkb.org/download.action?filename=PharmGKB_License.pdf",
-		comment="data from PharmGKB's drugs.tsv file",
-		citation="M. Whirl-Carrillo, E.M. McDonagh, J. M. Hebert, L. Gong, K. Sangkuhl, C.F. Thorn, R.B. Altman and T.E. Klein. \"Pharmacogenomics Knowledge for Personalized Medicine\" Clinical Pharmacology & Therapeutics (2012) 92(4): 414-417",
-		label="drug record")
+@Record(ontClass = CcpExtensionOntology.PHARMGKB_DRUG_RECORD, dataSource = DataSource.PHARMGKB, license = License.PHARMGKB, licenseUri = "http://www.pharmgkb.org/download.action?filename=PharmGKB_License.pdf", comment = "data from PharmGKB's drugs.tsv file", citation = "M. Whirl-Carrillo, E.M. McDonagh, J. M. Hebert, L. Gong, K. Sangkuhl, C.F. Thorn, R.B. Altman and T.E. Klein. \"Pharmacogenomics Knowledge for Personalized Medicine\" Clinical Pharmacology & Therapeutics (2012) 92(4): 414-417", label = "drug record")
+@EqualsAndHashCode(callSuper = false)
 @Data
 public class PharmGkbDrugFileRecord extends SingleLineFileRecord {
 	@RecordField(ontClass = CcpExtensionOntology.PHARMGKB_DRUG_RECORD___ACCESSION_IDENTIFIER_FIELD_VALUE)
@@ -86,11 +83,34 @@ public class PharmGkbDrugFileRecord extends SingleLineFileRecord {
 	private final String dosingGuideline;
 	@RecordField(ontClass = CcpExtensionOntology.PHARMGKB_DRUG_RECORD___EXTERNAL_VOCABULARY_FIELD_VALUE)
 	private final String externalVocabulary;
+	@RecordField(ontClass = CcpExtensionOntology.PHARMGKB_DRUG_RECORD___CLINICAL_ANNOTATION_COUNT_FIELD_VALUE)
+	private final int clinicalAnnotationCount;
+	@RecordField(ontClass = CcpExtensionOntology.PHARMGKB_DRUG_RECORD___VARIANT_ANNOTATION_COUNT_FIELD_VALUE)
+	private final int variantAnnotationCount;
+	@RecordField(ontClass = CcpExtensionOntology.PHARMGKB_DRUG_RECORD___PATHWAY_COUNT_FIELD_VALUE)
+	private final int pathwayCount;
+	@RecordField(ontClass = CcpExtensionOntology.PHARMGKB_DRUG_RECORD___VIP_COUNT_FIELD_VALUE)
+	private final int vipCount;
+	@RecordField(ontClass = CcpExtensionOntology.PHARMGKB_DRUG_RECORD___DOSING_GUIDELINE_SOURCES_FIELD_VALUE)
+	private final Collection<String> dosingGuidelineSources;
+	@RecordField(ontClass = CcpExtensionOntology.PHARMGKB_DRUG_RECORD___TOP_CLINICAL_ANNOTATION_LEVEL_FIELD_VALUE)
+	private final String topClinicalAnnotationLevel;
+	@RecordField(ontClass = CcpExtensionOntology.PHARMGKB_DRUG_RECORD___TOP_FDA_LABEL_TESTING_LEVEL_FIELD_VALUE)
+	private final String topFdaLabelTestingLevel;
+	@RecordField(ontClass = CcpExtensionOntology.PHARMGKB_DRUG_RECORD___TOP_ANY_DRUG_LABEL_TESTING_LEVEL_FIELD_VALUE)
+	private final String topAnyDrugLabelTestingLevel;
+	@RecordField(ontClass = CcpExtensionOntology.PHARMGKB_DRUG_RECORD___LABEL_HAS_DOSING_INFO_FIELD_VALUE)
+	private final Boolean labelHasDosingInfo;
+	@RecordField(ontClass = CcpExtensionOntology.PHARMGKB_DRUG_RECORD___HAS_RX_ANNOTATION_FIELD_VALUE)
+	private final Boolean hasRxAnnotation;
 
 	public PharmGkbDrugFileRecord(String pharmGkbAccessionId, String name, Collection<String> genericNames,
 			Collection<String> tradeNames, Collection<String> brandMixtures, String type,
-			Collection<DataSourceIdentifier<?>> crossReferences, String url, String smiles, String inChI, String dosingGuideline,String externalVocabulary,
-			long byteOffset, long lineNumber) {
+			Collection<DataSourceIdentifier<?>> crossReferences, String url, String smiles, String inChI,
+			String dosingGuideline, String externalVocabulary, int clinicalAnnotationCount, int variantAnnotationCount,
+			int pathwayCount, int vipCount, Collection<String> dosingGuidelineSources, String topClinicalAnnotationLevel,
+			String topFdaLabelTestingLevel, String topAnyDrugLabelTestingLevel, String labelHasDosingInfo,
+			String hasRxAnnotation, long byteOffset, long lineNumber) {
 		super(byteOffset, lineNumber);
 		this.url = isNotBlank(url) ? url : null;
 		this.accessionId = new PharmGkbDrugId(pharmGkbAccessionId);
@@ -104,8 +124,25 @@ public class PharmGkbDrugFileRecord extends SingleLineFileRecord {
 		this.inChI = isNotBlank(inChI) ? inChI : null;
 		this.dosingGuideline = isNotBlank(dosingGuideline) ? dosingGuideline : null;
 		this.externalVocabulary = isNotBlank(externalVocabulary) ? externalVocabulary : null;
-	}
+		this.clinicalAnnotationCount = clinicalAnnotationCount;
+		this.variantAnnotationCount = variantAnnotationCount;
+		this.pathwayCount = pathwayCount;
+		this.vipCount = vipCount;
+		this.dosingGuidelineSources = dosingGuidelineSources;
+		this.topClinicalAnnotationLevel = isNotBlank(topClinicalAnnotationLevel) ? topClinicalAnnotationLevel : null;
+		this.topFdaLabelTestingLevel = isNotBlank(topFdaLabelTestingLevel) ? topFdaLabelTestingLevel : null;
+		this.topAnyDrugLabelTestingLevel = isNotBlank(topAnyDrugLabelTestingLevel) ? topAnyDrugLabelTestingLevel : null;
+		this.labelHasDosingInfo = isNotBlank(labelHasDosingInfo) ? true : null;
+		this.hasRxAnnotation = isNotBlank(hasRxAnnotation) ? true : null;
 
-	
+		if (isNotBlank(labelHasDosingInfo) && !labelHasDosingInfo.equals("Label Has Dosing Info")) {
+			throw new IllegalArgumentException(
+					"Unhandled value for 'Label Has Dosing Info' column: " + labelHasDosingInfo);
+		}
+
+		if (isNotBlank(hasRxAnnotation) && !hasRxAnnotation.equals("Has Rx Annotation")) {
+			throw new IllegalArgumentException("Unhandled value for 'Has Rx Annotation' column: " + hasRxAnnotation);
+		}
+	}
 
 }

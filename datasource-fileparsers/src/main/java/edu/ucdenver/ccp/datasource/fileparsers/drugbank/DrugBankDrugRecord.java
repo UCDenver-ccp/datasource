@@ -85,8 +85,7 @@ import ca.drugbank.DosageListType;
 import ca.drugbank.DosageType;
 import ca.drugbank.DrugInteractionListType;
 import ca.drugbank.DrugType;
-import ca.drugbank.DrugbankDrugIdType;
-import ca.drugbank.DrugbankSaltIdType;
+import ca.drugbank.DrugbankDrugSaltIdType;
 import ca.drugbank.EnzymeListType;
 import ca.drugbank.EnzymeType;
 import ca.drugbank.ExperimentalPropertyListType;
@@ -1304,7 +1303,7 @@ public class DrugBankDrugRecord extends FileRecord {
 		Set<Salt> toReturn = new HashSet<Salt>();
 		for (SaltType p : list.getSalt()) {
 			Salt salt = new Salt(p.getCasNumber(), p.getName(), p.getInchikey());
-			for (DrugbankSaltIdType id : p.getDrugbankId()) {
+			for (DrugbankDrugSaltIdType id : p.getDrugbankId()) {
 				if (id.isPrimary()) {
 					salt.setPrimaryId(new DrugBankID(id.getValue()));
 				} else {
@@ -1347,8 +1346,8 @@ public class DrugBankDrugRecord extends FileRecord {
 				c.getClazz(), c.getSubclass());
 	}
 
-	private String getPrimaryDrugbankId(List<DrugbankDrugIdType> drugbankIds) {
-		for (DrugbankDrugIdType dbid : drugbankIds) {
+	private String getPrimaryDrugbankId(List<DrugbankDrugSaltIdType> drugbankIds) {
+		for (DrugbankDrugSaltIdType dbid : drugbankIds) {
 			if (dbid.isPrimary()) {
 				return dbid.getValue();
 			}
@@ -1357,9 +1356,9 @@ public class DrugBankDrugRecord extends FileRecord {
 		return null;
 	}
 
-	private List<String> getNonPrimaryDrugbankIds(List<DrugbankDrugIdType> drugbankIds) {
+	private List<String> getNonPrimaryDrugbankIds(List<DrugbankDrugSaltIdType> drugbankIds) {
 		List<String> ids = new ArrayList<String>();
-		for (DrugbankDrugIdType dbid : drugbankIds) {
+		for (DrugbankDrugSaltIdType dbid : drugbankIds) {
 			if (!dbid.isPrimary()) {
 				ids.add(dbid.getValue());
 			}
