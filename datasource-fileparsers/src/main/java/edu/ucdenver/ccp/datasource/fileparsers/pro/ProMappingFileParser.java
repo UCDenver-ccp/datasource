@@ -51,6 +51,7 @@ import edu.ucdenver.ccp.datasource.identifiers.impl.bio.MgiGeneID;
 import edu.ucdenver.ccp.datasource.identifiers.impl.bio.ProteinOntologyId;
 import edu.ucdenver.ccp.datasource.identifiers.impl.bio.RgdID;
 import edu.ucdenver.ccp.datasource.identifiers.impl.bio.UniProtID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.UniProtIsoformID;
 
 /**
  * File parser for Protein Ongology promapping.txt file.
@@ -134,7 +135,11 @@ public class ProMappingFileParser extends SingleLineFileRecordReader<ProMappingR
 				return new HgncID(idStr);
 			}
 			if (idStr.startsWith("UniProtKB:")) {
-				return new UniProtID(StringUtil.removePrefix(idStr, "UniProtKB:"));
+				try {
+					return new UniProtIsoformID(StringUtil.removePrefix(idStr, "UniProtKB:"));
+				} catch (IllegalArgumentException e) {
+					return new UniProtID(StringUtil.removePrefix(idStr, "UniProtKB:"));
+				}
 			}
 		} catch (IllegalArgumentException e) {
 			return new ProbableErrorDataSourceIdentifier(idStr, null, e.getMessage());
