@@ -77,6 +77,11 @@ public class RdfRecordUriFactory {
 		String sha1Str = RdfRecordUriFactory.sha1DigestForSortedFieldsAndValues(record);
 		return RdfUtil.createUriImpl(DataSource.KABOB_ICE, UriPrefix.RECORD.prefix() + sha1Str);
 	}
+	
+	public static URIImpl createRecordUri(Object record, String fieldName) {
+		String sha1Str = RdfRecordUriFactory.sha1DigestForSortedFieldsAndValues(record, fieldName);
+		return RdfUtil.createUriImpl(DataSource.KABOB_ICE, UriPrefix.RECORD.prefix() + sha1Str);
+	}
 
 	// public static URIImpl createRecordSchemaUri(Class<?> recordClass,
 	// IncludeVersion includeVersion) {
@@ -208,6 +213,14 @@ public class RdfRecordUriFactory {
 		return buffer.toString();
 	}
 
+	static String sha1DigestForSortedFieldsAndValues(Object record, String fieldName) {
+		String sortedStr = getSortedFieldsAndValuesStr(record);
+		if (sortedStr == null) {
+			return null;
+		}
+		return DigestUtil.getBase64Sha1Digest(fieldName + sortedStr);
+	}
+	
 	static String sha1DigestForSortedFieldsAndValues(Object record) {
 		String sortedStr = getSortedFieldsAndValuesStr(record);
 		if (sortedStr == null) {

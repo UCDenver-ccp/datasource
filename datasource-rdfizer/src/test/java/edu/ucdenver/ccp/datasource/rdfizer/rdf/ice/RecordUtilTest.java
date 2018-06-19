@@ -195,7 +195,7 @@ public class RecordUtilTest {
 		String fieldHash3 = "LaDkkgFRguECzB9LF81DCE_b7es";
 		String fieldHash4 = "oE49wz1Ki32ivuid120WR5iHQ9Q";
 
-		String subRecordHash = "15-ZNT-5KBJB5mCiGo6-wqnHfBU";
+		String subRecordHash = "UTe-cRmV8abNopR0SsaXQrvSQUY";
 		String fieldHash_sub = "15-ZNT-5KBJB5mCiGo6-wqnHfBU";
 
 		/* @formatter:off */

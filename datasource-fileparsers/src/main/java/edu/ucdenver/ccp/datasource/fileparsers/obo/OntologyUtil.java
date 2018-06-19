@@ -36,6 +36,7 @@ package edu.ucdenver.ccp.datasource.fileparsers.obo;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
@@ -100,6 +101,13 @@ public class OntologyUtil {
 		}
 	}
 
+	
+	public OntologyUtil(InputStream ontologyStream) throws OWLOntologyCreationException {
+		OWLOntologyManager inputOntologyManager = OWLManager.createOWLOntologyManager();
+		ont = inputOntologyManager.loadOntologyFromOntologyDocument(ontologyStream);
+		graph = new OWLGraphWrapper(ont);
+	}
+	
 	public OntologyUtil(File ontologyFile) throws OWLOntologyCreationException {
 		OWLOntologyManager inputOntologyManager = OWLManager.createOWLOntologyManager();
 		ont = inputOntologyManager.loadOntologyFromOntologyDocument(ontologyFile);

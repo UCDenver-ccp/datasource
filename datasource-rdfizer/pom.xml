@@ -28,6 +28,13 @@
 			<version>${project.version}</version>
 		</dependency>
 		<dependency>
+			<groupId>edu.ucdenver.ccp</groupId>
+			<artifactId>datasource-fileparsers</artifactId>
+			<version>${project.version}</version>
+			<type>test-jar</type>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
 			<groupId>org.openrdf.sesame</groupId>
 			<artifactId>sesame-model</artifactId>
 			<version>${ver.sesame}</version>

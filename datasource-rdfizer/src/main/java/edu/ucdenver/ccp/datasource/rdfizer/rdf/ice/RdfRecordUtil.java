@@ -659,7 +659,7 @@ public class RdfRecordUtil {
 	private static List<Statement> getSubrecordStatements(Field field, long createdTime, URIImpl recordUri,
 			String readerKey, DuplicateStatementFilter filter, Object subRecord, Object parentRecord) {
 		List<Statement> statements = new ArrayList<Statement>();
-		URIImpl subRecordUri = RdfRecordUriFactory.createRecordUri(subRecord);
+		URIImpl subRecordUri = RdfRecordUriFactory.createRecordUri(subRecord, field.getName());
 		List<Statement> subRecordStmts = getRecordInstanceStatements(subRecord, createdTime, subRecordUri, recordUri,
 				readerKey, filter);
 		if (!filter.alreadyObservedRecordUri(subRecordUri)) {

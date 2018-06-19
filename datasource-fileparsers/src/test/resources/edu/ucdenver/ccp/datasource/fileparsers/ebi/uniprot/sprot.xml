@@ -269,6 +269,18 @@
       <end position="130"/>
     </location>
   </feature>
+  <feature evidence="14" description="Cytoplasmic" type="topological domain">
+    <location>
+      <begin position="145"/>
+      <end position="159"/>
+    </location>
+  </feature>
+ <feature evidence="1" type="turn">
+    <location>
+      <begin position="159"/>
+      <end position="162"/>
+    </location>
+ </feature>
   <sequence length="130" mass="14846" checksum="0A95A328C7ABA865" modified="2006-07-11+01:00" version="1">MFKIYRTSCMGQHQSQFLHSGTVVQTVDGVTTTSFFQPCLVFPFSIEIISISLVSLNTTNETKLIKMSIMENSELVDYNESAYTLAHLPGKQMTYLKYPAPFTIRQHQPFFFVHHGDLGDASLTLEYRIK</sequence>
 </entry>
 </uniprot>
