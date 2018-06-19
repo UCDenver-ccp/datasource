@@ -92,7 +92,7 @@ public class PharmGkbGeneFileParser extends SingleLineFileRecordReader<PharmGkbG
 
 	private static final Logger logger = Logger.getLogger(PharmGkbGeneFileParser.class);
 
-	private static final String HEADER = "PharmGKB Accession Id\tNCBI Gene ID\tHGNC ID\tEnsembl Id\tName\tSymbol\tAlternate Names\tAlternate Symbols\tIs VIP\tHas Variant Annotation\tCross-references\tHas CPIC Dosing Guideline\tChromosome\tChromosomal Start\tChromosomal Stop";
+	private static final String HEADER = "PharmGKB Accession Id\tNCBI Gene ID\tHGNC ID\tEnsembl Id\tName\tSymbol\tAlternate Names\tAlternate Symbols\tIs VIP\tHas Variant Annotation\tCross-references\tHas CPIC Dosing Guideline\tChromosome\tChromosomal Start - GRCh37.p13\tChromosomal Stop - GRCh37.p13\tChromosomal Start - GRCh38.p7\tChromosomal Stop - GRCh38.p7";
 
 	private static final CharacterEncoding ENCODING = CharacterEncoding.US_ASCII;
 
@@ -135,7 +135,6 @@ public class PharmGkbGeneFileParser extends SingleLineFileRecordReader<PharmGkbG
 	private static final String UNIPROT_PREFIX = "UniProtKB:";
 
 	private static final String URL_PREFIX = "Web Resource:";
-	
 
 	@HttpDownload(url = "https://api.pharmgkb.org/v1/download/file/data/genes.zip", fileName = "genes.zip", targetFileName = "genes.tsv", decompress = true)
 	private File pharmGkbGenesFile;
@@ -204,13 +203,19 @@ public class PharmGkbGeneFileParser extends SingleLineFileRecordReader<PharmGkbG
 		boolean hasCpicDosingGuideline = Boolean.parseBoolean(toks[index++]);
 
 		String chromosome = (toks[index++].equalsIgnoreCase("null")) ? null : toks[index - 1];
-		Integer chromosomeStart = (toks[index++].equalsIgnoreCase("null")) ? null : Integer.parseInt(toks[index - 1]);
-		Integer chromosomeEnd = (toks[index++].equalsIgnoreCase("null")) ? null : Integer.parseInt(toks[index - 1]);
+		Integer chromosomalStartGRCh37p13 = (toks[index++].equalsIgnoreCase("")) ? null
+				: Integer.parseInt(toks[index - 1]);
+		Integer chromosomalStopGRCh37p13 = (toks[index++].equalsIgnoreCase("")) ? null
+				: Integer.parseInt(toks[index - 1]);
+		Integer chromosomalStartGRCh38p7 = (toks[index++].equalsIgnoreCase("")) ? null
+				: Integer.parseInt(toks[index - 1]);
+		Integer chromosomalStopGRCh38p7 = (toks[index++].equalsIgnoreCase("")) ? null
+				: Integer.parseInt(toks[index - 1]);
 
 		return new PharmGkbGeneFileRecord(pharmGkbAccessionId, entrezGeneIds, hgncIds, ensemblGeneId, name, symbol,
 				alternativeNames, alternativeSymbols, isVip, hasVariantAnnotation, crossReferences,
-				hasCpicDosingGuideline, chromosome, chromosomeStart, chromosomeEnd, line.getByteOffset(),
-				line.getLineNumber());
+				hasCpicDosingGuideline, chromosome, chromosomalStartGRCh37p13, chromosomalStopGRCh37p13,
+				chromosomalStartGRCh38p7, chromosomalStopGRCh38p7, line.getByteOffset(), line.getLineNumber());
 	}
 
 	private Set<NcbiGeneId> getEntrezGeneIDs(String idStr) {
@@ -282,13 +287,13 @@ public class PharmGkbGeneFileParser extends SingleLineFileRecordReader<PharmGkbG
 			} else if (refStr.startsWith(OMIM_PREFIX)) {
 				return new OmimID(StringUtil.removePrefix(refStr, OMIM_PREFIX));
 			} else if (refStr.startsWith(REFSEQDNA_PREFIX)) {
-				return NucleotideAccessionResolver.resolveNucleotideAccession(
-						StringUtil.removePrefix(refStr, REFSEQDNA_PREFIX), refStr);
+				return NucleotideAccessionResolver
+						.resolveNucleotideAccession(StringUtil.removePrefix(refStr, REFSEQDNA_PREFIX), refStr);
 			} else if (refStr.startsWith(REFSEQRNA_PREFIX)) {
 				return new RefSeqID(StringUtil.removePrefix(refStr, REFSEQRNA_PREFIX));
 			} else if (refStr.startsWith(REFSEQPROTEIN_PREFIX)) {
-				return ProteinAccessionResolver.resolveProteinAccession(
-						StringUtil.removePrefix(refStr, REFSEQPROTEIN_PREFIX), refStr);
+				return ProteinAccessionResolver
+						.resolveProteinAccession(StringUtil.removePrefix(refStr, REFSEQPROTEIN_PREFIX), refStr);
 			} else if (refStr.startsWith(UCSCGENOMEBROWSER_PREFIX)) {
 				return new UcscGenomeBrowserId(StringUtil.removePrefix(refStr, UCSCGENOMEBROWSER_PREFIX));
 			} else if (refStr.startsWith(UNIPROT_PREFIX)) {

@@ -91,10 +91,14 @@ public class PharmGkbGeneFileRecord extends SingleLineFileRecord {
 	private final boolean hasCpicDosingGuideline;
 	@RecordField(ontClass = CcpExtensionOntology.PHARMGKB_GENE_RECORD___CHROMOSOME_FIELD_VALUE)
 	private final String chromosome;
-	@RecordField(ontClass = CcpExtensionOntology.PHARMGKB_GENE_RECORD___CHROMOSOMAL_START_FIELD_VALUE)
-	private final Integer chromosomalStart;
-	@RecordField(ontClass = CcpExtensionOntology.PHARMGKB_GENE_RECORD___CHROMOSOMAL_END_FIELD_VALUE)
-	private final Integer chromosomalEnd;
+	@RecordField(ontClass = CcpExtensionOntology.PHARMGKB_GENE_RECORD___CHROMOSOMAL_START_GRCH37P13_FIELD_VALUE)
+	private final Integer chromosomalStartGRCh37p13;
+	@RecordField(ontClass = CcpExtensionOntology.PHARMGKB_GENE_RECORD___CHROMOSOMAL_STOP_GRCH37P13_FIELD_VALUE)
+	private final Integer chromosomalStopGRCh37p13;
+	@RecordField(ontClass = CcpExtensionOntology.PHARMGKB_GENE_RECORD___CHROMOSOMAL_START_GRCH38P7_FIELD_VALUE)
+	private final Integer chromosomalStartGRCh38p7;
+	@RecordField(ontClass = CcpExtensionOntology.PHARMGKB_GENE_RECORD___CHROMOSOMAL_STOP_GRCH38P7_FIELD_VALUE)
+	private final Integer chromosomalStopGRCh38p7;
 
 	/**
 	 * @param byteOffset
@@ -115,7 +119,8 @@ public class PharmGkbGeneFileRecord extends SingleLineFileRecord {
 			EnsemblGeneID ensemblGeneId, String name, String symbol, Collection<String> alternativeNames,
 			Collection<String> alternativeSymbols, boolean isVip, boolean hasVariantAnnotation,
 			Collection<DataSourceIdentifier<?>> crossReferences, boolean hasCpicDosingGuideline, String chromosome,
-			Integer chromosomalStart, Integer chromosomalEnd, long byteOffset, long lineNumber) {
+			Integer chromosomalStartGRCh37p13, Integer chromosomalStopGRCh37p13, Integer chromosomalStartGRCh38p7,
+			Integer chromosomalStopGRCh38p7, long byteOffset, long lineNumber) {
 		super(byteOffset, lineNumber);
 		this.accessionId = accessionId;
 		this.entrezGeneIds = entrezGeneIds;
@@ -130,8 +135,10 @@ public class PharmGkbGeneFileRecord extends SingleLineFileRecord {
 		this.crossReferences = crossReferences;
 		this.hasCpicDosingGuideline = hasCpicDosingGuideline;
 		this.chromosome = chromosome;
-		this.chromosomalStart = chromosomalStart;
-		this.chromosomalEnd = chromosomalEnd;
+		this.chromosomalStartGRCh37p13 = chromosomalStartGRCh37p13;
+		this.chromosomalStopGRCh37p13 = chromosomalStopGRCh37p13;
+		this.chromosomalStartGRCh38p7 = chromosomalStartGRCh38p7;
+		this.chromosomalStopGRCh38p7 = chromosomalStopGRCh38p7;
 	}
 
 	public boolean hasVariantAnnotation() {

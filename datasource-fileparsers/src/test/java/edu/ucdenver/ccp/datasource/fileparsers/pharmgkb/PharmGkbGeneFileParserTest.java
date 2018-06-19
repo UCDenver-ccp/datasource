@@ -124,8 +124,10 @@ public class PharmGkbGeneFileParserTest extends RecordReaderTester {
 		assertEquals(expectedCrossReferences, new HashSet<DataSourceIdentifier<?>>(r.getCrossReferences()));
 
 		assertEquals("chr19", r.getChromosome());
-		assertEquals(58855172, r.getChromosomalStart().intValue());
-		assertEquals(58874865, r.getChromosomalEnd().intValue());
+		assertEquals(58855172, r.getChromosomalStartGRCh37p13().intValue());
+		assertEquals(58874865, r.getChromosomalStopGRCh37p13().intValue());
+		assertEquals(58855172, r.getChromosomalStartGRCh38p7().intValue());
+		assertEquals(58874865, r.getChromosomalStopGRCh38p7().intValue());
 		
 		r = reader.next();
 		assertEquals("PA12345678", r.getAccessionId().getId());
