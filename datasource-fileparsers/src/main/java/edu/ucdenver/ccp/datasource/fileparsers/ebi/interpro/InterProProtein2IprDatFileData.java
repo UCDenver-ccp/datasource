@@ -54,6 +54,7 @@ package edu.ucdenver.ccp.datasource.fileparsers.ebi.interpro;
 import org.apache.log4j.Logger;
 
 import edu.ucdenver.ccp.common.file.reader.Line;
+import edu.ucdenver.ccp.datasource.fileparsers.CcpExtensionOntology;
 import edu.ucdenver.ccp.datasource.fileparsers.License;
 import edu.ucdenver.ccp.datasource.fileparsers.Record;
 import edu.ucdenver.ccp.datasource.fileparsers.RecordField;
@@ -62,6 +63,7 @@ import edu.ucdenver.ccp.datasource.identifiers.DataSource;
 import edu.ucdenver.ccp.datasource.identifiers.DataSourceIdentifier;
 import edu.ucdenver.ccp.datasource.identifiers.impl.bio.InterProID;
 import edu.ucdenver.ccp.datasource.identifiers.impl.bio.UniProtID;
+import lombok.Getter;
 
 /**
  * Representation of data from InterPro protein2ipr.dat file
@@ -69,7 +71,8 @@ import edu.ucdenver.ccp.datasource.identifiers.impl.bio.UniProtID;
  * @author Bill Baumgartner
  * 
  */
-@Record(dataSource = DataSource.INTERPRO,
+@Getter
+@Record(ontClass = CcpExtensionOntology.INTERPRO_UNIPROT_TO_INTERPRO_RECORD,dataSource = DataSource.INTERPRO,
 		comment="Protein2IPR is all UniProtKB proteins and the InterPro entries and individual signatures they match, in a tab-delimited format. InterPro is a resource that provides functional analysis of protein sequences by classifying them into families and predicting the presence of domains and important sites. See: http://www.ebi.ac.uk/interpro/about.html;jsessionid=1DCC494ADDE7E06E21FB719FC2BFEC0B",
 		license=License.EBI,
 		citation="Sarah Hunter; Philip Jones; Alex Mitchell; Rolf Apweiler; Teresa K. Attwood; Alex Bateman; Thomas Bernard; David Binns; Peer Bork; Sarah Burge; Edouard de Castro; Penny Coggill; Matthew Corbett; Ujjwal Das; Louise Daugherty; Lauranne Duquenne; Robert D. Finn; Matthew Fraser; Julian Gough; Daniel Haft; Nicolas Hulo; Daniel Kahn; Elizabeth Kelly; Ivica Letunic; David Lonsdale; Rodrigo Lopez; Martin Madera; John Maslen; Craig McAnulla; Jennifer McDowall; Conor McMenamin; Huaiyu Mi; Prudence Mutowo-Muellenet; Nicola Mulder; Darren Natale; Christine Orengo; Sebastien Pesseat; Marco Punta; Antony F. Quinn; Catherine Rivoire; Amaia Sangrador-Vegas; Jeremy D. Selengut; Christian J. A. Sigrist; Maxim Scheremetjew; John Tate; Manjulapramila Thimmajanarthanan; Paul D. Thomas; Cathy H. Wu; Corin Yeats; Siew-Yit Yong (2011). InterPro in 2011: new developments in the family and domain prediction database. Nucleic Acids Research 2011; doi: 10.1093/nar/gkr948",
@@ -78,22 +81,22 @@ public class InterProProtein2IprDatFileData extends SingleLineFileRecord {
 
 	public static final String INTERPRO_PROTEIN2IPR_RECORD_ID_PREFIX = "INTERPRO_PROTEIN_TO_IPR_RECORD_";
 
-	@RecordField(comment="")
+	@RecordField(ontClass = CcpExtensionOntology.INTERPRO_UNIPROT_TO_INTERPRO_RECORD___UNIPROT_IDENTIFIER_FIELD_VALUE)
 	private final UniProtID uniprotID;
 
-	@RecordField(comment="")
+	@RecordField(ontClass = CcpExtensionOntology.INTERPRO_UNIPROT_TO_INTERPRO_RECORD___INTERPRO_IDENTIFIER_FIELD_VALUE)
 	private final InterProID interProID;
 
-	@RecordField(comment="")
+	@RecordField(ontClass = CcpExtensionOntology.INTERPRO_UNIPROT_TO_INTERPRO_RECORD___INTERPRO_NAME_FIELD_VALUE)
 	private final String interProName;
 
-	@RecordField(comment="")
+	@RecordField(ontClass = CcpExtensionOntology.INTERPRO_UNIPROT_TO_INTERPRO_RECORD___EXTERNAL_REFERENCE_FIELD_VALUE)
 	private final DataSourceIdentifier<String> externalReference;
 
-	@RecordField(comment="")
+	@RecordField(ontClass = CcpExtensionOntology.INTERPRO_UNIPROT_TO_INTERPRO_RECORD___SEQUENCE_START_POSITION_FIELD_VALUE)
 	private final Integer sequenceStartPosition;
 
-	@RecordField(comment="")
+	@RecordField(ontClass = CcpExtensionOntology.INTERPRO_UNIPROT_TO_INTERPRO_RECORD___SEQUENCE_END_POSITION_FIELD_VALUE)
 	private final Integer sequenceEndPosition;
 
 	public InterProProtein2IprDatFileData(UniProtID uniprotID, InterProID interProID, String interProName,
@@ -106,18 +109,6 @@ public class InterProProtein2IprDatFileData extends SingleLineFileRecord {
 		this.externalReference = externalReference;
 		this.sequenceStartPosition = sequenceStartPosition;
 		this.sequenceEndPosition = sequenceEndPosition;
-	}
-
-	public UniProtID getUniProtID() {
-		return uniprotID;
-	}
-
-	public InterProID getInterProID() {
-		return interProID;
-	}
-
-	public String getInterProName() {
-		return interProName;
 	}
 
 	public static InterProProtein2IprDatFileData parseInterProProtein2IprDatLine(Line line) {
@@ -145,18 +136,6 @@ public class InterProProtein2IprDatFileData extends SingleLineFileRecord {
 			logger.error(String.format("Error while parsing line (%d): %s", line.getLineNumber(), line.getText()), e);
 			return null;
 		}
-	}
-
-	public DataSourceIdentifier<String> getExternalReference() {
-		return externalReference;
-	}
-
-	public Integer getSequenceStartPosition() {
-		return sequenceStartPosition;
-	}
-
-	public Integer getSequenceEndPosition() {
-		return sequenceEndPosition;
 	}
 
 }

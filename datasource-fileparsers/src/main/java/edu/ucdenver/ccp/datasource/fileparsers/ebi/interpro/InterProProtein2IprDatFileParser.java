@@ -126,7 +126,7 @@ public class InterProProtein2IprDatFileParser extends
 	@Override
 	protected Set<NcbiTaxonomyID> getLineTaxon(Line line) {
 		InterProProtein2IprDatFileData record = parseRecordFromLine(line);
-		if (taxonSpecificIds != null && !taxonSpecificIds.isEmpty() && taxonSpecificIds.contains(record.getUniProtID())) {
+		if (taxonSpecificIds != null && !taxonSpecificIds.isEmpty() && taxonSpecificIds.contains(record.getUniprotID())) {
 			// here we have matched the record uniprot id as one of the ids of interest. We don't
 			// know exactly what taxon it is however so we just return one (arbitrarily) of the
 			// taxon ids of interest. this will ensure this record is returned.

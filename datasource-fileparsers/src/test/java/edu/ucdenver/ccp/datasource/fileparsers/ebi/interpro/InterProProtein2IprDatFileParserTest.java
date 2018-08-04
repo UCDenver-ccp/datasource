@@ -83,7 +83,7 @@ public class InterProProtein2IprDatFileParserTest extends RecordReaderTester {
 			if (parser.hasNext()) {
 				/* A0A000 IPR004839 Aminotransferase, class I and II PF00155 36 381 */
 				InterProProtein2IprDatFileData record1 = parser.next();
-				assertEquals(new UniProtID("A0A000"), record1.getUniProtID());
+				assertEquals(new UniProtID("A0A000"), record1.getUniprotID());
 				assertEquals(new InterProID("IPR004839"), record1.getInterProID());
 				assertEquals(new String("Aminotransferase, class I and II"), record1.getInterProName());
 				assertEquals(String.format("External reference ID not as expected."), new PfamID("PF00155"),
@@ -102,7 +102,7 @@ public class InterProProtein2IprDatFileParserTest extends RecordReaderTester {
 				 * TIGR01821 1 393
 				 */
 				InterProProtein2IprDatFileData record2 = parser.next();
-				assertEquals(new UniProtID("A0A000"), record2.getUniProtID());
+				assertEquals(new UniProtID("A0A000"), record2.getUniprotID());
 				assertEquals(new InterProID("IPR010961"), record2.getInterProID());
 				assertEquals(new String("Tetrapyrrole biosynthesis, 5-aminolevulinic acid synthase"),
 						record2.getInterProName());
@@ -119,7 +119,7 @@ public class InterProProtein2IprDatFileParserTest extends RecordReaderTester {
 			if (parser.hasNext()) {
 				/* A0A003 IPR001509 NAD-dependent epimerase/dehydratase PF01370 15 249 */
 				InterProProtein2IprDatFileData record3 = parser.next();
-				assertEquals(new UniProtID("A0A003"), record3.getUniProtID());
+				assertEquals(new UniProtID("A0A003"), record3.getUniprotID());
 				assertEquals(new InterProID("IPR001509"), record3.getInterProID());
 				assertEquals(new String("NAD-dependent epimerase/dehydratase"), record3.getInterProName());
 				assertEquals(String.format("External reference ID not as expected."), new PfamID("PF01370"),

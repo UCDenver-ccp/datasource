@@ -111,6 +111,18 @@
 							<clearOutputDir>false</clearOutputDir>
 						</configuration>
 					</execution>
+					<execution>
+						<phase>generate-sources</phase>
+						<id>interpro-xjc</id>
+						<goals>
+							<goal>xjc</goal>
+						</goals>
+						<configuration>
+							<schemaFiles>interpro.xsd</schemaFiles>
+							<packageName>org.interpro</packageName>
+							<clearOutputDir>false</clearOutputDir>
+						</configuration>
+					</execution>
 				</executions>
 			</plugin>
 		</plugins>

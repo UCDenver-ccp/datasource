@@ -62,6 +62,7 @@ import edu.ucdenver.ccp.datasource.fileparsers.RecordReader;
 import edu.ucdenver.ccp.datasource.fileparsers.biogrid.BioGridProteinChemicalInteractionRecordReader;
 import edu.ucdenver.ccp.datasource.fileparsers.biogrid.BioGridProteinInteractionRecordReader;
 import edu.ucdenver.ccp.datasource.fileparsers.bioplex.BioPlexInteractionListRecordReader;
+import edu.ucdenver.ccp.datasource.fileparsers.custom.CuratedTFRecordReader;
 import edu.ucdenver.ccp.datasource.fileparsers.drugbank.DrugbankXmlFileRecordReader;
 import edu.ucdenver.ccp.datasource.fileparsers.ebi.goa.gaf.GoaGaf2FileRecordReader;
 import edu.ucdenver.ccp.datasource.fileparsers.ebi.goa.gaf.GoaGafFileRecordReaderFactory;
@@ -70,6 +71,7 @@ import edu.ucdenver.ccp.datasource.fileparsers.ebi.goa.gaf.GoaGafFileRecordReade
 import edu.ucdenver.ccp.datasource.fileparsers.ebi.interpro.InterPro2GoFileParser;
 import edu.ucdenver.ccp.datasource.fileparsers.ebi.interpro.InterProNamesDatFileParser;
 import edu.ucdenver.ccp.datasource.fileparsers.ebi.interpro.InterProProtein2IprDatFileParser;
+import edu.ucdenver.ccp.datasource.fileparsers.ebi.interpro.InterProXmlFileRecordReader;
 import edu.ucdenver.ccp.datasource.fileparsers.ebi.uniprot.SparseTremblDatFileRecordReader_HumanOnly;
 import edu.ucdenver.ccp.datasource.fileparsers.ebi.uniprot.SparseTremblXmlFileRecordReader;
 import edu.ucdenver.ccp.datasource.fileparsers.ebi.uniprot.SwissProtXmlFileRecordReader;
@@ -308,6 +310,35 @@ public enum FileDataSource {
 		@Override
 		protected Class<? extends RecordReader<?>> getRecordReaderClass() {
 			return PharmGkbDrugFileParser.class;
+		}
+	},
+
+	CURATED_TF(DataSource.CCP, IsTaxonAware.NO, RequiresManualDownload.YES) {
+		@Override
+		protected FileRecordReader<?> initFileRecordReader(File sourceFileDirectory, File baseSourceFileDirectory,
+				boolean cleanSourceFiles, boolean cleanIdListFiles, File idListDir, Set<NcbiTaxonomyID> taxonIds)
+				throws IOException {
+
+			File tfFile = new File(sourceFileDirectory, "curated_tfs.tsv");
+
+			if (tfFile.exists()) {
+				FileUtil.validateFile(tfFile);
+				return new CuratedTFRecordReader(tfFile, CharacterEncoding.UTF_8);
+			}
+
+			logger.warn("\n\n!!!!!!!!!!!!!!!!!!!!!!   SKIPPING CURATED TF's   !!!!!!!!!!!!!!!!!!!!!!"
+					+ "The 'curated_tfs.tsv' file could not be located in the expected folder: "
+					+ sourceFileDirectory.getAbsolutePath()
+					+ "\nIf you would like Curated TF's to be processed, please place a copy of the 'curated_tfs.tsv' "
+					+ "file in that folder and restart this process."
+					+ "\n\n!!!!!!!!!!!!!!!!!!!!!!   SKIPPING CURATED TF's  !!!!!!!!!!!!!!!!!!!!!!");
+			return null;
+
+		}
+
+		@Override
+		protected Class<? extends RecordReader<?>> getRecordReaderClass() {
+			return CuratedTFRecordReader.class;
 		}
 	},
 	/**
@@ -1003,6 +1034,20 @@ public enum FileDataSource {
 		@Override
 		protected Class<? extends RecordReader<?>> getRecordReaderClass() {
 			return InterProProtein2IprDatFileParser.class;
+		}
+	},
+
+	INTERPRO_XML(DataSource.INTERPRO, IsTaxonAware.NO, RequiresManualDownload.NO) {
+		@Override
+		protected FileRecordReader<?> initFileRecordReader(File sourceFileDirectory, File baseSourceFileDirectory,
+				boolean cleanSourceFiles, boolean cleanIdListFiles, File idListDir, Set<NcbiTaxonomyID> taxonIds)
+				throws IOException {
+			return new InterProXmlFileRecordReader(sourceFileDirectory, cleanSourceFiles);
+		}
+
+		@Override
+		protected Class<? extends RecordReader<?>> getRecordReaderClass() {
+			return InterProXmlFileRecordReader.class;
 		}
 	},
 
