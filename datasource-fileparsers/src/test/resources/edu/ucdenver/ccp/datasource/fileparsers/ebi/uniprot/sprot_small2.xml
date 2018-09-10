@@ -1,0 +1,487 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<uniprot xmlns="http://uniprot.org/uniprot"
+ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+ xsi:schemaLocation="http://uniprot.org/uniprot http://www.uniprot.org/support/docs/uniprot.xsd">
+<entry version="74" modified="2018-06-20" created="2005-12-20" dataset="Swiss-Prot">
+  <accession>Q30KQ1</accession>
+  <accession>Q4QY39</accession>
+  <name>DB133_HUMAN</name>
+  <protein>
+    <recommendedName>
+      <fullName>Beta-defensin 133</fullName>
+    </recommendedName>
+    <alternativeName>
+      <fullName>Defensin, beta 133</fullName>
+    </alternativeName>
+  </protein>
+  <gene>
+    <name type="primary">DEFB133</name>
+  </gene>
+  <organism>
+    <name type="scientific">Homo sapiens</name>
+    <name type="common">Human</name>
+    <dbReference id="9606" type="NCBI Taxonomy"/>
+    <lineage>
+      <taxon>Eukaryota</taxon>
+      <taxon>Metazoa</taxon>
+      <taxon>Chordata</taxon>
+      <taxon>Craniata</taxon>
+      <taxon>Vertebrata</taxon>
+      <taxon>Euteleostomi</taxon>
+      <taxon>Mammalia</taxon>
+      <taxon>Eutheria</taxon>
+      <taxon>Euarchontoglires</taxon>
+      <taxon>Primates</taxon>
+      <taxon>Haplorrhini</taxon>
+      <taxon>Catarrhini</taxon>
+      <taxon>Hominidae</taxon>
+      <taxon>Homo</taxon>
+    </lineage>
+  </organism>
+  <reference key="1">
+    <citation last="17" first="5" volume="23" name="Physiol. Genomics" date="2005" type="journal article">
+      <title>Cross-species analysis of the mammalian beta-defensin gene family: presence of syntenic gene clusters and preferential expression in the male reproductive tract.</title>
+      <authorList>
+        <person name="Patil A.A."/>
+        <person name="Cai Y."/>
+                <person name="Sang Y."/>
+        <person name="Blecha F."/>
+        <person name="Zhang G."/>
+      </authorList>
+      <dbReference id="16033865" type="PubMed"/>
+      <dbReference id="10.1152/physiolgenomics.00104.2005" type="DOI"/>
+    </citation>
+    <scope>NUCLEOTIDE SEQUENCE [MRNA]</scope>
+  </reference>
+  <reference key="2">
+    <citation db="EMBL/GenBank/DDBJ databases" date="2004-05" type="submission">
+      <title>Genome-wide analysis of rat beta-defensins: evidence for the existence of four syntenic defensin gene clusters in mammals.</title>
+      <authorList>
+        <person name="Patil A."/>
+        <person name="Zhang G."/>
+      </authorList>
+    </citation>
+    <scope>NUCLEOTIDE SEQUENCE [MRNA] OF 22-61</scope>
+  </reference>
+  <comment type="function">
+    <text evidence="3">Has antibacterial activity.</text>
+  </comment>
+  <comment type="subcellular location">
+    <subcellularLocation>
+      <location evidence="3">Secreted</location>
+    </subcellularLocation>
+  </comment>
+  <comment type="similarity">
+    <text evidence="3">Belongs to the beta-defensin family.</text>
+  </comment>
+  <comment type="caution">
+    <text evidence="3">Was termed (Ref.2) DEFB134.</text>
+  </comment>
+  <dbReference id="DQ012023" type="EMBL">
+    <property value="AAY59759.1" type="protein sequence ID"/>
+    <property value="mRNA" type="molecule type"/>
+  </dbReference>
+  <dbReference id="AY621330" type="EMBL">
+    <property value="AAT51869.1" type="protein sequence ID"/>
+    <property value="mRNA" type="molecule type"/>
+  </dbReference>
+  <dbReference id="NP_001159950.1" type="RefSeq">
+    <property value="NM_001166478.1" type="nucleotide sequence ID"/>
+  </dbReference>
+          <dbReference id="Hs.558270" type="UniGene"/>
+  <dbReference id="Hs.745543" type="UniGene"/>
+  <dbReference id="Q30KQ1" type="ProteinModelPortal"/>
+  <dbReference id="9606.ENSP00000381706" type="STRING"/>
+  <dbReference id="DEFB133" type="BioMuta"/>
+  <dbReference id="84028894" type="DMDM"/>
+  <dbReference id="Q30KQ1" type="PaxDb"/>
+  <dbReference id="Q30KQ1" type="PRIDE"/>
+  <dbReference id="61573" type="ProteomicsDB"/>
+  <dbReference id="ENST00000398721" type="Ensembl">
+    <property value="ENSP00000485031" type="protein sequence ID"/>
+    <property value="ENSG00000214643" type="gene ID"/>
+  </dbReference>
+  <dbReference id="403339" type="GeneID"/>
+  <dbReference id="hsa:403339" type="KEGG"/>
+  <dbReference id="uc063ozl.1" type="UCSC">
+    <property value="human" type="organism name"/>
+  </dbReference>
+  <dbReference id="403339" type="CTD"/>
+  <dbReference id="HostDB:ENSG00000214643.5" type="EuPathDB"/>
+  <dbReference id="DEFB133" type="GeneCards"/>
+  <dbReference id="HGNC:31331" type="HGNC">
+    <property value="DEFB133" type="gene designation"/>
+  </dbReference>
+  <dbReference id="NX_Q30KQ1" type="neXtProt"/>
+  <dbReference id="PA134862169" type="PharmGKB"/>
+  <dbReference id="ENOG410J8GN" type="eggNOG">
+    <property value="Eukaryota" type="taxonomic scope"/>
+  </dbReference>
+  <dbReference id="ENOG411194U" type="eggNOG">
+    <property value="LUCA" type="taxonomic scope"/>
+  </dbReference>
+  <dbReference id="ENSGT00400000023650" type="GeneTree"/>
+  <dbReference id="HOG000112163" type="HOGENOM"/>
+  <dbReference id="HBG084155" type="HOVERGEN"/>
+  <dbReference id="Q30KQ1" type="InParanoid"/>
+  <dbReference id="KCRHECH" type="OMA"/>
+  <dbReference id="EOG091G1AL6" type="OrthoDB"/>
+  <dbReference id="Q30KQ1" type="PhylomeDB"/>
+  <dbReference id="R-HSA-1461957" type="Reactome">
+    <property value="Beta defensins" type="pathway name"/>
+  </dbReference>
+  <dbReference id="R-HSA-1461973" type="Reactome">
+    <property value="Defensins" type="pathway name"/>
+      </dbReference>
+  <dbReference id="PR:Q30KQ1" type="PRO"/>
+  <dbReference id="UP000005640" type="Proteomes">
+    <property value="Chromosome 6" type="component"/>
+  </dbReference>
+  <dbReference id="ENSG00000214643" type="Bgee"/>
+  <dbReference id="HS_DEFB133" type="CleanEx"/>
+  <dbReference id="GO:0009986" type="GO">
+    <property value="C:cell surface" type="term"/>
+    <property value="ECO:0000318" type="evidence"/>
+    <property value="GO_Central" type="project"/>
+  </dbReference>
+  <dbReference id="GO:0005576" type="GO">
+    <property value="C:extracellular region" type="term"/>
+    <property value="ECO:0000501" type="evidence"/>
+    <property value="UniProtKB-SubCell" type="project"/>
+  </dbReference>
+  <dbReference id="GO:0042742" type="GO">
+    <property value="P:defense response to bacterium" type="term"/>
+    <property value="ECO:0000318" type="evidence"/>
+    <property value="GO_Central" type="project"/>
+  </dbReference>
+  <dbReference id="GO:0045087" type="GO">
+    <property value="P:innate immune response" type="term"/>
+    <property value="ECO:0000318" type="evidence"/>
+    <property value="GO_Central" type="project"/>
+  </dbReference>
+  <dbReference id="IPR025933" type="InterPro">
+    <property value="Beta_defensin" type="entry name"/>
+  </dbReference>
+  <dbReference id="PTHR15001" type="PANTHER">
+    <property value="PTHR15001" type="entry name"/>
+    <property value="1" type="match status"/>
+  </dbReference>
+  <dbReference id="PF13841" type="Pfam">
+    <property value="Defensin_beta_2" type="entry name"/>
+    <property value="1" type="match status"/>
+  </dbReference>
+  <proteinExistence type="inferred from homology"/>
+  <keyword id="KW-0044">Antibiotic</keyword>
+  <keyword id="KW-0929">Antimicrobial</keyword>
+  <keyword id="KW-0181">Complete proteome</keyword>
+  <keyword id="KW-0211">Defensin</keyword>
+  <keyword id="KW-1015">Disulfide bond</keyword>
+      <keyword id="KW-1185">Reference proteome</keyword>
+  <keyword id="KW-0964">Secreted</keyword>
+  <keyword id="KW-0732">Signal</keyword>
+  <feature evidence="2" type="signal peptide">
+    <location>
+      <begin position="1"/>
+      <end position="23"/>
+    </location>
+  </feature>
+  <feature description="Beta-defensin 133" id="PRO_0000045358" type="chain">
+    <location>
+      <begin position="24"/>
+      <end position="61"/>
+    </location>
+  </feature>
+  <feature evidence="1" type="disulfide bond">
+    <location>
+      <begin position="31"/>
+      <end position="59"/>
+    </location>
+  </feature>
+  <feature evidence="1" type="disulfide bond">
+    <location>
+      <begin position="38"/>
+      <end position="52"/>
+    </location>
+  </feature>
+  <evidence key="1" type="ECO:0000250"/>
+  <evidence key="2" type="ECO:0000255"/>
+  <evidence key="3" type="ECO:0000305"/>
+  <sequence precursor="true" version="1" modified="2005-12-06" checksum="71C7575DECC65BFE" mass="7213" length="61">MKIHVFLFVLFFFLVPIATRVKCAVKDTYSCFIMRGKCRHECHDFEKPIGFCTKLNANCYM</sequence>
+</entry>
+    <entry version="62" modified="2018-06-20" created="2008-06-10" dataset="Swiss-Prot">
+  <accession>A8MXU0</accession>
+  <name>DB108_HUMAN</name>
+  <protein>
+    <recommendedName>
+      <fullName>Putative beta-defensin 108A</fullName>
+    </recommendedName>
+    <alternativeName>
+      <fullName evidence="4">Defensin, beta 108A</fullName>
+    </alternativeName>
+    <alternativeName>
+      <fullName evidence="5">Defensin, beta 108C</fullName>
+    </alternativeName>
+    <alternativeName>
+      <fullName>Putative beta-defensin 108B pseudogene 1/2</fullName>
+    </alternativeName>
+  </protein>
+  <gene>
+    <name type="primary" evidence="4">DEFB108A</name>
+    <name type="synonym">DEFB108P1</name>
+  </gene>
+  <gene>
+    <name type="primary" evidence="5">DEFB108C</name>
+    <name type="synonym">DEFB108P2</name>
+  </gene>
+  <organism>
+    <name type="scientific">Homo sapiens</name>
+    <name type="common">Human</name>
+    <dbReference id="9606" type="NCBI Taxonomy"/>
+    <lineage>
+      <taxon>Eukaryota</taxon>
+      <taxon>Metazoa</taxon>
+      <taxon>Chordata</taxon>
+      <taxon>Craniata</taxon>
+      <taxon>Vertebrata</taxon>
+      <taxon>Euteleostomi</taxon>
+      <taxon>Mammalia</taxon>
+      <taxon>Eutheria</taxon>
+      <taxon>Euarchontoglires</taxon>
+      <taxon>Primates</taxon>
+      <taxon>Haplorrhini</taxon>
+            <taxon>Catarrhini</taxon>
+      <taxon>Hominidae</taxon>
+      <taxon>Homo</taxon>
+    </lineage>
+  </organism>
+  <reference key="1">
+    <citation last="335" first="331" volume="439" name="Nature" date="2006" type="journal article">
+      <title>DNA sequence and analysis of human chromosome 8.</title>
+      <authorList>
+        <person name="Nusbaum C."/>
+        <person name="Mikkelsen T.S."/>
+        <person name="Zody M.C."/>
+        <person name="Asakawa S."/>
+        <person name="Taudien S."/>
+        <person name="Garber M."/>
+        <person name="Kodira C.D."/>
+        <person name="Schueler M.G."/>
+        <person name="Shimizu A."/>
+        <person name="Whittaker C.A."/>
+        <person name="Chang J.L."/>
+        <person name="Cuomo C.A."/>
+        <person name="Dewar K."/>
+        <person name="FitzGerald M.G."/>
+        <person name="Yang X."/>
+        <person name="Allen N.R."/>
+        <person name="Anderson S."/>
+        <person name="Asakawa T."/>
+        <person name="Blechschmidt K."/>
+        <person name="Bloom T."/>
+        <person name="Borowsky M.L."/>
+        <person name="Butler J."/>
+        <person name="Cook A."/>
+        <person name="Corum B."/>
+        <person name="DeArellano K."/>
+        <person name="DeCaprio D."/>
+        <person name="Dooley K.T."/>
+        <person name="Dorris L. III"/>
+        <person name="Engels R."/>
+        <person name="Gloeckner G."/>
+        <person name="Hafez N."/>
+        <person name="Hagopian D.S."/>
+        <person name="Hall J.L."/>
+        <person name="Ishikawa S.K."/>
+        <person name="Jaffe D.B."/>
+                <person name="Kamat A."/>
+        <person name="Kudoh J."/>
+        <person name="Lehmann R."/>
+        <person name="Lokitsang T."/>
+        <person name="Macdonald P."/>
+        <person name="Major J.E."/>
+        <person name="Matthews C.D."/>
+        <person name="Mauceli E."/>
+        <person name="Menzel U."/>
+        <person name="Mihalev A.H."/>
+        <person name="Minoshima S."/>
+        <person name="Murayama Y."/>
+        <person name="Naylor J.W."/>
+        <person name="Nicol R."/>
+        <person name="Nguyen C."/>
+        <person name="O'Leary S.B."/>
+        <person name="O'Neill K."/>
+        <person name="Parker S.C.J."/>
+        <person name="Polley A."/>
+        <person name="Raymond C.K."/>
+        <person name="Reichwald K."/>
+        <person name="Rodriguez J."/>
+        <person name="Sasaki T."/>
+        <person name="Schilhabel M."/>
+        <person name="Siddiqui R."/>
+        <person name="Smith C.L."/>
+        <person name="Sneddon T.P."/>
+        <person name="Talamas J.A."/>
+        <person name="Tenzin P."/>
+        <person name="Topham K."/>
+        <person name="Venkataraman V."/>
+        <person name="Wen G."/>
+        <person name="Yamazaki S."/>
+        <person name="Young S.K."/>
+        <person name="Zeng Q."/>
+        <person name="Zimmer A.R."/>
+        <person name="Rosenthal A."/>
+        <person name="Birren B.W."/>
+        <person name="Platzer M."/>
+        <person name="Shimizu N."/>
+        <person name="Lander E.S."/>
+      </authorList>
+      <dbReference id="16421571" type="PubMed"/>
+      <dbReference id="10.1038/nature04406" type="DOI"/>
+          </citation>
+    <scope>NUCLEOTIDE SEQUENCE [LARGE SCALE GENOMIC DNA]</scope>
+  </reference>
+  <reference key="2">
+    <citation last="R31.11" first="R31.1" volume="4" name="Genome Biol." date="2003" type="journal article">
+      <title>Duplication and selection in the evolution of primate beta-defensin genes.</title>
+      <authorList>
+        <person name="Semple C.A.M."/>
+        <person name="Rolfe M."/>
+        <person name="Dorin J.R."/>
+      </authorList>
+      <dbReference id="12734011" type="PubMed"/>
+      <dbReference id="10.1186/gb-2003-4-5-r31" type="DOI"/>
+    </citation>
+    <scope>NUCLEOTIDE SEQUENCE [MRNA] OF 1-59</scope>
+  </reference>
+  <comment type="function">
+    <text evidence="3">Has antibacterial activity.</text>
+  </comment>
+  <comment type="subcellular location">
+    <subcellularLocation>
+      <location evidence="1">Secreted</location>
+    </subcellularLocation>
+  </comment>
+  <comment type="similarity">
+    <text evidence="3">Belongs to the beta-defensin family.</text>
+  </comment>
+  <comment type="caution">
+    <text evidence="3">Could be the product of a pseudogene.</text>
+  </comment>
+  <dbReference id="AC130360" type="EMBL">
+    <property value="NOT_ANNOTATED_CDS" type="status"/>
+    <property value="Genomic_DNA" type="molecule type"/>
+  </dbReference>
+  <dbReference id="AF540980" type="EMBL">
+    <property value="NOT_ANNOTATED_CDS" type="status"/>
+    <property value="mRNA" type="molecule type"/>
+  </dbReference>
+  <dbReference id="Hs.583890" type="UniGene"/>
+  <dbReference id="A8MXU0" type="ProteinModelPortal"/>
+  <dbReference id="A8MXU0" type="PRIDE"/>
+  <dbReference id="2353" type="ProteomicsDB"/>
+  <dbReference id="DEFB108A" type="GeneCards"/>
+  <dbReference id="DEFB108C" type="GeneCards"/>
+    <dbReference id="HGNC:18089" type="HGNC">
+    <property value="DEFB108A" type="gene designation"/>
+  </dbReference>
+  <dbReference id="HGNC:30847" type="HGNC">
+    <property value="DEFB108C" type="gene designation"/>
+  </dbReference>
+  <dbReference id="HPA042588" type="HPA"/>
+  <dbReference id="NX_A8MXU0" type="neXtProt"/>
+  <dbReference id="HOG000112137" type="HOGENOM"/>
+  <dbReference id="HBG081400" type="HOVERGEN"/>
+  <dbReference id="A8MXU0" type="InParanoid"/>
+  <dbReference id="A8MXU0" type="PhylomeDB"/>
+  <dbReference id="R-HSA-1461957" type="Reactome">
+    <property value="Beta defensins" type="pathway name"/>
+  </dbReference>
+  <dbReference id="UP000005640" type="Proteomes">
+    <property value="Unplaced" type="component"/>
+  </dbReference>
+  <dbReference id="GO:0009986" type="GO">
+    <property value="C:cell surface" type="term"/>
+    <property value="ECO:0000318" type="evidence"/>
+    <property value="GO_Central" type="project"/>
+  </dbReference>
+  <dbReference id="GO:0005576" type="GO">
+    <property value="C:extracellular region" type="term"/>
+    <property value="ECO:0000501" type="evidence"/>
+    <property value="UniProtKB-SubCell" type="project"/>
+  </dbReference>
+  <dbReference id="GO:0042742" type="GO">
+    <property value="P:defense response to bacterium" type="term"/>
+    <property value="ECO:0000318" type="evidence"/>
+    <property value="GO_Central" type="project"/>
+  </dbReference>
+  <dbReference id="GO:0045087" type="GO">
+    <property value="P:innate immune response" type="term"/>
+    <property value="ECO:0000318" type="evidence"/>
+    <property value="GO_Central" type="project"/>
+  </dbReference>
+  <dbReference id="IPR025933" type="InterPro">
+    <property value="Beta_defensin" type="entry name"/>
+  </dbReference>
+  <dbReference id="PTHR15001" type="PANTHER">
+    <property value="PTHR15001" type="entry name"/>
+    <property value="1" type="match status"/>
+      </dbReference>
+  <dbReference id="PF13841" type="Pfam">
+    <property value="Defensin_beta_2" type="entry name"/>
+    <property value="1" type="match status"/>
+  </dbReference>
+  <proteinExistence type="uncertain"/>
+  <keyword id="KW-0044">Antibiotic</keyword>
+  <keyword id="KW-0929">Antimicrobial</keyword>
+  <keyword id="KW-0181">Complete proteome</keyword>
+  <keyword id="KW-0211">Defensin</keyword>
+  <keyword id="KW-1015">Disulfide bond</keyword>
+  <keyword id="KW-1185">Reference proteome</keyword>
+  <keyword id="KW-0964">Secreted</keyword>
+  <keyword id="KW-0732">Signal</keyword>
+  <feature evidence="2" type="signal peptide">
+    <location>
+      <begin position="1"/>
+      <end position="22"/>
+    </location>
+  </feature>
+  <feature description="Putative beta-defensin 108A" id="PRO_0000341263" type="chain">
+    <location>
+      <begin position="23"/>
+      <end position="73"/>
+    </location>
+  </feature>
+  <feature evidence="1" type="disulfide bond">
+    <location>
+      <begin position="28"/>
+      <end position="55"/>
+    </location>
+  </feature>
+  <feature evidence="1" type="disulfide bond">
+    <location>
+      <begin position="35"/>
+      <end position="49"/>
+    </location>
+  </feature>
+  <feature evidence="1" type="disulfide bond">
+    <location>
+      <begin position="39"/>
+      <end position="56"/>
+    </location>
+  </feature>
+      <evidence key="1" type="ECO:0000250"/>
+  <evidence key="2" type="ECO:0000255"/>
+  <evidence key="3" type="ECO:0000305"/>
+  <evidence key="4" type="ECO:0000312">
+    <source>
+      <dbReference id="HGNC:18089" type="HGNC"/>
+    </source>
+  </evidence>
+  <evidence key="5" type="ECO:0000312">
+    <source>
+      <dbReference id="HGNC:30847" type="HGNC"/>
+    </source>
+  </evidence>
+  <sequence precursor="true" version="2" modified="2008-06-10" checksum="ED4C8C652A4C7FDA" mass="8390" length="73">MRIAVLFFTIFFFMSQVLPAKGKFKEICERPNGSCRDFCLETEIHVGRCLNSRPCCLPLGHQPRIESTTPKKD</sequence>
+</entry>
+</uniprot>
