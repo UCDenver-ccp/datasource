@@ -101,13 +101,12 @@ public class OntologyUtil {
 		}
 	}
 
-	
 	public OntologyUtil(InputStream ontologyStream) throws OWLOntologyCreationException {
 		OWLOntologyManager inputOntologyManager = OWLManager.createOWLOntologyManager();
 		ont = inputOntologyManager.loadOntologyFromOntologyDocument(ontologyStream);
 		graph = new OWLGraphWrapper(ont);
 	}
-	
+
 	public OntologyUtil(File ontologyFile) throws OWLOntologyCreationException {
 		OWLOntologyManager inputOntologyManager = OWLManager.createOWLOntologyManager();
 		ont = inputOntologyManager.loadOntologyFromOntologyDocument(ontologyFile);
@@ -175,6 +174,45 @@ public class OntologyUtil {
 		return false;
 	}
 
+	public Set<String> getLabelsAndAlternativeTerms(OWLClass cls) {
+		Set<String> labels = new HashSet<String>();
+		labels.addAll(getLabels(cls));
+		labels.addAll(getAlternativeTerms(cls));
+		return labels;
+	}
+
+	public List<String> getAlternativeTerms(OWLClass cls) {
+		List<String> labels = new ArrayList<String>();
+		Set<OWLAnnotation> annotations = cls.getAnnotations(ont);
+		for (OWLAnnotation annotation : annotations) {
+			if (annotation.getProperty().toString().equals("<http://purl.obolibrary.org/obo/IAO_0000118>")) {
+				String s = annotation.getValue().toString();
+				s = StringUtils.removePrefix(s, "\"");
+				s = StringUtils.removeSuffix(s, "\"^^xsd:string");
+				s = StringUtils.removeSuffix(s, "\"@en");
+				labels.add(s);
+			}
+		}
+
+		return labels;
+	}
+
+	public List<String> getLabels(OWLClass cls) {
+		List<String> labels = new ArrayList<String>();
+		Set<OWLAnnotation> annotations = cls.getAnnotations(ont);
+		for (OWLAnnotation annotation : annotations) {
+			if (annotation.getProperty().isLabel()) {
+				String s = annotation.getValue().toString();
+				s = StringUtils.removePrefix(s, "\"");
+				s = StringUtils.removeSuffix(s, "\"^^xsd:string");
+				s = StringUtils.removeSuffix(s, "\"@en");
+				labels.add(s);
+			}
+		}
+
+		return labels;
+	}
+
 	public String getLabel(OWLClass cls) {
 		Set<OWLAnnotation> annotations = cls.getAnnotations(ont);
 		for (OWLAnnotation annotation : annotations) {
@@ -182,6 +220,7 @@ public class OntologyUtil {
 				String s = annotation.getValue().toString();
 				s = StringUtils.removePrefix(s, "\"");
 				s = StringUtils.removeSuffix(s, "\"^^xsd:string");
+				s = StringUtils.removeSuffix(s, "\"@en");
 				return s;
 			}
 		}
@@ -196,6 +235,7 @@ public class OntologyUtil {
 				String s = annotation.getValue().toString();
 				s = StringUtils.removePrefix(s, "\"");
 				s = StringUtils.removeSuffix(s, "\"^^xsd:string");
+				s = StringUtils.removeSuffix(s, "\"@en");
 				return s;
 			}
 		}
@@ -210,6 +250,7 @@ public class OntologyUtil {
 				String s = annotation.getValue().toString();
 				s = StringUtils.removePrefix(s, "\"");
 				s = StringUtils.removeSuffix(s, "\"^^xsd:string");
+				s = StringUtils.removeSuffix(s, "\"@en");
 				return s;
 			}
 		}
@@ -248,11 +289,11 @@ public class OntologyUtil {
 		Set<OWLAnnotation> annotations = cls.getAnnotations(ont);
 		for (OWLAnnotation annotation : annotations) {
 			String property = getAnnotationPropertyUri(annotation);
-			
+
 			if (cls.getIRI().toString().contains("female_or_bearer_of_femaleness")) {
-			System.out.println("+++++++++++++++ property: " + property);
+				System.out.println("+++++++++++++++ property: " + property);
 			}
-			
+
 			if ((synType == SynonymType.EXACT || synType == SynonymType.ALL)
 					&& (property.equals(EXACT_SYN_PROP) || property.equals(EXACT_SYN_PROP_ALT)
 							|| property.equals(IAO_EDITOR_PREFERRED_LABEL) || property.equals(IAO_ALTERNATIVE_TERM))) {
