@@ -39,20 +39,16 @@ import edu.ucdenver.ccp.datasource.identifiers.DataSource;
 import edu.ucdenver.ccp.datasource.identifiers.DataSourceIdentifier;
 import edu.ucdenver.ccp.datasource.identifiers.Identifier;
 
-@Identifier(ontClass=CcpExtensionOntology.ENSEMBL_GENE_IDENTIFIER)
-public class EnsemblGeneID  extends DataSourceIdentifier<String>{
+@Identifier(ontClass=CcpExtensionOntology.EUROPEAN_NUCLEOTIDE_ARCHIVE_IDENTIFIER)
+public class EuropeanNucleotideArchiveId  extends DataSourceIdentifier<String>{
 
-	public EnsemblGeneID(String resourceID) {
-		super(resourceID, DataSource.ENSEMBL);
+	public EuropeanNucleotideArchiveId(String resourceID) {
+		super(resourceID, DataSource.ENA);
 }
 
 	@Override
-	public String validate(String ensemblID) throws IllegalArgumentException {
-		if (ensemblID.matches("ENS[^\\d]*G\\d+")) {
-			return ensemblID;
-		}
-		throw new IllegalArgumentException("Unexpected Ensembl Transcript identifier format "
-				+ "(expected it to start with ENSG and contain only numbers afterwards): " + ensemblID);
+	public String validate(String enaId) throws IllegalArgumentException {
+		return enaId;
 	}
 	
 

@@ -39,21 +39,20 @@ import edu.ucdenver.ccp.datasource.identifiers.DataSource;
 import edu.ucdenver.ccp.datasource.identifiers.DataSourceIdentifier;
 import edu.ucdenver.ccp.datasource.identifiers.Identifier;
 
-@Identifier(ontClass=CcpExtensionOntology.ENSEMBL_GENE_IDENTIFIER)
-public class EnsemblGeneID  extends DataSourceIdentifier<String>{
+@Identifier(ontClass = CcpExtensionOntology.ENSEMBL_TRANSCRIPT_IDENTIFIER)
+public class EnsemblTranscriptID extends DataSourceIdentifier<String> {
 
-	public EnsemblGeneID(String resourceID) {
+	public EnsemblTranscriptID(String resourceID) {
 		super(resourceID, DataSource.ENSEMBL);
-}
+	}
 
 	@Override
 	public String validate(String ensemblID) throws IllegalArgumentException {
-		if (ensemblID.matches("ENS[^\\d]*G\\d+")) {
+		if (ensemblID.matches("ENS[^\\d]*T\\d+")) {
 			return ensemblID;
 		}
 		throw new IllegalArgumentException("Unexpected Ensembl Transcript identifier format "
-				+ "(expected it to start with ENSG and contain only numbers afterwards): " + ensemblID);
+				+ "(expected it to start with ENST and contain only numbers afterwards): " + ensemblID);
 	}
-	
 
 }

@@ -61,6 +61,7 @@ import edu.ucdenver.ccp.datasource.fileparsers.FileRecordReader;
 import edu.ucdenver.ccp.datasource.fileparsers.RecordReader;
 import edu.ucdenver.ccp.datasource.fileparsers.biogrid.BioGridProteinChemicalInteractionRecordReader;
 import edu.ucdenver.ccp.datasource.fileparsers.biogrid.BioGridProteinInteractionRecordReader;
+import edu.ucdenver.ccp.datasource.fileparsers.biomart.BioMartIdMappingRecordReader;
 import edu.ucdenver.ccp.datasource.fileparsers.bioplex.BioPlexInteractionListRecordReader;
 import edu.ucdenver.ccp.datasource.fileparsers.custom.CuratedTFRecordReader;
 import edu.ucdenver.ccp.datasource.fileparsers.drugbank.DrugbankXmlFileRecordReader;
@@ -113,6 +114,7 @@ import edu.ucdenver.ccp.datasource.fileparsers.rgd.RgdRatGeneMpAnnotationFileRec
 import edu.ucdenver.ccp.datasource.fileparsers.rgd.RgdRatGeneNboAnnotationFileRecordReader;
 import edu.ucdenver.ccp.datasource.fileparsers.rgd.RgdRatGenePwAnnotationFileRecordReader;
 import edu.ucdenver.ccp.datasource.fileparsers.rgd.RgdRatGeneRdoAnnotationFileRecordReader;
+import edu.ucdenver.ccp.datasource.fileparsers.rnacentral.RnaCentralIdMappingRecordReader;
 import edu.ucdenver.ccp.datasource.fileparsers.transfac.TransfacGeneDatFileParser;
 import edu.ucdenver.ccp.datasource.fileparsers.transfac.TransfacMatrixDatFileParser;
 import edu.ucdenver.ccp.datasource.fileparsers.vectorbase.VectorBaseFastaFileRecordReader_aael_transcripts;
@@ -169,6 +171,22 @@ public enum FileDataSource {
 	// return true;
 	// }
 	// },
+
+	BIOMART_IDENTIFIER_MAPPING(DataSource.BIOMART, IsTaxonAware.NO, RequiresManualDownload.YES) {
+		@Override
+		protected RecordReader<?> initFileRecordReader(File sourceFileDirectory, File baseSourceFileDirectory,
+				boolean cleanSourceFiles, boolean cleanIdListFiles, File idListDir, Set<NcbiTaxonomyID> taxonIds)
+				throws IOException {
+			File tsvFile = new File(sourceFileDirectory, "biomart-identifier-mappings.txt");
+			FileUtil.validateFile(tsvFile);
+			return new BioMartIdMappingRecordReader(tsvFile, CharacterEncoding.UTF_8);
+		}
+
+		@Override
+		protected Class<? extends RecordReader<?>> getRecordReaderClass() {
+			return BioGridProteinInteractionRecordReader.class;
+		}
+	},
 
 	BIOPLEX(DataSource.BIOPLEX, IsTaxonAware.YES, RequiresManualDownload.NO) {
 		@Override
@@ -632,6 +650,24 @@ public enum FileDataSource {
 		@Override
 		protected Class<? extends RecordReader<?>> getRecordReaderClass() {
 			return RgdRatGenePwAnnotationFileRecordReader.class;
+		}
+	},
+
+	/**
+	 *
+	 */
+	RNACENTRAL_ID_MAPPING(DataSource.RNACENTRAL, IsTaxonAware.YES, RequiresManualDownload.NO) {
+		@Override
+		protected FileRecordReader<?> initFileRecordReader(File sourceFileDirectory, File baseSourceFileDirectory,
+				boolean cleanSourceFiles, boolean cleanIdListFiles, File idListDir, Set<NcbiTaxonomyID> taxonIds)
+				throws IOException {
+			return new RnaCentralIdMappingRecordReader(sourceFileDirectory, CharacterEncoding.UTF_8, cleanSourceFiles,
+					taxonIds);
+		}
+
+		@Override
+		protected Class<? extends RecordReader<?>> getRecordReaderClass() {
+			return RnaCentralIdMappingRecordReader.class;
 		}
 	},
 

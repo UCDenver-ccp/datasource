@@ -38,6 +38,7 @@ import org.apache.log4j.Logger;
 import edu.ucdenver.ccp.common.string.StringUtil;
 import edu.ucdenver.ccp.datasource.identifiers.DataSourceIdentifier;
 import edu.ucdenver.ccp.datasource.identifiers.IdResolver;
+import edu.ucdenver.ccp.datasource.identifiers.ProbableErrorDataSourceIdentifier;
 import edu.ucdenver.ccp.datasource.identifiers.ProteinAccessionResolver;
 import edu.ucdenver.ccp.datasource.identifiers.UnknownDataSourceIdentifier;
 import edu.ucdenver.ccp.datasource.identifiers.impl.bio.CellTypeOntologyID;
@@ -108,7 +109,11 @@ public class GoaFileIdResolver implements IdResolver {
 			return new EmblID(idStr.substring(5));
 		}
 		if (idStr.startsWith("HGNC:")) {
+			try {
 			return new HgncID(idStr.substring(5));
+			 } catch (IllegalArgumentException e) {
+				return new ProbableErrorDataSourceIdentifier(idStr.substring(5), idStr, e.getMessage());
+			}
 		}
 		if (idStr.startsWith("WB:")) {
 			return new WormBaseID(idStr.substring(3));
@@ -174,7 +179,11 @@ public class GoaFileIdResolver implements IdResolver {
 			return new EnzymeCommissionID(idStr.substring(3));
 		}
 		if (idStr.startsWith("RefSeq:")) {
-			return new RefSeqID(idStr.substring(7));
+			try {
+				return new RefSeqID(idStr.substring(7));
+			} catch (IllegalArgumentException e) {
+				return new ProbableErrorDataSourceIdentifier(idStr.substring(7), idStr, e.getMessage());
+			}
 		}
 		if (idStr.startsWith("PomBase:")) {
 			return new PomBaseId(idStr.substring(8));
@@ -225,10 +234,14 @@ public class GoaFileIdResolver implements IdResolver {
 			if (idStr.contains(":PRO_")) {
 				return new UnknownDataSourceIdentifier(idStr);
 			}
+			try {
 			if (idStr.contains("-")) {
 				return new UniProtIsoformID(idStr.substring(10));
 			}
-			return new UniProtID(idStr.substring(10));
+				return new UniProtID(idStr.substring(10));
+			} catch (IllegalArgumentException e) {
+				return new ProbableErrorDataSourceIdentifier(idStr.substring(10), idStr, e.getMessage());
+			}
 		}
 		
 		logger.warn("Encountered unknown ID: " + idStr);

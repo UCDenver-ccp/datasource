@@ -74,6 +74,7 @@ import edu.ucdenver.ccp.datasource.fileparsers.taxonaware.TaxonAwareSingleLineFi
 import edu.ucdenver.ccp.datasource.identifiers.DataSourceIdentifier;
 import edu.ucdenver.ccp.datasource.identifiers.IdResolver;
 import edu.ucdenver.ccp.datasource.identifiers.impl.bio.NcbiTaxonomyID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.ice.PubMedID;
 
 /**
  * Record reader base class for GAF 2.0 files
@@ -153,6 +154,13 @@ public class Gaf2FileRecordReader<T extends Gaf2FileRecord> extends TaxonAwareSi
 		DataSourceIdentifier<?> geneProductFormId = toks[index++].isEmpty() ? null : idResolver
 				.resolveId(toks[index - 1]);
 
+//		for (DataSourceIdentifier<?> id : referenceAccessionIds) {
+//			if (id.getClass().isInstance(PubMedID.class)) {
+//				System.out.println("HAS PMID");
+//				throw new IllegalStateException();
+//			}
+//		}
+		
 		return new Gaf2FileRecord(databaseDesignation, dbObjectId, dbObjectSymbol, qualifier, ontologyTermId,
 				referenceAccessionIds, evidenceCode, withOrFromIds, aspect, dbObjectName, dbObjectSynonyms,
 				dbObjectType, dbObjectTaxonId, interactingTaxonId, date, assignedBy, annotationExtensions,
@@ -197,6 +205,9 @@ public class Gaf2FileRecordReader<T extends Gaf2FileRecord> extends TaxonAwareSi
 	 *         String
 	 */
 	private static Set<DataSourceIdentifier<?>> extractIds(String idStr) {
+//		if (idStr.contains("PMID")) {
+//			System.out.println("extracting pmid: " + idStr);
+//		}
 		Set<DataSourceIdentifier<?>> ids = new HashSet<DataSourceIdentifier<?>>();
 		if (!idStr.trim().isEmpty()) {
 			for (String id : idStr.split("[\\|,]")) {
@@ -206,6 +217,16 @@ public class Gaf2FileRecordReader<T extends Gaf2FileRecord> extends TaxonAwareSi
 				}
 			}
 		}
+//		if (idStr.contains("PMID")) {
+//			boolean containsPmid = false;
+//			for (DataSourceIdentifier<?> id : ids) {
+//				System.out.println("class: " + id.getClass().getName());
+//				if (id instanceof PubMedID) {
+//					containsPmid = true;
+//				}
+//			}
+//			System.out.println("Returning: " + ids.toString() + " contains pmid = " + containsPmid);
+//		}
 		return ids;
 	}
 
