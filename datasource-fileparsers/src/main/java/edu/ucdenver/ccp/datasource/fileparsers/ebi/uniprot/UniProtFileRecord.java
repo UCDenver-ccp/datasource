@@ -43,6 +43,7 @@ import javax.xml.datatype.XMLGregorianCalendar;
 
 import org.uniprot.CitationType;
 import org.uniprot.CommentType;
+import org.uniprot.CommentType.PhDependence;
 import org.uniprot.ConsortiumType;
 import org.uniprot.DbReferenceType;
 import org.uniprot.Entry;
@@ -310,11 +311,11 @@ public class UniProtFileRecord extends FileRecord {
 		@RecordField(ontClass = CcpExtensionOntology.UNIPROT_COMMENT_RECORD___KINETICS_FIELD_VALUE)
 		private final Comment.Kinetics kinetics;
 		@RecordField(ontClass = CcpExtensionOntology.UNIPROT_COMMENT_RECORD___PH_DEPENDENCE_FIELD_VALUE)
-		private final EvidencedString phDependence;
+		private final List<EvidencedString> phDependence;
 		@RecordField(ontClass = CcpExtensionOntology.UNIPROT_COMMENT_RECORD___REDOX_POTENTIAL_FIELD_VALUE)
-		private final EvidencedString redoxPotential;
+		private final List<EvidencedString> redoxPotential;
 		@RecordField(ontClass = CcpExtensionOntology.UNIPROT_COMMENT_RECORD___TEMPERATURE_DEPENDENCE_FIELD_VALUE)
-		private final EvidencedString temperatureDependence;
+		private final List<EvidencedString> temperatureDependence;
 		@RecordField(ontClass = CcpExtensionOntology.UNIPROT_COMMENT_RECORD___MOLECULE_FIELD_VALUE)
 		private final MoleculeType molecule;
 		@RecordField(ontClass = CcpExtensionOntology.UNIPROT_COMMENT_RECORD___SUBCELLULAR_LOCATION_FIELD_VALUE)
@@ -336,7 +337,7 @@ public class UniProtFileRecord extends FileRecord {
 		@RecordField(ontClass = CcpExtensionOntology.UNIPROT_COMMENT_RECORD___LOCATION_FIELD_VALUE)
 		private final List<Location> location;
 		@RecordField(ontClass = CcpExtensionOntology.UNIPROT_COMMENT_RECORD___TEXT_FIELD_VALUE)
-		private final EvidencedString text;
+		private final List<EvidencedString> text;
 		@RecordField(ontClass = CcpExtensionOntology.UNIPROT_COMMENT_RECORD___TYPE_FIELD_VALUE)
 		private final String type;
 		@RecordField(ontClass = CcpExtensionOntology.UNIPROT_COMMENT_RECORD___LOCATION_TYPE_FIELD_VALUE)
@@ -356,9 +357,24 @@ public class UniProtFileRecord extends FileRecord {
 			this.absorption = (xmlType.getAbsorption() == null) ? null
 					: new Comment.Absorption(xmlType.getAbsorption());
 			this.kinetics = (xmlType.getKinetics() == null) ? null : new Comment.Kinetics(xmlType.getKinetics());
-			this.phDependence = EvidencedString.getInstance(xmlType.getPhDependence());
-			this.redoxPotential = EvidencedString.getInstance(xmlType.getRedoxPotential());
-			this.temperatureDependence = EvidencedString.getInstance(xmlType.getTemperatureDependence());
+			this.phDependence = new ArrayList<EvidencedString>();
+			if (xmlType.getPhDependence() != null) {
+				for (EvidencedStringType type : xmlType.getPhDependence().getText()) {
+					this.phDependence.add(EvidencedString.getInstance(type));
+				}
+			}
+			this.redoxPotential = new ArrayList<EvidencedString>();
+			if (xmlType.getRedoxPotential() != null) {
+				for (EvidencedStringType type : xmlType.getRedoxPotential().getText()) {
+					this.redoxPotential.add(EvidencedString.getInstance(type));
+				}
+			}
+			this.temperatureDependence = new ArrayList<EvidencedString>();
+			if (xmlType.getTemperatureDependence() != null) {
+				for (EvidencedStringType type : xmlType.getTemperatureDependence().getText()) {
+					this.temperatureDependence.add(EvidencedString.getInstance(type));
+				}
+			}
 			this.molecule = (xmlType.getMolecule() == null) ? null : new MoleculeType(xmlType.getMolecule());
 			this.subcellularLocation = new ArrayList<SubcellularLocation>();
 			if (xmlType.getSubcellularLocation() != null) {
@@ -399,7 +415,12 @@ public class UniProtFileRecord extends FileRecord {
 					this.location.add(new Location(type));
 				}
 			}
-			this.text = EvidencedString.getInstance(xmlType.getText());
+			this.text = new ArrayList<EvidencedString>();
+			if (xmlType.getText() != null) {
+				for (EvidencedStringType type : xmlType.getText()) {
+					this.text.add(EvidencedString.getInstance(type));
+				}
+			}
 			this.type = xmlType.getType();
 			this.locationType = xmlType.getLocationType();
 			this.name = xmlType.getName();
@@ -416,11 +437,16 @@ public class UniProtFileRecord extends FileRecord {
 			@RecordField(ontClass = CcpExtensionOntology.UNIPROT_ABSORPTION_RECORD___MAX_FIELD_VALUE)
 			private final EvidencedString max;
 			@RecordField(ontClass = CcpExtensionOntology.UNIPROT_ABSORPTION_RECORD___TEXT_FIELD_VALUE)
-			private final EvidencedString text;
+			private final List<EvidencedString> text;
 
 			public Absorption(CommentType.Absorption xmlType) {
 				this.max = EvidencedString.getInstance(xmlType.getMax());
-				this.text = EvidencedString.getInstance(xmlType.getText());
+				this.text = new ArrayList<EvidencedString>();
+				if (xmlType.getText() != null) {
+					for (EvidencedStringType type : xmlType.getText()) {
+						this.text.add(EvidencedString.getInstance(type));
+					}
+				}
 			}
 		}
 
@@ -469,7 +495,7 @@ public class UniProtFileRecord extends FileRecord {
 			@RecordField(ontClass = CcpExtensionOntology.UNIPROT_KINETICS_RECORD___VMAX_FIELD_VALUE)
 			private final List<EvidencedString> vmax;
 			@RecordField(ontClass = CcpExtensionOntology.UNIPROT_KINETICS_RECORD___TEXT_FIELD_VALUE)
-			private final EvidencedString text;
+			private final List<EvidencedString> text;
 
 			public Kinetics(CommentType.Kinetics xmlType) {
 				this.km = new ArrayList<EvidencedString>();
@@ -484,7 +510,12 @@ public class UniProtFileRecord extends FileRecord {
 						this.vmax.add(EvidencedString.getInstance(type));
 					}
 				}
-				this.text = EvidencedString.getInstance(xmlType.getText());
+				this.text = new ArrayList<EvidencedString>();
+				if (xmlType.getText() != null) {
+					for (EvidencedStringType type : xmlType.getText()) {
+						this.text.add(EvidencedString.getInstance(type));
+					}
+				}
 			}
 		}
 
@@ -1101,7 +1132,7 @@ public class UniProtFileRecord extends FileRecord {
 		@RecordField(ontClass = CcpExtensionOntology.UNIPROT_ISOFORM_RECORD___SEQUENCE_FIELD_VALUE)
 		private final Isoform.Sequence sequence;
 		@RecordField(ontClass = CcpExtensionOntology.UNIPROT_ISOFORM_RECORD___NOTE_FIELD_VALUE)
-		private final Isoform.Note note;
+		private final List<EvidencedString> text;
 
 		public Isoform(IsoformType xmlType) {
 			this.id = new ArrayList<UniProtIsoformID>();
@@ -1117,7 +1148,12 @@ public class UniProtFileRecord extends FileRecord {
 				}
 			}
 			this.sequence = (xmlType.getSequence() == null) ? null : new Isoform.Sequence(xmlType.getSequence());
-			this.note = (xmlType.getNote() == null) ? null : new Isoform.Note(xmlType.getNote());
+			this.text = new ArrayList<EvidencedString>();
+			if (xmlType.getText() != null) {
+				for (EvidencedStringType type : xmlType.getText()) {
+					text.add(EvidencedString.getInstance(type));
+				}
+			}
 		}
 
 		@Getter
@@ -1136,21 +1172,25 @@ public class UniProtFileRecord extends FileRecord {
 			}
 		}
 
-		@Getter
-		@Record(ontClass = CcpExtensionOntology.UNIPROT_NOTE_RECORD, dataSource = DataSource.UNIPROT)
-		public static class Note {
-
-			@RecordField(ontClass = CcpExtensionOntology.UNIPROT_NOTE_RECORD___VALUE_FIELD_VALUE)
-			private final String value;
-			@RecordField(ontClass = CcpExtensionOntology.UNIPROT_NOTE_RECORD___EVIDENCE_FIELD_VALUE)
-			private final List<Integer> evidence;
-
-			public Note(IsoformType.Note xmlType) {
-				this.value = xmlType.getValue();
-				this.evidence = (xmlType.getEvidence() == null) ? new ArrayList<Integer>()
-						: new ArrayList<Integer>(xmlType.getEvidence());
-			}
-		}
+		// @Getter
+		// @Record(ontClass = CcpExtensionOntology.UNIPROT_NOTE_RECORD,
+		// dataSource = DataSource.UNIPROT)
+		// public static class Note {
+		//
+		// @RecordField(ontClass =
+		// CcpExtensionOntology.UNIPROT_NOTE_RECORD___VALUE_FIELD_VALUE)
+		// private final String value;
+		// @RecordField(ontClass =
+		// CcpExtensionOntology.UNIPROT_NOTE_RECORD___EVIDENCE_FIELD_VALUE)
+		// private final List<Integer> evidence;
+		//
+		// public Note(IsoformType.Note xmlType) {
+		// this.value = xmlType.getValue();
+		// this.evidence = (xmlType.getEvidence() == null) ? new
+		// ArrayList<Integer>()
+		// : new ArrayList<Integer>(xmlType.getEvidence());
+		// }
+		// }
 
 		@Getter
 		@Record(ontClass = CcpExtensionOntology.UNIPROT_ISOFORM_SEQUENCE_RECORD, dataSource = DataSource.UNIPROT)

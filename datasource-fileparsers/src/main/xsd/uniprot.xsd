@@ -480,13 +480,29 @@
             Equivalent to the flat file CC-line.</xs:documentation>
         </xs:annotation>
         <xs:sequence>
+            <xs:element name="molecule" type="moleculeType" minOccurs="0"/>
             <xs:choice minOccurs="0">
                 <xs:group ref="bpcCommentGroup"/>
+
+                <xs:sequence>
+                    <xs:annotation>
+                        <xs:documentation>Used in 'catalytic activity' annotations.</xs:documentation>
+                    </xs:annotation>
+                    <xs:element name="reaction" type="reactionType"/>
+                    <xs:element name="physiologicalReaction" type="physiologicalReactionType" minOccurs="0" maxOccurs="2"/>
+                </xs:sequence>
+
+                <xs:sequence>
+                    <xs:annotation>
+                        <xs:documentation>Used in 'cofactor' annotations.</xs:documentation>
+                    </xs:annotation>
+                    <xs:element name="cofactor" type="cofactorType" maxOccurs="unbounded"/>
+                </xs:sequence>
+
                 <xs:sequence>
                     <xs:annotation>
                         <xs:documentation>Used in 'subcellular location' annotations.</xs:documentation>
                     </xs:annotation>
-                    <xs:element name="molecule" type="moleculeType" minOccurs="0"/>
                     <xs:element name="subcellularLocation" type="subcellularLocationType" maxOccurs="unbounded"/>
                 </xs:sequence>
 
@@ -582,11 +598,7 @@
                 </xs:annotation>
             </xs:element>
 
-            <xs:element name="text" type="evidencedStringType" minOccurs="0">
-                <xs:annotation>
-                    <xs:documentation>Used to store non-structured types of annotations, as well as optional free-text notes of structured types of annotations.</xs:documentation>
-                </xs:annotation>
-            </xs:element>
+            <xs:element name="text" type="evidencedStringType" minOccurs="0" maxOccurs="unbounded"/>
 
         </xs:sequence>
 
@@ -608,7 +620,7 @@
                     <xs:enumeration value="disease"/>
                     <xs:enumeration value="domain"/>
                     <xs:enumeration value="disruption phenotype"/>
-                    <xs:enumeration value="enzyme regulation"/>
+                    <xs:enumeration value="activity regulation"/>
                     <xs:enumeration value="function"/>
                     <xs:enumeration value="induction"/>
                     <xs:enumeration value="miscellaneous"/>
@@ -670,7 +682,7 @@
                 <xs:complexType>
                     <xs:sequence>
                         <xs:element name="max" type="evidencedStringType" minOccurs="0"/>
-                        <xs:element name="text" type="evidencedStringType" minOccurs="0"/>
+                        <xs:element name="text" type="evidencedStringType" minOccurs="0" maxOccurs="unbounded"/>
                     </xs:sequence>
                 </xs:complexType>
             </xs:element>
@@ -679,15 +691,73 @@
                     <xs:sequence>
                         <xs:element name="KM" type="evidencedStringType" minOccurs="0" maxOccurs="unbounded"/>
                         <xs:element name="Vmax" type="evidencedStringType" minOccurs="0" maxOccurs="unbounded"/>
-                        <xs:element name="text" type="evidencedStringType" minOccurs="0"/>
+                        <xs:element name="text" type="evidencedStringType" minOccurs="0" maxOccurs="unbounded"/>
                     </xs:sequence>
                 </xs:complexType>
             </xs:element>
-            <xs:element name="phDependence" type="evidencedStringType" minOccurs="0"/>
-            <xs:element name="redoxPotential" type="evidencedStringType" minOccurs="0"/>
-            <xs:element name="temperatureDependence" type="evidencedStringType" minOccurs="0"/>
+            <xs:element name="phDependence" minOccurs="0">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="text" type="evidencedStringType" maxOccurs="unbounded"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="redoxPotential" minOccurs="0">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="text" type="evidencedStringType" maxOccurs="unbounded"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="temperatureDependence" minOccurs="0">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="text" type="evidencedStringType" maxOccurs="unbounded"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
         </xs:sequence>
     </xs:group>
+
+    <xs:complexType name="reactionType">
+        <xs:annotation>
+            <xs:documentation>Describes a chemical reaction.</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="text" type="xs:string"/>
+            <xs:element name="dbReference" type="dbReferenceType" minOccurs="1" maxOccurs="unbounded"/>
+        </xs:sequence>
+        <xs:attribute name="evidence" type="intListType" use="optional"/>
+    </xs:complexType>
+
+    <xs:complexType name="physiologicalReactionType">
+        <xs:annotation>
+            <xs:documentation>Describes a physiological reaction.</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="dbReference" type="dbReferenceType"/>
+        </xs:sequence>
+        <xs:attribute name="direction" use="required">
+            <xs:simpleType>
+                <xs:restriction base="xs:string">
+                    <xs:enumeration value="left-to-right"/>
+                    <xs:enumeration value="right-to-left"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
+        <xs:attribute name="evidence" type="intListType" use="optional"/>
+    </xs:complexType>
+    
+    <xs:complexType name="cofactorType">
+        <xs:annotation>
+            <xs:documentation>Describes a cofactor.</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="name" type="xs:string"/>
+            <xs:element name="dbReference" type="dbReferenceType"/>
+        </xs:sequence>
+        <xs:attribute name="evidence" type="intListType" use="optional"/>
+    </xs:complexType>
 
     <xs:complexType name="subcellularLocationType">
         <xs:annotation>
@@ -746,15 +816,7 @@
                     <xs:attribute name="ref" type="xs:string" use="optional"/>
                 </xs:complexType>
             </xs:element>
-            <xs:element name="note" minOccurs="0">
-                <xs:complexType>
-                    <xs:simpleContent>
-                        <xs:extension base="xs:string">
-                            <xs:attribute name="evidence" type="intListType" use="optional"/>
-                        </xs:extension>
-                    </xs:simpleContent>
-                </xs:complexType>
-            </xs:element>
+            <xs:element name="text" type="evidencedStringType" minOccurs="0" maxOccurs="unbounded"/>
         </xs:sequence>
     </xs:complexType>
 
