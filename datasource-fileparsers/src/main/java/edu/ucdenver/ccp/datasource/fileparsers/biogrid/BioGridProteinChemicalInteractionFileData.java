@@ -49,8 +49,10 @@ import edu.ucdenver.ccp.datasource.identifiers.DataSourceIdentifier;
 import edu.ucdenver.ccp.datasource.identifiers.ProbableErrorDataSourceIdentifier;
 import edu.ucdenver.ccp.datasource.identifiers.impl.bio.AtcCode;
 import edu.ucdenver.ccp.datasource.identifiers.impl.bio.BioGridChemicalId;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.BioGridID;
 import edu.ucdenver.ccp.datasource.identifiers.impl.bio.BioGridInteractionId;
 import edu.ucdenver.ccp.datasource.identifiers.impl.bio.BioGridInteractorId;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.ChemSpiderId;
 import edu.ucdenver.ccp.datasource.identifiers.impl.bio.ChemicalAbstractsServiceId;
 import edu.ucdenver.ccp.datasource.identifiers.impl.bio.DrugBankID;
 import edu.ucdenver.ccp.datasource.identifiers.impl.bio.NcbiGeneId;
@@ -96,7 +98,18 @@ public class BioGridProteinChemicalInteractionFileData extends SingleLineFileRec
 	// ATC Codes
 	// CAS Number
 	// Curated By
-	//
+	// Method
+	// Method Description
+	// Related BioGRID Gene ID
+	// Related Entrez Gene ID
+	// Related Systematic Name
+	// Related Official Symbol
+	// Related Synonyms
+	// Related Organism ID
+	// Related Organism
+	// Related Type
+	// Notes
+
 	@RecordField(ontClass = CcpExtensionOntology.BIOGRID_PROTEIN_CHEMICAL_INTERACTION_RECORD___BIOGRID_INTERACTION_IDENTIFIER_FIELD_VALUE)
 	private final DataSourceIdentifier<?> biogridInteractionId;
 	@RecordField(ontClass = CcpExtensionOntology.BIOGRID_PROTEIN_CHEMICAL_INTERACTION_RECORD___BIOGRID_GENE_IDENTIFIER_FIELD_VALUE)
@@ -146,6 +159,29 @@ public class BioGridProteinChemicalInteractionFileData extends SingleLineFileRec
 	@RecordField(ontClass = CcpExtensionOntology.BIOGRID_PROTEIN_CHEMICAL_INTERACTION_RECORD___CURATED_BY_FIELD_VALUE)
 	private final String curatedBy;
 
+	@RecordField(ontClass = CcpExtensionOntology.BIOGRID_PROTEIN_CHEMICAL_INTERACTION_RECORD___METHOD_FIELD_VALUE)
+	private final String method;
+	@RecordField(ontClass = CcpExtensionOntology.BIOGRID_PROTEIN_CHEMICAL_INTERACTION_RECORD___METHOD_DESCRIPTION_FIELD_VALUE)
+	private final String methodDescription;
+	@RecordField(ontClass = CcpExtensionOntology.BIOGRID_PROTEIN_CHEMICAL_INTERACTION_RECORD___RELATED_BIOGRID_GENE_IDENTIFIER_FIELD_VALUE)
+	private final BioGridID relatedBiogridGeneId;
+	@RecordField(ontClass = CcpExtensionOntology.BIOGRID_PROTEIN_CHEMICAL_INTERACTION_RECORD___RELATED_NCBI_GENE_IDENTIFIER_FIELD_VALUE)
+	private final NcbiGeneId relatedNcbiGeneId;
+	@RecordField(ontClass = CcpExtensionOntology.BIOGRID_PROTEIN_CHEMICAL_INTERACTION_RECORD___RELATED_SYSTEMATIC_NAME_FIELD_VALUE)
+	private final String relatedSystematicName;
+	@RecordField(ontClass = CcpExtensionOntology.BIOGRID_PROTEIN_CHEMICAL_INTERACTION_RECORD___RELATED_OFFICIAL_SYMBOL_FIELD_VALUE)
+	private final String relatedOfficialSymbol;
+	@RecordField(ontClass = CcpExtensionOntology.BIOGRID_PROTEIN_CHEMICAL_INTERACTION_RECORD___RELATED_SYNONYMS_FIELD_VALUE)
+	private final List<String> relatedSynonyms;
+	@RecordField(ontClass = CcpExtensionOntology.BIOGRID_PROTEIN_CHEMICAL_INTERACTION_RECORD___RELATED_ORGANISM_IDENTIFIER_FIELD_VALUE)
+	private final NcbiTaxonomyID relatedOrganismId;
+	@RecordField(ontClass = CcpExtensionOntology.BIOGRID_PROTEIN_CHEMICAL_INTERACTION_RECORD___RELATED_ORGANISM_NAME_FIELD_VALUE)
+	private final String relatedOrganismName;
+	@RecordField(ontClass = CcpExtensionOntology.BIOGRID_PROTEIN_CHEMICAL_INTERACTION_RECORD___RELATED_TYPE_FIELD_VALUE)
+	private final String relatedType;
+	@RecordField(ontClass = CcpExtensionOntology.BIOGRID_PROTEIN_CHEMICAL_INTERACTION_RECORD___NOTES_FIELD_VALUE)
+	private final String notes;
+
 	public BioGridProteinChemicalInteractionFileData(DataSourceIdentifier<?> biogridInteractionId,
 			DataSourceIdentifier<?> biogridGeneId, DataSourceIdentifier<?> ncbiGeneId, String systematicName,
 			String officialSymbol, List<String> synonyms, DataSourceIdentifier<?> organismId2, String organism,
@@ -154,6 +190,9 @@ public class BioGridProteinChemicalInteractionFileData extends SingleLineFileRec
 			List<String> chemicalSynonyms, List<String> chemicalBrands, String chemicalSource,
 			DataSourceIdentifier<?> chemicalSourceId, String molecularFormula, String chemicalType,
 			Set<DataSourceIdentifier<?>> atcCodes2, ChemicalAbstractsServiceId casNumber, String curatedBy,
+			String method, String methodDescription, BioGridID relatedBioGridId, NcbiGeneId relatedNcbiGeneId,
+			String relatedSystematicName, String relatedOfficialSymbol, List<String> relatedSynonyms,
+			NcbiTaxonomyID relatedOrganismId, String relatedOrganismName, String relatedType, String notes,
 			long byteOffset, long lineNumber) {
 		super(byteOffset, lineNumber);
 		this.biogridInteractionId = biogridInteractionId;
@@ -180,6 +219,17 @@ public class BioGridProteinChemicalInteractionFileData extends SingleLineFileRec
 		this.atcCodes = atcCodes2;
 		this.casNumber = casNumber;
 		this.curatedBy = curatedBy;
+		this.method = method;
+		this.methodDescription = methodDescription;
+		this.relatedBiogridGeneId = relatedBioGridId;
+		this.relatedNcbiGeneId = relatedNcbiGeneId;
+		this.relatedOfficialSymbol = relatedOfficialSymbol;
+		this.relatedOrganismName = relatedOrganismName;
+		this.relatedOrganismId = relatedOrganismId;
+		this.relatedSynonyms = relatedSynonyms;
+		this.relatedSystematicName = relatedSystematicName;
+		this.relatedType = relatedType;
+		this.notes = notes;
 	}
 
 	public static BioGridProteinChemicalInteractionFileData parseLine(Line line) {
@@ -219,8 +269,9 @@ public class BioGridProteinChemicalInteractionFileData extends SingleLineFileRec
 		tmpStr = toks[index++];
 		String chemicalSource = (tmpStr.trim().equals("-")) ? null : tmpStr;
 		tmpStr = toks[index++];
+		System.out.println("tmp str: " + tmpStr + ";;" + " chemical source = " + chemicalSource);
 		DataSourceIdentifier<?> chemicalId = (tmpStr.trim().equals("-")) ? null
-				: resolveId((chemicalSource.equals("DRUGBANK") ? DataSource.DRUGBANK : null), tmpStr);
+				: resolveId((chemicalSource.equals("DRUGBANK") ? DataSource.DRUGBANK : (chemicalSource.equals("CHEMSPIDER") ? DataSource.CHEMSPIDER : null)), tmpStr);
 		tmpStr = toks[index++];
 		String molecularFormula = (tmpStr.trim().equals("-")) ? null : tmpStr;
 		tmpStr = toks[index++];
@@ -234,11 +285,36 @@ public class BioGridProteinChemicalInteractionFileData extends SingleLineFileRec
 		tmpStr = toks[index++];
 		String curatedBy = (tmpStr.trim().equals("-")) ? null : tmpStr;
 
+		tmpStr = toks[index++];
+		String method = (tmpStr.trim().equals("-")) ? null : tmpStr;
+		tmpStr = toks[index++];
+		String methodDescription = (tmpStr.trim().equals("-")) ? null : tmpStr;
+		tmpStr = toks[index++];
+		BioGridID relatedBioGridId = (tmpStr.trim().equals("-")) ? null : new BioGridID(tmpStr);
+		tmpStr = toks[index++];
+		NcbiGeneId relatedNcbiGeneId = (tmpStr.trim().equals("-")) ? null : new NcbiGeneId(tmpStr);
+		tmpStr = toks[index++];
+		String relatedSystematicName = (tmpStr.trim().equals("-")) ? null : tmpStr;
+		tmpStr = toks[index++];
+		String relatedOfficialSymbol = (tmpStr.trim().equals("-")) ? null : tmpStr;
+		tmpStr = toks[index++];
+		List<String> relatedSynonyms = (tmpStr.trim().equals("-")) ? null : Arrays.asList(tmpStr.split("\\|"));
+		tmpStr = toks[index++];
+		NcbiTaxonomyID relatedOrganismId = (tmpStr.trim().equals("-")) ? null : new NcbiTaxonomyID(tmpStr);
+		tmpStr = toks[index++];
+		String relatedOrganismName = (tmpStr.trim().equals("-")) ? null : tmpStr;
+		tmpStr = toks[index++];
+		String relatedType = (tmpStr.trim().equals("-")) ? null : tmpStr;
+		tmpStr = toks[index++];
+		String notes = (tmpStr.trim().equals("-")) ? null : tmpStr;
+
 		return new BioGridProteinChemicalInteractionFileData(biogridInteractionId, biogridGeneId, ncbiGeneId,
 				systematicName, officialSymbol, synonyms, organismId, organism, action, interactionType, author,
 				pubmedId, biogridPublicationId, biogridChemicalId, chemicalName, chemicalSynonyms, chemicalBrands,
-				chemicalSource, chemicalId, molecularFormula, chemicalType, atcCodes, casNumber, curatedBy,
-				line.getByteOffset(), line.getLineNumber());
+				chemicalSource, chemicalId, molecularFormula, chemicalType, atcCodes, casNumber, curatedBy, method,
+				methodDescription, relatedBioGridId, relatedNcbiGeneId, relatedSystematicName, relatedOfficialSymbol,
+				relatedSynonyms, relatedOrganismId, relatedOrganismName, relatedType, notes, line.getByteOffset(),
+				line.getLineNumber());
 	}
 
 	private static DataSourceIdentifier<?> resolveId(DataSource ds, String idStr) {
@@ -246,6 +322,8 @@ public class BioGridProteinChemicalInteractionFileData extends SingleLineFileRec
 			switch (ds) {
 			case BIOGRID:
 				return new BioGridInteractorId(idStr);
+			case CHEMSPIDER:
+				return new ChemSpiderId(idStr);
 			case DRUGBANK:
 				return new DrugBankID(idStr);
 			case NCBI_GENE:

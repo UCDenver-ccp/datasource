@@ -170,7 +170,7 @@ public class PharmGkbGeneFileParser extends SingleLineFileRecordReader<PharmGkbG
 		PharmGkbGeneId pharmGkbAccessionId = new PharmGkbGeneId(toks[index++]);
 		Set<NcbiGeneId> entrezGeneIds = getEntrezGeneIDs(toks[index++]);
 		Set<HgncID> hgncIds = getHgncIds(toks[index++]);
-		EnsemblGeneID ensemblGeneId = StringUtils.isNotBlank(toks[index++]) ? new EnsemblGeneID(toks[index - 1]) : null;
+		Set<EnsemblGeneID> ensemblGeneIds = getEnsemblGeneIds(toks[index++]);
 		String name = StringUtils.isNotBlank(toks[index++]) ? new String(toks[index - 1]) : null;
 		String symbol = StringUtils.isNotBlank(toks[index++]) ? new String(toks[index - 1]) : null;
 		Collection<String> alternativeNames = new ArrayList<String>();
@@ -212,7 +212,7 @@ public class PharmGkbGeneFileParser extends SingleLineFileRecordReader<PharmGkbG
 		Integer chromosomalStopGRCh38p7 = (toks[index++].equalsIgnoreCase("")) ? null
 				: Integer.parseInt(toks[index - 1]);
 
-		return new PharmGkbGeneFileRecord(pharmGkbAccessionId, entrezGeneIds, hgncIds, ensemblGeneId, name, symbol,
+		return new PharmGkbGeneFileRecord(pharmGkbAccessionId, entrezGeneIds, hgncIds, ensemblGeneIds, name, symbol,
 				alternativeNames, alternativeSymbols, isVip, hasVariantAnnotation, crossReferences,
 				hasCpicDosingGuideline, chromosome, chromosomalStartGRCh37p13, chromosomalStopGRCh37p13,
 				chromosomalStartGRCh38p7, chromosomalStopGRCh38p7, line.getByteOffset(), line.getLineNumber());
@@ -243,6 +243,21 @@ public class PharmGkbGeneFileParser extends SingleLineFileRecordReader<PharmGkbG
 				}
 			} else {
 				ids.add(new HgncID(idStr));
+			}
+		}
+		return ids;
+	}
+	
+	private Set<EnsemblGeneID> getEnsemblGeneIds(String idStr) {
+		Set<EnsemblGeneID> ids = new HashSet<EnsemblGeneID>();
+		if (StringUtils.isNotBlank(idStr)) {
+			if (idStr.contains(",")) {
+				idStr = idStr.replaceAll("\"", "");
+				for (String tok : idStr.split(",")) {
+					ids.add(new EnsemblGeneID(tok));
+				}
+			} else {
+				ids.add(new EnsemblGeneID(idStr));
 			}
 		}
 		return ids;

@@ -82,7 +82,7 @@ public class PharmGkbGeneFileParserTest extends RecordReaderTester {
 		PharmGkbGeneFileRecord r = reader.next();
 		assertEquals("PA100", r.getAccessionId().getId());
 		assertEquals(1, r.getEntrezGeneIds().iterator().next().getId().intValue());
-		assertEquals("ENSG00000121410", r.getEnsemblGeneId().getId());
+		assertEquals("ENSG00000121410", r.getEnsemblGeneIds().iterator().next().getId());
 		assertEquals("alpha-1-B glycoprotein", r.getName());
 		assertEquals("A1BG", r.getSymbol());
 

@@ -1,11 +1,13 @@
-package edu.ucdenver.ccp.datasource.fileparsers.biomart;
+package edu.ucdenver.ccp.datasource.identifiers.impl.bio;
+
+import edu.ucdenver.ccp.datasource.fileparsers.CcpExtensionOntology;
+import edu.ucdenver.ccp.datasource.identifiers.DataSource;
 
 /*
  * #%L
- * Colorado Computational Pharmacology's datasource
- * 							project
+ * Colorado Computational Pharmacology's common module
  * %%
- * Copyright (C) 2012 - 2018 Regents of the University of Colorado
+ * Copyright (C) 2012 - 2014 Regents of the University of Colorado
  * %%
  * Redistribution and use in source and binary forms, with or without modification,
  * are permitted provided that the following conditions are met:
@@ -34,27 +36,24 @@ package edu.ucdenver.ccp.datasource.fileparsers.biomart;
  * #L%
  */
 
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
+import edu.ucdenver.ccp.datasource.identifiers.DataSourceIdentifier;
+import edu.ucdenver.ccp.datasource.identifiers.Identifier;
 
-import edu.ucdenver.ccp.common.file.CharacterEncoding;
-import edu.ucdenver.ccp.common.file.reader.Line;
-import edu.ucdenver.ccp.datasource.fileparsers.SingleLineFileRecordReader;
+@Identifier(ontClass=CcpExtensionOntology.ENSEMBL_PROTEIN_IDENTIFIER)
+public class EnsemblProteinID  extends DataSourceIdentifier<String>{
 
-public class BioMartIdMappingRecordReader extends SingleLineFileRecordReader<BioMartIdMappingFileData> {
-
-	public BioMartIdMappingRecordReader(File dataFile, CharacterEncoding encoding) throws IOException {
-		super(dataFile, encoding);
-	}
-
-	public BioMartIdMappingRecordReader(InputStream stream, CharacterEncoding encoding) throws IOException {
-		super(stream, encoding, null);
-	}
+	public EnsemblProteinID(String resourceID) {
+		super(resourceID, DataSource.ENSEMBL);
+}
 
 	@Override
-	protected BioMartIdMappingFileData parseRecordFromLine(Line line) {
-		return BioMartIdMappingFileData.parseLine(line);
+	public String validate(String ensemblID) throws IllegalArgumentException {
+		if (ensemblID.matches("ENS[^\\d]*P\\d+")) {
+			return ensemblID;
+		}
+		throw new IllegalArgumentException("Unexpected Ensembl Protein identifier format "
+				+ "(expected it to start with ENS..P and contain only numbers afterwards): " + ensemblID);
 	}
 	
+
 }

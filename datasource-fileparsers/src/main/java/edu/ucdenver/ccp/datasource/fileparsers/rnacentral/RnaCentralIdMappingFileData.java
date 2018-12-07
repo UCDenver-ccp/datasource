@@ -123,7 +123,6 @@ public class RnaCentralIdMappingFileData extends SingleLineFileRecord {
 			case "ENA":
 				// DQ593091.1:1..31:ncRNA
 				String id = (idStr.split(":")[0]).split("\\.")[0];
-				System.out.println("id: " + id);
 				return new EuropeanNucleotideArchiveId(id);
 			case "ENSEMBL":
 				if (idStr.startsWith("ENSG")) {

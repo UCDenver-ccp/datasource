@@ -55,7 +55,7 @@ import edu.ucdenver.ccp.datasource.identifiers.impl.bio.NcbiTaxonomyID;
 public class BioGridProteinChemicalInteractionRecordReader
 		extends TaxonAwareSingleLineFileRecordReader<BioGridProteinChemicalInteractionFileData> {
 
-	public static final String EXPECTED_HEADER = "#BioGRID Chemical Interaction ID\tBioGRID Gene ID\tEntrez Gene ID\tSystematic Name\tOfficial Symbol\tSynonyms\tOrganism ID\tOrganism\tAction\tInteraction Type\tAuthor\tPubmed ID\tBioGRID Publication ID\tBioGRID Chemical ID\tChemical Name\tChemical Synonyms\tChemical Brands\tChemical Source\tChemical Source ID\tMolecular Formula\tChemical Type\tATC Codes\tCAS Number\tCurated By";
+	public static final String EXPECTED_HEADER = "#BioGRID Chemical Interaction ID\tBioGRID Gene ID\tEntrez Gene ID\tSystematic Name\tOfficial Symbol\tSynonyms\tOrganism ID\tOrganism\tAction\tInteraction Type\tAuthor\tPubmed ID\tBioGRID Publication ID\tBioGRID Chemical ID\tChemical Name\tChemical Synonyms\tChemical Brands\tChemical Source\tChemical Source ID\tMolecular Formula\tChemical Type\tATC Codes\tCAS Number\tCurated By\tMethod\tMethod Description\tRelated BioGRID Gene ID\tRelated Entrez Gene ID\tRelated Systematic Name\tRelated Official Symbol\tRelated Synonyms\tRelated Organism ID\tRelated Organism\tRelated Type\tNotes";
 
 	public BioGridProteinChemicalInteractionRecordReader(File dataFile, CharacterEncoding encoding,
 			Set<NcbiTaxonomyID> taxonsOfInterest) throws IOException {

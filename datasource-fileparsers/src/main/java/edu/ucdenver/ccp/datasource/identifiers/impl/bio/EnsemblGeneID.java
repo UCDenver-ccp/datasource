@@ -51,8 +51,8 @@ public class EnsemblGeneID  extends DataSourceIdentifier<String>{
 		if (ensemblID.matches("ENS[^\\d]*G\\d+")) {
 			return ensemblID;
 		}
-		throw new IllegalArgumentException("Unexpected Ensembl Transcript identifier format "
-				+ "(expected it to start with ENSG and contain only numbers afterwards): " + ensemblID);
+		throw new IllegalArgumentException("Unexpected Ensembl Gene identifier format "
+				+ "(expected it to start with ENS..G and contain only numbers afterwards): " + ensemblID);
 	}
 	
 

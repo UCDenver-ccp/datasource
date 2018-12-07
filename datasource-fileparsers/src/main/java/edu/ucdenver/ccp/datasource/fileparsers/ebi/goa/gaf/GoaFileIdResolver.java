@@ -41,11 +41,11 @@ import edu.ucdenver.ccp.datasource.identifiers.IdResolver;
 import edu.ucdenver.ccp.datasource.identifiers.ProbableErrorDataSourceIdentifier;
 import edu.ucdenver.ccp.datasource.identifiers.ProteinAccessionResolver;
 import edu.ucdenver.ccp.datasource.identifiers.UnknownDataSourceIdentifier;
+import edu.ucdenver.ccp.datasource.identifiers.factories.EnsemblIdentifierFactory;
 import edu.ucdenver.ccp.datasource.identifiers.impl.bio.CellTypeOntologyID;
 import edu.ucdenver.ccp.datasource.identifiers.impl.bio.ChebiOntologyID;
 import edu.ucdenver.ccp.datasource.identifiers.impl.bio.EcoGeneID;
 import edu.ucdenver.ccp.datasource.identifiers.impl.bio.EmblID;
-import edu.ucdenver.ccp.datasource.identifiers.impl.bio.EnsemblGeneID;
 import edu.ucdenver.ccp.datasource.identifiers.impl.bio.EnzymeCommissionID;
 import edu.ucdenver.ccp.datasource.identifiers.impl.bio.FlyBaseID;
 import edu.ucdenver.ccp.datasource.identifiers.impl.bio.GenBankID;
@@ -95,7 +95,7 @@ public class GoaFileIdResolver implements IdResolver {
 
 	@Override
 	public DataSourceIdentifier<?> resolveId(String idStr) {
-		
+
 		if (idStr.matches("RGD:\\d+")) {
 			return new RgdID(idStr.substring(4));
 		}
@@ -110,8 +110,8 @@ public class GoaFileIdResolver implements IdResolver {
 		}
 		if (idStr.startsWith("HGNC:")) {
 			try {
-			return new HgncID(idStr.substring(5));
-			 } catch (IllegalArgumentException e) {
+				return new HgncID(idStr.substring(5));
+			} catch (IllegalArgumentException e) {
 				return new ProbableErrorDataSourceIdentifier(idStr.substring(5), idStr, e.getMessage());
 			}
 		}
@@ -154,8 +154,8 @@ public class GoaFileIdResolver implements IdResolver {
 		if (idStr.startsWith("InterPro:")) {
 			return new InterProID(idStr.substring(9));
 		}
-		if (StringUtil.startsWithRegex(idStr,"[Ee][Nn][Ss][Ee][Mm][Bb][Ll]:")) {
-			return new EnsemblGeneID(idStr.substring(8));
+		if (StringUtil.startsWithRegex(idStr, "[Ee][Nn][Ss][Ee][Mm][Bb][Ll]:")) {
+			return EnsemblIdentifierFactory.createEnsemblIdentifier(idStr.substring(8));
 		}
 		if (idStr.startsWith("PANTHER:")) {
 			return new PantherID(idStr.substring(8));
@@ -235,15 +235,15 @@ public class GoaFileIdResolver implements IdResolver {
 				return new UnknownDataSourceIdentifier(idStr);
 			}
 			try {
-			if (idStr.contains("-")) {
-				return new UniProtIsoformID(idStr.substring(10));
-			}
+				if (idStr.contains("-")) {
+					return new UniProtIsoformID(idStr.substring(10));
+				}
 				return new UniProtID(idStr.substring(10));
 			} catch (IllegalArgumentException e) {
 				return new ProbableErrorDataSourceIdentifier(idStr.substring(10), idStr, e.getMessage());
 			}
 		}
-		
+
 		logger.warn("Encountered unknown ID: " + idStr);
 		return new UnknownDataSourceIdentifier(idStr);
 	}

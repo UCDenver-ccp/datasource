@@ -35,11 +35,9 @@ package edu.ucdenver.ccp.datasource.fileparsers.rnacentral;
  */
 
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Set;
-import java.util.zip.GZIPInputStream;
 
 import edu.ucdenver.ccp.common.collections.CollectionsUtil;
 import edu.ucdenver.ccp.common.download.FtpDownload;

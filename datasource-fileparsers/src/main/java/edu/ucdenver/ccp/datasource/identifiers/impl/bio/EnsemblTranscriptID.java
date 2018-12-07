@@ -52,7 +52,7 @@ public class EnsemblTranscriptID extends DataSourceIdentifier<String> {
 			return ensemblID;
 		}
 		throw new IllegalArgumentException("Unexpected Ensembl Transcript identifier format "
-				+ "(expected it to start with ENST and contain only numbers afterwards): " + ensemblID);
+				+ "(expected it to start with ENS..T and contain only numbers afterwards): " + ensemblID);
 	}
 
 }

@@ -72,7 +72,7 @@ public class PharmGkbGeneFileRecord extends SingleLineFileRecord {
 	@RecordField(ontClass = CcpExtensionOntology.PHARMGKB_GENE_RECORD___HGNC_IDENTIFIER_FIELD_VALUE)
 	private Set<HgncID> hgncIds;
 	@RecordField(ontClass = CcpExtensionOntology.PHARMGKB_GENE_RECORD___ENSEMBL_GENE_IDENTIFIER_FIELD_VALUE)
-	private final EnsemblGeneID ensemblGeneId;
+	private final Set<EnsemblGeneID> ensemblGeneIds;
 	@RecordField(ontClass = CcpExtensionOntology.PHARMGKB_GENE_RECORD___NAME_FIELD_VALUE)
 	private final String name;
 	@RecordField(ontClass = CcpExtensionOntology.PHARMGKB_GENE_RECORD___SYMBOL_FIELD_VALUE)
@@ -116,7 +116,7 @@ public class PharmGkbGeneFileRecord extends SingleLineFileRecord {
 	 * @param crossReferences
 	 */
 	public PharmGkbGeneFileRecord(PharmGkbGeneId accessionId, Set<NcbiGeneId> entrezGeneIds, Set<HgncID> hgncIds,
-			EnsemblGeneID ensemblGeneId, String name, String symbol, Collection<String> alternativeNames,
+			Set<EnsemblGeneID> ensemblGeneIds, String name, String symbol, Collection<String> alternativeNames,
 			Collection<String> alternativeSymbols, boolean isVip, boolean hasVariantAnnotation,
 			Collection<DataSourceIdentifier<?>> crossReferences, boolean hasCpicDosingGuideline, String chromosome,
 			Integer chromosomalStartGRCh37p13, Integer chromosomalStopGRCh37p13, Integer chromosomalStartGRCh38p7,
@@ -125,7 +125,7 @@ public class PharmGkbGeneFileRecord extends SingleLineFileRecord {
 		this.accessionId = accessionId;
 		this.entrezGeneIds = entrezGeneIds;
 		this.hgncIds = hgncIds;
-		this.ensemblGeneId = ensemblGeneId;
+		this.ensemblGeneIds = ensemblGeneIds;
 		this.name = name;
 		this.symbol = symbol;
 		this.alternativeNames = alternativeNames;

@@ -91,7 +91,13 @@ public class CuratedTFRecordReader extends SingleLineFileRecordReader<CuratedTFR
 		String[] toks = line.getText().split("\\t", -1);
 		if (toks.length == EXPECTED_HEADER.split("\\t").length) {
 			int index = 0;
-			EnsemblGeneID ensemblId = new EnsemblGeneID(toks[index++]);
+			EnsemblGeneID ensemblId = null;
+			try {
+				ensemblId = new EnsemblGeneID(toks[index++]);
+			} catch (IllegalArgumentException e) {
+				// there are two rows that have an invalide Ensembl ID
+				System.err.println("Observed invalid Ensembl Gene ID in column 1: " + toks[index -1]);
+			}
 			HgncGeneSymbolID hgncSymbol = (toks[index++].trim().isEmpty()) ? null
 					: new HgncGeneSymbolID(toks[index - 1]);
 			ProteinOntologyId prId = (toks[index++].trim().isEmpty()) ? null : new ProteinOntologyId(toks[index - 1]);
@@ -120,5 +126,5 @@ public class CuratedTFRecordReader extends SingleLineFileRecordReader<CuratedTFR
 		throw new IllegalStateException(
 				"Encountered line with unexpected number of columns (" + toks.length + "): " + line.getText());
 	}
-	
+
 }
