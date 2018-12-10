@@ -51,6 +51,8 @@ import edu.ucdenver.ccp.datasource.identifiers.DataSource;
 import edu.ucdenver.ccp.datasource.identifiers.DataSourceIdentifier;
 import edu.ucdenver.ccp.datasource.identifiers.impl.bio.EmblID;
 import edu.ucdenver.ccp.datasource.identifiers.impl.bio.EnsemblGeneID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.EnsemblProteinID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.EnsemblTranscriptID;
 import edu.ucdenver.ccp.datasource.identifiers.impl.bio.GeneOntologyID;
 import edu.ucdenver.ccp.datasource.identifiers.impl.bio.GiNumberID;
 import edu.ucdenver.ccp.datasource.identifiers.impl.bio.NcbiGeneId;
@@ -153,9 +155,9 @@ public class UniProtIDMappingFileData extends SingleLineFileRecord {
 	@RecordField(ontClass = CcpExtensionOntology.UNIPROT_IDENTIFIER_MAPPING_RECORD___ENSEMBL_IDENTIFIER_FIELD_VALUE)
 	private final Set<EnsemblGeneID> ensemblIds;
 	@RecordField(ontClass = CcpExtensionOntology.UNIPROT_IDENTIFIER_MAPPING_RECORD___ENSEMBL_TRS_IDENTIFIER_FIELD_VALUE)
-	private final Set<EnsemblGeneID> ensembl_TRSIds;
+	private final Set<EnsemblTranscriptID> ensembl_TRSIds;
 	@RecordField(ontClass = CcpExtensionOntology.UNIPROT_IDENTIFIER_MAPPING_RECORD___ENSEMBL_PRO_IDENTIFIER_FIELD_VALUE)
-	private final Set<EnsemblGeneID> ensembl_PROIds;
+	private final Set<EnsemblProteinID> ensembl_PROIds;
 	@RecordField(ontClass = CcpExtensionOntology.UNIPROT_IDENTIFIER_MAPPING_RECORD___ADDITIONAL_PUBMED_IDENTIFIER_FIELD_VALUE)
 	private Set<PubMedID> additionalPubmedIds;
 
@@ -187,7 +189,7 @@ public class UniProtIDMappingFileData extends SingleLineFileRecord {
 			Set<GeneOntologyID> geneOntologyIds, UniRefId uniref100Id, UniRefId uniref90Id, UniRefId uniref50Id,
 			UniParcID uniparcId, Set<PirID> pirIds, NcbiTaxonomyID taxonomyID, Set<OmimID> omimIds,
 			Set<UniGeneID> unigeneIds, Set<PubMedID> pubmedIds, Set<EmblID> emblIDs, Set<EmblID> emblCdsIDs,
-			Set<EnsemblGeneID> ensemblIds, Set<EnsemblGeneID> ensemblTrsIds, Set<EnsemblGeneID> ensemblProIds,
+			Set<EnsemblGeneID> ensemblIds, Set<EnsemblTranscriptID> ensemblTrsIds, Set<EnsemblProteinID> ensemblProIds,
 			Set<PubMedID> additionalPubmedIds, long byteOffset, long lineNumber) {
 		super(byteOffset, lineNumber);
 		this.uniProtAccessionID = uniProtAccessionID;
@@ -259,8 +261,8 @@ public class UniProtIDMappingFileData extends SingleLineFileRecord {
 			Set<EmblID> emblIDs = getIdSet(emblIdStr, EmblID.class);
 			Set<EmblID> emblCdsIDs = getIdSet(emblCdsIdStr, EmblID.class);
 			Set<EnsemblGeneID> ensemblIds = getIdSet(ensemblIdStr.trim(), EnsemblGeneID.class);
-			Set<EnsemblGeneID> ensemblTrsIds = getIdSet(ensemblTrsIdStr.trim(), EnsemblGeneID.class);
-			Set<EnsemblGeneID> ensemblProIds = getIdSet(ensemblProIdStr.trim(), EnsemblGeneID.class);
+			Set<EnsemblTranscriptID> ensemblTrsIds = getIdSet(ensemblTrsIdStr.trim(), EnsemblTranscriptID.class);
+			Set<EnsemblProteinID> ensemblProIds = getIdSet(ensemblProIdStr.trim(), EnsemblProteinID.class);
 			Set<PubMedID> additionalPmids = getIdSet(additionalPubmedIdStr, PubMedID.class);
 
 			return new UniProtIDMappingFileData(uniProtID, uniprotEntryname, entrezGeneIDs, refSeqIds, giNumbers,
