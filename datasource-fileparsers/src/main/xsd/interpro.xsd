@@ -23,6 +23,7 @@
         <xs:attribute type="xs:string" name="dbkey" use="optional"/>
         <xs:attribute type="xs:int" name="protein_count" use="optional"/>
         <xs:attribute type="xs:string" name="name" use="optional"/>
+        <xs:attribute type="xs:string" name="tax_id" use="optional"/>
       </xs:extension>
     </xs:simpleContent>
   </xs:complexType>
@@ -43,6 +44,16 @@
           </xs:simpleContent>
         </xs:complexType>
       </xs:element>
+      <xs:element name="i">
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:enumeration value="Streptomyces aureofaciens"/>
+            <xs:enumeration value="ompT"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element type="taxonType" name="taxon"/>
+      <xs:element type="ulType" name="ul"/>
     </xs:choice>
   </xs:complexType>
   <xs:complexType name="abstractType" mixed="true">
@@ -62,6 +73,7 @@
         <xs:attribute type="xs:int" name="protein_count" use="optional"/>
         <xs:attribute type="xs:string" name="name" use="optional"/>
         <xs:attribute type="xs:string" name="idref" use="optional"/>
+        <xs:attribute type="xs:string" name="tax_id" use="optional"/>
       </xs:extension>
     </xs:simpleContent>
   </xs:complexType>
@@ -202,20 +214,24 @@
   <xs:complexType name="taxonType">
     <xs:simpleContent>
       <xs:extension base="xs:string">
-        <xs:attribute type="xs:short" name="tax_id" use="optional"/>
+        <xs:attribute type="xs:string" name="tax_id" use="optional"/>
+        <xs:attribute type="xs:string" name="idref" use="optional"/>
+        <xs:attribute type="xs:string" name="db" use="optional"/>
+        <xs:attribute type="xs:string" name="dbkey" use="optional"/>
+        <xs:attribute type="xs:int" name="protein_count" use="optional"/>
+        <xs:attribute type="xs:string" name="name" use="optional"/>
       </xs:extension>
     </xs:simpleContent>
   </xs:complexType>
   <xs:complexType name="ulType" mixed="true">
     <xs:choice maxOccurs="unbounded" minOccurs="0">
       <xs:element name="li">
-        <xs:simpleType>
-          <xs:restriction base="xs:string">
-            <xs:enumeration value="Per- period circadian protein"/>
-            <xs:enumeration value="Arnt- Ah receptor nuclear translocator protein"/>
-            <xs:enumeration value="Sim-  single-minded protein."/>
-          </xs:restriction>
-        </xs:simpleType>
+        <xs:complexType mixed="true">
+          <xs:sequence>
+            <xs:element type="citeType" name="cite" maxOccurs="unbounded" minOccurs="0"/>
+            <xs:element type="taxonType" name="taxon" minOccurs="0"/>
+          </xs:sequence>
+        </xs:complexType>
       </xs:element>
       <xs:element type="db_xrefType" name="db_xref"/>
       <xs:element type="citeType" name="cite"/>
@@ -233,6 +249,12 @@
         </xs:complexType>
       </xs:element>
     </xs:choice>
+  </xs:complexType>
+  <xs:complexType name="liType" mixed="true">
+    <xs:sequence>
+      <xs:element type="citeType" name="cite" maxOccurs="unbounded" minOccurs="0"/>
+      <xs:element type="taxonType" name="taxon" minOccurs="0"/>
+    </xs:sequence>
   </xs:complexType>
   <xs:complexType name="del_refType">
     <xs:simpleContent>

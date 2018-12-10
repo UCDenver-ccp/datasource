@@ -476,6 +476,9 @@ public class InterProXmlFileRecord extends FileRecord {
 				} else if (value instanceof UlType) {
 					Ul ul = new Ul((UlType) value);
 					sb.append(ul.getText());
+				} else if (value instanceof UlType.Li) {
+					Li li = new Li((UlType.Li) value);
+					sb.append(li.getText());
 				} else if (value instanceof DbXrefType) {
 					DbXRef dbXRef = new DbXRef((DbXrefType) value);
 					sb.append(dbXRef.toString());
@@ -484,7 +487,7 @@ public class InterProXmlFileRecord extends FileRecord {
 					sb.append("<sup>" + sup.getValue() + "</sup>");
 				} else {
 					throw new IllegalStateException(
-							"Unhandled XML element in abstract type: " + value.getClass().getName());
+							"Unhandled XML element in abstract type: " + value.getClass().getName() + " -- " +value.toString());
 				}
 			} else {
 				throw new IllegalStateException("Unhandled field in abstract type: " + s.getClass().getName());
@@ -525,7 +528,7 @@ public class InterProXmlFileRecord extends FileRecord {
 
 	@Getter
 	public static class Taxon {
-		private final int taxId;
+		private final String taxId;
 		private final String value;
 
 		public Taxon(TaxonType xmlType) {
@@ -544,6 +547,17 @@ public class InterProXmlFileRecord extends FileRecord {
 		}
 	}
 
+	@Getter
+	public static class Li {
+		private final String text;
+
+		public Li(UlType.Li xmlType) {
+			List<Serializable> content = xmlType.getContent();
+			text = getString(content);
+		}
+	}
+
+	
 	@Getter
 	@ToString
 	@Record(ontClass = CcpExtensionOntology.INTERPRO_DATABASE_CROSS_REFERENCE_RECORD, dataSource = DataSource.INTERPRO)

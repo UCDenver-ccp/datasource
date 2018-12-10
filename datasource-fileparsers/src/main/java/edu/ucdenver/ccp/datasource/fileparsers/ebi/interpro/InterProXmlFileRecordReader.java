@@ -65,8 +65,7 @@ public class InterProXmlFileRecordReader extends XmlFileRecordReader<InterProXml
 	@FtpDownload(server = FtpHost.INTERPRO_HOST, path = FtpHost.INTERPRO_PATH, filename = FTP_FILE_NAME, filetype = FileType.ASCII)
 	private File interProXmlFile;
 
-	public InterProXmlFileRecordReader(File workDirectory, boolean clean)
-			throws IOException {
+	public InterProXmlFileRecordReader(File workDirectory, boolean clean) throws IOException {
 		super(org.interpro.InterproType.class, workDirectory, clean, null);
 	}
 
