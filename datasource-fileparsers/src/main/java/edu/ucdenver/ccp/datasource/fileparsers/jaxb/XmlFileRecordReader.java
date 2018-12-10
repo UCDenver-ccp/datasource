@@ -79,6 +79,7 @@ public abstract class XmlFileRecordReader<T extends FileRecord> extends FileReco
 
 	private final Set<NcbiTaxonomyID> taxonsOfInterest;
 	private final Class<?> entryClass;
+	private final Set<String> excludeElements;
 
 	// public XmlFileRecordReader(File workDirectory, boolean clean) throws
 	// IOException {
@@ -86,9 +87,14 @@ public abstract class XmlFileRecordReader<T extends FileRecord> extends FileReco
 	// }
 
 	public XmlFileRecordReader(Class<?> entryClass, File workDirectory, boolean clean, Set<NcbiTaxonomyID> taxonIds) throws IOException {
+		this(entryClass, workDirectory, clean, taxonIds, new HashSet<String>());
+	}
+	
+	public XmlFileRecordReader(Class<?> entryClass, File workDirectory, boolean clean, Set<NcbiTaxonomyID> taxonIds, Set<String> excludeElements) throws IOException {
 		super(workDirectory, null, null, null, null, clean);
 		this.entryClass = entryClass;
-		taxonsOfInterest = taxonIds;
+		this.taxonsOfInterest = taxonIds;
+		this.excludeElements = new HashSet<String>();
 		try {
 			initialize(initializeInputStreamFromDownload());
 		} catch (XMLStreamException e) {
@@ -102,16 +108,21 @@ public abstract class XmlFileRecordReader<T extends FileRecord> extends FileReco
 	// this(dataFile, null);
 	// }
 
+	
+	public XmlFileRecordReader(Class<?> entryClass, File dataFile, Set<NcbiTaxonomyID> taxonIds) throws IOException {
+		this(entryClass, dataFile, taxonIds, new HashSet<String>());
+	}
 	/**
 	 * @param dataFile
 	 * @param encoding
 	 * @param skipLinePrefix
 	 * @throws IOException
 	 */
-	public XmlFileRecordReader(Class<?> entryClass, File dataFile, Set<NcbiTaxonomyID> taxonIds) throws IOException {
+	public XmlFileRecordReader(Class<?> entryClass, File dataFile, Set<NcbiTaxonomyID> taxonIds, Set<String> excludeElements) throws IOException {
 		super(dataFile, null, null);
 		this.entryClass = entryClass;
-		taxonsOfInterest = taxonIds;
+		this.taxonsOfInterest = taxonIds;
+		this.excludeElements = excludeElements;
 		try {
 			InputStream is;
 			if (dataFile.getName().endsWith(".gz")) {
@@ -202,6 +213,9 @@ public abstract class XmlFileRecordReader<T extends FileRecord> extends FileReco
 			try {
 				while (xmlfer.peek() != null) {
 					JAXBElement<?> unmarshalledElement = um.unmarshal(xmler,entryClass);
+					if (excludeElements.contains(unmarshalledElement.getName().getLocalPart())) {
+						continue;
+					}
 					Object o = unmarshalledElement.getValue();
 					if (entryClass.isInstance(o)) {
 						nextRecord = initializeNewRecord(entryClass.cast(o));

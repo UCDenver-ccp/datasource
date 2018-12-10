@@ -43,9 +43,11 @@ import java.util.Set;
 
 import org.apache.log4j.Logger;
 
+import edu.ucdenver.ccp.common.collections.CollectionsUtil;
 import edu.ucdenver.ccp.datasource.fileparsers.ebi.uniprot.UniProtFileRecord.DbReference;
 import edu.ucdenver.ccp.datasource.fileparsers.jaxb.XmlFileRecordReader;
 import edu.ucdenver.ccp.datasource.identifiers.impl.bio.NcbiTaxonomyID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.UniProtID;
 
 /**
  * @author Colorado Computational Pharmacology, UC Denver;
@@ -67,18 +69,17 @@ public class UniProtXmlFileRecordReader extends XmlFileRecordReader<UniProtFileR
 
 	public UniProtXmlFileRecordReader(File workDirectory, boolean clean, Set<NcbiTaxonomyID> taxonIds)
 			throws IOException {
-		super(org.uniprot.Entry.class, workDirectory, clean, taxonIds);
+		super(org.uniprot.Entry.class, workDirectory, clean, taxonIds, CollectionsUtil.createSet("copyright"));
 	}
 
 	public UniProtXmlFileRecordReader(File dataFile, Set<NcbiTaxonomyID> taxonIds) throws IOException {
-		super(org.uniprot.Entry.class, dataFile, taxonIds);
+		super(org.uniprot.Entry.class, dataFile, taxonIds, CollectionsUtil.createSet("copyright"));
 	}
 
 	protected InputStream initializeInputStreamFromDownload() throws IOException {
-		throw new UnsupportedOperationException(
-				"The initializeInputStreamFromDownload() method is designed to be used "
-						+ "when a subclass of this class is automatically obtaining the input file. The subclass should initialize "
-						+ "the InputStream that will serve the UniProt XML to the XML parsing code.");
+		throw new UnsupportedOperationException("The initializeInputStreamFromDownload() method is designed to be used "
+				+ "when a subclass of this class is automatically obtaining the input file. The subclass should initialize "
+				+ "the InputStream that will serve the UniProt XML to the XML parsing code.");
 	}
 
 	@Override
@@ -101,6 +102,9 @@ public class UniProtXmlFileRecordReader extends XmlFileRecordReader<UniProtFileR
 	protected boolean hasTaxonOfInterest(UniProtFileRecord record) {
 		if (getTaxonsOfInterest() == null || getTaxonsOfInterest().isEmpty()) {
 			return true;
+		}
+		if (record == null) {
+			return false;
 		}
 		for (DbReference dbRef : record.getOrganism().getDbReference()) {
 			if (getTaxonsOfInterest().contains(dbRef.getId())) {
