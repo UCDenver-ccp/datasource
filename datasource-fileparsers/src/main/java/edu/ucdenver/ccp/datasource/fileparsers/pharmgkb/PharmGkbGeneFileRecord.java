@@ -45,7 +45,6 @@ import edu.ucdenver.ccp.datasource.fileparsers.RecordField;
 import edu.ucdenver.ccp.datasource.fileparsers.SingleLineFileRecord;
 import edu.ucdenver.ccp.datasource.identifiers.DataSource;
 import edu.ucdenver.ccp.datasource.identifiers.DataSourceIdentifier;
-import edu.ucdenver.ccp.datasource.identifiers.impl.bio.EnsemblGeneID;
 import edu.ucdenver.ccp.datasource.identifiers.impl.bio.HgncID;
 import edu.ucdenver.ccp.datasource.identifiers.impl.bio.NcbiGeneId;
 import edu.ucdenver.ccp.datasource.identifiers.impl.bio.PharmGkbGeneId;
@@ -72,7 +71,7 @@ public class PharmGkbGeneFileRecord extends SingleLineFileRecord {
 	@RecordField(ontClass = CcpExtensionOntology.PHARMGKB_GENE_RECORD___HGNC_IDENTIFIER_FIELD_VALUE)
 	private Set<HgncID> hgncIds;
 	@RecordField(ontClass = CcpExtensionOntology.PHARMGKB_GENE_RECORD___ENSEMBL_GENE_IDENTIFIER_FIELD_VALUE)
-	private final Set<EnsemblGeneID> ensemblGeneIds;
+	private final Set<DataSourceIdentifier<?>> ensemblGeneIds;
 	@RecordField(ontClass = CcpExtensionOntology.PHARMGKB_GENE_RECORD___NAME_FIELD_VALUE)
 	private final String name;
 	@RecordField(ontClass = CcpExtensionOntology.PHARMGKB_GENE_RECORD___SYMBOL_FIELD_VALUE)
@@ -116,7 +115,7 @@ public class PharmGkbGeneFileRecord extends SingleLineFileRecord {
 	 * @param crossReferences
 	 */
 	public PharmGkbGeneFileRecord(PharmGkbGeneId accessionId, Set<NcbiGeneId> entrezGeneIds, Set<HgncID> hgncIds,
-			Set<EnsemblGeneID> ensemblGeneIds, String name, String symbol, Collection<String> alternativeNames,
+			Set<DataSourceIdentifier<?>> ensemblGeneIds, String name, String symbol, Collection<String> alternativeNames,
 			Collection<String> alternativeSymbols, boolean isVip, boolean hasVariantAnnotation,
 			Collection<DataSourceIdentifier<?>> crossReferences, boolean hasCpicDosingGuideline, String chromosome,
 			Integer chromosomalStartGRCh37p13, Integer chromosomalStopGRCh37p13, Integer chromosomalStartGRCh38p7,

@@ -94,7 +94,7 @@ public class PharmGkbGeneFileParser extends SingleLineFileRecordReader<PharmGkbG
 
 	private static final String HEADER = "PharmGKB Accession Id\tNCBI Gene ID\tHGNC ID\tEnsembl Id\tName\tSymbol\tAlternate Names\tAlternate Symbols\tIs VIP\tHas Variant Annotation\tCross-references\tHas CPIC Dosing Guideline\tChromosome\tChromosomal Start - GRCh37.p13\tChromosomal Stop - GRCh37.p13\tChromosomal Start - GRCh38.p7\tChromosomal Stop - GRCh38.p7";
 
-	private static final CharacterEncoding ENCODING = CharacterEncoding.US_ASCII;
+	private static final CharacterEncoding ENCODING = CharacterEncoding.UTF_8;
 
 	private static final String HUMANCYCGENE_PREFIX = "HumanCyc Gene:";
 
@@ -170,7 +170,7 @@ public class PharmGkbGeneFileParser extends SingleLineFileRecordReader<PharmGkbG
 		PharmGkbGeneId pharmGkbAccessionId = new PharmGkbGeneId(toks[index++]);
 		Set<NcbiGeneId> entrezGeneIds = getEntrezGeneIDs(toks[index++]);
 		Set<HgncID> hgncIds = getHgncIds(toks[index++]);
-		Set<EnsemblGeneID> ensemblGeneIds = getEnsemblGeneIds(toks[index++]);
+		Set<DataSourceIdentifier<?>> ensemblGeneIds = getEnsemblGeneIds(toks[index++]);
 		String name = StringUtils.isNotBlank(toks[index++]) ? new String(toks[index - 1]) : null;
 		String symbol = StringUtils.isNotBlank(toks[index++]) ? new String(toks[index - 1]) : null;
 		Collection<String> alternativeNames = new ArrayList<String>();
@@ -247,17 +247,25 @@ public class PharmGkbGeneFileParser extends SingleLineFileRecordReader<PharmGkbG
 		}
 		return ids;
 	}
-	
-	private Set<EnsemblGeneID> getEnsemblGeneIds(String idStr) {
-		Set<EnsemblGeneID> ids = new HashSet<EnsemblGeneID>();
+
+	private Set<DataSourceIdentifier<?>> getEnsemblGeneIds(String idStr) {
+		Set<DataSourceIdentifier<?>> ids = new HashSet<DataSourceIdentifier<?>>();
 		if (StringUtils.isNotBlank(idStr)) {
 			if (idStr.contains(",")) {
 				idStr = idStr.replaceAll("\"", "");
 				for (String tok : idStr.split(",")) {
-					ids.add(new EnsemblGeneID(tok));
+					try {
+						ids.add(new EnsemblGeneID(tok));
+					} catch (IllegalArgumentException e) {
+						ids.add(new ProbableErrorDataSourceIdentifier(tok, "Ensembl", e.getMessage()));
+					}
 				}
 			} else {
-				ids.add(new EnsemblGeneID(idStr));
+				try {
+					ids.add(new EnsemblGeneID(idStr));
+				} catch (IllegalArgumentException e) {
+					ids.add(new ProbableErrorDataSourceIdentifier(idStr, "Ensembl", e.getMessage()));
+				}
 			}
 		}
 		return ids;
