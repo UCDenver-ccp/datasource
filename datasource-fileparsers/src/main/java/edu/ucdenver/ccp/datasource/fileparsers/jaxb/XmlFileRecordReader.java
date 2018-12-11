@@ -213,6 +213,7 @@ public abstract class XmlFileRecordReader<T extends FileRecord> extends FileReco
 			try {
 				while (xmlfer.peek() != null) {
 					JAXBElement<?> unmarshalledElement = um.unmarshal(xmler,entryClass);
+					System.out.println("LOCAL PART: " + unmarshalledElement.getName().getLocalPart() + " EXCLUDE: " + excludeElements.toString());
 					if (excludeElements.contains(unmarshalledElement.getName().getLocalPart())) {
 						continue;
 					}

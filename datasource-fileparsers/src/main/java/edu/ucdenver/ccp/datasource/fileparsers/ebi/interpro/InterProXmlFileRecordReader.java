@@ -59,6 +59,8 @@ import edu.ucdenver.ccp.datasource.identifiers.impl.bio.NcbiTaxonomyID;
  */
 public class InterProXmlFileRecordReader extends XmlFileRecordReader<InterProXmlFileRecord> {
 
+	private static final String VERSION = "Dec2018";
+	
 	private static final Logger logger = Logger.getLogger(InterProXmlFileRecordReader.class);
 
 	public static final String FTP_FILE_NAME = "interpro.xml.gz";
@@ -67,10 +69,12 @@ public class InterProXmlFileRecordReader extends XmlFileRecordReader<InterProXml
 
 	public InterProXmlFileRecordReader(File workDirectory, boolean clean) throws IOException {
 		super(org.interpro.InterproType.class, workDirectory, clean, null);
+		logger.info(this.getClass().getName() + " VERSION " + VERSION);
 	}
 
 	public InterProXmlFileRecordReader(File dataFile) throws IOException {
 		super(org.interpro.InterproType.class, dataFile, null);
+		logger.info(this.getClass().getName() + " VERSION " + VERSION);
 	}
 
 	protected InputStream initializeInputStreamFromDownload() throws IOException {

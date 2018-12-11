@@ -56,24 +56,19 @@ import edu.ucdenver.ccp.datasource.identifiers.impl.bio.UniProtID;
  */
 public class UniProtXmlFileRecordReader extends XmlFileRecordReader<UniProtFileRecord> {
 
+	private static final String VERSION = "Dec2018";
+	
 	private static final Logger logger = Logger.getLogger(UniProtXmlFileRecordReader.class);
-
-	// public UniProtXmlFileRecordReader(File workDirectory, boolean clean)
-	// throws IOException {
-	// super(workDirectory, clean);
-	// }
-	//
-	// public UniProtXmlFileRecordReader(File dataFile) throws IOException {
-	// super(dataFile);
-	// }
 
 	public UniProtXmlFileRecordReader(File workDirectory, boolean clean, Set<NcbiTaxonomyID> taxonIds)
 			throws IOException {
 		super(org.uniprot.Entry.class, workDirectory, clean, taxonIds, CollectionsUtil.createSet("copyright"));
+		logger.info(this.getClass().getName() + " VERSION " + VERSION);
 	}
 
 	public UniProtXmlFileRecordReader(File dataFile, Set<NcbiTaxonomyID> taxonIds) throws IOException {
 		super(org.uniprot.Entry.class, dataFile, taxonIds, CollectionsUtil.createSet("copyright"));
+		logger.info(this.getClass().getName() + " VERSION " + VERSION);
 	}
 
 	protected InputStream initializeInputStreamFromDownload() throws IOException {
