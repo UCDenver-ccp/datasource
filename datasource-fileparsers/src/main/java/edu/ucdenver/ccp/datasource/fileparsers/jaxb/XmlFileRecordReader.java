@@ -94,7 +94,7 @@ public abstract class XmlFileRecordReader<T extends FileRecord> extends FileReco
 		super(workDirectory, null, null, null, null, clean);
 		this.entryClass = entryClass;
 		this.taxonsOfInterest = taxonIds;
-		this.excludeElements = new HashSet<String>();
+		this.excludeElements = excludeElements;
 		try {
 			initialize(initializeInputStreamFromDownload());
 		} catch (XMLStreamException e) {
@@ -213,7 +213,6 @@ public abstract class XmlFileRecordReader<T extends FileRecord> extends FileReco
 			try {
 				while (xmlfer.peek() != null) {
 					JAXBElement<?> unmarshalledElement = um.unmarshal(xmler,entryClass);
-					System.out.println("LOCAL PART: " + unmarshalledElement.getName().getLocalPart() + " EXCLUDE: " + excludeElements.toString());
 					if (excludeElements.contains(unmarshalledElement.getName().getLocalPart())) {
 						continue;
 					}
