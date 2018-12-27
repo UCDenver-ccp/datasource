@@ -42,19 +42,19 @@ import edu.ucdenver.ccp.common.file.CharacterEncoding;
 import edu.ucdenver.ccp.common.file.reader.Line;
 import edu.ucdenver.ccp.datasource.fileparsers.SingleLineFileRecordReader;
 
-public class BioMartIdMappingRecordReader extends SingleLineFileRecordReader<BioMartIdMappingFileData> {
+public class BioMartProteinIdMappingRecordReader extends SingleLineFileRecordReader<BioMartProteinIdMappingFileData> {
 
-	public BioMartIdMappingRecordReader(File dataFile, CharacterEncoding encoding) throws IOException {
+	public BioMartProteinIdMappingRecordReader(File dataFile, CharacterEncoding encoding) throws IOException {
 		super(dataFile, encoding);
 	}
 
-	public BioMartIdMappingRecordReader(InputStream stream, CharacterEncoding encoding) throws IOException {
+	public BioMartProteinIdMappingRecordReader(InputStream stream, CharacterEncoding encoding) throws IOException {
 		super(stream, encoding, null);
 	}
 
 	@Override
-	protected BioMartIdMappingFileData parseRecordFromLine(Line line) {
-		return BioMartIdMappingFileData.parseLine(line);
+	protected BioMartProteinIdMappingFileData parseRecordFromLine(Line line) {
+		return BioMartProteinIdMappingFileData.parseLine(line);
 	}
 	
 }

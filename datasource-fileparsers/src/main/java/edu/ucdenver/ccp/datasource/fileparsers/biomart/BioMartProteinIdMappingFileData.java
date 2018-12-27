@@ -41,6 +41,7 @@ import edu.ucdenver.ccp.datasource.fileparsers.RecordField;
 import edu.ucdenver.ccp.datasource.fileparsers.SingleLineFileRecord;
 import edu.ucdenver.ccp.datasource.identifiers.DataSource;
 import edu.ucdenver.ccp.datasource.identifiers.impl.bio.EnsemblGeneID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.EnsemblProteinID;
 import edu.ucdenver.ccp.datasource.identifiers.impl.bio.EnsemblTranscriptID;
 import edu.ucdenver.ccp.datasource.identifiers.impl.bio.HgncID;
 import edu.ucdenver.ccp.datasource.identifiers.impl.bio.NcbiGeneId;
@@ -53,66 +54,57 @@ import lombok.ToString;
  * command:
  * 
  * <pre>
- * wget -O ensembl-mappings.txt 'http://www.ensembl.org/biomart/martservice?query=
- * <?xml version="1.0" encoding="UTF-8"?>
+ * wget -O /kabob_data/raw/biomart/biomart-protein-identifier-mappings.txt 'http://www.ensembl.org/biomart/martservice?query=<?xml version="1.0" encoding="UTF-8"?>
  * <!DOCTYPE Query><Query  virtualSchemaName = "default" formatter =
  "TSV" header = "0" uniqueRows = "0" count = "" datasetConfigVersion = "0.6" >	
  * <Dataset name = "hsapiens_gene_ensembl" interface = "default" >		
- *    <Attribute name = "ensembl_gene_id" />		
- *    <Attribute name = "ensembl_transcript_id" />		
- *    <Attribute name = "entrezgene" /> 
- *    <Attribute name = "hgnc_id" />		
- *    <Attribute name = "uniprotswissprot" />	
- * </Dataset></Query>'
+ * <Attribute name = "ensembl_gene_id" /> 
+ * <Attribute name = "ensembl_peptide_id" /> 
+ * <Attribute name = "uniprotswissprot" /> 
+ * <Attribute name = "uniprotsptrembl" /> </Dataset></Query>'
  * </pre>
  */
-@Record(ontClass = CcpExtensionOntology.BIOMART_IDENTIFIER_MAPPING_RECORD, dataSource = DataSource.BIOMART)
+@Record(ontClass = CcpExtensionOntology.BIOMART_PROTEIN_IDENTIFIER_MAPPING_RECORD, dataSource = DataSource.BIOMART)
 @ToString
 @Getter
-public class BioMartIdMappingFileData extends SingleLineFileRecord {
+public class BioMartProteinIdMappingFileData extends SingleLineFileRecord {
 
 	// columns:
 	// ensembl gene id
-	// ensembl transcript id
-	// ncbi gene id
-	// hgnc gene id
+	// ensembl peptide id
 	// uniprot swissprot id
+	// uniprot trembl id
 
 	@RecordField(ontClass = CcpExtensionOntology.BIOMART_IDENTIFIER_MAPPING_RECORD___ENSEMBL_GENE_IDENTIFIER_FIELD_VALUE)
 	private final EnsemblGeneID ensemblGeneId;
-	@RecordField(ontClass = CcpExtensionOntology.BIOMART_IDENTIFIER_MAPPING_RECORD___ENSEMBL_TRANSCRIPT_IDENTIFIER_FIELD_VALUE)
-	private final EnsemblTranscriptID ensemblTranscriptId;
-	@RecordField(ontClass = CcpExtensionOntology.BIOMART_IDENTIFIER_MAPPING_RECORD___NCBI_GENE_IDENTIFIER_FIELD_VALUE)
-	private final NcbiGeneId ncbiGeneId;
-	@RecordField(ontClass = CcpExtensionOntology.BIOMART_IDENTIFIER_MAPPING_RECORD___HGNC_GENE_IDENTIFIER_FIELD_VALUE)
-	private final HgncID hgncId;
-	@RecordField(ontClass = CcpExtensionOntology.BIOMART_IDENTIFIER_MAPPING_RECORD___UNIPROT_IDENTIFIER_FIELD_VALUE)
-	private final UniProtID uniprotId;
+	@RecordField(ontClass = CcpExtensionOntology.BIOMART_IDENTIFIER_MAPPING_RECORD___ENSEMBL_PEPTIDE_IDENTIFIER_FIELD_VALUE)
+	private final EnsemblProteinID ensemblProteinId;
+	@RecordField(ontClass = CcpExtensionOntology.BIOMART_IDENTIFIER_MAPPING_RECORD___UNIPROT_SWISSPROT_IDENTIFIER_FIELD_VALUE)
+	private final UniProtID uniprotSwissProtId;
+	@RecordField(ontClass = CcpExtensionOntology.BIOMART_IDENTIFIER_MAPPING_RECORD___UNIPROT_TREMBL_IDENTIFIER_FIELD_VALUE)
+	private final UniProtID uniprotTremblId;
 
-	public BioMartIdMappingFileData(EnsemblGeneID ensemblGeneId, EnsemblTranscriptID ensemblTranscriptId,
-			NcbiGeneId ncbiGeneId, HgncID hgncId, UniProtID uniprotId, long byteOffset, long lineNumber) {
+	public BioMartProteinIdMappingFileData(EnsemblGeneID ensemblGeneId, EnsemblProteinID ensemblProteinId,
+			UniProtID uniprotSwissProtId, UniProtID uniprotTremblId, long byteOffset, long lineNumber) {
 		super(byteOffset, lineNumber);
 		this.ensemblGeneId = ensemblGeneId;
-		this.ensemblTranscriptId = ensemblTranscriptId;
-		this.ncbiGeneId = ncbiGeneId;
-		this.hgncId = hgncId;
-		this.uniprotId = uniprotId;
+		this.ensemblProteinId = ensemblProteinId;
+		this.uniprotSwissProtId = uniprotSwissProtId;
+		this.uniprotTremblId = uniprotTremblId;
 	}
 
-	public static BioMartIdMappingFileData parseLine(Line line) {
+	public static BioMartProteinIdMappingFileData parseLine(Line line) {
 		String[] toks = line.getText().split("\\t", -1);
 		int index = 0;
 		String tmpStr;
 		EnsemblGeneID ensemblGeneId = new EnsemblGeneID(toks[index++]);
-		EnsemblTranscriptID ensemblTranscriptId = new EnsemblTranscriptID(toks[index++]);
+		EnsemblProteinID ensemblProteinId = new EnsemblProteinID(toks[index++]);
 		tmpStr = toks[index++];
-		NcbiGeneId ncbiGeneId = (tmpStr.trim().isEmpty()) ? null : new NcbiGeneId(tmpStr);
+		UniProtID uniprotSwissProtId = (tmpStr.trim().isEmpty()) ? null : new UniProtID(tmpStr);
 		tmpStr = toks[index++];
-		HgncID hgncId = (tmpStr.trim().isEmpty()) ? null : new HgncID(tmpStr);
-		tmpStr = toks[index++];
-		UniProtID uniprotId = (tmpStr.trim().isEmpty()) ? null : new UniProtID(tmpStr);
+		UniProtID uniprotTremblId = (tmpStr.trim().isEmpty()) ? null : new UniProtID(tmpStr);
 
-		return new BioMartIdMappingFileData(ensemblGeneId, ensemblTranscriptId, ncbiGeneId, hgncId, uniprotId,
+		return new BioMartProteinIdMappingFileData(ensemblGeneId, ensemblProteinId, uniprotSwissProtId, uniprotTremblId,
 				line.getByteOffset(), line.getLineNumber());
 	}
 

@@ -61,7 +61,10 @@ import edu.ucdenver.ccp.datasource.fileparsers.FileRecordReader;
 import edu.ucdenver.ccp.datasource.fileparsers.RecordReader;
 import edu.ucdenver.ccp.datasource.fileparsers.biogrid.BioGridProteinChemicalInteractionRecordReader;
 import edu.ucdenver.ccp.datasource.fileparsers.biogrid.BioGridProteinInteractionRecordReader;
-import edu.ucdenver.ccp.datasource.fileparsers.biomart.BioMartIdMappingRecordReader;
+import edu.ucdenver.ccp.datasource.fileparsers.biomart.BioMartCentralDogmaIdMappingRecordReader;
+import edu.ucdenver.ccp.datasource.fileparsers.biomart.BioMartGeneIdMappingRecordReader;
+import edu.ucdenver.ccp.datasource.fileparsers.biomart.BioMartProteinIdMappingRecordReader;
+import edu.ucdenver.ccp.datasource.fileparsers.biomart.BioMartTranscriptIdMappingRecordReader;
 import edu.ucdenver.ccp.datasource.fileparsers.bioplex.BioPlexInteractionListRecordReader;
 import edu.ucdenver.ccp.datasource.fileparsers.custom.CuratedTFRecordReader;
 import edu.ucdenver.ccp.datasource.fileparsers.drugbank.DrugbankXmlFileRecordReader;
@@ -172,19 +175,67 @@ public enum FileDataSource {
 	// }
 	// },
 
-	BIOMART_IDENTIFIER_MAPPING(DataSource.BIOMART, IsTaxonAware.NO, RequiresManualDownload.YES) {
+	BIOMART_GENE_IDENTIFIER_MAPPING(DataSource.BIOMART, IsTaxonAware.NO, RequiresManualDownload.YES) {
 		@Override
 		protected RecordReader<?> initFileRecordReader(File sourceFileDirectory, File baseSourceFileDirectory,
 				boolean cleanSourceFiles, boolean cleanIdListFiles, File idListDir, Set<NcbiTaxonomyID> taxonIds)
 				throws IOException {
-			File tsvFile = new File(sourceFileDirectory, "biomart-identifier-mappings.txt");
+			File tsvFile = new File(sourceFileDirectory, "biomart-gene-identifier-mappings.txt");
 			FileUtil.validateFile(tsvFile);
-			return new BioMartIdMappingRecordReader(tsvFile, CharacterEncoding.UTF_8);
+			return new BioMartGeneIdMappingRecordReader(tsvFile, CharacterEncoding.UTF_8);
 		}
 
 		@Override
 		protected Class<? extends RecordReader<?>> getRecordReaderClass() {
-			return BioGridProteinInteractionRecordReader.class;
+			return BioMartGeneIdMappingRecordReader.class;
+		}
+	},
+	
+	BIOMART_TRANSCRIPT_IDENTIFIER_MAPPING(DataSource.BIOMART, IsTaxonAware.NO, RequiresManualDownload.YES) {
+		@Override
+		protected RecordReader<?> initFileRecordReader(File sourceFileDirectory, File baseSourceFileDirectory,
+				boolean cleanSourceFiles, boolean cleanIdListFiles, File idListDir, Set<NcbiTaxonomyID> taxonIds)
+				throws IOException {
+			File tsvFile = new File(sourceFileDirectory, "biomart-transcript-identifier-mappings.txt");
+			FileUtil.validateFile(tsvFile);
+			return new BioMartTranscriptIdMappingRecordReader(tsvFile, CharacterEncoding.UTF_8);
+		}
+
+		@Override
+		protected Class<? extends RecordReader<?>> getRecordReaderClass() {
+			return BioMartTranscriptIdMappingRecordReader.class;
+		}
+	},
+	
+	BIOMART_PROTEIN_IDENTIFIER_MAPPING(DataSource.BIOMART, IsTaxonAware.NO, RequiresManualDownload.YES) {
+		@Override
+		protected RecordReader<?> initFileRecordReader(File sourceFileDirectory, File baseSourceFileDirectory,
+				boolean cleanSourceFiles, boolean cleanIdListFiles, File idListDir, Set<NcbiTaxonomyID> taxonIds)
+				throws IOException {
+			File tsvFile = new File(sourceFileDirectory, "biomart-protein-identifier-mappings.txt");
+			FileUtil.validateFile(tsvFile);
+			return new BioMartProteinIdMappingRecordReader(tsvFile, CharacterEncoding.UTF_8);
+		}
+
+		@Override
+		protected Class<? extends RecordReader<?>> getRecordReaderClass() {
+			return BioMartProteinIdMappingRecordReader.class;
+		}
+	},
+	
+	BIOMART_CENTRAL_DOGMA_IDENTIFIER_LINKING(DataSource.BIOMART, IsTaxonAware.NO, RequiresManualDownload.YES) {
+		@Override
+		protected RecordReader<?> initFileRecordReader(File sourceFileDirectory, File baseSourceFileDirectory,
+				boolean cleanSourceFiles, boolean cleanIdListFiles, File idListDir, Set<NcbiTaxonomyID> taxonIds)
+				throws IOException {
+			File tsvFile = new File(sourceFileDirectory, "biomart-central-dogma-linkages.txt");
+			FileUtil.validateFile(tsvFile);
+			return new BioMartCentralDogmaIdMappingRecordReader(tsvFile, CharacterEncoding.UTF_8);
+		}
+
+		@Override
+		protected Class<? extends RecordReader<?>> getRecordReaderClass() {
+			return BioMartCentralDogmaIdMappingRecordReader.class;
 		}
 	},
 
