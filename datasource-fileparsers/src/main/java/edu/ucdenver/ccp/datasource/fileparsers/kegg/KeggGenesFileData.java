@@ -42,21 +42,26 @@ import java.util.Set;
 import org.apache.log4j.Logger;
 
 import edu.ucdenver.ccp.common.string.StringUtil;
-import edu.ucdenver.ccp.datasource.fileparsers.MultiLineFileRecord;
+import edu.ucdenver.ccp.datasource.fileparsers.FileRecord;
 import edu.ucdenver.ccp.datasource.fileparsers.MultiLineFileRecordReader.MultiLineBuffer;
+import edu.ucdenver.ccp.datasource.fileparsers.Record;
+import edu.ucdenver.ccp.datasource.fileparsers.RecordField;
+import edu.ucdenver.ccp.datasource.identifiers.DataSource;
 import edu.ucdenver.ccp.datasource.identifiers.DataSourceIdResolver;
 import edu.ucdenver.ccp.datasource.identifiers.DataSourceIdentifier;
-import edu.ucdenver.ccp.datasource.identifiers.kegg.KeggGeneID;
-import edu.ucdenver.ccp.datasource.identifiers.kegg.KeggPathwayID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.KeggGeneID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.KeggPathwayID;
 
 /**
- * Data structure used to represent KEGG genes file downloaded as part of genes.tar.gz - one of the
- * bulk download files from KEGG Incomplete implementation.
+ * Data structure used to represent KEGG genes file downloaded as part of
+ * genes.tar.gz - one of the bulk download files from KEGG Incomplete
+ * implementation.
  * 
  * @author Bill Baumgartner
  * 
  */
-public class KeggGenesFileData extends MultiLineFileRecord {
+@Record(dataSource = DataSource.KEGG)
+public class KeggGenesFileData extends FileRecord {
 	public static final String RECORD_NAME_PREFIX = "KEGG_SPECIES_CODE_2_NCBI_TAXONOMYID_RECORD_";
 
 	private static final Logger logger = Logger.getLogger(KeggGenesFileData.class);
@@ -75,17 +80,20 @@ public class KeggGenesFileData extends MultiLineFileRecord {
 	private static final String STRUCTURE = "STRUCTURE";
 	private static final String SLASHES = "///";
 
+	@RecordField
 	private final KeggGeneID keggGeneID;
 	// private final String geneType;
 	// private final String speciesAbbrev;
 	// private final Set<String> names;
 	// private final String definition;
 	// private final String position;
+	@RecordField
 	private final Set<DataSourceIdentifier<?>> dbLinks;
 	// private final int aaSeqLength;
 	// private final String aaSeq;
 	// private final int ntSeqLength;
 	// private final String ntSeq;
+	@RecordField
 	private final Set<KeggPathwayID> pathwayIds;
 
 	public KeggGenesFileData(KeggGeneID keggGeneId, Set<DataSourceIdentifier<?>> dbIds, Set<KeggPathwayID> pathwayIds,
@@ -143,7 +151,7 @@ public class KeggGenesFileData extends MultiLineFileRecord {
 		String[] toks = line.trim().split("\\s+");
 		String databaseName = toks[0].replaceAll(":", "");
 		for (int i = 1; i < toks.length; i++) {
-			DataSourceIdentifier<?> id = DataSourceIdResolver.resolveId(databaseName, toks[i]);
+			DataSourceIdentifier<?> id = DataSourceIdResolver.resolveId(databaseName, toks[i], "Source: " + toks[0] + " ID: " + toks[i]);
 			if (id != null) {
 				ids.add(id);
 			}
@@ -158,9 +166,22 @@ public class KeggGenesFileData extends MultiLineFileRecord {
 	 */
 	private static KeggPathwayID getKeggPathwayId(String line) {
 		String[] toks = line.trim().split("\\s+");
-		if (line.startsWith(PATHWAY))
-			return new KeggPathwayID(toks[1]);
-		return new KeggPathwayID(toks[0]);
+		if (line.startsWith(PATHWAY)) {
+			return new KeggPathwayID(dropSpeciesCode(toks[1]));
+		}
+		return new KeggPathwayID(dropSpeciesCode(toks[0]));
+	}
+
+	/**
+	 * @param string
+	 * @return the input pathway ID without the prefixed species 3/4-letter code
+	 */
+	private static String dropSpeciesCode(String pathwayId) {
+		/*
+		 * strips any letters at the beginning of the pathway Id, leaving only
+		 * numbers
+		 */
+		return StringUtil.removePrefixRegex(pathwayId, "[a-z]+");
 	}
 
 	/**

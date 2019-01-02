@@ -60,6 +60,7 @@ import java.util.regex.Pattern;
 
 import org.apache.log4j.Logger;
 
+import edu.ucdenver.ccp.common.collections.CollectionsUtil;
 import edu.ucdenver.ccp.common.file.CharacterEncoding;
 import edu.ucdenver.ccp.common.file.reader.Line;
 import edu.ucdenver.ccp.common.string.RegExPatterns;
@@ -70,12 +71,12 @@ import edu.ucdenver.ccp.datasource.fileparsers.taxonaware.TaxonAwareSingleLineFi
 import edu.ucdenver.ccp.datasource.identifiers.DataSourceIdentifier;
 import edu.ucdenver.ccp.datasource.identifiers.ProbableErrorDataSourceIdentifier;
 import edu.ucdenver.ccp.datasource.identifiers.ProteinAccessionResolver;
-import edu.ucdenver.ccp.datasource.identifiers.dip.DipInteractionID;
-import edu.ucdenver.ccp.datasource.identifiers.dip.DipInteractorID;
-import edu.ucdenver.ccp.datasource.identifiers.ebi.uniprot.UniProtID;
-import edu.ucdenver.ccp.datasource.identifiers.ebi.uniprot.UniProtIsoformID;
-import edu.ucdenver.ccp.datasource.identifiers.ncbi.taxonomy.NcbiTaxonomyID;
-import edu.ucdenver.ccp.identifier.publication.PubMedID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.DipInteractionID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.DipInteractorID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.NcbiTaxonomyID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.UniProtID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.UniProtIsoformID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.ice.PubMedID;
 
 /**
  * This class is used to parse DIPYYYMMDD files which can be downloaded from the
@@ -110,10 +111,11 @@ public class DipYYYYMMDDFileParser extends TaxonAwareSingleLineFileRecordReader<
 	}
 
 	@Override
-	protected NcbiTaxonomyID getLineTaxon(Line line) {
+	protected Set<NcbiTaxonomyID> getLineTaxon(Line line) {
 		DipYYYYMMDDFileData record = parseRecordFromLine(line);
 		// should probably return both tax id's here
-		return record.getInteractor_A().getNcbiTaxonomyId().getTaxonomyId();
+		return CollectionsUtil.createSet(record.getInteractor_A().getNcbiTaxonomyId().getTaxonomyId(),
+				record.getInteractor_B().getNcbiTaxonomyId().getTaxonomyId());
 	}
 
 	@Override

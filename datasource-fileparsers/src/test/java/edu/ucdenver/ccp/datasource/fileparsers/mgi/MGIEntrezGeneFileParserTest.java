@@ -52,8 +52,8 @@ import edu.ucdenver.ccp.common.file.CharacterEncoding;
 import edu.ucdenver.ccp.common.file.FileUtil;
 import edu.ucdenver.ccp.datasource.fileparsers.RecordReader;
 import edu.ucdenver.ccp.datasource.fileparsers.test.RecordReaderTester;
-import edu.ucdenver.ccp.datasource.identifiers.mgi.MgiGeneID;
-import edu.ucdenver.ccp.datasource.identifiers.ncbi.gene.EntrezGeneID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.MgiGeneID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.NcbiGeneId;
 
 public class MGIEntrezGeneFileParserTest extends RecordReaderTester {
 
@@ -114,7 +114,7 @@ public class MGIEntrezGeneFileParserTest extends RecordReaderTester {
 		assertEquals(String.format("Chromosome not as expected"), Integer.toString(expectedChromosome),
 				record.getChromosome());
 		assertEquals(String.format("cM position not as expected"), expectedCmPosition, record.getcM_Position());
-		assertEquals(String.format("Entrez Gene Id not as expected"), new EntrezGeneID(expectedEntrezGeneID),
+		assertEquals(String.format("Entrez Gene Id not as expected"), new NcbiGeneId(expectedEntrezGeneID),
 				record.getEntrezGeneID());
 		Set<MgiGeneID> secondaryIDs = new HashSet<MgiGeneID>();
 		for (String secondaryID : expectedSecondaryIDs)

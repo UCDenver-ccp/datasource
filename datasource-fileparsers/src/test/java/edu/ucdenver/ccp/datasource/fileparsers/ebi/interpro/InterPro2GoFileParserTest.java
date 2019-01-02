@@ -77,28 +77,28 @@ public class InterPro2GoFileParserTest extends RecordReaderTester {
 		assertNull(parser.next()); // for 'Elapsed:' line
 
 		InterPro2GoFileRecord record = parser.next();
-		assertEquals("IPR000005", record.getInterProId().getDataElement());
-		assertEquals("GO:0003700", record.getGoId().getDataElement());
+		assertEquals("IPR000005", record.getInterProId().getId());
+		assertEquals("GO:0003700", record.getGoId().getId());
 
 		record = parser.next();
-		assertEquals("IPR000005", record.getInterProId().getDataElement());
-		assertEquals("GO:0043565", record.getGoId().getDataElement());
+		assertEquals("IPR000005", record.getInterProId().getId());
+		assertEquals("GO:0043565", record.getGoId().getId());
 
 		record = parser.next();
-		assertEquals("IPR000005", record.getInterProId().getDataElement());
-		assertEquals("GO:0006355", record.getGoId().getDataElement());
+		assertEquals("IPR000005", record.getInterProId().getId());
+		assertEquals("GO:0006355", record.getGoId().getId());
 
 		record = parser.next();
-		assertEquals("IPR000005", record.getInterProId().getDataElement());
-		assertEquals("GO:0005622", record.getGoId().getDataElement());
+		assertEquals("IPR000005", record.getInterProId().getId());
+		assertEquals("GO:0005622", record.getGoId().getId());
 
 		record = parser.next();
-		assertEquals("IPR000006", record.getInterProId().getDataElement());
-		assertEquals("GO:0046872", record.getGoId().getDataElement());
+		assertEquals("IPR000006", record.getInterProId().getId());
+		assertEquals("GO:0046872", record.getGoId().getId());
 
 		record = parser.next();
-		assertEquals("IPR000009", record.getInterProId().getDataElement());
-		assertEquals("GO:0008601", record.getGoId().getDataElement());
+		assertEquals("IPR000009", record.getInterProId().getId());
+		assertEquals("GO:0008601", record.getGoId().getId());
 
 		assertFalse(parser.hasNext());
 

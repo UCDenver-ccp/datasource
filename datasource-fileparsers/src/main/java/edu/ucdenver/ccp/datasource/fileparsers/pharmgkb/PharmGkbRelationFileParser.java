@@ -83,20 +83,21 @@ import edu.ucdenver.ccp.common.string.StringUtil;
 import edu.ucdenver.ccp.common.string.StringUtil.RemoveFieldEnclosures;
 import edu.ucdenver.ccp.datasource.fileparsers.SingleLineFileRecordReader;
 import edu.ucdenver.ccp.datasource.identifiers.DataSourceIdentifier;
+import edu.ucdenver.ccp.datasource.identifiers.ProbableErrorDataSourceIdentifier;
 import edu.ucdenver.ccp.datasource.identifiers.UnknownDataSourceIdentifier;
-import edu.ucdenver.ccp.datasource.identifiers.ncbi.RefSnpID;
-import edu.ucdenver.ccp.datasource.identifiers.pharmgkb.PharmGkbHaplotypeId;
-import edu.ucdenver.ccp.datasource.identifiers.pharmgkb.PharmGkbID;
-import edu.ucdenver.ccp.datasource.identifiers.pharmgkb.PharmGkbVariantLocationId;
-import edu.ucdenver.ccp.identifier.publication.PubMedID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.PharmGkbDiseaseId;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.PharmGkbDrugId;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.PharmGkbGeneId;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.PharmGkbHaplotypeId;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.PharmGkbVariantLocationId;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.RefSnpID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.ice.PubMedID;
 
 public class PharmGkbRelationFileParser extends SingleLineFileRecordReader<PharmGkbRelationFileRecord> {
 
 	private static final Logger logger = Logger.getLogger(PharmGkbRelationFileParser.class);
 
 	private static final String HEADER = "Entity1_id\tEntity1_name\tEntity1_type\tEntity2_id\tEntity2_name\tEntity2_type\tEvidence\tAssociation\tPK\tPD\tPMIDs";
-
-	private static final CharacterEncoding ENCODING = CharacterEncoding.US_ASCII;
 
 	private static final String PHARMGKB_ID_PREFIX = "PA";
 
@@ -105,6 +106,12 @@ public class PharmGkbRelationFileParser extends SingleLineFileRecordReader<Pharm
 	private static final Object ENTITY_TYPE_HAPLOTYPE = "Haplotype";
 
 	private static final Object ENTITY_TYPE_VARIANT_LOCATION = "VariantLocation";
+
+	private static final Object ENTITY_TYPE_DRUG = "Drug";
+
+	private static final Object ENTITY_TYPE_DISEASE = "Disease";
+
+	private static final Object ENTITY_TYPE_GENE = "Gene";
 
 	public PharmGkbRelationFileParser(File dataFile, CharacterEncoding encoding) throws IOException {
 		super(dataFile, encoding, null);
@@ -129,8 +136,8 @@ public class PharmGkbRelationFileParser extends SingleLineFileRecordReader<Pharm
 		String entity2Name = toks[4];
 		String entity2Type = toks[5];
 		Set<DataSourceIdentifier<?>> entity2Id = resolveEntityId(toks[3], entity2Type);
-		Set<String> evidence = new HashSet<String>(StringUtil.delimitAndTrim(toks[6], StringConstants.COMMA, null,
-				RemoveFieldEnclosures.FALSE));
+		Set<String> evidence = new HashSet<String>(
+				StringUtil.delimitAndTrim(toks[6], StringConstants.COMMA, null, RemoveFieldEnclosures.FALSE));
 		String association = toks[7];
 		String pk = toks[8];
 		String pd = toks[9];
@@ -140,9 +147,9 @@ public class PharmGkbRelationFileParser extends SingleLineFileRecordReader<Pharm
 	}
 
 	/**
-	 * entities in the relationships.tsv file can be PharmGkb accession IDs (e.g. PA450626), RefSnp
-	 * IDs (e.g. rs10209881), Haplotypes (e.g. CYP2A6*1B10), chromosome positions (e.g.
-	 * chr20:48184659 (hg19))
+	 * entities in the relationships.tsv file can be PharmGkb accession IDs
+	 * (e.g. PA450626), RefSnp IDs (e.g. rs10209881), Haplotypes (e.g.
+	 * CYP2A6*1B10), chromosome positions (e.g. chr20:48184659 (hg19))
 	 * 
 	 * @param string
 	 * @return
@@ -151,16 +158,24 @@ public class PharmGkbRelationFileParser extends SingleLineFileRecordReader<Pharm
 		Set<DataSourceIdentifier<?>> ids = new HashSet<DataSourceIdentifier<?>>();
 		String[] toks = idStr.split(",");
 		for (String id : toks) {
-			if (idStr.startsWith(PHARMGKB_ID_PREFIX)) {
-				ids.add(new PharmGkbID(id));
-			} else if (idStr.matches(REFSNP_ID_PATTERN)) {
-				ids.add(new RefSnpID(id));
-			} else if (entityType.equals(ENTITY_TYPE_HAPLOTYPE)) {
-				ids.add(new PharmGkbHaplotypeId(id));
-			} else if (entityType.equals(ENTITY_TYPE_VARIANT_LOCATION)) {
-				ids.add(new PharmGkbVariantLocationId(id));
-			} else {
-				ids.add(new UnknownDataSourceIdentifier(id));
+			try {
+				if (idStr.startsWith(PHARMGKB_ID_PREFIX) && entityType.equals(ENTITY_TYPE_DRUG)) {
+					ids.add(new PharmGkbDrugId(id));
+				} else if (idStr.startsWith(PHARMGKB_ID_PREFIX) && entityType.equals(ENTITY_TYPE_DISEASE)) {
+					ids.add(new PharmGkbDiseaseId(id));
+				} else if (idStr.startsWith(PHARMGKB_ID_PREFIX) && entityType.equals(ENTITY_TYPE_GENE)) {
+					ids.add(new PharmGkbGeneId(id));
+				} else if (idStr.matches(REFSNP_ID_PATTERN)) {
+					ids.add(new RefSnpID(id));
+				} else if (entityType.equals(ENTITY_TYPE_HAPLOTYPE)) {
+					ids.add(new PharmGkbHaplotypeId(id));
+				} else if (entityType.equals(ENTITY_TYPE_VARIANT_LOCATION)) {
+					ids.add(new PharmGkbVariantLocationId(id));
+				} else {
+					ids.add(new UnknownDataSourceIdentifier(id));
+				}
+			} catch (IllegalArgumentException e) {
+				new ProbableErrorDataSourceIdentifier(idStr, entityType, e.getMessage());
 			}
 		}
 		return ids;
@@ -176,22 +191,33 @@ public class PharmGkbRelationFileParser extends SingleLineFileRecordReader<Pharm
 		if (!pmidStr.isEmpty()) {
 			for (String pmid : pmidStr.split(StringConstants.SEMICOLON)) {
 				if (pmid.startsWith(StringConstants.COLON)) {
-					// there are some PMIDs prefixed by a colon in the relationships.tsv file, e.g.
-					// ":17522595". Here we remove the leading colon if it is present.
+					// there are some PMIDs prefixed by a colon in the
+					// relationships.tsv file, e.g.
+					// ":17522595". Here we remove the leading colon if it is
+					// present.
 					pmid = StringUtil.removePrefix(pmid, StringConstants.COLON);
 				}
 				if (pmid.startsWith(StringConstants.LEFT_SQUARE_BRACKET)) {
-					// there are some PMIDs prefixed by a [ in the relationships.tsv file, e.g.
-					// "[11866883". Here we remove the leading [ if it is present.
+					// there are some PMIDs prefixed by a [ in the
+					// relationships.tsv file, e.g.
+					// "[11866883". Here we remove the leading [ if it is
+					// present.
 					pmid = StringUtil.removePrefix(pmid, StringConstants.LEFT_SQUARE_BRACKET);
 				}
 				if (pmid.endsWith(StringConstants.RIGHT_SQUARE_BRACKET)) {
-					// there are some PMIDs suffixed by a } in the relationships.tsv file, e.g.
-					// "22020825]". Here we remove the trailing ] if it is present.
+					// there are some PMIDs suffixed by a } in the
+					// relationships.tsv file, e.g.
+					// "22020825]". Here we remove the trailing ] if it is
+					// present.
 					pmid = StringUtil.removeSuffix(pmid, StringConstants.RIGHT_SQUARE_BRACKET);
 				}
 				if (pmid.matches(RegExPatterns.HAS_NUMBERS_ONLY)) {
 					pmids.add(new PubMedID(pmid));
+				} else if (pmid.matches("pmid \\d+")) {
+					pmids.add(new PubMedID(pmid.substring(5)));
+				} else if (pmid.startsWith("http://sfx.stanford.edu/local?sid=Entrez:PubMed&id=pmid:")) {
+					pmids.add(new PubMedID(
+							StringUtil.removePrefix(pmid, "http://sfx.stanford.edu/local?sid=Entrez:PubMed&id=pmid:")));
 				} else {
 					logger.warn("Unhandled PMID format: " + pmid);
 				}

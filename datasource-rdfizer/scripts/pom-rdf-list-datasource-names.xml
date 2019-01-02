@@ -7,7 +7,7 @@
   <groupId>edu.ucdenver.ccp</groupId>
   <artifactId>datasource-rdfizer-rdf-gen-ids</artifactId>
   <packaging>pom</packaging>
-  <version>0.6.1</version>
+  <version>0.6.3-SNAPSHOT</version>
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -17,7 +17,7 @@
     <dependency>
       <groupId>edu.ucdenver.ccp</groupId>
       <artifactId>datasource-rdfizer</artifactId>
-      <version>0.6.1</version>
+      <version>0.6.3-SNAPSHOT</version>
       <type>jar</type>
       <scope>compile</scope>
     </dependency>

@@ -43,14 +43,15 @@ import edu.ucdenver.ccp.common.file.CharacterEncoding;
 import edu.ucdenver.ccp.common.file.reader.Line;
 import edu.ucdenver.ccp.datasource.fileparsers.SingleLineFileRecord;
 import edu.ucdenver.ccp.datasource.fileparsers.SingleLineFileRecordReader;
-import edu.ucdenver.ccp.datasource.identifiers.ncbi.taxonomy.NcbiTaxonomyID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.NcbiTaxonomyID;
 
 /**
- * @author Center for Computational Pharmacology, UC Denver; ccpsupport@ucdenver.edu
+ * @author Center for Computational Pharmacology, UC Denver;
+ *         ccpsupport@ucdenver.edu
  * 
  */
-public abstract class TaxonAwareSingleLineFileRecordReader<T extends SingleLineFileRecord> extends
-		SingleLineFileRecordReader<T> {
+public abstract class TaxonAwareSingleLineFileRecordReader<T extends SingleLineFileRecord>
+		extends SingleLineFileRecordReader<T> {
 
 	protected final Set<NcbiTaxonomyID> taxonsOfInterest;
 
@@ -88,7 +89,8 @@ public abstract class TaxonAwareSingleLineFileRecordReader<T extends SingleLineF
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see edu.ucdenver.ccp.datasource.fileparsers.SingleLineFileRecordReader#initialize()
+	 * @see edu.ucdenver.ccp.datasource.fileparsers.SingleLineFileRecordReader#
+	 * initialize()
 	 */
 	@Override
 	protected void initialize() throws IOException {
@@ -100,9 +102,8 @@ public abstract class TaxonAwareSingleLineFileRecordReader<T extends SingleLineF
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see
-	 * edu.ucdenver.ccp.datasource.fileparsers.SingleLineFileRecordReader#parseRecordFromLine(edu
-	 * .ucdenver.ccp.common.file.reader.Line)
+	 * @see edu.ucdenver.ccp.datasource.fileparsers.SingleLineFileRecordReader#
+	 * parseRecordFromLine(edu .ucdenver.ccp.common.file.reader.Line)
 	 */
 	@Override
 	protected T parseRecordFromLine(Line line) {
@@ -110,28 +111,37 @@ public abstract class TaxonAwareSingleLineFileRecordReader<T extends SingleLineF
 		return null;
 	}
 
-	protected abstract NcbiTaxonomyID getLineTaxon(Line line);
+	protected abstract Set<NcbiTaxonomyID> getLineTaxon(Line line);
 
 	/**
 	 * @param line
-	 * @return true if no taxons of interest have been specified (null or empty), or if the line is
-	 *         associated with one of the taxons of interest
+	 * @return true if no taxons of interest have been specified (null or
+	 *         empty), or if the line is associated with only taxons of interest
 	 */
 	protected boolean isLineOfInterest(Line line) {
 		if (line == null) {
 			return false;
 		}
-		boolean is = taxonsOfInterest == null || taxonsOfInterest.isEmpty()
-				|| taxonsOfInterest.contains(getLineTaxon(line));
-		return is;
 
+		if (taxonsOfInterest == null || taxonsOfInterest.isEmpty()) {
+			return true;
+		}
+
+		boolean lineContainsOnlyTaxonsOfInterest = true;
+		for (NcbiTaxonomyID id : getLineTaxon(line)) {
+			if (!taxonsOfInterest.contains(id)) {
+				lineContainsOnlyTaxonsOfInterest = false;
+			}
+		}
+
+		return lineContainsOnlyTaxonsOfInterest;
 	}
 
 	protected void advanceToNextLineWithTaxonOfInterest() throws IOException {
-//		System.out.println("advancing");
+		// System.out.println("advancing");
 		while ((line = readLine()) != null && !isLineOfInterest(line)) {
 			// line = readLine();
-//			System.out.println("skipping line");
+			// System.out.println("skipping line");
 			// cycling to the first line with appropriate taxon
 		}
 	}

@@ -39,6 +39,7 @@ import java.io.IOException;
 import java.util.Set;
 import java.util.zip.GZIPInputStream;
 
+import edu.ucdenver.ccp.common.collections.CollectionsUtil;
 import edu.ucdenver.ccp.common.download.FtpDownload;
 import edu.ucdenver.ccp.common.file.CharacterEncoding;
 import edu.ucdenver.ccp.common.file.reader.Line;
@@ -46,7 +47,7 @@ import edu.ucdenver.ccp.common.file.reader.StreamLineReader;
 import edu.ucdenver.ccp.common.ftp.FTPUtil.FileType;
 import edu.ucdenver.ccp.datasource.fileparsers.download.FtpHost;
 import edu.ucdenver.ccp.datasource.fileparsers.taxonaware.TaxonAwareSingleLineFileRecordReader;
-import edu.ucdenver.ccp.datasource.identifiers.ncbi.taxonomy.NcbiTaxonomyID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.NcbiTaxonomyID;
 
 /**
  * This parser for the UniProt idmapping_selected.tab file located at
@@ -98,9 +99,9 @@ public class UniProtIDMappingFileRecordReader extends TaxonAwareSingleLineFileRe
 	}
 
 	@Override
-	protected NcbiTaxonomyID getLineTaxon(Line line) {
+	protected Set<NcbiTaxonomyID> getLineTaxon(Line line) {
 		UniProtIDMappingFileData record = parseRecordFromLine(line);
-		return record.getTaxonomyID();
+		return CollectionsUtil.createSet(record.getTaxonomyID());
 	}
 
 //	/**

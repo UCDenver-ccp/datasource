@@ -37,14 +37,15 @@ package edu.ucdenver.ccp.datasource.fileparsers.pharmgkb;
 import java.util.Collection;
 import java.util.Set;
 
-import lombok.Data;
+import edu.ucdenver.ccp.datasource.fileparsers.CcpExtensionOntology;
 import edu.ucdenver.ccp.datasource.fileparsers.License;
 import edu.ucdenver.ccp.datasource.fileparsers.Record;
 import edu.ucdenver.ccp.datasource.fileparsers.RecordField;
 import edu.ucdenver.ccp.datasource.fileparsers.SingleLineFileRecord;
 import edu.ucdenver.ccp.datasource.identifiers.DataSource;
 import edu.ucdenver.ccp.datasource.identifiers.DataSourceIdentifier;
-import edu.ucdenver.ccp.identifier.publication.PubMedID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.ice.PubMedID;
+import lombok.Data;
 
 /**
  * File record capturing single line record from PharmGKB's diseases.tsv file.
@@ -52,7 +53,8 @@ import edu.ucdenver.ccp.identifier.publication.PubMedID;
  * @author Yuriy Malenkiy
  * 
  */
-@Record(dataSource = DataSource.PHARMGKB,
+@Record(ontClass = CcpExtensionOntology.PHARMGKB_RELATION_RECORD,
+		dataSource = DataSource.PHARMGKB,
 		schemaVersion = "2", 
 		license=License.PHARMGKB,
 		licenseUri="http://www.pharmgkb.org/download.action?filename=PharmGKB_License.pdf",
@@ -63,27 +65,27 @@ import edu.ucdenver.ccp.identifier.publication.PubMedID;
 public class PharmGkbRelationFileRecord extends SingleLineFileRecord {
 
 	private static String PHARMGKB_ID_PREFIX = "PA";
-	@RecordField
+	@RecordField(ontClass = CcpExtensionOntology.PHARMGKB_RELATION_RECORD___ENTITY_1_IDENTIFIER_FIELD_VALUE)
 	private final Set<DataSourceIdentifier<?>> entity1Id;
-	@RecordField
+	@RecordField(ontClass = CcpExtensionOntology.PHARMGKB_RELATION_RECORD___ENTITY_1_NAME_FIELD_VALUE)
 	private final String entity1Name;
-	@RecordField
+	@RecordField(ontClass = CcpExtensionOntology.PHARMGKB_RELATION_RECORD___ENTITY_1_TYPE_FIELD_VALUE)
 	private final String entity1Type;
-	@RecordField
+	@RecordField(ontClass = CcpExtensionOntology.PHARMGKB_RELATION_RECORD___ENTITY_2_IDENTIFIER_FIELD_VALUE)
 	private final Set<DataSourceIdentifier<?>> entity2Id;
-	@RecordField
+	@RecordField(ontClass = CcpExtensionOntology.PHARMGKB_RELATION_RECORD___ENTITY_2_NAME_FIELD_VALUE)
 	private final String entity2Name;
-	@RecordField
+	@RecordField(ontClass = CcpExtensionOntology.PHARMGKB_RELATION_RECORD___ENTITY_2_TYPE_FIELD_VALUE)
 	private final String entity2Type;
-	@RecordField
+	@RecordField(ontClass = CcpExtensionOntology.PHARMGKB_RELATION_RECORD___EVIDENCE_FIELD_VALUE)
 	private final Set<String> evidence;
-	@RecordField
+	@RecordField(ontClass = CcpExtensionOntology.PHARMGKB_RELATION_RECORD___ASSOCIATION_FIELD_VALUE)
 	private final String association;
-	@RecordField
+	@RecordField(ontClass = CcpExtensionOntology.PHARMGKB_RELATION_RECORD___PHARMACOKINETICS_FIELD_VALUE)
 	private final String pk;
-	@RecordField
+	@RecordField(ontClass = CcpExtensionOntology.PHARMGKB_RELATION_RECORD___PHARMACODYNAMICS_FIELD_VALUE)
 	private final String pd;
-	@RecordField
+	@RecordField(ontClass = CcpExtensionOntology.PHARMGKB_RELATION_RECORD___PUBMED_IDENTIFIER_FIELD_VALUE)
 	private final Collection<PubMedID> pmids;
 
 	/**

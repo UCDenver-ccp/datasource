@@ -63,10 +63,10 @@ import edu.ucdenver.ccp.datasource.identifiers.DataSourceIdentifier;
 import edu.ucdenver.ccp.datasource.identifiers.NucleotideAccessionResolver;
 import edu.ucdenver.ccp.datasource.identifiers.ProbableErrorDataSourceIdentifier;
 import edu.ucdenver.ccp.datasource.identifiers.ProteinAccessionResolver;
-import edu.ucdenver.ccp.datasource.identifiers.ebi.uniprot.UniProtID;
-import edu.ucdenver.ccp.datasource.identifiers.hprd.HprdID;
-import edu.ucdenver.ccp.datasource.identifiers.ncbi.gene.EntrezGeneID;
-import edu.ucdenver.ccp.datasource.identifiers.ncbi.omim.OmimID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.HprdID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.NcbiGeneId;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.OmimID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.UniProtID;
 
 /**
  * This class is used to parse the InterPro names.dat file
@@ -93,9 +93,9 @@ public class HprdIdMappingsTxtFileParser extends SingleLineFileRecordReader<Hprd
 			}
 			DataSourceIdentifier<?> nucleotideAccession = resolveAccession(toks[2]);
 			DataSourceIdentifier<?> proteinAccession = resolveAccession(toks[3]);
-			EntrezGeneID entrezGeneID = null;
+			NcbiGeneId entrezGeneID = null;
 			if (!toks[4].equals("-")) {
-				entrezGeneID = new EntrezGeneID(toks[4]);
+				entrezGeneID = new NcbiGeneId(toks[4]);
 			}
 			OmimID omimID = null;
 			if (!toks[5].equals("-") && !toks[5].equals("0")) {

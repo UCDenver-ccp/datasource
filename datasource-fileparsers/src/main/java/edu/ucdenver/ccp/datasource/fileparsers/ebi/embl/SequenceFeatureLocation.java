@@ -3,6 +3,11 @@
  */
 package edu.ucdenver.ccp.datasource.fileparsers.ebi.embl;
 
+import edu.ucdenver.ccp.datasource.fileparsers.CcpExtensionOntology;
+import edu.ucdenver.ccp.datasource.fileparsers.Record;
+import edu.ucdenver.ccp.datasource.fileparsers.RecordField;
+import edu.ucdenver.ccp.datasource.identifiers.DataSource;
+
 /*
  * #%L
  * Colorado Computational Pharmacology's common module
@@ -37,19 +42,17 @@ package edu.ucdenver.ccp.datasource.fileparsers.ebi.embl;
  */
 
 import lombok.Data;
-import edu.ucdenver.ccp.datasource.fileparsers.Record;
-import edu.ucdenver.ccp.datasource.fileparsers.RecordField;
-import edu.ucdenver.ccp.datasource.identifiers.DataSource;
 
 /**
- * @author Colorado Computational Pharmacology, UC Denver; ccpsupport@ucdenver.edu
+ * @author Colorado Computational Pharmacology, UC Denver;
+ *         ccpsupport@ucdenver.edu
  * 
  */
 @Data
-@Record(dataSource=DataSource.EMBL)
+@Record(dataSource = DataSource.EMBL, ontClass = CcpExtensionOntology.EMBL_SEQUENCE_FEATURE_LOCATION_RECORD)
 public class SequenceFeatureLocation {
-	@RecordField
+	@RecordField(ontClass = CcpExtensionOntology.EMBL_SEQUENCE_FEATURE_LOCATION_RECORD___START_OFFSET_FIELD_VALUE)
 	public final Integer startOffset;
-	@RecordField
+	@RecordField(ontClass = CcpExtensionOntology.EMBL_SEQUENCE_FEATURE_LOCATION_RECORD___END_OFFSET_FIELD_VALUE)
 	public final Integer endOffset;
 }

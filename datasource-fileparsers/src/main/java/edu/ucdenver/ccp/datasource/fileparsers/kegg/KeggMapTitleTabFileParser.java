@@ -40,14 +40,10 @@ import java.util.Map;
 
 import org.apache.log4j.Logger;
 
-import edu.ucdenver.ccp.common.download.FtpDownload;
 import edu.ucdenver.ccp.common.file.CharacterEncoding;
 import edu.ucdenver.ccp.common.file.reader.Line;
-import edu.ucdenver.ccp.common.file.reader.StreamLineReader;
-import edu.ucdenver.ccp.common.ftp.FTPUtil.FileType;
 import edu.ucdenver.ccp.datasource.fileparsers.SingleLineFileRecordReader;
-import edu.ucdenver.ccp.datasource.fileparsers.download.FtpHost;
-import edu.ucdenver.ccp.datasource.identifiers.kegg.KeggPathwayID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.KeggPathwayID;
 
 /**
  * This class is used to parse the Kegg map_title.tab file
@@ -58,23 +54,8 @@ import edu.ucdenver.ccp.datasource.identifiers.kegg.KeggPathwayID;
 public class KeggMapTitleTabFileParser extends SingleLineFileRecordReader<KeggMapTitleTabFileData> {
 	private static final Logger logger = Logger.getLogger(KeggMapTitleTabFileParser.class);
 
-	public static final String FTP_FILE_NAME = "map_title.tab";
-	public static final CharacterEncoding ENCODING = CharacterEncoding.US_ASCII;
-	@FtpDownload(server = FtpHost.KEGG_MAPTITLETAB_HOST, path = FtpHost.KEGG_MAPTITLETAB_PATH, filename = FTP_FILE_NAME, filetype = FileType.ASCII)
-	private File keggMapTitleTabFile;
-
 	public KeggMapTitleTabFileParser(File file, CharacterEncoding encoding) throws IOException {
 		super(file, encoding, null);
-	}
-
-	public KeggMapTitleTabFileParser(File workDirectory, boolean clean) throws IOException {
-		super(workDirectory, ENCODING, null, null, null, clean);
-	}
-
-	@Override
-	protected StreamLineReader initializeLineReaderFromDownload(CharacterEncoding encoding, String skipLinePrefix)
-			throws IOException {
-		return new StreamLineReader(keggMapTitleTabFile, encoding, skipLinePrefix);
 	}
 
 	@Override

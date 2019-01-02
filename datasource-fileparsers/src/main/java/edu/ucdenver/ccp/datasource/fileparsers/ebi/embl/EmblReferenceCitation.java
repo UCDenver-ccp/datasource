@@ -38,17 +38,18 @@ package edu.ucdenver.ccp.datasource.fileparsers.ebi.embl;
 
 import java.util.Set;
 
-import lombok.Data;
+import edu.ucdenver.ccp.datasource.fileparsers.CcpExtensionOntology;
 import edu.ucdenver.ccp.datasource.fileparsers.Record;
 import edu.ucdenver.ccp.datasource.fileparsers.RecordField;
 import edu.ucdenver.ccp.datasource.identifiers.DataSource;
 import edu.ucdenver.ccp.datasource.identifiers.DataSourceIdentifier;
+import lombok.Data;
 
 /**
  * @author Colorado Computational Pharmacology, UC Denver; ccpsupport@ucdenver.edu
  * 
  */
-@Record(dataSource = DataSource.EMBL, comment = "The Reference (RN, RC, RP, RX, RG, RA, RT, RL) Lines\n"
+@Record(dataSource = DataSource.EMBL, ontClass = CcpExtensionOntology.EMBL_REFERENCE_CITATION_RECORD, comment = "The Reference (RN, RC, RP, RX, RG, RA, RT, RL) Lines\n"
 		+ "These lines comprise the literature citations within the database.\n"
 		+ "The citations provide access to the papers from which the data has been \n"
 		+ "abstracted. The reference lines for a given citation occur in a block, and\n"
@@ -220,28 +221,28 @@ public class EmblReferenceCitation {
 			+ "designation \"(misc)\" as in the following example.\n"
 			+ "     RL   (misc) Proc. Vth Int. Symp. Biol. Terr. Isopods 2:365-380(2003).";
 
-	@RecordField(comment = RN_LINE_COMMENT)
+	@RecordField(comment = RN_LINE_COMMENT, ontClass = CcpExtensionOntology.EMBL_REFERENCE_CITATION_RECORD___REFERENCE_NUMBER_FIELD_VALUE)
 	private final int referenceNumber;
 
-	@RecordField(comment = RC_LINE_COMMENT)
+	@RecordField(comment = RC_LINE_COMMENT, ontClass = CcpExtensionOntology.EMBL_REFERENCE_CITATION_RECORD___REFERENCE_COMMENT_FIELD_VALUE)
 	private final String referenceComment;
 
-	@RecordField(comment = RP_LINE_COMMENT)
+	@RecordField(comment = RP_LINE_COMMENT, ontClass = CcpExtensionOntology.EMBL_REFERENCE_CITATION_RECORD___REFERENCE_POSITIONS_FIELD_VALUE)
 	private final Set<String> referencePositions;
 
-	@RecordField(comment = RX_LINE_COMMENT)
+	@RecordField(comment = RX_LINE_COMMENT, ontClass = CcpExtensionOntology.EMBL_REFERENCE_CITATION_RECORD___REFERENCE_CROSS_REFERENCES_FIELD_VALUE)
 	private final Set<? extends DataSourceIdentifier<?>> referenceCrossReferences;
 
-	@RecordField(comment = RG_LINE_COMMENT)
+	@RecordField(comment = RG_LINE_COMMENT, ontClass = CcpExtensionOntology.EMBL_REFERENCE_CITATION_RECORD___REFERENCE_GROUPS_FIELD_VALUE)
 	private final Set<String> referenceGroups;
 
-	@RecordField(comment = RA_LINE_COMMENT)
+	@RecordField(comment = RA_LINE_COMMENT, ontClass = CcpExtensionOntology.EMBL_REFERENCE_CITATION_RECORD___REFERENCE_AUTHORS_FIELD_VALUE)
 	private final Set<String> referenceAuthors;
 
-	@RecordField(comment = RT_LINE_COMMENT)
+	@RecordField(comment = RT_LINE_COMMENT, ontClass = CcpExtensionOntology.EMBL_REFERENCE_CITATION_RECORD___REFERENCE_TITLE_FIELD_VALUE)
 	private final String referenceTitle;
 
-	@RecordField(comment = RL_LINE_COMMENT)
+	@RecordField(comment = RL_LINE_COMMENT, ontClass = CcpExtensionOntology.EMBL_REFERENCE_CITATION_RECORD___REFERENCE_LOCATION_FIELD_VALUE)
 	private final String referenceLocation;
 
 }

@@ -1,5 +1,12 @@
 package edu.ucdenver.ccp.datasource.fileparsers.pombase;
 
+import edu.ucdenver.ccp.datasource.fileparsers.Record;
+import edu.ucdenver.ccp.datasource.fileparsers.RecordField;
+import edu.ucdenver.ccp.datasource.fileparsers.SingleLineFileRecord;
+import edu.ucdenver.ccp.datasource.identifiers.DataSource;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.FissionYeastPhenotypeID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.PomBaseId;
+
 /*
  * #%L
  * Colorado Computational Pharmacology's common module
@@ -35,12 +42,6 @@ package edu.ucdenver.ccp.datasource.fileparsers.pombase;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import edu.ucdenver.ccp.datasource.fileparsers.Record;
-import edu.ucdenver.ccp.datasource.fileparsers.RecordField;
-import edu.ucdenver.ccp.datasource.fileparsers.SingleLineFileRecord;
-import edu.ucdenver.ccp.datasource.identifiers.DataSource;
-import edu.ucdenver.ccp.datasource.identifiers.obo.FissionYeastPhenotypeID;
-import edu.ucdenver.ccp.datasource.identifiers.other.PomBaseId;
 
 /**
  * NOTE: this data structure is incomplete.

@@ -52,12 +52,12 @@ import edu.ucdenver.ccp.common.file.CharacterEncoding;
 import edu.ucdenver.ccp.common.file.FileUtil;
 import edu.ucdenver.ccp.datasource.fileparsers.RecordReader;
 import edu.ucdenver.ccp.datasource.fileparsers.test.RecordReaderTester;
-import edu.ucdenver.ccp.datasource.identifiers.ebi.uniprot.UniProtID;
-import edu.ucdenver.ccp.datasource.identifiers.hprd.HprdID;
-import edu.ucdenver.ccp.datasource.identifiers.ncbi.GenBankID;
-import edu.ucdenver.ccp.datasource.identifiers.ncbi.gene.EntrezGeneID;
-import edu.ucdenver.ccp.datasource.identifiers.ncbi.omim.OmimID;
-import edu.ucdenver.ccp.datasource.identifiers.ncbi.refseq.RefSeqID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.GenBankID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.HprdID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.NcbiGeneId;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.OmimID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.RefSeqID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.UniProtID;
 
 /**
  * 
@@ -91,7 +91,7 @@ public class HprdIdMappingsTxtFileParserTest extends RecordReaderTester {
 				assertEquals("ALDH1A1", record.getGeneSymbol());
 				assertEquals(new RefSeqID("NM_000689.3"), record.getNucleotideAccession());
 				assertEquals(new RefSeqID("NP_000680.2"), record.getProteinAccession());
-				assertEquals(new EntrezGeneID(216), record.getEntrezGeneID());
+				assertEquals(new NcbiGeneId(216), record.getEntrezGeneID());
 				assertNull(record.getOmimID());
 				assertEquals(CollectionsUtil.createList(new UniProtID("P00352")), record.getSwissProtIDs());
 				assertEquals("Aldehyde dehydrogenase 1", record.getMainName());
@@ -109,7 +109,7 @@ public class HprdIdMappingsTxtFileParserTest extends RecordReaderTester {
 				assertEquals("FXYD8", record.getGeneSymbol());
 				assertEquals(new RefSeqID("NM_001099278.1"), record.getNucleotideAccession());
 				assertEquals(new RefSeqID("NP_001092748.1"), record.getProteinAccession());
-				assertEquals(new EntrezGeneID(406875), record.getEntrezGeneID());
+				assertEquals(new NcbiGeneId(406875), record.getEntrezGeneID());
 				assertNull(record.getOmimID());
 				assertEquals(CollectionsUtil.createList(new UniProtID("P58550")), record.getSwissProtIDs());
 				assertEquals("FXYD domain containing ion transport regulator 8", record.getMainName());
@@ -124,7 +124,7 @@ public class HprdIdMappingsTxtFileParserTest extends RecordReaderTester {
 				assertNull(record.getGeneSymbol());
 				assertEquals(new RefSeqID("NM_001039496.1"), record.getNucleotideAccession());
 				assertEquals(new RefSeqID("NP_001034585.1"), record.getProteinAccession());
-				assertEquals(new EntrezGeneID(25858), record.getEntrezGeneID());
+				assertEquals(new NcbiGeneId(25858), record.getEntrezGeneID());
 				assertNull(record.getOmimID());
 				assertEquals(new ArrayList<UniProtID>(), record.getSwissProtIDs());
 				assertEquals("DKFZP566E164 protein", record.getMainName());
@@ -140,7 +140,7 @@ public class HprdIdMappingsTxtFileParserTest extends RecordReaderTester {
 				assertEquals("TGFB2", record.getGeneSymbol());
 				assertEquals(new GenBankID("M19154.1"), record.getNucleotideAccession());
 				assertEquals(new GenBankID("AAA50404.1"), record.getProteinAccession());
-				assertEquals(new EntrezGeneID(7042), record.getEntrezGeneID());
+				assertEquals(new NcbiGeneId(7042), record.getEntrezGeneID());
 				assertEquals(new OmimID(190220), record.getOmimID());
 				assertEquals(CollectionsUtil.createList(new UniProtID("P61812"), new UniProtID("Q59EG9")), record.getSwissProtIDs());
 				assertEquals("TGF beta 2", record.getMainName());

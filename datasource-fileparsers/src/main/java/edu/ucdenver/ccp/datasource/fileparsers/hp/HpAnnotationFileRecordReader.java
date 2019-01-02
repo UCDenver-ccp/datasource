@@ -39,8 +39,8 @@ import java.io.IOException;
 import edu.ucdenver.ccp.common.file.CharacterEncoding;
 import edu.ucdenver.ccp.common.file.reader.Line;
 import edu.ucdenver.ccp.datasource.fileparsers.SingleLineFileRecordReader;
-import edu.ucdenver.ccp.datasource.identifiers.ncbi.gene.EntrezGeneID;
-import edu.ucdenver.ccp.datasource.identifiers.obo.HumanPhenotypeID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.HumanPhenotypeID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.NcbiGeneId;
 
 public class HpAnnotationFileRecordReader extends SingleLineFileRecordReader<HpAnnotationFileRecord> {
 
@@ -86,7 +86,7 @@ public class HpAnnotationFileRecordReader extends SingleLineFileRecordReader<HpA
 		String text = line.getText();
 		String[] toks = text.split("\\t", -1);
 
-		EntrezGeneID egId = new EntrezGeneID(toks[0]);
+		NcbiGeneId egId = new NcbiGeneId(toks[0]);
 		String geneSymbol = toks[1];
 		String hpoTermName = toks[2];
 		HumanPhenotypeID hpoTermId = new HumanPhenotypeID(toks[3]);

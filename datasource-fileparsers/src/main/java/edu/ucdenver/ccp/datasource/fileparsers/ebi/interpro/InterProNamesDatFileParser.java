@@ -63,7 +63,7 @@ import edu.ucdenver.ccp.common.file.reader.StreamLineReader;
 import edu.ucdenver.ccp.common.ftp.FTPUtil.FileType;
 import edu.ucdenver.ccp.datasource.fileparsers.SingleLineFileRecordReader;
 import edu.ucdenver.ccp.datasource.fileparsers.download.FtpHost;
-import edu.ucdenver.ccp.datasource.identifiers.ebi.interpro.InterProID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.InterProID;
 
 /**
  * This class is used to parse the InterPro names.dat file
@@ -114,7 +114,7 @@ public class InterProNamesDatFileParser extends SingleLineFileRecordReader<Inter
 			InterProNamesDatFileData dataRecord = parser.next();
 			InterProID interProID = dataRecord.getInterProID();
 			String interProName = dataRecord.getInterProName();
-			interProID2NameMap.put(interProID.getDataElement(), interProName);
+			interProID2NameMap.put(interProID.getId(), interProName);
 		}
 
 		parser.close();

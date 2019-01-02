@@ -1,0 +1,278 @@
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="interprodb" type="interprodbType"/>
+  <xs:complexType name="dbinfoType">
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute type="xs:string" name="dbname" use="optional"/>
+        <xs:attribute type="xs:int" name="entry_count" use="optional"/>
+        <xs:attribute type="xs:string" name="file_date" use="optional"/>
+        <xs:attribute type="xs:string" name="version" use="optional"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:complexType name="releaseType">
+    <xs:sequence>
+      <xs:element type="dbinfoType" name="dbinfo" maxOccurs="unbounded" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="citeType">
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute type="xs:string" name="idref" use="optional"/>
+        <xs:attribute type="xs:string" name="db" use="optional"/>
+        <xs:attribute type="xs:string" name="dbkey" use="optional"/>
+        <xs:attribute type="xs:int" name="protein_count" use="optional"/>
+        <xs:attribute type="xs:string" name="name" use="optional"/>
+        <xs:attribute type="xs:string" name="tax_id" use="optional"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:complexType name="pType" mixed="true">
+    <xs:choice maxOccurs="unbounded" minOccurs="0">
+      <xs:element type="db_xrefType" name="db_xref"/>
+      <xs:element type="citeType" name="cite"/>
+      <xs:element name="sup">
+        <xs:complexType>
+          <xs:simpleContent>
+            <xs:extension base="xs:string">
+              <xs:attribute type="xs:string" name="idref" use="optional"/>
+              <xs:attribute type="xs:string" name="db" use="optional"/>
+              <xs:attribute type="xs:string" name="dbkey" use="optional"/>
+              <xs:attribute type="xs:int" name="protein_count" use="optional"/>
+              <xs:attribute type="xs:string" name="name" use="optional"/>
+            </xs:extension>
+          </xs:simpleContent>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="i">
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:enumeration value="Streptomyces aureofaciens"/>
+            <xs:enumeration value="ompT"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element type="taxonType" name="taxon"/>
+      <xs:element type="ulType" name="ul"/>
+    </xs:choice>
+  </xs:complexType>
+  <xs:complexType name="abstractType" mixed="true">
+    <xs:choice maxOccurs="unbounded" minOccurs="0">
+      <xs:element type="xs:string" name="sup"/>
+      <xs:element type="taxonType" name="taxon"/>
+      <xs:element type="citeType" name="cite"/>
+      <xs:element type="pType" name="p"/>
+      <xs:element type="ulType" name="ul"/>
+    </xs:choice>
+  </xs:complexType>
+  <xs:complexType name="db_xrefType">
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute type="xs:string" name="db" use="optional"/>
+        <xs:attribute type="xs:string" name="dbkey" use="optional"/>
+        <xs:attribute type="xs:int" name="protein_count" use="optional"/>
+        <xs:attribute type="xs:string" name="name" use="optional"/>
+        <xs:attribute type="xs:string" name="idref" use="optional"/>
+        <xs:attribute type="xs:string" name="tax_id" use="optional"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:complexType name="locationType">
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute type="xs:string" name="issue" use="optional"/>
+        <xs:attribute type="xs:string" name="pages" use="optional"/>
+        <xs:attribute type="xs:string" name="volume" use="optional"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:complexType name="publicationType">
+    <xs:sequence>
+      <xs:element type="xs:string" name="author_list"/>
+      <xs:element type="xs:string" name="title"/>
+      <xs:element type="db_xrefType" name="db_xref"/>
+      <xs:element type="xs:string" name="journal" minOccurs="0"/>
+      <xs:element type="locationType" name="location"/>
+      <xs:element type="xs:short" name="year"/>
+    </xs:sequence>
+    <xs:attribute type="xs:string" name="id" use="optional"/>
+  </xs:complexType>
+  <xs:complexType name="pub_listType">
+    <xs:sequence>
+      <xs:element type="publicationType" name="publication" maxOccurs="unbounded" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="rel_refType">
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute type="xs:string" name="ipr_ref" use="optional"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:complexType name="containsType">
+    <xs:sequence>
+      <xs:element type="rel_refType" name="rel_ref" maxOccurs="unbounded" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="found_inType">
+    <xs:sequence>
+      <xs:element type="rel_refType" name="rel_ref" maxOccurs="unbounded" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="member_listType">
+    <xs:sequence>
+      <xs:element type="db_xrefType" name="db_xref" maxOccurs="unbounded" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="external_doc_listType">
+    <xs:sequence>
+      <xs:element type="db_xrefType" name="db_xref" maxOccurs="unbounded" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="structure_db_linksType">
+    <xs:sequence>
+      <xs:element type="db_xrefType" name="db_xref" maxOccurs="unbounded" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="taxon_dataType">
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute type="xs:string" name="name" use="optional"/>
+        <xs:attribute type="xs:int" name="proteins_count" use="optional"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:complexType name="taxonomy_distributionType">
+    <xs:sequence>
+      <xs:element type="taxon_dataType" name="taxon_data" maxOccurs="unbounded" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="interproType">
+    <xs:choice maxOccurs="unbounded" minOccurs="0">
+      <xs:element type="xs:string" name="name"/>
+      <xs:element type="abstractType" name="abstract"/>
+      <xs:element type="class_listType" name="class_list"/>
+      <xs:element type="pub_listType" name="pub_list"/>
+      <xs:element type="containsType" name="contains"/>
+      <xs:element type="found_inType" name="found_in"/>
+      <xs:element type="parent_listType" name="parent_list"/>
+      <xs:element type="member_listType" name="member_list"/>
+      <xs:element type="external_doc_listType" name="external_doc_list"/>
+      <xs:element type="structure_db_linksType" name="structure_db_links"/>
+      <xs:element type="taxonomy_distributionType" name="taxonomy_distribution"/>
+      <xs:element type="child_listType" name="child_list"/>
+      <xs:element type="sec_listType" name="sec_list"/>
+    </xs:choice>
+    <xs:attribute type="xs:string" name="id" use="optional"/>
+    <xs:attribute type="xs:int" name="protein_count" use="optional"/>
+    <xs:attribute type="xs:string" name="short_name" use="optional"/>
+    <xs:attribute type="xs:string" name="type" use="optional"/>
+  </xs:complexType>
+  <xs:complexType name="classificationType">
+    <xs:sequence>
+      <xs:element name="category">
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:enumeration value="Molecular Function"/>
+            <xs:enumeration value="Cellular Component"/>
+            <xs:enumeration value="Biological Process"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element type="xs:string" name="description"/>
+    </xs:sequence>
+    <xs:attribute type="xs:string" name="id" use="optional"/>
+    <xs:attribute type="xs:string" name="class_type" use="optional"/>
+  </xs:complexType>
+  <xs:complexType name="class_listType">
+    <xs:sequence>
+      <xs:element type="classificationType" name="classification" maxOccurs="unbounded" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="parent_listType">
+    <xs:sequence>
+      <xs:element type="rel_refType" name="rel_ref"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="child_listType">
+    <xs:sequence>
+      <xs:element type="rel_refType" name="rel_ref" maxOccurs="unbounded" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="sec_acType">
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute type="xs:string" name="acc" use="optional"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:complexType name="sec_listType">
+    <xs:sequence>
+      <xs:element type="sec_acType" name="sec_ac" maxOccurs="unbounded" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="taxonType">
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute type="xs:string" name="tax_id" use="optional"/>
+        <xs:attribute type="xs:string" name="idref" use="optional"/>
+        <xs:attribute type="xs:string" name="db" use="optional"/>
+        <xs:attribute type="xs:string" name="dbkey" use="optional"/>
+        <xs:attribute type="xs:int" name="protein_count" use="optional"/>
+        <xs:attribute type="xs:string" name="name" use="optional"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:complexType name="ulType" mixed="true">
+    <xs:choice maxOccurs="unbounded" minOccurs="0">
+      <xs:element name="li">
+        <xs:complexType mixed="true">
+          <xs:sequence>
+            <xs:element type="citeType" name="cite" maxOccurs="unbounded" minOccurs="0"/>
+            <xs:element type="taxonType" name="taxon" minOccurs="0"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element type="db_xrefType" name="db_xref"/>
+      <xs:element type="citeType" name="cite"/>
+      <xs:element name="sup">
+        <xs:complexType>
+          <xs:simpleContent>
+            <xs:extension base="xs:string">
+              <xs:attribute type="xs:string" name="idref" use="optional"/>
+              <xs:attribute type="xs:string" name="db" use="optional"/>
+              <xs:attribute type="xs:string" name="dbkey" use="optional"/>
+              <xs:attribute type="xs:int" name="protein_count" use="optional"/>
+              <xs:attribute type="xs:string" name="name" use="optional"/>
+            </xs:extension>
+          </xs:simpleContent>
+        </xs:complexType>
+      </xs:element>
+    </xs:choice>
+  </xs:complexType>
+  <xs:complexType name="liType" mixed="true">
+    <xs:sequence>
+      <xs:element type="citeType" name="cite" maxOccurs="unbounded" minOccurs="0"/>
+      <xs:element type="taxonType" name="taxon" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="del_refType">
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute type="xs:string" name="id" use="optional"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:complexType name="deleted_entriesType">
+    <xs:sequence>
+      <xs:element type="del_refType" name="del_ref" maxOccurs="unbounded" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="interprodbType">
+    <xs:sequence>
+      <xs:element type="releaseType" name="release"/>
+      <xs:element type="interproType" name="interpro" maxOccurs="unbounded" minOccurs="0"/>
+      <xs:element type="deleted_entriesType" name="deleted_entries"/>
+    </xs:sequence>
+  </xs:complexType>
+</xs:schema>

@@ -52,10 +52,10 @@ import edu.ucdenver.ccp.common.file.CharacterEncoding;
 import edu.ucdenver.ccp.common.file.FileUtil;
 import edu.ucdenver.ccp.datasource.fileparsers.RecordReader;
 import edu.ucdenver.ccp.datasource.fileparsers.test.RecordReaderTester;
-import edu.ucdenver.ccp.datasource.identifiers.mgi.MgiGeneID;
-import edu.ucdenver.ccp.datasource.identifiers.ncbi.gene.EntrezGeneID;
-import edu.ucdenver.ccp.datasource.identifiers.transfac.TransfacFactorID;
-import edu.ucdenver.ccp.datasource.identifiers.transfac.TransfacGeneID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.MgiGeneID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.NcbiGeneId;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.TransfacFactorID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.TransfacGeneID;
 
 /**
  * 
@@ -82,7 +82,7 @@ public class TransfacGeneDatFileParserTest extends RecordReaderTester {
 			TransfacGeneDatFileParser parser = new TransfacGeneDatFileParser(sampleInputFile, CharacterEncoding.US_ASCII);
 
 			if (parser.hasNext()) {
-				validateRecord(parser.next(), new TransfacGeneID("G000001"), (MgiGeneID) null, (EntrezGeneID) null,
+				validateRecord(parser.next(), new TransfacGeneID("G000001"), (MgiGeneID) null, (NcbiGeneId) null,
 						new HashSet<TransfacFactorID>(), "T00915", "T00453", "T00282", "T00915");
 			} else {
 				fail("Parser should have returned a record here.");
@@ -90,14 +90,14 @@ public class TransfacGeneDatFileParserTest extends RecordReaderTester {
 
 			if (parser.hasNext()) {
 				validateRecord(parser.next(), new TransfacGeneID("G000576"), new MgiGeneID("MGI:97275"),
-						new EntrezGeneID(17927), CollectionsUtil.createSet(new TransfacFactorID("T00526")), "T05114",
+						new NcbiGeneId(17927), CollectionsUtil.createSet(new TransfacFactorID("T00526")), "T05114",
 						"T00278", "T00032", "T00045", "T08433", "T01333", "T08501", "T00752", "T00755");
 			} else {
 				fail("Parser should have returned a record here.");
 			}
 
 			if (parser.hasNext()) {
-				validateRecord(parser.next(), new TransfacGeneID("G000218"), (MgiGeneID) null, new EntrezGeneID(2353),
+				validateRecord(parser.next(), new TransfacGeneID("G000218"), (MgiGeneID) null, new NcbiGeneId(2353),
 						CollectionsUtil.createSet(new TransfacFactorID("T00123"), new TransfacFactorID("T08776")),
 						"T00685", "T06384", "T08300");
 			} else {
@@ -113,7 +113,7 @@ public class TransfacGeneDatFileParserTest extends RecordReaderTester {
 	}
 
 	private void validateRecord(TransfacGeneDatFileData record, TransfacGeneID transfacGeneID, MgiGeneID mgiGeneID,
-			EntrezGeneID entrezGeneID, Set<TransfacFactorID> encodedFactors, String... bindingFactorIDs) {
+			NcbiGeneId entrezGeneID, Set<TransfacFactorID> encodedFactors, String... bindingFactorIDs) {
 		assertEquals(transfacGeneID, record.getTransfacGeneID());
 		assertEquals(mgiGeneID, record.getMgiDatabaseReferenceID());
 		assertEquals(entrezGeneID, record.getEntrezGeneDatabaseReferenceID());

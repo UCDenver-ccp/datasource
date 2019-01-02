@@ -39,7 +39,7 @@ import edu.ucdenver.ccp.common.file.reader.Line;
 import edu.ucdenver.ccp.datasource.fileparsers.SingleLineFileRecord;
 import edu.ucdenver.ccp.datasource.identifiers.DataSourceIdResolver;
 import edu.ucdenver.ccp.datasource.identifiers.DataSourceIdentifier;
-import edu.ucdenver.ccp.datasource.identifiers.kegg.KeggGeneID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.KeggGeneID;
 
 /**
  * Representation of data from KEGG AAA_geneIDType.list file

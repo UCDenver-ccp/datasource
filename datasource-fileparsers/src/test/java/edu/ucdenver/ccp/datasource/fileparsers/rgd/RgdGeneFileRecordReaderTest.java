@@ -46,7 +46,7 @@ import org.junit.Ignore;
 import org.junit.Test;
 
 import edu.ucdenver.ccp.datasource.fileparsers.test.RecordReaderTester;
-import edu.ucdenver.ccp.datasource.identifiers.rgd.RgdID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.RgdID;
 
 /**
  * 

@@ -38,6 +38,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Set;
 
 import edu.ucdenver.ccp.common.download.HttpDownload;
 import edu.ucdenver.ccp.common.file.CharacterEncoding;
@@ -53,10 +54,10 @@ import edu.ucdenver.ccp.datasource.identifiers.DataSourceIdentifier;
 
 public class PharmGkbDrugFileParser extends SingleLineFileRecordReader<PharmGkbDrugFileRecord> {
 
-	private static final String HEADER = "PharmGKB Accession Id\tName\tGeneric Names\tTrade Names\tBrand Mixtures\tType\tCross-references\tSMILES\tDosing Guideline\tExternal Vocabulary";
+	private static final String HEADER = "PharmGKB Accession Id\tName\tGeneric Names\tTrade Names\tBrand Mixtures\tType\tCross-references\tSMILES\tInChI\tDosing Guideline\tExternal Vocabulary\tClinical Annotation Count\tVariant Annotation Count\tPathway Count\tVIP Count\tDosing Guideline Sources\tTop Clinical Annotation Level\tTop FDA Label Testing Level\tTop Any Drug Label Testing Level\tLabel Has Dosing Info\tHas Rx Annotation";
 
 	private static final CharacterEncoding ENCODING = CharacterEncoding.ISO_8859_1;
-	@HttpDownload(url = "https://www.pharmgkb.org/download.do?objId=drugs.zip&dlCls=common", fileName = "drugs.zip", targetFileName = "drugs.tsv", decompress = true)
+	@HttpDownload(url = "https://api.pharmgkb.org/v1/download/file/data/drugs.zip", fileName = "drugs.zip", targetFileName = "drugs.tsv", decompress = true)
 	private File pharmGkbDrugsFile;
 
 	public PharmGkbDrugFileParser(File dataFile, CharacterEncoding encoding) throws IOException {
@@ -95,8 +96,20 @@ public class PharmGkbDrugFileParser extends SingleLineFileRecordReader<PharmGkbD
 		String type = toks[index++];
 		String crossReferencesTok = toks[index++];
 		String smiles = toks[index++];
+		String inChI = toks[index++];
 		String dosingGuideline = toks[index++];
 		String externalVocabulary = toks[index++];
+		int clinicalAnnotationCount = Integer.parseInt(toks[index++]); 
+		int variantAnnotationCount = Integer.parseInt(toks[index++]);
+		int pathwayCount = Integer.parseInt(toks[index++]); 
+		int vipCount = Integer.parseInt(toks[index++]); 
+		Collection<String> dosingGuidelineSources = StringUtil.delimitAndTrim(toks[index++], StringConstants.COMMA,
+				StringConstants.QUOTATION_MARK, RemoveFieldEnclosures.TRUE);; 
+		String topClinicalAnnotationLevel = toks[index++];
+		String topFdaLabelTestingLevel = toks[index++]; 
+		String topAnyDrugLabelTestingLevel = toks[index++]; 
+		String labelHasDosingInfo = toks[index++];
+		String hasRxAnnotation  = toks[index++];
 
 		Collection<String> genericNames = StringUtil.delimitAndTrim(genericNamesTok, StringConstants.COMMA,
 				StringConstants.QUOTATION_MARK, RemoveFieldEnclosures.TRUE);
@@ -113,10 +126,11 @@ public class PharmGkbDrugFileParser extends SingleLineFileRecordReader<PharmGkbD
 				StringConstants.QUOTATION_MARK, RemoveFieldEnclosures.TRUE)) {
 			String databaseName = idStr.split(":")[0];
 			String databaseIdentifierStr = idStr.substring(idStr.indexOf(':') + 1);
-			if (databaseName.equalsIgnoreCase("url"))
+			if (databaseName.equalsIgnoreCase("url")) {
 				url = databaseIdentifierStr;
-			else
-				crossReferences.add(DataSourceIdResolver.resolveId(databaseName, databaseIdentifierStr));
+			} else {
+				crossReferences.add(DataSourceIdResolver.resolveId(databaseName, databaseIdentifierStr, idStr));
+			}
 		}
 
 		// /*
@@ -136,8 +150,11 @@ public class PharmGkbDrugFileParser extends SingleLineFileRecordReader<PharmGkbD
 		// }
 
 		return new PharmGkbDrugFileRecord(pharmGkbAccessionId, name, genericNames, tradeNames, brandMixtures, type,
-				crossReferences, url, smiles, dosingGuideline, externalVocabulary, line.getByteOffset(),
+				crossReferences, url, smiles, inChI, dosingGuideline, externalVocabulary,  clinicalAnnotationCount,  variantAnnotationCount,
+				 pathwayCount,  vipCount,  dosingGuidelineSources,  topClinicalAnnotationLevel,
+				 topFdaLabelTestingLevel,  topAnyDrugLabelTestingLevel,  labelHasDosingInfo,
+				 hasRxAnnotation, line.getByteOffset(),
 				line.getLineNumber());
 	}
-
+	
 }

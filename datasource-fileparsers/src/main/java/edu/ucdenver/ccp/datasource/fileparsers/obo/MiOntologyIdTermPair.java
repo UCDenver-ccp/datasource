@@ -36,16 +36,12 @@ package edu.ucdenver.ccp.datasource.fileparsers.obo;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import lombok.EqualsAndHashCode;
-import lombok.ToString;
-
 import org.apache.log4j.Logger;
 
 import edu.ucdenver.ccp.common.reflection.ConstructorUtil;
-import edu.ucdenver.ccp.datasource.fileparsers.Record;
-import edu.ucdenver.ccp.datasource.fileparsers.RecordField;
-import edu.ucdenver.ccp.datasource.identifiers.DataSource;
-import edu.ucdenver.ccp.datasource.identifiers.obo.MolecularInteractionOntologyTermID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.MolecularInteractionOntologyTermID;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
 
 /**
  * Some databases used MI:0000 as a placeholder and attach a specific term name

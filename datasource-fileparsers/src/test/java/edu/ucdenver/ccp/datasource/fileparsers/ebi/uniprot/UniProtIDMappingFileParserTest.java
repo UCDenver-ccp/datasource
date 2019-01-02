@@ -53,12 +53,12 @@ import edu.ucdenver.ccp.common.file.CharacterEncoding;
 import edu.ucdenver.ccp.common.file.FileUtil;
 import edu.ucdenver.ccp.datasource.fileparsers.RecordReader;
 import edu.ucdenver.ccp.datasource.fileparsers.test.RecordReaderTester;
-import edu.ucdenver.ccp.datasource.identifiers.ebi.embl.EmblID;
-import edu.ucdenver.ccp.datasource.identifiers.ebi.ipi.IpiID;
-import edu.ucdenver.ccp.datasource.identifiers.ebi.uniprot.UniProtEntryName;
-import edu.ucdenver.ccp.datasource.identifiers.ebi.uniprot.UniProtID;
-import edu.ucdenver.ccp.datasource.identifiers.ncbi.gene.EntrezGeneID;
-import edu.ucdenver.ccp.datasource.identifiers.ncbi.taxonomy.NcbiTaxonomyID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.EmblID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.IpiID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.NcbiGeneId;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.NcbiTaxonomyID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.UniProtEntryName;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.UniProtID;
 
 @Ignore("sample file needs to be updated to match current format: remove IPI Ids is one of the necessary changes")
 public class UniProtIDMappingFileParserTest extends RecordReaderTester {
@@ -83,7 +83,7 @@ public class UniProtIDMappingFileParserTest extends RecordReaderTester {
 
 			if (parser.hasNext()) {
 				validateRecord(parser.next(), new UniProtEntryName("104K_THEAN"), new NcbiTaxonomyID(5874),
-						new UniProtID("Q4U9M9"), new HashSet<EntrezGeneID>(),
+						new UniProtID("Q4U9M9"), new HashSet<NcbiGeneId>(),
 						CollectionsUtil.createSet(new EmblID("CR940353")),
 						CollectionsUtil.createSet(new IpiID("IPI00759832")));
 			} else {
@@ -92,7 +92,7 @@ public class UniProtIDMappingFileParserTest extends RecordReaderTester {
 
 			if (parser.hasNext()) {
 				validateRecord(parser.next(), new UniProtEntryName("104K_THEPA"), new NcbiTaxonomyID(5875),
-						new UniProtID("P15711"), CollectionsUtil.createSet(new EntrezGeneID(3500484)),
+						new UniProtID("P15711"), CollectionsUtil.createSet(new NcbiGeneId(3500484)),
 						CollectionsUtil.createSet(new EmblID("M29954"), new EmblID("AAGK01000004")),
 						new HashSet<IpiID>());
 			} else {
@@ -101,7 +101,7 @@ public class UniProtIDMappingFileParserTest extends RecordReaderTester {
 
 			if (parser.hasNext()) {
 				validateRecord(parser.next(), new UniProtEntryName("108_SOLLC"), new NcbiTaxonomyID(4081),
-						new UniProtID("Q43495"), new HashSet<EntrezGeneID>(),
+						new UniProtID("Q43495"), new HashSet<NcbiGeneId>(),
 						CollectionsUtil.createSet(new EmblID("Z14088")), new HashSet<IpiID>());
 			} else {
 				fail("Parser should have returned a record here.");
@@ -116,7 +116,7 @@ public class UniProtIDMappingFileParserTest extends RecordReaderTester {
 	}
 
 	private void validateRecord(UniProtIDMappingFileData record, UniProtEntryName uniProtEntryName,
-			NcbiTaxonomyID ncbiTaxonomyID, UniProtID uniProtID, Set<EntrezGeneID> entrezGeneIDs, Set<EmblID> emblIDs,
+			NcbiTaxonomyID ncbiTaxonomyID, UniProtID uniProtID, Set<NcbiGeneId> entrezGeneIDs, Set<EmblID> emblIDs,
 			Set<IpiID> ipiIds) {
 		assertEquals(uniProtEntryName, record.getUniProtEntryName());
 		assertEquals(ncbiTaxonomyID, record.getTaxonomyID());

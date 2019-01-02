@@ -59,19 +59,19 @@ import edu.ucdenver.ccp.datasource.fileparsers.ebi.embl.EmblReferenceCitation;
 import edu.ucdenver.ccp.datasource.fileparsers.ebi.embl.EmblSequenceDatabaseFileParserBase;
 import edu.ucdenver.ccp.datasource.fileparsers.ebi.embl.SequenceFeature;
 import edu.ucdenver.ccp.datasource.identifiers.DataSourceIdentifier;
-import edu.ucdenver.ccp.datasource.identifiers.hgnc.HgncID;
-import edu.ucdenver.ccp.datasource.identifiers.mgi.MgiGeneID;
-import edu.ucdenver.ccp.datasource.identifiers.ncbi.gene.EntrezGeneID;
-import edu.ucdenver.ccp.datasource.identifiers.other.AgricolaId;
-import edu.ucdenver.ccp.datasource.identifiers.other.AsrpId;
-import edu.ucdenver.ccp.datasource.identifiers.other.InsdcProjectId;
-import edu.ucdenver.ccp.datasource.identifiers.other.MiRBaseID;
-import edu.ucdenver.ccp.datasource.identifiers.other.MirteId;
-import edu.ucdenver.ccp.datasource.identifiers.other.PictarId;
-import edu.ucdenver.ccp.datasource.identifiers.other.RfamId;
-import edu.ucdenver.ccp.datasource.identifiers.wormbase.WormBaseID;
-import edu.ucdenver.ccp.identifier.publication.DOI;
-import edu.ucdenver.ccp.identifier.publication.PubMedID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.AgricolaId;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.AsrpId;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.HgncID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.InsdcProjectId;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.MgiGeneID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.MiRBaseID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.MirteId;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.NcbiGeneId;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.PictarId;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.RfamId;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.WormBaseID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.ice.DOI;
+import edu.ucdenver.ccp.datasource.identifiers.impl.ice.PubMedID;
 
 public class MirBaseMiRnaDatFileParser extends
 		EmblSequenceDatabaseFileParserBase<MirBaseMiRnaDatFileData, MiRBaseID, MirBaseIdLineContents> {
@@ -203,7 +203,7 @@ public class MirBaseMiRnaDatFileParser extends
 			return new HgncID(dbId);
 		}
 		if (dbKey.equalsIgnoreCase("ENTREZGENE")) {
-			return new EntrezGeneID(dbId);
+			return new NcbiGeneId(dbId);
 		}
 		if (dbKey.startsWith("TARGETS:PICTAR")) {
 			return new PictarId(dbId);

@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<uniprot xmlns="http://uniprot.org/uniprot"
+ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+ xsi:schemaLocation="http://uniprot.org/uniprot http://www.uniprot.org/support/docs/uniprot.xsd">
+<entry dataset="Swiss-Prot" created="2009-06-16+01:00" modified="2011-09-21+01:00" version="14">
+  <accession>Q197A3</accession>
+  <name>057L_IIV3</name>
+  <protein>
+    <recommendedName>
+      <fullName>Uncharacterized protein 057L</fullName>
+    </recommendedName>
+    </protein>
+  <gene>
+    <name type="ORF">IIV3-057L</name>
+  </gene>
+  <organism>
+    <name type="scientific">Invertebrate iridescent virus 3</name>
+    <name type="common">IIV-3</name>
+    <name type="synonym">Mosquito iridescent virus</name>
+    <dbReference type="NCBI Taxonomy" id="54321"/>
+    <lineage>
+      <taxon>Chloriridovirus</taxon>
+    </lineage>
+  </organism>
+  <organismHost>
+    <name type="scientific">Aedes vexans</name>
+    <name type="common">Inland floodwater mosquito</name>
+    <name type="synonym">Culex vexans</name>
+    <dbReference type="NCBI Taxonomy" id="7163"/>
+  </organismHost>
+  <reference key="1">
+    <citation type="journal article" date="2006" name="J. Virol." volume="80" first="8439" last="8449">
+      <title>Genome of invertebrate iridescent virus type 3 (mosquito iridescent virus).</title>
+      <authorList>
+        <person name="Delhon G."/>
+      </authorList>
+      <dbReference type="PubMed" id="16912294"/>
+    </citation>
+    <scope>NUCLEOTIDE SEQUENCE [LARGE SCALE GENOMIC DNA]</scope>
+  </reference>
+  <proteinExistence type="predicted"/>
+  <keyword id="KW-1185">Reference proteome</keyword>
+  <feature type="chain" id="PRO_0000377955" description="Uncharacterized protein 057L">
+    <location>
+      <begin position="1"/>
+      <end position="130"/>
+    </location>
+  </feature>
+  <feature evidence="14" description="Cytoplasmic" type="topological domain">
+    <location>
+      <begin position="145"/>
+      <end position="159"/>
+    </location>
+  </feature>
+ <feature evidence="1" type="turn">
+    <location>
+      <begin position="159"/>
+      <end position="162"/>
+    </location>
+ </feature>
+  <sequence length="130" mass="14846" checksum="0A95A328C7ABA865" modified="2006-07-11+01:00" version="1">MFKIYRTSCMGQHQSQFLHSGTVVQTVDGVTTTSFFQPCLVFPFSIEIISISLVSLNTTNETKLIKMSIMENSELVDYNESAYTLAHLPGKQMTYLKYPAPFTIRQHQPFFFVHHGDLGDASLTLEYRIK</sequence>
+</entry>
+</uniprot>
+  
+  

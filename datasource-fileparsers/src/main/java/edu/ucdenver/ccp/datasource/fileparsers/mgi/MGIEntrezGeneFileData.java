@@ -41,8 +41,8 @@ import edu.ucdenver.ccp.datasource.fileparsers.Record;
 import edu.ucdenver.ccp.datasource.fileparsers.RecordField;
 import edu.ucdenver.ccp.datasource.fileparsers.SingleLineFileRecord;
 import edu.ucdenver.ccp.datasource.identifiers.DataSource;
-import edu.ucdenver.ccp.datasource.identifiers.mgi.MgiGeneID;
-import edu.ucdenver.ccp.datasource.identifiers.ncbi.gene.EntrezGeneID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.MgiGeneID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.NcbiGeneId;
 
 /**
  * Data representation of contents of MGI_EntrezGene.rpt file
@@ -70,13 +70,13 @@ public class MGIEntrezGeneFileData extends SingleLineFileRecord {
 	@RecordField
 	private final Set<MgiGeneID> secondaryAccessionIDs;
 	@RecordField
-	private final EntrezGeneID entrezGeneID;
+	private final NcbiGeneId entrezGeneID;
 	@RecordField
 	private final Set<String> synonyms;
 
 	public MGIEntrezGeneFileData(MgiGeneID mgiAccessionID, String markerSymbol, String status,
 			String markerName, String cMPosition, String chromosome, MgiGeneType type,
-			Set<MgiGeneID> secondaryAccessionIDs, EntrezGeneID entrezGeneID, Set<String> synonyms,
+			Set<MgiGeneID> secondaryAccessionIDs, NcbiGeneId entrezGeneID, Set<String> synonyms,
 			long byteOffset, long lineNumber) {
 		super(byteOffset, lineNumber);
 		this.mgiAccessionID = mgiAccessionID;
@@ -123,7 +123,7 @@ public class MGIEntrezGeneFileData extends SingleLineFileRecord {
 		return secondaryAccessionIDs;
 	}
 
-	public EntrezGeneID getEntrezGeneID() {
+	public NcbiGeneId getEntrezGeneID() {
 		return entrezGeneID;
 	}
 
@@ -153,11 +153,11 @@ public class MGIEntrezGeneFileData extends SingleLineFileRecord {
 			}
 		}
 		String entrezGeneIDStr = null;
-		EntrezGeneID entrezGeneID = null;
+		NcbiGeneId entrezGeneID = null;
 		if (toks.length > 8) {
 			entrezGeneIDStr = toks[8];
 			if (entrezGeneIDStr.trim().length() > 0)
-				entrezGeneID = new EntrezGeneID(toks[8].trim());
+				entrezGeneID = new NcbiGeneId(toks[8].trim());
 		}
 		Set<String> syns = new HashSet<String>();
 		if (toks.length > 9) {

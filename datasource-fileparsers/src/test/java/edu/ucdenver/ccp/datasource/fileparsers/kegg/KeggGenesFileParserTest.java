@@ -47,15 +47,15 @@ import edu.ucdenver.ccp.common.collections.CollectionsUtil;
 import edu.ucdenver.ccp.common.file.CharacterEncoding;
 import edu.ucdenver.ccp.datasource.fileparsers.test.RecordReaderTester;
 import edu.ucdenver.ccp.datasource.identifiers.DataSourceIdentifier;
-import edu.ucdenver.ccp.datasource.identifiers.ebi.uniprot.UniProtID;
-import edu.ucdenver.ccp.datasource.identifiers.ensembl.EnsemblGeneID;
-import edu.ucdenver.ccp.datasource.identifiers.hgnc.HgncID;
-import edu.ucdenver.ccp.datasource.identifiers.hprd.HprdID;
-import edu.ucdenver.ccp.datasource.identifiers.kegg.KeggGeneID;
-import edu.ucdenver.ccp.datasource.identifiers.kegg.KeggPathwayID;
-import edu.ucdenver.ccp.datasource.identifiers.ncbi.gene.EntrezGeneID;
-import edu.ucdenver.ccp.datasource.identifiers.ncbi.gene.GiNumberID;
-import edu.ucdenver.ccp.datasource.identifiers.ncbi.omim.OmimID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.EnsemblGeneID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.GiNumberID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.HgncID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.HprdID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.KeggGeneID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.KeggPathwayID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.NcbiGeneId;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.OmimID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.UniProtID;
 
 /**
  * 
@@ -88,7 +88,7 @@ public class KeggGenesFileParserTest extends RecordReaderTester {
 			assertEquals(new KeggGeneID("9081"), record.getKeggGeneID());
 			Set<DataSourceIdentifier<?>> expectedIds = new HashSet<DataSourceIdentifier<?>>();
 			expectedIds.add(new GiNumberID(22507417));
-			expectedIds.add(new EntrezGeneID(9081));
+			expectedIds.add(new NcbiGeneId(9081));
 			expectedIds.add(new OmimID(400019));
 			expectedIds.add(new HgncID("14024"));
 			expectedIds.add(new HprdID("02460"));
@@ -105,14 +105,14 @@ public class KeggGenesFileParserTest extends RecordReaderTester {
 			assertEquals(new KeggGeneID("8351"), record.getKeggGeneID());
 			Set<DataSourceIdentifier<?>> expectedIds = new HashSet<DataSourceIdentifier<?>>();
 			expectedIds.add(new GiNumberID(21071021));
-			expectedIds.add(new EntrezGeneID(8351));
+			expectedIds.add(new NcbiGeneId(8351));
 			expectedIds.add(new OmimID(602811));
 			expectedIds.add(new HgncID("4767"));
 			expectedIds.add(new HprdID("11905"));
 			expectedIds.add(new EnsemblGeneID("ENSG00000197409"));
 			expectedIds.add(new UniProtID("P68431"));
 			assertEquals(expectedIds, record.getDbLinks());
-			assertEquals(CollectionsUtil.createSet(new KeggPathwayID("hsa05322")), record.getPathwayIds());
+			assertEquals(CollectionsUtil.createSet(new KeggPathwayID("05322")), record.getPathwayIds());
 		} else {
 			fail("Parser should have returned a record here.");
 		}
@@ -122,7 +122,7 @@ public class KeggGenesFileParserTest extends RecordReaderTester {
 			assertEquals(new KeggGeneID("25796"), record.getKeggGeneID());
 			Set<DataSourceIdentifier<?>> expectedIds = new HashSet<DataSourceIdentifier<?>>();
 			expectedIds.add(new GiNumberID(6912586));
-			expectedIds.add(new EntrezGeneID(25796));
+			expectedIds.add(new NcbiGeneId(25796));
 			expectedIds.add(new OmimID(604951));
 			expectedIds.add(new HgncID("8903"));
 			expectedIds.add(new HprdID("12001"));
@@ -130,7 +130,7 @@ public class KeggGenesFileParserTest extends RecordReaderTester {
 			expectedIds.add(new UniProtID("O95336"));
 			expectedIds.add(new UniProtID("D3DUQ8"));
 			assertEquals(expectedIds, record.getDbLinks());
-			assertEquals(CollectionsUtil.createSet(new KeggPathwayID("hsa00030"), new KeggPathwayID("hsa01100")),
+			assertEquals(CollectionsUtil.createSet(new KeggPathwayID("00030"), new KeggPathwayID("01100")),
 					record.getPathwayIds());
 		} else {
 			fail("Parser should have returned a record here.");

@@ -36,6 +36,7 @@ package edu.ucdenver.ccp.datasource.fileparsers.mirbase;
 import java.util.List;
 import java.util.Set;
 
+import edu.ucdenver.ccp.datasource.fileparsers.CcpExtensionOntology;
 import edu.ucdenver.ccp.datasource.fileparsers.Record;
 import edu.ucdenver.ccp.datasource.fileparsers.ebi.embl.EmblAssemblyInformation;
 import edu.ucdenver.ccp.datasource.fileparsers.ebi.embl.EmblDate;
@@ -44,14 +45,14 @@ import edu.ucdenver.ccp.datasource.fileparsers.ebi.embl.EmblSequenceDatabaseFile
 import edu.ucdenver.ccp.datasource.fileparsers.ebi.embl.SequenceFeature;
 import edu.ucdenver.ccp.datasource.identifiers.DataSource;
 import edu.ucdenver.ccp.datasource.identifiers.DataSourceIdentifier;
-import edu.ucdenver.ccp.datasource.identifiers.other.InsdcProjectId;
-import edu.ucdenver.ccp.datasource.identifiers.other.MiRBaseID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.InsdcProjectId;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.MiRBaseID;
 
 /**
  * @author Colorado Computational Pharmacology, UC Denver; ccpsupport@ucdenver.edu
  *
  */
-@Record(dataSource=DataSource.MIRBASE, label="MiRBase record")
+@Record(dataSource=DataSource.MIRBASE, ontClass=CcpExtensionOntology.MIRBASE_RECORD)
 public class MirBaseMiRnaDatFileData extends EmblSequenceDatabaseFileDataBase<MiRBaseID> {
 
 	/**

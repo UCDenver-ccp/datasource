@@ -39,25 +39,21 @@ package edu.ucdenver.ccp.datasource.fileparsers.ebi.embl;
 import java.util.List;
 import java.util.Set;
 
+import edu.ucdenver.ccp.datasource.fileparsers.CcpExtensionOntology;
 import edu.ucdenver.ccp.datasource.fileparsers.Record;
 import edu.ucdenver.ccp.datasource.identifiers.DataSource;
 import edu.ucdenver.ccp.datasource.identifiers.DataSourceIdentifier;
-import edu.ucdenver.ccp.datasource.identifiers.ebi.embl.EmblID;
-import edu.ucdenver.ccp.datasource.identifiers.other.InsdcProjectId;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.EmblID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.InsdcProjectId;
 
 /**
- * @author Colorado Computational Pharmacology, UC Denver; ccpsupport@ucdenver.edu
+ * @author Colorado Computational Pharmacology, UC Denver;
+ *         ccpsupport@ucdenver.edu
  * 
  */
-@Record(dataSource = DataSource.EMBL, comment = "Field comments taken from ftp://ftp.ebi.ac.uk/pub/databases/embl/doc/usrman.txt")
+@Record(dataSource = DataSource.EMBL, ontClass = CcpExtensionOntology.EMBL_SEQUENCE_DATABASE_FILE_RECORD, comment = "Field comments taken from ftp://ftp.ebi.ac.uk/pub/databases/embl/doc/usrman.txt")
 public class EmblSequenceDatabaseFileData extends EmblSequenceDatabaseFileDataBase {
 
-	
-	
-	
-	
-	
-	
 	/**
 	 * @param primaryAccessionNumber
 	 * @param sequenceVersionNumber
@@ -90,21 +86,21 @@ public class EmblSequenceDatabaseFileData extends EmblSequenceDatabaseFileDataBa
 	 * @param assemblyInfo
 	 * @param byteOffset
 	 */
-	public EmblSequenceDatabaseFileData(EmblID primaryAccessionNumber,
-			String sequenceVersionNumber, String sequenceTopology, String moleculeType, String dataClass,
-			String taxonomicDivision, int sequenceLengthInBasePairs, List<EmblID> accessionNumbers,
-			InsdcProjectId projectId, Set<EmblDate> dates, String description, Set<String> keyWords,
-			String organismSpeciesName, String organismClassification, String organelle,
-			Set<EmblReferenceCitation> referenceCitations, //String proteinExistenceEvidence,
+	public EmblSequenceDatabaseFileData(EmblID primaryAccessionNumber, String sequenceVersionNumber,
+			String sequenceTopology, String moleculeType, String dataClass, String taxonomicDivision,
+			int sequenceLengthInBasePairs, List<EmblID> accessionNumbers, InsdcProjectId projectId, Set<EmblDate> dates,
+			String description, Set<String> keyWords, String organismSpeciesName, String organismClassification,
+			String organelle, Set<EmblReferenceCitation> referenceCitations, // String
+																				// proteinExistenceEvidence,
 			Set<DataSourceIdentifier<?>> databaseCrossReferences, String comments,
 			Set<SequenceFeature> sequenceFeatures, int sequenceLength, int numAs, int numCs, int numGs, int numTs,
 			int numOthers, String sequence, String constructedSeqInfo, Set<EmblAssemblyInformation> assemblyInfo,
 			long byteOffset) {
 		super(primaryAccessionNumber, sequenceVersionNumber, sequenceTopology, moleculeType, dataClass,
-				taxonomicDivision, sequenceLengthInBasePairs, accessionNumbers, projectId, dates, description,
-				keyWords, organismSpeciesName, organismClassification, organelle, referenceCitations,
-				databaseCrossReferences, comments, sequenceFeatures, sequenceLength, numAs,
-				numCs, numGs, numTs, numOthers, sequence, constructedSeqInfo, assemblyInfo, byteOffset);
+				taxonomicDivision, sequenceLengthInBasePairs, accessionNumbers, projectId, dates, description, keyWords,
+				organismSpeciesName, organismClassification, organelle, referenceCitations, databaseCrossReferences,
+				comments, sequenceFeatures, sequenceLength, numAs, numCs, numGs, numTs, numOthers, sequence,
+				constructedSeqInfo, assemblyInfo, byteOffset);
 	}
 
 }

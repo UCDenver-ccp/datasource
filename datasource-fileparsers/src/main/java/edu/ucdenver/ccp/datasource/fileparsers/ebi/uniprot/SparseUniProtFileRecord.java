@@ -39,20 +39,21 @@ package edu.ucdenver.ccp.datasource.fileparsers.ebi.uniprot;
 import java.util.ArrayList;
 import java.util.List;
 
-import lombok.Getter;
-
 import org.apache.log4j.Logger;
 import org.uniprot.DbReferenceType;
 import org.uniprot.Entry;
 import org.uniprot.OrganismType;
 
+import edu.ucdenver.ccp.datasource.fileparsers.CcpExtensionOntology;
 import edu.ucdenver.ccp.datasource.fileparsers.FileRecord;
 import edu.ucdenver.ccp.datasource.fileparsers.Record;
 import edu.ucdenver.ccp.datasource.fileparsers.RecordField;
 import edu.ucdenver.ccp.datasource.fileparsers.ebi.uniprot.UniProtFileRecord.DbReference;
 import edu.ucdenver.ccp.datasource.fileparsers.ebi.uniprot.UniProtFileRecord.Organism;
 import edu.ucdenver.ccp.datasource.identifiers.DataSource;
-import edu.ucdenver.ccp.datasource.identifiers.ebi.uniprot.UniProtID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.UniProtEntryName;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.UniProtID;
+import lombok.Getter;
 
 /**
  * Useful for parsing trembl and ignoring most of it
@@ -63,24 +64,24 @@ import edu.ucdenver.ccp.datasource.identifiers.ebi.uniprot.UniProtID;
  * 
  */
 @Getter
-@Record(dataSource = DataSource.UNIPROT, label = "uniprot record")
+@Record(ontClass = CcpExtensionOntology.UNIPROT_KNOWLEDGE_BASE_RECORD, dataSource = DataSource.UNIPROT, label = "uniprot record")
 public class SparseUniProtFileRecord extends FileRecord {
 
 	private static final Logger logger = Logger.getLogger(SparseUniProtFileRecord.class);
 
-	@RecordField(isKeyField = true)
+	@RecordField(ontClass = CcpExtensionOntology.UNIPROT_KNOWLEDGE_BASE_RECORD___PRIMARY_ACCESSION_FIELD_VALUE, isKeyField = true)
 	private final UniProtID primaryAccession;
-	@RecordField
+	@RecordField(ontClass = CcpExtensionOntology.UNIPROT_KNOWLEDGE_BASE_RECORD___ACCESSION_FIELD_VALUE)
 	private final List<UniProtID> accession;
-	@RecordField
-	private final List<String> name;
+	@RecordField(ontClass = CcpExtensionOntology.UNIPROT_KNOWLEDGE_BASE_RECORD___ENTRY_NAME_FIELD_VALUE)
+	private final List<UniProtEntryName> entryName;
 	// @RecordField
 	// private final Protein protein;
 	// @RecordField
 	// private final List<Gene> gene;
-	@RecordField
+	@RecordField(ontClass = CcpExtensionOntology.UNIPROT_KNOWLEDGE_BASE_RECORD___ORGANISM_FIELD_VALUE)
 	private final Organism organism;
-	@RecordField
+	@RecordField(ontClass = CcpExtensionOntology.UNIPROT_KNOWLEDGE_BASE_RECORD___ORGANISM_HOST_FIELD_VALUE)
 	private final List<Organism> organismHost;
 	// @RecordField
 	// private final List<GeneLocation> geneLocation;
@@ -88,7 +89,7 @@ public class SparseUniProtFileRecord extends FileRecord {
 	// private final List<Reference> reference;
 	// @RecordField
 	// private final List<Comment> comment;
-	@RecordField
+	@RecordField(ontClass = CcpExtensionOntology.UNIPROT_KNOWLEDGE_BASE_RECORD___DATABASE_REFERENCE_FIELD_VALUE)
 	private final List<DbReference> dbReference;
 
 	// @RecordField
@@ -120,7 +121,16 @@ public class SparseUniProtFileRecord extends FileRecord {
 			this.accession.add(new UniProtID(idStr));
 		}
 		this.primaryAccession = this.accession.get(0);
-		this.name = new ArrayList<String>(xmlType.getName());
+		/*
+		 * although xmlType.getName() returns a list, there should only be a
+		 * single 'entry name' for a given UniProt record so a warning is issued
+		 * if multiple entry names are observed
+		 */
+		List<UniProtEntryName> entryNames = new ArrayList<UniProtEntryName>();
+		for (String name : xmlType.getName()) {
+			entryNames.add(new UniProtEntryName(name));
+		}
+		this.entryName = entryNames;
 
 		this.organism = new Organism(xmlType.getOrganism());
 		this.organismHost = new ArrayList<Organism>();
@@ -147,12 +157,12 @@ public class SparseUniProtFileRecord extends FileRecord {
 	 * @param organismHost
 	 * @param dbReference
 	 */
-	public SparseUniProtFileRecord(UniProtID primaryAccession, List<UniProtID> accession, List<String> name,
+	public SparseUniProtFileRecord(UniProtID primaryAccession, List<UniProtID> accession, List<UniProtEntryName> entryName,
 			Organism organism, List<Organism> organismHost, List<DbReference> dbReference, long byteOffset) {
 		super(byteOffset);
 		this.primaryAccession = primaryAccession;
 		this.accession = accession;
-		this.name = name;
+		this.entryName = entryName;
 		this.organism = organism;
 		this.organismHost = organismHost;
 		this.dbReference = dbReference;

@@ -47,8 +47,8 @@ import edu.ucdenver.ccp.common.file.reader.StreamLineReader;
 import edu.ucdenver.ccp.common.ftp.FTPUtil.FileType;
 import edu.ucdenver.ccp.datasource.fileparsers.SingleLineFileRecordReader;
 import edu.ucdenver.ccp.datasource.fileparsers.download.FtpHost;
-import edu.ucdenver.ccp.datasource.identifiers.mgi.MgiGeneID;
-import edu.ucdenver.ccp.datasource.identifiers.ncbi.gene.EntrezGeneID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.MgiGeneID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.NcbiGeneId;
 
 /**
  * This class is used to parse MGI_EntrezGene.rpt files
@@ -88,16 +88,16 @@ public class MGIEntrezGeneFileParser extends SingleLineFileRecordReader<MGIEntre
 	 * 
 	 * @return
 	 */
-	public static Map<EntrezGeneID, Set<MgiGeneID>> getEntrezGene2MgiIDMap(File mgiEntrezGeneRPTFile, CharacterEncoding encoding)
+	public static Map<NcbiGeneId, Set<MgiGeneID>> getEntrezGene2MgiIDMap(File mgiEntrezGeneRPTFile, CharacterEncoding encoding)
 			throws IOException {
-		Map<EntrezGeneID, Set<MgiGeneID>> entrezGene2MgiIDMap = new HashMap<EntrezGeneID, Set<MgiGeneID>>();
+		Map<NcbiGeneId, Set<MgiGeneID>> entrezGene2MgiIDMap = new HashMap<NcbiGeneId, Set<MgiGeneID>>();
 
 		MGIEntrezGeneFileParser parser = null;
 		try {
 			parser = new MGIEntrezGeneFileParser(mgiEntrezGeneRPTFile, encoding);
 			while (parser.hasNext()) {
 				MGIEntrezGeneFileData dataRecord = parser.next();
-				EntrezGeneID entrezGeneID = dataRecord.getEntrezGeneID();
+				NcbiGeneId entrezGeneID = dataRecord.getEntrezGeneID();
 				MgiGeneID mgiID = dataRecord.getMgiAccessionID();
 
 				if (entrezGeneID != null & mgiID != null) {

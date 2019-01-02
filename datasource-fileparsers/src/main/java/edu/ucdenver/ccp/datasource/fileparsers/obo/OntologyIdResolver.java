@@ -2,9 +2,10 @@ package edu.ucdenver.ccp.datasource.fileparsers.obo;
 
 /*
  * #%L
- * Colorado Computational Pharmacology's common module
+ * Colorado Computational Pharmacology's datasource
+ * 							project
  * %%
- * Copyright (C) 2012 - 2014 Regents of the University of Colorado
+ * Copyright (C) 2012 - 2017 Regents of the University of Colorado
  * %%
  * Redistribution and use in source and binary forms, with or without modification,
  * are permitted provided that the following conditions are met:
@@ -33,9 +34,9 @@ package edu.ucdenver.ccp.datasource.fileparsers.obo;
  * #L%
  */
 
-import edu.ucdenver.ccp.datasource.identifiers.obo.GeneOntologyID;
-import edu.ucdenver.ccp.datasource.identifiers.obo.MolecularInteractionOntologyTermID;
-import edu.ucdenver.ccp.datasource.identifiers.obo.OntologyID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.GeneOntologyID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.MolecularInteractionOntologyTermID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.ice.OntologyID;
 
 public class OntologyIdResolver {
 

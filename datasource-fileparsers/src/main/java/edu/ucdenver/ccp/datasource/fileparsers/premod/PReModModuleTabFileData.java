@@ -44,9 +44,9 @@ import edu.ucdenver.ccp.datasource.fileparsers.Record;
 import edu.ucdenver.ccp.datasource.fileparsers.RecordField;
 import edu.ucdenver.ccp.datasource.fileparsers.SingleLineFileRecord;
 import edu.ucdenver.ccp.datasource.identifiers.DataSource;
-import edu.ucdenver.ccp.datasource.identifiers.ncbi.gene.EntrezGeneID;
-import edu.ucdenver.ccp.datasource.identifiers.premod.PreModID;
-import edu.ucdenver.ccp.datasource.identifiers.transfac.TransfacMatrixID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.NcbiGeneId;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.PreModID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.TransfacMatrixID;
 
 /**
  * A representation of a line of data from the PReMod mouse_module_tab.txt file available here:
@@ -71,13 +71,13 @@ public class PReModModuleTabFileData extends SingleLineFileRecord {
 	@RecordField
 	private final float score;
 	@RecordField
-	private final EntrezGeneID upstreamEntrezGeneID;
+	private final NcbiGeneId upstreamEntrezGeneID;
 	@RecordField
 	private final String upstreamGeneName;
 	@RecordField
 	private final int upstreamGenePosition;
 	@RecordField
-	private final EntrezGeneID downstreamEntrezGeneID;
+	private final NcbiGeneId downstreamEntrezGeneID;
 	@RecordField
 	private final String downstreamGeneName;
 	@RecordField
@@ -86,8 +86,8 @@ public class PReModModuleTabFileData extends SingleLineFileRecord {
 	private final Set<TransfacMatrixID> tagMatrices;
 
 	public PReModModuleTabFileData(PreModID premodID, String chromosome, int length, float score,
-			EntrezGeneID upstreamEntrezGeneID, String upstreamGeneName, int upstreamGenePosition,
-			EntrezGeneID downstreamEntrezGeneID, String downstreamGeneName, int downstreamGenePosition,
+			NcbiGeneId upstreamEntrezGeneID, String upstreamGeneName, int upstreamGenePosition,
+			NcbiGeneId downstreamEntrezGeneID, String downstreamGeneName, int downstreamGenePosition,
 			Set<TransfacMatrixID> tagMatrices, long byteOffset, long lineNumber) {
 		super(byteOffset, lineNumber);
 		this.premodID = premodID;
@@ -119,7 +119,7 @@ public class PReModModuleTabFileData extends SingleLineFileRecord {
 		return score;
 	}
 
-	public EntrezGeneID getUpstreamEntrezGeneID() {
+	public NcbiGeneId getUpstreamEntrezGeneID() {
 		return upstreamEntrezGeneID;
 	}
 
@@ -131,7 +131,7 @@ public class PReModModuleTabFileData extends SingleLineFileRecord {
 		return upstreamGenePosition;
 	}
 
-	public EntrezGeneID getDownstreamEntrezGeneID() {
+	public NcbiGeneId getDownstreamEntrezGeneID() {
 		return downstreamEntrezGeneID;
 	}
 
@@ -154,10 +154,10 @@ public class PReModModuleTabFileData extends SingleLineFileRecord {
 			String chromosome = new String(toks[1]);
 			int length = Integer.parseInt(toks[2]);
 			float score = Float.parseFloat(toks[3]);
-			EntrezGeneID upstreamEntrezGeneID = new EntrezGeneID(toks[4]);
+			NcbiGeneId upstreamEntrezGeneID = new NcbiGeneId(toks[4]);
 			String upstreamGeneName = new String(toks[5]);
 			int upstreamGenePosition = Integer.parseInt(toks[6]);
-			EntrezGeneID downstreamEntrezGeneID = new EntrezGeneID(toks[7]);
+			NcbiGeneId downstreamEntrezGeneID = new NcbiGeneId(toks[7]);
 			String downstreamGeneName = new String(toks[8]);
 			int downstreamGenePosition = Integer.parseInt(toks[9]);
 			Set<TransfacMatrixID> tagMatrices = new HashSet<TransfacMatrixID>();

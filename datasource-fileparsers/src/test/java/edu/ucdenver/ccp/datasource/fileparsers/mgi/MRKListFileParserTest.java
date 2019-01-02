@@ -51,7 +51,7 @@ import edu.ucdenver.ccp.common.file.CharacterEncoding;
 import edu.ucdenver.ccp.common.file.FileUtil;
 import edu.ucdenver.ccp.datasource.fileparsers.RecordReader;
 import edu.ucdenver.ccp.datasource.fileparsers.test.RecordReaderTester;
-import edu.ucdenver.ccp.datasource.identifiers.mgi.MgiGeneID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.MgiGeneID;
 
 /**
  * 

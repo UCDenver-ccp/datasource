@@ -1,0 +1,71 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
+                             http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>edu.ucdenver.ccp</groupId>
+	<artifactId>datasource-rdfizer-id-list-gen</artifactId>
+	<packaging>pom</packaging>
+	<version>0.6.3-SNAPSHOT</version>
+
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+	</properties>
+
+	<dependencies>
+		<dependency>
+			<groupId>edu.ucdenver.ccp</groupId>
+			<artifactId>datasource-fileparsers</artifactId>
+			<version>0.6.3-SNAPSHOT</version>
+			<type>jar</type>
+			<scope>compile</scope>
+		</dependency>
+	</dependencies>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>exec-maven-plugin</artifactId>
+				<version>1.1</version>
+				<configuration>
+					<executable>java</executable>
+					<arguments>
+						<argument>-Xmx2G</argument>
+						<argument>-classpath</argument>
+						<classpath />
+						<argument>edu.ucdenver.ccp.datasource.fileparsers.idlist.IdListFileFactory</argument>
+						<!-- Directory for downloaded datasources -->
+						<argument>${baseSourceDir}</argument>
+						<!-- Directory into which to write RDF triple files parsed from downloaded 
+							datasources. -->
+						<argument>${baseOutputDir}</argument>
+						<!-- Clean the ID list files (and underlying data sources) -->
+						<argument>${clean}</argument>
+						<!-- Taxon identifiers to limit output to, comma-delimited; There is 
+							no point to creating these taxon-specific files if you are not intending 
+							to filter by taxonomy, i.e. there must be at least one taxonomy ID specified 
+							to run this script. -->
+						<argument>${taxonIDs}</argument>
+						<!-- A comma-delimited list of DataSources. One ID-list will be created 
+							for each DataSource. Choose from: EG, UNIPROT, and INTACT. There must be 
+							at least one DataSource specified to run this script. -->
+						<argument>${dataSources}</argument>
+					</arguments>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.3</version>
+				<configuration>
+					<source>1.8</source>
+					<target>1.8</target>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+
+
+
+</project>

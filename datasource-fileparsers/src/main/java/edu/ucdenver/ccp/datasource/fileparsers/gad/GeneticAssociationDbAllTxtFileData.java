@@ -60,13 +60,13 @@ import edu.ucdenver.ccp.datasource.fileparsers.SingleLineFileRecord;
 import edu.ucdenver.ccp.datasource.identifiers.DataSource;
 import edu.ucdenver.ccp.datasource.identifiers.DataSourceIdentifier;
 import edu.ucdenver.ccp.datasource.identifiers.NucleotideAccessionResolver;
-import edu.ucdenver.ccp.datasource.identifiers.gad.GadID;
-import edu.ucdenver.ccp.datasource.identifiers.hgnc.HgncGeneSymbolID;
-import edu.ucdenver.ccp.datasource.identifiers.ncbi.UniGeneID;
-import edu.ucdenver.ccp.datasource.identifiers.ncbi.gene.EntrezGeneID;
-import edu.ucdenver.ccp.datasource.identifiers.ncbi.gene.GiNumberID;
-import edu.ucdenver.ccp.datasource.identifiers.ncbi.omim.OmimID;
-import edu.ucdenver.ccp.identifier.publication.PubMedID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.GadID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.GiNumberID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.HgncGeneSymbolID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.NcbiGeneId;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.OmimID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.UniGeneID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.ice.PubMedID;
 
 /**
  * See http://geneticassociationdb.nih.gov/fieldhelp.html for field definitions
@@ -139,7 +139,7 @@ public class GeneticAssociationDbAllTxtFileData extends SingleLineFileRecord {
 	@RecordField
 	private final String submitter;
 	@RecordField
-	private final EntrezGeneID entrezGeneID;
+	private final NcbiGeneId entrezGeneID;
 	@RecordField
 	private final UniGeneID unigeneAccessionID;
 	@RecordField
@@ -188,7 +188,7 @@ public class GeneticAssociationDbAllTxtFileData extends SingleLineFileRecord {
 			String chromosomeBand, HgncGeneSymbolID geneSymbol, String dnaStart, String dnaEnd, String pValue,
 			String reference, PubMedID pubmedID, String alleleAuthorDescription, String alleleFunctionalEffects,
 			String polymorphismClass, String geneName, DataSourceIdentifier<?> nucleotideDbId, String population,
-			String meshGeolocation, String submitter, EntrezGeneID entrezGeneID, UniGeneID unigeneAccessionID,
+			String meshGeolocation, String submitter, NcbiGeneId entrezGeneID, UniGeneID unigeneAccessionID,
 			String narrowPhenotype, String molecularPhenotype, String journal, String articleTitle, String rsNumber,
 			OmimID mimNumber, String year, String conclusion, String studyInfo, String envFactor, String giGeneA,
 			String giAlleleGeneA, String giGeneB, String giAlleleGeneB, String giGeneC, String giAlleleGeneC,
@@ -335,7 +335,7 @@ public class GeneticAssociationDbAllTxtFileData extends SingleLineFileRecord {
 		return submitter;
 	}
 
-	public EntrezGeneID getEntrezGeneID() {
+	public NcbiGeneId getEntrezGeneID() {
 		return entrezGeneID;
 	}
 
@@ -480,9 +480,9 @@ public class GeneticAssociationDbAllTxtFileData extends SingleLineFileRecord {
 		String population = toks[19];
 		String meshGeolocation = toks[20];
 		String submitter = toks[21];
-		EntrezGeneID entrezGeneID = null;
+		NcbiGeneId entrezGeneID = null;
 		if (!toks[22].isEmpty())
-			entrezGeneID = new EntrezGeneID(toks[22]);
+			entrezGeneID = new NcbiGeneId(toks[22]);
 		UniGeneID unigeneAccessionID = null;
 		if (!toks[23].trim().isEmpty())
 			unigeneAccessionID = new UniGeneID(toks[23]);

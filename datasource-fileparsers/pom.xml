@@ -3,7 +3,7 @@
 	<parent>
 		<artifactId>datasource</artifactId>
 		<groupId>edu.ucdenver.ccp</groupId>
-		<version>0.6.1</version>
+		<version>0.6.3-SNAPSHOT</version>
 	</parent>
 	<artifactId>datasource-fileparsers</artifactId>
 
@@ -14,23 +14,17 @@
 			<scope>provided</scope>
 		</dependency>
 		<dependency>
-			<groupId>org.projectlombok</groupId>
-			<artifactId>lombok</artifactId>
-			<scope>provided</scope>
-		</dependency>
-		<dependency>
 			<groupId>edu.ucdenver.ccp</groupId>
 			<artifactId>common</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>edu.ucdenver.ccp</groupId>
-			<artifactId>datasource-identifiers</artifactId>
-			<version>${project.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>edu.ucdenver.ccp</groupId>
 			<artifactId>common</artifactId>
 			<type>test-jar</type>
+		</dependency>
+		<dependency>
+			<groupId>commons-lang</groupId>
+			<artifactId>commons-lang</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>junit</groupId>
@@ -114,6 +108,18 @@
 						<configuration>
 							<schemaFiles>uniprot.xsd</schemaFiles>
 							<packageName>org.uniprot</packageName>
+							<clearOutputDir>false</clearOutputDir>
+						</configuration>
+					</execution>
+					<execution>
+						<phase>generate-sources</phase>
+						<id>interpro-xjc</id>
+						<goals>
+							<goal>xjc</goal>
+						</goals>
+						<configuration>
+							<schemaFiles>interpro.xsd</schemaFiles>
+							<packageName>org.interpro</packageName>
 							<clearOutputDir>false</clearOutputDir>
 						</configuration>
 					</execution>

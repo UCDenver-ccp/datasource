@@ -3,6 +3,13 @@
  */
 package edu.ucdenver.ccp.datasource.fileparsers.irefweb;
 
+import edu.ucdenver.ccp.datasource.fileparsers.CcpExtensionOntology;
+import edu.ucdenver.ccp.datasource.fileparsers.Record;
+import edu.ucdenver.ccp.datasource.fileparsers.RecordField;
+import edu.ucdenver.ccp.datasource.fileparsers.obo.MiOntologyIdTermPair;
+import edu.ucdenver.ccp.datasource.identifiers.DataSource;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.MolecularInteractionOntologyTermID;
+
 /*
  * #%L
  * Colorado Computational Pharmacology's common module
@@ -37,24 +44,19 @@ package edu.ucdenver.ccp.datasource.fileparsers.irefweb;
  */
 
 import lombok.Getter;
-import edu.ucdenver.ccp.datasource.fileparsers.Record;
-import edu.ucdenver.ccp.datasource.fileparsers.RecordField;
-import edu.ucdenver.ccp.datasource.fileparsers.obo.MiOntologyIdTermPair;
-import edu.ucdenver.ccp.datasource.identifiers.DataSource;
-import edu.ucdenver.ccp.datasource.identifiers.obo.MolecularInteractionOntologyTermID;
 
 /**
  * @author Colorado Computational Pharmacology, UC Denver;
  *         ccpsupport@ucdenver.edu
  * 
  */
-@Record(dataSource = DataSource.IREFWEB, label = "source db")
+@Record(ontClass = CcpExtensionOntology.IREFWEB_INTERACTION_SOURCE_DATABASE_RECORD, dataSource = DataSource.IREFWEB, label = "source db")
 @Getter
 public class IRefWebInteractionSourceDatabase extends MiOntologyIdTermPair {
 
-	@RecordField
+	@RecordField(ontClass = CcpExtensionOntology.IREFWEB_INTERACTION_SOURCE_DATABASE_RECORD___SOURCE_DATABASE_IDENTIFIER_FIELD_VALUE)
 	private final MolecularInteractionOntologyTermID sourceDatabaseId;
-	@RecordField
+	@RecordField(ontClass = CcpExtensionOntology.IREFWEB_INTERACTION_SOURCE_DATABASE_RECORD___SOURCE_DATABASE_NAME_FIELD_VALUE)
 	private final String sourceDatabaseName;
 
 	/**

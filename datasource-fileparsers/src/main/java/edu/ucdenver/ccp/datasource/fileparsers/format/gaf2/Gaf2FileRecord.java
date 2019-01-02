@@ -54,17 +54,17 @@ package edu.ucdenver.ccp.datasource.fileparsers.format.gaf2;
 import java.util.Calendar;
 import java.util.Set;
 
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-
 import org.apache.log4j.Logger;
 
+import edu.ucdenver.ccp.datasource.fileparsers.CcpExtensionOntology;
 import edu.ucdenver.ccp.datasource.fileparsers.Record;
 import edu.ucdenver.ccp.datasource.fileparsers.RecordField;
 import edu.ucdenver.ccp.datasource.fileparsers.SingleLineFileRecord;
 import edu.ucdenver.ccp.datasource.identifiers.DataSource;
 import edu.ucdenver.ccp.datasource.identifiers.DataSourceIdentifier;
-import edu.ucdenver.ccp.datasource.identifiers.ncbi.taxonomy.NcbiTaxonomyID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.NcbiTaxonomyID;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 /**
  * A representation of data records in the GAF 2.0 file format as described here:
@@ -96,58 +96,58 @@ import edu.ucdenver.ccp.datasource.identifiers.ncbi.taxonomy.NcbiTaxonomyID;
 public class Gaf2FileRecord extends SingleLineFileRecord {
 	private static Logger logger = Logger.getLogger(Gaf2FileRecord.class);
 
-	@RecordField(comment = "refers to the database from which the identifier in DB object ID (column 2) is drawn. This field is mandatory, cardinality 1.")
+	@RecordField(ontClass = CcpExtensionOntology.GOA_GAF_V20_ANNOTATION_RECORD___DATABASE_DESIGNATION_FIELD_VALUE)
 	private final String databaseDesignation;
 
-	@RecordField(comment = "a unique identifier from the database in DB (column 1) for the item being annotated. This field is mandatory, cardinality 1.")
+	@RecordField(ontClass = CcpExtensionOntology.GOA_GAF_V20_ANNOTATION_RECORD___DATABASE_OBJECT_IDENTIFIER_FIELD_VALUE)
 	private final DataSourceIdentifier<?> dbObjectId;
 
-	@RecordField(comment = "a (unique and valid) symbol to which DB object ID is matched. This field is mandatory, cardinality 1.")
+	@RecordField(ontClass = CcpExtensionOntology.GOA_GAF_V20_ANNOTATION_RECORD___DATABASE_OBJECT_SYMBOL_FIELD_VALUE)
 	private final String dbObjectSymbol;
 
-	@RecordField(comment = "flags that modify the interpretation of an annotation. This field is not mandatory; cardinality 0, 1, >1.")
+	@RecordField(ontClass = CcpExtensionOntology.GOA_GAF_V20_ANNOTATION_RECORD___QUALIFIER_FIELD_VALUE)
 	private final String qualifier;
 
-	@RecordField(comment = "the ontology term identifier for the term attributed to the DB object ID. This field is mandatory, cardinality 1.")
+	@RecordField(ontClass = CcpExtensionOntology.GOA_GAF_V20_ANNOTATION_RECORD___ONTOLOGY_TERM_IDENTIFIER_FIELD_VALUE)
 	private final DataSourceIdentifier<?> ontologyTermId;
 
-	@RecordField(comment = "one or more unique identifiers for a single source cited as an authority for the attribution of the GO ID to the DB object ID. This may be a literature reference or a database record. This field is mandatory, cardinality 1, >1.")
+	@RecordField(ontClass = CcpExtensionOntology.GOA_GAF_V20_ANNOTATION_RECORD___DATABASE_REFERENCE_ACCESSION_IDENTIFIER_FIELD_VALUE)
 	private final Set<DataSourceIdentifier<?>> referenceAccessionIds;
 
-	@RecordField(comment = "see the GO evidence code guide (http://www.geneontology.org/GO.evidence.shtml) for the list of valid evidence codes. This field is mandatory, cardinality 1.")
+	@RecordField(ontClass = CcpExtensionOntology.GOA_GAF_V20_ANNOTATION_RECORD___EVIDENCE_CODE_FIELD_VALUE)
 	private final String evidenceCode;
 
-	@RecordField(comment = "This field is used to hold an additional identifier for annotations using certain evidence codes (IC, IEA, IGI, IPI, ISS). For example, it can identify another gene product to which the annotated gene product is similar (ISS) or interacts with (IPI). More information on the meaning of with or from column entries is available in the evidence code documentation (http://www.geneontology.org/GO.evidence.shtml) entries for the relevant codes. This field is not mandatory overall, but is required for some evidence codes (see below and the evidence code documentation for details); cardinality 0, 1, >1.")
+	@RecordField(ontClass = CcpExtensionOntology.GOA_GAF_V20_ANNOTATION_RECORD___WITH_OR_FROM_FIELD_VALUE)
 	private final Set<DataSourceIdentifier<?>> withOrFrom;
 
-	@RecordField(comment = "refers to the namespace or ontology to which the Ontology Term ID (column 5) belongs. This field is mandatory; cardinality 1.")
+	@RecordField(ontClass = CcpExtensionOntology.GOA_GAF_V20_ANNOTATION_RECORD___ASPECT_FIELD_VALUE)
 	private final String aspect;
 
-	@RecordField(comment = "name of gene or gene product. This field is not mandatory, cardinality 0, 1 [white space allowed].")
+	@RecordField(ontClass = CcpExtensionOntology.GOA_GAF_V20_ANNOTATION_RECORD___DATABASE_OBJECT_NAME_FIELD_VALUE)
 	private final String dbObjectName;
 
-	@RecordField(comment = "Gene_symbol [or other text. This field is not mandatory, cardinality 0, 1, >1 [white space allowed].")
+	@RecordField(ontClass = CcpExtensionOntology.GOA_GAF_V20_ANNOTATION_RECORD___DATABASE_OBJECT_SYNONYM_FIELD_VALUE)
 	private final Set<String> dbObjectSynonyms;
 
-	@RecordField(comment = "A description of the type of gene product being annotated. This field is mandatory, cardinality 1.")
+	@RecordField(ontClass = CcpExtensionOntology.GOA_GAF_V20_ANNOTATION_RECORD___DATABASE_OBJECT_TYPE_FIELD_VALUE)
 	private final String dbObjectType;
 
-	@RecordField(comment = "the ID of the species encoding the gene product. This field is mandatory, cardinality 1.")
+	@RecordField(ontClass = CcpExtensionOntology.GOA_GAF_V20_ANNOTATION_RECORD___DATABASE_OBJECT_TAXON_IDENTIFIER_TAXON_FIELD_VALUE)
 	private final NcbiTaxonomyID dbObjectTaxonId;
 
-	@RecordField(comment = "to be used only in conjunction with terms that have the biological process term multi-organism process or the cellular component term host cell as an ancestor. The first taxon ID should be that of the organism encoding the gene or gene product, and the taxon ID after the pipe should be that of the other organism in the interaction. This field is optional.")
+	@RecordField(ontClass = CcpExtensionOntology.GOA_GAF_V20_ANNOTATION_RECORD___INTERACTING_TAXON_IDENTIFIER_TAXON_FIELD_VALUE)
 	private final NcbiTaxonomyID interactingTaxonId;
 
-	@RecordField(comment = "date on which the annotation was made; format is YYYYMMDD. This field is mandatory, cardinality 1.")
+	@RecordField(ontClass = CcpExtensionOntology.GOA_GAF_V20_ANNOTATION_RECORD___DATE_FIELD_VALUE)
 	private final Calendar date;
 
-	@RecordField(comment = "the database which made the annotation . This field is mandatory, cardinality 1.")
+	@RecordField(ontClass = CcpExtensionOntology.GOA_GAF_V20_ANNOTATION_RECORD___ASSIGNED_BY_FIELD_VALUE)
 	private final String assignedBy;
 
-	@RecordField(comment = "Contains cross references to other ontologies that can be used to qualify or enhance the annotation. The cross-reference is prefaced by an appropriate GO relationship; references to multiple ontologies can be entered. For example, if a gene product is localized to the mitochondria of lymphocytes, the GO ID (column 5) would be mitochondrion ; GO:0005439, and the annotation extension column would contain a cross-reference to the term lymphocyte from the Cell Type Ontology. This field is optional, cardinality 0 or greater.")
+	@RecordField(ontClass = CcpExtensionOntology.GOA_GAF_V20_ANNOTATION_RECORD___ANNOTATION_EXTENSION_FIELD_VALUE)
 	private final Set<AnnotationExtension> annotationExtensions;
 
-	@RecordField(comment = "As the DB Object ID (column 2) entry must be a canonical entity—a gene OR an abstract protein that has a 1:1 correspondence to a gene—this field allows the annotation of specific variants of that gene or gene product. Contents will frequently include protein sequence identifiers: for example, identifiers that specify distinct proteins produced by to differential splicing, alternative translational starts, post-translational cleavage or post-translational modification. Identifiers for functional RNAs can also be included in this column.")
+	@RecordField(ontClass = CcpExtensionOntology.GOA_GAF_V20_ANNOTATION_RECORD___GENE_PRODUCT_FORM_IDENTIFIER_FIELD_VALUE)
 	private final DataSourceIdentifier<?> geneProductFormId;
 
 	/**
@@ -223,9 +223,11 @@ public class Gaf2FileRecord extends SingleLineFileRecord {
 	}
 
 	@Data
-	@Record(dataSource=DataSource.GOA)
+	@Record(dataSource=DataSource.GOA, ontClass = CcpExtensionOntology.GOA_GAF_V20_ANNOTATION_EXTENSION_RECORD)
 	public static class AnnotationExtension {
+		@RecordField(ontClass = CcpExtensionOntology.GOA_ANNOTATION_EXTENSION_RECORD___RELATION_FIELD_VALUE)
 		private final String relation;
+		@RecordField(ontClass = CcpExtensionOntology.GOA_ANNOTATION_EXTENSION_RECORD___ONTOLOGY_TERM_FIELD_VALUE)
 		private final DataSourceIdentifier<?> ontologyTerm;
 	}
 	

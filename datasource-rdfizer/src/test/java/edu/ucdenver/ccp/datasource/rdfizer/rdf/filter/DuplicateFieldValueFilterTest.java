@@ -134,7 +134,6 @@ public class DuplicateFieldValueFilterTest extends DefaultTestCase {
 		File expectedNoDupsFile = FileArchiveUtil.gunzipFile(expectedNoDupsFileGz);
 
 		List<String> expectedLines2 = new ArrayList<String>(rdf);
-		System.out.println("size: " + expectedLines2.size());
 		expectedLines2.remove(expectedLines2.size() - 1);
 		expectedLines2.remove(expectedLines2.size() - 1);
 		expectedLines2.remove(expectedLines2.size() - 1);

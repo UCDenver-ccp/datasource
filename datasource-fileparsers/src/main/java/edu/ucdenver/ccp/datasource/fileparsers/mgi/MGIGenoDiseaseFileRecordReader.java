@@ -47,10 +47,10 @@ import edu.ucdenver.ccp.common.file.reader.StreamLineReader;
 import edu.ucdenver.ccp.common.ftp.FTPUtil.FileType;
 import edu.ucdenver.ccp.datasource.fileparsers.SingleLineFileRecordReader;
 import edu.ucdenver.ccp.datasource.fileparsers.download.FtpHost;
-import edu.ucdenver.ccp.datasource.identifiers.mgi.MgiGeneID;
-import edu.ucdenver.ccp.datasource.identifiers.ncbi.omim.OmimID;
-import edu.ucdenver.ccp.datasource.identifiers.obo.MammalianPhenotypeID;
-import edu.ucdenver.ccp.identifier.publication.PubMedID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.MammalianPhenotypeID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.MgiGeneID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.OmimID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.ice.PubMedID;
 
 /**
  * This class is used to parse MGI_PhenoGenoMP.rpt files

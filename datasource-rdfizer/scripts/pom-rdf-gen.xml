@@ -7,7 +7,7 @@
 	<groupId>edu.ucdenver.ccp</groupId>
 	<artifactId>datasource-rdfizer-rdf-gen</artifactId>
 	<packaging>pom</packaging>
-    <version>0.6.1</version>
+    <version>0.6.3-SNAPSHOT</version>
 
 	<properties>
       <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -17,7 +17,7 @@
       <dependency>
         <groupId>edu.ucdenver.ccp</groupId>
         <artifactId>datasource-rdfizer</artifactId>
-        <version>0.6.1</version>
+        <version>0.6.3-SNAPSHOT</version>
         <type>jar</type>
         <scope>compile</scope>
       </dependency>
@@ -52,6 +52,8 @@
 						<argument>${taxonIDs}</argument>
 						<!-- Re-download the data source files prior to processing? (true/false) -->
 						<argument>${redownloadDataSourceFiles}</argument>
+						<!-- Re-create the taxon-specific ID list files used by some of the taxon-aware file parsers -->
+						<argument>${recreateTaxonSpecificIdListFiles}</argument>
 						<!-- comma-delimited list of datasources to process -->
 						<argument>${datasourceNames}</argument>
 						<!-- date -->

@@ -1,21 +1,4 @@
-/*
- * Copyright (C) 2009 Center for Computational Pharmacology, University of Colorado School of Medicine
- * 
- * This program is free software; you can redistribute it and/or
- * modify it under the terms of the GNU General Public License
- * as published by the Free Software Foundation; either version 2
- * of the License, or (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
- * 
- */
+
 package edu.ucdenver.ccp.datasource.fileparsers.ebi.uniprot;
 
 /*
@@ -56,33 +39,35 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.HashSet;
 import java.util.Set;
 
-import lombok.Getter;
-
 import org.apache.log4j.Logger;
 
 import edu.ucdenver.ccp.common.file.reader.Line;
+import edu.ucdenver.ccp.datasource.fileparsers.CcpExtensionOntology;
 import edu.ucdenver.ccp.datasource.fileparsers.License;
 import edu.ucdenver.ccp.datasource.fileparsers.Record;
 import edu.ucdenver.ccp.datasource.fileparsers.RecordField;
 import edu.ucdenver.ccp.datasource.fileparsers.SingleLineFileRecord;
 import edu.ucdenver.ccp.datasource.identifiers.DataSource;
 import edu.ucdenver.ccp.datasource.identifiers.DataSourceIdentifier;
-import edu.ucdenver.ccp.datasource.identifiers.ebi.embl.EmblID;
-import edu.ucdenver.ccp.datasource.identifiers.ebi.interpro.PirID;
-import edu.ucdenver.ccp.datasource.identifiers.ebi.uniprot.UniProtEntryName;
-import edu.ucdenver.ccp.datasource.identifiers.ebi.uniprot.UniProtID;
-import edu.ucdenver.ccp.datasource.identifiers.ensembl.EnsemblGeneID;
-import edu.ucdenver.ccp.datasource.identifiers.ncbi.UniGeneID;
-import edu.ucdenver.ccp.datasource.identifiers.ncbi.gene.EntrezGeneID;
-import edu.ucdenver.ccp.datasource.identifiers.ncbi.gene.GiNumberID;
-import edu.ucdenver.ccp.datasource.identifiers.ncbi.omim.OmimID;
-import edu.ucdenver.ccp.datasource.identifiers.ncbi.refseq.RefSeqID;
-import edu.ucdenver.ccp.datasource.identifiers.ncbi.taxonomy.NcbiTaxonomyID;
-import edu.ucdenver.ccp.datasource.identifiers.obo.GeneOntologyID;
-import edu.ucdenver.ccp.datasource.identifiers.other.UniParcID;
-import edu.ucdenver.ccp.datasource.identifiers.other.UniRefId;
-import edu.ucdenver.ccp.datasource.identifiers.pdb.PdbID;
-import edu.ucdenver.ccp.identifier.publication.PubMedID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.EmblID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.EnsemblGeneID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.EnsemblProteinID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.EnsemblTranscriptID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.GeneOntologyID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.GiNumberID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.NcbiGeneId;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.NcbiTaxonomyID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.OmimID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.PdbID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.PirID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.RefSeqID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.UniGeneID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.UniParcID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.UniProtEntryName;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.UniProtID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.UniRefId;
+import edu.ucdenver.ccp.datasource.identifiers.impl.ice.PubMedID;
+import lombok.Getter;
 
 /**
  * <p>
@@ -125,55 +110,55 @@ import edu.ucdenver.ccp.identifier.publication.PubMedID;
  * @author Bill Baumgartner
  * 
  */
-@Record(dataSource = DataSource.UNIPROT, isComplete = false, comment = "This data structure is a representation of the data contained in the idmapping_selected.tab file located at ftp://ftp.uniprot.org/pub/databases/uniprot /current_release/knowledgebase/idmapping . This record is marked incomplete due to some missing ID types in the source file that are not represented in the Java object.", license = License.CREATIVE_COMMONS_3, licenseUri = "http://www.uniprot.org/help/license", citation = "Nucl. Acids Res. (2012) 40 (D1): D71-D75. doi: 10.1093/nar/gkr981", label = "id mapping record")
+@Record(ontClass = CcpExtensionOntology.UNIPROT_IDENTIFIER_MAPPING_RECORD, dataSource = DataSource.UNIPROT, isComplete = false, license = License.CREATIVE_COMMONS_3, licenseUri = "http://www.uniprot.org/help/license", citation = "Nucl. Acids Res. (2012) 40 (D1): D71-D75. doi: 10.1093/nar/gkr981", label = "id mapping record")
 @Getter
 public class UniProtIDMappingFileData extends SingleLineFileRecord {
 
 	private static final Logger logger = Logger.getLogger(UniProtIDMappingFileData.class);
 
-	@RecordField(isKeyField = true)
+	@RecordField(ontClass = CcpExtensionOntology.UNIPROT_IDENTIFIER_MAPPING_RECORD___UNIPROT_ACCESSION_IDENTIFIER_FIELD_VALUE)
 	private final UniProtID uniProtAccessionID;
-	@RecordField(isKeyField = true)
+	@RecordField(ontClass = CcpExtensionOntology.UNIPROT_IDENTIFIER_MAPPING_RECORD___UNIPROT_ENTRY_NAME_FIELD_VALUE)
 	private final UniProtEntryName uniProtEntryName;
-	@RecordField
-	private final Set<EntrezGeneID> entrezGeneIDs;
-	@RecordField
+	@RecordField(ontClass = CcpExtensionOntology.UNIPROT_IDENTIFIER_MAPPING_RECORD____ENTREZ_GENE_IDENTIFIER_FIELD_VALUE)
+	private final Set<NcbiGeneId> entrezGeneIDs;
+	@RecordField(ontClass = CcpExtensionOntology.UNIPROT_IDENTIFIER_MAPPING_RECORD___REFSEQ_IDENTIFIER_FIELD_VALUE)
 	private final Set<RefSeqID> refseqIds;
-	@RecordField
+	@RecordField(ontClass = CcpExtensionOntology.UNIPROT_IDENTIFIER_MAPPING_RECORD___GENEINFO_NUMBER_IDENTIFIER_FIELD_VALUE)
 	private final Set<GiNumberID> giNumbers;
-	@RecordField
+	@RecordField(ontClass = CcpExtensionOntology.UNIPROT_IDENTIFIER_MAPPING_RECORD___PDB_IDENTIFIER_FIELD_VALUE)
 	private final Set<PdbID> pdbIds;
-	@RecordField
+	@RecordField(ontClass = CcpExtensionOntology.UNIPROT_IDENTIFIER_MAPPING_RECORD___GO_IDENTIFIER_FIELD_VALUE)
 	private final Set<GeneOntologyID> geneOntologyIds;
-	@RecordField
+	@RecordField(ontClass = CcpExtensionOntology.UNIPROT_IDENTIFIER_MAPPING_RECORD___UNIREF100_IDENTIFIER_FIELD_VALUE)
 	private final UniRefId uniref100Id;
-	@RecordField
+	@RecordField(ontClass = CcpExtensionOntology.UNIPROT_IDENTIFIER_MAPPING_RECORD___UNIREF90_IDENTIFIER_FIELD_VALUE)
 	private final UniRefId uniref90Id;
-	@RecordField
+	@RecordField(ontClass = CcpExtensionOntology.UNIPROT_IDENTIFIER_MAPPING_RECORD___UNIREF50_IDENTIFIER_FIELD_VALUE)
 	private final UniRefId uniref50Id;
-	@RecordField
+	@RecordField(ontClass = CcpExtensionOntology.UNIPROT_IDENTIFIER_MAPPING_RECORD___UNIPARC_IDENTIFIER_FIELD_VALUE)
 	private final UniParcID uniparcId;
-	@RecordField
+	@RecordField(ontClass = CcpExtensionOntology.UNIPROT_IDENTIFIER_MAPPING_RECORD___PIR_IDENTIFIER_FIELD_VALUE)
 	private final Set<PirID> pirIds;
-	@RecordField
+	@RecordField(ontClass = CcpExtensionOntology.UNIPROT_IDENTIFIER_MAPPING_RECORD___TAXONOMY_IDENTIFIER_FIELD_VALUE)
 	private final NcbiTaxonomyID taxonomyID;
-	@RecordField
+	@RecordField(ontClass = CcpExtensionOntology.UNIPROT_IDENTIFIER_MAPPING_RECORD___OMIM_IDENTIFIER_FIELD_VALUE)
 	private final Set<OmimID> omimIds;
-	@RecordField
+	@RecordField(ontClass = CcpExtensionOntology.UNIPROT_IDENTIFIER_MAPPING_RECORD___UNIGENE_IDENTIFIER_FIELD_VALUE)
 	private final Set<UniGeneID> unigeneIds;
-	@RecordField
+	@RecordField(ontClass = CcpExtensionOntology.UNIPROT_IDENTIFIER_MAPPING_RECORD___PUBMED_IDENTIFIER_FIELD_VALUE)
 	private Set<PubMedID> pubmedIds;
-	@RecordField
+	@RecordField(ontClass = CcpExtensionOntology.UNIPROT_IDENTIFIER_MAPPING_RECORD___EMBL_IDENTIFIER_FIELD_VALUE)
 	private final Set<EmblID> emblIDs;
-	@RecordField
+	@RecordField(ontClass = CcpExtensionOntology.UNIPROT_IDENTIFIER_MAPPING_RECORD___EMBL_CDS_IDENTIFIER_FIELD_VALUE)
 	private final Set<EmblID> emblCdsIDs;
-	@RecordField
+	@RecordField(ontClass = CcpExtensionOntology.UNIPROT_IDENTIFIER_MAPPING_RECORD___ENSEMBL_IDENTIFIER_FIELD_VALUE)
 	private final Set<EnsemblGeneID> ensemblIds;
-	@RecordField
-	private final Set<EnsemblGeneID> ensembl_TRSIds;
-	@RecordField
-	private final Set<EnsemblGeneID> ensembl_PROIds;
-	@RecordField
+	@RecordField(ontClass = CcpExtensionOntology.UNIPROT_IDENTIFIER_MAPPING_RECORD___ENSEMBL_TRS_IDENTIFIER_FIELD_VALUE)
+	private final Set<EnsemblTranscriptID> ensembl_TRSIds;
+	@RecordField(ontClass = CcpExtensionOntology.UNIPROT_IDENTIFIER_MAPPING_RECORD___ENSEMBL_PRO_IDENTIFIER_FIELD_VALUE)
+	private final Set<EnsemblProteinID> ensembl_PROIds;
+	@RecordField(ontClass = CcpExtensionOntology.UNIPROT_IDENTIFIER_MAPPING_RECORD___ADDITIONAL_PUBMED_IDENTIFIER_FIELD_VALUE)
 	private Set<PubMedID> additionalPubmedIds;
 
 	/**
@@ -200,11 +185,11 @@ public class UniProtIDMappingFileData extends SingleLineFileRecord {
 	 * @param lineNumber
 	 */
 	public UniProtIDMappingFileData(UniProtID uniProtAccessionID, UniProtEntryName uniProtEntryName,
-			Set<EntrezGeneID> entrezGeneIDs, Set<RefSeqID> refseqIds, Set<GiNumberID> giNumbers, Set<PdbID> pdbIds,
+			Set<NcbiGeneId> entrezGeneIDs, Set<RefSeqID> refseqIds, Set<GiNumberID> giNumbers, Set<PdbID> pdbIds,
 			Set<GeneOntologyID> geneOntologyIds, UniRefId uniref100Id, UniRefId uniref90Id, UniRefId uniref50Id,
 			UniParcID uniparcId, Set<PirID> pirIds, NcbiTaxonomyID taxonomyID, Set<OmimID> omimIds,
 			Set<UniGeneID> unigeneIds, Set<PubMedID> pubmedIds, Set<EmblID> emblIDs, Set<EmblID> emblCdsIDs,
-			Set<EnsemblGeneID> ensemblIds, Set<EnsemblGeneID> ensemblTrsIds, Set<EnsemblGeneID> ensemblProIds,
+			Set<EnsemblGeneID> ensemblIds, Set<EnsemblTranscriptID> ensemblTrsIds, Set<EnsemblProteinID> ensemblProIds,
 			Set<PubMedID> additionalPubmedIds, long byteOffset, long lineNumber) {
 		super(byteOffset, lineNumber);
 		this.uniProtAccessionID = uniProtAccessionID;
@@ -260,7 +245,7 @@ public class UniProtIDMappingFileData extends SingleLineFileRecord {
 		String additionalPubmedIdStr = toks[index++];
 
 		try {
-			Set<EntrezGeneID> entrezGeneIDs = getIdSet(entrezGeneIDStr, EntrezGeneID.class);
+			Set<NcbiGeneId> entrezGeneIDs = getIdSet(entrezGeneIDStr, NcbiGeneId.class);
 			Set<RefSeqID> refSeqIds = getIdSet(refseqIdStr, RefSeqID.class);
 			Set<GiNumberID> giNumbers = getIdSet(giNumbersStr, GiNumberID.class);
 			Set<PdbID> pdbIds = getIdSet(pdbIdStr, PdbID.class);
@@ -276,8 +261,8 @@ public class UniProtIDMappingFileData extends SingleLineFileRecord {
 			Set<EmblID> emblIDs = getIdSet(emblIdStr, EmblID.class);
 			Set<EmblID> emblCdsIDs = getIdSet(emblCdsIdStr, EmblID.class);
 			Set<EnsemblGeneID> ensemblIds = getIdSet(ensemblIdStr.trim(), EnsemblGeneID.class);
-			Set<EnsemblGeneID> ensemblTrsIds = getIdSet(ensemblTrsIdStr.trim(), EnsemblGeneID.class);
-			Set<EnsemblGeneID> ensemblProIds = getIdSet(ensemblProIdStr.trim(), EnsemblGeneID.class);
+			Set<EnsemblTranscriptID> ensemblTrsIds = getIdSet(ensemblTrsIdStr.trim(), EnsemblTranscriptID.class);
+			Set<EnsemblProteinID> ensemblProIds = getIdSet(ensemblProIdStr.trim(), EnsemblProteinID.class);
 			Set<PubMedID> additionalPmids = getIdSet(additionalPubmedIdStr, PubMedID.class);
 
 			return new UniProtIDMappingFileData(uniProtID, uniprotEntryname, entrezGeneIDs, refSeqIds, giNumbers,

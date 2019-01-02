@@ -44,8 +44,8 @@ import edu.ucdenver.ccp.common.file.CharacterEncoding;
 import edu.ucdenver.ccp.common.file.reader.Line;
 import edu.ucdenver.ccp.common.string.StringConstants;
 import edu.ucdenver.ccp.datasource.fileparsers.SingleLineFileRecordReader;
-import edu.ucdenver.ccp.datasource.identifiers.kegg.KeggPathwayID;
-import edu.ucdenver.ccp.datasource.identifiers.ncbi.gene.EntrezGeneID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.KeggPathwayID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.NcbiGeneId;
 
 /**
  * This class is used to parse the Kegg aaa_gene_map.tab file format.
@@ -85,16 +85,16 @@ public class KeggGeneMapTabFileParser extends SingleLineFileRecordReader<KeggGen
 	 * 
 	 * @param keggGeneMapTabFile
 	 */
-	public static Map<EntrezGeneID, Set<KeggPathwayID>> getGeneID2KeggPathwayIDMap(File keggGeneMapTabFile,
+	public static Map<NcbiGeneId, Set<KeggPathwayID>> getGeneID2KeggPathwayIDMap(File keggGeneMapTabFile,
 			CharacterEncoding encoding) throws IOException {
-		Map<EntrezGeneID, Set<KeggPathwayID>> geneID2KeggPathwayIDMap = new HashMap<EntrezGeneID, Set<KeggPathwayID>>();
+		Map<NcbiGeneId, Set<KeggPathwayID>> geneID2KeggPathwayIDMap = new HashMap<NcbiGeneId, Set<KeggPathwayID>>();
 
 		KeggGeneMapTabFileParser parser = null;
 		try {
 			parser = new KeggGeneMapTabFileParser(keggGeneMapTabFile, encoding);
 			while (parser.hasNext()) {
 				KeggGeneMapTabFileData dataRecord = parser.next();
-				EntrezGeneID geneID = dataRecord.getGeneID();
+				NcbiGeneId geneID = dataRecord.getGeneID();
 				Set<KeggPathwayID> keggPathwayIDs = dataRecord.getKeggPathwayIDs();
 				if (geneID2KeggPathwayIDMap.containsKey(geneID)) {
 					geneID2KeggPathwayIDMap.get(geneID).addAll(keggPathwayIDs);

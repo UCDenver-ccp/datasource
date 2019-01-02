@@ -35,18 +35,18 @@ package edu.ucdenver.ccp.datasource.fileparsers.ebi.interpro;
 
 import edu.ucdenver.ccp.datasource.identifiers.DataSourceIdentifier;
 import edu.ucdenver.ccp.datasource.identifiers.UnknownDataSourceIdentifier;
-import edu.ucdenver.ccp.datasource.identifiers.ebi.interpro.Gene3dID;
-import edu.ucdenver.ccp.datasource.identifiers.ebi.interpro.HamapAnnotationRuleID;
-import edu.ucdenver.ccp.datasource.identifiers.ebi.interpro.PantherID;
-import edu.ucdenver.ccp.datasource.identifiers.ebi.interpro.PfamID;
-import edu.ucdenver.ccp.datasource.identifiers.ebi.interpro.PirSfID;
-import edu.ucdenver.ccp.datasource.identifiers.ebi.interpro.PrintsID;
-import edu.ucdenver.ccp.datasource.identifiers.ebi.interpro.ProDomID;
-import edu.ucdenver.ccp.datasource.identifiers.ebi.interpro.PrositeID;
-import edu.ucdenver.ccp.datasource.identifiers.ebi.interpro.SmartID;
-import edu.ucdenver.ccp.datasource.identifiers.ebi.interpro.SuperFamID;
-import edu.ucdenver.ccp.datasource.identifiers.ebi.interpro.TigrFamsID;
-import edu.ucdenver.ccp.datasource.identifiers.ebi.interpro.UncharacterizedPfamID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.Gene3dID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.HamapAnnotationRuleID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.PantherID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.PfamID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.PirSfID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.PrintsID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.ProDomID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.PrositeID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.SmartID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.SuperFamID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.TigrFamsID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.UncharacterizedPfamID;
 
 public class InterProExternalReferenceFactory {
 
@@ -92,6 +92,7 @@ public class InterProExternalReferenceFactory {
 		if (databaseReferenceID.startsWith(PRODOM_PREFIX))
             return new ProDomID(databaseReferenceID);
 
+		
         return new UnknownDataSourceIdentifier(databaseReferenceID);
 	}
 

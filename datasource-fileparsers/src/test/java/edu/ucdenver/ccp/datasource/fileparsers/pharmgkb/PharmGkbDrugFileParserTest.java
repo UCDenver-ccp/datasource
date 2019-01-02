@@ -65,7 +65,7 @@ public class PharmGkbDrugFileParserTest<T> extends RecordReaderTester {
 	public void testParser() throws IOException {
 		RecordReader<PharmGkbDrugFileRecord> reader = initSampleRecordReader();
 		PharmGkbDrugFileRecord r = reader.next();
-		assertEquals("PA164738432", r.getAccessionId().getDataElement());
+		assertEquals("PA164738432", r.getAccessionId().getId());
 		assertEquals("AZD1152", r.getName());
 		assertEquals(0, r.getGenericNames().size());
 		assertEquals(0, r.getTradeNames().size());
@@ -77,7 +77,7 @@ public class PharmGkbDrugFileParserTest<T> extends RecordReaderTester {
 		assertNull(r.getExternalVocabulary());
 
 		r = reader.next();
-		assertEquals("PA164740891", r.getAccessionId().getDataElement());
+		assertEquals("PA164740891", r.getAccessionId().getId());
 		assertEquals("zanamivir", r.getName());
 		assertEquals(5, r.getGenericNames().size());
 		assertEquals(1, r.getTradeNames().size());

@@ -42,6 +42,7 @@ import org.apache.log4j.Logger;
 import edu.ucdenver.ccp.common.download.DownloadUtil;
 import edu.ucdenver.ccp.common.file.CharacterEncoding;
 import edu.ucdenver.ccp.common.file.FileUtil;
+import lombok.Getter;
 
 /**
  * Abstract class for reading data records from a file.
@@ -52,6 +53,10 @@ import edu.ucdenver.ccp.common.file.FileUtil;
 public abstract class FileRecordReader<T extends FileRecord> extends RecordReader<T> {
 
 	private static Logger logger = Logger.getLogger(FileRecordReader.class);
+	@Getter
+	private File workDirectory;
+	@Getter
+	private boolean clean;
 
 	
 	public FileRecordReader(InputStream stream, CharacterEncoding encoding, String skipLinePrefix) throws IOException {
@@ -91,6 +96,8 @@ public abstract class FileRecordReader<T extends FileRecord> extends RecordReade
 			String ftpPassword, boolean clean) throws IOException {
 		FileUtil.mkdir(workDirectory);
 		FileUtil.validateDirectory(workDirectory);
+		this.workDirectory = workDirectory;
+		this.clean = clean;
 		try {
 			DownloadUtil.download(this, workDirectory, ftpUsername, ftpPassword, clean);
 		} catch (IllegalArgumentException e) {

@@ -1,5 +1,10 @@
 package edu.ucdenver.ccp.datasource.fileparsers.dip;
 
+import edu.ucdenver.ccp.datasource.fileparsers.DataRecord;
+import edu.ucdenver.ccp.datasource.fileparsers.Record;
+import edu.ucdenver.ccp.datasource.fileparsers.RecordField;
+import edu.ucdenver.ccp.datasource.identifiers.DataSource;
+
 /*
  * #%L
  * Colorado Computational Pharmacology's common module
@@ -34,10 +39,6 @@ package edu.ucdenver.ccp.datasource.fileparsers.dip;
  */
 
 import lombok.Data;
-import edu.ucdenver.ccp.datasource.fileparsers.DataRecord;
-import edu.ucdenver.ccp.datasource.fileparsers.Record;
-import edu.ucdenver.ccp.datasource.fileparsers.RecordField;
-import edu.ucdenver.ccp.datasource.identifiers.DataSource;
 
 @Record(dataSource = DataSource.DIP, label = "experiment")
 @Data

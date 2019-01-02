@@ -46,14 +46,6 @@ import edu.ucdenver.ccp.common.string.StringConstants;
  */
 public abstract class RecordReader<T extends DataRecord> implements Closeable, Iterator<T> {
 
-//	/**
-//	 * Optional and overridable initialization callback.
-//	 * @throws IOException
-//	 */
-//	protected void initialize() throws IOException {}
-
-
-
 	/**
 	 * This method allows a record reader to introduce a dataset-specific string as a key to what
 	 * kind of data is actually being processed. It is useful for record readers that correspond

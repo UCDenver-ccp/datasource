@@ -40,8 +40,8 @@ import org.apache.log4j.Logger;
 
 import edu.ucdenver.ccp.common.file.reader.Line;
 import edu.ucdenver.ccp.datasource.fileparsers.SingleLineFileRecord;
-import edu.ucdenver.ccp.datasource.identifiers.kegg.KeggPathwayID;
-import edu.ucdenver.ccp.datasource.identifiers.ncbi.gene.EntrezGeneID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.KeggPathwayID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.NcbiGeneId;
 
 /**
  * Representation of data from KEGG aaa_gene_map.tab file format.
@@ -53,18 +53,18 @@ public class KeggGeneMapTabFileData extends SingleLineFileRecord {
 	private static final Logger logger = Logger.getLogger(KeggGeneMapTabFileData.class);
 
 	public static final String RECORD_NAME_PREFIX = "KEGG_GENE2PATHWAY_RECORD_";
-	private final EntrezGeneID geneID;
+	private final NcbiGeneId geneID;
 
 	private final Set<KeggPathwayID> keggPathwayIDs;
 
-	public KeggGeneMapTabFileData(EntrezGeneID geneID, Set<KeggPathwayID> keggPathwayIDs, long byteOffset,
+	public KeggGeneMapTabFileData(NcbiGeneId geneID, Set<KeggPathwayID> keggPathwayIDs, long byteOffset,
 			long lineNumber) {
 		super(byteOffset, lineNumber);
 		this.geneID = geneID;
 		this.keggPathwayIDs = keggPathwayIDs;
 	}
 
-	public EntrezGeneID getGeneID() {
+	public NcbiGeneId getGeneID() {
 		return geneID;
 	}
 
@@ -75,7 +75,7 @@ public class KeggGeneMapTabFileData extends SingleLineFileRecord {
 	public static KeggGeneMapTabFileData parseKeggGeneMapTabLine(Line line) {
 		String[] toks = line.getText().split("\\t");
 		if (toks.length == 2) {
-			EntrezGeneID geneID = new EntrezGeneID(toks[0]);
+			NcbiGeneId geneID = new NcbiGeneId(toks[0]);
 			Set<KeggPathwayID> keggPathwayIDs = new HashSet<KeggPathwayID>();
 			for (String tok : toks[1].split(" "))
 				keggPathwayIDs.add(new KeggPathwayID(tok));

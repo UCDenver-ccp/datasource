@@ -1,0 +1,5 @@
+The interpro.xsd file in this directory was created by running the
+edu.ucdenver.ccp.common.xml.XsdGenerator over a sample of the interpro.xml file.
+
+It is used to automatically generate classes for processing the interpro.xml file.
+Classes are generated using the jaxb-maven plugin and can be found in target/generated-sources/jaxb/org/interpro

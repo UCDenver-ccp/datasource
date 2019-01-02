@@ -49,23 +49,23 @@ import edu.ucdenver.ccp.common.file.CharacterEncoding;
 import edu.ucdenver.ccp.datasource.fileparsers.test.RecordReaderTester;
 import edu.ucdenver.ccp.datasource.identifiers.DataSourceIdentifier;
 import edu.ucdenver.ccp.datasource.identifiers.ProbableErrorDataSourceIdentifier;
-import edu.ucdenver.ccp.datasource.identifiers.bind.BindInteractionID;
-import edu.ucdenver.ccp.datasource.identifiers.ebi.uniprot.UniProtEntryName;
-import edu.ucdenver.ccp.datasource.identifiers.ebi.uniprot.UniProtID;
-import edu.ucdenver.ccp.datasource.identifiers.irefweb.CrigId;
-import edu.ucdenver.ccp.datasource.identifiers.irefweb.CrogId;
-import edu.ucdenver.ccp.datasource.identifiers.irefweb.IcrigId;
-import edu.ucdenver.ccp.datasource.identifiers.irefweb.IcrogId;
-import edu.ucdenver.ccp.datasource.identifiers.irefweb.IrigId;
-import edu.ucdenver.ccp.datasource.identifiers.irefweb.IrogId;
-import edu.ucdenver.ccp.datasource.identifiers.irefweb.RigId;
-import edu.ucdenver.ccp.datasource.identifiers.irefweb.RogId;
-import edu.ucdenver.ccp.datasource.identifiers.ncbi.gene.EntrezGeneID;
-import edu.ucdenver.ccp.datasource.identifiers.ncbi.refseq.RefSeqID;
-import edu.ucdenver.ccp.datasource.identifiers.ncbi.taxonomy.NcbiTaxonomyID;
-import edu.ucdenver.ccp.datasource.identifiers.obo.MolecularInteractionOntologyTermID;
-import edu.ucdenver.ccp.datasource.identifiers.pdb.PdbID;
-import edu.ucdenver.ccp.identifier.publication.PubMedID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.BindInteractionID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.IRefWebCrigId;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.IRefWebCrogId;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.IRefWebIcrigId;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.IRefWebIcrogId;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.IRefWebIrigId;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.IRefWebIrogId;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.IRefWebRigId;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.IRefWebRogId;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.MolecularInteractionOntologyTermID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.NcbiGeneId;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.NcbiTaxonomyID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.PdbID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.RefSeqID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.UniProtEntryName;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.UniProtID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.ice.PubMedID;
 
 /**
  * 
@@ -155,7 +155,7 @@ public class IRefWebPsiMitab2_6FileParserTest extends RecordReaderTester {
 			 */
 
 			IRefWebPsiMitab2_6FileData record = parser.next();
-			assertEquals(new RogId("Ivetsb7L/rt8ds+TyhtJZKxTtVE9796"), record.getInteractorA().getUniqueId());
+			assertEquals(new IRefWebRogId("Ivetsb7L/rt8ds+TyhtJZKxTtVE9796"), record.getInteractorA().getUniqueId());
 			assertEquals(new UniProtID("P05132"), record.getInteractorB().getUniqueId());
 
 			Set<DataSourceIdentifier<?>> expectedAltIdsA = new HashSet<DataSourceIdentifier<?>>();
@@ -164,28 +164,28 @@ public class IRefWebPsiMitab2_6FileParserTest extends RecordReaderTester {
 			expectedAltIdsA.add(new PdbID("1YDS_I"));
 			expectedAltIdsA.add(new PdbID("1FMO_I"));
 			expectedAltIdsA.add(new PdbID("1STC_I"));
-			expectedAltIdsA.add(new RogId("Ivetsb7L/rt8ds+TyhtJZKxTtVE9796"));
-			expectedAltIdsA.add(new IrogId("9981084"));
+			expectedAltIdsA.add(new IRefWebRogId("Ivetsb7L/rt8ds+TyhtJZKxTtVE9796"));
+			expectedAltIdsA.add(new IRefWebIrogId("9981084"));
 			assertEquals(expectedAltIdsA, record.getInteractorA().getAlternateIds());
 
 			Set<DataSourceIdentifier<?>> expectedAltIdsB = new HashSet<DataSourceIdentifier<?>>();
 			expectedAltIdsB.add(new UniProtID("P05132"));
 			expectedAltIdsB.add(new RefSeqID("NP_032880"));
-			expectedAltIdsB.add(new EntrezGeneID("18747"));
-			expectedAltIdsB.add(new RogId("HdW51RuiujpUxo0Fu8TbWz3Yk8c10090"));
-			expectedAltIdsB.add(new IrogId("2201887"));
+			expectedAltIdsB.add(new NcbiGeneId("18747"));
+			expectedAltIdsB.add(new IRefWebRogId("HdW51RuiujpUxo0Fu8TbWz3Yk8c10090"));
+			expectedAltIdsB.add(new IRefWebIrogId("2201887"));
 			assertEquals(expectedAltIdsB, record.getInteractorB().getAlternateIds());
 
 			Set<DataSourceIdentifier<?>> expectedAliasesA = new HashSet<DataSourceIdentifier<?>>();
-			expectedAliasesA.add(new RogId("Ivetsb7L/rt8ds+TyhtJZKxTtVE9796"));
-			expectedAliasesA.add(new CrogId("Ivetsb7L/rt8ds+TyhtJZKxTtVE9796"));
-			expectedAliasesA.add(new IcrogId("9981084"));
+			expectedAliasesA.add(new IRefWebRogId("Ivetsb7L/rt8ds+TyhtJZKxTtVE9796"));
+			expectedAliasesA.add(new IRefWebCrogId("Ivetsb7L/rt8ds+TyhtJZKxTtVE9796"));
+			expectedAliasesA.add(new IRefWebIcrogId("9981084"));
 			assertEquals(expectedAliasesA, record.getInteractorA().getAliasIds());
 
 			Set<DataSourceIdentifier<?>> expectedAliasesB = new HashSet<DataSourceIdentifier<?>>();
 			expectedAliasesB.add(new UniProtEntryName("KAPCA_MOUSE"));
-			expectedAliasesB.add(new CrogId("HdW51RuiujpUxo0Fu8TbWz3Yk8c10090"));
-			expectedAliasesB.add(new IcrogId("2201887"));
+			expectedAliasesB.add(new IRefWebCrogId("HdW51RuiujpUxo0Fu8TbWz3Yk8c10090"));
+			expectedAliasesB.add(new IRefWebIcrogId("2201887"));
 			assertEquals(expectedAliasesB, record.getInteractorB().getAliasIds());
 
 			assertEquals(CollectionsUtil.createSet("rogid:Ivetsb7L/rt8ds+TyhtJZKxTtVE9796",
@@ -216,8 +216,8 @@ public class IRefWebPsiMitab2_6FileParserTest extends RecordReaderTester {
 
 			Set<DataSourceIdentifier<?>> expectedInteractionDbIds = new HashSet<DataSourceIdentifier<?>>();
 			expectedInteractionDbIds.add(new BindInteractionID("76262"));
-			expectedInteractionDbIds.add(new RigId("++f9f/9TQhDLvdrGu56SalIhHSA"));
-			expectedInteractionDbIds.add(new IrigId("617146"));
+			expectedInteractionDbIds.add(new IRefWebRigId("++f9f/9TQhDLvdrGu56SalIhHSA"));
+			expectedInteractionDbIds.add(new IRefWebIrigId("617146"));
 			assertEquals(expectedInteractionDbIds, record.getInteraction().getInteractionDbIds());
 
 			Set<String> expectedConfidences = CollectionsUtil.createSet("lpr:1", "hpr:6", "np:6");
@@ -244,9 +244,9 @@ public class IRefWebPsiMitab2_6FileParserTest extends RecordReaderTester {
 			assertEquals("2010/05/18", record.getCreationDate());
 			assertEquals("2010/05/18", record.getUpdateDate());
 
-			assertEquals(new RogId("Ivetsb7L/rt8ds+TyhtJZKxTtVE9796"), record.getInteractorA().getChecksum());
-			assertEquals(new RogId("HdW51RuiujpUxo0Fu8TbWz3Yk8c10090"), record.getInteractorB().getChecksum());
-			assertEquals(new RigId("++f9f/9TQhDLvdrGu56SalIhHSA"), record.getInteraction().getChecksumInteraction());
+			assertEquals(new IRefWebRogId("Ivetsb7L/rt8ds+TyhtJZKxTtVE9796"), record.getInteractorA().getChecksum());
+			assertEquals(new IRefWebRogId("HdW51RuiujpUxo0Fu8TbWz3Yk8c10090"), record.getInteractorB().getChecksum());
+			assertEquals(new IRefWebRigId("++f9f/9TQhDLvdrGu56SalIhHSA"), record.getInteraction().getChecksumInteraction());
 
 			assertFalse(record.getInteraction().isNegative());
 
@@ -260,17 +260,17 @@ public class IRefWebPsiMitab2_6FileParserTest extends RecordReaderTester {
 			assertEquals("PT", record.getInteractorA().getMappingScore());
 			assertEquals("P", record.getInteractorB().getMappingScore());
 
-			assertEquals(new IrogId("9981084"), record.getInteractorA().getIrogid());
-			assertEquals(new IrogId("2201887"), record.getInteractorB().getIrogid());
-			assertEquals(new IrigId("617146"), record.getInteraction().getIrigid());
+			assertEquals(new IRefWebIrogId("9981084"), record.getInteractorA().getIrogid());
+			assertEquals(new IRefWebIrogId("2201887"), record.getInteractorB().getIrogid());
+			assertEquals(new IRefWebIrigId("617146"), record.getInteraction().getIrigid());
 
-			assertEquals(new CrogId("Ivetsb7L/rt8ds+TyhtJZKxTtVE9796"), record.getInteractorA().getCrogid());
-			assertEquals(new CrogId("HdW51RuiujpUxo0Fu8TbWz3Yk8c10090"), record.getInteractorB().getCrogid());
-			assertEquals(new CrigId("++f9f/9TQhDLvdrGu56SalIhHSA"), record.getInteraction().getCrigid());
+			assertEquals(new IRefWebCrogId("Ivetsb7L/rt8ds+TyhtJZKxTtVE9796"), record.getInteractorA().getCrogid());
+			assertEquals(new IRefWebCrogId("HdW51RuiujpUxo0Fu8TbWz3Yk8c10090"), record.getInteractorB().getCrogid());
+			assertEquals(new IRefWebCrigId("++f9f/9TQhDLvdrGu56SalIhHSA"), record.getInteraction().getCrigid());
 
-			assertEquals(new IcrogId("9981084"), record.getInteractorA().getIcrogid());
-			assertEquals(new IcrogId("2201887"), record.getInteractorB().getIcrogid());
-			assertEquals(new IcrigId("617146"), record.getInteraction().getIcrigid());
+			assertEquals(new IRefWebIcrogId("9981084"), record.getInteractorA().getIcrogid());
+			assertEquals(new IRefWebIcrogId("2201887"), record.getInteractorB().getIcrogid());
+			assertEquals(new IRefWebIcrigId("617146"), record.getInteraction().getIcrigid());
 
 			assertNull(record.getInteraction().getImexId());
 

@@ -1,5 +1,14 @@
 package edu.ucdenver.ccp.datasource.fileparsers.pro;
 
+import edu.ucdenver.ccp.datasource.fileparsers.CcpExtensionOntology;
+import edu.ucdenver.ccp.datasource.fileparsers.License;
+import edu.ucdenver.ccp.datasource.fileparsers.Record;
+import edu.ucdenver.ccp.datasource.fileparsers.RecordField;
+import edu.ucdenver.ccp.datasource.fileparsers.SingleLineFileRecord;
+import edu.ucdenver.ccp.datasource.identifiers.DataSource;
+import edu.ucdenver.ccp.datasource.identifiers.DataSourceIdentifier;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.ProteinOntologyId;
+
 /*
  * #%L
  * Colorado Computational Pharmacology's common module
@@ -35,30 +44,24 @@ package edu.ucdenver.ccp.datasource.fileparsers.pro;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import edu.ucdenver.ccp.datasource.fileparsers.License;
-import edu.ucdenver.ccp.datasource.fileparsers.Record;
-import edu.ucdenver.ccp.datasource.fileparsers.RecordField;
-import edu.ucdenver.ccp.datasource.fileparsers.SingleLineFileRecord;
-import edu.ucdenver.ccp.datasource.identifiers.DataSource;
-import edu.ucdenver.ccp.datasource.identifiers.DataSourceIdentifier;
-import edu.ucdenver.ccp.datasource.identifiers.obo.ProteinOntologyId;
 
 /**
- * @author Center for Computational Pharmacology, UC Denver; ccpsupport@ucdenver.edu
+ * @author Center for Computational Pharmacology, UC Denver;
+ *         ccpsupport@ucdenver.edu
  * 
  */
-@Record(dataSource = DataSource.PR, comment = "The PRO mapping from PRO IDs to other ontologies", license = License.PIR, citation = "http://www.ncbi.nlm.nih.gov/pmc/articles/PMC3013777/?tool=pubmed", label = "id mapping record")
+@Record(ontClass= CcpExtensionOntology.PRO_IDENTIFIER_MAPPING_RECORD, dataSource = DataSource.PR, license = License.PIR, citation = "http://www.ncbi.nlm.nih.gov/pmc/articles/PMC3013777/?tool=pubmed", label = "id mapping record")
 @Data
 @EqualsAndHashCode(callSuper = false)
 public class ProMappingRecord extends SingleLineFileRecord {
 
-	@RecordField(comment = "PR id")
+	@RecordField(ontClass = CcpExtensionOntology.PRO_IDENTIFIER_MAPPING_RECORD___PRO_IDENTIFIER_FIELD_VALUE)
 	private ProteinOntologyId proteinOntologyId;
 
-	@RecordField(comment = "mapping type: is_a or  exact")
+	@RecordField(ontClass = CcpExtensionOntology.PRO_IDENTIFIER_MAPPING_RECORD___MAPPING_TYPE_FIELD_VALUE)
 	private String mappingType;
 
-	@RecordField(comment = "id in other ontology, one of HGNC, MGI, UniProtKB, UniProtKB_VAR, Reactome,PomBase, EcoCyc, possibly others")
+	@RecordField( ontClass = CcpExtensionOntology.PRO_IDENTIFIER_MAPPING_RECORD___TARGET_RECORD_IDENTIFIER_FIELD_VALUE)
 	private DataSourceIdentifier<?> targetRecordId;
 
 	/**

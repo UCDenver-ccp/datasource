@@ -41,11 +41,11 @@ import edu.ucdenver.ccp.datasource.fileparsers.Record;
 import edu.ucdenver.ccp.datasource.fileparsers.RecordField;
 import edu.ucdenver.ccp.datasource.fileparsers.SingleLineFileRecord;
 import edu.ucdenver.ccp.datasource.identifiers.DataSource;
-import edu.ucdenver.ccp.datasource.identifiers.ncbi.gene.EntrezGeneID;
-import edu.ucdenver.ccp.datasource.identifiers.ncbi.gene.GiNumberID;
-import edu.ucdenver.ccp.datasource.identifiers.ncbi.homologene.HomologeneGroupID;
-import edu.ucdenver.ccp.datasource.identifiers.ncbi.refseq.RefSeqID;
-import edu.ucdenver.ccp.datasource.identifiers.ncbi.taxonomy.NcbiTaxonomyID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.GiNumberID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.HomologeneGroupID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.NcbiGeneId;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.NcbiTaxonomyID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.RefSeqID;
 
 /**
  * This class represents data contained in the NCBI HomoloGene homologene.data file which can be
@@ -83,7 +83,7 @@ public class HomoloGeneDataFileData extends SingleLineFileRecord {
 	private final NcbiTaxonomyID taxonomyID;
 
 	@RecordField(comment="Gene ID")
-	private final EntrezGeneID entrezGeneID;
+	private final NcbiGeneId entrezGeneID;
 
 	@RecordField(comment="Gene Symbol")
 	private final String geneSymbol;
@@ -95,7 +95,7 @@ public class HomoloGeneDataFileData extends SingleLineFileRecord {
 	private final RefSeqID proteinAccession;
 
 	public HomoloGeneDataFileData(HomologeneGroupID homologeneGroupID, NcbiTaxonomyID taxonomyID,
-			EntrezGeneID entrezGeneID, String geneSymbol, GiNumberID proteinGI, RefSeqID proteinAccession,
+			NcbiGeneId entrezGeneID, String geneSymbol, GiNumberID proteinGI, RefSeqID proteinAccession,
 			long byteOffset, long lineNumber) {
 		super(byteOffset, lineNumber);
 		this.homologeneGroupID = homologeneGroupID;
@@ -114,7 +114,7 @@ public class HomoloGeneDataFileData extends SingleLineFileRecord {
 		return taxonomyID;
 	}
 
-	public EntrezGeneID getEntrezGeneID() {
+	public NcbiGeneId getEntrezGeneID() {
 		return entrezGeneID;
 	}
 
@@ -144,7 +144,7 @@ public class HomoloGeneDataFileData extends SingleLineFileRecord {
 		}
 		HomologeneGroupID homologeneGroupID = new HomologeneGroupID(toks[0]);
 		NcbiTaxonomyID taxonomyID = new NcbiTaxonomyID(toks[1]);
-		EntrezGeneID entrezGeneID = new EntrezGeneID(toks[2]);
+		NcbiGeneId entrezGeneID = new NcbiGeneId(toks[2]);
 		String geneSymbol = new String(toks[3]);
 		GiNumberID proteinGI = new GiNumberID(toks[4]);
 		RefSeqID proteinAccession = new RefSeqID(toks[5]);

@@ -42,7 +42,7 @@ import java.util.Set;
 import edu.ucdenver.ccp.common.file.CharacterEncoding;
 import edu.ucdenver.ccp.datasource.fileparsers.FileRecord;
 import edu.ucdenver.ccp.datasource.fileparsers.MultiLineFileRecordReader;
-import edu.ucdenver.ccp.datasource.identifiers.ncbi.taxonomy.NcbiTaxonomyID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.NcbiTaxonomyID;
 
 public abstract class TaxonAwareMultiLineFileRecordReader<T extends FileRecord> extends MultiLineFileRecordReader<T> {
 

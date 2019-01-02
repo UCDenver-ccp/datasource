@@ -68,9 +68,9 @@ import edu.ucdenver.ccp.datasource.fileparsers.SingleLineFileRecord;
 import edu.ucdenver.ccp.datasource.identifiers.DataSource;
 import edu.ucdenver.ccp.datasource.identifiers.DataSourceIdResolver;
 import edu.ucdenver.ccp.datasource.identifiers.DataSourceIdentifier;
-import edu.ucdenver.ccp.datasource.identifiers.ncbi.taxonomy.NcbiTaxonomyID;
-import edu.ucdenver.ccp.datasource.identifiers.obo.GeneOntologyID;
-import edu.ucdenver.ccp.identifier.publication.PubMedID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.GeneOntologyID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.NcbiTaxonomyID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.ice.PubMedID;
 
 /**
  * A representation of data records contained in the gene_association.mgi file.<br>
@@ -275,7 +275,7 @@ public class GeneAssociationFileData extends SingleLineFileRecord {
 		String[] toks = line.getText().split("\\t");
 
 		String databaseDesignation = new String(toks[0]);
-		DataSourceIdentifier<?> geneID = DataSourceIdResolver.resolveId(databaseDesignation, toks[1]);
+		DataSourceIdentifier<?> geneID = DataSourceIdResolver.resolveId(databaseDesignation, toks[1], "Source: " + toks[0] + " ID: " + toks[1]);
 		String markerSymbol = new String(toks[2]);
 
 		String qualifier = null;

@@ -52,8 +52,8 @@ import edu.ucdenver.ccp.common.file.CharacterEncoding;
 import edu.ucdenver.ccp.common.file.FileUtil;
 import edu.ucdenver.ccp.datasource.fileparsers.RecordReader;
 import edu.ucdenver.ccp.datasource.fileparsers.test.RecordReaderTester;
-import edu.ucdenver.ccp.datasource.identifiers.kegg.KeggPathwayID;
-import edu.ucdenver.ccp.datasource.identifiers.ncbi.gene.EntrezGeneID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.KeggPathwayID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.NcbiGeneId;
 
 /**
  * 
@@ -82,7 +82,7 @@ public class KeggGeneMapTabFileParserTest extends RecordReaderTester {
 			if (parser.hasNext()) {
 				/* 100039790 04020 04514 04612 04660 04940 05310 05320 05322 05330 05332 */
 				KeggGeneMapTabFileData record1 = parser.next();
-				assertEquals(new EntrezGeneID("100039790"), record1.getGeneID());
+				assertEquals(new NcbiGeneId("100039790"), record1.getGeneID());
 				assertEquals(10, record1.getKeggPathwayIDs().size());
 				Set<KeggPathwayID> pathwayIDs = new HashSet<KeggPathwayID>();
 				pathwayIDs.add(new KeggPathwayID("04020"));
@@ -103,7 +103,7 @@ public class KeggGeneMapTabFileParserTest extends RecordReaderTester {
 			if (parser.hasNext()) {
 				/* 100040390 04120 05020 */
 				KeggGeneMapTabFileData record2 = parser.next();
-				assertEquals(new EntrezGeneID("100040390"), record2.getGeneID());
+				assertEquals(new NcbiGeneId("100040390"), record2.getGeneID());
 				assertEquals(2, record2.getKeggPathwayIDs().size());
 				Set<KeggPathwayID> pathwayIDs = new HashSet<KeggPathwayID>();
 				pathwayIDs.add(new KeggPathwayID("04120"));
@@ -116,7 +116,7 @@ public class KeggGeneMapTabFileParserTest extends RecordReaderTester {
 			if (parser.hasNext()) {
 				/* 100041140 03410 */
 				KeggGeneMapTabFileData record3 = parser.next();
-				assertEquals(new EntrezGeneID("100041140"), record3.getGeneID());
+				assertEquals(new NcbiGeneId("100041140"), record3.getGeneID());
 				assertEquals(1, record3.getKeggPathwayIDs().size());
 				Set<KeggPathwayID> pathwayIDs = new HashSet<KeggPathwayID>();
 				pathwayIDs.add(new KeggPathwayID("03410"));
@@ -135,17 +135,17 @@ public class KeggGeneMapTabFileParserTest extends RecordReaderTester {
 
 	@Test
 	public void testGetGeneID2KeggPathwayIDMap() throws Exception {
-		Map<EntrezGeneID, Set<KeggPathwayID>> geneID2KeggPathwayIDMap = KeggGeneMapTabFileParser
+		Map<NcbiGeneId, Set<KeggPathwayID>> geneID2KeggPathwayIDMap = KeggGeneMapTabFileParser
 				.getGeneID2KeggPathwayIDMap(sampleInputFile, CharacterEncoding.US_ASCII);
 
-		Map<EntrezGeneID, Set<KeggPathwayID>> expectedMap = new HashMap<EntrezGeneID, Set<KeggPathwayID>>();
-		expectedMap.put(new EntrezGeneID("100039790"), CollectionsUtil.createSet(new KeggPathwayID("04020"),
+		Map<NcbiGeneId, Set<KeggPathwayID>> expectedMap = new HashMap<NcbiGeneId, Set<KeggPathwayID>>();
+		expectedMap.put(new NcbiGeneId("100039790"), CollectionsUtil.createSet(new KeggPathwayID("04020"),
 				new KeggPathwayID("04514"), new KeggPathwayID("04612"), new KeggPathwayID("04660"), new KeggPathwayID(
 						"04940"), new KeggPathwayID("05310"), new KeggPathwayID("05320"), new KeggPathwayID("05322"),
 				new KeggPathwayID("05330"), new KeggPathwayID("05332")));
-		expectedMap.put(new EntrezGeneID("100040390"),
+		expectedMap.put(new NcbiGeneId("100040390"),
 				CollectionsUtil.createSet(new KeggPathwayID("04120"), new KeggPathwayID("05020")));
-		expectedMap.put(new EntrezGeneID("100041140"), CollectionsUtil.createSet(new KeggPathwayID("03410")));
+		expectedMap.put(new NcbiGeneId("100041140"), CollectionsUtil.createSet(new KeggPathwayID("03410")));
 
 		assertEquals(expectedMap, geneID2KeggPathwayIDMap);
 

@@ -50,11 +50,11 @@ import edu.ucdenver.ccp.common.file.CharacterEncoding;
 import edu.ucdenver.ccp.common.file.FileUtil;
 import edu.ucdenver.ccp.datasource.fileparsers.RecordReader;
 import edu.ucdenver.ccp.datasource.fileparsers.test.RecordReaderTester;
-import edu.ucdenver.ccp.datasource.identifiers.ncbi.gene.EntrezGeneID;
-import edu.ucdenver.ccp.datasource.identifiers.ncbi.gene.GiNumberID;
-import edu.ucdenver.ccp.datasource.identifiers.ncbi.homologene.HomologeneGroupID;
-import edu.ucdenver.ccp.datasource.identifiers.ncbi.refseq.RefSeqID;
-import edu.ucdenver.ccp.datasource.identifiers.ncbi.taxonomy.NcbiTaxonomyID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.GiNumberID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.HomologeneGroupID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.NcbiGeneId;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.NcbiTaxonomyID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.RefSeqID;
 
 /**
  * 
@@ -87,7 +87,7 @@ public class HomoloGeneDataFileParserTest extends RecordReaderTester {
 				HomoloGeneDataFileData record = parser.next();
 				assertEquals(new HomologeneGroupID(3), record.getHomologeneGroupID());
 				assertEquals(new NcbiTaxonomyID(6239), record.getTaxonomyID());
-				assertEquals(new EntrezGeneID(181758), record.getEntrezGeneID());
+				assertEquals(new NcbiGeneId(181758), record.getEntrezGeneID());
 				assertEquals(new String("acdh-7"), record.getGeneSymbol());
 				assertEquals(new GiNumberID(17570075), record.getProteinGI());
 				assertEquals(new RefSeqID("NP_510789.1"), record.getProteinAccession());
@@ -102,7 +102,7 @@ public class HomoloGeneDataFileParserTest extends RecordReaderTester {
 				HomoloGeneDataFileData record = parser.next();
 				assertEquals(new HomologeneGroupID(5), record.getHomologeneGroupID());
 				assertEquals(new NcbiTaxonomyID(9606), record.getTaxonomyID());
-				assertEquals(new EntrezGeneID(37), record.getEntrezGeneID());
+				assertEquals(new NcbiGeneId(37), record.getEntrezGeneID());
 				assertEquals(new String("ACADVL"), record.getGeneSymbol());
 				assertEquals(new GiNumberID(4557235), record.getProteinGI());
 				assertEquals(new RefSeqID("NP_000009.1"), record.getProteinAccession());
@@ -117,7 +117,7 @@ public class HomoloGeneDataFileParserTest extends RecordReaderTester {
 				HomoloGeneDataFileData record = parser.next();
 				assertEquals(new HomologeneGroupID(5), record.getHomologeneGroupID());
 				assertEquals(new NcbiTaxonomyID(9615), record.getTaxonomyID());
-				assertEquals(new EntrezGeneID(489463), record.getEntrezGeneID());
+				assertEquals(new NcbiGeneId(489463), record.getEntrezGeneID());
 				assertEquals(new String("ACADVL"), record.getGeneSymbol());
 				assertEquals(new GiNumberID(73955386), record.getProteinGI());
 				assertEquals(new RefSeqID("XP_546581.2"), record.getProteinAccession());
@@ -132,7 +132,7 @@ public class HomoloGeneDataFileParserTest extends RecordReaderTester {
 				HomoloGeneDataFileData record = parser.next();
 				assertEquals(new HomologeneGroupID(121481), record.getHomologeneGroupID());
 				assertEquals(new NcbiTaxonomyID(10090), record.getTaxonomyID());
-				assertEquals(new EntrezGeneID(665823), record.getEntrezGeneID());
+				assertEquals(new NcbiGeneId(665823), record.getEntrezGeneID());
 				assertEquals(new String("EG665823"), record.getGeneSymbol());
 				assertEquals(new GiNumberID(94386017), record.getProteinGI());
 				assertEquals(new RefSeqID("XP_984804.1"), record.getProteinAccession());
@@ -151,14 +151,14 @@ public class HomoloGeneDataFileParserTest extends RecordReaderTester {
 
 	@Test
 	public void testGetEntrezGeneID2HomologeneGroupIDMap() throws Exception {
-		Map<EntrezGeneID, HomologeneGroupID> entrezGeneID2HomologeneGroupIDMap = HomoloGeneDataFileParser
+		Map<NcbiGeneId, HomologeneGroupID> entrezGeneID2HomologeneGroupIDMap = HomoloGeneDataFileParser
 				.getEntrezGeneID2HomologeneGroupIDMap(sampleInputFile, CharacterEncoding.US_ASCII);
 
-		Map<EntrezGeneID, HomologeneGroupID> expectedEntrezGeneID2HomologeneGroupIDMap = new HashMap<EntrezGeneID, HomologeneGroupID>();
-		expectedEntrezGeneID2HomologeneGroupIDMap.put(new EntrezGeneID(181758), new HomologeneGroupID(3));
-		expectedEntrezGeneID2HomologeneGroupIDMap.put(new EntrezGeneID(37), new HomologeneGroupID(5));
-		expectedEntrezGeneID2HomologeneGroupIDMap.put(new EntrezGeneID(489463), new HomologeneGroupID(5));
-		expectedEntrezGeneID2HomologeneGroupIDMap.put(new EntrezGeneID(665823), new HomologeneGroupID(121481));
+		Map<NcbiGeneId, HomologeneGroupID> expectedEntrezGeneID2HomologeneGroupIDMap = new HashMap<NcbiGeneId, HomologeneGroupID>();
+		expectedEntrezGeneID2HomologeneGroupIDMap.put(new NcbiGeneId(181758), new HomologeneGroupID(3));
+		expectedEntrezGeneID2HomologeneGroupIDMap.put(new NcbiGeneId(37), new HomologeneGroupID(5));
+		expectedEntrezGeneID2HomologeneGroupIDMap.put(new NcbiGeneId(489463), new HomologeneGroupID(5));
+		expectedEntrezGeneID2HomologeneGroupIDMap.put(new NcbiGeneId(665823), new HomologeneGroupID(121481));
 
 		/* Maps should be identical */
 		assertEquals(expectedEntrezGeneID2HomologeneGroupIDMap, entrezGeneID2HomologeneGroupIDMap);

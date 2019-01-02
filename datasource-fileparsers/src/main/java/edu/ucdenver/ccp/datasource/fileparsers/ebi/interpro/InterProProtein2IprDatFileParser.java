@@ -57,6 +57,7 @@ import java.io.IOException;
 import java.util.Set;
 import java.util.zip.GZIPInputStream;
 
+import edu.ucdenver.ccp.common.collections.CollectionsUtil;
 import edu.ucdenver.ccp.common.download.FtpDownload;
 import edu.ucdenver.ccp.common.file.CharacterEncoding;
 import edu.ucdenver.ccp.common.file.reader.Line;
@@ -65,8 +66,8 @@ import edu.ucdenver.ccp.common.ftp.FTPUtil.FileType;
 import edu.ucdenver.ccp.datasource.fileparsers.idlist.IdListFileFactory;
 import edu.ucdenver.ccp.datasource.fileparsers.taxonaware.TaxonAwareSingleLineFileRecordReader;
 import edu.ucdenver.ccp.datasource.identifiers.DataSource;
-import edu.ucdenver.ccp.datasource.identifiers.ebi.uniprot.UniProtID;
-import edu.ucdenver.ccp.datasource.identifiers.ncbi.taxonomy.NcbiTaxonomyID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.NcbiTaxonomyID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.UniProtID;
 
 /**
  * This class is used to parse the InterPro protein2ipr.dat file
@@ -97,17 +98,17 @@ public class InterProProtein2IprDatFileParser extends
 	}
 
 	public InterProProtein2IprDatFileParser(File file, CharacterEncoding encoding, File idListDirectory,
-			Set<NcbiTaxonomyID> taxonIds) throws IOException {
+			Set<NcbiTaxonomyID> taxonIds, File baseSourceFileDirectory, boolean cleanIdListFiles) throws IOException {
 		super(file, encoding, null, taxonIds);
-		taxonSpecificIds = IdListFileFactory.getIdListFromFile(idListDirectory, DataSource.UNIPROT, taxonIds,
-				UniProtID.class);
+		taxonSpecificIds = IdListFileFactory.getIdListFromFile(idListDirectory, baseSourceFileDirectory, DataSource.UNIPROT, taxonIds,
+				UniProtID.class, cleanIdListFiles);
 	}
 
 	public InterProProtein2IprDatFileParser(File workDirectory, boolean clean, File idListDirectory,
-			Set<NcbiTaxonomyID> taxonIds) throws IOException {
+			Set<NcbiTaxonomyID> taxonIds,File baseSourceFileDirectory, boolean cleanIdListFiles) throws IOException {
 		super(workDirectory, ENCODING, null, null, null, clean, taxonIds);
-		taxonSpecificIds = IdListFileFactory.getIdListFromFile(idListDirectory, DataSource.UNIPROT, taxonIds,
-				UniProtID.class);
+		taxonSpecificIds = IdListFileFactory.getIdListFromFile(idListDirectory, baseSourceFileDirectory, DataSource.UNIPROT, taxonIds,
+				UniProtID.class, cleanIdListFiles);
 	}
 
 	@Override
@@ -123,15 +124,15 @@ public class InterProProtein2IprDatFileParser extends
 	}
 
 	@Override
-	protected NcbiTaxonomyID getLineTaxon(Line line) {
+	protected Set<NcbiTaxonomyID> getLineTaxon(Line line) {
 		InterProProtein2IprDatFileData record = parseRecordFromLine(line);
-		if (taxonSpecificIds != null && !taxonSpecificIds.isEmpty() && taxonSpecificIds.contains(record.getUniProtID())) {
+		if (taxonSpecificIds != null && !taxonSpecificIds.isEmpty() && taxonSpecificIds.contains(record.getUniprotID())) {
 			// here we have matched the record uniprot id as one of the ids of interest. We don't
 			// know exactly what taxon it is however so we just return one (arbitrarily) of the
 			// taxon ids of interest. this will ensure this record is returned.
-			return taxonsOfInterest.iterator().next();
+			return CollectionsUtil.createSet(taxonsOfInterest.iterator().next());
 		}
-		return new NcbiTaxonomyID(0);
+		return CollectionsUtil.createSet(new NcbiTaxonomyID(0));
 	}
 
 }

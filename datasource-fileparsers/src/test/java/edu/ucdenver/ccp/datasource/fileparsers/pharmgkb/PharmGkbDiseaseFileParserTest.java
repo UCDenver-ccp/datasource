@@ -52,11 +52,10 @@ import edu.ucdenver.ccp.common.file.CharacterEncoding;
 import edu.ucdenver.ccp.common.file.FileUtil;
 import edu.ucdenver.ccp.datasource.fileparsers.RecordReader;
 import edu.ucdenver.ccp.datasource.fileparsers.test.RecordReaderTester;
-import edu.ucdenver.ccp.datasource.identifiers.DataSourceElement;
 import edu.ucdenver.ccp.datasource.identifiers.DataSourceIdentifier;
-import edu.ucdenver.ccp.datasource.identifiers.ncbi.MeshID;
-import edu.ucdenver.ccp.datasource.identifiers.other.SnoMedCtId;
-import edu.ucdenver.ccp.datasource.identifiers.other.UmlsId;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.MeshID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.SnoMedCtId;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.UmlsId;
 
 public class PharmGkbDiseaseFileParserTest extends RecordReaderTester {
 
@@ -74,7 +73,7 @@ public class PharmGkbDiseaseFileParserTest extends RecordReaderTester {
 	public void testParser() throws IOException {
 		RecordReader<PharmGkbDiseaseFileRecord> reader = initSampleRecordReader();
 		PharmGkbDiseaseFileRecord r = reader.next();
-		assertEquals("PA128406954", r.getAccessionId().getDataElement());
+		assertEquals("PA128406954", r.getAccessionId().getId());
 		String r1 = r.getName();
 		assertEquals("Weight gain", r1);
 		String r2 = r.getAlternativeNames().iterator().next();
@@ -91,7 +90,7 @@ public class PharmGkbDiseaseFileParserTest extends RecordReaderTester {
 		assertEquals(expectedExternalVocab, new HashSet<DataSourceIdentifier<?>>(r.getExternalVocabulary()));
 
 		r = reader.next();
-		assertEquals("PA128406957", r.getAccessionId().getDataElement());
+		assertEquals("PA128406957", r.getAccessionId().getId());
 		String r3 = r.getName();
 		assertEquals("5-fluorouracil associated toxicity", r3);
 		assertEquals(0, r.getAlternativeNames().size());
@@ -101,7 +100,7 @@ public class PharmGkbDiseaseFileParserTest extends RecordReaderTester {
 		// this record checks that the parse succeeds when there is a comma in a value that is in a
 		// comma-delimited field, e.g. SnoMedCT:88619007(Vascular resistance, function)
 		r = reader.next();
-		assertEquals("PA143488504", r.getAccessionId().getDataElement());
+		assertEquals("PA143488504", r.getAccessionId().getId());
 		expectedExternalVocab = new HashSet<DataSourceIdentifier<?>>();
 		expectedExternalVocab.add(new MeshID("D014655"));
 		expectedExternalVocab.add(new SnoMedCtId("88619007"));

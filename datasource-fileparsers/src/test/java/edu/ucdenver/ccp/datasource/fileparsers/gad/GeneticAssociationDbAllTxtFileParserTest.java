@@ -50,13 +50,13 @@ import edu.ucdenver.ccp.common.file.CharacterEncoding;
 import edu.ucdenver.ccp.common.file.FileUtil;
 import edu.ucdenver.ccp.datasource.fileparsers.RecordReader;
 import edu.ucdenver.ccp.datasource.fileparsers.test.RecordReaderTester;
-import edu.ucdenver.ccp.datasource.identifiers.gad.GadID;
-import edu.ucdenver.ccp.datasource.identifiers.hgnc.HgncGeneSymbolID;
-import edu.ucdenver.ccp.datasource.identifiers.ncbi.UniGeneID;
-import edu.ucdenver.ccp.datasource.identifiers.ncbi.gene.EntrezGeneID;
-import edu.ucdenver.ccp.datasource.identifiers.ncbi.omim.OmimID;
-import edu.ucdenver.ccp.datasource.identifiers.ncbi.refseq.RefSeqID;
-import edu.ucdenver.ccp.identifier.publication.PubMedID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.GadID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.HgncGeneSymbolID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.NcbiGeneId;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.OmimID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.RefSeqID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.UniGeneID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.ice.PubMedID;
 
 /**
  * 
@@ -90,7 +90,7 @@ public class GeneticAssociationDbAllTxtFileParserTest extends RecordReaderTester
 				assertEquals(new HgncGeneSymbolID("HLA-A"), record1.getGeneSymbol());
 				assertEquals(new String("leukemia"), record1.getBroadPhenotype());
 				assertEquals(new String("CANCER"), record1.getDiseaseClass());
-				assertEquals(String.format("Incorrect EntrezGeneID"), new EntrezGeneID(3105), record1.getEntrezGeneID());
+				assertEquals(String.format("Incorrect EntrezGeneID"), new NcbiGeneId(3105), record1.getEntrezGeneID());
 				assertEquals(String.format("Incorrect UniGeneID"), new UniGeneID("Hs.181244"),
 						record1.getUnigeneAccessionID());
 				assertEquals(String.format("Incorrect RefSeqID"), new RefSeqID("NM_002116.5"), record1.getNucleotideID());
@@ -110,7 +110,7 @@ public class GeneticAssociationDbAllTxtFileParserTest extends RecordReaderTester
 				assertEquals(new HgncGeneSymbolID("HLA-A"), record2.getGeneSymbol());
 				assertEquals(new String("leukemia"), record2.getBroadPhenotype());
 				assertEquals(new String("CANCER"), record2.getDiseaseClass());
-				assertEquals(String.format("Incorrect EntrezGeneID"), new EntrezGeneID(3105), record2.getEntrezGeneID());
+				assertEquals(String.format("Incorrect EntrezGeneID"), new NcbiGeneId(3105), record2.getEntrezGeneID());
 				assertEquals(String.format("Incorrect UniGeneID"), new UniGeneID("Hs.181244"),
 						record2.getUnigeneAccessionID());
 				assertEquals(String.format("Incorrect RefSeqID"), new RefSeqID("NM_002116.5"), record2.getNucleotideID());
@@ -130,7 +130,7 @@ public class GeneticAssociationDbAllTxtFileParserTest extends RecordReaderTester
 				assertEquals(new HgncGeneSymbolID("HLA-A"), record3.getGeneSymbol());
 				assertEquals(new String("alopecia areata"), record3.getBroadPhenotype());
 				assertEquals(new String("IMMUNE"), record3.getDiseaseClass());
-				assertEquals(String.format("Incorrect EntrezGeneID"), new EntrezGeneID(3105), record3.getEntrezGeneID());
+				assertEquals(String.format("Incorrect EntrezGeneID"), new NcbiGeneId(3105), record3.getEntrezGeneID());
 				assertEquals(String.format("Incorrect UniGeneID"), new UniGeneID("Hs.181244"),
 						record3.getUnigeneAccessionID());
 				assertEquals(String.format("Incorrect RefSeqID"), new RefSeqID("NM_002116.5"), record3.getNucleotideID());

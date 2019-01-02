@@ -36,28 +36,29 @@ package edu.ucdenver.ccp.datasource.fileparsers.mirbase;
 import java.util.ArrayList;
 import java.util.List;
 
-import lombok.Data;
 import edu.ucdenver.ccp.common.string.StringUtil;
+import edu.ucdenver.ccp.datasource.fileparsers.CcpExtensionOntology;
 import edu.ucdenver.ccp.datasource.fileparsers.Record;
 import edu.ucdenver.ccp.datasource.fileparsers.RecordField;
 import edu.ucdenver.ccp.datasource.fileparsers.ebi.embl.SequenceFeature;
 import edu.ucdenver.ccp.datasource.fileparsers.ebi.embl.SequenceFeatureLocation;
 import edu.ucdenver.ccp.datasource.fileparsers.ebi.embl.SequenceFeatureQualifierSet;
 import edu.ucdenver.ccp.datasource.identifiers.DataSource;
+import lombok.Data;
 
 /**
  * @author Colorado Computational Pharmacology, UC Denver; ccpsupport@ucdenver.edu
  * 
  */
 @Data
-@Record(dataSource = DataSource.MIRBASE)
+@Record(ontClass = CcpExtensionOntology.MIRBASE_MICRORNA_SEQUENCE_FEATURE_RECORD, dataSource = DataSource.MIRBASE)
 public class MirBaseMiRnaSequenceFeature implements SequenceFeature {
 
-	@RecordField
+	@RecordField(ontClass = CcpExtensionOntology.MIRBASE_MICRORNA_SEQUENCE_FEATURE_RECORD___KEY_FIELD_VALUE)
 	private final String key = "miRNA";
-	@RecordField
+	@RecordField(ontClass = CcpExtensionOntology.MIRBASE_MICRORNA_SEQUENCE_FEATURE_RECORD___LOCATION_FIELD_VALUE)
 	private final SequenceFeatureLocation location;
-	@RecordField
+	@RecordField(ontClass = CcpExtensionOntology.MIRBASE_MICRORNA_SEQUENCE_FEATURE_RECORD___QUALIFIER_SET_FIELD_VALUE)
 	private final MirBaseMiRnaSequenceFeatureQualifierSet qualifierSet;
 	
 	
@@ -141,18 +142,18 @@ public class MirBaseMiRnaSequenceFeature implements SequenceFeature {
 		return input;
 	}
 
-	@Record(dataSource = DataSource.MIRBASE)
+	@Record(ontClass = CcpExtensionOntology.MIRBASE_MICRORNA_SEQUENCE_FEATURE_QUALIFIER_SET_RECORD, dataSource = DataSource.MIRBASE)
 	@Data
 	public static class MirBaseMiRnaSequenceFeatureQualifierSet implements SequenceFeatureQualifierSet {
-		@RecordField
+		@RecordField(ontClass = CcpExtensionOntology.MIRBASE_MICRORNA_SEQUENCE_FEATURE_QUALIFIER_SET_RECORD___ACCESSION_FIELD_VALUE)
 		private final String accession;
-		@RecordField
+		@RecordField(ontClass = CcpExtensionOntology.MIRBASE_MICRORNA_SEQUENCE_FEATURE_QUALIFIER_SET_RECORD___PRODUCT_FIELD_VALUE)
 		private final String product;
-		@RecordField
+		@RecordField(ontClass = CcpExtensionOntology.MIRBASE_MICRORNA_SEQUENCE_FEATURE_QUALIFIER_SET_RECORD___EVIDENCE_FIELD_VALUE)
 		private final String evidence;
-		@RecordField
+		@RecordField(ontClass = CcpExtensionOntology.MIRBASE_MICRORNA_SEQUENCE_FEATURE_QUALIFIER_SET_RECORD___EXPERIMENT_FIELD_VALUE)
 		private final String experiment;
-		@RecordField
+		@RecordField(ontClass = CcpExtensionOntology.MIRBASE_MICRORNA_SEQUENCE_FEATURE_QUALIFIER_SET_RECORD___SIMILARITY_FIELD_VALUE)
 		private final String similarity;
 	}
 

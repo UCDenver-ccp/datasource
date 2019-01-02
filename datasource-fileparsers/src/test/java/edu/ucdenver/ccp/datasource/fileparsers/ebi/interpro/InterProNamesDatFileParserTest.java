@@ -93,7 +93,7 @@ public class InterProNamesDatFileParserTest extends RecordReaderTester {
 			if (parser.hasNext()) {
 				/* IPR000001 Kringle */
 				InterProNamesDatFileData record1 = parser.next();
-				assertEquals("IPR000001", record1.getInterProID().toString());
+				assertEquals("IPR000001", record1.getInterProID().getId());
 				assertEquals("Kringle", record1.getInterProName().toString());
 			} else {
 				fail("Parser should have returned a record here.");
@@ -102,7 +102,7 @@ public class InterProNamesDatFileParserTest extends RecordReaderTester {
 			if (parser.hasNext()) {
 				/* IPR000003 Retinoid X receptor */
 				InterProNamesDatFileData record2 = parser.next();
-				assertEquals("IPR000003", record2.getInterProID().toString());
+				assertEquals("IPR000003", record2.getInterProID().getId());
 				assertEquals("Retinoid X receptor", record2.getInterProName().toString());
 			} else {
 				fail("Parser should have returned a record here.");
@@ -111,7 +111,7 @@ public class InterProNamesDatFileParserTest extends RecordReaderTester {
 			if (parser.hasNext()) {
 				/* IPR000005 Helix-turn-helix, AraC type */
 				InterProNamesDatFileData record3 = parser.next();
-				assertEquals("IPR000005", record3.getInterProID().toString());
+				assertEquals("IPR000005", record3.getInterProID().getId());
 				assertEquals("Helix-turn-helix, AraC type", record3.getInterProName().toString());
 			} else {
 				fail("Parser should have returned a record here.");
@@ -136,28 +136,19 @@ public class InterProNamesDatFileParserTest extends RecordReaderTester {
 
 	private List<String> getExpectedLines() {
 		final String NS = "<http://kabob.ucdenver.edu/ice/interpro/";
-		return CollectionsUtil
-				.createList(
-						NS
-								+ "IPR000001_ICE> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://kabob.ucdenver.edu/ice/interpro/InterProIce1> .",
-						NS + "IPR000001_ICE> <http://www.ebi.ac.uk/interpro/hasInterProName> \"Kringle\"@en .",
-						NS + "IPR000001_ICE> <http://www.ebi.ac.uk/interpro/hasInterProID> \"IPR000001\"@en .",
-						NS
-								+ "IPR000001_ICE> <http://purl.obolibrary.org/obo/IAO_0000136> <http://www.ebi.ac.uk/interpro/IPR000001> .",
-						NS
-								+ "IPR000003_ICE> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://kabob.ucdenver.edu/ice/interpro/InterProIce1> .",
-						NS
-								+ "IPR000003_ICE> <http://www.ebi.ac.uk/interpro/hasInterProName> \"Retinoid X receptor\"@en .",
-						NS + "IPR000003_ICE> <http://www.ebi.ac.uk/interpro/hasInterProID> \"IPR000003\"@en .",
-						NS
-								+ "IPR000003_ICE> <http://purl.obolibrary.org/obo/IAO_0000136> <http://www.ebi.ac.uk/interpro/IPR000003> .",
-						NS
-								+ "IPR000005_ICE> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://kabob.ucdenver.edu/ice/interpro/InterProIce1> .",
-						NS
-								+ "IPR000005_ICE> <http://www.ebi.ac.uk/interpro/hasInterProName> \"Helix-turn-helix, AraC type\"@en .",
-						NS + "IPR000005_ICE> <http://www.ebi.ac.uk/interpro/hasInterProID> \"IPR000005\"@en .",
-						NS
-								+ "IPR000005_ICE> <http://purl.obolibrary.org/obo/IAO_0000136> <http://www.ebi.ac.uk/interpro/IPR000005> .");
+		return CollectionsUtil.createList(
+				NS + "IPR000001_ICE> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://kabob.ucdenver.edu/ice/interpro/InterProIce1> .",
+				NS + "IPR000001_ICE> <http://www.ebi.ac.uk/interpro/hasInterProName> \"Kringle\"@en .",
+				NS + "IPR000001_ICE> <http://www.ebi.ac.uk/interpro/hasInterProID> \"IPR000001\"@en .",
+				NS + "IPR000001_ICE> <http://purl.obolibrary.org/obo/IAO_0000136> <http://www.ebi.ac.uk/interpro/IPR000001> .",
+				NS + "IPR000003_ICE> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://kabob.ucdenver.edu/ice/interpro/InterProIce1> .",
+				NS + "IPR000003_ICE> <http://www.ebi.ac.uk/interpro/hasInterProName> \"Retinoid X receptor\"@en .",
+				NS + "IPR000003_ICE> <http://www.ebi.ac.uk/interpro/hasInterProID> \"IPR000003\"@en .",
+				NS + "IPR000003_ICE> <http://purl.obolibrary.org/obo/IAO_0000136> <http://www.ebi.ac.uk/interpro/IPR000003> .",
+				NS + "IPR000005_ICE> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://kabob.ucdenver.edu/ice/interpro/InterProIce1> .",
+				NS + "IPR000005_ICE> <http://www.ebi.ac.uk/interpro/hasInterProName> \"Helix-turn-helix, AraC type\"@en .",
+				NS + "IPR000005_ICE> <http://www.ebi.ac.uk/interpro/hasInterProID> \"IPR000005\"@en .",
+				NS + "IPR000005_ICE> <http://purl.obolibrary.org/obo/IAO_0000136> <http://www.ebi.ac.uk/interpro/IPR000005> .");
 	}
 
 	protected Map<String, Integer> getExpectedFileStatementCounts() {

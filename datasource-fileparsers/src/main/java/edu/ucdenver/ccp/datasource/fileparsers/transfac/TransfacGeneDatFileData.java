@@ -49,11 +49,11 @@ import edu.ucdenver.ccp.datasource.fileparsers.MultiLineFileRecordReader.MultiLi
 import edu.ucdenver.ccp.datasource.fileparsers.Record;
 import edu.ucdenver.ccp.datasource.fileparsers.RecordField;
 import edu.ucdenver.ccp.datasource.identifiers.DataSource;
-import edu.ucdenver.ccp.datasource.identifiers.ebi.embl.EmblID;
-import edu.ucdenver.ccp.datasource.identifiers.mgi.MgiGeneID;
-import edu.ucdenver.ccp.datasource.identifiers.ncbi.gene.EntrezGeneID;
-import edu.ucdenver.ccp.datasource.identifiers.transfac.TransfacFactorID;
-import edu.ucdenver.ccp.datasource.identifiers.transfac.TransfacGeneID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.EmblID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.MgiGeneID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.NcbiGeneId;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.TransfacFactorID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.TransfacGeneID;
 
 /**
  * This is an incomplete representation of the data contained in the Transfac gene.dat file record.
@@ -71,7 +71,7 @@ public class TransfacGeneDatFileData extends MultiLineFileRecord {
 	@RecordField
 	private final Set<TransfacFactorID> encodedFactorIDs;
 	@RecordField
-	private final EntrezGeneID entrezGeneDatabaseReferenceID;
+	private final NcbiGeneId entrezGeneDatabaseReferenceID;
 	@RecordField
 	private final MgiGeneID mgiDatabaseReferenceID;
 	@RecordField
@@ -94,7 +94,7 @@ public class TransfacGeneDatFileData extends MultiLineFileRecord {
 	private final static String DATABASE_REFERENCE_EMBL_TAG = "EMBL:";
 
 	public TransfacGeneDatFileData(TransfacGeneID transfacGeneID, Set<TransfacFactorID> encodedFactorIDs,
-			EntrezGeneID entrezGeneDatabaseReferenceID, MgiGeneID mgiDatabaseReferenceID,
+			NcbiGeneId entrezGeneDatabaseReferenceID, MgiGeneID mgiDatabaseReferenceID,
 			Set<EmblID> emblDatabaseReferenceIDs, Set<TransfacFactorID> bindingFactorIDs, long byteOffset) {
 		super(byteOffset);
 		this.transfacGeneID = transfacGeneID;
@@ -113,7 +113,7 @@ public class TransfacGeneDatFileData extends MultiLineFileRecord {
 		return encodedFactorIDs;
 	}
 
-	public EntrezGeneID getEntrezGeneDatabaseReferenceID() {
+	public NcbiGeneId getEntrezGeneDatabaseReferenceID() {
 		return entrezGeneDatabaseReferenceID;
 	}
 
@@ -132,7 +132,7 @@ public class TransfacGeneDatFileData extends MultiLineFileRecord {
 	public static TransfacGeneDatFileData parseTransfacGeneDataRecord(MultiLineBuffer transfacDataRecordBuffer) {
 		TransfacGeneID transfacGeneID = null;
 		Set<TransfacFactorID> encodedFactorIDs = new HashSet<TransfacFactorID>();
-		EntrezGeneID entrezGeneID = null;
+		NcbiGeneId entrezGeneID = null;
 		MgiGeneID mgiGeneID = null;
 		Set<TransfacFactorID> bindingFactorIDs = new HashSet<TransfacFactorID>();
 		Set<EmblID> emblIDs = new HashSet<EmblID>();
@@ -150,7 +150,7 @@ public class TransfacGeneDatFileData extends MultiLineFileRecord {
 							Pattern p = Pattern.compile(DATABASE_REFERENCE_ENTREZ_GENE_TAG + "\\s+(\\d+)");
 							Matcher m = p.matcher(line);
 							if (m.find()) {
-								entrezGeneID = new EntrezGeneID(m.group(1));
+								entrezGeneID = new NcbiGeneId(m.group(1));
 							} else {
 								logger.error("Unable to extract Entrez Gene ID from line: " + line);
 							}

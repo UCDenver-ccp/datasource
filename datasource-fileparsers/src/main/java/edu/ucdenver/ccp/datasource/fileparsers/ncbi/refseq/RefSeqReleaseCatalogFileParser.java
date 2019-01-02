@@ -39,14 +39,18 @@ import java.io.IOException;
 import java.util.Set;
 import java.util.zip.GZIPInputStream;
 
+import edu.ucdenver.ccp.common.collections.CollectionsUtil;
+import edu.ucdenver.ccp.common.download.DownloadUtil;
+import edu.ucdenver.ccp.common.download.DownloadUtil.FtpInfo;
 import edu.ucdenver.ccp.common.download.FtpDownload;
 import edu.ucdenver.ccp.common.file.CharacterEncoding;
+import edu.ucdenver.ccp.common.file.FileReaderUtil;
 import edu.ucdenver.ccp.common.file.reader.Line;
 import edu.ucdenver.ccp.common.file.reader.StreamLineReader;
 import edu.ucdenver.ccp.common.ftp.FTPUtil.FileType;
 import edu.ucdenver.ccp.datasource.fileparsers.download.FtpHost;
 import edu.ucdenver.ccp.datasource.fileparsers.taxonaware.TaxonAwareSingleLineFileRecordReader;
-import edu.ucdenver.ccp.datasource.identifiers.ncbi.taxonomy.NcbiTaxonomyID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.NcbiTaxonomyID;
 
 /**
  * This class is used to parse the RefSeq RefSeq-release47.catalog.gz file
@@ -56,13 +60,10 @@ import edu.ucdenver.ccp.datasource.identifiers.ncbi.taxonomy.NcbiTaxonomyID;
  */
 public class RefSeqReleaseCatalogFileParser extends TaxonAwareSingleLineFileRecordReader<RefSeqReleaseCatalogFileData> {
 
-	// TODO: Modification to the FTPDownload annotation to allow for a regex for the file name will
-	// make this more flexible, i.e. RefSeq-release\\d+.catalog.gz
-	public static final String FTP_FILE_NAME = "RefSeq-release74.catalog.gz";
 	public static final CharacterEncoding ENCODING = CharacterEncoding.US_ASCII;
-
-	@FtpDownload(server = FtpHost.REFSEQ_HOST, path = FtpHost.REFSEQ_CATALOG_PATH, filename = FTP_FILE_NAME, filetype = FileType.BINARY)
-	private File refseqReleaseCatalogFile;
+	
+	@FtpDownload(server = FtpHost.REFSEQ_HOST, path = "refseq/release", filename = "RELEASE_NUMBER", filetype = FileType.ASCII)
+	private File refseqReleaseNumberFile;
 
 	public RefSeqReleaseCatalogFileParser(File file, CharacterEncoding encoding) throws IOException {
 		super(file, encoding, null);
@@ -83,21 +84,29 @@ public class RefSeqReleaseCatalogFileParser extends TaxonAwareSingleLineFileReco
 	}
 
 	@Override
-	protected StreamLineReader initializeLineReaderFromDownload(CharacterEncoding encoding, String skipLinePrefix)
-			throws IOException {
-		return new StreamLineReader(new GZIPInputStream(new FileInputStream(refseqReleaseCatalogFile)), encoding,
+	protected StreamLineReader initializeLineReaderFromDownload(CharacterEncoding encoding, 
+			String skipLinePrefix) throws IOException {
+		
+		int refseqReleaseNumber = Integer.parseInt(FileReaderUtil.loadLinesFromFile(refseqReleaseNumberFile, ENCODING).get(0));
+		
+		String catalogFileName= "RefSeq-release"+refseqReleaseNumber+".catalog.gz";
+		FtpInfo ftpInfo = new FtpInfo("anonymous", "anonymous", FtpHost.REFSEQ_HOST, -1, FtpHost.REFSEQ_CATALOG_PATH, 
+				catalogFileName, FileType.BINARY, false, null);
+		File downloadedFile = DownloadUtil.handleFtpDownload(getWorkDirectory(), ftpInfo, isClean());
+		DownloadUtil.writeReadySemaphoreFile(downloadedFile, ftpInfo.getUrl());
+		return new StreamLineReader(new GZIPInputStream(new FileInputStream(downloadedFile)), encoding,
 				skipLinePrefix);
 	}
-
+	
 	@Override
 	protected RefSeqReleaseCatalogFileData parseRecordFromLine(Line line) {
 		return RefSeqReleaseCatalogFileData.parseRefSeqReleaseCatalogLine(line);
 	}
 
 	@Override
-	protected NcbiTaxonomyID getLineTaxon(Line line) {
+	protected Set<NcbiTaxonomyID> getLineTaxon(Line line) {
 		RefSeqReleaseCatalogFileData record = parseRecordFromLine(line);
-		return record.getTaxId();
+		return CollectionsUtil.createSet(record.getTaxId());
 	}
 
 }

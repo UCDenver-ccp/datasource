@@ -52,9 +52,9 @@ import edu.ucdenver.ccp.common.file.CharacterEncoding;
 import edu.ucdenver.ccp.common.file.FileUtil;
 import edu.ucdenver.ccp.datasource.fileparsers.RecordReader;
 import edu.ucdenver.ccp.datasource.fileparsers.test.RecordReaderTester;
-import edu.ucdenver.ccp.datasource.identifiers.ncbi.gene.EntrezGeneID;
-import edu.ucdenver.ccp.datasource.identifiers.premod.PreModID;
-import edu.ucdenver.ccp.datasource.identifiers.transfac.TransfacMatrixID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.NcbiGeneId;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.PreModID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.TransfacMatrixID;
 
 /**
  * 
@@ -92,10 +92,10 @@ public class PReModModuleTabFileParserTest extends RecordReaderTester {
 				assertEquals(new String("1"), record1.getChromosome());
 				assertEquals(406, record1.getLength());
 				assertEquals(13.632706d, record1.getScore(), 0.00001);
-				assertEquals(new EntrezGeneID(497097), record1.getUpstreamEntrezGeneID());
+				assertEquals(new NcbiGeneId(497097), record1.getUpstreamEntrezGeneID());
 				assertEquals(new String("Xkr4"), record1.getUpstreamGeneName());
 				assertEquals(470403, record1.getUpstreamGenePosition());
-				assertEquals(new EntrezGeneID(18777), record1.getDownstreamEntrezGeneID());
+				assertEquals(new NcbiGeneId(18777), record1.getDownstreamEntrezGeneID());
 				assertEquals(new String("Lypla1"), record1.getDownstreamGeneName());
 				assertEquals(-1607998, record1.getDownstreamGenePosition());
 				Set<TransfacMatrixID> tagMatrices = new HashSet<TransfacMatrixID>();
@@ -119,10 +119,10 @@ public class PReModModuleTabFileParserTest extends RecordReaderTester {
 				assertEquals(new String("1"), record2.getChromosome());
 				assertEquals(893, record2.getLength());
 				assertEquals(24.409269f, record2.getScore(), 0.00000001);
-				assertEquals(new EntrezGeneID(497097), record2.getUpstreamEntrezGeneID());
+				assertEquals(new NcbiGeneId(497097), record2.getUpstreamEntrezGeneID());
 				assertEquals(new String("Xkr4"), record2.getUpstreamGeneName());
 				assertEquals(456205, record2.getUpstreamGenePosition());
-				assertEquals(new EntrezGeneID(18777), record2.getDownstreamEntrezGeneID());
+				assertEquals(new NcbiGeneId(18777), record2.getDownstreamEntrezGeneID());
 				assertEquals(new String("Lypla1"), record2.getDownstreamGeneName());
 				assertEquals(-1593800, record2.getDownstreamGenePosition());
 				Set<TransfacMatrixID> tagMatrices = new HashSet<TransfacMatrixID>();

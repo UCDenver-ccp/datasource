@@ -54,18 +54,22 @@ package edu.ucdenver.ccp.datasource.fileparsers.ebi.embl;
 import java.util.List;
 import java.util.Set;
 
+import edu.ucdenver.ccp.datasource.fileparsers.CcpExtensionOntology;
+import edu.ucdenver.ccp.datasource.fileparsers.MultiLineFileRecord;
+import edu.ucdenver.ccp.datasource.fileparsers.Record;
+import edu.ucdenver.ccp.datasource.fileparsers.RecordField;
+import edu.ucdenver.ccp.datasource.identifiers.DataSource;
+import edu.ucdenver.ccp.datasource.identifiers.DataSourceIdentifier;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.InsdcProjectId;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import edu.ucdenver.ccp.datasource.fileparsers.MultiLineFileRecord;
-import edu.ucdenver.ccp.datasource.fileparsers.RecordField;
-import edu.ucdenver.ccp.datasource.identifiers.DataSourceIdentifier;
-import edu.ucdenver.ccp.datasource.identifiers.other.InsdcProjectId;
 
 /**
  * ftp://ftp.ebi.ac.uk/pub/databases/embl/doc/usrman.txt ignore XX, FH
  * 
  */
 @Data
+@Record(ontClass = CcpExtensionOntology.EMBL_MICRORNA_SEQUENCE_DATABASE_FILE_DATABASE_RECORD, dataSource = DataSource.EMBL)
 @EqualsAndHashCode(callSuper = false)
 public abstract class EmblSequenceDatabaseFileDataBase<T extends DataSourceIdentifier<?>> extends MultiLineFileRecord {
 
@@ -449,63 +453,63 @@ public abstract class EmblSequenceDatabaseFileDataBase<T extends DataSourceIdent
 			+ "CO   Z99119.2:51..199922,Z99120.2:51..201059,Z99121.2:51..194692,\n"
 			+ "CO   Z99122.2:51..200690,Z99123.2:31..201139,Z99124.2:51..203901)\n" + "//";
 
-	@RecordField(comment = ID_LINE_COMMENT)
+	@RecordField(ontClass = CcpExtensionOntology.EMBL_MICRORNA_SEQUENCE_DATABASE_FILE_DATABASE_RECORD___PRIMARY_ACCESSION_NUMBER_FIELD_VALUE)
 	private final T primaryAccessionNumber;
-	@RecordField(comment = ID_LINE_COMMENT)
+	@RecordField(ontClass = CcpExtensionOntology.EMBL_MICRORNA_SEQUENCE_DATABASE_FILE_DATABASE_RECORD___SEQUENCE_VERSION_NUMBER_FIELD_VALUE)
 	private final String sequenceVersionNumber;
-	@RecordField(comment = ID_LINE_COMMENT)
+	@RecordField(ontClass = CcpExtensionOntology.EMBL_MICRORNA_SEQUENCE_DATABASE_FILE_DATABASE_RECORD___SEQUENCE_TOPOLOGY_FIELD_VALUE)
 	private final String sequenceTopology;
-	@RecordField(comment = ID_LINE_COMMENT)
+	@RecordField(ontClass = CcpExtensionOntology.EMBL_MICRORNA_SEQUENCE_DATABASE_FILE_DATABASE_RECORD___MOLECULE_TYPE_FIELD_VALUE)
 	private final String moleculeType;
-	@RecordField(comment = ID_LINE_COMMENT)
+	@RecordField(ontClass = CcpExtensionOntology.EMBL_MICRORNA_SEQUENCE_DATABASE_FILE_DATABASE_RECORD___DATA_CLASS_FIELD_VALUE)
 	private final String dataClass;
-	@RecordField(comment = ID_LINE_COMMENT)
+	@RecordField(ontClass = CcpExtensionOntology.EMBL_MICRORNA_SEQUENCE_DATABASE_FILE_DATABASE_RECORD___TAXONOMIC_DIVISION_FIELD_VALUE)
 	private final String taxonomicDivision;
-	@RecordField(comment = ID_LINE_COMMENT)
+	@RecordField(ontClass = CcpExtensionOntology.EMBL_MICRORNA_SEQUENCE_DATABASE_FILE_DATABASE_RECORD___SEQUENCE_LENGTH_IN_BASE_PAIRS_FIELD_VALUE)
 	private final int sequenceLengthInBasePairs;
-	@RecordField(comment = ID_LINE_COMMENT)
+	@RecordField(ontClass = CcpExtensionOntology.EMBL_MICRORNA_SEQUENCE_DATABASE_FILE_DATABASE_RECORD___ACCESSION_NUMBER_FIELD_VALUE)
 	private final List<T> accessionNumbers;
-	@RecordField(comment = PR_LINE_COMMENT)
+	@RecordField(ontClass = CcpExtensionOntology.EMBL_MICRORNA_SEQUENCE_DATABASE_FILE_DATABASE_RECORD___PROJECT_IDENTIFIER_FIELD_VALUE)
 	private final InsdcProjectId projectId;
-	@RecordField(comment = DT_LINE_COMMENT)
+	@RecordField(ontClass = CcpExtensionOntology.EMBL_MICRORNA_SEQUENCE_DATABASE_FILE_DATABASE_RECORD___DATES_FIELD_VALUE)
 	private final Set<EmblDate> dates;
-	@RecordField(comment = DE_LINE_COMMENT)
+	@RecordField(ontClass = CcpExtensionOntology.EMBL_MICRORNA_SEQUENCE_DATABASE_FILE_DATABASE_RECORD___DESCRIPTION_FIELD_VALUE)
 	private final String description;
-	@RecordField(comment = KW_LINE_COMMENT)
+	@RecordField(ontClass = CcpExtensionOntology.EMBL_MICRORNA_SEQUENCE_DATABASE_FILE_DATABASE_RECORD___KEYWORDS_FIELD_VALUE)
 	private final Set<String> keyWords;
-	@RecordField(comment = OS_LINE_COMMENT)
+	@RecordField(ontClass = CcpExtensionOntology.EMBL_MICRORNA_SEQUENCE_DATABASE_FILE_DATABASE_RECORD___ORGANISM_SPECIES_NAME_FIELD_VALUE)
 	private final String organismSpeciesName;
-	@RecordField(comment = OC_LINE_COMMENT)
+	@RecordField(ontClass = CcpExtensionOntology.EMBL_MICRORNA_SEQUENCE_DATABASE_FILE_DATABASE_RECORD___ORGANISM_CLASSIFICATION_FIELD_VALUE)
 	private final String organismClassification;
-	@RecordField(comment = OG_LINE_COMMENT)
+	@RecordField(ontClass = CcpExtensionOntology.EMBL_MICRORNA_SEQUENCE_DATABASE_FILE_DATABASE_RECORD___ORGANELLE_FIELD_VALUE)
 	private final String organelle;
-	@RecordField(comment = "")
+	@RecordField(ontClass = CcpExtensionOntology.EMBL_MICRORNA_SEQUENCE_DATABASE_FILE_DATABASE_RECORD___REFERENCE_CITATION_FIELD_VALUE)
 	private final Set<EmblReferenceCitation> referenceCitations;
 	// @RecordField(comment = "????????")
 	// private final String proteinExistenceEvidence;
-	@RecordField(comment = DR_LINE_COMMENT)
+	@RecordField(ontClass = CcpExtensionOntology.EMBL_MICRORNA_SEQUENCE_DATABASE_FILE_DATABASE_RECORD___DATABASE_CROSS_REFERENCE_FIELD_VALUE)
 	private final Set<DataSourceIdentifier<?>> databaseCrossReferences;
-	@RecordField(comment = CC_LINE_COMMENT)
+	@RecordField(ontClass = CcpExtensionOntology.EMBL_MICRORNA_SEQUENCE_DATABASE_FILE_DATABASE_RECORD___COMMENTS_FIELD_VALUE)
 	private final String comments;
-	@RecordField(comment = "")
+	@RecordField(ontClass = CcpExtensionOntology.EMBL_MICRORNA_SEQUENCE_DATABASE_FILE_DATABASE_RECORD___SEQUENCE_FEATURES_FIELD_VALUE)
 	private final Set<? extends SequenceFeature> sequenceFeatures;
-	@RecordField(comment = SQ_LINE_COMMENT)
+	@RecordField(ontClass = CcpExtensionOntology.EMBL_MICRORNA_SEQUENCE_DATABASE_FILE_DATABASE_RECORD___SEQUENCE_LENGTH_FIELD_VALUE)
 	private final int sequenceLength;
-	@RecordField(comment = SQ_LINE_COMMENT)
+	@RecordField(ontClass = CcpExtensionOntology.EMBL_MICRORNA_SEQUENCE_DATABASE_FILE_DATABASE_RECORD___NUMBER_OF_AS_FIELD_VALUE)
 	private final int numAs;
-	@RecordField(comment = SQ_LINE_COMMENT)
+	@RecordField(ontClass = CcpExtensionOntology.EMBL_MICRORNA_SEQUENCE_DATABASE_FILE_DATABASE_RECORD___NUMBER_OF_CS_FIELD_VALUE)
 	private final int numCs;
-	@RecordField(comment = SQ_LINE_COMMENT)
+	@RecordField(ontClass = CcpExtensionOntology.EMBL_MICRORNA_SEQUENCE_DATABASE_FILE_DATABASE_RECORD___NUMBER_OF_GS_FIELD_VALUE)
 	private final int numGs;
-	@RecordField(comment = SQ_LINE_COMMENT)
+	@RecordField(ontClass = CcpExtensionOntology.EMBL_MICRORNA_SEQUENCE_DATABASE_FILE_DATABASE_RECORD___NUMBER_OF_TS_FIELD_VALUE)
 	private final int numTs;
-	@RecordField(comment = SQ_LINE_COMMENT)
+	@RecordField(ontClass = CcpExtensionOntology.EMBL_MICRORNA_SEQUENCE_DATABASE_FILE_DATABASE_RECORD___NUMBER_OF_OTHERS_FIELD_VALUE)
 	private final int numOthers;
-	@RecordField(comment = SQ_LINE_COMMENT)
+	@RecordField(ontClass = CcpExtensionOntology.EMBL_MICRORNA_SEQUENCE_DATABASE_FILE_DATABASE_RECORD___SEQUENCE_FIELD_VALUE)
 	private final String sequence;
-	@RecordField(comment = CO_LINE_COMMENT)
+	@RecordField(ontClass = CcpExtensionOntology.EMBL_MICRORNA_SEQUENCE_DATABASE_FILE_DATABASE_RECORD___CONSTRUCTED_SEQUENCE_INFO_FIELD_VALUE)
 	private final String constructedSeqInfo;
-	@RecordField(comment = AS_LINE_COMMENT)
+	@RecordField(ontClass = CcpExtensionOntology.EMBL_MICRORNA_SEQUENCE_DATABASE_FILE_DATABASE_RECORD___ASSEMBLY_INFO_FIELD_VALUE)
 	private final Set<EmblAssemblyInformation> assemblyInfo;
 
 	/**

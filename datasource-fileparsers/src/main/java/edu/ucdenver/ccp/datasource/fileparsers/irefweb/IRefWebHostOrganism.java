@@ -3,6 +3,13 @@
  */
 package edu.ucdenver.ccp.datasource.fileparsers.irefweb;
 
+import edu.ucdenver.ccp.datasource.fileparsers.CcpExtensionOntology;
+import edu.ucdenver.ccp.datasource.fileparsers.Record;
+import edu.ucdenver.ccp.datasource.fileparsers.RecordField;
+import edu.ucdenver.ccp.datasource.fileparsers.obo.NcbiTaxonomyIdTermPair;
+import edu.ucdenver.ccp.datasource.identifiers.DataSource;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.NcbiTaxonomyID;
+
 /*
  * #%L
  * Colorado Computational Pharmacology's common module
@@ -37,23 +44,18 @@ package edu.ucdenver.ccp.datasource.fileparsers.irefweb;
  */
 
 import lombok.Getter;
-import edu.ucdenver.ccp.datasource.fileparsers.Record;
-import edu.ucdenver.ccp.datasource.fileparsers.RecordField;
-import edu.ucdenver.ccp.datasource.fileparsers.obo.NcbiTaxonomyIdTermPair;
-import edu.ucdenver.ccp.datasource.identifiers.DataSource;
-import edu.ucdenver.ccp.datasource.identifiers.ncbi.taxonomy.NcbiTaxonomyID;
 
 /**
  * @author Colorado Computational Pharmacology, UC Denver; ccpsupport@ucdenver.edu
  * 
  */
-@Record(dataSource = DataSource.IREFWEB, label="host organism")
+@Record(ontClass = CcpExtensionOntology.IREFWEB_HOST_ORGANISM_RECORD, dataSource = DataSource.IREFWEB, label="host organism")
 @Getter
 public class IRefWebHostOrganism extends NcbiTaxonomyIdTermPair {
 
-	@RecordField
+	@RecordField(ontClass = CcpExtensionOntology.IREFWEB_HOST_ORGANISM_RECORD___HOST_ORGANISM_IDENTIFIER_FIELD_VALUE)
 	private final NcbiTaxonomyID hostOrganismId;
-	@RecordField
+	@RecordField(ontClass = CcpExtensionOntology.IREFWEB_HOST_ORGANISM_RECORD___HOST_ORGANISM_NAME_FIELD_VALUE)
 	private final String hostOrganismName;
 
 	/**

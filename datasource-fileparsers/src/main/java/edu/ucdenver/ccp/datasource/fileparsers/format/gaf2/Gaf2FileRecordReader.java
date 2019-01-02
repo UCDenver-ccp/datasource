@@ -69,11 +69,12 @@ import edu.ucdenver.ccp.common.file.CharacterEncoding;
 import edu.ucdenver.ccp.common.file.reader.Line;
 import edu.ucdenver.ccp.common.reflection.ConstructorUtil;
 import edu.ucdenver.ccp.common.string.StringConstants;
-import edu.ucdenver.ccp.datasource.fileparsers.SingleLineFileRecordReader;
 import edu.ucdenver.ccp.datasource.fileparsers.format.gaf2.Gaf2FileRecord.AnnotationExtension;
+import edu.ucdenver.ccp.datasource.fileparsers.taxonaware.TaxonAwareSingleLineFileRecordReader;
 import edu.ucdenver.ccp.datasource.identifiers.DataSourceIdentifier;
 import edu.ucdenver.ccp.datasource.identifiers.IdResolver;
-import edu.ucdenver.ccp.datasource.identifiers.ncbi.taxonomy.NcbiTaxonomyID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.NcbiTaxonomyID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.ice.PubMedID;
 
 /**
  * Record reader base class for GAF 2.0 files
@@ -81,7 +82,7 @@ import edu.ucdenver.ccp.datasource.identifiers.ncbi.taxonomy.NcbiTaxonomyID;
  * @author Center for Computational Pharmacology, UC Denver; ccpsupport@ucdenver.edu
  * 
  */
-public class Gaf2FileRecordReader<T extends Gaf2FileRecord> extends SingleLineFileRecordReader<T> {
+public class Gaf2FileRecordReader<T extends Gaf2FileRecord> extends TaxonAwareSingleLineFileRecordReader<T> {
 
 	private static final Logger logger = Logger.getLogger(Gaf2FileRecordReader.class);
 	
@@ -95,30 +96,39 @@ public class Gaf2FileRecordReader<T extends Gaf2FileRecord> extends SingleLineFi
 
 	private static final SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
 
-	public Gaf2FileRecordReader(File file, CharacterEncoding encoding, Class<? extends IdResolver> idResolverClass)
+	public Gaf2FileRecordReader(File file, CharacterEncoding encoding, Set<NcbiTaxonomyID> taxonIdsOfInterest, Class<? extends IdResolver> idResolverClass)
 			throws IOException {
-		super(file, encoding, COMMENT_INDICATOR);
+		super(file, encoding, COMMENT_INDICATOR, taxonIdsOfInterest);
 		idResolver = (IdResolver) ConstructorUtil.invokeConstructor(idResolverClass.getName());
 	}
 
-	public Gaf2FileRecordReader(InputStream stream, CharacterEncoding encoding,
+	public Gaf2FileRecordReader(InputStream stream, CharacterEncoding encoding,Set<NcbiTaxonomyID> taxonIdsOfInterest,
 			Class<? extends IdResolver> idResolverClass) throws IOException {
-		super(stream, encoding, COMMENT_INDICATOR);
+		super(stream, encoding, COMMENT_INDICATOR, taxonIdsOfInterest);
 		idResolver = (IdResolver) ConstructorUtil.invokeConstructor(idResolverClass.getName());
 	}
 
-	public Gaf2FileRecordReader(File workDirectory, CharacterEncoding encoding, boolean clean,
+	public Gaf2FileRecordReader(File workDirectory, CharacterEncoding encoding, boolean clean, Set<NcbiTaxonomyID> taxonIdsOfInterest,
 			Class<? extends IdResolver> idResolverClass) throws IOException {
-		super(workDirectory, encoding, COMMENT_INDICATOR, clean);
+		super(workDirectory, encoding, COMMENT_INDICATOR, clean, taxonIdsOfInterest);
 		idResolver = (IdResolver) ConstructorUtil.invokeConstructor(idResolverClass.getName());
 	}
 
+	@Override
+	protected Set<NcbiTaxonomyID> getLineTaxon(Line line) {
+		String[] toks = line.getText().split("\\t", -1);
+		String taxonColumn = toks[12];
+		/* cardinality is either 1 or 2, in either case the first taxon id presented is that of the gene product in column 2 */
+		return CollectionsUtil.createSet(new NcbiTaxonomyID(taxonColumn.split("\\|")[0]));
+	}
+	
 	public static Gaf2FileRecord parseGaf2FileLine(Line line) {
 		String[] toks = line.getText().split("\\t", -1);
 		int index = 0;
 
 		String databaseDesignation = toks[index++];
-		DataSourceIdentifier<?> dbObjectId = idResolver.resolveId(databaseDesignation, toks[index++]);
+		String idToken = toks[index++];
+		DataSourceIdentifier<?> dbObjectId = idResolver.resolveId(databaseDesignation, idToken, "Source: " + databaseDesignation + " ID: " + idToken);
 		String dbObjectSymbol = toks[index++];
 		String qualifier = toks[index++].isEmpty() ? null : toks[index - 1];
 		DataSourceIdentifier<?> ontologyTermId = idResolver.resolveId(toks[index++]);
@@ -144,6 +154,13 @@ public class Gaf2FileRecordReader<T extends Gaf2FileRecord> extends SingleLineFi
 		DataSourceIdentifier<?> geneProductFormId = toks[index++].isEmpty() ? null : idResolver
 				.resolveId(toks[index - 1]);
 
+//		for (DataSourceIdentifier<?> id : referenceAccessionIds) {
+//			if (id.getClass().isInstance(PubMedID.class)) {
+//				System.out.println("HAS PMID");
+//				throw new IllegalStateException();
+//			}
+//		}
+		
 		return new Gaf2FileRecord(databaseDesignation, dbObjectId, dbObjectSymbol, qualifier, ontologyTermId,
 				referenceAccessionIds, evidenceCode, withOrFromIds, aspect, dbObjectName, dbObjectSynonyms,
 				dbObjectType, dbObjectTaxonId, interactingTaxonId, date, assignedBy, annotationExtensions,
@@ -188,15 +205,28 @@ public class Gaf2FileRecordReader<T extends Gaf2FileRecord> extends SingleLineFi
 	 *         String
 	 */
 	private static Set<DataSourceIdentifier<?>> extractIds(String idStr) {
+//		if (idStr.contains("PMID")) {
+//			System.out.println("extracting pmid: " + idStr);
+//		}
 		Set<DataSourceIdentifier<?>> ids = new HashSet<DataSourceIdentifier<?>>();
 		if (!idStr.trim().isEmpty()) {
-			for (String id : idStr.split("\\|")) {
+			for (String id : idStr.split("[\\|,]")) {
 				DataSourceIdentifier<?> resolvedId = idResolver.resolveId(id);
 				if (resolvedId != null) {
 					ids.add(resolvedId);
 				}
 			}
 		}
+//		if (idStr.contains("PMID")) {
+//			boolean containsPmid = false;
+//			for (DataSourceIdentifier<?> id : ids) {
+//				System.out.println("class: " + id.getClass().getName());
+//				if (id instanceof PubMedID) {
+//					containsPmid = true;
+//				}
+//			}
+//			System.out.println("Returning: " + ids.toString() + " contains pmid = " + containsPmid);
+//		}
 		return ids;
 	}
 
@@ -211,5 +241,7 @@ public class Gaf2FileRecordReader<T extends Gaf2FileRecord> extends SingleLineFi
 	protected T parseRecordFromLine(Line line) {
 		return (T) parseGaf2FileLine(line);
 	}
+
+	
 
 }

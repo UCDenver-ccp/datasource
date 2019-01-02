@@ -51,7 +51,7 @@ import edu.ucdenver.ccp.common.file.FileWriterUtil.FileSuffixEnforcement;
 import edu.ucdenver.ccp.common.file.FileWriterUtil.WriteMode;
 import edu.ucdenver.ccp.common.test.DefaultTestCase;
 import edu.ucdenver.ccp.datasource.fileparsers.ebi.embl.SequenceFeature;
-import edu.ucdenver.ccp.datasource.identifiers.other.MiRBaseID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.MiRBaseID;
 
 /**
  * @author Colorado Computational Pharmacology, UC Denver; ccpsupport@ucdenver.edu

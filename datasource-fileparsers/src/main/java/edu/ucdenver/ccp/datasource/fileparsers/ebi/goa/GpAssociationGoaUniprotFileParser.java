@@ -34,47 +34,47 @@ package edu.ucdenver.ccp.datasource.fileparsers.ebi.goa;
  */
 
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
-import java.util.zip.GZIPInputStream;
 
 import org.apache.log4j.Logger;
 
-import edu.ucdenver.ccp.common.download.FtpDownload;
+import edu.ucdenver.ccp.common.collections.CollectionsUtil;
 import edu.ucdenver.ccp.common.file.CharacterEncoding;
 import edu.ucdenver.ccp.common.file.FileReaderUtil;
 import edu.ucdenver.ccp.common.file.reader.Line;
-import edu.ucdenver.ccp.common.file.reader.StreamLineReader;
-import edu.ucdenver.ccp.common.ftp.FTPUtil.FileType;
 import edu.ucdenver.ccp.common.string.RegExPatterns;
 import edu.ucdenver.ccp.common.string.StringConstants;
 import edu.ucdenver.ccp.common.string.StringUtil;
-import edu.ucdenver.ccp.datasource.fileparsers.download.FtpHost;
+import edu.ucdenver.ccp.datasource.fileparsers.ebi.goa.gaf.GoaGaf2FileRecordReader;
 import edu.ucdenver.ccp.datasource.fileparsers.idlist.IdListFileFactory;
 import edu.ucdenver.ccp.datasource.fileparsers.taxonaware.TaxonAwareSingleLineFileRecordReader;
 import edu.ucdenver.ccp.datasource.identifiers.DataSource;
 import edu.ucdenver.ccp.datasource.identifiers.DataSourceIdentifier;
-import edu.ucdenver.ccp.datasource.identifiers.ebi.intact.IntActID;
-import edu.ucdenver.ccp.datasource.identifiers.ebi.ipi.IpiID;
-import edu.ucdenver.ccp.datasource.identifiers.ebi.uniprot.UniProtID;
-import edu.ucdenver.ccp.datasource.identifiers.ebi.uniprot.UniProtIsoformID;
-import edu.ucdenver.ccp.datasource.identifiers.ncbi.taxonomy.NcbiTaxonomyID;
-import edu.ucdenver.ccp.datasource.identifiers.obo.GeneOntologyID;
-import edu.ucdenver.ccp.datasource.identifiers.other.RnaCentralId;
-import edu.ucdenver.ccp.datasource.identifiers.reactome.ReactomeReactionID;
-import edu.ucdenver.ccp.identifier.publication.DOI;
-import edu.ucdenver.ccp.identifier.publication.PubMedID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.GeneOntologyID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.IntActID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.IpiID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.NcbiTaxonomyID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.ReactomeReactionID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.RnaCentralId;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.UniProtID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.UniProtIsoformID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.ice.DOI;
+import edu.ucdenver.ccp.datasource.identifiers.impl.ice.GoRefID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.ice.GoaRefID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.ice.PubMedID;
 
 /**
- * Parser for the gp_association.goa_uniprot file available here:
- * ftp://ftp.ebi.ac.uk/pub/databases/GO/goa/UNIPROT/
+ * NOTE: This class has been deprecated as the file format that it parses has been
+ * discontinued by UniProt and is no longer made available on their FTP site.
+ * Please use {@link GoaGaf2FileRecordReader} as a replacement.
  * 
  * @author Bill Baumgartner
  * 
  */
+@Deprecated
 public class GpAssociationGoaUniprotFileParser extends
 		TaxonAwareSingleLineFileRecordReader<GpAssociationGoaUniprotFileData> {
 
@@ -108,10 +108,7 @@ public class GpAssociationGoaUniprotFileParser extends
 
 	/* @formatter:on */
 
-	public static final String FTP_FILE_NAME = "gp_association.goa_uniprot.gz";
 	public static final CharacterEncoding ENCODING = CharacterEncoding.US_ASCII;
-	@FtpDownload(server = FtpHost.GOA_HOST, path = FtpHost.GOA_PATH, filename = FTP_FILE_NAME, filetype = FileType.BINARY)
-	private File goaDataFile;
 
 	public static final String DELIMITER_REGEX = RegExPatterns.TAB;
 	private static final int FILE_COLUMN_COUNT = 10;
@@ -133,46 +130,31 @@ public class GpAssociationGoaUniprotFileParser extends
 	// }
 
 	public GpAssociationGoaUniprotFileParser(File inputFile, CharacterEncoding encoding, File idListDirectory,
-			Set<NcbiTaxonomyID> taxonIds) throws IOException {
+			Set<NcbiTaxonomyID> taxonIds, File baseSourceFileDirectory, boolean cleanIdListFiles) throws IOException {
 		super(inputFile, encoding, COMMENT_INDICATOR, taxonIds);
-		taxonSpecificIds = loadTaxonSpecificIds(idListDirectory, taxonIds);
+		taxonSpecificIds = loadTaxonSpecificIds(idListDirectory, taxonIds, baseSourceFileDirectory, cleanIdListFiles);
 		if (!isLineOfInterest(line)) {
 			advanceToNextLineWithTaxonOfInterest();
 		}
 	}
 
-	private Set<DataSourceIdentifier<?>> loadTaxonSpecificIds(File idListDirectory, Set<NcbiTaxonomyID> taxonIds)
-			throws IOException {
-		Set<UniProtID> uniprotIdsForTaxon = IdListFileFactory.getIdListFromFile(idListDirectory, DataSource.UNIPROT,
-				taxonIds, UniProtID.class);
-		Set<IntActID> intactIdsForTaxon = IdListFileFactory.getIdListFromFile(idListDirectory, DataSource.IREFWEB,
-				taxonIds, IntActID.class);
+	private Set<DataSourceIdentifier<?>> loadTaxonSpecificIds(File idListDirectory, Set<NcbiTaxonomyID> taxonIds,
+			File baseSourceFileDirectory, boolean cleanIdListFiles) throws IOException {
+		Set<UniProtID> uniprotIdsForTaxon = IdListFileFactory.getIdListFromFile(idListDirectory,
+				baseSourceFileDirectory, DataSource.UNIPROT, taxonIds, UniProtID.class, cleanIdListFiles);
+		Set<IntActID> intactIdsForTaxon = IdListFileFactory.getIdListFromFile(idListDirectory, baseSourceFileDirectory,
+				DataSource.INTACT, taxonIds, IntActID.class, cleanIdListFiles);
 		Set<DataSourceIdentifier<?>> ids = new HashSet<DataSourceIdentifier<?>>();
 		if (uniprotIdsForTaxon != null) {
 			ids.addAll(uniprotIdsForTaxon);
 		}
 		if (intactIdsForTaxon != null) {
-		ids.addAll(intactIdsForTaxon);
+			ids.addAll(intactIdsForTaxon);
 		}
 		if (ids.isEmpty()) {
 			return null;
 		}
 		return ids;
-	}
-
-	public GpAssociationGoaUniprotFileParser(File workDirectory, boolean clean, File idListDirectory,
-			Set<NcbiTaxonomyID> taxonIds) throws IOException {
-		super(workDirectory, ENCODING, COMMENT_INDICATOR, null, null, clean, taxonIds);
-		taxonSpecificIds = loadTaxonSpecificIds(idListDirectory, taxonIds);
-		if (!isLineOfInterest(line)) {
-			advanceToNextLineWithTaxonOfInterest();
-		}
-	}
-
-	@Override
-	protected StreamLineReader initializeLineReaderFromDownload(CharacterEncoding encoding, String skipLinePrefix)
-			throws IOException {
-		return new StreamLineReader(new GZIPInputStream(new FileInputStream(goaDataFile)), encoding, skipLinePrefix);
 	}
 
 	@Override
@@ -282,7 +264,7 @@ public class GpAssociationGoaUniprotFileParser extends
 		String reactomePrefix = "Reactome:";
 		if (dbReference.startsWith("PMID")) {
 			PubMedID id = new PubMedID(dbReference);
-			if (id.getDataElement().intValue() <= 0) {
+			if (id.getId().intValue() <= 0) {
 				return null;
 			}
 			return id;
@@ -333,7 +315,7 @@ public class GpAssociationGoaUniprotFileParser extends
 	}
 
 	@Override
-	protected NcbiTaxonomyID getLineTaxon(Line line) {
+	protected Set<NcbiTaxonomyID> getLineTaxon(Line line) {
 		if (line != null) {
 			GpAssociationGoaUniprotFileData record = parseRecordFromLine(line);
 			if (record != null) {
@@ -348,11 +330,11 @@ public class GpAssociationGoaUniprotFileParser extends
 						 * the taxon ids of interest. this will ensure this
 						 * record is returned.
 						 */
-						return taxonsOfInterest.iterator().next();
+						return CollectionsUtil.createSet(taxonsOfInterest.iterator().next());
 					}
 				} else if (databaseObjectID instanceof UniProtIsoformID) {
 					UniProtIsoformID isoformId = (UniProtIsoformID) databaseObjectID;
-					String uniprotIdStr = StringUtil.removeSuffixRegex(isoformId.getDataElement(), "-\\d+");
+					String uniprotIdStr = StringUtil.removeSuffixRegex(isoformId.getId(), "-\\d+");
 					if (taxonSpecificIds != null && !taxonSpecificIds.isEmpty()
 							&& taxonSpecificIds.contains(new UniProtID(uniprotIdStr))) {
 						/*
@@ -362,7 +344,7 @@ public class GpAssociationGoaUniprotFileParser extends
 						 * the taxon ids of interest. this will ensure this
 						 * record is returned.
 						 */
-						return taxonsOfInterest.iterator().next();
+						return CollectionsUtil.createSet(taxonsOfInterest.iterator().next());
 					}
 				} else if (databaseObjectID instanceof IntActID) {
 					IntActID intactId = (IntActID) databaseObjectID;
@@ -374,16 +356,14 @@ public class GpAssociationGoaUniprotFileParser extends
 						 * the taxon ids of interest. this will ensure this
 						 * record is returned.
 						 */
-						return taxonsOfInterest.iterator().next();
+						return CollectionsUtil.createSet(taxonsOfInterest.iterator().next());
 					}
-				}
-
-				else {
+				} else {
 					logger.warn("Unhandled non-UniProt id in GO data while trying to create a species specific subset: "
 							+ databaseObjectID.getDataSource() + " -- " + databaseObjectID);
 				}
 			}
 		}
-		return new NcbiTaxonomyID(0);
+		return CollectionsUtil.createSet(new NcbiTaxonomyID(0));
 	}
 }

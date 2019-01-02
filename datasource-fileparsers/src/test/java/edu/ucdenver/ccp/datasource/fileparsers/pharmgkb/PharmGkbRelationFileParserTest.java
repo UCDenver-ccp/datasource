@@ -53,7 +53,7 @@ import edu.ucdenver.ccp.common.file.FileUtil;
 import edu.ucdenver.ccp.datasource.fileparsers.RecordReader;
 import edu.ucdenver.ccp.datasource.fileparsers.test.RecordReaderTester;
 import edu.ucdenver.ccp.datasource.identifiers.DataSourceIdentifier;
-import edu.ucdenver.ccp.identifier.publication.PubMedID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.ice.PubMedID;
 
 public class PharmGkbRelationFileParserTest extends RecordReaderTester {
 
@@ -71,10 +71,10 @@ public class PharmGkbRelationFileParserTest extends RecordReaderTester {
 	public void testParser() throws IOException {
 		RecordReader<PharmGkbRelationFileRecord> reader = initSampleRecordReader();
 		PharmGkbRelationFileRecord r = reader.next();
-		assertEquals("PA356", CollectionsUtil.getSingleElement(r.getEntity1Id()).getDataElement());
+		assertEquals("PA356", CollectionsUtil.getSingleElement(r.getEntity1Id()).getId());
 		assertEquals("TPMT", r.getEntity1Name());
 		assertEquals("Gene", r.getEntity1Type());
-		assertEquals("PA164754994", CollectionsUtil.getSingleElement(r.getEntity2Id()).getDataElement());
+		assertEquals("PA164754994", CollectionsUtil.getSingleElement(r.getEntity2Id()).getId());
 		assertEquals("s-adenosylmethionine", r.getEntity2Name());
 		assertEquals("Drug", r.getEntity2Type());
 		assertEquals(CollectionsUtil.createSet("VariantAnnotation"), r.getEvidence());
@@ -82,11 +82,11 @@ public class PharmGkbRelationFileParserTest extends RecordReaderTester {
 		assertEquals(CollectionsUtil.createSet(new PubMedID(16220112)), new HashSet<PubMedID>(r.getPmids()));
 
 		r = reader.next();
-		assertEquals("PA443560", CollectionsUtil.getSingleElement(r.getEntity1Id()).getDataElement());
+		assertEquals("PA443560", CollectionsUtil.getSingleElement(r.getEntity1Id()).getId());
 		assertEquals("Breast Neoplasms", r.getEntity1Name());
 		assertEquals("Disease", r.getEntity1Type());
 		// should be revised to look for two elements in the id collection
-//		assertEquals("CYP2A6 *12A, CYP2A6 *9A", CollectionsUtil.getSingleElement(r.getEntity2Id()).getDataElement());
+//		assertEquals("CYP2A6 *12A, CYP2A6 *9A", CollectionsUtil.getSingleElement(r.getEntity2Id()).getId());
 		assertEquals("CYP2A6 *12A, CYP2A6 *9A", r.getEntity2Name());
 		assertEquals("Haplotype", r.getEntity2Type());
 		assertEquals(CollectionsUtil.createSet("VariantAnnotation"), r.getEvidence());
@@ -94,8 +94,8 @@ public class PharmGkbRelationFileParserTest extends RecordReaderTester {
 		assertEquals(CollectionsUtil.createSet(new PubMedID(21975350)), new HashSet<PubMedID>(r.getPmids()));
 
 		r = reader.next();
-		assertEquals("PA443560", CollectionsUtil.getSingleElement(r.getEntity1Id()).getDataElement());
-		assertEquals("chr17:41209080 (hg19)", CollectionsUtil.getSingleElement(r.getEntity2Id()).getDataElement());
+		assertEquals("PA443560", CollectionsUtil.getSingleElement(r.getEntity1Id()).getId());
+		assertEquals("chr17:41209080 (hg19)", CollectionsUtil.getSingleElement(r.getEntity2Id()).getId());
 
 		assertEquals(CollectionsUtil.createSet(new PubMedID(11896095), new PubMedID(7611277), new PubMedID(7837387),
 				new PubMedID(7894492), new PubMedID(8533757), new PubMedID(8571953), new PubMedID(8898735),
@@ -111,7 +111,7 @@ public class PharmGkbRelationFileParserTest extends RecordReaderTester {
 	private boolean containsAll(Collection<DataSourceIdentifier> relations, List<String> ids) {
 		Set<String> relationIds = new HashSet<String>(ids);
 		for (DataSourceIdentifier relation : relations) {
-			relationIds.remove(relation.getDataElement().toString());
+			relationIds.remove(relation.getId().toString());
 		}
 
 		return relationIds.isEmpty();

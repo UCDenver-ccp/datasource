@@ -34,19 +34,17 @@ package edu.ucdenver.ccp.datasource.fileparsers.kegg;
  */
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
+import java.util.zip.GZIPInputStream;
 
-import edu.ucdenver.ccp.common.download.FtpDownload;
 import edu.ucdenver.ccp.common.file.CharacterEncoding;
-import edu.ucdenver.ccp.common.file.reader.StreamLineReader;
-import edu.ucdenver.ccp.common.ftp.FTPUtil.FileType;
 import edu.ucdenver.ccp.datasource.fileparsers.MultiLineFileRecordReader;
-import edu.ucdenver.ccp.datasource.fileparsers.download.FtpHost;
-import edu.ucdenver.ccp.datasource.identifiers.ncbi.taxonomy.NcbiTaxonomyID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.NcbiTaxonomyID;
 
 /**
  * This class is used to parse the Kegg genome file
@@ -56,24 +54,9 @@ import edu.ucdenver.ccp.datasource.identifiers.ncbi.taxonomy.NcbiTaxonomyID;
  */
 public class KeggGenomeFileParser extends MultiLineFileRecordReader<KeggGenomeFileData> {
 
-	public static final String FTP_FILE_NAME = "genome";
-	public static final CharacterEncoding ENCODING = CharacterEncoding.US_ASCII;
-
-	@FtpDownload(server = FtpHost.KEGG_GENENOME_HOST, path = FtpHost.KEGG_GENENOME_PATH, filename = FTP_FILE_NAME, filetype = FileType.ASCII)
-	private File keggGenomeFile;
-
 	public KeggGenomeFileParser(File file, CharacterEncoding encoding) throws IOException {
-		super(file, encoding, null);
-	}
-
-	public KeggGenomeFileParser(File workDirectory, boolean clean) throws IOException {
-		super(workDirectory, ENCODING, null, null, null, clean);
-	}
-
-	@Override
-	protected StreamLineReader initializeLineReaderFromDownload(CharacterEncoding encoding, String skipLinePrefix)
-			throws IOException {
-		return new StreamLineReader(keggGenomeFile, encoding, skipLinePrefix);
+		super((file.getName().endsWith(".gz") ? new GZIPInputStream(new FileInputStream(file)) : new FileInputStream(
+				file)), encoding, null);
 	}
 
 	@Override
@@ -101,7 +84,8 @@ public class KeggGenomeFileParser extends MultiLineFileRecordReader<KeggGenomeFi
 	}
 
 	/**
-	 * Returns a mapping from NCBI taxonomy ID to the Kegg three-letter internal species code
+	 * Returns a mapping from NCBI taxonomy ID to the Kegg three-letter internal
+	 * species code
 	 * 
 	 * @param genomeFile
 	 * @return
@@ -116,7 +100,7 @@ public class KeggGenomeFileParser extends MultiLineFileRecordReader<KeggGenomeFi
 			while (parser.hasNext()) {
 				KeggGenomeFileData dataRecord = parser.next();
 				NcbiTaxonomyID ncbiTaxonomyID = dataRecord.getNcbiTaxonomyID();
-				String threeLetterCode = dataRecord.getThreeLetterCode();
+				String threeLetterCode = dataRecord.getKeggSpeciesCode();
 
 				if (!ncbiTaxonomyID2KeggThreeLetterCodeMap.containsKey(ncbiTaxonomyID)) {
 					Set<String> speciesCodes = new HashSet<String>();

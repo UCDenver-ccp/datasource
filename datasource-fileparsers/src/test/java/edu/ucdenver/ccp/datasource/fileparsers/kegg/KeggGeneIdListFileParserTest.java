@@ -52,8 +52,8 @@ import edu.ucdenver.ccp.common.file.FileUtil;
 import edu.ucdenver.ccp.datasource.fileparsers.RecordReader;
 import edu.ucdenver.ccp.datasource.fileparsers.test.RecordReaderTester;
 import edu.ucdenver.ccp.datasource.identifiers.DataSourceIdentifier;
-import edu.ucdenver.ccp.datasource.identifiers.kegg.KeggGeneID;
-import edu.ucdenver.ccp.datasource.identifiers.ncbi.gene.EntrezGeneID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.KeggGeneID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.NcbiGeneId;
 
 /**
  * 
@@ -83,7 +83,7 @@ public class KeggGeneIdListFileParserTest extends RecordReaderTester {
 				/* aae:aq_001 ncbi-geneid:1192533 */
 				KeggGeneIdListFileData record1 = parser.next();
 				assertEquals(new KeggGeneID("aq_001"), record1.getKeggGeneID());
-				assertEquals(new EntrezGeneID("1192533"), record1.getExternalGeneID());
+				assertEquals(new NcbiGeneId("1192533"), record1.getExternalGeneID());
 			} else {
 				fail("Parser should have returned a record here.");
 			}
@@ -92,7 +92,7 @@ public class KeggGeneIdListFileParserTest extends RecordReaderTester {
 				/* aae:aq_005 ncbi-geneid:1192534 */
 				KeggGeneIdListFileData record2 = parser.next();
 				assertEquals(new KeggGeneID("aq_005"), record2.getKeggGeneID());
-				assertEquals(new EntrezGeneID("1192534"), record2.getExternalGeneID());
+				assertEquals(new NcbiGeneId("1192534"), record2.getExternalGeneID());
 			} else {
 				fail("Parser should have returned a record here.");
 			}
@@ -101,7 +101,7 @@ public class KeggGeneIdListFileParserTest extends RecordReaderTester {
 				/* aae:aq_008 ncbi-geneid:1192535 */
 				KeggGeneIdListFileData record3 = parser.next();
 				assertEquals(new KeggGeneID("aq_008"), record3.getKeggGeneID());
-				assertEquals(new EntrezGeneID("1192535"), record3.getExternalGeneID());
+				assertEquals(new NcbiGeneId("1192535"), record3.getExternalGeneID());
 			} else {
 				fail("Parser should have returned a record here.");
 			}
@@ -110,7 +110,7 @@ public class KeggGeneIdListFileParserTest extends RecordReaderTester {
 				/* aae:aq_008 ncbi-geneid:1192535 */
 				KeggGeneIdListFileData record3 = parser.next();
 				assertEquals(new KeggGeneID("aq_008"), record3.getKeggGeneID());
-				assertEquals(new EntrezGeneID("1234567"), record3.getExternalGeneID());
+				assertEquals(new NcbiGeneId("1234567"), record3.getExternalGeneID());
 			} else {
 				fail("Parser should have returned a record here.");
 			}
@@ -129,11 +129,11 @@ public class KeggGeneIdListFileParserTest extends RecordReaderTester {
 		Map<KeggGeneID, Set<DataSourceIdentifier<?>>> keggInternal2ExternalGeneIDMap = KeggGeneIdListFileParser
 				.getInternal2ExternalGeneIDMap(sampleInputFile, CharacterEncoding.US_ASCII);
 
-		Map<KeggGeneID, Set<EntrezGeneID>> expectedMap = new HashMap<KeggGeneID, Set<EntrezGeneID>>();
-		expectedMap.put(new KeggGeneID("aq_001"), CollectionsUtil.createSet(new EntrezGeneID("1192533")));
-		expectedMap.put(new KeggGeneID("aq_005"), CollectionsUtil.createSet(new EntrezGeneID("1192534")));
+		Map<KeggGeneID, Set<NcbiGeneId>> expectedMap = new HashMap<KeggGeneID, Set<NcbiGeneId>>();
+		expectedMap.put(new KeggGeneID("aq_001"), CollectionsUtil.createSet(new NcbiGeneId("1192533")));
+		expectedMap.put(new KeggGeneID("aq_005"), CollectionsUtil.createSet(new NcbiGeneId("1192534")));
 		expectedMap.put(new KeggGeneID("aq_008"),
-				CollectionsUtil.createSet(new EntrezGeneID("1192535"), new EntrezGeneID("1234567")));
+				CollectionsUtil.createSet(new NcbiGeneId("1192535"), new NcbiGeneId("1234567")));
 
 		assertEquals(expectedMap, keggInternal2ExternalGeneIDMap);
 	}

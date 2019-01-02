@@ -65,7 +65,7 @@ import edu.ucdenver.ccp.common.file.reader.Line;
 import edu.ucdenver.ccp.common.string.StringConstants;
 import edu.ucdenver.ccp.datasource.fileparsers.SingleLineFileRecordReader;
 import edu.ucdenver.ccp.datasource.identifiers.DataSourceIdentifier;
-import edu.ucdenver.ccp.datasource.identifiers.obo.GeneOntologyID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.GeneOntologyID;
 
 /**
  * This class is used to parse Gene Ontology gene-association.xxxx files

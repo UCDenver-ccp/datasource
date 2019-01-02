@@ -64,15 +64,16 @@ import java.util.zip.GZIPInputStream;
 
 import org.apache.log4j.Logger;
 
+import edu.ucdenver.ccp.common.collections.CollectionsUtil;
 import edu.ucdenver.ccp.common.file.CharacterEncoding;
 import edu.ucdenver.ccp.datasource.fileparsers.ebi.uniprot.UniProtFileRecord.DbReference;
 import edu.ucdenver.ccp.datasource.fileparsers.ebi.uniprot.UniProtFileRecord.Organism;
 import edu.ucdenver.ccp.datasource.fileparsers.taxonaware.TaxonAwareMultiLineFileRecordReader;
 import edu.ucdenver.ccp.datasource.identifiers.DataSourceIdentifier;
-import edu.ucdenver.ccp.datasource.identifiers.ebi.uniprot.UniProtEntryName;
-import edu.ucdenver.ccp.datasource.identifiers.ebi.uniprot.UniProtID;
-import edu.ucdenver.ccp.datasource.identifiers.ebi.uniprot.UniProtIsoformID;
-import edu.ucdenver.ccp.datasource.identifiers.ncbi.taxonomy.NcbiTaxonomyID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.NcbiTaxonomyID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.UniProtEntryName;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.UniProtID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.UniProtIsoformID;
 
 /**
  * This class is used to parse the UniProt uniprot_sprot.dat and uniprot_trembl.dat files
@@ -188,14 +189,14 @@ public class SparseUniProtDatFileRecordReader extends TaxonAwareMultiLineFileRec
 			if (organism != null && uniprotIDs.size() > 0) {
 				UniProtID primaryUniprotID = uniprotIDs.get(0);
 				uniprotIDs.remove(0);
-				List<String> allNames = new ArrayList<String>();
-				allNames.add(canonicalGeneSymbol);
-				allNames.addAll(fullGeneNames);
-				allNames.addAll(synonyms);
+//				List<String> allNames = new ArrayList<String>();
+//				allNames.add(canonicalGeneSymbol);
+//				allNames.addAll(fullGeneNames);
+//				allNames.addAll(synonyms);
 				// sparse representation won't contain x-refs
 				List<DbReference> dbReferences = new ArrayList<DbReference>();
 
-				return new SparseUniProtFileRecord(primaryUniprotID, uniprotIDs, allNames, organism, organismHosts,
+				return new SparseUniProtFileRecord(primaryUniprotID, uniprotIDs, CollectionsUtil.createList(uniprotEntryName), organism, organismHosts,
 						dbReferences, multiLineBuffer.getByteOffset());
 			}
 

@@ -43,9 +43,9 @@ import org.apache.log4j.Logger;
 
 import edu.ucdenver.ccp.common.file.CharacterEncoding;
 import edu.ucdenver.ccp.datasource.fileparsers.MultiLineFileRecordReader;
-import edu.ucdenver.ccp.datasource.identifiers.ncbi.gene.EntrezGeneID;
-import edu.ucdenver.ccp.datasource.identifiers.transfac.TransfacFactorID;
-import edu.ucdenver.ccp.datasource.identifiers.transfac.TransfacGeneID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.NcbiGeneId;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.TransfacFactorID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.TransfacGeneID;
 
 /**
  * This class is used to parse the Transfac gene.dat file, available only via registration (and
@@ -101,9 +101,9 @@ public class TransfacGeneDatFileParser extends MultiLineFileRecordReader<Transfa
 	 * @param transfacGeneDatFile
 	 * @return
 	 */
-	public static Map<TransfacGeneID, EntrezGeneID> getTransfacGeneID2EntrezGeneIDMap(File transfacGeneDatFile,
+	public static Map<TransfacGeneID, NcbiGeneId> getTransfacGeneID2EntrezGeneIDMap(File transfacGeneDatFile,
 			CharacterEncoding encoding) {
-		Map<TransfacGeneID, EntrezGeneID> transfacGeneID2EntrezGeneIDMap = new HashMap<TransfacGeneID, EntrezGeneID>();
+		Map<TransfacGeneID, NcbiGeneId> transfacGeneID2EntrezGeneIDMap = new HashMap<TransfacGeneID, NcbiGeneId>();
 
 		TransfacGeneDatFileParser parser = null;
 		try {
@@ -111,7 +111,7 @@ public class TransfacGeneDatFileParser extends MultiLineFileRecordReader<Transfa
 			while (parser.hasNext()) {
 				TransfacGeneDatFileData dataRecord = parser.next();
 				TransfacGeneID transfacInternalGeneID = dataRecord.getTransfacGeneID();
-				EntrezGeneID entrezGeneID = dataRecord.getEntrezGeneDatabaseReferenceID();
+				NcbiGeneId entrezGeneID = dataRecord.getEntrezGeneDatabaseReferenceID();
 				if (entrezGeneID != null) {
 					if (!transfacGeneID2EntrezGeneIDMap.containsKey(transfacInternalGeneID)) {
 						transfacGeneID2EntrezGeneIDMap.put(transfacInternalGeneID, entrezGeneID);

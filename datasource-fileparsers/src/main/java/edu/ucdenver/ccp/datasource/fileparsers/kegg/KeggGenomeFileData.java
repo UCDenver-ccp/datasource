@@ -39,18 +39,21 @@ import java.io.StringReader;
 
 import org.apache.log4j.Logger;
 
-import edu.ucdenver.ccp.datasource.fileparsers.MultiLineFileRecord;
+import edu.ucdenver.ccp.datasource.fileparsers.FileRecord;
 import edu.ucdenver.ccp.datasource.fileparsers.MultiLineFileRecordReader.MultiLineBuffer;
-import edu.ucdenver.ccp.datasource.identifiers.ncbi.taxonomy.NcbiTaxonomyID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.NcbiTaxonomyID;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 /**
- * Incomplete representation of data from KEGG genome file. Only the three-letter entry code and
- * NCBI taxonomy ID have been represented.
- * 
- * @author Bill Baumgartner
+ * Incomplete representation of data from KEGG genome file. Only the
+ * three-letter entry code, the abbreviated taxon name, and NCBI taxonomy ID
+ * have been represented.
  * 
  */
-public class KeggGenomeFileData extends MultiLineFileRecord {
+@Data()
+@EqualsAndHashCode(callSuper = false)
+public class KeggGenomeFileData extends FileRecord {
 	public static final String RECORD_NAME_PREFIX = "KEGG_SPECIES_CODE_2_NCBI_TAXONOMYID_RECORD_";
 
 	private static final Logger logger = Logger.getLogger(KeggGenomeFileData.class);
@@ -61,35 +64,40 @@ public class KeggGenomeFileData extends MultiLineFileRecord {
 
 	private static final String GENOME_ID_T3 = "T3"; // meta genome identifier
 
+	/**
+	 * A 3 or 4 character abbreviation for a given species used within Kegg
+	 */
 	private final String keggSpeciesCode;
+
+	/**
+	 * This name is used as the name of the genes file for a given species
+	 */
+	private final String keggSpeciesAbbreviatedName;
 
 	private final NcbiTaxonomyID ncbiTaxonomyID;
 
-	public KeggGenomeFileData(String threeLetterCode, NcbiTaxonomyID ncbiTaxonomyID, long byteOffset) {
+	public KeggGenomeFileData(String speciesCode, String keggSpeciesAbbreviatedName, NcbiTaxonomyID ncbiTaxonomyID,
+			long byteOffset) {
 		super(byteOffset);
-		this.keggSpeciesCode = threeLetterCode;
+		this.keggSpeciesCode = speciesCode;
+		this.keggSpeciesAbbreviatedName = keggSpeciesAbbreviatedName;
 		this.ncbiTaxonomyID = ncbiTaxonomyID;
 	}
 
-	public String getThreeLetterCode() {
-		return keggSpeciesCode;
-	}
-
-	public NcbiTaxonomyID getNcbiTaxonomyID() {
-		return ncbiTaxonomyID;
-	}
-
 	public static KeggGenomeFileData parseKeggGenomeFileRecord(MultiLineBuffer multiLineBuffer) {
-		// TODO: review how to handle multiple taxonomy ID values in Kegg entries classified as
+		// TODO: review how to handle multiple taxonomy ID values in Kegg
+		// entries classified as
 		// 'Meta Genome'
 		try {
 			BufferedReader br = new BufferedReader(new StringReader(multiLineBuffer.toString()));
 			String line;
-			String entry = null;
+			String speciesCode = null;
+			String abbreviatedTaxonName = null;
 			NcbiTaxonomyID ncbiTaxonomyID = null;
 			while ((line = br.readLine()) != null) {
 				if (line.startsWith(NAME)) {
-					entry = getEntryFromLine(line);
+					speciesCode = getSpeciesCodeFromLine(line);
+					abbreviatedTaxonName = getAbbreviatedTaxonNameFromLine(line);
 				} else if (line.startsWith(TAXONOMY)) {
 					ncbiTaxonomyID = getNcbiTaxonomyIDFromLine(line);
 					break;
@@ -101,7 +109,8 @@ public class KeggGenomeFileData extends MultiLineFileRecord {
 					}
 				}
 			}
-			return new KeggGenomeFileData(entry, ncbiTaxonomyID, multiLineBuffer.getByteOffset());
+			return new KeggGenomeFileData(speciesCode, abbreviatedTaxonName, ncbiTaxonomyID,
+					multiLineBuffer.getByteOffset());
 		} catch (IOException ioe) {
 			ioe.printStackTrace();
 		}
@@ -109,27 +118,23 @@ public class KeggGenomeFileData extends MultiLineFileRecord {
 	}
 
 	/**
-	 * Returns the three-letter entry code from an ENTRY line
+	 * Returns the three-or-four-letter species code from a NAME line
 	 * 
 	 * @param line
 	 * @return
 	 */
-	private static String getEntryFromLine(String line) {
+	private static String getSpeciesCodeFromLine(String line) {
 		line = line.replaceFirst(NAME, "").trim();
-		// checkEntryForThreeCharacters(line.trim());
 		return new String(line.split(",")[0]);
 	}
 
 	/**
-	 * Logs an error if the input String is not 3 characters long -- NOTE: some are 4 characters
-	 * long
-	 * 
-	 * @param entryStr
+	 * @param line
+	 * @return the abbreviated taxon name from the NAME line
 	 */
-	private static void checkEntryForThreeCharacters(String entryStr) {
-		if (entryStr.length() != 3) {
-			// logger.error("Invalid Entry String (should be three characters long): " + entryStr);
-		}
+	private static String getAbbreviatedTaxonNameFromLine(String line) {
+		line = line.replaceFirst(NAME, "").trim();
+		return line.split(",")[1].trim();
 	}
 
 	/**

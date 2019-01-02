@@ -53,8 +53,6 @@ package edu.ucdenver.ccp.datasource.fileparsers.hprd;
 
 import java.util.List;
 
-import lombok.Getter;
-
 import org.apache.log4j.Logger;
 
 import edu.ucdenver.ccp.datasource.fileparsers.Record;
@@ -62,10 +60,11 @@ import edu.ucdenver.ccp.datasource.fileparsers.RecordField;
 import edu.ucdenver.ccp.datasource.fileparsers.SingleLineFileRecord;
 import edu.ucdenver.ccp.datasource.identifiers.DataSource;
 import edu.ucdenver.ccp.datasource.identifiers.DataSourceIdentifier;
-import edu.ucdenver.ccp.datasource.identifiers.ebi.uniprot.UniProtID;
-import edu.ucdenver.ccp.datasource.identifiers.hprd.HprdID;
-import edu.ucdenver.ccp.datasource.identifiers.ncbi.gene.EntrezGeneID;
-import edu.ucdenver.ccp.datasource.identifiers.ncbi.omim.OmimID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.HprdID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.NcbiGeneId;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.OmimID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.UniProtID;
+import lombok.Getter;
 
 /**
  * Representation of data from HPRD HPRD_ID_MAPPINGS.txt file.
@@ -87,7 +86,7 @@ public class HprdIdMappingsTxtFileData extends SingleLineFileRecord {
 	@RecordField
 	private final DataSourceIdentifier<?> proteinAccession;
 	@RecordField
-	private final EntrezGeneID entrezGeneID;
+	private final NcbiGeneId entrezGeneID;
 	@RecordField
 	private final OmimID omimID;
 	@RecordField
@@ -96,7 +95,7 @@ public class HprdIdMappingsTxtFileData extends SingleLineFileRecord {
 	private final String mainName;
 
 	public HprdIdMappingsTxtFileData(HprdID hprdID, String geneSymbol, DataSourceIdentifier<?> nucleotideAccession,
-			DataSourceIdentifier<?> proteinAccession, EntrezGeneID entrezGeneID, OmimID omimID,
+			DataSourceIdentifier<?> proteinAccession, NcbiGeneId entrezGeneID, OmimID omimID,
 			List<UniProtID> swissProtID, String mainName, long byteOffset, long lineNumber) {
 		super(byteOffset, lineNumber);
 		this.hprdID = hprdID;

@@ -51,7 +51,7 @@ import edu.ucdenver.ccp.common.file.CharacterEncoding;
 import edu.ucdenver.ccp.common.file.FileUtil;
 import edu.ucdenver.ccp.datasource.fileparsers.RecordReader;
 import edu.ucdenver.ccp.datasource.fileparsers.test.RecordReaderTester;
-import edu.ucdenver.ccp.datasource.identifiers.ncbi.taxonomy.NcbiTaxonomyID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.NcbiTaxonomyID;
 
 /**
  * 
@@ -87,8 +87,9 @@ public class KeggGenomeFileParserTest extends RecordReaderTester {
 		if (parser.hasNext()) {
 			/* hsa -- 9606 */
 			KeggGenomeFileData record1 = parser.next();
-			assertEquals(new String("hsa"), record1.getThreeLetterCode());
+			assertEquals(new String("hsa"), record1.getKeggSpeciesCode());
 			assertEquals(new NcbiTaxonomyID(9606), record1.getNcbiTaxonomyID());
+			assertEquals("H.sapiens", record1.getKeggSpeciesAbbreviatedName());
 			position1 = record1.getByteOffset();
 		} else {
 			fail("Parser should have returned a record here.");
@@ -97,7 +98,7 @@ public class KeggGenomeFileParserTest extends RecordReaderTester {
 		if (parser.hasNext()) {
 			/* ptr -- 9598 */
 			KeggGenomeFileData record2 = parser.next();
-			assertEquals(new String("ptr"), record2.getThreeLetterCode());
+			assertEquals(new String("ptr"), record2.getKeggSpeciesCode());
 			assertEquals(new NcbiTaxonomyID(9598), record2.getNcbiTaxonomyID());
 		} else {
 			fail("Parser should have returned a record here.");
@@ -107,7 +108,7 @@ public class KeggGenomeFileParserTest extends RecordReaderTester {
 		if (parser.hasNext()) {
 			/* mcc -- 9544 */
 			KeggGenomeFileData record3 = parser.next();
-			assertEquals(new String("mcc"), record3.getThreeLetterCode());
+			assertEquals(new String("mcc"), record3.getKeggSpeciesCode());
 			assertEquals(new NcbiTaxonomyID(9544), record3.getNcbiTaxonomyID());
 			position3 = record3.getByteOffset();
 		} else {
@@ -117,7 +118,7 @@ public class KeggGenomeFileParserTest extends RecordReaderTester {
 		if (parser.hasNext()) {
 			/* mcc2 -- 9544 */
 			KeggGenomeFileData record4 = parser.next();
-			assertEquals(new String("mcc2"), record4.getThreeLetterCode());
+			assertEquals(new String("mcc2"), record4.getKeggSpeciesCode());
 			assertEquals(new NcbiTaxonomyID(9544), record4.getNcbiTaxonomyID());
 		} else {
 			fail("Parser should have returned a record here.");
@@ -133,7 +134,7 @@ public class KeggGenomeFileParserTest extends RecordReaderTester {
 		if (parser.hasNext()) {
 			/* hsa -- 9606 */
 			KeggGenomeFileData record1 = parser.next();
-			assertEquals(new String("hsa"), record1.getThreeLetterCode());
+			assertEquals(new String("hsa"), record1.getKeggSpeciesCode());
 			assertEquals(new NcbiTaxonomyID(9606), record1.getNcbiTaxonomyID());
 		} else {
 			fail("Parser should have returned a record here.");
@@ -142,7 +143,7 @@ public class KeggGenomeFileParserTest extends RecordReaderTester {
 		if (parser.hasNext()) {
 			/* ptr -- 9598 */
 			KeggGenomeFileData record2 = parser.next();
-			assertEquals(new String("ptr"), record2.getThreeLetterCode());
+			assertEquals(new String("ptr"), record2.getKeggSpeciesCode());
 			assertEquals(new NcbiTaxonomyID(9598), record2.getNcbiTaxonomyID());
 		} else {
 			fail("Parser should have returned a record here.");
@@ -151,7 +152,7 @@ public class KeggGenomeFileParserTest extends RecordReaderTester {
 		if (parser.hasNext()) {
 			/* mcc -- 9544 */
 			KeggGenomeFileData record3 = parser.next();
-			assertEquals(new String("mcc"), record3.getThreeLetterCode());
+			assertEquals(new String("mcc"), record3.getKeggSpeciesCode());
 			assertEquals(new NcbiTaxonomyID(9544), record3.getNcbiTaxonomyID());
 		} else {
 			fail("Parser should have returned a record here.");
@@ -160,7 +161,7 @@ public class KeggGenomeFileParserTest extends RecordReaderTester {
 		if (parser.hasNext()) {
 			/* mcc2 -- 9544 */
 			KeggGenomeFileData record4 = parser.next();
-			assertEquals(new String("mcc2"), record4.getThreeLetterCode());
+			assertEquals(new String("mcc2"), record4.getKeggSpeciesCode());
 			assertEquals(new NcbiTaxonomyID(9544), record4.getNcbiTaxonomyID());
 		} else {
 			fail("Parser should have returned a record here.");

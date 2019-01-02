@@ -3,7 +3,7 @@
 	<parent>
 		<groupId>edu.ucdenver.ccp</groupId>
 		<artifactId>datasource</artifactId>
-		<version>0.6.1</version>
+		<version>0.6.3-SNAPSHOT</version>
 	</parent>
 	<artifactId>datasource-rdfizer</artifactId>
 
@@ -26,6 +26,13 @@
 			<groupId>edu.ucdenver.ccp</groupId>
 			<artifactId>datasource-fileparsers</artifactId>
 			<version>${project.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>edu.ucdenver.ccp</groupId>
+			<artifactId>datasource-fileparsers</artifactId>
+			<version>${project.version}</version>
+			<type>test-jar</type>
+			<scope>test</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.openrdf.sesame</groupId>
@@ -132,13 +139,18 @@
 			<artifactId>junit</artifactId>
 			<scope>test</scope>
 		</dependency>
+		
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+		</dependency>
 
 	</dependencies>
 
 
 
-	<repositories>
-		<!-- this is where OpenRDF / Sesame lives -->
+	<!-- <repositories>
+		this is where OpenRDF / Sesame lives
 		<repository>
 			<releases>
 				<enabled>true</enabled>
@@ -150,7 +162,7 @@
 			<name>Aduna Open Source - Maven releases</name>
 			<url>http://repo.aduna-software.org/maven2/releases</url>
 		</repository>
-	</repositories>
+	</repositories> -->
 
 
 	<build>
