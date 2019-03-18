@@ -60,7 +60,6 @@ public abstract class FileRecordReader<T extends FileRecord> extends RecordReade
 
 	
 	public FileRecordReader(InputStream stream, CharacterEncoding encoding, String skipLinePrefix) throws IOException {
-		logger.info(String.format("Reading records from input stream."));
 	}
 	
 	/**
