@@ -208,18 +208,28 @@
     </xs:simpleType>
     <xs:complexType name="article-type">
         <xs:sequence>
+            <xs:element name="ref-id" type="xs:string" maxOccurs="1" minOccurs="0"/>
             <xs:element name="pubmed-id" type="xs:string"/>
             <xs:element name="citation" type="xs:string"/>
         </xs:sequence>
     </xs:complexType>
     <xs:complexType name="textbook-type">
         <xs:sequence>
+            <xs:element name="ref-id" type="xs:string" maxOccurs="1" minOccurs="0"/>
             <xs:element name="isbn" type="xs:string"/>
             <xs:element name="citation" type="xs:string"/>
         </xs:sequence>
     </xs:complexType>
     <xs:complexType name="link-type">
         <xs:sequence>
+            <xs:element name="ref-id" type="xs:string" maxOccurs="1" minOccurs="0"/>
+            <xs:element name="title" type="xs:string"/>
+            <xs:element name="url" type="xs:anyURI"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="attachment-type">
+        <xs:sequence>
+            <xs:element name="ref-id" type="xs:string" maxOccurs="1" minOccurs="0"/>
             <xs:element name="title" type="xs:string"/>
             <xs:element name="url" type="xs:anyURI"/>
         </xs:sequence>
@@ -239,6 +249,11 @@
             <xs:element maxOccurs="unbounded" minOccurs="0" name="link" type="link-type"/>
         </xs:sequence>
     </xs:complexType>
+    <xs:complexType name="attachment-list-type">
+        <xs:sequence>
+            <xs:element maxOccurs="unbounded" minOccurs="0" name="attachment" type="attachment-type"/>
+        </xs:sequence>
+    </xs:complexType>
     <xs:complexType name="reference-list-type">
         <xs:sequence>
             <xs:element maxOccurs="1" minOccurs="1" name="articles" type="article-list-type">
@@ -248,6 +263,7 @@
             </xs:element>
             <xs:element maxOccurs="1" minOccurs="1" name="textbooks" type="textbook-list-type"/>
             <xs:element maxOccurs="1" minOccurs="1" name="links" type="link-list-type"/>
+            <xs:element maxOccurs="1" minOccurs="1" name="attachments" type="attachment-list-type"/>
         </xs:sequence>
     </xs:complexType>
     <xs:complexType name="international-brand-list-type">
@@ -509,6 +525,7 @@
             <xs:enumeration value="Rule of Five"/>
             <xs:enumeration value="Ghose Filter"/>
             <xs:enumeration value="MDDR-Like Rule"/>
+            <xs:enumeration value="Veber's Rule"/>
         </xs:restriction>
     </xs:simpleType>
     <xs:complexType name="experimental-property-list-type">
@@ -537,6 +554,7 @@
             <xs:enumeration value="pKa"/>
             <xs:enumeration value="Molecular Weight"/>
             <xs:enumeration value="Molecular Formula"/>
+            <xs:enumeration value="Radioactivity"/>
         </xs:restriction>
     </xs:simpleType>
     <xs:complexType name="external-identifier-list-type">
