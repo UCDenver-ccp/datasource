@@ -33,11 +33,11 @@ package edu.ucdenver.ccp.datasource.fileparsers.pharmgkb;
  * #L%
  */
 
-
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.Set;
 
 import edu.ucdenver.ccp.common.download.HttpDownload;
@@ -51,10 +51,13 @@ import edu.ucdenver.ccp.common.string.StringUtil.RemoveFieldEnclosures;
 import edu.ucdenver.ccp.datasource.fileparsers.SingleLineFileRecordReader;
 import edu.ucdenver.ccp.datasource.identifiers.DataSourceIdResolver;
 import edu.ucdenver.ccp.datasource.identifiers.DataSourceIdentifier;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.AtcCode;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.PubChemCompoundId;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.RxNormId;
 
 public class PharmGkbDrugFileParser extends SingleLineFileRecordReader<PharmGkbDrugFileRecord> {
 
-	private static final String HEADER = "PharmGKB Accession Id\tName\tGeneric Names\tTrade Names\tBrand Mixtures\tType\tCross-references\tSMILES\tInChI\tDosing Guideline\tExternal Vocabulary\tClinical Annotation Count\tVariant Annotation Count\tPathway Count\tVIP Count\tDosing Guideline Sources\tTop Clinical Annotation Level\tTop FDA Label Testing Level\tTop Any Drug Label Testing Level\tLabel Has Dosing Info\tHas Rx Annotation";
+	private static final String HEADER = "PharmGKB Accession Id\tName\tGeneric Names\tTrade Names\tBrand Mixtures\tType\tCross-references\tSMILES\tInChI\tDosing Guideline\tExternal Vocabulary\tClinical Annotation Count\tVariant Annotation Count\tPathway Count\tVIP Count\tDosing Guideline Sources\tTop Clinical Annotation Level\tTop FDA Label Testing Level\tTop Any Drug Label Testing Level\tLabel Has Dosing Info\tHas Rx Annotation\tRxNorm Identifiers\tATC Identifiers\tPubChem Compound Identifiers";
 
 	private static final CharacterEncoding ENCODING = CharacterEncoding.ISO_8859_1;
 	@HttpDownload(url = "https://api.pharmgkb.org/v1/download/file/data/drugs.zip", fileName = "drugs.zip", targetFileName = "drugs.tsv", decompress = true)
@@ -99,17 +102,20 @@ public class PharmGkbDrugFileParser extends SingleLineFileRecordReader<PharmGkbD
 		String inChI = toks[index++];
 		String dosingGuideline = toks[index++];
 		String externalVocabulary = toks[index++];
-		int clinicalAnnotationCount = Integer.parseInt(toks[index++]); 
+		int clinicalAnnotationCount = Integer.parseInt(toks[index++]);
 		int variantAnnotationCount = Integer.parseInt(toks[index++]);
-		int pathwayCount = Integer.parseInt(toks[index++]); 
-		int vipCount = Integer.parseInt(toks[index++]); 
+		int pathwayCount = Integer.parseInt(toks[index++]);
+		int vipCount = Integer.parseInt(toks[index++]);
 		Collection<String> dosingGuidelineSources = StringUtil.delimitAndTrim(toks[index++], StringConstants.COMMA,
-				StringConstants.QUOTATION_MARK, RemoveFieldEnclosures.TRUE);; 
+				StringConstants.QUOTATION_MARK, RemoveFieldEnclosures.TRUE);
 		String topClinicalAnnotationLevel = toks[index++];
-		String topFdaLabelTestingLevel = toks[index++]; 
-		String topAnyDrugLabelTestingLevel = toks[index++]; 
+		String topFdaLabelTestingLevel = toks[index++];
+		String topAnyDrugLabelTestingLevel = toks[index++];
 		String labelHasDosingInfo = toks[index++];
-		String hasRxAnnotation  = toks[index++];
+		String hasRxAnnotation = toks[index++];
+		String rxNormIdsTok = toks[index++];
+		String atcCodeIdsTok = toks[index++];
+		String pubchemCompoundIdsTok = toks[index++];
 
 		Collection<String> genericNames = StringUtil.delimitAndTrim(genericNamesTok, StringConstants.COMMA,
 				StringConstants.QUOTATION_MARK, RemoveFieldEnclosures.TRUE);
@@ -133,6 +139,27 @@ public class PharmGkbDrugFileParser extends SingleLineFileRecordReader<PharmGkbD
 			}
 		}
 
+		Collection<String> rxNormIdStrs = StringUtil.delimitAndTrim(rxNormIdsTok, StringConstants.COMMA,
+				StringConstants.QUOTATION_MARK, RemoveFieldEnclosures.TRUE);
+		Set<RxNormId> rxNormIds = new HashSet<RxNormId>();
+		for (String id : rxNormIdStrs) {
+			rxNormIds.add(new RxNormId(id));
+		}
+
+		Collection<String> atcIdStrs = StringUtil.delimitAndTrim(atcCodeIdsTok, StringConstants.COMMA,
+				StringConstants.QUOTATION_MARK, RemoveFieldEnclosures.TRUE);
+		Set<AtcCode> atcIds = new HashSet<AtcCode>();
+		for (String id : atcIdStrs) {
+			atcIds.add(new AtcCode(id));
+		}
+
+		Collection<String> pubchemCompoundIdStrs = StringUtil.delimitAndTrim(pubchemCompoundIdsTok,
+				StringConstants.COMMA, StringConstants.QUOTATION_MARK, RemoveFieldEnclosures.TRUE);
+		Set<PubChemCompoundId> pubChemCompoundIds = new HashSet<PubChemCompoundId>();
+		for (String id : pubchemCompoundIdStrs) {
+			pubChemCompoundIds.add(new PubChemCompoundId(id));
+		}
+
 		// /*
 		// * There are two lines in the drugs.tsv file that have a minor error that involves an
 		// * inadvertent tab included as one of the alternative names. This results in the columns
@@ -150,11 +177,10 @@ public class PharmGkbDrugFileParser extends SingleLineFileRecordReader<PharmGkbD
 		// }
 
 		return new PharmGkbDrugFileRecord(pharmGkbAccessionId, name, genericNames, tradeNames, brandMixtures, type,
-				crossReferences, url, smiles, inChI, dosingGuideline, externalVocabulary,  clinicalAnnotationCount,  variantAnnotationCount,
-				 pathwayCount,  vipCount,  dosingGuidelineSources,  topClinicalAnnotationLevel,
-				 topFdaLabelTestingLevel,  topAnyDrugLabelTestingLevel,  labelHasDosingInfo,
-				 hasRxAnnotation, line.getByteOffset(),
-				line.getLineNumber());
+				crossReferences, url, smiles, inChI, dosingGuideline, externalVocabulary, clinicalAnnotationCount,
+				variantAnnotationCount, pathwayCount, vipCount, dosingGuidelineSources, topClinicalAnnotationLevel,
+				topFdaLabelTestingLevel, topAnyDrugLabelTestingLevel, labelHasDosingInfo, hasRxAnnotation, rxNormIds,
+				atcIds, pubChemCompoundIds, line.getByteOffset(), line.getLineNumber());
 	}
-	
+
 }

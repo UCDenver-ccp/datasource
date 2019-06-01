@@ -45,7 +45,10 @@ import edu.ucdenver.ccp.datasource.fileparsers.RecordField;
 import edu.ucdenver.ccp.datasource.fileparsers.SingleLineFileRecord;
 import edu.ucdenver.ccp.datasource.identifiers.DataSource;
 import edu.ucdenver.ccp.datasource.identifiers.DataSourceIdentifier;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.AtcCode;
 import edu.ucdenver.ccp.datasource.identifiers.impl.bio.PharmGkbDrugId;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.PubChemCompoundId;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.RxNormId;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -103,14 +106,22 @@ public class PharmGkbDrugFileRecord extends SingleLineFileRecord {
 	private final Boolean labelHasDosingInfo;
 	@RecordField(ontClass = CcpExtensionOntology.PHARMGKB_DRUG_RECORD___HAS_RX_ANNOTATION_FIELD_VALUE)
 	private final Boolean hasRxAnnotation;
+	@RecordField(ontClass = CcpExtensionOntology.PHARMGKB_DRUG_RECORD___RXNORM_IDENTIFIERS_FIELD_VALUE)
+	private final Set<RxNormId> rxNormIdentifiers;
+	@RecordField(ontClass = CcpExtensionOntology.PHARMGKB_DRUG_RECORD___ATC_IDENTIFIERS_FIELD_VALUE)
+	private final Set<AtcCode> atcIdentifiers;
+	@RecordField(ontClass = CcpExtensionOntology.PHARMGKB_DRUG_RECORD___PUBCHEM_COMPOUND_IDENTIFIERS_FIELD_VALUE)
+	private final Set<PubChemCompoundId> pubchemCompoundIdentifiers;
 
 	public PharmGkbDrugFileRecord(String pharmGkbAccessionId, String name, Collection<String> genericNames,
 			Collection<String> tradeNames, Collection<String> brandMixtures, String type,
 			Collection<DataSourceIdentifier<?>> crossReferences, String url, String smiles, String inChI,
 			String dosingGuideline, String externalVocabulary, int clinicalAnnotationCount, int variantAnnotationCount,
-			int pathwayCount, int vipCount, Collection<String> dosingGuidelineSources, String topClinicalAnnotationLevel,
-			String topFdaLabelTestingLevel, String topAnyDrugLabelTestingLevel, String labelHasDosingInfo,
-			String hasRxAnnotation, long byteOffset, long lineNumber) {
+			int pathwayCount, int vipCount, Collection<String> dosingGuidelineSources,
+			String topClinicalAnnotationLevel, String topFdaLabelTestingLevel, String topAnyDrugLabelTestingLevel,
+			String labelHasDosingInfo, String hasRxAnnotation, Set<RxNormId> rxNormIdentifiers,
+			Set<AtcCode> atcIdentifiers, Set<PubChemCompoundId> pubchemCompoundIdentifiers, long byteOffset,
+			long lineNumber) {
 		super(byteOffset, lineNumber);
 		this.url = isNotBlank(url) ? url : null;
 		this.accessionId = new PharmGkbDrugId(pharmGkbAccessionId);
@@ -134,6 +145,9 @@ public class PharmGkbDrugFileRecord extends SingleLineFileRecord {
 		this.topAnyDrugLabelTestingLevel = isNotBlank(topAnyDrugLabelTestingLevel) ? topAnyDrugLabelTestingLevel : null;
 		this.labelHasDosingInfo = isNotBlank(labelHasDosingInfo) ? true : null;
 		this.hasRxAnnotation = isNotBlank(hasRxAnnotation) ? true : null;
+		this.rxNormIdentifiers = rxNormIdentifiers;
+		this.atcIdentifiers = atcIdentifiers;
+		this.pubchemCompoundIdentifiers = pubchemCompoundIdentifiers;
 
 		if (isNotBlank(labelHasDosingInfo) && !labelHasDosingInfo.equals("Label Has Dosing Info")) {
 			throw new IllegalArgumentException(

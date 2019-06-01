@@ -352,6 +352,7 @@ public enum DataSource {
 	REPRODUCTION_2DPAGE("http://reprod.njmu.edu.cn/"),
 	RNACENTRAL("http://rnacentral.org/rna/"),
 	ROUGE("http://www.kazusa.or.jp/rouge/"),
+	RXNORM("https://www.nlm.nih.gov/research/umls/rxnorm/"),
 	SABIO_RK("http://sabiork.h-its.org/"),
 	SBKB("http://sbkb.org/"),
 	SMR("http://swissmodel.expasy.org/repository/"),
