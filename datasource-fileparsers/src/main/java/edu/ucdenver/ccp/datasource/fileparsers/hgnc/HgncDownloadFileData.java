@@ -46,6 +46,7 @@ import edu.ucdenver.ccp.datasource.identifiers.impl.bio.CcdsId;
 import edu.ucdenver.ccp.datasource.identifiers.impl.bio.CosmicId;
 import edu.ucdenver.ccp.datasource.identifiers.impl.bio.EnsemblGeneID;
 import edu.ucdenver.ccp.datasource.identifiers.impl.bio.EnzymeCommissionID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.GtRNADbGeneId;
 import edu.ucdenver.ccp.datasource.identifiers.impl.bio.HgncGeneSymbolID;
 import edu.ucdenver.ccp.datasource.identifiers.impl.bio.HgncID;
 import edu.ucdenver.ccp.datasource.identifiers.impl.bio.HomeoDbId;
@@ -55,6 +56,7 @@ import edu.ucdenver.ccp.datasource.identifiers.impl.bio.HumanKZNFGeneCatalogDbId
 import edu.ucdenver.ccp.datasource.identifiers.impl.bio.ImgtID;
 import edu.ucdenver.ccp.datasource.identifiers.impl.bio.IntermediateFilamentDbId;
 import edu.ucdenver.ccp.datasource.identifiers.impl.bio.IupharId;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.LNCiPediaGeneId;
 import edu.ucdenver.ccp.datasource.identifiers.impl.bio.LncRnaDbId;
 import edu.ucdenver.ccp.datasource.identifiers.impl.bio.LocusSpecificMutationDbId;
 import edu.ucdenver.ccp.datasource.identifiers.impl.bio.MamitTrnaDbId;
@@ -136,6 +138,8 @@ public class HgncDownloadFileData extends SingleLineFileRecord {
 	// enzyme_id
 	// intermediate_filament_db
 	// rna_central_ids
+	// lncipedia
+	// gtrnadb
 
 	@RecordField(ontClass = CcpExtensionOntology.HGNC_GENE_RECORD___HGNC_IDENTIFIER_FIELD_VALUE)
 	private final HgncID hgncID;
@@ -235,7 +239,12 @@ public class HgncDownloadFileData extends SingleLineFileRecord {
 	private final Set<IntermediateFilamentDbId> intermediateFilamentDbIds;
 	@RecordField(ontClass = CcpExtensionOntology.HGNC_GENE_RECORD___RNACENTRAL_IDENTIFIER_FIELD_VALUE)
 	private final Set<RnaCentralId> rnaCentralIds;
+	@RecordField(ontClass = CcpExtensionOntology.HGNC_GENE_RECORD___LNCIPEDIA_GENE_IDENTIFIER_FIELD_VALUE)
+	private final LNCiPediaGeneId lncipediaId;
+	@RecordField(ontClass = CcpExtensionOntology.HGNC_GENE_RECORD___GTRNADB_GENE_IDENTIFIER_FIELD_VALUE)
+	private final GtRNADbGeneId gtRnaDbGeneSymbol;
 
+	
 	public HgncDownloadFileData(HgncID hgncID, HgncGeneSymbolID hgncGeneSymbol, String hgncGeneName, String locusGroup,
 			String locusType, String status, String cytogenicLocation, String cytogenicLocationSortable,
 			Set<String> aliasSymbols, Set<String> aliasNames, Set<String> previousSymbols, Set<String> previousNames,
@@ -251,7 +260,7 @@ public class HgncDownloadFileData extends SingleLineFileRecord {
 			Set<MamitTrnaDbId> mamitTrnaDbIds,
 			Set<HumanCellDifferentiationMoleculeDbId> humanCellDifferentiationMoleculeDbIds,
 			Set<LncRnaDbId> incRnaDbIds, Set<EnzymeCommissionID> ecNumbers,
-			Set<IntermediateFilamentDbId> intermediateFilamentDbIds, Set<RnaCentralId> rnaCentralIds, long byteOffset,
+			Set<IntermediateFilamentDbId> intermediateFilamentDbIds, Set<RnaCentralId> rnaCentralIds, LNCiPediaGeneId lncipediaId, GtRNADbGeneId gtRnaDbGeneSymbol, long byteOffset,
 			long lineNumber) {
 		super(byteOffset, lineNumber);
 		this.hgncID = hgncID;
@@ -303,6 +312,8 @@ public class HgncDownloadFileData extends SingleLineFileRecord {
 		this.ecNumbers = ecNumbers;
 		this.intermediateFilamentDbIds = intermediateFilamentDbIds;
 		this.rnaCentralIds = rnaCentralIds;
+		this.lncipediaId = lncipediaId;
+		this.gtRnaDbGeneSymbol = gtRnaDbGeneSymbol;
 	}
 
 }

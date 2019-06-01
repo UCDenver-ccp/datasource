@@ -58,6 +58,7 @@ import edu.ucdenver.ccp.datasource.identifiers.impl.bio.CcdsId;
 import edu.ucdenver.ccp.datasource.identifiers.impl.bio.CosmicId;
 import edu.ucdenver.ccp.datasource.identifiers.impl.bio.EnsemblGeneID;
 import edu.ucdenver.ccp.datasource.identifiers.impl.bio.EnzymeCommissionID;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.GtRNADbGeneId;
 import edu.ucdenver.ccp.datasource.identifiers.impl.bio.HgncGeneSymbolID;
 import edu.ucdenver.ccp.datasource.identifiers.impl.bio.HgncID;
 import edu.ucdenver.ccp.datasource.identifiers.impl.bio.HomeoDbId;
@@ -67,6 +68,7 @@ import edu.ucdenver.ccp.datasource.identifiers.impl.bio.HumanKZNFGeneCatalogDbId
 import edu.ucdenver.ccp.datasource.identifiers.impl.bio.ImgtID;
 import edu.ucdenver.ccp.datasource.identifiers.impl.bio.IntermediateFilamentDbId;
 import edu.ucdenver.ccp.datasource.identifiers.impl.bio.IupharId;
+import edu.ucdenver.ccp.datasource.identifiers.impl.bio.LNCiPediaGeneId;
 import edu.ucdenver.ccp.datasource.identifiers.impl.bio.LncRnaDbId;
 import edu.ucdenver.ccp.datasource.identifiers.impl.bio.LocusSpecificMutationDbId;
 import edu.ucdenver.ccp.datasource.identifiers.impl.bio.MamitTrnaDbId;
@@ -100,7 +102,7 @@ public class HgncDownloadFileParser extends SingleLineFileRecordReader<HgncDownl
 
 	private static final Logger logger = Logger.getLogger(HgncDownloadFileParser.class);
 
-	private static final String HEADER = "hgnc_id\tsymbol\tname\tlocus_group\tlocus_type\tstatus\tlocation\tlocation_sortable\talias_symbol\talias_name\tprev_symbol\tprev_name\tgene_family\tgene_family_id\tdate_approved_reserved\tdate_symbol_changed\tdate_name_changed\tdate_modified\tentrez_id\tensembl_gene_id\tvega_id\tucsc_id\tena\trefseq_accession\tccds_id\tuniprot_ids\tpubmed_id\tmgd_id\trgd_id\tlsdb\tcosmic\tomim_id\tmirbase\thomeodb\tsnornabase\tbioparadigms_slc\torphanet\tpseudogene.org\thorde_id\tmerops\timgt\tiuphar\tkznf_gene_catalog\tmamit-trnadb\tcd\tlncrnadb\tenzyme_id\tintermediate_filament_db\trna_central_ids";
+	private static final String HEADER = "hgnc_id\tsymbol\tname\tlocus_group\tlocus_type\tstatus\tlocation\tlocation_sortable\talias_symbol\talias_name\tprev_symbol\tprev_name\tgene_family\tgene_family_id\tdate_approved_reserved\tdate_symbol_changed\tdate_name_changed\tdate_modified\tentrez_id\tensembl_gene_id\tvega_id\tucsc_id\tena\trefseq_accession\tccds_id\tuniprot_ids\tpubmed_id\tmgd_id\trgd_id\tlsdb\tcosmic\tomim_id\tmirbase\thomeodb\tsnornabase\tbioparadigms_slc\torphanet\tpseudogene.org\thorde_id\tmerops\timgt\tiuphar\tkznf_gene_catalog\tmamit-trnadb\tcd\tlncrnadb\tenzyme_id\tintermediate_filament_db\trna_central_ids\tlncipedia\tgtrnadb";
 
 	public enum WithdrawnRecordTreatment {
 		IGNORE, INCLUDE
@@ -145,7 +147,7 @@ public class HgncDownloadFileParser extends SingleLineFileRecordReader<HgncDownl
 	@Override
 	protected HgncDownloadFileData parseRecordFromLine(Line line) {
 		String[] toks = line.getText().split("\\t", -1);
-		if (toks.length == 49) {
+		if (toks.length == 51) {
 			int column = 0;
 			HgncID hgncID = new HgncID(toks[column++]);
 			HgncGeneSymbolID hgncGeneSymbol = new HgncGeneSymbolID(toks[column++]);
@@ -550,6 +552,17 @@ public class HgncDownloadFileParser extends SingleLineFileRecordReader<HgncDownl
 					rnaCentralIds.add(new RnaCentralId(rnaCentralTok));
 				}
 			}
+			// LNCipedia gene identifier
+			LNCiPediaGeneId lncipediaId = null;
+			columnValue = toks[column++];
+			if (!columnValue.isEmpty()) {
+				lncipediaId = new LNCiPediaGeneId(columnValue);
+			}
+			// GtRNA Db gene identifier
+			GtRNADbGeneId gtRnaDbGeneId = null;
+			if (!columnValue.isEmpty()) {
+				gtRnaDbGeneId = new GtRNADbGeneId(columnValue);
+			}
 
 			return new HgncDownloadFileData(hgncID, hgncGeneSymbol, geneName, locusGroup, locusType, status,
 					cytogenicLocation, sortableCytogenicLocation, aliasSymbols, aliasNames, previousSymbols,
@@ -558,8 +571,8 @@ public class HgncDownloadFileParser extends SingleLineFileRecordReader<HgncDownl
 					ccdsIds, uniProtIds, pubmedIDs, mgiIDs, rgdIds, lsmdbIds, cosmicIds, omimIds, mirBaseIds,
 					homeoboxDbIds, snoRnaBaseIds, bioparadigmSlcIds, orphanetIds, pseudogeneOrgIds, hordeIds, meropsIds,
 					imgtIds, iupharIds, humanKznfDbIds, mamitTrnaDbIds, humanCellDifferentiationMoleculeDbIds,
-					lncRnaDbIds, ecNumbers, intermediateFilamentIds, rnaCentralIds, line.getByteOffset(),
-					line.getLineNumber());
+					lncRnaDbIds, ecNumbers, intermediateFilamentIds, rnaCentralIds, lncipediaId, gtRnaDbGeneId,
+					line.getByteOffset(), line.getLineNumber());
 
 		}
 
