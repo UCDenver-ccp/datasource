@@ -181,7 +181,7 @@ public class RnaCentralIdMappingFileData extends SingleLineFileRecord {
 			case "WORMBASE":
 				return new WormBaseID(idStr);
 			default:
-				throw new IllegalStateException("Cannot create identifier. Unhandled data source: " + ds);
+				return new UnknownDataSourceIdentifier(ds + "_" + idStr);
 			}
 		} catch (IllegalArgumentException e) {
 			return new ProbableErrorDataSourceIdentifier(idStr, ds, e.getMessage());
