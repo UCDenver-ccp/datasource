@@ -68,7 +68,7 @@ public class RefSeqID extends DataSourceIdentifier<String> {
 	 */
 	@Override
 	public String validate(String refseqID) throws IllegalArgumentException {
-		String legalRefSeqRegex = "((AC_)|(AP_)|(NC_)|(NG_)|(NM_)|(NP_)|(NR_)|(NT_)|(NW_)|(NZ_[A-Z]{1,4})|(XM_)|(XP_)|(XR_)|(YP_)|(ZP_)|(NS_)|(WP_))\\d+";
+		String legalRefSeqRegex = "((AC_)|(AP_)|(NC_)|(NG_)|(NM_)|(NP_)|(NR_)|(NT_)|(NW_)|(NZ_[A-Z]{1,6})|(XM_)|(XP_)|(XR_)|(YP_)|(ZP_)|(NS_)|(WP_))\\d+";
 		if (refseqID.matches(legalRefSeqRegex))
 			return refseqID;
 		throw new IllegalArgumentException("Illegal RefSeq identifier detected: " + refseqID);
