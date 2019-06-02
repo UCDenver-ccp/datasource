@@ -45,7 +45,7 @@ import edu.ucdenver.ccp.datasource.identifiers.impl.bio.NcbiTaxonomyID;
 
 public class IRefWebPsiMitab2_6FileParser_AllSpecies extends IRefWebPsiMitab2_6FileParser {
 
-	@HttpDownload(url = "http://irefindex.org/download/irefindex/data/archive/release_14.0/psi_mitab/MITAB2.6/All.mitab.07042015.txt.zip", decompress = true, targetFileName = "All.mitab.04072015.txt")
+	@HttpDownload(url = "http://irefindex.org/download/irefindex/data/archive/release_14.0/psi_mitab/MITAB2.6/All.mitab.22012018.txt.zip", decompress = true, targetFileName = "9606.mitab.01-22-2018.txt")
 	private File allMitabTxtFile;
 
 	public IRefWebPsiMitab2_6FileParser_AllSpecies(File workDirectory, boolean clean) throws IOException {
