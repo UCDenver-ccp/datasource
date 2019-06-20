@@ -1124,12 +1124,15 @@ public enum FileDataSource {
 		}
 	},
 
-	INTERPRO_XML(DataSource.INTERPRO, IsTaxonAware.NO, RequiresManualDownload.NO) {
+	/* disabled automatic download as it kept resulting in a corrupted file for some reason */
+	INTERPRO_XML(DataSource.INTERPRO, IsTaxonAware.NO, RequiresManualDownload.YES) {
 		@Override
 		protected FileRecordReader<?> initFileRecordReader(File sourceFileDirectory, File baseSourceFileDirectory,
 				boolean cleanSourceFiles, boolean cleanIdListFiles, File idListDir, Set<NcbiTaxonomyID> taxonIds)
 				throws IOException {
-			return new InterProXmlFileRecordReader(sourceFileDirectory, cleanSourceFiles);
+			File interproXmlFile = new File(sourceFileDirectory,
+					InterProXmlFileRecordReader.FTP_FILE_NAME);
+			return new InterProXmlFileRecordReader(interproXmlFile);
 		}
 
 		@Override
