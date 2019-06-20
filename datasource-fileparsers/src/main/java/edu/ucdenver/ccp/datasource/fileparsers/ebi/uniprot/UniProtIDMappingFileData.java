@@ -49,6 +49,7 @@ import edu.ucdenver.ccp.datasource.fileparsers.RecordField;
 import edu.ucdenver.ccp.datasource.fileparsers.SingleLineFileRecord;
 import edu.ucdenver.ccp.datasource.identifiers.DataSource;
 import edu.ucdenver.ccp.datasource.identifiers.DataSourceIdentifier;
+import edu.ucdenver.ccp.datasource.identifiers.UnknownDataSourceIdentifier;
 import edu.ucdenver.ccp.datasource.identifiers.impl.bio.EmblID;
 import edu.ucdenver.ccp.datasource.identifiers.impl.bio.EnsemblGeneID;
 import edu.ucdenver.ccp.datasource.identifiers.impl.bio.EnsemblProteinID;
@@ -72,10 +73,9 @@ import lombok.Getter;
 /**
  * <p>
  * 
- * This data structure is a representation of the data contained in the
- * idmapping_selected.tab file located at
- * ftp://ftp.uniprot.org/pub/databases/uniprot
- * /current_release/knowledgebase/idmapping <br>
+ * This data structure is a representation of the data contained in the idmapping_selected.tab file
+ * located at ftp://ftp.uniprot.org/pub/databases/uniprot /current_release/knowledgebase/idmapping
+ * <br>
  * <br>
  * 
  * Columns:<br>
@@ -121,45 +121,45 @@ public class UniProtIDMappingFileData extends SingleLineFileRecord {
 	@RecordField(ontClass = CcpExtensionOntology.UNIPROT_IDENTIFIER_MAPPING_RECORD___UNIPROT_ENTRY_NAME_FIELD_VALUE)
 	private final UniProtEntryName uniProtEntryName;
 	@RecordField(ontClass = CcpExtensionOntology.UNIPROT_IDENTIFIER_MAPPING_RECORD____ENTREZ_GENE_IDENTIFIER_FIELD_VALUE)
-	private final Set<NcbiGeneId> entrezGeneIDs;
+	private final Set<DataSourceIdentifier<?>> entrezGeneIDs;
 	@RecordField(ontClass = CcpExtensionOntology.UNIPROT_IDENTIFIER_MAPPING_RECORD___REFSEQ_IDENTIFIER_FIELD_VALUE)
-	private final Set<RefSeqID> refseqIds;
+	private final Set<DataSourceIdentifier<?>> refseqIds;
 	@RecordField(ontClass = CcpExtensionOntology.UNIPROT_IDENTIFIER_MAPPING_RECORD___GENEINFO_NUMBER_IDENTIFIER_FIELD_VALUE)
-	private final Set<GiNumberID> giNumbers;
+	private final Set<DataSourceIdentifier<?>> giNumbers;
 	@RecordField(ontClass = CcpExtensionOntology.UNIPROT_IDENTIFIER_MAPPING_RECORD___PDB_IDENTIFIER_FIELD_VALUE)
-	private final Set<PdbID> pdbIds;
+	private final Set<DataSourceIdentifier<?>> pdbIds;
 	@RecordField(ontClass = CcpExtensionOntology.UNIPROT_IDENTIFIER_MAPPING_RECORD___GO_IDENTIFIER_FIELD_VALUE)
-	private final Set<GeneOntologyID> geneOntologyIds;
+	private final Set<DataSourceIdentifier<?>> geneOntologyIds;
 	@RecordField(ontClass = CcpExtensionOntology.UNIPROT_IDENTIFIER_MAPPING_RECORD___UNIREF100_IDENTIFIER_FIELD_VALUE)
-	private final UniRefId uniref100Id;
+	private final DataSourceIdentifier<?> uniref100Id;
 	@RecordField(ontClass = CcpExtensionOntology.UNIPROT_IDENTIFIER_MAPPING_RECORD___UNIREF90_IDENTIFIER_FIELD_VALUE)
-	private final UniRefId uniref90Id;
+	private final DataSourceIdentifier<?> uniref90Id;
 	@RecordField(ontClass = CcpExtensionOntology.UNIPROT_IDENTIFIER_MAPPING_RECORD___UNIREF50_IDENTIFIER_FIELD_VALUE)
-	private final UniRefId uniref50Id;
+	private final DataSourceIdentifier<?> uniref50Id;
 	@RecordField(ontClass = CcpExtensionOntology.UNIPROT_IDENTIFIER_MAPPING_RECORD___UNIPARC_IDENTIFIER_FIELD_VALUE)
-	private final UniParcID uniparcId;
+	private final DataSourceIdentifier<?> uniparcId;
 	@RecordField(ontClass = CcpExtensionOntology.UNIPROT_IDENTIFIER_MAPPING_RECORD___PIR_IDENTIFIER_FIELD_VALUE)
-	private final Set<PirID> pirIds;
+	private final Set<DataSourceIdentifier<?>> pirIds;
 	@RecordField(ontClass = CcpExtensionOntology.UNIPROT_IDENTIFIER_MAPPING_RECORD___TAXONOMY_IDENTIFIER_FIELD_VALUE)
 	private final NcbiTaxonomyID taxonomyID;
 	@RecordField(ontClass = CcpExtensionOntology.UNIPROT_IDENTIFIER_MAPPING_RECORD___OMIM_IDENTIFIER_FIELD_VALUE)
-	private final Set<OmimID> omimIds;
+	private final Set<DataSourceIdentifier<?>> omimIds;
 	@RecordField(ontClass = CcpExtensionOntology.UNIPROT_IDENTIFIER_MAPPING_RECORD___UNIGENE_IDENTIFIER_FIELD_VALUE)
-	private final Set<UniGeneID> unigeneIds;
+	private final Set<DataSourceIdentifier<?>> unigeneIds;
 	@RecordField(ontClass = CcpExtensionOntology.UNIPROT_IDENTIFIER_MAPPING_RECORD___PUBMED_IDENTIFIER_FIELD_VALUE)
-	private Set<PubMedID> pubmedIds;
+	private Set<DataSourceIdentifier<?>> pubmedIds;
 	@RecordField(ontClass = CcpExtensionOntology.UNIPROT_IDENTIFIER_MAPPING_RECORD___EMBL_IDENTIFIER_FIELD_VALUE)
-	private final Set<EmblID> emblIDs;
+	private final Set<DataSourceIdentifier<?>> emblIDs;
 	@RecordField(ontClass = CcpExtensionOntology.UNIPROT_IDENTIFIER_MAPPING_RECORD___EMBL_CDS_IDENTIFIER_FIELD_VALUE)
-	private final Set<EmblID> emblCdsIDs;
+	private final Set<DataSourceIdentifier<?>> emblCdsIDs;
 	@RecordField(ontClass = CcpExtensionOntology.UNIPROT_IDENTIFIER_MAPPING_RECORD___ENSEMBL_IDENTIFIER_FIELD_VALUE)
-	private final Set<EnsemblGeneID> ensemblIds;
+	private final Set<DataSourceIdentifier<?>> ensemblIds;
 	@RecordField(ontClass = CcpExtensionOntology.UNIPROT_IDENTIFIER_MAPPING_RECORD___ENSEMBL_TRS_IDENTIFIER_FIELD_VALUE)
-	private final Set<EnsemblTranscriptID> ensembl_TRSIds;
+	private final Set<DataSourceIdentifier<?>> ensembl_TRSIds;
 	@RecordField(ontClass = CcpExtensionOntology.UNIPROT_IDENTIFIER_MAPPING_RECORD___ENSEMBL_PRO_IDENTIFIER_FIELD_VALUE)
-	private final Set<EnsemblProteinID> ensembl_PROIds;
+	private final Set<DataSourceIdentifier<?>> ensembl_PROIds;
 	@RecordField(ontClass = CcpExtensionOntology.UNIPROT_IDENTIFIER_MAPPING_RECORD___ADDITIONAL_PUBMED_IDENTIFIER_FIELD_VALUE)
-	private Set<PubMedID> additionalPubmedIds;
+	private Set<DataSourceIdentifier<?>> additionalPubmedIds;
 
 	/**
 	 * @param uniProtAccessionID
@@ -185,12 +185,16 @@ public class UniProtIDMappingFileData extends SingleLineFileRecord {
 	 * @param lineNumber
 	 */
 	public UniProtIDMappingFileData(UniProtID uniProtAccessionID, UniProtEntryName uniProtEntryName,
-			Set<NcbiGeneId> entrezGeneIDs, Set<RefSeqID> refseqIds, Set<GiNumberID> giNumbers, Set<PdbID> pdbIds,
-			Set<GeneOntologyID> geneOntologyIds, UniRefId uniref100Id, UniRefId uniref90Id, UniRefId uniref50Id,
-			UniParcID uniparcId, Set<PirID> pirIds, NcbiTaxonomyID taxonomyID, Set<OmimID> omimIds,
-			Set<UniGeneID> unigeneIds, Set<PubMedID> pubmedIds, Set<EmblID> emblIDs, Set<EmblID> emblCdsIDs,
-			Set<EnsemblGeneID> ensemblIds, Set<EnsemblTranscriptID> ensemblTrsIds, Set<EnsemblProteinID> ensemblProIds,
-			Set<PubMedID> additionalPubmedIds, long byteOffset, long lineNumber) {
+			Set<DataSourceIdentifier<?>> entrezGeneIDs, Set<DataSourceIdentifier<?>> refseqIds,
+			Set<DataSourceIdentifier<?>> giNumbers, Set<DataSourceIdentifier<?>> pdbIds,
+			Set<DataSourceIdentifier<?>> geneOntologyIds, DataSourceIdentifier<?> uniref100Id,
+			DataSourceIdentifier<?> uniref90Id, DataSourceIdentifier<?> uniref50Id, DataSourceIdentifier<?> uniparcId,
+			Set<DataSourceIdentifier<?>> pirIds, NcbiTaxonomyID taxonomyID, Set<DataSourceIdentifier<?>> omimIds,
+			Set<DataSourceIdentifier<?>> unigeneIds, Set<DataSourceIdentifier<?>> pubmedIds,
+			Set<DataSourceIdentifier<?>> emblIDs, Set<DataSourceIdentifier<?>> emblCdsIDs,
+			Set<DataSourceIdentifier<?>> ensemblIds, Set<DataSourceIdentifier<?>> ensemblTrsIds,
+			Set<DataSourceIdentifier<?>> ensemblProIds, Set<DataSourceIdentifier<?>> additionalPubmedIds,
+			long byteOffset, long lineNumber) {
 		super(byteOffset, lineNumber);
 		this.uniProtAccessionID = uniProtAccessionID;
 		this.uniProtEntryName = uniProtEntryName;
@@ -245,25 +249,25 @@ public class UniProtIDMappingFileData extends SingleLineFileRecord {
 		String additionalPubmedIdStr = toks[index++];
 
 		try {
-			Set<NcbiGeneId> entrezGeneIDs = getIdSet(entrezGeneIDStr, NcbiGeneId.class);
-			Set<RefSeqID> refSeqIds = getIdSet(refseqIdStr, RefSeqID.class);
-			Set<GiNumberID> giNumbers = getIdSet(giNumbersStr, GiNumberID.class);
-			Set<PdbID> pdbIds = getIdSet(pdbIdStr, PdbID.class);
-			Set<GeneOntologyID> goIds = getIdSet(goIdStr, GeneOntologyID.class);
-			UniRefId uniref100Id = getId(uniref100IdStr, UniRefId.class);
-			UniRefId uniref90Id = getId(uniref90IdStr, UniRefId.class);
-			UniRefId uniref50Id = getId(uniref50IdStr.trim(), UniRefId.class);
-			UniParcID uniParcId = getId(uniParcIdStr.trim(), UniParcID.class);
-			Set<PirID> pirIDs = getIdSet(pirIdStr.trim(), PirID.class);
-			Set<OmimID> omimIds = getIdSet(omimIdStr.trim(), OmimID.class);
-			Set<UniGeneID> unigeneIds = getIdSet(unigeneIdStr.trim(), UniGeneID.class);
-			Set<PubMedID> pmids = getIdSet(pubmedIdStr, PubMedID.class);
-			Set<EmblID> emblIDs = getIdSet(emblIdStr, EmblID.class);
-			Set<EmblID> emblCdsIDs = getIdSet(emblCdsIdStr, EmblID.class);
-			Set<EnsemblGeneID> ensemblIds = getIdSet(ensemblIdStr.trim(), EnsemblGeneID.class);
-			Set<EnsemblTranscriptID> ensemblTrsIds = getIdSet(ensemblTrsIdStr.trim(), EnsemblTranscriptID.class);
-			Set<EnsemblProteinID> ensemblProIds = getIdSet(ensemblProIdStr.trim(), EnsemblProteinID.class);
-			Set<PubMedID> additionalPmids = getIdSet(additionalPubmedIdStr, PubMedID.class);
+			Set<DataSourceIdentifier<?>> entrezGeneIDs = getIdSet(entrezGeneIDStr, NcbiGeneId.class);
+			Set<DataSourceIdentifier<?>> refSeqIds = getIdSet(refseqIdStr, RefSeqID.class);
+			Set<DataSourceIdentifier<?>> giNumbers = getIdSet(giNumbersStr, GiNumberID.class);
+			Set<DataSourceIdentifier<?>> pdbIds = getIdSet(pdbIdStr, PdbID.class);
+			Set<DataSourceIdentifier<?>> goIds = getIdSet(goIdStr, GeneOntologyID.class);
+			DataSourceIdentifier<?> uniref100Id = getId(uniref100IdStr, UniRefId.class);
+			DataSourceIdentifier<?> uniref90Id = getId(uniref90IdStr, UniRefId.class);
+			DataSourceIdentifier<?> uniref50Id = getId(uniref50IdStr.trim(), UniRefId.class);
+			DataSourceIdentifier<?> uniParcId = getId(uniParcIdStr.trim(), UniParcID.class);
+			Set<DataSourceIdentifier<?>> pirIDs = getIdSet(pirIdStr.trim(), PirID.class);
+			Set<DataSourceIdentifier<?>> omimIds = getIdSet(omimIdStr.trim(), OmimID.class);
+			Set<DataSourceIdentifier<?>> unigeneIds = getIdSet(unigeneIdStr.trim(), UniGeneID.class);
+			Set<DataSourceIdentifier<?>> pmids = getIdSet(pubmedIdStr, PubMedID.class);
+			Set<DataSourceIdentifier<?>> emblIDs = getIdSet(emblIdStr, EmblID.class);
+			Set<DataSourceIdentifier<?>> emblCdsIDs = getIdSet(emblCdsIdStr, EmblID.class);
+			Set<DataSourceIdentifier<?>> ensemblIds = getIdSet(ensemblIdStr.trim(), EnsemblGeneID.class);
+			Set<DataSourceIdentifier<?>> ensemblTrsIds = getIdSet(ensemblTrsIdStr.trim(), EnsemblTranscriptID.class);
+			Set<DataSourceIdentifier<?>> ensemblProIds = getIdSet(ensemblProIdStr.trim(), EnsemblProteinID.class);
+			Set<DataSourceIdentifier<?>> additionalPmids = getIdSet(additionalPubmedIdStr, PubMedID.class);
 
 			return new UniProtIDMappingFileData(uniProtID, uniprotEntryname, entrezGeneIDs, refSeqIds, giNumbers,
 					pdbIds, goIds, uniref100Id, uniref90Id, uniref50Id, uniParcId, pirIDs, taxonomyID, omimIds,
@@ -293,7 +297,7 @@ public class UniProtIDMappingFileData extends SingleLineFileRecord {
 
 	private static final Class<?>[] parameterTypes = { String.class };
 
-	private static <T extends DataSourceIdentifier<?>> T getId(String input, Class<T> idClass)
+	private static <T extends DataSourceIdentifier<?>> DataSourceIdentifier<?> getId(String input, Class<T> idClass)
 			throws SecurityException, NoSuchMethodException, IllegalArgumentException, InstantiationException,
 			IllegalAccessException, InvocationTargetException {
 		String trimmedInput = input.trim();
@@ -301,17 +305,20 @@ public class UniProtIDMappingFileData extends SingleLineFileRecord {
 			return null;
 		}
 		if (trimmedInput.contains(";") || trimmedInput.contains(" ")) {
-			throw new IllegalArgumentException("Unexpected mulitple " + idClass.getName() + " id: " + trimmedInput);
+			return new UnknownDataSourceIdentifier(input);
 		}
 		Constructor<T> constructor = idClass.getConstructor(parameterTypes);
-		return constructor.newInstance(trimmedInput);
+		try {
+			return constructor.newInstance(trimmedInput);
+		} catch (IllegalArgumentException e) {
+			return new UnknownDataSourceIdentifier(trimmedInput);
+		}
 	}
 
 	/**
 	 * @param idClass
-	 * @return a set of the specified identifier type generated by parsing the
-	 *         input string (semi-colon delimiter) and constructing the
-	 *         identifier types.
+	 * @return a set of the specified identifier type generated by parsing the input string
+	 *         (semi-colon delimiter) and constructing the identifier types.
 	 * @throws NoSuchMethodException
 	 * @throws SecurityException
 	 * @throws InvocationTargetException
@@ -319,17 +326,21 @@ public class UniProtIDMappingFileData extends SingleLineFileRecord {
 	 * @throws InstantiationException
 	 * @throws IllegalArgumentException
 	 */
-	private static <T extends DataSourceIdentifier<?>> Set<T> getIdSet(String delimitedInput, Class<T> idClass)
-			throws SecurityException, NoSuchMethodException, IllegalArgumentException, InstantiationException,
-			IllegalAccessException, InvocationTargetException {
-		Set<T> ids = new HashSet<T>();
+	private static <T extends DataSourceIdentifier<?>> Set<DataSourceIdentifier<?>> getIdSet(String delimitedInput,
+			Class<T> idClass) throws SecurityException, NoSuchMethodException, IllegalArgumentException,
+			InstantiationException, IllegalAccessException, InvocationTargetException {
+		Set<DataSourceIdentifier<?>> ids = new HashSet<DataSourceIdentifier<?>>();
 		if (delimitedInput.trim().length() > 0) {
 			String[] idToks = delimitedInput.split(";");
 			for (String idTok : idToks) {
 				idTok = idTok.trim();
 				if (!idTok.isEmpty()) {
 					Constructor<T> constructor = idClass.getConstructor(parameterTypes);
-					ids.add(constructor.newInstance(idTok));
+					try {
+						ids.add(constructor.newInstance(idTok));
+					} catch (IllegalArgumentException e) {
+						ids.add(new UnknownDataSourceIdentifier(idTok));
+					}
 				}
 			}
 		}
