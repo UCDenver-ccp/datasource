@@ -440,7 +440,11 @@ public class IceRdfGenerator {
 									cleanSourceFiles, cleanIdListFiles, compress, outputRecordLimit, taxonIds);
 						}
 					} catch (Exception e) {
-						logger.error("Error while converting data source " + source.name() + " to RDF. ", e);
+						if (e.getMessage().equals("Connection reset")) {
+							logger.error("RDF GEN ERROR: Connection reset while downloading " + source.name(), e);
+						} else {
+							logger.error("RDF GEN ERROR: Error while converting data source " + source.name() + " to RDF. ", e);
+						}
 					}
 				}
 				break;
