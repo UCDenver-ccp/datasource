@@ -338,7 +338,7 @@ public class UniProtIDMappingFileData extends SingleLineFileRecord {
 					Constructor<T> constructor = idClass.getConstructor(parameterTypes);
 					try {
 						ids.add(constructor.newInstance(idTok));
-					} catch (IllegalArgumentException e) {
+					} catch (RuntimeException e) {
 						ids.add(new UnknownDataSourceIdentifier(idTok));
 					}
 				}
