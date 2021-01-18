@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="JDBOR">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="Availability">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="Licence">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="FullName">
+                      <xs:complexType>
+                        <xs:simpleContent>
+                          <xs:extension base="xs:string">
+                            <xs:attribute type="xs:string" name="lang"/>
+                          </xs:extension>
+                        </xs:simpleContent>
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element type="xs:string" name="ShortIdentifier"/>
+                    <xs:element type="xs:string" name="LegalCode"/>
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="HPODisorderSetStatusList">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="HPODisorderSetStatus">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="Disorder">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element type="xs:integer" name="OrphaCode"/>
+                          <xs:element name="ExpertLink">
+                            <xs:complexType>
+                              <xs:simpleContent>
+                                <xs:extension base="xs:string">
+                                  <xs:attribute type="xs:string" name="lang"/>
+                                </xs:extension>
+                              </xs:simpleContent>
+                            </xs:complexType>
+                          </xs:element>
+                          <xs:element name="Name">
+                            <xs:complexType>
+                              <xs:simpleContent>
+                                <xs:extension base="xs:string">
+                                  <xs:attribute type="xs:string" name="lang"/>
+                                </xs:extension>
+                              </xs:simpleContent>
+                            </xs:complexType>
+                          </xs:element>
+                          <xs:element name="DisorderType">
+                            <xs:complexType>
+                              <xs:sequence>
+                                <xs:element name="Name">
+                                  <xs:complexType>
+                                    <xs:simpleContent>
+                                      <xs:extension base="xs:string">
+                                        <xs:attribute type="xs:string" name="lang"/>
+                                      </xs:extension>
+                                    </xs:simpleContent>
+                                  </xs:complexType>
+                                </xs:element>
+                              </xs:sequence>
+                              <xs:attribute type="xs:integer" name="id"/>
+                            </xs:complexType>
+                          </xs:element>
+                          <xs:element name="DisorderGroup">
+                            <xs:complexType>
+                              <xs:sequence>
+                                <xs:element name="Name">
+                                  <xs:complexType>
+                                    <xs:simpleContent>
+                                      <xs:extension base="xs:string">
+                                        <xs:attribute type="xs:string" name="lang"/>
+                                      </xs:extension>
+                                    </xs:simpleContent>
+                                  </xs:complexType>
+                                </xs:element>
+                              </xs:sequence>
+                              <xs:attribute type="xs:int" name="id"/>
+                            </xs:complexType>
+                          </xs:element>
+                          <xs:element name="HPODisorderAssociationList">
+                            <xs:complexType>
+                              <xs:sequence>
+                                <xs:element name="HPODisorderAssociation" maxOccurs="unbounded" minOccurs="0">
+                                  <xs:complexType>
+                                    <xs:sequence>
+                                      <xs:element name="HPO">
+                                        <xs:complexType>
+                                          <xs:sequence>
+                                            <xs:element type="xs:string" name="HPOId"/>
+                                            <xs:element type="xs:string" name="HPOTerm"/>
+                                          </xs:sequence>
+                                          <xs:attribute type="xs:integer" name="id" use="optional"/>
+                                        </xs:complexType>
+                                      </xs:element>
+                                      <xs:element name="HPOFrequency">
+                                        <xs:complexType>
+                                          <xs:sequence>
+                                            <xs:element name="Name">
+                                              <xs:complexType>
+                                                <xs:simpleContent>
+                                                  <xs:extension base="xs:string">
+                                                    <xs:attribute type="xs:string" name="lang" use="optional"/>
+                                                  </xs:extension>
+                                                </xs:simpleContent>
+                                              </xs:complexType>
+                                            </xs:element>
+                                          </xs:sequence>
+                                          <xs:attribute type="xs:integer" name="id" use="optional"/>
+                                        </xs:complexType>
+                                      </xs:element>
+                                      <xs:element type="xs:string" name="DiagnosticCriteria"/>
+                                    </xs:sequence>
+                                    <xs:attribute type="xs:int" name="id" use="optional"/>
+                                  </xs:complexType>
+                                </xs:element>
+                              </xs:sequence>
+                              <xs:attribute type="xs:integer" name="count"/>
+                            </xs:complexType>
+                          </xs:element>
+                        </xs:sequence>
+                        <xs:attribute type="xs:integer" name="id"/>
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element type="xs:string" name="Source"/>
+                    <xs:element type="xs:string" name="ValidationStatus"/>
+                    <xs:element type="xs:string" name="Online"/>
+                    <xs:element type="xs:string" name="ValidationDate"/>
+                  </xs:sequence>
+                  <xs:attribute type="xs:integer" name="id"/>
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+            <xs:attribute type="xs:integer" name="count"/>
+          </xs:complexType>
+        </xs:element>
+      </xs:sequence>
+      <xs:attribute type="xs:string" name="date"/>
+      <xs:attribute type="xs:string" name="version"/>
+      <xs:attribute type="xs:string" name="copyright"/>
+      <xs:attribute type="xs:string" name="dbserver"/>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

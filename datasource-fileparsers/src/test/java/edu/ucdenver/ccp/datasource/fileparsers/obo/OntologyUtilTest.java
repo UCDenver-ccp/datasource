@@ -86,6 +86,20 @@ public class OntologyUtilTest extends DefaultTestCase {
 	}
 
 	@Test
+	public void testGetComments() {
+		OWLClass cls = ontUtil.getOWLClassFromId("PR:000000008");
+		List<String> comments = ontUtil.getComments(cls);
+		assertEquals("one comment expected", 1, comments.size());
+		assertEquals("Category=family.", comments.iterator().next());
+
+		cls = ontUtil.getOWLClassFromId("PR:000000101");
+		comments = ontUtil.getComments(cls);
+		assertEquals("one comment expected", 1, comments.size());
+		assertEquals("Category=gene.", comments.iterator().next());
+
+	}
+
+	@Test
 	public void testIsDescendent() {
 		assertTrue(ontUtil.isDescendent(ontUtil.getOWLClassFromId("PR:000000101"),
 				ontUtil.getOWLClassFromId("PR:000000008")));
@@ -126,13 +140,15 @@ public class OntologyUtilTest extends DefaultTestCase {
 		assertEquals(CollectionsUtil.createSet("HLA-DP1A", "HLA-DPA1", "HLASB"),
 				ontUtil.getSynonyms(ontUtil.getOWLClassFromId("PR:000002012"), SynonymType.RELATED));
 
-		assertEquals(CollectionsUtil.createSet("HLADPA1", "DP(W3)", "DP(W4)", "HLA-SB alpha chain",
-				"MHC class II DP3-alpha"), ontUtil.getSynonyms(ontUtil.getOWLClassFromId("PR:000002012"),
-				SynonymType.EXACT));
+		assertEquals(
+				CollectionsUtil.createSet("HLADPA1", "DP(W3)", "DP(W4)", "HLA-SB alpha chain",
+						"MHC class II DP3-alpha"),
+				ontUtil.getSynonyms(ontUtil.getOWLClassFromId("PR:000002012"), SynonymType.EXACT));
 
-		assertEquals(CollectionsUtil.createSet("HLADPA1", "DP(W3)", "DP(W4)", "HLA-SB alpha chain",
-				"MHC class II DP3-alpha", "HLA-DP1A", "HLA-DPA1", "HLASB"), ontUtil.getSynonyms(
-				ontUtil.getOWLClassFromId("PR:000002012"), SynonymType.ALL));
+		assertEquals(
+				CollectionsUtil.createSet("HLADPA1", "DP(W3)", "DP(W4)", "HLA-SB alpha chain", "MHC class II DP3-alpha",
+						"HLA-DP1A", "HLA-DPA1", "HLASB"),
+				ontUtil.getSynonyms(ontUtil.getOWLClassFromId("PR:000002012"), SynonymType.ALL));
 	}
 
 	@Test
@@ -149,16 +165,16 @@ public class OntologyUtilTest extends DefaultTestCase {
 	 * This test was written in response to
 	 * https://github.com/UCDenver-ccp/datasource/issues/5
 	 * 
-	 * The user reported an "unhandled synonym type" error when processing the
-	 * NCBI Taxonomy ontology. This error stems from an inconsistency in the OWL
-	 * API when processing OBO files vs. OWL files. Specifically, the oboInOwl
-	 * namespace when parsing an OBO file is set to:
-	 * http://www.geneontology.org/formats/oboInOWL# whereas in OWL files the
-	 * following is used: http://www.geneontology.org/formats/oboInOwl#. Note
-	 * the difference in capitalization, oboInOWL vs. oboInOwl. The error
-	 * appears when retrieving synonyms for a concept and the oboInOwl namespace
-	 * is used for the various synonym types (related, exact, broad, narrow,
-	 * etc.) It also appears when retrieving the namespace of a concept.
+	 * The user reported an "unhandled synonym type" error when processing the NCBI
+	 * Taxonomy ontology. This error stems from an inconsistency in the OWL API when
+	 * processing OBO files vs. OWL files. Specifically, the oboInOwl namespace when
+	 * parsing an OBO file is set to: http://www.geneontology.org/formats/oboInOWL#
+	 * whereas in OWL files the following is used:
+	 * http://www.geneontology.org/formats/oboInOwl#. Note the difference in
+	 * capitalization, oboInOWL vs. oboInOwl. The error appears when retrieving
+	 * synonyms for a concept and the oboInOwl namespace is used for the various
+	 * synonym types (related, exact, broad, narrow, etc.) It also appears when
+	 * retrieving the namespace of a concept.
 	 *
 	 * This test processes a sample ontology file and exercises the synonym
 	 * retrieval code. If an "unhandled synonym type" error is logged, the test
@@ -196,8 +212,7 @@ public class OntologyUtilTest extends DefaultTestCase {
 	}
 
 	/**
-	 * from:
-	 * http://stackoverflow.com/questions/1827677/how-to-do-a-junit-assert-
+	 * from: http://stackoverflow.com/questions/1827677/how-to-do-a-junit-assert-
 	 * on-a-message-in-a-logger
 	 */
 	private static class TestAppender extends AppenderSkeleton {

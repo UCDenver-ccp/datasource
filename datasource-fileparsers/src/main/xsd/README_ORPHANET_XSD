@@ -1,0 +1,6 @@
+The Product4_HPO_2020_full_v3_evo.xsd file in this directory was downloaded from the Orphanet website:
+http://www.orphadata.org/cgi-bin/index.php
+http://www.orphadata.org/cgi-bin/img/fair/Product4_HPO_2020_full_v3_evo.xsd
+
+It is used to automatically generate classes for processing the http://www.orphadata.org/data/xml/en_product4.xml file.
+Classes are generated using the jaxb-maven plugin and can be found in target/generated-sources/jaxb/ca/orphanet

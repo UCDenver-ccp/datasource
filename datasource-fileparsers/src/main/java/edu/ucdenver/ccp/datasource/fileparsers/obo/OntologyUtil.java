@@ -39,25 +39,34 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import org.apache.log4j.Logger;
 import org.apache.tools.ant.util.StringUtils;
 import org.semanticweb.owlapi.apibinding.OWLManager;
+import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLAnnotationProperty;
 import org.semanticweb.owlapi.model.OWLAnnotationValue;
 import org.semanticweb.owlapi.model.OWLClass;
+import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.model.OWLProperty;
 
+import edu.ucdenver.ccp.common.collections.CollectionsUtil;
+import lombok.Getter;
+import owltools.graph.OWLGraphEdge;
 import owltools.graph.OWLGraphWrapper;
+import owltools.graph.OWLQuantifiedProperty;
+import uk.ac.manchester.cs.owl.owlapi.OWLClassImpl;
 
 public class OntologyUtil {
 
@@ -75,7 +84,10 @@ public class OntologyUtil {
 	private static final String NARROW_SYN_PROP_ALT = "<http://purl.obolibrary.org/obo/narrow_synonym>";
 	private static final String BROAD_SYN_PROP = "<http://www.geneontology.org/formats/oboInOwl#hasBroadSynonym>";
 	private static final String BROAD_SYN_PROP_ALT = "<http://purl.obolibrary.org/obo/broad_synonym>";
+	private static final String HAS_DB_XREF = "<http://www.geneontology.org/formats/oboInOwl#hasDbXref>";
 	private final OWLGraphWrapper graph;
+
+	@Getter
 	private OWLOntology ont;
 
 	public enum SynonymType {
@@ -125,9 +137,40 @@ public class OntologyUtil {
 		return getDescendents(possibleParent).contains(possibleChild);
 	}
 
+	public Map<String, Set<String>> getOutgoingEdges(OWLClass cls) {
+
+		Map<String, Set<String>> relationToTargetMap = new HashMap<String, Set<String>>();
+
+		Set<OWLGraphEdge> outgoingEdges = graph.getOutgoingEdges(cls);
+		for (OWLGraphEdge edge : outgoingEdges) {
+			String targetIri = null;
+			OWLObject target = edge.getTarget();
+			if (target instanceof OWLClassImpl) {
+				OWLClassImpl clsImpl = (OWLClassImpl) target;
+				targetIri = clsImpl.getIRI().toString();
+			} else {
+				System.out.println("Target is " + target.getClass().getName());
+			}
+
+			if (targetIri != null) {
+				List<OWLQuantifiedProperty> quantifiedPropertyList = edge.getQuantifiedPropertyList();
+				if (quantifiedPropertyList != null) {
+					for (OWLQuantifiedProperty prop : quantifiedPropertyList) {
+						String relationIri = prop.getPropertyId();
+						if (relationIri.equals("-")) {
+							relationIri = prop.getQuantifier().toString();
+						}
+						CollectionsUtil.addToOne2ManyUniqueMap(relationIri, targetIri, relationToTargetMap);
+					}
+				}
+			}
+		}
+		return relationToTargetMap;
+	}
+
 	/**
-	 * @return an iterator of all classes in the ontology (does not include
-	 *         obsolete classes).
+	 * @return an iterator of all classes in the ontology (does not include obsolete
+	 *         classes).
 	 */
 	public Iterator<OWLClass> getClassIterator() {
 		return graph.getAllOWLClasses().iterator();
@@ -197,6 +240,22 @@ public class OntologyUtil {
 		return labels;
 	}
 
+	public List<String> getComments(OWLClass cls) {
+		List<String> comments = new ArrayList<String>();
+		Set<OWLAnnotation> annotations = cls.getAnnotations(ont);
+		for (OWLAnnotation annotation : annotations) {
+			if (annotation.getProperty().isComment()) {
+				String s = annotation.getValue().toString();
+				s = StringUtils.removePrefix(s, "\"");
+				s = StringUtils.removeSuffix(s, "\"^^xsd:string");
+				s = StringUtils.removeSuffix(s, "\"@en");
+				comments.add(s);
+			}
+		}
+
+		return comments;
+	}
+
 	public List<String> getLabels(OWLClass cls) {
 		List<String> labels = new ArrayList<String>();
 		Set<OWLAnnotation> annotations = cls.getAnnotations(ont);
@@ -262,19 +321,18 @@ public class OntologyUtil {
 	 * This method was composed in response to the following issue:
 	 * https://github.com/UCDenver-ccp/datasource/issues/5
 	 * 
-	 * The user uncovered an inconsistency in the oboInOwl namespace returned by
-	 * the OWL API OBO parser. The inconsistency involves the capitalization of
-	 * "OWL" in oboInOWL. The OBO parsers uses
-	 * http://www.geneontology.org/formats/oboInOWL# whereas the namespace
-	 * appears as http://www.geneontology.org/formats/oboInOwl# in OWL files in
-	 * the wild. This method swaps out the oboInOWL for oboInOwl when it is
-	 * observed.
+	 * The user uncovered an inconsistency in the oboInOwl namespace returned by the
+	 * OWL API OBO parser. The inconsistency involves the capitalization of "OWL" in
+	 * oboInOWL. The OBO parsers uses http://www.geneontology.org/formats/oboInOWL#
+	 * whereas the namespace appears as
+	 * http://www.geneontology.org/formats/oboInOwl# in OWL files in the wild. This
+	 * method swaps out the oboInOWL for oboInOwl when it is observed.
 	 * 
 	 * @param annotation
-	 * @return the {@link OWLProperty} IRI for the input {@link OWLAnnotation}.
-	 *         If the invalid version of the oboInOwl namespace is detected
-	 *         (used by the OWL API OBO parser), it is replaced with the valid
-	 *         version which differs only in capitalization.
+	 * @return the {@link OWLProperty} IRI for the input {@link OWLAnnotation}. If
+	 *         the invalid version of the oboInOwl namespace is detected (used by
+	 *         the OWL API OBO parser), it is replaced with the valid version which
+	 *         differs only in capitalization.
 	 */
 	public static String getAnnotationPropertyUri(OWLAnnotation annotation) {
 		String propertyUri = annotation.getProperty().toString();
@@ -284,6 +342,21 @@ public class OntologyUtil {
 		return propertyUri;
 	}
 
+	
+	public Set<String> getDbXrefs(OWLClass cls) {
+		Set<String> xrefs = new HashSet<String>();
+		Set<OWLAnnotation> annotations = cls.getAnnotations(ont);
+		for (OWLAnnotation annotation : annotations) {
+			String property = getAnnotationPropertyUri(annotation);
+			if (property.equals(HAS_DB_XREF)) {
+				String xref = getAnnotationValue(annotation);
+				xrefs.add(xref);
+			}
+		}
+		
+		return xrefs;
+	}
+	
 	public Set<String> getSynonyms(OWLClass cls, SynonymType synType) {
 		Set<String> synonyms = new HashSet<String>();
 		Set<OWLAnnotation> annotations = cls.getAnnotations(ont);
@@ -297,35 +370,19 @@ public class OntologyUtil {
 			if ((synType == SynonymType.EXACT || synType == SynonymType.ALL)
 					&& (property.equals(EXACT_SYN_PROP) || property.equals(EXACT_SYN_PROP_ALT)
 							|| property.equals(IAO_EDITOR_PREFERRED_LABEL) || property.equals(IAO_ALTERNATIVE_TERM))) {
-				String s = annotation.getValue().toString();
-				s = StringUtils.removePrefix(s, "\"");
-				s = StringUtils.removeSuffix(s, "\"^^xsd:string");
-				s = StringUtils.removePrefix(s, "\\\"");
-				s = StringUtils.removeSuffix(s, "\\\" []");
+				String s = getAnnotationValue(annotation);
 				synonyms.add(s);
 			} else if ((synType == SynonymType.RELATED || synType == SynonymType.ALL)
 					&& (property.equals(RELATED_SYN_PROP) || property.equals(RELATED_SYN_PROP_ALT))) {
-				String s = annotation.getValue().toString();
-				s = StringUtils.removePrefix(s, "\"");
-				s = StringUtils.removeSuffix(s, "\"^^xsd:string");
-				s = StringUtils.removePrefix(s, "\\\"");
-				s = StringUtils.removeSuffix(s, "\\\" []");
+				String s = getAnnotationValue(annotation);
 				synonyms.add(s);
 			} else if ((synType == SynonymType.BROAD || synType == SynonymType.ALL)
 					&& (property.equals(BROAD_SYN_PROP) || property.equals(BROAD_SYN_PROP_ALT))) {
-				String s = annotation.getValue().toString();
-				s = StringUtils.removePrefix(s, "\"");
-				s = StringUtils.removeSuffix(s, "\"^^xsd:string");
-				s = StringUtils.removePrefix(s, "\\\"");
-				s = StringUtils.removeSuffix(s, "\\\" []");
+				String s = getAnnotationValue(annotation);
 				synonyms.add(s);
 			} else if ((synType == SynonymType.NARROW || synType == SynonymType.ALL)
 					&& (property.equals(NARROW_SYN_PROP) || property.equals(NARROW_SYN_PROP_ALT))) {
-				String s = annotation.getValue().toString();
-				s = StringUtils.removePrefix(s, "\"");
-				s = StringUtils.removeSuffix(s, "\"^^xsd:string");
-				s = StringUtils.removePrefix(s, "\\\"");
-				s = StringUtils.removeSuffix(s, "\\\" []");
+				String s = getAnnotationValue(annotation);
 				synonyms.add(s);
 			}
 
@@ -341,6 +398,15 @@ public class OntologyUtil {
 		}
 		return synonyms;
 
+	}
+
+	private String getAnnotationValue(OWLAnnotation annotation) {
+		String s = annotation.getValue().toString();
+		s = StringUtils.removePrefix(s, "\"");
+		s = StringUtils.removeSuffix(s, "\"^^xsd:string");
+		s = StringUtils.removePrefix(s, "\\\"");
+		s = StringUtils.removeSuffix(s, "\\\" []");
+		return s;
 	}
 
 	public String getNamespace(OWLClass cls) {

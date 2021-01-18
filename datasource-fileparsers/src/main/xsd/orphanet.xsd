@@ -1,0 +1,125 @@
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="JDBOR" type="JDBORType"/>
+  <xs:complexType name="FullNameType">
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute type="xs:string" name="lang"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:complexType name="LicenceType">
+    <xs:sequence>
+      <xs:element type="FullNameType" name="FullName"/>
+      <xs:element type="xs:string" name="ShortIdentifier"/>
+      <xs:element type="xs:string" name="LegalCode"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="AvailabilityType">
+    <xs:sequence>
+      <xs:element type="LicenceType" name="Licence"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ExpertLinkType">
+    <xs:simpleContent>
+      <xs:extension base="xs:anyURI">
+        <xs:attribute type="xs:string" name="lang" use="optional"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:complexType name="NameType">
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute type="xs:string" name="lang" use="optional"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:complexType name="DisorderTypeType">
+    <xs:sequence>
+      <xs:element type="NameType" name="Name"/>
+    </xs:sequence>
+    <xs:attribute type="xs:int" name="id" use="optional"/>
+  </xs:complexType>
+  <xs:complexType name="DisorderGroupType">
+    <xs:sequence>
+      <xs:element type="NameType" name="Name"/>
+    </xs:sequence>
+    <xs:attribute type="xs:int" name="id" use="optional"/>
+  </xs:complexType>
+  <xs:complexType name="HPOType">
+    <xs:sequence>
+      <xs:element type="xs:string" name="HPOId"/>
+      <xs:element type="xs:string" name="HPOTerm"/>
+    </xs:sequence>
+    <xs:attribute type="xs:short" name="id" use="optional"/>
+  </xs:complexType>
+  <xs:complexType name="HPOFrequencyType">
+    <xs:sequence>
+      <xs:element type="NameType" name="Name"/>
+    </xs:sequence>
+    <xs:attribute type="xs:short" name="id" use="optional"/>
+  </xs:complexType>
+  <xs:complexType name="HPODisorderAssociationType">
+    <xs:sequence>
+      <xs:element type="HPOType" name="HPO"/>
+      <xs:element type="HPOFrequencyType" name="HPOFrequency"/>
+      <xs:element name="DiagnosticCriteria">
+        <xs:complexType mixed="true">
+          <xs:sequence>
+            <xs:element type="NameType" name="Name" minOccurs="0"/>
+          </xs:sequence>
+          <xs:attribute type="xs:short" name="id" use="optional"/>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+    <xs:attribute type="xs:int" name="id" use="optional"/>
+  </xs:complexType>
+  <xs:complexType name="HPODisorderAssociationListType" mixed="true">
+    <xs:sequence>
+      <xs:element type="HPODisorderAssociationType" name="HPODisorderAssociation" maxOccurs="unbounded" minOccurs="0"/>
+    </xs:sequence>
+    <xs:attribute type="xs:short" name="count" use="optional"/>
+  </xs:complexType>
+  <xs:complexType name="DisorderType">
+    <xs:sequence>
+      <xs:element type="xs:int" name="OrphaCode"/>
+      <xs:element type="ExpertLinkType" name="ExpertLink"/>
+      <xs:element type="NameType" name="Name"/>
+      <xs:element type="DisorderTypeType" name="DisorderType"/>
+      <xs:element type="DisorderGroupType" name="DisorderGroup"/>
+      <xs:element type="HPODisorderAssociationListType" name="HPODisorderAssociationList"/>
+    </xs:sequence>
+    <xs:attribute type="xs:short" name="id" use="optional"/>
+  </xs:complexType>
+  <xs:complexType name="HPODisorderSetStatusType">
+    <xs:sequence>
+      <xs:element type="DisorderType" name="Disorder"/>
+      <xs:element type="xs:string" name="Source"/>
+      <xs:element type="xs:string" name="ValidationStatus"/>
+      <xs:element type="xs:string" name="Online"/>
+      <xs:element type="xs:string" name="ValidationDate"/>
+    </xs:sequence>
+    <xs:attribute type="xs:short" name="id" use="optional"/>
+  </xs:complexType>
+  <xs:complexType name="DiagnosticCriteriaType">
+    <xs:sequence>
+      <xs:element type="NameType" name="Name" minOccurs="0"/>
+    </xs:sequence>
+    <xs:attribute type="xs:short" name="id" use="optional"/>
+  </xs:complexType>
+  <xs:complexType name="HPODisorderSetStatusListType">
+    <xs:sequence>
+      <xs:element type="HPODisorderSetStatusType" name="HPODisorderSetStatus" maxOccurs="unbounded" minOccurs="0"/>
+    </xs:sequence>
+    <xs:attribute type="xs:short" name="count"/>
+  </xs:complexType>
+  <xs:complexType name="JDBORType">
+    <xs:sequence>
+      <xs:element type="AvailabilityType" name="Availability"/>
+      <xs:element type="HPODisorderSetStatusListType" name="HPODisorderSetStatusList"/>
+    </xs:sequence>
+    <xs:attribute type="xs:string" name="date"/>
+    <xs:attribute type="xs:string" name="version"/>
+    <xs:attribute type="xs:string" name="copyright"/>
+    <xs:attribute type="xs:string" name="dbserver"/>
+  </xs:complexType>
+</xs:schema>
