@@ -5,8 +5,7 @@
 	<parent>
 		<artifactId>datasource</artifactId>
 		<groupId>edu.ucdenver.ccp</groupId>
-		<version>0.7.3</version>
-		<version>0.7.4</version>
+		<version>0.8.0</version>
 	</parent>
 	<artifactId>datasource-fileparsers</artifactId>
 
